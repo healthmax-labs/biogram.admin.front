@@ -35,14 +35,6 @@
         ]
       }
     ],
-    "import/extensions":[
-      "error",
-      "ignorePackages",
-      {
-        "ts":"never",
-        "tsx":"never"
-      }
-    ],
     "no-shadow":"off",
     "@typescript-eslint/no-shadow":[
       "error"
@@ -56,12 +48,17 @@
     "react-hooks/rules-of-hooks":"error",
     "react-hooks/exhaustive-deps":"warn",
     "import/prefer-default-export":"off",
-    "react/prop-types":"off"
+    "react/prop-types":"off",
+    "import/extensions": "off",
+    "import/no-unresolved": "error"
   },
-  "settings":{
-    "import/resolver":{
-      "typescript":{
-
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
       }
     }
   }

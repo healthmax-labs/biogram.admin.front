@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '@Style/global.css';
 
 function App() {
   return (
