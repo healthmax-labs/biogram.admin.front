@@ -64,9 +64,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,json,css,md}": [
-      "eslint --fix",
-      "prettier --single-quote --write"
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "tslint",
+      "prettier --write",
+      "git add"
     ]
   }
 }
