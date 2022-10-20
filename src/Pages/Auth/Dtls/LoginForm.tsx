@@ -5,6 +5,8 @@ import { storageManager } from '@Helper'
 
 import logo from '@Assets/Images/logo.svg'
 
+import { LoginContainer, LoginWapper } from '@Style/Sample'
+
 export default function LoginForm() {
     const navigate = useNavigate()
     const [loginInfo, setLoginInfo] = useState<{
@@ -43,8 +45,8 @@ export default function LoginForm() {
     }
 
     return (
-        <section className="relative flex min-h-screen flex-col justify-center overflow-hidden">
-            <section className="m-auto w-full rounded border-t border-purple-600 bg-white p-6 shadow-lg shadow-purple-800/50 lg:max-w-md">
+        <LoginContainer>
+            <LoginWapper>
                 <div className="grid place-items-center">
                     <img src={logo} alt="BioGram" />
                 </div>
@@ -101,7 +103,7 @@ export default function LoginForm() {
                         Sign up
                     </a>
                 </p>
-            </section>
-        </section>
+            </LoginWapper>
+        </LoginContainer>
     )
 }

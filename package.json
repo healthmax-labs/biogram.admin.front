@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/css": "^11.10.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
     "@fortawesome/fontawesome-free": "^6.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -47,10 +51,18 @@
       "last 1 safari version"
     ]
   },
+  "babelMacros": {
+    "twin": {
+      "preset": "emotion"
+    }
+  },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.10.2",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "autoprefixer": "^10.4.12",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-twin": "^1.0.2",
     "customize-cra": "^1.0.0",
     "eslint": "^8.25.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -68,7 +80,8 @@
     "prettier": "^2.7.1",
     "react-app-rewire-alias": "^1.1.7",
     "react-app-rewired": "^2.2.1",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.1.8",
+    "twin.macro": "^2.8.2"
   },
   "husky": {
     "hooks": {
