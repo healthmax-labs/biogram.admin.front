@@ -1,6 +1,6 @@
 import React from 'react'
 
-import teamImage from 'Assets/Images/logo.svg'
+import teamImage from '@Assets/Images/logo.svg'
 
 export default function UserDropdown() {
     const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false)
@@ -28,10 +28,10 @@ export default function UserDropdown() {
                         ? closeDropdownPopover()
                         : openDropdownPopover()
                 }}>
-                <div className="items-center flex">
-                    <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
+                <div className="flex items-center">
+                    <span className="bg-blueGray-200 inline-flex h-12 w-12 items-center justify-center rounded-full text-sm text-white">
                         <img
-                            className="w-full rounded-full align-middle border-none shadow-lg"
+                            className="w-full rounded-full border-none align-middle shadow-lg"
                             src={teamImage}
                             alt="BioGram"
                         />
@@ -42,12 +42,12 @@ export default function UserDropdown() {
                 ref={popoverDropdownRef}
                 className={
                     (dropdownPopoverShow ? 'block ' : 'hidden ') +
-                    'bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48'
+                    'min-w-48 z-50 float-left list-none rounded bg-white py-2 text-left text-base shadow-lg'
                 }>
                 <a
                     href="#pablo"
                     className={
-                        'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700'
+                        'text-blueGray-700 block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal'
                     }
                     onClick={e => e.preventDefault()}>
                     Action
@@ -55,7 +55,7 @@ export default function UserDropdown() {
                 <a
                     href="#pablo"
                     className={
-                        'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700'
+                        'text-blueGray-700 block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal'
                     }
                     onClick={e => e.preventDefault()}>
                     Another action
@@ -63,16 +63,16 @@ export default function UserDropdown() {
                 <a
                     href="#pablo"
                     className={
-                        'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700'
+                        'text-blueGray-700 block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal'
                     }
                     onClick={e => e.preventDefault()}>
                     Something else here
                 </a>
-                <div className="h-0 my-2 border border-solid border-blueGray-100" />
+                <div className="border-blueGray-100 my-2 h-0 border border-solid" />
                 <a
                     href="#pablo"
                     className={
-                        'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700'
+                        'text-blueGray-700 block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal'
                     }
                     onClick={e => e.preventDefault()}>
                     Seprated link
