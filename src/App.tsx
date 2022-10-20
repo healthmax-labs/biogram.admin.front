@@ -3,8 +3,8 @@ import '@Style/global.css'
 import '@Style/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { RootRoutes } from '@Modules'
-import SplashComponent from 'Components/SplashComponent'
-import UnderConstructionComponent from '@Src/Components/UnderConstructionComponent'
+import SplashComponent from '@Component/SplashComponent'
+import UnderConstructionComponent from '@Component/UnderConstructionComponent'
 
 function App() {
     const [AppLoading, setAppLoading] = useState<boolean>(true)
