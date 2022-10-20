@@ -1,14 +1,47 @@
-import React from 'react';
-import '@Style/global.css';
+import React, { useState } from 'react'
+import '@Style/global.css'
+import '@Style/style.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import { RootRoutes } from '@Modules'
+import SplashComponent from 'Components/SplashComponent'
+import UnderConstructionComponent from '@Src/Components/UnderConstructionComponent'
 
 function App() {
-  return (
-    <h1 className="text-9xl font-bold underline">
-      Hello world!
-      Test
-    </h1>
+    const [AppLoading, setAppLoading] = useState<boolean>(true)
+    const [serverFail, setServerFail] = useState<boolean>(false)
 
-  );
+    const handleAppLoading = () => {
+        if (!AppLoading) {
+            setAppLoading(true)
+        } else {
+            setAppLoading(false)
+        }
+    }
+
+    const handleServerFail = () => {
+        setServerFail(true)
+    }
+
+    return (
+        <>
+            {(function () {
+                if (serverFail) {
+                    return <UnderConstructionComponent />
+                }
+
+                if (AppLoading) {
+                    return (
+                        <SplashComponent
+                            appLoading={handleAppLoading}
+                            serverFail={handleServerFail}
+                        />
+                    )
+                }
+
+                return <RootRoutes />
+            })()}
+        </>
+    )
 }
 
-export default App;
+export default App

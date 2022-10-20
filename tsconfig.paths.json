@@ -2,25 +2,29 @@
   "compilerOptions": {
     "paths": {
       "@Src/*": ["./*"],
+      "@Styles": ["Styles"],
+      "@Style/*": ["Styles/*"],
       "@Hook/*": ["Hooks/*"],
       "@Hooks": ["Hooks"],
       "@Element/*": ["Components/Elements/*"],
       "@Elements": ["Components/Elements"],
       "@Layouts": ["Components/Layouts"],
-      "@CommonLayouts": ["Components/Layouts/Commons"],
-      "@Page/*": ["Pages/*"],
       "@Pages": ["Pages"],
-      "@Module/*": ["Modules/*"],
+      "@Page/*": ["Pages/*"],
       "@Modules": ["Modules"],
-      "@Store/*": ["Store/*"],
+      "@Module/*": ["Modules/*"],
       "@Stores": ["Store"],
-      "@Styles": ["Styles"],
-      "@Style/*": ["Styles/*"],
+      "@Store/*": ["Store/*"],
       "@Utils": ["Utils"],
       "@Util/*": ["Utils/*"],
+      "@Types": ["Types"],
+      "@Type/*": ["Types/*"],
       "@Helper": ["Utils/Helper"],
-      "@_Alert_": ["Utils/_Alert_"],
-      "@API": ["Modules/API"]
+      "@API": ["Modules/API"],
+      "@Assets": ["Assets"],
+      "@Asset/*": ["Assets/*"],
+      "@Services": ["Services"],
+      "@Service/*": ["Services/*"]
     }
   }
 }
