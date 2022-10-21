@@ -5,15 +5,15 @@ import { storageManager } from '@Helper'
 import { LogoImage, LoginBackgroundImage } from '@Assets'
 
 import {
-    LoginContainer,
-    LoginWapper,
+    Container,
+    Wapper,
     LogoBox,
-    LoginFormBox,
-    LoginFormRow,
-    LoginFormInputRow,
-    LoginInputLavel,
-    LoginInputId,
-    LoginInputPassword,
+    FormBox,
+    FormRow,
+    FormInputRow,
+    InputLavel,
+    InputId,
+    InputPassword,
     LoginButton,
     LoginLogoImage,
 } from '@Style/Pages/LoginPage'
@@ -56,44 +56,40 @@ export default function LoginForm() {
     }
 
     return (
-        <LoginContainer bgImage={`${LoginBackgroundImage}`}>
-            <LoginWapper>
+        <Container bgImage={`${LoginBackgroundImage}`}>
+            <Wapper>
                 <LogoBox>
                     <LoginLogoImage src={LogoImage} alt="BioGram" />
                 </LogoBox>
-                <LoginFormBox>
-                    <LoginFormRow>
-                        <LoginInputLavel htmlFor="email">
-                            아이디
-                        </LoginInputLavel>
-                        <LoginInputId
+                <FormBox>
+                    <FormRow>
+                        <InputLavel htmlFor="email">아이디</InputLavel>
+                        <InputId
                             type="email"
                             name="usid"
                             value={loginInfo.usid}
                             onChange={e => handleInputChange(e)}
                         />
-                    </LoginFormRow>
-                    <LoginFormRow>
-                        <LoginFormInputRow>
-                            <LoginInputLavel htmlFor="password">
-                                비밀번호
-                            </LoginInputLavel>
-                            <LoginInputPassword
+                    </FormRow>
+                    <FormRow>
+                        <FormInputRow>
+                            <InputLavel htmlFor="password">비밀번호</InputLavel>
+                            <InputPassword
                                 type="password"
                                 name="pass"
                                 value={loginInfo.pass}
                                 onChange={e => handleInputChange(e)}
                             />
-                        </LoginFormInputRow>
-                        <LoginFormInputRow className="mt-6">
+                        </FormInputRow>
+                        <FormInputRow className="mt-6">
                             <LoginButton
                                 onClick={() => handleClickLoginButton()}>
                                 로그인
                             </LoginButton>
-                        </LoginFormInputRow>
-                    </LoginFormRow>
-                </LoginFormBox>
-            </LoginWapper>
-        </LoginContainer>
+                        </FormInputRow>
+                    </FormRow>
+                </FormBox>
+            </Wapper>
+        </Container>
     )
 }

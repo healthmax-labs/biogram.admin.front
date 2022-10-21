@@ -1,6 +1,9 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 //
+export const ManageLayoutContainer = tw.div`relative md:ml-64 bg-gray-100`
+export const ManageLayoutCenterWapper = tw.div`px-4 md:px-10 mx-auto w-full -m-24`
+
 export const HeaderStateContainer = tw.div`relative bg-blue-500 md:pt-32 pb-32 pt-12`
 export const HeaderStateWapper = tw.div`px-4 md:px-10 mx-auto w-full`
 export const HeaderStateWapperSub = tw.div``

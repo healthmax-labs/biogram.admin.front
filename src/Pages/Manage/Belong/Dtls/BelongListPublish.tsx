@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getList } from '@Service/InstdeptService'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 
-export default function BelongManageMain() {
-    const color: 'light' | 'light1' = 'light'
-
+export default function BelongListPublish() {
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
 
     const getTableList = async () => {
@@ -24,27 +22,7 @@ export default function BelongManageMain() {
 
     return (
         <>
-            <div
-                className={
-                    'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ' +
-                    (color === 'light'
-                        ? 'bg-white'
-                        : 'bg-lightBlue-900 text-white')
-                }>
-                <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3
-                                className={
-                                    'font-semibold text-lg ' +
-                                    (color === 'light'
-                                        ? 'text-blueGray-700'
-                                        : 'text-white')
-                                }></h3>
-                        </div>
-                    </div>
-                </div>
-
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">
                         <div className="flex items-center justify-center ">
@@ -94,97 +72,35 @@ export default function BelongManageMain() {
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                             <tr>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     회원번호
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     회원명
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     휴대폰번호
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     생년월일
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     성별
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     소속이름
                                 </th>
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     부서
                                 </th>
 
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     소속가입일
                                 </th>
 
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }>
+                                <th className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                     상태
                                 </th>
-
-                                <th
-                                    className={
-                                        'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
-                                        (color === 'light'
-                                            ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                                            : 'bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700')
-                                    }></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -256,7 +172,7 @@ export default function BelongManageMain() {
                                         strokeLinejoin="round"
                                     />
                                 </svg>
-                                <p className="text-sm ml-3 font-medium leading-none ">
+                                <p className="text-sm ml-3 font-medium leading-none">
                                     Previous
                                 </p>
                             </div>

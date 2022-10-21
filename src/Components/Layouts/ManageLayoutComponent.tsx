@@ -1,18 +1,22 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar, Navbar, Footer, HeaderStats } from '@Element/Layouts/Manage'
+import {
+    ManageLayoutContainer,
+    ManageLayoutCenterWapper,
+} from '@Style/Layouts/Manage/Common'
 
 export default function ManageLayoutComponent() {
     return (
         <>
             <Sidebar />
-            <div className="relative md:ml-64 bg-blueGray-100">
+            <ManageLayoutContainer>
                 <Navbar />
                 <HeaderStats />
-                <div className="px-4 md:px-10 mx-auto w-full -m-24">
+                <ManageLayoutCenterWapper>
                     <Outlet />
                     <Footer />
-                </div>
-            </div>
+                </ManageLayoutCenterWapper>
+            </ManageLayoutContainer>
         </>
     )
 }

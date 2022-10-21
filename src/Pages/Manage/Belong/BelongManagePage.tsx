@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-const DtlPage = React.lazy(() => import('./Dtls/BelongManageMain'))
+const DtlPage = React.lazy(() => import('./Dtls/BelongMain'))
 
 export default function BelongManagePage() {
     return (
