@@ -2,10 +2,21 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '@Service/AuthService'
 import { storageManager } from '@Helper'
+import { LogoImage, LoginBackgroundImage } from '@Assets'
 
-import logo from '@Assets/Images/logo.svg'
-
-import { LoginContainer, LoginWapper } from '@Style/Sample'
+import {
+    LoginContainer,
+    LoginWapper,
+    LogoBox,
+    LoginFormBox,
+    LoginFormRow,
+    LoginFormInputRow,
+    LoginInputLavel,
+    LoginInputId,
+    LoginInputPassword,
+    LoginButton,
+    LoginLogoImage,
+} from '@Style/Pages/LoginPage'
 
 export default function LoginForm() {
     const navigate = useNavigate()
@@ -45,64 +56,43 @@ export default function LoginForm() {
     }
 
     return (
-        <LoginContainer>
+        <LoginContainer bgImage={`${LoginBackgroundImage}`}>
             <LoginWapper>
-                <div className="grid place-items-center">
-                    <img src={logo} alt="BioGram" />
-                </div>
-
-                <div className="mt-6">
-                    <div>
-                        <label
-                            htmlFor="email"
-                            className="block text-sm text-gray-800">
+                <LogoBox>
+                    <LoginLogoImage src={LogoImage} alt="BioGram" />
+                </LogoBox>
+                <LoginFormBox>
+                    <LoginFormRow>
+                        <LoginInputLavel htmlFor="email">
                             아이디
-                        </label>
-                        <input
+                        </LoginInputLavel>
+                        <LoginInputId
                             type="email"
-                            className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-purple-700 focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300 focus:ring-opacity-40"
                             name="usid"
                             value={loginInfo.usid}
                             onChange={e => handleInputChange(e)}
                         />
-                    </div>
-                    <div className="mt-4">
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="block text-sm text-gray-800">
+                    </LoginFormRow>
+                    <LoginFormRow>
+                        <LoginFormInputRow>
+                            <LoginInputLavel htmlFor="password">
                                 비밀번호
-                            </label>
-                            <input
+                            </LoginInputLavel>
+                            <LoginInputPassword
                                 type="password"
-                                className="mt-2 block w-full rounded-md border bg-white px-4 py-2 text-purple-700 focus:border-purple-400 focus:outline-none focus:ring focus:ring-purple-300 focus:ring-opacity-40"
                                 name="pass"
                                 value={loginInfo.pass}
                                 onChange={e => handleInputChange(e)}
                             />
-                        </div>
-                        <a
-                            href="#"
-                            className="text-xs text-gray-600 hover:underline">
-                            Forget Password?
-                        </a>
-                        <div className="mt-6">
-                            <button
-                                className="w-full transform rounded-md bg-purple-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-purple-600 focus:bg-purple-600 focus:outline-none"
+                        </LoginFormInputRow>
+                        <LoginFormInputRow className="mt-6">
+                            <LoginButton
                                 onClick={() => handleClickLoginButton()}>
                                 로그인
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <p className="mt-8 text-center text-xs font-light text-gray-700">
-                    Don't have an account?
-                    <a
-                        href="#"
-                        className="font-medium text-purple-600 hover:underline">
-                        Sign up
-                    </a>
-                </p>
+                            </LoginButton>
+                        </LoginFormInputRow>
+                    </LoginFormRow>
+                </LoginFormBox>
             </LoginWapper>
         </LoginContainer>
     )
