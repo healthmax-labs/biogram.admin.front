@@ -1,4 +1,4 @@
-{
+module.exports = {
   "parser": "@typescript-eslint/parser",
   "extends": [
     "prettier",
@@ -25,9 +25,15 @@
     "@typescript-eslint/no-unused-vars": ["warn"],
     // "@typescript-eslint/explicit-function-return-type": "off",
     // "@typescript-eslint/no-var-requires": 0,
-    "linebreak-style": [
-      "error",
-      "unix"
+    'linebreak-style': [
+        'error',
+      require('os').EOL === '\r\n' ? 'windows' : 'unix'
+    ],
+    'prettier/prettier': [
+        'error',
+      {
+        endOfLine: 'auto'
+      }
     ],
   }
 }

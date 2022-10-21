@@ -30,8 +30,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start lint --fix",
-    "build": "react-app-rewired build"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "lint": "react-app-rewired lint --fix"
   },
   "eslintConfig": {
     "extends": [
