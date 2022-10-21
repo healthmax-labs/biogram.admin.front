@@ -11,12 +11,7 @@ export function systemHealthCheck(): Promise<
 > {
     return _Axios_({
         method: 'post',
-        url: '/hp/v1/cpemp',
-        payload: {
-            CUR_PAGE: 1,
-            ITEM_COUNT: 5,
-            EMP_CODE: 0,
-            USE_AT: 'A',
-        },
+        url: '/assist/v1/conhist',
+        payload: {},
     })
 }
