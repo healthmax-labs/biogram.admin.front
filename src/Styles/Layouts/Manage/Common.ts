@@ -16,7 +16,7 @@ export const NaviTitleLink = tw.a`text-white text-sm uppercase hidden lg:inline-
 export const NaviSearchForm = tw.form`md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3`
 export const NaviSearchWapper = tw.div`relative flex w-full flex-wrap items-stretch`
 export const NabviSearchIconBox = tw.span`z-10 h-full leading-snug font-normal absolute text-center text-blue-300 bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3`
-export const NabviSearchInput = tw.input`border-0 px-3 py-3 placeholder-gray-300 text-gray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10`
+export const NabviSearchInput = tw.input`border-0 px-3 py-3 placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10`
 export const NabviProfileBox = tw.ul`flex-col md:flex-row list-none items-center hidden md:flex`
 
 export const SidebarNav = tw.nav`relative z-10 flex flex-wrap items-center justify-between bg-white py-4 px-6 shadow-xl md:fixed md:left-0 md:top-0 md:bottom-0 md:block md:w-64 md:flex-row md:flex-nowrap md:overflow-hidden md:overflow-y-auto`
