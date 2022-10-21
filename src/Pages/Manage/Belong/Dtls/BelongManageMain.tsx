@@ -3,7 +3,7 @@ import { getList } from '@Service/InstdeptService'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 
 export default function BelongManageMain() {
-    const color = 'light'
+    const color: 'light' | 'light1' = 'light'
 
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
 
