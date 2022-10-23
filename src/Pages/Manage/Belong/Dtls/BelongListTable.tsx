@@ -18,7 +18,7 @@ export default function BelongListTable() {
         const response = await getList({
             CUR_PAGE: 1,
             INST_NO: 0,
-            ITEM_COUNT: 15,
+            ITEM_COUNT: 200,
             SEARCH_KEY: '',
         })
 
