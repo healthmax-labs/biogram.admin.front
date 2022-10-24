@@ -12,21 +12,22 @@ import {
     SidebarCollapseTitleBox,
     SidebarCollapseTitleButtonBox,
     SidebarCollapseTitleButton,
-    SidebarCollapseSearchForm,
-    SidebarCollapseSearchFormInputBox,
-    SidebarCollapseSearchFormInput,
     SidebarDividerHr,
     SidebarMenuHeading,
     SidebarNavigationUl,
     SidebarNavigationLi,
     SidebarMenuLink,
 } from '@Style/Layouts/Manage/Common'
+import { useRecoilValue } from 'recoil'
+import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 
 export default function Sidebar() {
     const [collapseShow, setCollapseShow] = React.useState<boolean>(false)
+
+    const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
     return (
         <>
-            <SidebarNav>
+            <SidebarNav MenuState={leftMenuShowStatus.leftMenuShow}>
                 <SidebarContainer>
                     {/* Toggler */}
                     <SidebarTogglerButton
@@ -58,18 +59,6 @@ export default function Sidebar() {
                             </SidebarCollapseWapper>
                         </SidebarCollapseHeader>
 
-                        {/* Form */}
-                        <SidebarCollapseSearchForm>
-                            <SidebarCollapseSearchFormInputBox>
-                                <SidebarCollapseSearchFormInput
-                                    type="text"
-                                    placeholder="Search"
-                                />
-                            </SidebarCollapseSearchFormInputBox>
-                        </SidebarCollapseSearchForm>
-
-                        {/* Divider */}
-                        <SidebarDividerHr />
                         {/* Heading */}
                         <SidebarMenuHeading>회원관리</SidebarMenuHeading>
                         {/* Navigation */}
