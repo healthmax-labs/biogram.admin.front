@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { RecoilRoot } from 'recoil'
 import '@Style/global.css'
 import '@Style/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
@@ -23,7 +24,7 @@ function App() {
     }
 
     return (
-        <>
+        <RecoilRoot>
             {(function () {
                 if (serverFail) {
                     return <UnderConstructionComponent />
@@ -40,7 +41,7 @@ function App() {
 
                 return <RootRoutes />
             })()}
-        </>
+        </RecoilRoot>
     )
 }
 

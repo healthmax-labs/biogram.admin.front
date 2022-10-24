@@ -1,5 +1,9 @@
 /*! tailwindcss v2.0.4 | MIT License | https://tailwindcss.com */
 
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@import url(https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css);
+
+
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
@@ -54,16 +58,7 @@ Improve consistency of default fonts in all browsers. (https://github.com/sindre
 */
 
 body {
-    font-family:
-            system-ui,
-            -apple-system, /* Firefox supports this but not yet `system-ui` */
-            'Segoe UI',
-            Roboto,
-            Helvetica,
-            Arial,
-            sans-serif,
-            'Apple Color Emoji',
-            'Segoe UI Emoji';
+    font-family: 'NanumSquare', sans-serif !important;
 }
 
 /*
