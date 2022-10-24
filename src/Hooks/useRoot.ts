@@ -18,12 +18,19 @@ export default function useRoot() {
                 return
             }
 
+            COLORLOG('info', ':: App Init Finish :: ')
             setAppBaseCheckState(true)
         }
 
         COLORLOG('info', ':: App Init Start :: ')
         appStart().then()
     }, [])
+
+    useEffect(() => {
+        if (ServerFailState) {
+            // TODO : 서버 체크후 이전 로그인 어떻게 할것 인지?
+        }
+    }, [ServerFailState])
 
     return {
         AppBaseCheckState,

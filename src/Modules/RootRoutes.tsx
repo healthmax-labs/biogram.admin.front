@@ -11,6 +11,7 @@ function RootRoutes() {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
+                <Route path="/" element={<LoginPage />} />
                 <Route element={<BlankLayoutComponent />}>
                     <Route path="/auth/login" element={<LoginPage />} />
                 </Route>
