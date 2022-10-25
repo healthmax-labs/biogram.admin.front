@@ -47,8 +47,7 @@ export default function LoginForm() {
             storageManager.set('VTOKEN_INFO', response.payload.VTOKEN_INFO)
             alert('로그인이 완료 되었습니다.')
             navigate({
-                pathname:
-                    process.env.PUBLIC_URL + `/manage/belong/belong-manage`,
+                pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
             })
         } else {
             console.debug(response.message, response.payload)

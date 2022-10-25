@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    TopBox,
+    SearchBox,
     TopSearchBox,
     TopSearch,
     TopSearchInput,
@@ -12,7 +12,7 @@ import {
 export default function BelongListTopBox() {
     return (
         <>
-            <TopBox>
+            <SearchBox>
                 <TopSearchBox>
                     <TopSearch>
                         <TopSearchInput type="text" placeholder="Search..." />
@@ -36,7 +36,7 @@ export default function BelongListTopBox() {
                     <TopRightButton>부서제거</TopRightButton>
                     <TopRightButton>부서설정</TopRightButton>
                 </TopRightButtonBox>
-            </TopBox>
+            </SearchBox>
         </>
     )
 }

@@ -5,7 +5,7 @@ export const TopWapper = tw.div`rounded-t mb-0 px-4 py-3 border-0`
 export const TableWapper = tw.div`block w-full overflow-x-auto`
 export const PaginationWapper = tw.div`block w-full overflow-x-auto`
 
-export const TopBox = tw.div`flex flex-wrap items-center`
+export const SearchBox = tw.div`flex flex-wrap items-center`
 export const TopSearchBox = tw.div`flex items-center justify-center`
 export const TopSearch = tw.div`flex border-2 rounded`
 export const TopSearchInput = tw.input`px-4 py-2 w-80 text-sm`

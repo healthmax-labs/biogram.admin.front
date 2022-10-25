@@ -1,17 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { LogoImage } from '@Assets'
+import { MenuLogo } from '@Assets'
 import {
     SidebarNav,
     SidebarContainer,
-    SidebarTogglerButton,
     SidebarLogoImage,
     SidebarCollapseContainer,
-    SidebarCollapseHeader,
-    SidebarCollapseWapper,
-    SidebarCollapseTitleBox,
-    SidebarCollapseTitleButtonBox,
-    SidebarCollapseTitleButton,
     SidebarDividerHr,
     SidebarMenuHeading,
     SidebarNavigationUl,
@@ -22,43 +16,16 @@ import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 
 export default function Sidebar() {
-    const [collapseShow, setCollapseShow] = React.useState<boolean>(false)
-
     const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
     return (
         <>
             <SidebarNav MenuState={leftMenuShowStatus.leftMenuShow}>
                 <SidebarContainer>
                     {/* Toggler */}
-                    <SidebarTogglerButton
-                        type="button"
-                        onClick={() => setCollapseShow(true)}>
-                        <i className="fas fa-bars"></i>
-                    </SidebarTogglerButton>
                     {/* Brand */}
-                    <SidebarLogoImage src={LogoImage} alt="BioGram" />
+                    <SidebarLogoImage src={MenuLogo} alt="BioGram" />
                     {/* Collapse */}
-                    <SidebarCollapseContainer CollapseShow={collapseShow}>
-                        {/* Collapse header */}
-                        <SidebarCollapseHeader>
-                            <SidebarCollapseWapper>
-                                <SidebarCollapseTitleBox>
-                                    <Link
-                                        className="text-blueGray-600 mr-0 inline-block whitespace-nowrap p-4 px-0 text-left text-sm font-bold uppercase md:block md:pb-2"
-                                        to="/">
-                                        바이오 그램 관리자
-                                    </Link>
-                                </SidebarCollapseTitleBox>
-                                <SidebarCollapseTitleButtonBox>
-                                    <SidebarCollapseTitleButton
-                                        type="button"
-                                        onClick={() => setCollapseShow(false)}>
-                                        <i className="fas fa-times"></i>
-                                    </SidebarCollapseTitleButton>
-                                </SidebarCollapseTitleButtonBox>
-                            </SidebarCollapseWapper>
-                        </SidebarCollapseHeader>
-
+                    <SidebarCollapseContainer>
                         {/* Heading */}
                         <SidebarMenuHeading>회원관리</SidebarMenuHeading>
                         {/* Navigation */}
@@ -96,17 +63,17 @@ export default function Sidebar() {
                                     className={
                                         'block py-3 text-xs font-bold uppercase ' +
                                         (window.location.href.indexOf(
-                                            '/manage/belong/belong-manage'
+                                            '/manage/member/member-list'
                                         ) !== -1
                                             ? 'text-lightBlue-500 hover:text-lightBlue-600'
                                             : 'text-blueGray-700 hover:text-blueGray-500')
                                     }
-                                    to="/admin/dashboard">
+                                    to="/manage/member/member-list">
                                     <i
                                         className={
                                             'fas fa-tv mr-2 text-sm ' +
                                             (window.location.href.indexOf(
-                                                '/manage/belong/belong-manage'
+                                                '/manage/member/member-list'
                                             ) !== -1
                                                 ? 'opacity-75'
                                                 : 'text-blueGray-300')
