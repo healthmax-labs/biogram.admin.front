@@ -4,3 +4,4 @@ export { default as LoginBackgroundImage } from './Images/bg_healthmax.svg'
 export { default as TeamSampleImage } from './Images/team-1-800x800.jpg'
 
 export { default as IconBtLogout } from './Icons/bt_logout.svg'
+export { default as MenuLogo } from './Images/menu_logo.svg'

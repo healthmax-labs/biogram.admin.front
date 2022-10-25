@@ -5,6 +5,7 @@ import {
     Dashboard,
     BelongStatusPage,
     BelongManagePage,
+    MemberListPage,
 } from '@Pages'
 
 function RootRoutes() {
@@ -17,6 +18,10 @@ function RootRoutes() {
                 </Route>
                 <Route element={<MageLayoutComponent />}>
                     <Route path="/manage/dashboard" element={<Dashboard />} />
+                    <Route
+                        path="/manage/member/member-list"
+                        element={<MemberListPage />}
+                    />
                     <Route
                         path="/manage/belong/belong-status"
                         element={<BelongStatusPage />}
