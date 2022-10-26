@@ -1,11 +1,11 @@
 import React from 'react'
-import { SearchBoxWapper, SearchRightBox } from '@Style/Pages/Member'
+import { ManageBoxWapper, ManageBoxButtons } from '@Style/Pages/Member'
 import { DefaultManageButton } from '@Element/Buttons'
 
-export default function SearchBox() {
+export default function ManageBox() {
     return (
-        <div className="w-full justify-evenly min-width[1024px]">
-            <div className="col-span-2 items-end justify-end min-width[400px] text-right">
+        <ManageBoxWapper>
+            <ManageBoxButtons>
                 <DefaultManageButton
                     ButtonClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'소승승인1'}
@@ -30,7 +30,7 @@ export default function SearchBox() {
                     ButtonClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'소승승인6'}
                 />
-            </div>
-        </div>
+            </ManageBoxButtons>
+        </ManageBoxWapper>
     )
 }

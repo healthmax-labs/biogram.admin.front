@@ -15,7 +15,7 @@ export const SidebarNav = styled.div(
     ({ MenuState }: { MenuState: boolean }) => [
         MenuState
             ? tw`z-10 items-center justify-between bg-white py-4 px-6 shadow-xl fixed left-0 top-0 bottom-0 block w-48 flex-row flex-nowrap overflow-hidden overflow-y-auto`
-            : tw`relative z-10 flex flex-wrap items-center justify-between bg-white shadow-xl md:fixed md:left-0 md:top-0 md:bottom-0 md:block md:w-0 md:flex-row md:flex-nowrap md:overflow-hidden md:overflow-y-auto`,
+            : tw`z-10 items-center justify-between bg-white shadow-xl fixed left-0 top-0 bottom-0 block w-0 flex-row flex-nowrap overflow-hidden overflow-y-auto`,
     ]
 )
 export const SidebarContainer = tw.div`mx-auto flex w-full justify-between px-0 min-h-full flex-col flex-nowrap items-stretch`
