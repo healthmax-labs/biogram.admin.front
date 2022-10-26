@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { RecoilRoot } from 'recoil'
 import '@Style/global.css'
-import '@Style/style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { RootRoutes } from '@Modules'
 import SplashComponent from '@Component/SplashComponent'

@@ -47,7 +47,9 @@ export default function ListTable() {
             <TableTbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <TableTbodyTr key={index}>
+                        <TableTbodyTr
+                            key={index}
+                            BgState={index % 2 === 0 ? true : false}>
                             <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
                             <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
                             <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
