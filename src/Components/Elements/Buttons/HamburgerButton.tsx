@@ -12,7 +12,6 @@ export default function HamburgerButton({
         <HamburgerButtonBox onClick={() => ButtonClick()}>
             <HamburgerButtonItem></HamburgerButtonItem>
             <HamburgerButtonItem></HamburgerButtonItem>
-            <HamburgerButtonItem></HamburgerButtonItem>
         </HamburgerButtonBox>
     )
 }

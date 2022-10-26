@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { MenuLogo } from '@Assets'
 import {
     SidebarNav,
@@ -14,9 +13,13 @@ import {
 } from '@Style/Layouts/Manage/Common'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function Sidebar() {
+    const navigate = useNavigate()
+    const location = useLocation()
     const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
+
     return (
         <>
             <SidebarNav MenuState={leftMenuShowStatus.leftMenuShow}>
@@ -57,29 +60,36 @@ export default function Sidebar() {
                         {/*</ul>*/}
 
                         {/* Navigation */}
+                        {/*<SidebarNavigationUl>*/}
+                        {/*    <SidebarNavigationLi>*/}
+                        {/*        <Link*/}
+                        {/*            className={*/}
+                        {/*                'block py-3 text-xs uppercase ' +*/}
+                        {/*                (window.location.href.indexOf(*/}
+                        {/*                    '/manage/member/member-list'*/}
+                        {/*                ) !== -1*/}
+                        {/*                    ? 'text-m-blue hover:text-m-blue'*/}
+                        {/*                    : 'text-blueGray-700 hover:text-blueGray-500')*/}
+                        {/*            }*/}
+                        {/*            to="/manage/member/member-list">*/}
+                        {/*            회원현황*/}
+                        {/*        </Link>*/}
+                        {/*    </SidebarNavigationLi>*/}
+                        {/*</SidebarNavigationUl>*/}
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <Link
-                                    className={
-                                        'block py-3 text-xs font-bold uppercase ' +
-                                        (window.location.href.indexOf(
-                                            '/manage/member/member-list'
-                                        ) !== -1
-                                            ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                                            : 'text-blueGray-700 hover:text-blueGray-500')
+                                <SidebarMenuLink
+                                    Active={
+                                        location.pathname ===
+                                        `/manage/member/member-list`
                                     }
-                                    to="/manage/member/member-list">
-                                    <i
-                                        className={
-                                            'fas fa-tv mr-2 text-sm ' +
-                                            (window.location.href.indexOf(
-                                                '/manage/member/member-list'
-                                            ) !== -1
-                                                ? 'opacity-75'
-                                                : 'text-blueGray-300')
-                                        }></i>
+                                    onClick={() => {
+                                        navigate(
+                                            `${process.env.PUBLIC_URL}/manage/member/member-list`
+                                        )
+                                    }}>
                                     회원현황
-                                </Link>
+                                </SidebarMenuLink>
                             </SidebarNavigationLi>
                         </SidebarNavigationUl>
 
@@ -91,21 +101,33 @@ export default function Sidebar() {
 
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 block py-3 text-xs font-bold uppercase"
-                                    to="/manage/belong/belong-status">
-                                    <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{' '}
+                                <SidebarMenuLink
+                                    Active={
+                                        location.pathname ===
+                                        `/manage/belong/belong-status`
+                                    }
+                                    onClick={() => {
+                                        navigate(
+                                            `${process.env.PUBLIC_URL}/manage/belong/belong-status`
+                                        )
+                                    }}>
                                     소속현황
-                                </Link>
+                                </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 block py-3 text-xs font-bold uppercase"
-                                    to="/manage/belong/belong-manage">
-                                    <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{' '}
+                                <SidebarMenuLink
+                                    Active={
+                                        location.pathname ===
+                                        `/manage/belong/belong-manage`
+                                    }
+                                    onClick={() => {
+                                        navigate(
+                                            `${process.env.PUBLIC_URL}/manage/belong/belong-manage`
+                                        )
+                                    }}>
                                     소속 가입신청
-                                </Link>
+                                </SidebarMenuLink>
                             </SidebarNavigationLi>
                         </SidebarNavigationUl>
 
@@ -117,21 +139,15 @@ export default function Sidebar() {
 
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 block py-3 text-xs font-bold uppercase"
-                                    to="/landing">
-                                    <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>
+                                <SidebarMenuLink Active={false}>
                                     매거진
-                                </Link>
+                                </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 block py-3 text-xs font-bold uppercase"
-                                    to="/profile">
-                                    <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+                                <SidebarMenuLink Active={false}>
                                     바이오그램 존
-                                </Link>
+                                </SidebarMenuLink>
                             </SidebarNavigationLi>
                         </SidebarNavigationUl>
 
@@ -142,29 +158,25 @@ export default function Sidebar() {
                         {/* Navigation */}
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fas fa-paint-brush text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     위험요인 현황
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-css3-alt text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     전후비교 현황
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-angular text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     기기측정 현황
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-js-square text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     활동량 현황
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
@@ -177,36 +189,31 @@ export default function Sidebar() {
                         {/* Navigation */}
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fas fa-paint-brush text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     사용자 통계
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-css3-alt text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     위험군 통계
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-angular text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     위혐요인 통계
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-js-square text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     복양 통계
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-js-square text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     기기사용 통계
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
@@ -219,15 +226,13 @@ export default function Sidebar() {
                         {/* Navigation */}
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fas fa-paint-brush text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     태블릿 시리얼키 관리
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
 
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fab fa-css3-alt text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     이용 약관 관리
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
@@ -240,8 +245,7 @@ export default function Sidebar() {
                         {/* Navigation */}
                         <SidebarNavigationUl>
                             <SidebarNavigationLi>
-                                <SidebarMenuLink>
-                                    <i className="fas fa-paint-brush text-blueGray-300 mr-2 text-base"></i>
+                                <SidebarMenuLink Active={false}>
                                     게시판 관리
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>

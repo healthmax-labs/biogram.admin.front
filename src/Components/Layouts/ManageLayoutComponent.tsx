@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { Sidebar, Topbar, Footer, HeaderStats } from '@Element/Layouts/Manage'
+import { Sidebar, Topbar, HeaderStats } from '@Element/Layouts/Manage'
 import {
     ManageLayoutContainer,
     ManageLayoutCenterWapper,
@@ -18,7 +18,6 @@ export default function ManageLayoutComponent() {
                 <HeaderStats />
                 <ManageLayoutCenterWapper>
                     <Outlet />
-                    <Footer />
                 </ManageLayoutCenterWapper>
             </ManageLayoutContainer>
         </>

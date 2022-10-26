@@ -5,6 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        'm-blue': '#214DD4',
+        'm-button': '#354785',
+        'm-dip-blue': '#5d6787'
+      },
   },
   plugins: [
     require('@tailwindcss/forms'),

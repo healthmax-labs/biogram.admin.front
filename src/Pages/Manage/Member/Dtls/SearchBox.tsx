@@ -11,7 +11,7 @@ import {
     SearchBoxInput,
     SearchBoxRelative,
     SearchBoxSearchButtonBox,
-    DatepickerBox,
+    DatepickerLine,
 } from '@Style/Pages/Member'
 import { DatepickerButton, DefaultSearchButton } from '@Element/Buttons'
 
@@ -41,11 +41,13 @@ export default function SearchBox() {
                             <SearchBoxLabelText>가입일자 :</SearchBoxLabelText>
                         </SearchBoxLabel>
                     </SearchBoxLabelItem>
-                    <DatepickerBox>
-                        <DatepickerButton />
-                        {`~`}
-                        <DatepickerButton />
-                    </DatepickerBox>
+                    <SearchBoxLabelItemBox>
+                        <div className="flex flex-row">
+                            <DatepickerButton />
+                            <DatepickerLine>~</DatepickerLine>
+                            <DatepickerButton />
+                        </div>
+                    </SearchBoxLabelItemBox>
                 </SearchBoxItem>
                 <SearchBoxItem></SearchBoxItem>
                 <SearchBoxItem>
