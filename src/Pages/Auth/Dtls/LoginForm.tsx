@@ -16,6 +16,9 @@ import {
     InputPassword,
     LoginButton,
     LoginLogoImage,
+    RememberID,
+    RememberIdInput,
+    RememberIdLabel,
 } from '@Style/Pages/LoginPage'
 
 export default function LoginForm() {
@@ -85,6 +88,19 @@ export default function LoginForm() {
                                 onClick={() => handleClickLoginButton()}>
                                 로그인
                             </LoginButton>
+                        </FormInputRow>
+                        <FormInputRow>
+                            <RememberID>
+                                <RememberIdInput
+                                    checked
+                                    id="checked-checkbox"
+                                    type="checkbox"
+                                    value=""
+                                />
+                                <RememberIdLabel htmlFor="checked-checkbox">
+                                    아이디 기억
+                                </RememberIdLabel>
+                            </RememberID>
                         </FormInputRow>
                     </FormRow>
                 </FormBox>
