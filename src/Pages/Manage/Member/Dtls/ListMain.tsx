@@ -4,7 +4,7 @@ import {
     SearchWapper,
     ManageWapper,
     TableWapper,
-} from '@Style/Pages/Member'
+} from '@Style/Pages/MemberPage'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'

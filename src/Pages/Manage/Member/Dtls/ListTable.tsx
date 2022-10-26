@@ -7,7 +7,7 @@ import {
     TableTbody,
     TableTbodyTr,
     TableTbodyTd,
-} from '@Style/Pages/Member'
+} from '@Style/Pages/MemberPage'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
 

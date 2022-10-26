@@ -1,5 +1,5 @@
 import React from 'react'
-import { ManageBoxWapper, ManageBoxButtons } from '@Style/Pages/Member'
+import { ManageBoxWapper, ManageBoxButtons } from '@Style/Pages/MemberPage'
 import { DefaultManageButton } from '@Element/Buttons'
 
 export default function ManageBox() {

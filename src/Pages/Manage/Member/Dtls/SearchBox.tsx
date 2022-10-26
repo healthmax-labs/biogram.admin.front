@@ -12,7 +12,7 @@ import {
     SearchBoxRelative,
     SearchBoxSearchButtonBox,
     DatepickerLine,
-} from '@Style/Pages/Member'
+} from '@Style/Pages/MemberPage'
 import { DatepickerButton, DefaultSearchButton } from '@Element/Buttons'
 
 export default function SearchBox() {
