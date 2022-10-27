@@ -13,7 +13,8 @@ import {
     SearchBoxSelect,
     SearchBoxWapper,
 } from '@Style/Pages/PublishPage'
-import { DatepickerButton, DefaultSearchButton } from '@Element/Buttons'
+import { DefaultSearchButton } from '@Element/Buttons'
+import { DatepickerInput } from '@Element/Inputs'
 
 export default function SearchBox() {
     return (
@@ -43,9 +44,9 @@ export default function SearchBox() {
                     </SearchBoxLabelItem>
                     <SearchBoxLabelItemBox>
                         <div className="flex flex-row">
-                            <DatepickerButton />
+                            <DatepickerInput />
                             <DatepickerLine>~</DatepickerLine>
-                            <DatepickerButton />
+                            <DatepickerInput />
                         </div>
                     </SearchBoxLabelItemBox>
                 </SearchBoxItem>

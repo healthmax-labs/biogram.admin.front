@@ -33,10 +33,10 @@ export const SidebarCollapseSearchFormInputBox = tw.div`mb-3 pt-0`
 export const SidebarCollapseSearchFormInput = tw.input`border-gray-500 placeholder-gray-300 text-gray-600 h-12 w-full rounded border-0 border-solid bg-white px-3 py-2 text-base font-normal leading-snug shadow-none outline-none focus:outline-none`
 
 export const SidebarDividerHr = tw.hr`my-0 min-w-full`
-export const SidebarMenuHeading = tw.h6`text-gray-500 block pt-1 pb-1 text-xs uppercase no-underline md:min-w-full`
+export const SidebarMenuHeading = tw.h6`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`
 
 export const SidebarNavigationUl = tw.ul`flex list-none flex-col min-w-full`
-export const SidebarNavigationLi = tw.li`items-center h-5`
+export const SidebarNavigationLi = tw.li`items-center h-6`
 // export const SidebarMenuLink = tw.div`cursor-pointer pl-5 text-gray-700 hover:text-gray-500 mb-4 block text-xs uppercase`
 export const SidebarMenuLink = styled.div(({ Active }: { Active: boolean }) => [
     Active

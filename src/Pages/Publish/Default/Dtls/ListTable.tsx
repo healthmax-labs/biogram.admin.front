@@ -3,13 +3,17 @@ import {
     Table,
     TableTbody,
     TableTbodyTd,
+    TableTbodyTdFirst,
     TableTbodyTr,
     TableTh,
     TableThead,
+    TableThFirst,
     TableTr,
 } from '@Style/Pages/PublishPage'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
+import { DefaultManageButton } from '@Element/Buttons'
+import { DefaultCheckBox } from '@Element/Inputs'
 
 export default function ListTable() {
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
@@ -33,6 +37,9 @@ export default function ListTable() {
         <Table>
             <TableThead>
                 <TableTr>
+                    <TableThFirst>
+                        <DefaultCheckBox />
+                    </TableThFirst>
                     <TableTh>회원번호</TableTh>
                     <TableTh>회원명</TableTh>
                     <TableTh>휴대폰번호</TableTh>
@@ -47,9 +54,10 @@ export default function ListTable() {
             <TableTbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <TableTbodyTr
-                            key={index}
-                            BgState={index % 2 === 0 ? true : false}>
+                        <TableTbodyTr key={index} BgState={index % 2 === 0}>
+                            <TableTbodyTdFirst>
+                                <DefaultCheckBox />
+                            </TableTbodyTdFirst>
                             <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
                             <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
                             <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
@@ -57,8 +65,26 @@ export default function ListTable() {
                             <TableTbodyTd>{el.SEXDSTN}</TableTbodyTd>
                             <TableTbodyTd>{el.INST_NM}</TableTbodyTd>
                             <TableTbodyTd>{el.DEPT_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.CONFM_DE}</TableTbodyTd>
-                            <TableTbodyTd>{el.STAT}</TableTbodyTd>
+                            <TableTbodyTd>
+                                <DefaultManageButton
+                                    ButtonClick={() =>
+                                        console.debug('DefaultManageButton')
+                                    }
+                                    ButtonName={'소승승인4'}
+                                />
+                            </TableTbodyTd>
+                            <TableTbodyTd>
+                                <select
+                                    className="form-select block w-30 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs"
+                                    id="country"
+                                    name="country"
+                                    autoComplete="country">
+                                    <option>소속 선택</option>
+                                    <option>서울</option>
+                                    <option>경기도</option>
+                                    <option>부산</option>
+                                </select>
+                            </TableTbodyTd>
                         </TableTbodyTr>
                     )
                 })}

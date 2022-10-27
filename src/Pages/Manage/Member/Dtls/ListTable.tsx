@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import {
     Table,
-    TableThead,
-    TableTr,
-    TableTh,
     TableTbody,
-    TableTbodyTr,
     TableTbodyTd,
+    TableTbodyTdFirst,
+    TableTbodyTr,
+    TableTh,
+    TableThead,
+    TableThFirst,
+    TableTr,
 } from '@Style/Pages/MemberPage'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
+import { DefaultCheckBox } from '@Element/Inputs'
 
 export default function ListTable() {
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
@@ -33,6 +36,9 @@ export default function ListTable() {
         <Table>
             <TableThead>
                 <TableTr>
+                    <TableThFirst>
+                        <DefaultCheckBox />
+                    </TableThFirst>
                     <TableTh>회원번호</TableTh>
                     <TableTh>회원명</TableTh>
                     <TableTh>휴대폰번호</TableTh>
@@ -50,6 +56,9 @@ export default function ListTable() {
                         <TableTbodyTr
                             key={index}
                             BgState={index % 2 === 0 ? true : false}>
+                            <TableTbodyTdFirst>
+                                <DefaultCheckBox />
+                            </TableTbodyTdFirst>
                             <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
                             <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
                             <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>

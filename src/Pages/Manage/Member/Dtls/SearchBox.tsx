@@ -1,19 +1,20 @@
 import React from 'react'
 import {
+    DatepickerLine,
     SearchBoxContainer,
-    SearchBoxWapper,
-    SearchBoxItem,
-    SearchBoxLabelItem,
-    SearchBoxLabel,
-    SearchBoxLabelText,
-    SearchBoxLabelItemBox,
-    SearchBoxSelect,
     SearchBoxInput,
+    SearchBoxItem,
+    SearchBoxLabel,
+    SearchBoxLabelItem,
+    SearchBoxLabelItemBox,
+    SearchBoxLabelText,
     SearchBoxRelative,
     SearchBoxSearchButtonBox,
-    DatepickerLine,
+    SearchBoxSelect,
+    SearchBoxWapper,
 } from '@Style/Pages/MemberPage'
-import { DatepickerButton, DefaultSearchButton } from '@Element/Buttons'
+import { DefaultSearchButton } from '@Element/Buttons'
+import { DatepickerInput } from '@Element/Inputs'
 
 export default function SearchBox() {
     return (
@@ -43,9 +44,9 @@ export default function SearchBox() {
                     </SearchBoxLabelItem>
                     <SearchBoxLabelItemBox>
                         <div className="flex flex-row">
-                            <DatepickerButton />
+                            <DatepickerInput />
                             <DatepickerLine>~</DatepickerLine>
-                            <DatepickerButton />
+                            <DatepickerInput />
                         </div>
                     </SearchBoxLabelItemBox>
                 </SearchBoxItem>

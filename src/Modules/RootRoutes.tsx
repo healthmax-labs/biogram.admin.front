@@ -7,6 +7,8 @@ import {
     MemberListPage,
 } from '@Page/Manage'
 
+import { DefaultListPage } from '@Page/Publish'
+
 function RootRoutes() {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -18,7 +20,7 @@ function RootRoutes() {
                 <Route element={<MageLayoutComponent />}>
                     <Route
                         path="/publish/default/default-list"
-                        element={<MemberListPage />}
+                        element={<DefaultListPage />}
                     />
                     <Route
                         path="/manage/member/member-list"

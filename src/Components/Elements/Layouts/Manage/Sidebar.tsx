@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { MenuLogo } from '@Assets'
 import {
     SidebarCollapseContainer,
@@ -19,10 +19,6 @@ export default function Sidebar() {
     const navigate = useNavigate()
     const location = useLocation()
     const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
-
-    useEffect(() => {
-        console.debug(process.env.NODE_ENV)
-    }, [])
 
     return (
         <>
