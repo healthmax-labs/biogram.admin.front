@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+
 const DtlPage = React.lazy(() => import('./Dtls/LoginMain'))
 
 export default function LoginPage() {
