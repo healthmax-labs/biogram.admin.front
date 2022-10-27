@@ -1,28 +1,22 @@
-import {
-    HeaderStateContainer,
-    HeaderStateWapper,
-    HeaderStateWapperSub,
-    HeaderStatsCards,
-    HeaderStatsCardItem,
-} from '@Style/Layouts/Manage/Common'
+import { Mains } from '@Style/Layouts/Manage/MainStyles'
 
 export default function HeaderStats() {
     return (
         <>
             {/* Header */}
-            <HeaderStateContainer>
-                <HeaderStateWapper>
-                    <HeaderStateWapperSub>
+            <Mains.HeaderStats.Container>
+                <Mains.HeaderStats.MainWapper>
+                    <Mains.HeaderStats.Wapper>
                         {/* Card stats */}
-                        <HeaderStatsCards>
-                            <HeaderStatsCardItem></HeaderStatsCardItem>
-                            <HeaderStatsCardItem></HeaderStatsCardItem>
-                            <HeaderStatsCardItem></HeaderStatsCardItem>
-                            <HeaderStatsCardItem></HeaderStatsCardItem>
-                        </HeaderStatsCards>
-                    </HeaderStateWapperSub>
-                </HeaderStateWapper>
-            </HeaderStateContainer>
+                        <Mains.HeaderStats.Cards>
+                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
+                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
+                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
+                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
+                        </Mains.HeaderStats.Cards>
+                    </Mains.HeaderStats.Wapper>
+                </Mains.HeaderStats.MainWapper>
+            </Mains.HeaderStats.Container>
         </>
     )
 }

@@ -1,13 +1,4 @@
-import {
-    TopbarBelong,
-    TopbarContainer,
-    TopbarLeftBox,
-    TopbarLoginOut,
-    TopbarLoginOutIcon,
-    TopbarName,
-    TopbarSatus,
-    TopbarWapper,
-} from '@Style/Layouts/Manage/Common'
+import { Mains } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
 import { HamburgerButton } from '@Component/Elements/Buttons'
 import { useSetRecoilState } from 'recoil'
@@ -26,23 +17,25 @@ export default function Navbar() {
     return (
         <>
             {/* Navbar */}
-            <TopbarContainer>
-                <TopbarWapper>
-                    <TopbarLeftBox>
+            <Mains.Topbar.Container>
+                <Mains.Topbar.Wapper>
+                    <Mains.Topbar.Left>
                         <HamburgerButton
                             ButtonClick={() => handleShowLeftMenu()}
                         />
-                    </TopbarLeftBox>
-                    <TopbarLeftBox>
-                        <TopbarBelong>양평보건소</TopbarBelong>
-                        <TopbarName>마스터님</TopbarName>
-                        <TopbarSatus>46:37 후 자동 로그아웃</TopbarSatus>
-                        <TopbarLoginOut>
-                            <TopbarLoginOutIcon src={IconBtLogout} />
-                        </TopbarLoginOut>
-                    </TopbarLeftBox>
-                </TopbarWapper>
-            </TopbarContainer>
+                    </Mains.Topbar.Left>
+                    <Mains.Topbar.Right>
+                        <Mains.Topbar.Belong>양평보건소</Mains.Topbar.Belong>
+                        <Mains.Topbar.Name>마스터님</Mains.Topbar.Name>
+                        <Mains.Topbar.Status>
+                            46:37 후 자동 로그아웃
+                        </Mains.Topbar.Status>
+                        <Mains.Topbar.Logout>
+                            <Mains.Topbar.LogoutIcon src={IconBtLogout} />
+                        </Mains.Topbar.Logout>
+                    </Mains.Topbar.Right>
+                </Mains.Topbar.Wapper>
+            </Mains.Topbar.Container>
             {/* End Navbar */}
         </>
     )

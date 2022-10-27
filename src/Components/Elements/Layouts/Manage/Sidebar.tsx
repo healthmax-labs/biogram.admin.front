@@ -1,16 +1,6 @@
 import React from 'react'
 import { MenuLogo } from '@Assets'
-import {
-    SidebarCollapseContainer,
-    SidebarContainer,
-    SidebarDividerHr,
-    SidebarLogoImage,
-    SidebarMenuHeading,
-    SidebarMenuLink,
-    SidebarNav,
-    SidebarNavigationLi,
-    SidebarNavigationUl,
-} from '@Style/Layouts/Manage/Common'
+import { Mains } from '@Style/Layouts/Manage/MainStyles'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -22,15 +12,17 @@ export default function Sidebar() {
 
     return (
         <>
-            <SidebarNav MenuState={leftMenuShowStatus.leftMenuShow}>
-                <SidebarContainer>
+            <Mains.Sidebar.Nav MenuState={leftMenuShowStatus.leftMenuShow}>
+                <Mains.Sidebar.Container>
                     {/* Toggler */}
                     {/* Brand */}
-                    <SidebarLogoImage src={MenuLogo} alt="BioGram" />
+                    <Mains.Sidebar.Logo src={MenuLogo} alt="BioGram" />
                     {/* Collapse */}
-                    <SidebarCollapseContainer>
+                    <Mains.Sidebar.Collapse.Container>
                         {/* Heading */}
-                        <SidebarMenuHeading>회원관리</SidebarMenuHeading>
+                        <Mains.Sidebar.Collapse.Header>
+                            회원관리
+                        </Mains.Sidebar.Collapse.Header>
                         {/* Navigation */}
                         {/*네비게이션 처리.*/}
                         {/*<ul className="flex list-none flex-col md:min-w-full md:flex-col">*/}
@@ -76,9 +68,9 @@ export default function Sidebar() {
                         {/*        </Link>*/}
                         {/*    </SidebarNavigationLi>*/}
                         {/*</SidebarNavigationUl>*/}
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink
                                     Active={
                                         location.pathname ===
                                         `/manage/member/member-list`
@@ -89,19 +81,21 @@ export default function Sidebar() {
                                         )
                                     }}>
                                     회원현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>소속관리</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            소속관리
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
 
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink
                                     Active={
                                         location.pathname ===
                                         `/manage/belong/belong-status`
@@ -112,11 +106,11 @@ export default function Sidebar() {
                                         )
                                     }}>
                                     소속현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink
                                     Active={
                                         location.pathname ===
                                         `/manage/belong/belong-manage`
@@ -127,141 +121,151 @@ export default function Sidebar() {
                                         )
                                     }}>
                                     소속 가입신청
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>컨텐츠 관리</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            컨텐츠 관리
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
 
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     매거진
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     바이오그램 존
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>현황관리</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            현황관리
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     위험요인 현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     전후비교 현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     기기측정 현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     활동량 현황
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>통계관리</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            통계관리
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     사용자 통계
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     위험군 통계
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     위혐요인 통계
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     복양 통계
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     기기사용 통계
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>관리자 설정</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            관리자 설정
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     태블릿 시리얼키 관리
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
 
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     이용 약관 관리
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
 
                         {/* Divider */}
-                        <SidebarDividerHr />
+                        <Mains.Sidebar.Divider />
                         {/* Heading */}
-                        <SidebarMenuHeading>홈페이지 관리</SidebarMenuHeading>
+                        <Mains.Sidebar.MenuHeading>
+                            홈페이지 관리
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
-                        <SidebarNavigationUl>
-                            <SidebarNavigationLi>
-                                <SidebarMenuLink Active={false}>
+                        <Mains.Sidebar.NavigationUl>
+                            <Mains.Sidebar.NavigationLi>
+                                <Mains.Sidebar.MenuLink Active={false}>
                                     게시판 관리
-                                </SidebarMenuLink>
-                            </SidebarNavigationLi>
-                        </SidebarNavigationUl>
+                                </Mains.Sidebar.MenuLink>
+                            </Mains.Sidebar.NavigationLi>
+                        </Mains.Sidebar.NavigationUl>
                         {process.env.NODE_ENV === 'development' && (
                             <>
                                 {/* Divider */}
-                                <SidebarDividerHr />
+                                <Mains.Sidebar.Divider />
                                 {/* Heading */}
-                                <SidebarMenuHeading>
+                                <Mains.Sidebar.MenuHeading>
                                     퍼블리싱 페이지
-                                </SidebarMenuHeading>
+                                </Mains.Sidebar.MenuHeading>
                                 {/* Navigation */}
-                                <SidebarNavigationUl>
-                                    <SidebarNavigationLi>
-                                        <SidebarMenuLink
+                                <Mains.Sidebar.NavigationUl>
+                                    <Mains.Sidebar.NavigationLi>
+                                        <Mains.Sidebar.MenuLink
                                             Active={
                                                 location.pathname ===
                                                 `/publish/default/default-list`
@@ -272,14 +276,14 @@ export default function Sidebar() {
                                                 )
                                             }}>
                                             기본 리스트
-                                        </SidebarMenuLink>
-                                    </SidebarNavigationLi>
-                                </SidebarNavigationUl>
+                                        </Mains.Sidebar.MenuLink>
+                                    </Mains.Sidebar.NavigationLi>
+                                </Mains.Sidebar.NavigationUl>
                             </>
                         )}
-                    </SidebarCollapseContainer>
-                </SidebarContainer>
-            </SidebarNav>
+                    </Mains.Sidebar.Collapse.Container>
+                </Mains.Sidebar.Container>
+            </Mains.Sidebar.Nav>
         </>
     )
 }

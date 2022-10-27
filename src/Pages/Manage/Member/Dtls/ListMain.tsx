@@ -1,26 +1,21 @@
 import React from 'react'
-import {
-    Container,
-    SearchWapper,
-    ManageWapper,
-    TableWapper,
-} from '@Style/Pages/MemberPage'
+import { Members } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'
 
 export default function ListMain() {
     return (
-        <Container>
-            <SearchWapper>
+        <Members.Main.Container>
+            <Members.Main.SearchWapper>
                 <SearchBox />
-            </SearchWapper>
-            <ManageWapper>
+            </Members.Main.SearchWapper>
+            <Members.Main.ManageWapper>
                 <ManageBox />
-            </ManageWapper>
-            <TableWapper>
+            </Members.Main.ManageWapper>
+            <Members.Main.TableWapper>
                 <ListTable />
-            </TableWapper>
-        </Container>
+            </Members.Main.TableWapper>
+        </Members.Main.Container>
     )
 }
