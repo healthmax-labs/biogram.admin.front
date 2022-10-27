@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
-import { DatePickerInbutton } from '@Style/Elements/Buttons'
+import { Buttons } from '@Style/Elements/ButtonStyle'
+
 const InputButton = (
     {
         value,
@@ -14,9 +15,9 @@ const InputButton = (
     },
     ref: any
 ) => (
-    <DatePickerInbutton ref={ref} onClick={onClick}>
+    <Buttons.DatePicker ref={ref} onClick={onClick}>
         {value}
-    </DatePickerInbutton>
+    </Buttons.DatePicker>
 )
 
 export default function DatepickerButton() {

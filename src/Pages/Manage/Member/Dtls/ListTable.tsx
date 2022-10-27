@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Table,
-    TableTbody,
-    TableTbodyTd,
-    TableTbodyTdCheckbox,
-    TableTbodyTr,
-    TableTh,
-    TableThCheckbox,
-    TableThead,
-    TableTr,
-} from '@Style/Pages/MemberPage'
+import { Members } from '@Style/Pages/MemberPageStyles'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
 import { DefaultCheckBox } from '@Element/Inputs'
@@ -33,43 +23,63 @@ export default function ListTable() {
     }, [])
 
     return (
-        <Table>
-            <TableThead>
-                <TableTr>
-                    <TableThCheckbox>
+        <Members.Table.Table>
+            <Members.Table.Thead>
+                <Members.Table.Tr>
+                    <Members.Table.ThCheckbox>
                         <DefaultCheckBox />
-                    </TableThCheckbox>
-                    <TableTh>회원번호</TableTh>
-                    <TableTh>회원명</TableTh>
-                    <TableTh>휴대폰번호</TableTh>
-                    <TableTh>생년월일</TableTh>
-                    <TableTh>성별</TableTh>
-                    <TableTh>소속이름</TableTh>
-                    <TableTh>부서</TableTh>
-                    <TableTh>소속가입일</TableTh>
-                    <TableTh>상태</TableTh>
-                </TableTr>
-            </TableThead>
-            <TableTbody>
+                    </Members.Table.ThCheckbox>
+                    <Members.Table.Th>회원번호</Members.Table.Th>
+                    <Members.Table.Th>회원명</Members.Table.Th>
+                    <Members.Table.Th>휴대폰번호</Members.Table.Th>
+                    <Members.Table.Th>생년월일</Members.Table.Th>
+                    <Members.Table.Th>성별</Members.Table.Th>
+                    <Members.Table.Th>소속이름</Members.Table.Th>
+                    <Members.Table.Th>부서</Members.Table.Th>
+                    <Members.Table.Th>소속가입일</Members.Table.Th>
+                    <Members.Table.Th>상태</Members.Table.Th>
+                </Members.Table.Tr>
+            </Members.Table.Thead>
+            <Members.Table.Tbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <TableTbodyTr key={index} BgState={index % 2 === 0}>
-                            <TableTbodyTdCheckbox>
+                        <Members.Table.TbodyTr
+                            key={index}
+                            BgState={index % 2 === 0}>
+                            <Members.Table.TbodyTdCheckbox>
                                 <DefaultCheckBox />
-                            </TableTbodyTdCheckbox>
-                            <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
-                            <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
-                            <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
-                            <TableTbodyTd>{el.SEXDSTN}</TableTbodyTd>
-                            <TableTbodyTd>{el.INST_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.DEPT_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.CONFM_DE}</TableTbodyTd>
-                            <TableTbodyTd>{el.STAT}</TableTbodyTd>
-                        </TableTbodyTr>
+                            </Members.Table.TbodyTdCheckbox>
+                            <Members.Table.TbodyTd>
+                                {el.MBER_NO}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.MEBER_NM}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.MBTLNUM}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.MBTLNUM}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.SEXDSTN}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.INST_NM}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.DEPT_NM}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.CONFM_DE}
+                            </Members.Table.TbodyTd>
+                            <Members.Table.TbodyTd>
+                                {el.STAT}
+                            </Members.Table.TbodyTd>
+                        </Members.Table.TbodyTr>
                     )
                 })}
-            </TableTbody>
-        </Table>
+            </Members.Table.Tbody>
+        </Members.Table.Table>
     )
 }

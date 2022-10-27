@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultButton } from '@Style/Elements/Buttons'
+import { Buttons } from '@Style/Elements/ButtonStyle'
 
 export default function DefaultManageButton({
     ButtonClick,
@@ -9,8 +9,8 @@ export default function DefaultManageButton({
     ButtonName: string
 }) {
     return (
-        <DefaultButton onClick={() => ButtonClick()}>
+        <Buttons.Manage onClick={() => ButtonClick()}>
             {ButtonName}
-        </DefaultButton>
+        </Buttons.Manage>
     )
 }

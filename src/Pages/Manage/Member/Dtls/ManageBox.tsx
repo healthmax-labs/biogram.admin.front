@@ -1,11 +1,11 @@
 import React from 'react'
-import { ManageBoxWapper, ManageBoxButtons } from '@Style/Pages/MemberPage'
+import { Members } from '@Style/Pages/MemberPageStyles'
 import { DefaultManageButton } from '@Element/Buttons'
 
 export default function ManageBox() {
     return (
-        <ManageBoxWapper>
-            <ManageBoxButtons>
+        <Members.ManageBox.Wapper>
+            <Members.ManageBox.Buttons>
                 <DefaultManageButton
                     ButtonClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'소승승인1'}
@@ -30,7 +30,7 @@ export default function ManageBox() {
                     ButtonClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'소승승인6'}
                 />
-            </ManageBoxButtons>
-        </ManageBoxWapper>
+            </Members.ManageBox.Buttons>
+        </Members.ManageBox.Wapper>
     )
 }

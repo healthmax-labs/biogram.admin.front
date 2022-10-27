@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
-import { DatePickerInInput } from '@Style/Elements/Inputs'
+import { Inputs } from '@Style/Elements/InputStyles'
 
 const CustomInput = (
     {
@@ -15,7 +15,7 @@ const CustomInput = (
     },
     ref: any
 ) => (
-    <DatePickerInInput
+    <Inputs.DatePicker
         ref={ref}
         onFocus={onFocus}
         value={value}
