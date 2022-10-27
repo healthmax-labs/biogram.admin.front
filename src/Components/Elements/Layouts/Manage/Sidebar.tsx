@@ -20,9 +20,9 @@ export default function Sidebar() {
                     {/* Collapse */}
                     <Mains.Sidebar.Collapse.Container>
                         {/* Heading */}
-                        <Mains.Sidebar.Collapse.Header>
+                        <Mains.Sidebar.MenuHeading>
                             회원관리
-                        </Mains.Sidebar.Collapse.Header>
+                        </Mains.Sidebar.MenuHeading>
                         {/* Navigation */}
                         {/*네비게이션 처리.*/}
                         {/*<ul className="flex list-none flex-col md:min-w-full md:flex-col">*/}
