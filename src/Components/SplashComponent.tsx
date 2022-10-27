@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRoot } from '@Hooks'
+import { SplashPage } from '@Style/Pages/EtcPageStyles'
 
 const SplashComponent = ({
     appLoading,
@@ -32,8 +33,8 @@ const SplashComponent = ({
     }, [ServerFailState, serverFail])
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="flex justify-center items-center space-x-1 text-sm text-gray-700">
+        <SplashPage.Container>
+            <SplashPage.Wapper>
                 <svg
                     fill="none"
                     className="w-6 h-6 animate-spin"
@@ -47,9 +48,9 @@ const SplashComponent = ({
                     />
                 </svg>
 
-                <div>로딩중...</div>
-            </div>
-        </div>
+                <SplashPage.LoadingText>로딩중...</SplashPage.LoadingText>
+            </SplashPage.Wapper>
+        </SplashPage.Container>
     )
 }
 
