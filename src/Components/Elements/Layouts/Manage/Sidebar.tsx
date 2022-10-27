@@ -1,19 +1,19 @@
 import React from 'react'
 import { MenuLogo } from '@Assets'
 import {
-    SidebarNav,
-    SidebarContainer,
-    SidebarLogoImage,
     SidebarCollapseContainer,
+    SidebarContainer,
     SidebarDividerHr,
+    SidebarLogoImage,
     SidebarMenuHeading,
-    SidebarNavigationUl,
-    SidebarNavigationLi,
     SidebarMenuLink,
+    SidebarNav,
+    SidebarNavigationLi,
+    SidebarNavigationUl,
 } from '@Style/Layouts/Manage/Common'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
     const navigate = useNavigate()
@@ -250,6 +250,33 @@ export default function Sidebar() {
                                 </SidebarMenuLink>
                             </SidebarNavigationLi>
                         </SidebarNavigationUl>
+                        {process.env.NODE_ENV === 'development' && (
+                            <>
+                                {/* Divider */}
+                                <SidebarDividerHr />
+                                {/* Heading */}
+                                <SidebarMenuHeading>
+                                    퍼블리싱 페이지
+                                </SidebarMenuHeading>
+                                {/* Navigation */}
+                                <SidebarNavigationUl>
+                                    <SidebarNavigationLi>
+                                        <SidebarMenuLink
+                                            Active={
+                                                location.pathname ===
+                                                `/publish/default/default-list`
+                                            }
+                                            onClick={() => {
+                                                navigate(
+                                                    `${process.env.PUBLIC_URL}/publish/default/default-list`
+                                                )
+                                            }}>
+                                            기본 리스트
+                                        </SidebarMenuLink>
+                                    </SidebarNavigationLi>
+                                </SidebarNavigationUl>
+                            </>
+                        )}
                     </SidebarCollapseContainer>
                 </SidebarContainer>
             </SidebarNav>

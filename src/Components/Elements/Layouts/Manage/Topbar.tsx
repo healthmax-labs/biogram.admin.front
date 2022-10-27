@@ -1,12 +1,12 @@
 import {
-    TopbarContainer,
-    TopbarWapper,
-    TopbarLeftBox,
     TopbarBelong,
-    TopbarName,
-    TopbarSatus,
+    TopbarContainer,
+    TopbarLeftBox,
     TopbarLoginOut,
     TopbarLoginOutIcon,
+    TopbarName,
+    TopbarSatus,
+    TopbarWapper,
 } from '@Style/Layouts/Manage/Common'
 import { IconBtLogout } from '@Assets'
 import { HamburgerButton } from '@Component/Elements/Buttons'
@@ -19,7 +19,7 @@ export default function Navbar() {
     const handleShowLeftMenu = () => {
         setLeftMenuShow(prev => ({
             ...prev,
-            leftMenuShow: prev.leftMenuShow ? false : true,
+            leftMenuShow: !prev.leftMenuShow,
         }))
     }
 

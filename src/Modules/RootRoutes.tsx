@@ -1,12 +1,13 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BlankLayoutComponent, MageLayoutComponent } from '@Layouts'
+import { LoginPage } from '@Page/Auth'
 import {
-    LoginPage,
-    Dashboard,
-    BelongStatusPage,
     BelongManagePage,
+    BelongStatusPage,
     MemberListPage,
-} from '@Pages'
+} from '@Page/Manage'
+
+import { DefaultListPage } from '@Page/Publish'
 
 function RootRoutes() {
     return (
@@ -17,7 +18,10 @@ function RootRoutes() {
                     <Route path="/auth/login" element={<LoginPage />} />
                 </Route>
                 <Route element={<MageLayoutComponent />}>
-                    <Route path="/manage/dashboard" element={<Dashboard />} />
+                    <Route
+                        path="/publish/default/default-list"
+                        element={<DefaultListPage />}
+                    />
                     <Route
                         path="/manage/member/member-list"
                         element={<MemberListPage />}

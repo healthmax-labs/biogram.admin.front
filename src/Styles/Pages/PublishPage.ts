@@ -16,7 +16,7 @@ export const SearchBoxItem = tw.div`text-gray-700 flex items-center`
 export const SearchBoxLabelItem = tw.div`w-40`
 export const SearchBoxLabel = tw.label`inline-block align-baseline text-xs uppercase whitespace-nowrap text-left text-gray-500`
 export const SearchBoxLabelText = tw.p`text-xs uppercase whitespace-nowrap text-left text-gray-500`
-export const SearchBoxLabelItemBox = tw.div`w-1/6`
+export const SearchBoxLabelItemBox = tw.div`w-40`
 export const SearchBoxSelect = tw.select`form-select block w-60 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`
 export const SearchBoxInput = tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`
 export const DatepickerBox = tw.div`grid grid-rows-1 grid-flow-col gap-1`
@@ -30,8 +30,9 @@ export const ManageBoxButtons = tw.div`relative col-span-1 items-end justify-end
 export const Table = tw.table`w-full bg-transparent border-collapse items-center`
 export const TableThead = tw.thead`w-full flex text-white text-xs h-8`
 export const TableTr = tw.tr`w-full flex bg-m-dip-blue items-center`
-export const TableThCheckbox = tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
-export const TableTh = tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
+export const TableThFirst = tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
+export const TableTh = tw.th`p-3 w-1/4 px-3 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
+
 export const TableTbody = tw.tbody`w-full h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`
 export const TableTbodyTr = styled.tr(({ BgState }: { BgState: boolean }) => [
     BgState
@@ -39,5 +40,5 @@ export const TableTbodyTr = styled.tr(({ BgState }: { BgState: boolean }) => [
         : tw`flex w-full h-9 items-center`,
 ])
 
+export const TableTbodyTdFirst = tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`
 export const TableTbodyTd = tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`
-export const TableTbodyTdCheckbox = tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`

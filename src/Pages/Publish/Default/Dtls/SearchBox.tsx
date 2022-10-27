@@ -12,7 +12,7 @@ import {
     SearchBoxSearchButtonBox,
     SearchBoxSelect,
     SearchBoxWapper,
-} from '@Style/Pages/MemberPage'
+} from '@Style/Pages/PublishPage'
 import { DefaultSearchButton } from '@Element/Buttons'
 import { DatepickerInput } from '@Element/Inputs'
 
