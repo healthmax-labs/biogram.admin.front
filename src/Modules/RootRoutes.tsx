@@ -17,6 +17,10 @@ function RootRoutes() {
                 </Route>
                 <Route element={<MageLayoutComponent />}>
                     <Route
+                        path="/publish/default/default-list"
+                        element={<MemberListPage />}
+                    />
+                    <Route
                         path="/manage/member/member-list"
                         element={<MemberListPage />}
                     />
