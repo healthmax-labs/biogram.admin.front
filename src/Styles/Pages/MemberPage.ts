@@ -30,7 +30,7 @@ export const ManageBoxButtons = tw.div`relative col-span-1 items-end justify-end
 export const Table = tw.table`w-full bg-transparent border-collapse items-center`
 export const TableThead = tw.thead`w-full flex text-white text-xs h-8`
 export const TableTr = tw.tr`w-full flex bg-m-dip-blue items-center`
-export const TableThFirst = tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
+export const TableThCheckbox = tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
 export const TableTh = tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`
 export const TableTbody = tw.tbody`w-full h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`
 export const TableTbodyTr = styled.tr(({ BgState }: { BgState: boolean }) => [
@@ -40,4 +40,4 @@ export const TableTbodyTr = styled.tr(({ BgState }: { BgState: boolean }) => [
 ])
 
 export const TableTbodyTd = tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`
-export const TableTbodyTdFirst = tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`
+export const TableTbodyTdCheckbox = tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`

@@ -3,11 +3,11 @@ import {
     Table,
     TableTbody,
     TableTbodyTd,
-    TableTbodyTdFirst,
+    TableTbodyTdCheckbox,
     TableTbodyTr,
     TableTh,
+    TableThCheckbox,
     TableThead,
-    TableThFirst,
     TableTr,
 } from '@Style/Pages/MemberPage'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
@@ -36,9 +36,9 @@ export default function ListTable() {
         <Table>
             <TableThead>
                 <TableTr>
-                    <TableThFirst>
+                    <TableThCheckbox>
                         <DefaultCheckBox />
-                    </TableThFirst>
+                    </TableThCheckbox>
                     <TableTh>회원번호</TableTh>
                     <TableTh>회원명</TableTh>
                     <TableTh>휴대폰번호</TableTh>
@@ -53,12 +53,10 @@ export default function ListTable() {
             <TableTbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <TableTbodyTr
-                            key={index}
-                            BgState={index % 2 === 0 ? true : false}>
-                            <TableTbodyTdFirst>
+                        <TableTbodyTr key={index} BgState={index % 2 === 0}>
+                            <TableTbodyTdCheckbox>
                                 <DefaultCheckBox />
-                            </TableTbodyTdFirst>
+                            </TableTbodyTdCheckbox>
                             <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
                             <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
                             <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
