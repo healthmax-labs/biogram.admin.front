@@ -33,7 +33,6 @@ export default function LoginForm() {
         if (response.status) {
             storageManager.set('TOKEN_INFO', response.payload.TOKEN_INFO)
             storageManager.set('VTOKEN_INFO', response.payload.VTOKEN_INFO)
-            alert('로그인이 완료 되었습니다.')
             navigate({
                 pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
             })
