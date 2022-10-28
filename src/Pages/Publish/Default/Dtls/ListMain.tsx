@@ -1,13 +1,10 @@
 import React from 'react'
-import {
-    Container,
-    ManageWapper,
-    SearchWapper,
-    TableWapper,
-} from '@Style/Pages/PublishPage'
+import { MainStyle } from '@Style/Pages/PublishPageStyle'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'
+
+const { SearchWapper, TableWapper, ManageWapper, Container } = MainStyle
 
 export default function ListMain() {
     return (

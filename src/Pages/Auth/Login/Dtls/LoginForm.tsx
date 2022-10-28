@@ -3,8 +3,24 @@ import { useNavigate } from 'react-router-dom'
 import { login } from '@Service/AuthService'
 import { storageManager } from '@Helper'
 import { LoginBackgroundImage, LogoImage } from '@Assets'
+import { LoginPageStyle } from '@Style/Pages/LoginPageStyles'
 
-import { LoginPage } from '@Style/Pages/LoginPageStyles'
+const {
+    Container,
+    Wapper,
+    LogoBox,
+    FormBox,
+    FormRow,
+    InputRow,
+    Label,
+    InputId,
+    InputPassword,
+    LoginButton,
+    LoginLogoImage,
+    RememberID,
+    RememberIdInput,
+    RememberIdLabel,
+} = LoginPageStyle
 
 export default function LoginForm() {
     const navigate = useNavigate()
@@ -42,57 +58,53 @@ export default function LoginForm() {
     }
 
     return (
-        <LoginPage.Container bgImage={`${LoginBackgroundImage}`}>
-            <LoginPage.Wapper>
-                <LoginPage.LogoBox>
-                    <LoginPage.LoginLogoImage src={LogoImage} alt="BioGram" />
-                </LoginPage.LogoBox>
-                <LoginPage.FormBox>
-                    <LoginPage.FormRow>
-                        <LoginPage.Label htmlFor="email">
-                            아이디
-                        </LoginPage.Label>
-                        <LoginPage.InputId
+        <Container bgImage={`${LoginBackgroundImage}`}>
+            <Wapper>
+                <LogoBox>
+                    <LoginLogoImage src={LogoImage} alt="BioGram" />
+                </LogoBox>
+                <FormBox>
+                    <FormRow>
+                        <Label htmlFor="email">아이디</Label>
+                        <InputId
                             type="email"
                             name="usid"
                             value={loginInfo.usid}
                             onChange={e => handleInputChange(e)}
                         />
-                    </LoginPage.FormRow>
-                    <LoginPage.FormRow>
-                        <LoginPage.InputRow>
-                            <LoginPage.Label htmlFor="password">
-                                비밀번호
-                            </LoginPage.Label>
-                            <LoginPage.InputPassword
+                    </FormRow>
+                    <FormRow>
+                        <InputRow>
+                            <Label htmlFor="password">비밀번호</Label>
+                            <InputPassword
                                 type="password"
                                 name="pass"
                                 value={loginInfo.pass}
                                 onChange={e => handleInputChange(e)}
                             />
-                        </LoginPage.InputRow>
-                        <LoginPage.InputRow className="mt-6">
-                            <LoginPage.LoginButton
+                        </InputRow>
+                        <InputRow className="mt-6">
+                            <LoginButton
                                 onClick={() => handleClickLoginButton()}>
                                 로그인
-                            </LoginPage.LoginButton>
-                        </LoginPage.InputRow>
-                        <LoginPage.InputRow>
-                            <LoginPage.RememberID>
-                                <LoginPage.RememberIdInput
+                            </LoginButton>
+                        </InputRow>
+                        <InputRow>
+                            <RememberID>
+                                <RememberIdInput
                                     checked
                                     id="checked-checkbox"
                                     type="checkbox"
                                     value=""
                                 />
-                                <LoginPage.RememberIdLabel htmlFor="checked-checkbox">
+                                <RememberIdLabel htmlFor="checked-checkbox">
                                     아이디 기억
-                                </LoginPage.RememberIdLabel>
-                            </LoginPage.RememberID>
-                        </LoginPage.InputRow>
-                    </LoginPage.FormRow>
-                </LoginPage.FormBox>
-            </LoginPage.Wapper>
-        </LoginPage.Container>
+                                </RememberIdLabel>
+                            </RememberID>
+                        </InputRow>
+                    </FormRow>
+                </FormBox>
+            </Wapper>
+        </Container>
     )
 }

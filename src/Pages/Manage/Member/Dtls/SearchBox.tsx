@@ -1,74 +1,82 @@
 import React from 'react'
-import { Members } from '@Style/Pages/MemberPageStyles'
+import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
 import { DefaultSearchButton } from '@Element/Buttons'
 import { DatepickerInput } from '@Element/Inputs'
 
+const {
+    SearchButtonBox,
+    DatepickerLine,
+    Datepicker,
+    Input,
+    LabelText,
+    LabelItem,
+    Item,
+    Label,
+    LabelItemBox,
+    Wapper,
+    Select,
+    Container,
+    Relative,
+} = SearchBoxStyle
+
 export default function SearchBox() {
     return (
-        <Members.SearchBox.Container>
-            <Members.SearchBox.Wapper>
-                <Members.SearchBox.Item>
-                    <Members.SearchBox.LabelItem>
-                        <Members.SearchBox.Label htmlFor="forms-labelLeftInputCode">
-                            <Members.SearchBox.LabelText>
-                                소속 :
-                            </Members.SearchBox.LabelText>
-                        </Members.SearchBox.Label>
-                    </Members.SearchBox.LabelItem>
-                    <Members.SearchBox.LabelItemBox>
-                        <Members.SearchBox.Select
+        <Container>
+            <Wapper>
+                <Item>
+                    <LabelItem>
+                        <Label htmlFor="forms-labelLeftInputCode">
+                            <LabelText>소속 :</LabelText>
+                        </Label>
+                    </LabelItem>
+                    <LabelItemBox>
+                        <Select
                             id="country"
                             name="country"
                             autoComplete="country">
                             <option>소속 선택</option>
-                        </Members.SearchBox.Select>
-                    </Members.SearchBox.LabelItemBox>
-                </Members.SearchBox.Item>
-                <Members.SearchBox.Item></Members.SearchBox.Item>
-                <Members.SearchBox.Item>
-                    <Members.SearchBox.LabelItem>
-                        <Members.SearchBox.Label htmlFor="forms-labelLeftInputCode">
-                            <Members.SearchBox.LabelText>
-                                가입일자 :
-                            </Members.SearchBox.LabelText>
-                        </Members.SearchBox.Label>
-                    </Members.SearchBox.LabelItem>
-                    <Members.SearchBox.LabelItemBox>
-                        <Members.SearchBox.Datepicker>
+                        </Select>
+                    </LabelItemBox>
+                </Item>
+                <Item></Item>
+                <Item>
+                    <LabelItem>
+                        <Label htmlFor="forms-labelLeftInputCode">
+                            <LabelText>가입일자 :</LabelText>
+                        </Label>
+                    </LabelItem>
+                    <LabelItemBox>
+                        <Datepicker>
                             <DatepickerInput />
-                            <Members.SearchBox.DatepickerLine>
-                                ~
-                            </Members.SearchBox.DatepickerLine>
+                            <DatepickerLine>~</DatepickerLine>
                             <DatepickerInput />
-                        </Members.SearchBox.Datepicker>
-                    </Members.SearchBox.LabelItemBox>
-                </Members.SearchBox.Item>
-                <Members.SearchBox.Item></Members.SearchBox.Item>
-                <Members.SearchBox.Item>
-                    <Members.SearchBox.LabelItem>
-                        <Members.SearchBox.Label htmlFor="forms-labelLeftInputCode">
-                            <Members.SearchBox.LabelText>
-                                검색어 :
-                            </Members.SearchBox.LabelText>
-                        </Members.SearchBox.Label>
-                    </Members.SearchBox.LabelItem>
-                    <Members.SearchBox.LabelItemBox>
-                        <Members.SearchBox.Input
+                        </Datepicker>
+                    </LabelItemBox>
+                </Item>
+                <Item></Item>
+                <Item>
+                    <LabelItem>
+                        <Label htmlFor="forms-labelLeftInputCode">
+                            <LabelText>검색어 :</LabelText>
+                        </Label>
+                    </LabelItem>
+                    <LabelItemBox>
+                        <Input
                             type="search"
                             id="search-dropdown"
                             placeholder="ID / 이름 / 연락처 / 전화번호"
                             required
                         />
-                    </Members.SearchBox.LabelItemBox>
-                </Members.SearchBox.Item>
-            </Members.SearchBox.Wapper>
-            <Members.SearchBox.Relative>
-                <Members.SearchBox.SearchButtonBox>
+                    </LabelItemBox>
+                </Item>
+            </Wapper>
+            <Relative>
+                <SearchButtonBox>
                     <DefaultSearchButton
                         ButtonClick={() => console.debug('DefaultSearchButton')}
                     />
-                </Members.SearchBox.SearchButtonBox>
-            </Members.SearchBox.Relative>
-        </Members.SearchBox.Container>
+                </SearchButtonBox>
+            </Relative>
+        </Container>
     )
 }

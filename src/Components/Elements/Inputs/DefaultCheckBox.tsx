@@ -1,9 +1,11 @@
 import React from 'react'
-import { Inputs } from '@Style/Elements/InputStyles'
+import { InputStyle } from '@Style/Elements/InputStyles'
+
+const { CheckBox } = InputStyle
 
 export default function DefaultCheckBox() {
     return (
-        <Inputs.CheckBox
+        <CheckBox
             checked={false}
             id="checked-checkbox"
             type="checkbox"

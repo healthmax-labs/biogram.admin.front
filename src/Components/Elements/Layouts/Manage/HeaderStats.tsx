@@ -1,22 +1,24 @@
-import { Mains } from '@Style/Layouts/Manage/MainStyles'
+import { HeaderStatsStyle } from '@Style/Layouts/Manage/MainStyles'
+
+const { Cards, CardItem, Wapper, MainWapper, Container } = HeaderStatsStyle
 
 export default function HeaderStats() {
     return (
         <>
             {/* Header */}
-            <Mains.HeaderStats.Container>
-                <Mains.HeaderStats.MainWapper>
-                    <Mains.HeaderStats.Wapper>
+            <Container>
+                <MainWapper>
+                    <Wapper>
                         {/* Card stats */}
-                        <Mains.HeaderStats.Cards>
-                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
-                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
-                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
-                            <Mains.HeaderStats.CardItem></Mains.HeaderStats.CardItem>
-                        </Mains.HeaderStats.Cards>
-                    </Mains.HeaderStats.Wapper>
-                </Mains.HeaderStats.MainWapper>
-            </Mains.HeaderStats.Container>
+                        <Cards>
+                            <CardItem></CardItem>
+                            <CardItem></CardItem>
+                            <CardItem></CardItem>
+                            <CardItem></CardItem>
+                        </Cards>
+                    </Wapper>
+                </MainWapper>
+            </Container>
         </>
     )
 }

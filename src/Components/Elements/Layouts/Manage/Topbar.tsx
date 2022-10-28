@@ -1,8 +1,20 @@
-import { Mains } from '@Style/Layouts/Manage/MainStyles'
+import { TopbarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
 import { HamburgerButton } from '@Component/Elements/Buttons'
 import { useSetRecoilState } from 'recoil'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+
+const {
+    Container,
+    Left,
+    Logout,
+    LogoutIcon,
+    Name,
+    Right,
+    Status,
+    Wapper,
+    Belong,
+} = TopbarStyle
 
 export default function Navbar() {
     const setLeftMenuShow = useSetRecoilState(AtomMainLayoutState)
@@ -17,25 +29,23 @@ export default function Navbar() {
     return (
         <>
             {/* Navbar */}
-            <Mains.Topbar.Container>
-                <Mains.Topbar.Wapper>
-                    <Mains.Topbar.Left>
+            <Container>
+                <Wapper>
+                    <Left>
                         <HamburgerButton
                             ButtonClick={() => handleShowLeftMenu()}
                         />
-                    </Mains.Topbar.Left>
-                    <Mains.Topbar.Right>
-                        <Mains.Topbar.Belong>양평보건소</Mains.Topbar.Belong>
-                        <Mains.Topbar.Name>마스터님</Mains.Topbar.Name>
-                        <Mains.Topbar.Status>
-                            46:37 후 자동 로그아웃
-                        </Mains.Topbar.Status>
-                        <Mains.Topbar.Logout>
-                            <Mains.Topbar.LogoutIcon src={IconBtLogout} />
-                        </Mains.Topbar.Logout>
-                    </Mains.Topbar.Right>
-                </Mains.Topbar.Wapper>
-            </Mains.Topbar.Container>
+                    </Left>
+                    <Right>
+                        <Belong>양평보건소</Belong>
+                        <Name>마스터님</Name>
+                        <Status>46:37 후 자동 로그아웃</Status>
+                        <Logout>
+                            <LogoutIcon src={IconBtLogout} />
+                        </Logout>
+                    </Right>
+                </Wapper>
+            </Container>
             {/* End Navbar */}
         </>
     )

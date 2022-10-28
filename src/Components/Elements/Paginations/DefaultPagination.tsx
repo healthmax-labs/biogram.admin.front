@@ -1,12 +1,23 @@
 import React from 'react'
-import { Commons } from '@Style/Elements/CommonStyles'
+import { PaginationStyle } from '@Style/Elements/CommonStyles'
+
+const {
+    Numbering,
+    Wapper,
+    Left,
+    NextText,
+    PreviousText,
+    Right,
+    PagingBox,
+    Container,
+} = PaginationStyle
 
 export default function DefaultPagination() {
     return (
         <>
-            <Commons.Pagination.Container>
-                <Commons.Pagination.Wapper>
-                    <Commons.Pagination.Left>
+            <Container>
+                <Wapper>
+                    <Left>
                         <svg
                             width="14"
                             height="8"
@@ -35,40 +46,20 @@ export default function DefaultPagination() {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <Commons.Pagination.PreviousText>
-                            Previous
-                        </Commons.Pagination.PreviousText>
-                    </Commons.Pagination.Left>
-                    <Commons.Pagination.PagingBox>
-                        <Commons.Pagination.Numbering Active={true}>
-                            1
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            2
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            3
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            4
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            5
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            6
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            7
-                        </Commons.Pagination.Numbering>
-                        <Commons.Pagination.Numbering Active={false}>
-                            8
-                        </Commons.Pagination.Numbering>
-                    </Commons.Pagination.PagingBox>
-                    <Commons.Pagination.Right>
-                        <Commons.Pagination.NextText>
-                            Next
-                        </Commons.Pagination.NextText>
+                        <PreviousText>Previous</PreviousText>
+                    </Left>
+                    <PagingBox>
+                        <Numbering Active={true}>1</Numbering>
+                        <Numbering Active={false}>2</Numbering>
+                        <Numbering Active={false}>3</Numbering>
+                        <Numbering Active={false}>4</Numbering>
+                        <Numbering Active={false}>5</Numbering>
+                        <Numbering Active={false}>6</Numbering>
+                        <Numbering Active={false}>7</Numbering>
+                        <Numbering Active={false}>8</Numbering>
+                    </PagingBox>
+                    <Right>
+                        <NextText>Next</NextText>
                         <svg
                             width="14"
                             height="8"
@@ -97,9 +88,9 @@ export default function DefaultPagination() {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                    </Commons.Pagination.Right>
-                </Commons.Pagination.Wapper>
-            </Commons.Pagination.Container>
+                    </Right>
+                </Wapper>
+            </Container>
         </>
     )
 }

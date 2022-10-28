@@ -1,4 +1,8 @@
-import { Buttons } from '@Style/Elements/ButtonStyle'
+import { ButtonStyle } from '@Style/Elements/ButtonStyle'
+
+const {
+    Hamburger: { Box, Item },
+} = ButtonStyle
 
 export default function HamburgerButton({
     ButtonClick,
@@ -6,9 +10,9 @@ export default function HamburgerButton({
     ButtonClick: () => void
 }) {
     return (
-        <Buttons.Hamburger.Box onClick={() => ButtonClick()}>
-            <Buttons.Hamburger.Item></Buttons.Hamburger.Item>
-            <Buttons.Hamburger.Item></Buttons.Hamburger.Item>
-        </Buttons.Hamburger.Box>
+        <Box onClick={() => ButtonClick()}>
+            <Item></Item>
+            <Item></Item>
+        </Box>
     )
 }
