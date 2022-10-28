@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Members } from '@Style/Pages/MemberPageStyles'
+import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
 import { DefaultCheckBox } from '@Element/Inputs'
+
+const {
+    Table,
+    Thead,
+    TheadTr,
+    TheadTh,
+    ThCheckbox,
+    Tbody,
+    TbodyTd,
+    TbodyTdCheckbox,
+    TbodyTr,
+} = ListTableStyle
 
 export default function ListTable() {
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
@@ -23,63 +35,43 @@ export default function ListTable() {
     }, [])
 
     return (
-        <Members.Table.Table>
-            <Members.Table.Thead>
-                <Members.Table.Tr>
-                    <Members.Table.ThCheckbox>
+        <Table>
+            <Thead>
+                <TheadTr>
+                    <ThCheckbox>
                         <DefaultCheckBox />
-                    </Members.Table.ThCheckbox>
-                    <Members.Table.Th>회원번호</Members.Table.Th>
-                    <Members.Table.Th>회원명</Members.Table.Th>
-                    <Members.Table.Th>휴대폰번호</Members.Table.Th>
-                    <Members.Table.Th>생년월일</Members.Table.Th>
-                    <Members.Table.Th>성별</Members.Table.Th>
-                    <Members.Table.Th>소속이름</Members.Table.Th>
-                    <Members.Table.Th>부서</Members.Table.Th>
-                    <Members.Table.Th>소속가입일</Members.Table.Th>
-                    <Members.Table.Th>상태</Members.Table.Th>
-                </Members.Table.Tr>
-            </Members.Table.Thead>
-            <Members.Table.Tbody>
+                    </ThCheckbox>
+                    <TheadTh>회원번호</TheadTh>
+                    <TheadTh>회원명</TheadTh>
+                    <TheadTh>휴대폰번호</TheadTh>
+                    <TheadTh>생년월일</TheadTh>
+                    <TheadTh>성별</TheadTh>
+                    <TheadTh>소속이름</TheadTh>
+                    <TheadTh>부서</TheadTh>
+                    <TheadTh>소속가입일</TheadTh>
+                    <TheadTh>상태</TheadTh>
+                </TheadTr>
+            </Thead>
+            <Tbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <Members.Table.TbodyTr
-                            key={index}
-                            BgState={index % 2 === 0}>
-                            <Members.Table.TbodyTdCheckbox>
+                        <TbodyTr key={index} BgState={index % 2 === 0}>
+                            <TbodyTdCheckbox>
                                 <DefaultCheckBox />
-                            </Members.Table.TbodyTdCheckbox>
-                            <Members.Table.TbodyTd>
-                                {el.MBER_NO}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.MEBER_NM}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.MBTLNUM}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.MBTLNUM}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.SEXDSTN}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.INST_NM}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.DEPT_NM}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.CONFM_DE}
-                            </Members.Table.TbodyTd>
-                            <Members.Table.TbodyTd>
-                                {el.STAT}
-                            </Members.Table.TbodyTd>
-                        </Members.Table.TbodyTr>
+                            </TbodyTdCheckbox>
+                            <TbodyTd>{el.MBER_NO}</TbodyTd>
+                            <TbodyTd>{el.MEBER_NM}</TbodyTd>
+                            <TbodyTd>{el.MBTLNUM}</TbodyTd>
+                            <TbodyTd>{el.MBTLNUM}</TbodyTd>
+                            <TbodyTd>{el.SEXDSTN}</TbodyTd>
+                            <TbodyTd>{el.INST_NM}</TbodyTd>
+                            <TbodyTd>{el.DEPT_NM}</TbodyTd>
+                            <TbodyTd>{el.CONFM_DE}</TbodyTd>
+                            <TbodyTd>{el.STAT}</TbodyTd>
+                        </TbodyTr>
                     )
                 })}
-            </Members.Table.Tbody>
-        </Members.Table.Table>
+            </Tbody>
+        </Table>
     )
 }

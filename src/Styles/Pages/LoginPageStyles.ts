@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import tw from 'twin.macro'
 
-export const LoginPage = {
+export const LoginPageStyle = {
     Container: styled.section(({ bgImage }: { bgImage: string }) => [
         {
             background: `URL(${bgImage})`,

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import {
-    Table,
-    TableTbody,
-    TableTbodyTd,
-    TableTbodyTdFirst,
-    TableTbodyTr,
-    TableTh,
-    TableThead,
-    TableThFirst,
-    TableTr,
-} from '@Style/Pages/PublishPage'
+import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
 import { DefaultManageButton } from '@Element/Buttons'
 import { DefaultCheckBox } from '@Element/Inputs'
+
+const {
+    Tbody,
+    TbodyTd,
+    TbodyTdCheckbox,
+    ThCheckbox,
+    TbodyTr,
+    Thead,
+    TheadTh,
+    TheadTr,
+    Table,
+} = ListTableStyle
 
 export default function ListTable() {
     const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
@@ -35,45 +37,45 @@ export default function ListTable() {
 
     return (
         <Table>
-            <TableThead>
-                <TableTr>
-                    <TableThFirst>
+            <Thead>
+                <TheadTr>
+                    <ThCheckbox>
                         <DefaultCheckBox />
-                    </TableThFirst>
-                    <TableTh>회원번호</TableTh>
-                    <TableTh>회원명</TableTh>
-                    <TableTh>휴대폰번호</TableTh>
-                    <TableTh>생년월일</TableTh>
-                    <TableTh>성별</TableTh>
-                    <TableTh>소속이름</TableTh>
-                    <TableTh>부서</TableTh>
-                    <TableTh>소속가입일</TableTh>
-                    <TableTh>상태</TableTh>
-                </TableTr>
-            </TableThead>
-            <TableTbody>
+                    </ThCheckbox>
+                    <TheadTh>회원번호</TheadTh>
+                    <TheadTh>회원명</TheadTh>
+                    <TheadTh>휴대폰번호</TheadTh>
+                    <TheadTh>생년월일</TheadTh>
+                    <TheadTh>성별</TheadTh>
+                    <TheadTh>소속이름</TheadTh>
+                    <TheadTh>부서</TheadTh>
+                    <TheadTh>소속가입일</TheadTh>
+                    <TheadTh>상태</TheadTh>
+                </TheadTr>
+            </Thead>
+            <Tbody>
                 {resList.map((el: INSTDEPT_LIST, index) => {
                     return (
-                        <TableTbodyTr key={index} BgState={index % 2 === 0}>
-                            <TableTbodyTdFirst>
+                        <TbodyTr key={index} BgState={index % 2 === 0}>
+                            <TbodyTdCheckbox>
                                 <DefaultCheckBox />
-                            </TableTbodyTdFirst>
-                            <TableTbodyTd>{el.MBER_NO}</TableTbodyTd>
-                            <TableTbodyTd>{el.MEBER_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
-                            <TableTbodyTd>{el.MBTLNUM}</TableTbodyTd>
-                            <TableTbodyTd>{el.SEXDSTN}</TableTbodyTd>
-                            <TableTbodyTd>{el.INST_NM}</TableTbodyTd>
-                            <TableTbodyTd>{el.DEPT_NM}</TableTbodyTd>
-                            <TableTbodyTd>
+                            </TbodyTdCheckbox>
+                            <TbodyTd>{el.MBER_NO}</TbodyTd>
+                            <TbodyTd>{el.MEBER_NM}</TbodyTd>
+                            <TbodyTd>{el.MBTLNUM}</TbodyTd>
+                            <TbodyTd>{el.MBTLNUM}</TbodyTd>
+                            <TbodyTd>{el.SEXDSTN}</TbodyTd>
+                            <TbodyTd>{el.INST_NM}</TbodyTd>
+                            <TbodyTd>{el.DEPT_NM}</TbodyTd>
+                            <TbodyTd>
                                 <DefaultManageButton
                                     ButtonClick={() =>
                                         console.debug('DefaultManageButton')
                                     }
                                     ButtonName={'소승승인4'}
                                 />
-                            </TableTbodyTd>
-                            <TableTbodyTd>
+                            </TbodyTd>
+                            <TbodyTd>
                                 <select
                                     className="form-select block w-30 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs"
                                     id="country"
@@ -84,11 +86,11 @@ export default function ListTable() {
                                     <option>경기도</option>
                                     <option>부산</option>
                                 </select>
-                            </TableTbodyTd>
-                        </TableTbodyTr>
+                            </TbodyTd>
+                        </TbodyTr>
                     )
                 })}
-            </TableTbody>
+            </Tbody>
         </Table>
     )
 }

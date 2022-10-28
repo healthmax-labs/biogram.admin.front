@@ -1,14 +1,12 @@
 import React from 'react'
-import { Buttons } from '@Style/Elements/ButtonStyle'
+import { ButtonStyle } from '@Style/Elements/ButtonStyle'
+
+const { DefaultSearch } = ButtonStyle
 
 export default function DefaultSearchButton({
     ButtonClick,
 }: {
     ButtonClick: () => void
 }) {
-    return (
-        <Buttons.DefaultSearch onClick={() => ButtonClick()}>
-            검색
-        </Buttons.DefaultSearch>
-    )
+    return <DefaultSearch onClick={() => ButtonClick()}>검색</DefaultSearch>
 }

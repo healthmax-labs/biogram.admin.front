@@ -1,5 +1,7 @@
 import React from 'react'
-import { Buttons } from '@Style/Elements/ButtonStyle'
+import { ButtonStyle } from '@Style/Elements/ButtonStyle'
+
+const { Manage } = ButtonStyle
 
 export default function DefaultManageButton({
     ButtonClick,
@@ -8,9 +10,5 @@ export default function DefaultManageButton({
     ButtonClick: () => void
     ButtonName: string
 }) {
-    return (
-        <Buttons.Manage onClick={() => ButtonClick()}>
-            {ButtonName}
-        </Buttons.Manage>
-    )
+    return <Manage onClick={() => ButtonClick()}>{ButtonName}</Manage>
 }

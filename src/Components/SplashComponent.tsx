@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useRoot } from '@Hooks'
 import { SplashPage } from '@Style/Pages/EtcPageStyles'
 
+const { Container, Wapper, LoadingText } = SplashPage
+
 const SplashComponent = ({
     appLoading,
     serverFail,
@@ -33,8 +35,8 @@ const SplashComponent = ({
     }, [ServerFailState, serverFail])
 
     return (
-        <SplashPage.Container>
-            <SplashPage.Wapper>
+        <Container>
+            <Wapper>
                 <svg
                     fill="none"
                     className="w-6 h-6 animate-spin"
@@ -48,9 +50,9 @@ const SplashComponent = ({
                     />
                 </svg>
 
-                <SplashPage.LoadingText>로딩중...</SplashPage.LoadingText>
-            </SplashPage.Wapper>
-        </SplashPage.Container>
+                <LoadingText>로딩중...</LoadingText>
+            </Wapper>
+        </Container>
     )
 }
 

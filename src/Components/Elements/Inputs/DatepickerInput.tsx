@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
-import { Inputs } from '@Style/Elements/InputStyles'
+import { InputStyle } from '@Style/Elements/InputStyles'
+
+const { DatePicker: Input } = InputStyle
 
 const CustomInput = (
     {
@@ -14,14 +16,7 @@ const CustomInput = (
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
     ref: any
-) => (
-    <Inputs.DatePicker
-        ref={ref}
-        onFocus={onFocus}
-        value={value}
-        onChange={onChange}
-    />
-)
+) => <Input ref={ref} onFocus={onFocus} value={value} onChange={onChange} />
 
 export default function DatepickerInput() {
     const [startDate, setStartDate] = useState(new Date())
