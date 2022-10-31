@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
-import { DefaultCheckBox } from '@Element/Inputs'
+import { DefaultCheckBox } from '@Elements'
 
 const {
     Table,

@@ -18,7 +18,7 @@ const CustomInput = (
     ref: any
 ) => <Input ref={ref} onFocus={onFocus} value={value} onChange={onChange} />
 
-export default function DatepickerInput() {
+export default function Datepicker() {
     const [startDate, setStartDate] = useState(new Date())
 
     return (

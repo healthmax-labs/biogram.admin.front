@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { HeaderStats, Sidebar, Topbar } from '@Element/Layouts/Manage'
+import { ManageHeaderStats, ManageSidebar, ManageTopbar } from '@Elements'
 import { LayoutStyle } from '@Style/Layouts/Manage/MainStyles'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
@@ -12,9 +12,9 @@ export default function ManageLayoutComponent() {
     return (
         <>
             <Container MenuState={leftMenuShow}>
-                <Sidebar />
-                <Topbar />
-                <HeaderStats />
+                <ManageSidebar />
+                <ManageTopbar />
+                <ManageHeaderStats />
                 <CenterWapper>
                     <Outlet />
                 </CenterWapper>

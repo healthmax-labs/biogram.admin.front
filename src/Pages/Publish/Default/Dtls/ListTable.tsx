@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { INSTDEPT_LIST } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
-import { DefaultManageButton } from '@Element/Buttons'
-import { DefaultCheckBox } from '@Element/Inputs'
+import { DefaultCheckBox, DefaultManageButton } from '@Elements'
 
 const {
     Tbody,

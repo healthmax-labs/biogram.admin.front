@@ -4,7 +4,7 @@ const {
     Hamburger: { Box, Item },
 } = ButtonStyle
 
-export default function HamburgerButton({
+export default function Hamburger({
     ButtonClick,
 }: {
     ButtonClick: () => void

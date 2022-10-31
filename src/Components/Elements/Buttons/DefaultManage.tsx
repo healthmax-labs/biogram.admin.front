@@ -3,7 +3,7 @@ import { ButtonStyle } from '@Style/Elements/ButtonStyle'
 
 const { Manage } = ButtonStyle
 
-export default function DefaultManageButton({
+export default function DefaultManage({
     ButtonClick,
     ButtonName,
 }: {
