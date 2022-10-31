@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchSelect } from '@Element/Selects'
+import { SearchSelect } from '@Elements'
 
 export default function PstinstSelector() {
     return (

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/PublishPageStyle'
-import { DefaultManageButton } from '@Element/Buttons'
-import { AlertModal, ConfimModal, PhoneAuthModal } from '@Element/Modals'
+import {
+    AlertModal,
+    ConfimModal,
+    DefaultManageButton,
+    PhoneAuthModal,
+} from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 

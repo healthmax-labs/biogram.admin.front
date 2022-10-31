@@ -22,7 +22,7 @@ const InputButton = (
     </DatePickerButton>
 )
 
-export default function DatepickerButton() {
+export default function Datepicker() {
     const [startDate, setStartDate] = useState(new Date())
 
     return (
