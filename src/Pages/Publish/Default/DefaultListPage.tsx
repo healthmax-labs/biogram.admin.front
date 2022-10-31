@@ -8,7 +8,7 @@ export default function DefaultListPage() {
         <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>:: 바이오그램 어드민 :: {`회원 현황`}</title>
+                <title>:: 바이오그램 어드민 :: {`퍼블리싱 기본 리스트`}</title>
                 <link rel="canonical" href={`http://localhost`} />
             </Helmet>
             <Suspense>

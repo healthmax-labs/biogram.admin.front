@@ -2,6 +2,7 @@ import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/PublishPageStyle'
 import { DefaultSearchButton } from '@Element/Buttons'
 import { DatepickerInput } from '@Element/Inputs'
+import { PstinstSelector } from '@Element/Features'
 
 const {
     DatepickerLine,
@@ -12,7 +13,6 @@ const {
     LabelText,
     SearchButtonBox,
     Input,
-    Select,
     Wapper,
     Relative,
     Container,
@@ -29,12 +29,7 @@ export default function SearchBox() {
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
-                        <Select
-                            id="country"
-                            name="country"
-                            autoComplete="country">
-                            <option>소속 선택</option>
-                        </Select>
+                        <PstinstSelector />
                     </LabelItemBox>
                 </Item>
                 <Item></Item>
