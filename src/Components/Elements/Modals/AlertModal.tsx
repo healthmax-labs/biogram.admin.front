@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { AlertModelStyle } from '@Style/Elements/ModalStyles'
+import { ModalStyle, AlertModelStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -8,10 +8,11 @@ const {
     Wapper,
     MainBox,
     CenterBox,
-    Center: { TitleText },
     ButtonBox,
     Button,
-} = AlertModelStyle
+} = ModalStyle
+
+const { TitleText } = AlertModelStyle
 
 export default function PhoneAuthModal({
     modalTitle,

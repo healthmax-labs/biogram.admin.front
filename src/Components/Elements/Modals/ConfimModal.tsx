@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ModalStyle } from '@Style/Elements/ModalStyles'
+import { ModalStyle, ConfimModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -8,10 +8,12 @@ const {
     Wapper,
     MainBox,
     CenterBox,
-    Center: { CenterText },
     ButtonBox,
     Button,
 } = ModalStyle
+
+const { CenterText } = ConfimModalStyle
+
 export default function ConfimModal({
     title,
     showControl,

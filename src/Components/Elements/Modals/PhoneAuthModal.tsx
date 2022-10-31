@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { AuthModalStyle } from '@Style/Elements/ModalStyles'
+import { ModalStyle, AuthModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -8,17 +8,12 @@ const {
     Wapper,
     MainBox,
     CenterBox,
-    Center: {
-        CenterText,
-        AuthText,
-        AuthInput,
-        InputBox,
-        AuthSpan,
-        AuthErrorText,
-    },
     ButtonBox,
     Button,
-} = AuthModalStyle
+} = ModalStyle
+
+const { CenterText, AuthText, AuthInput, InputBox, AuthSpan, AuthErrorText } =
+    AuthModalStyle
 
 export default function PhoneAuthModal({
     phoneNumber,
