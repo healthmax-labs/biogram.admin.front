@@ -201,7 +201,7 @@ export default function Sidebar() {
                             </NavigationLi>
 
                             <NavigationLi>
-                                <MenuLink Active={false}>복양 통계</MenuLink>
+                                <MenuLink Active={false}>복약 통계</MenuLink>
                             </NavigationLi>
 
                             <NavigationLi>

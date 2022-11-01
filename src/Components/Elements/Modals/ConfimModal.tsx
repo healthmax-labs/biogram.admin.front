@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ModalStyle, ConfimModalStyle } from '@Style/Elements/ModalStyles'
+import { ConfimModalStyle, ModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -47,7 +47,7 @@ export default function ConfimModal({
                                     <ButtonBox>
                                         <Button
                                             onClick={() => cancleButtonClick()}>
-                                            최소
+                                            취소
                                         </Button>
                                         <Button
                                             onClick={() => applyButtonClick()}>
