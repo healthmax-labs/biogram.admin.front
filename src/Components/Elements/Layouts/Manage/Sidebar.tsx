@@ -240,7 +240,7 @@ export default function Sidebar() {
                                 <MenuLink Active={false}>게시판 관리</MenuLink>
                             </NavigationLi>
                         </NavigationUl>
-                        {process.env.NODE_ENV === 'development' && (
+                        {process.env.REACT_APP_ENV === 'development' && (
                             <>
                                 {/* Divider */}
                                 <Divider />
