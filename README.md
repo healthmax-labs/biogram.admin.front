@@ -2,8 +2,8 @@
 
 ## Biogram Admin Front-End Source.
 
-
 ## git clone
+
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
@@ -16,25 +16,30 @@ git clone https://gitlab.cady.kr/biogram/biogram.admin.front.git
 ```
 
 ## 로컬 개발 환경
+
 ```bash
 touch .env
 
-> REACT_APP_API_SERVER_URL=${서버 URL}
+> .env
+REACT_APP_ENV=development
+REACT_APP_API_SERVER_URL=${Server URL}
+
 
 yarn install || npm install
 yarn start || npm run start
 ```
 
-## vscode 에디터 extension (Eslint && prettier) 추가. 
+## vscode 에디터 extension (Eslint && prettier) 추가.
 
-[vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) vscode eslint extension 링크 클릭
+[vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) vscode eslint extension 링크
+클릭
 
-[prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) vscode prettier extension 링크 클릭
+[prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) vscode prettier extension
+링크 클릭
 
 ## git branch 전략
 
 > feature 브랜치 생성 후 develop 브랜치에 merge feature 브랜치 삭제.
-
 
 ## 개발 및 수정시 git feature branch 생성 및 삭제
 
@@ -62,9 +67,11 @@ git branch -d feature/member-list || git branch -D feature/member-list
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
