@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ModalStyle, AuthModalStyle } from '@Style/Elements/ModalStyles'
+import { AuthModalStyle, ModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -72,7 +72,7 @@ export default function PhoneAuthModal({
                                     <ButtonBox>
                                         <Button
                                             onClick={() => cancleButtonClick()}>
-                                            최소
+                                            취소
                                         </Button>
                                         <Button
                                             onClick={() => applyButtonClick()}>
