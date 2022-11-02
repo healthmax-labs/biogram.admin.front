@@ -8,7 +8,7 @@ export const LayoutStyle = {
             ? tw`relative ml-48 bg-white min-width[1650px]`
             : tw`relative bg-white min-width[1650px]`,
     ]),
-    CenterWapper: tw.div`pl-2 pr-2 mx-auto w-full -mt-44`,
+    CenterWapper: tw.div`pl-2 pr-2 mx-auto w-full`,
 }
 
 export const FooterStyle = {
@@ -28,7 +28,7 @@ export const FooterStyle = {
 }
 
 export const HeaderStatsStyle = {
-    Container: tw.div`relative pb-32 pt-12`,
+    Container: tw.div`relative pb-0 pt-0`,
     MainWapper: tw.div`px-4 md:px-10 mx-auto w-full`,
     Wapper: tw.div``,
     Cards: tw.div`flex flex-wrap`,
