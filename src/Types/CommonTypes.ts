@@ -1,6 +1,13 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
 export type defaultYesNo = 'Y' | 'N'
 
+export interface TabInterface {
+    active: boolean
+    name: string
+    pathname: string
+    component: string
+}
+
 export interface ServicesDefaultResult<T> {
     status: boolean
     message: string

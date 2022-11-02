@@ -2,31 +2,84 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@Styles": ["src/Styles"],
-      "@Style/*": ["src/Styles/*"],
-      "@Hook/*": ["src/Hooks/*"],
-      "@Hooks": ["src/Hooks"],
-      "@Components": ["src/Components"],
-      "@Component/*": ["src/Components/*"],
-      "@Elements": ["src/Components/Elements"],
-      "@Element/*": ["src/Components/Elements/*"],
-      "@Layouts": ["src/Components/Layouts"],
-      "@Pages": ["src/Pages"],
-      "@Page/*": ["src/Pages/*"],
-      "@Modules": ["src/Modules"],
-      "@Module/*": ["src/Modules/*"],
-      "@Recoils": ["src/Recoil"],
-      "@Recoil/*": ["src/Recoil/*"],
-      "@Utils": ["src/Utils"],
-      "@Util/*": ["src/Utils/*"],
-      "@Types": ["src/Types"],
-      "@Type/*": ["src/Types/*"],
-      "@Helper": ["src/Utils/Helper"],
-      "@API": ["src/Modules/API"],
-      "@Assets": ["src/Assets"],
-      "@Asset/*": ["src/Assets/*"],
-      "@Services": ["src/Services"],
-      "@Service/*": ["src/Services/*"]
+      "@Styles": [
+        "src/Styles"
+      ],
+      "@Style/*": [
+        "src/Styles/*"
+      ],
+      "@Hook/*": [
+        "src/Hooks/*"
+      ],
+      "@Hooks": [
+        "src/Hooks"
+      ],
+      "@Components": [
+        "src/Components"
+      ],
+      "@Component/*": [
+        "src/Components/*"
+      ],
+      "@Elements": [
+        "src/Components/Elements"
+      ],
+      "@Element/*": [
+        "src/Components/Elements/*"
+      ],
+      "@Layouts": [
+        "src/Components/Layouts"
+      ],
+      "@Pages": [
+        "src/Pages"
+      ],
+      "@Page/*": [
+        "src/Pages/*"
+      ],
+      "@Modules": [
+        "src/Modules"
+      ],
+      "@Module/*": [
+        "src/Modules/*"
+      ],
+      "@Recoils": [
+        "src/Recoil"
+      ],
+      "@Recoil/*": [
+        "src/Recoil/*"
+      ],
+      "@Utils": [
+        "src/Utils"
+      ],
+      "@Util/*": [
+        "src/Utils/*"
+      ],
+      "@Types": [
+        "src/Types"
+      ],
+      "@Type/*": [
+        "src/Types/*"
+      ],
+      "@Helper": [
+        "src/Utils/Helper"
+      ],
+      "@API": [
+        "src/Modules/API"
+      ],
+      "@Assets": [
+        "src/Assets"
+      ],
+      "@Asset/*": [
+        "src/Assets/*"
+      ],
+      "@Services": [
+        "src/Services"
+      ],
+      "@Service/*": [
+        "src/Services/*"
+      ],
+      "@Const": [
+        "src/Commons/Const"
+      ]
     }
   }
 }

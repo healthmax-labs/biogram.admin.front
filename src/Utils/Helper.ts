@@ -1,3 +1,5 @@
+import Const from '@Const'
+
 /**
  * 개발 디버그.
  * @param e
@@ -116,4 +118,18 @@ export function getRefreshToken(): string {
 export function removeLoginToken(): void {
     storageManager.remove('TOKEN_INFO')
     storageManager.remove('VTOKEN_INFO')
+}
+
+/**
+ * router pathname 으로 메뉴 이름 리턴
+ * @param pathName
+ */
+export function getPathNameToMenuInfo(pathName: string): string {
+    const MenuList = Const.Menus
+    const chIdex = MenuList.findIndex(el => el.pathName === pathName)
+    if (chIdex === -1) {
+        return ''
+    }
+    const findMenu = MenuList[chIdex]
+    return findMenu.name
 }
