@@ -245,10 +245,10 @@ export const getPathNameToMenuInfo = (pathName: string): string => {
 /**
  * 60분 추가 시간 timestamp
  */
-export const add60Minutes = (): number => {
+export const add60Minutes = (time: number): number => {
     const d1 = new Date(),
         d2 = new Date(d1)
-    d2.setMinutes(d1.getMinutes() + 60)
+    d2.setMinutes(d1.getMinutes() + time)
     return d2.getTime()
 }
 

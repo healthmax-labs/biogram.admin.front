@@ -40,7 +40,9 @@ export default function useAuth() {
         })
 
         if (response.status) {
-            const LoginExpireInTime = add60Minutes()
+            const LoginExpireInTime = add60Minutes(
+                Number(process.env.REACT_APP_LOGIN_EXPIRE_IN)
+            )
 
             saveLoginToken({
                 TOKEN_INFO: response.payload.TOKEN_INFO,
@@ -58,6 +60,13 @@ export default function useAuth() {
                     AUTHORIZE_CODE: null,
                 },
                 login: true,
+                userinfo: {
+                    USID: response.payload.CHARGER_LOGIN_INFO.USID,
+                    NM: response.payload.CHARGER_LOGIN_INFO.NM,
+                    MBER_NO: response.payload.CHARGER_LOGIN_INFO.MBER_NO,
+                    AUTH_CODE: response.payload.CHARGER_LOGIN_INFO.AUTH_CODE,
+                    INST_NM: response.payload.CHARGER_LOGIN_INFO.INST_NM,
+                },
             }))
 
             // 아이디 저장.

@@ -93,4 +93,11 @@ export interface AppRootStateInterface {
     Geolocation: GeolocationDbInterface
     ConHistory: ConHistoryInterface[]
     logininfo: LoginTokenInterface
+    userinfo: {
+        USID: string
+        NM: string
+        MBER_NO: number
+        AUTH_CODE: string
+        INST_NM: string
+    }
 }
