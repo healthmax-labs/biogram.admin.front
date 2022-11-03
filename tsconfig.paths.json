@@ -79,6 +79,9 @@
       ],
       "@Const": [
         "src/Commons/Const"
+      ],
+      "@CommonTypes": [
+        "src/Types/CommonTypes"
       ]
     }
   }

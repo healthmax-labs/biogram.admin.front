@@ -1,10 +1,10 @@
 import axios, {
+    AxiosError,
     AxiosInstance,
     AxiosRequestConfig,
     AxiosResponse,
-    AxiosError,
 } from 'axios'
-import { LocalTokenInterface } from '@Type/CommonTypes'
+import { LoginTokenInterface } from '@Type/CommonTypes'
 import * as Helper from '@Helper'
 import * as _ from 'lodash'
 
@@ -20,13 +20,15 @@ const apiBaseURLL: string | undefined = _.isUndefined(
     ? 'http://localhost'
     : process.env.REACT_APP_API_SERVER_URL
 
-const setTokenData = ({
+const setRefreshTokenData = ({
     TOKEN_INFO,
-    VTOKEN_INFO,
-}: LocalTokenInterface): void => {
+    TOKEN_LIMIT_TIME,
+    AUTHORIZE_CODE,
+}: LoginTokenInterface): void => {
     Helper.saveRefreshToken({
         TOKEN_INFO,
-        VTOKEN_INFO,
+        TOKEN_LIMIT_TIME,
+        AUTHORIZE_CODE,
     })
 }
 
@@ -34,29 +36,32 @@ const setTokenData = ({
  * refresh Token.
  * 토큰 리프레쉬
  */
-const handleTokenRefresh = (): Promise<LocalTokenInterface> => {
+const handleTokenRefresh = (): Promise<LoginTokenInterface> => {
     Helper.COLORLOG('warning', ':: Try Token Refresh :: ')
     const axiosDefaultHeader: AxiosRequestConfig = {
         baseURL: apiBaseURLL,
         timeout: 20000,
         headers: {
-            Authorization: '',
+            Authorization: Helper.getAccessToken()
+                ? Helper.getAccessToken()
+                : '',
         },
     }
 
-    const refreshToken = Helper.getRefreshToken()
     return new Promise((resolve, reject) => {
         const _thisAxios_: AxiosInstance = axios.create(axiosDefaultHeader)
         _thisAxios_
-            .post<LocalTokenInterface>(
-                `${apiBaseURLL}/api/v1/auth/token-refresh`,
-                { refresh_token: refreshToken }
+            .post<LoginTokenInterface>(
+                `${apiBaseURLL}/mber/v1/token/validate`,
+                {}
             )
             .then(({ data }) => {
                 Helper.COLORLOG('success', ':: Success Token Refresh :: ')
                 resolve({
                     TOKEN_INFO: data.TOKEN_INFO,
-                    VTOKEN_INFO: data.VTOKEN_INFO,
+                    VTOKEN_INFO: Helper.getVtokenInfoToken(),
+                    TOKEN_LIMIT_TIME: data.TOKEN_LIMIT_TIME,
+                    AUTHORIZE_CODE: data.AUTHORIZE_CODE,
                 })
             })
             .catch(() => {
@@ -97,7 +102,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
 
     const options = {
         attachTokenToRequest,
-        setTokenData,
+        setRefreshTokenData,
         handleTokenRefresh,
         shouldIntercept,
     }
@@ -132,38 +137,29 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         if (!options.shouldIntercept(error)) {
             if (status === 503) {
                 // 서버 에러
-                Helper.COLORLOG(
-                    'error',
-                    error.response.data.error.error_message
-                )
+                Helper.COLORLOG('error', error.response.data.msg)
                 return Promise.resolve({
                     status: false,
-                    message: error.response?.data.error.error_message,
+                    message: error.response?.data.msg,
                 })
             } else if (status === 412) {
                 // 헤더 체크 에러.
-                Helper.COLORLOG(
-                    error.response.data.error.error_message,
-                    'error'
-                )
+                Helper.COLORLOG(error.response.data.msg, 'error')
                 return Promise.resolve({
                     status: false,
-                    message: error.response?.data.error.error_message,
+                    message: error.response?.data.msg,
                 })
             } else if (status === 429) {
                 // 너무 많은 요청 일때.
-                Helper.COLORLOG(
-                    error.response.data.error.error_message,
-                    'error'
-                )
+                Helper.COLORLOG(error.response.data.msg, 'error')
                 return Promise.resolve({
                     status: false,
-                    message: error.response?.data.error.error_message,
+                    message: error.response?.data.msg,
                 })
             } else {
                 return Promise.resolve({
                     status: false,
-                    message: error.response?.data.error.error_message,
+                    message: error.response?.data.msg,
                 })
             }
         }
@@ -199,7 +195,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                 options.handleTokenRefresh
                     .call(options.handleTokenRefresh)
                     .then((tokenData: any) => {
-                        options.setTokenData(tokenData)
+                        options.setRefreshTokenData(tokenData)
                         options.attachTokenToRequest(
                             originalRequest,
                             tokenData.TOKEN_INFO
@@ -217,6 +213,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                             'error',
                             '로그인 유지 시간이 만료되었습니다.'
                         )
+                        window.location.href = '/auth/login'
                     })
                     .finally(() => {
                         isRefreshing = false
@@ -225,7 +222,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         } else if (status === 401) {
             return Promise.resolve({
                 status: false,
-                message: error.response?.data.error.error_message,
+                message: error.response?.data.msg,
             })
         }
     }
