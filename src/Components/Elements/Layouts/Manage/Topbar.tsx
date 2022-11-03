@@ -1,12 +1,14 @@
 import { TopbarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
 import { HamburgerButton } from '@Component/Elements'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import { AtomRootState } from '@Recoil/AppRootState'
 import { useEffect, useState } from 'react'
 import { checkRemainingTime, getRemainingTime } from '@Helper'
 import { useAuth } from '@Hooks'
 import { useNavigate } from 'react-router-dom'
+import { isEmpty } from 'lodash'
 
 const {
     Container,
@@ -24,7 +26,19 @@ export default function Topbar() {
     const navigate = useNavigate()
     const { handleAttemptLogout } = useAuth()
     const setLeftMenuShow = useSetRecoilState(AtomMainLayoutState)
+    const atomRootState = useRecoilValue(AtomRootState)
     const [remainingTime, setRemainingTime] = useState<string>(`00:00`)
+    const [pageState, setPageState] = useState<{
+        user: {
+            inst_nm: string
+            nm: string
+        }
+    }>({
+        user: {
+            inst_nm: '',
+            nm: '',
+        },
+    })
 
     const handleShowLeftMenu = () => {
         setLeftMenuShow(prev => ({
@@ -49,6 +63,25 @@ export default function Topbar() {
     }
 
     useEffect(() => {
+        const funcSetUserName = () => {
+            setPageState(prevState => ({
+                ...prevState,
+                user: {
+                    ...prevState.user,
+                    inst_nm: !isEmpty(atomRootState.userinfo.INST_NM)
+                        ? atomRootState.userinfo.INST_NM
+                        : '',
+                    nm: !isEmpty(atomRootState.userinfo.NM)
+                        ? atomRootState.userinfo.NM
+                        : '',
+                },
+            }))
+        }
+
+        funcSetUserName()
+    }, [atomRootState])
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             // 시간이 남아 있는지 체크.
             if (!checkRemainingTime()) {
@@ -64,7 +97,7 @@ export default function Topbar() {
         }, 1000)
 
         return () => clearTimeout(timer)
-    }, [remainingTime])
+    }, [remainingTime, handleLogout, getRemainingTime, setRemainingTime])
 
     return (
         <>
@@ -77,8 +110,8 @@ export default function Topbar() {
                         />
                     </Left>
                     <Right>
-                        <Belong>양평보건소</Belong>
-                        <Name>마스터님</Name>
+                        <Belong>{`${pageState.user.inst_nm}`}</Belong>
+                        <Name>{`${pageState.user.nm}`}님</Name>
                         <Status>{`${remainingTime}`} 후 자동 로그아웃</Status>
                         <Logout>
                             <LogoutIcon

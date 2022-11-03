@@ -24,6 +24,13 @@ export const AtomRootState = atom<AppRootStateInterface>({
             TOKEN_LIMIT_TIME: 0,
             AUTHORIZE_CODE: null,
         },
+        userinfo: {
+            USID: '',
+            NM: '',
+            MBER_NO: 0,
+            AUTH_CODE: '',
+            INST_NM: '',
+        },
     },
 })
 
