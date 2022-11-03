@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { getList } from '@Service/InstdeptService'
-import { INSTDEPT_LIST } from '@Type/CommonTypes'
+import { InstdeptListInterface } from '@Type/CommonTypes'
 import {
     Table,
+    TableTbody,
+    TableTbodyTh,
+    TableTbodyTr,
+    TableTh,
     TableThead,
     TableTr,
-    TableTh,
-    TableTbody,
-    TableTbodyTr,
-    TableTbodyTh,
 } from '@Style/Pages/BelongMain'
 
 export default function BelongListTable() {
-    const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
+    const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
         const response = await getList({
@@ -45,7 +45,7 @@ export default function BelongListTable() {
                 </TableTr>
             </TableThead>
             <TableTbody>
-                {resList.map((el: INSTDEPT_LIST, index) => {
+                {resList.map((el: InstdeptListInterface, index) => {
                     return (
                         <TableTbodyTr key={index}>
                             <TableTbodyTh>{el.MBER_NO}</TableTbodyTh>

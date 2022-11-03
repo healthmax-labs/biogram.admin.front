@@ -1,6 +1,7 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
 export type defaultYesNo = 'Y' | 'N'
 
+// page tab
 export interface TabInterface {
     active: boolean
     name: string
@@ -8,18 +9,29 @@ export interface TabInterface {
     component: string
 }
 
+// 서버 결과.
 export interface ServicesDefaultResult<T> {
     status: boolean
     message: string
     payload: T
 }
 
-export interface LocalTokenInterface {
+// 로그인 토큰정보
+export interface LoginTokenInterface {
     TOKEN_INFO: string
     VTOKEN_INFO: string
+    TOKEN_LIMIT_TIME: number
+    AUTHORIZE_CODE: string | null
 }
 
-export interface INSTDEPT_LIST {
+export interface ConHistoryInterface {
+    CONECT_MTH: string
+    CONECT_DT: string
+    UHEALTH_ZONE_NO: number
+    NM: string
+}
+
+export interface InstdeptListInterface {
     BRTHDY: string
     CONFM_AT: string
     CONFM_DE: string
@@ -33,4 +45,52 @@ export interface INSTDEPT_LIST {
     NO: string
     SEXDSTN: string
     STAT: string
+}
+
+export interface GeolocationDbInterface {
+    IPv4: string
+    city: string
+    country_code: string
+    country_name: string
+    latitude: number
+    longitude: number
+    postal: boolean
+    state: string
+}
+
+export interface LoginInfoInterface {
+    INST_NM: string
+    AUTH_CODE: string
+    CONECT_LMTT_AT: string
+    IM_AUTH_CNT: number
+    AUTH_INST_LIST: boolean
+    MBER_NO: number
+    SM_AUTH_CNT: number
+    IM_INST_NO: string
+    CONECT_IP: string
+    TOP_INST_NO: string
+    NCM: string
+    MBTLNUM: string
+    SM_INST_NO: string
+    MIDDLE_INST_NO: string
+    MS_AUTH_CNT: number
+    USID: string
+    NM: string
+}
+
+export interface LoginInterface {
+    TOKEN_INFO: string
+    TOKEN_LIMIT_TIME: number
+    VTOKEN_INFO: string
+    CHARGER_LOGIN_INFO: LoginInfoInterface
+    VTOKEN_LIMIT: number
+}
+
+export interface AppRootStateInterface {
+    init: boolean
+    uuid: string
+    login: boolean
+    Geolocation: GeolocationDbInterface
+    ConHistory: ConHistoryInterface[]
+    logininfo: LoginTokenInterface
 }

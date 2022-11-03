@@ -45,7 +45,7 @@ export const SidebarStyle = {
     TogglerButton: tw.button`cursor-pointer rounded border border-solid border-transparent bg-transparent px-3 py-1 text-xl leading-none text-black opacity-50 md:hidden`,
     Logo: tw.img``,
     Collapse: {
-        Container: tw.div`top-0 left-0 right-0 z-40 h-auto flex-1  overflow-y-auto overflow-x-hidden rounded relative mt-4 flex flex-col items-stretch opacity-100 shadow-none bg-white`,
+        Container: tw.div`top-0 left-0 right-0 z-40 h-auto flex-1 overflow-y-auto overflow-x-hidden rounded relative mt-4 flex flex-col items-stretch opacity-100 shadow-none bg-white`,
         Header: tw.div`bg-white mb-4 block border-b border-solid pb-4 md:hidden md:min-w-full`,
         Wapper: tw.div`flex flex-wrap`,
         Title: {
@@ -74,5 +74,5 @@ export const TopbarStyle = {
     Name: tw.div`items-center flex ml-2 text-lg`,
     Status: tw.div`items-center flex ml-2 text-xs`,
     Logout: tw.div`items-center flex ml-2`,
-    LogoutIcon: tw.img`items-center flex pb-0.5 w-4`,
+    LogoutIcon: tw.img`cursor-pointer items-center flex pb-0.5 w-4`,
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getList } from '@Service/InstdeptService'
-import { INSTDEPT_LIST } from '@Type/CommonTypes'
+import { InstdeptListInterface } from '@CommonTypes'
 
 export default function BelongListPublish() {
-    const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
+    const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
         const response = await getList({
@@ -104,7 +104,7 @@ export default function BelongListPublish() {
                             </tr>
                         </thead>
                         <tbody>
-                            {resList.map((el: INSTDEPT_LIST, index) => {
+                            {resList.map((el: InstdeptListInterface, index) => {
                                 return (
                                     <tr key={index}>
                                         <th className="px-6 align-middle py-3 text-xs border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">

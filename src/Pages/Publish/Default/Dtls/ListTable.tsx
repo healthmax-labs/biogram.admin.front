@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
-import { INSTDEPT_LIST } from '@Type/CommonTypes'
+import { InstdeptListInterface } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
 import { DefaultCheckBox, DefaultManageButton } from '@Elements'
 
@@ -17,7 +17,7 @@ const {
 } = ListTableStyle
 
 export default function ListTable() {
-    const [resList, setResList] = useState<INSTDEPT_LIST[]>([])
+    const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
         const response = await getList({
@@ -53,7 +53,7 @@ export default function ListTable() {
                 </TheadTr>
             </Thead>
             <Tbody>
-                {resList.map((el: INSTDEPT_LIST, index) => {
+                {resList.map((el: InstdeptListInterface, index) => {
                     return (
                         <TbodyTr key={index} BgState={index % 2 === 0}>
                             <TbodyTdCheckbox>
