@@ -8,7 +8,7 @@ export const LoginPageStyle = {
         },
         tw`relative flex min-h-screen flex-col justify-center overflow-hidden w-full h-screen bg-cover`,
     ]),
-    Wapper: tw.section`m-auto w-full rounded border-t border-blue-600 bg-white p-6 shadow-lg lg:max-w-md`,
+    Wapper: tw.section`m-auto w-full rounded border-t border-blue-600 bg-white p-6 shadow-lg max-w-md`,
     LogoBox: tw.div`grid place-items-center`,
     FormBox: tw.div`mt-6`,
     FormRow: tw.div`mt-4`,
