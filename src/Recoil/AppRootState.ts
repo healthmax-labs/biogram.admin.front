@@ -19,17 +19,17 @@ export const AtomRootState = atom<AppRootStateInterface>({
         },
         ConHistory: [],
         logininfo: {
-            TOKEN_INFO: ``,
-            VTOKEN_INFO: ``,
+            TOKEN_INFO: null,
+            VTOKEN_INFO: null,
             TOKEN_LIMIT_TIME: 0,
             AUTHORIZE_CODE: null,
         },
         userinfo: {
-            USID: '',
-            NM: '',
+            USID: null,
+            NM: null,
             MBER_NO: 0,
-            AUTH_CODE: '',
-            INST_NM: '',
+            AUTH_CODE: null,
+            INST_NM: null,
         },
     },
 })

@@ -30,8 +30,8 @@ export default function Topbar() {
     const [remainingTime, setRemainingTime] = useState<string>(`00:00`)
     const [pageState, setPageState] = useState<{
         user: {
-            inst_nm: string
-            nm: string
+            inst_nm: string | null
+            nm: string | null
         }
     }>({
         user: {
@@ -68,12 +68,12 @@ export default function Topbar() {
                 ...prevState,
                 user: {
                     ...prevState.user,
-                    inst_nm: !isEmpty(atomRootState.userinfo.INST_NM)
-                        ? atomRootState.userinfo.INST_NM
-                        : '',
-                    nm: !isEmpty(atomRootState.userinfo.NM)
-                        ? atomRootState.userinfo.NM
-                        : '',
+                    inst_nm: isEmpty(atomRootState.userinfo.INST_NM)
+                        ? null
+                        : atomRootState.userinfo.INST_NM,
+                    nm: isEmpty(atomRootState.userinfo.NM)
+                        ? null
+                        : atomRootState.userinfo.NM,
                 },
             }))
         }
@@ -110,8 +110,12 @@ export default function Topbar() {
                         />
                     </Left>
                     <Right>
-                        <Belong>{`${pageState.user.inst_nm}`}</Belong>
-                        <Name>{`${pageState.user.nm}`}님</Name>
+                        <Belong>{`${
+                            pageState.user.inst_nm ? pageState.user.inst_nm : ''
+                        }`}</Belong>
+                        <Name>
+                            {`${pageState.user.nm ? pageState.user.nm : ''}`}님
+                        </Name>
                         <Status>{`${remainingTime}`} 후 자동 로그아웃</Status>
                         <Logout>
                             <LogoutIcon

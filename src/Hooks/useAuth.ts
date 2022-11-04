@@ -44,28 +44,41 @@ export default function useAuth() {
                 Number(process.env.REACT_APP_LOGIN_EXPIRE_IN)
             )
 
+            // TODO : 메뉴 불러오기.
+
+            const {
+                TOKEN_INFO,
+                VTOKEN_INFO,
+                TOKEN_LIMIT_TIME,
+                CHARGER_LOGIN_INFO: { USID, NM, MBER_NO, AUTH_CODE, INST_NM },
+            } = response.payload
+
             saveLoginToken({
-                TOKEN_INFO: response.payload.TOKEN_INFO,
-                VTOKEN_INFO: response.payload.VTOKEN_INFO,
-                TOKEN_LIMIT_TIME: response.payload.TOKEN_LIMIT_TIME,
+                TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
+                VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
+                TOKEN_LIMIT_TIME: !isEmpty(TOKEN_LIMIT_TIME)
+                    ? TOKEN_LIMIT_TIME
+                    : 0,
                 AUTHORIZE_CODE: null,
             })
 
             setAppRootState(prevState => ({
                 ...prevState,
                 logininfo: {
-                    TOKEN_INFO: response.payload.TOKEN_INFO,
-                    VTOKEN_INFO: response.payload.VTOKEN_INFO,
-                    TOKEN_LIMIT_TIME: response.payload.TOKEN_LIMIT_TIME,
+                    TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
+                    VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
+                    TOKEN_LIMIT_TIME: !isEmpty(TOKEN_LIMIT_TIME)
+                        ? TOKEN_LIMIT_TIME
+                        : 0,
                     AUTHORIZE_CODE: null,
                 },
                 login: true,
                 userinfo: {
-                    USID: response.payload.CHARGER_LOGIN_INFO.USID,
-                    NM: response.payload.CHARGER_LOGIN_INFO.NM,
-                    MBER_NO: response.payload.CHARGER_LOGIN_INFO.MBER_NO,
-                    AUTH_CODE: response.payload.CHARGER_LOGIN_INFO.AUTH_CODE,
-                    INST_NM: response.payload.CHARGER_LOGIN_INFO.INST_NM,
+                    USID: !isEmpty(USID) ? USID : null,
+                    NM: !isEmpty(NM) ? NM : null,
+                    MBER_NO: !isEmpty(MBER_NO) ? MBER_NO : null,
+                    AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
+                    INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
                 },
             }))
 
@@ -94,9 +107,27 @@ export default function useAuth() {
 
     // 로그아웃 처리.
     const handleAttemptLogout = async (): Promise<{ status: boolean }> => {
-        //
         await removeLoginToken()
         await removeLoginExpirein()
+
+        setAppRootState(prevState => ({
+            ...prevState,
+            login: false,
+            logininfo: {
+                TOKEN_INFO: null,
+                VTOKEN_INFO: null,
+                TOKEN_LIMIT_TIME: 0,
+                AUTHORIZE_CODE: null,
+            },
+            userinfo: {
+                USID: null,
+                NM: null,
+                MBER_NO: null,
+                AUTH_CODE: null,
+                INST_NM: null,
+            },
+        }))
+
         return {
             status: true,
         }
