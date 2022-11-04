@@ -25,3 +25,5 @@ export { default as ManageHeaderStats } from './Layouts/Manage/HeaderStats'
 export { default as ManageFooter } from './Layouts/Manage/Footer'
 
 export { default as MainTabComponent } from './Layouts/MainTabComponent'
+
+export { default as MainTable } from './Tables/MainTable'
