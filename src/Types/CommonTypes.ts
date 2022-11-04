@@ -18,9 +18,9 @@ export interface ServicesDefaultResult<T> {
 
 // 로그인 토큰정보
 export interface LoginTokenInterface {
-    TOKEN_INFO: string
-    VTOKEN_INFO: string
-    TOKEN_LIMIT_TIME: number
+    TOKEN_INFO: string | null
+    VTOKEN_INFO: string | null
+    TOKEN_LIMIT_TIME: number | 0
     AUTHORIZE_CODE: string | null
 }
 
@@ -79,11 +79,11 @@ export interface LoginInfoInterface {
 }
 
 export interface LoginInterface {
-    TOKEN_INFO: string
-    TOKEN_LIMIT_TIME: number
-    VTOKEN_INFO: string
+    TOKEN_INFO: string | null
+    TOKEN_LIMIT_TIME: number | 0
+    VTOKEN_INFO: string | null
     CHARGER_LOGIN_INFO: LoginInfoInterface
-    VTOKEN_LIMIT: number
+    VTOKEN_LIMIT: number | null
 }
 
 export interface AppRootStateInterface {
@@ -94,10 +94,10 @@ export interface AppRootStateInterface {
     ConHistory: ConHistoryInterface[]
     logininfo: LoginTokenInterface
     userinfo: {
-        USID: string
-        NM: string
-        MBER_NO: number
-        AUTH_CODE: string
-        INST_NM: string
+        USID: string | null
+        NM: string | null
+        MBER_NO: number | null
+        AUTH_CODE: string | null
+        INST_NM: string | null
     }
 }

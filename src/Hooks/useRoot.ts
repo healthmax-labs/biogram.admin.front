@@ -45,9 +45,10 @@ export default function useRoot() {
 
             // 로그인 체크.
             const tokenInfo = getTokenInfo()
-            // 토큰이 있을때 토큰 정보 체크.
 
-            // 메뉴 가지고 오기
+            // TODO : 토큰이 있을때 토큰 정보 체크.
+
+            // TODO : 메뉴 불러오기.
 
             setAppRootState(prevState => ({
                 ...prevState,
@@ -75,7 +76,7 @@ export default function useRoot() {
     // 서버 체크 에러 났을때.
     useEffect(() => {
         if (ServerFailState) {
-            // TODO : 서버 체크후 이전 로그인 어떻게 할것 인지?
+            // TODO : 서버 에러 났을때. 처리?
         }
     }, [ServerFailState])
 

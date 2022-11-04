@@ -174,8 +174,8 @@ export const saveRefreshToken = ({
     TOKEN_LIMIT_TIME,
     AUTHORIZE_CODE,
 }: {
-    TOKEN_INFO: string
-    TOKEN_LIMIT_TIME: number
+    TOKEN_INFO: string | null
+    TOKEN_LIMIT_TIME: number | 0
     AUTHORIZE_CODE: string | null
 }): void => {
     storageMaster.set('TOKEN_INFO', TOKEN_INFO)
