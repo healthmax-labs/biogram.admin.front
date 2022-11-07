@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { MenuLogo } from '@Assets'
 import { SidebarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AtomRootState } from '@Recoil/AppRootState'
-import { MenuInfoItemInterface } from '@CommonTypes'
 
 const {
     Nav,
@@ -27,37 +26,9 @@ export default function Sidebar() {
         menuInfo: { AUTHOR_MENU_INFO_LIST },
     } = useRecoilValue(AtomRootState)
 
-    const [pageState, setPageState] = useState<{
-        Menus: {
-            main: MenuInfoItemInterface[]
-            sub: MenuInfoItemInterface[]
-        }
-    }>({
-        Menus: {
-            main: [],
-            sub: [],
-        },
-    })
-
     useEffect(() => {
-        const funcSetMenus = () => {
-            setPageState(prevState => ({
-                ...prevState,
-                Menus: {
-                    main: AUTHOR_MENU_INFO_LIST.filter(e => e.SORT_ORDR === 1),
-                    sub: AUTHOR_MENU_INFO_LIST.filter(e => e.SORT_ORDR !== 1),
-                },
-            }))
-        }
-
-        if (AUTHOR_MENU_INFO_LIST.length > 0) {
-            funcSetMenus()
-        }
+        console.debug(AUTHOR_MENU_INFO_LIST)
     }, [AUTHOR_MENU_INFO_LIST])
-
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
     return (
         <>
             <Nav MenuState={leftMenuShowStatus.leftMenuShow}>
@@ -70,7 +41,50 @@ export default function Sidebar() {
                         {/* Heading */}
                         <MenuHeading>회원관리</MenuHeading>
                         {/* Navigation */}
+                        {/*네비게이션 처리.*/}
+                        {/*<ul className="flex list-none flex-col md:min-w-full md:flex-col">*/}
+                        {/*    <li className="items-center">*/}
+                        {/*        <Link*/}
+                        {/*            className={*/}
+                        {/*                'block py-3 text-xs font-bold uppercase ' +*/}
+                        {/*                (window.location.href.indexOf(*/}
+                        {/*                    '/admin/dashboard'*/}
+                        {/*                ) !== -1*/}
+                        {/*                    ? 'text-lightBlue-500 hover:text-lightBlue-600'*/}
+                        {/*                    : 'text-blueGray-700 hover:text-blueGray-500')*/}
+                        {/*            }*/}
+                        {/*            to="/admin/dashboard">*/}
+                        {/*            <i*/}
+                        {/*                className={*/}
+                        {/*                    'fas fa-tv mr-2 text-sm ' +*/}
+                        {/*                    (window.location.href.indexOf(*/}
+                        {/*                        '/admin/dashboard'*/}
+                        {/*                    ) !== -1*/}
+                        {/*                        ? 'opacity-75'*/}
+                        {/*                        : 'text-blueGray-300')*/}
+                        {/*                }></i>{' '}*/}
+                        {/*            회원현황*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*</ul>*/}
 
+                        {/* Navigation */}
+                        {/*<SidebarNavigationUl>*/}
+                        {/*    <SidebarNavigationLi>*/}
+                        {/*        <Link*/}
+                        {/*            className={*/}
+                        {/*                'block py-3 text-xs uppercase ' +*/}
+                        {/*                (window.location.href.indexOf(*/}
+                        {/*                    '/manage/member/member-list'*/}
+                        {/*                ) !== -1*/}
+                        {/*                    ? 'text-m-blue hover:text-m-blue'*/}
+                        {/*                    : 'text-blueGray-700 hover:text-blueGray-500')*/}
+                        {/*            }*/}
+                        {/*            to="/manage/member/member-list">*/}
+                        {/*            회원현황*/}
+                        {/*        </Link>*/}
+                        {/*    </SidebarNavigationLi>*/}
+                        {/*</SidebarNavigationUl>*/}
                         <NavigationUl>
                             <NavigationLi>
                                 <MenuLink

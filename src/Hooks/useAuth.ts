@@ -1,4 +1,4 @@
-import { login } from '@Service/AuthService'
+import { getAuthorMenu, login, logininfo } from '@Service/AuthService'
 import { useRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import {
@@ -11,6 +11,7 @@ import {
     storageMaster,
 } from '@Helper'
 import { isEmpty } from 'lodash'
+import { LoginInfoInterface } from '@CommonTypes'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -21,6 +22,35 @@ export default function useAuth() {
             !isEmpty(getAccessToken()) &&
             checkRemainingTime()
         )
+    }
+
+    const handleGetLoginInfo = async (): Promise<
+        LoginInfoInterface | false
+    > => {
+        const { status, payload } = await logininfo()
+        if (status) {
+            return payload.CHARGER_INFO
+        } else {
+            return false
+        }
+    }
+
+    const handleGetAuthorMenu = async ({
+        authCode,
+        menuCode,
+    }: {
+        authCode: string
+        menuCode: string
+    }) => {
+        const response = await getAuthorMenu({
+            authCode: authCode,
+            menuCode: menuCode,
+        })
+
+        setAppRootState(prevState => ({
+            ...prevState,
+            menuInfo: response.payload,
+        }))
     }
 
     // 로그인 시도.
@@ -44,14 +74,14 @@ export default function useAuth() {
                 Number(process.env.REACT_APP_LOGIN_EXPIRE_IN)
             )
 
-            // TODO : 메뉴 불러오기.
-
             const {
                 TOKEN_INFO,
                 VTOKEN_INFO,
                 TOKEN_LIMIT_TIME,
                 CHARGER_LOGIN_INFO: { USID, NM, MBER_NO, AUTH_CODE, INST_NM },
             } = response.payload
+
+            // TODO : 메뉴 불러오기.
 
             saveLoginToken({
                 TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
@@ -137,5 +167,7 @@ export default function useAuth() {
         handleAttemptLogin,
         handleAttemptLogout,
         handleLoginCheck,
+        handleGetLoginInfo,
+        handleGetAuthorMenu,
     }
 }
