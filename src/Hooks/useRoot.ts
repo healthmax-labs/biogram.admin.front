@@ -68,6 +68,7 @@ export default function useRoot() {
                 }
 
                 if (res) {
+                    // 메뉴 불러오기.
                     await handleGetAuthorMenu({
                         authCode: res.AUTH_CODE,
                         menuCode: process.env.REACT_APP_MENU_CODE
@@ -76,8 +77,6 @@ export default function useRoot() {
                     })
                 }
             }
-
-            // TODO : 메뉴 불러오기.
 
             setAppRootState(prevState => ({
                 ...prevState,

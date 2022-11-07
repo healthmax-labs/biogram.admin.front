@@ -37,6 +37,7 @@ export default function useAuth() {
         }
     }, [])
 
+    // 로그인 메뉴 불러오기.
     const handleGetAuthorMenu = useCallback(
         async ({
             authCode,
@@ -115,6 +116,13 @@ export default function useAuth() {
                     ? TOKEN_LIMIT_TIME
                     : 0,
                 AUTHORIZE_CODE: null,
+            })
+
+            await handleGetAuthorMenu({
+                authCode: AUTH_CODE,
+                menuCode: process.env.REACT_APP_MENU_CODE
+                    ? process.env.REACT_APP_MENU_CODE
+                    : '',
             })
 
             setAppRootState(prevState => ({
