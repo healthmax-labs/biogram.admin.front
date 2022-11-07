@@ -4,7 +4,7 @@ import { HamburgerButton } from '@Component/Elements'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { AtomRootState } from '@Recoil/AppRootState'
-import { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { checkRemainingTime, getRemainingTime } from '@Helper'
 import { useAuth } from '@Hooks'
 import { useNavigate } from 'react-router-dom'
@@ -22,7 +22,7 @@ const {
     Belong,
 } = TopbarStyle
 
-export default function Topbar() {
+const Topbar = () => {
     const navigate = useNavigate()
     const { handleAttemptLogout } = useAuth()
     const setLeftMenuShow = useSetRecoilState(AtomMainLayoutState)
@@ -47,7 +47,7 @@ export default function Topbar() {
         }))
     }
 
-    const handleLogout = async () => {
+    const handleLogout = useCallback(async () => {
         const task = await handleAttemptLogout()
         if (task.status) {
             navigate({
@@ -56,7 +56,7 @@ export default function Topbar() {
         } else {
             //
         }
-    }
+    }, [handleAttemptLogout, navigate])
 
     const handleLogoutButtonClick = async () => {
         handleLogout().then()
@@ -97,7 +97,7 @@ export default function Topbar() {
         }, 1000)
 
         return () => clearTimeout(timer)
-    }, [remainingTime, handleLogout, getRemainingTime, setRemainingTime])
+    }, [handleLogout])
 
     return (
         <>
@@ -130,3 +130,5 @@ export default function Topbar() {
         </>
     )
 }
+
+export default React.memo(Topbar)

@@ -2,6 +2,7 @@ import { useRecoilState } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { TabInterface } from '@Type/CommonTypes'
 import { getPathNameToMenuInfo } from '@Helper'
 
 export default function useTab() {
@@ -25,20 +26,20 @@ export default function useTab() {
 
     // 라우터 변경시 텝 세팅
     useEffect(() => {
-        const funcSetTabState = () => {
+        const funcSetTabState = (thisLocationPathName: string) => {
             // 현재 있는 텝인지 체크.
-            const thisLocationPathName = locationState.pathname
             const chIdex = tabState.findIndex(
                 el => el.pathname === thisLocationPathName
             )
 
-            const newTabList = tabState.map(el => {
+            const newTabList: TabInterface[] = tabState.map(el => {
                 return {
                     ...el,
                     active: false,
                 }
             })
 
+            // 현재 있는 텝이면 활성화.
             if (chIdex > -1) {
                 setUseTabState(
                     newTabList.map((el, index) => {
@@ -56,9 +57,8 @@ export default function useTab() {
                 return false
             }
 
-            const menuName = getPathNameToMenuInfo(thisLocationPathName)
-
             // 현재 없는 텝이면 추가.
+            const menuName = getPathNameToMenuInfo(thisLocationPathName)
             setUseTabState([
                 ...newTabList,
                 {
@@ -70,11 +70,19 @@ export default function useTab() {
             ])
         }
 
-        funcSetTabState()
-    }, [locationState])
+        // 현재 활성화 되어 있는 템을 클릭 하면 그냥 리턴.
+        if (
+            tabState.findIndex(
+                el => el.pathname === locationState.pathname && el.active
+            ) > -1
+        ) {
+            return
+        }
+
+        funcSetTabState(locationState.pathname)
+    }, [locationState, setUseTabState, tabState])
 
     return {
-        tabState,
         setUseTabState,
         handleDeleteTab,
     }

@@ -233,13 +233,13 @@ export const removeLoginExpirein = (): void => {
  * @param pathName
  */
 export const getPathNameToMenuInfo = (pathName: string): string => {
-    const MenuList = Const.Menus
-    const chIdex = MenuList.findIndex(el => el.pathName === pathName)
+    const Routers = Const.Routers
+    const chIdex = Routers.findIndex(el => el.pathName === pathName)
     if (chIdex === -1) {
         return ''
     }
-    const findMenu = MenuList[chIdex]
-    return findMenu.name
+    const findRouter = Routers[chIdex]
+    return findRouter.name
 }
 
 /**

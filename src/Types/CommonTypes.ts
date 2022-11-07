@@ -47,6 +47,7 @@ export interface InstdeptListInterface {
     STAT: string
 }
 
+// ip 정보.
 export interface GeolocationDbInterface {
     IPv4: string
     city: string
@@ -58,6 +59,7 @@ export interface GeolocationDbInterface {
     state: string
 }
 
+// 로그인 사용자
 export interface LoginInfoInterface {
     INST_NM: string
     AUTH_CODE: string
@@ -78,6 +80,7 @@ export interface LoginInfoInterface {
     NM: string
 }
 
+// 로그인 결과.
 export interface LoginInterface {
     TOKEN_INFO: string | null
     TOKEN_LIMIT_TIME: number | 0
@@ -86,6 +89,38 @@ export interface LoginInterface {
     VTOKEN_LIMIT: number | null
 }
 
+// 메뉴아이템 인터페이스
+export interface AuthorMenuItemInterface {
+    SORT_ORDR: number
+    MENU_COURS: string
+    MENU_NM: string
+    MENU_CODE: string
+}
+
+// 메뉴 리스트 호출 결과 .
+export interface AuthorMenuInterface<T> {
+    CHARGER_MENU_INFO: {
+        AUTHOR_CODE: string | null
+        MENU_COURS: string | null
+        INST_NM: string | null
+        MENU_NM: string | null
+        MENU_CODE: string | null
+        AUTHOR_NM: string | null
+        NM: string | null
+    }
+    AUTHOR_MENU_INFO_LIST: T[]
+}
+
+export interface MenuItemInterface {
+    SORT_ORDR: number
+    MENU_COURS: string
+    MENU_NM: string
+    MENU_CODE: string
+    MENU_ORDR_GUBUN: number
+    pathName: string
+}
+
+// 공통 스테이트 인터페이스.
 export interface AppRootStateInterface {
     init: boolean
     uuid: string
@@ -100,4 +135,5 @@ export interface AppRootStateInterface {
         AUTH_CODE: string | null
         INST_NM: string | null
     }
+    menuInfo: AuthorMenuInterface<MenuItemInterface>
 }

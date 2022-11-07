@@ -3,12 +3,15 @@ import { useTab } from '@Hooks'
 import { TabInterface } from '@Type/CommonTypes'
 import { MainTabStyle } from '@Style/Layouts/TabStyles'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { AtomPageTabState } from '@Recoil/PageTabState'
 
 const { MainUl, MainLi, TabButton, CloseButton, ButtonWapper } = MainTabStyle
 
 export default function MainTabComponent() {
     const navigate = useNavigate()
-    const { tabState, handleDeleteTab } = useTab()
+    const tabState = useRecoilValue(AtomPageTabState)
+    const { handleDeleteTab } = useTab()
     const [showCloseButton, setShowCloseButton] = useState<boolean>(true)
     const [tabList, setTabList] = useState<TabInterface[]>([])
 

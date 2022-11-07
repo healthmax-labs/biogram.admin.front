@@ -5,9 +5,12 @@ import { useSetRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { v4 as uuid } from 'uuid'
 import { getGeolocation } from '@Service/EtcService'
+import { useAuth } from '@Hooks'
+import { isEmpty } from 'lodash'
 
 export default function useRoot() {
     const setAppRootState = useSetRecoilState(AtomRootState)
+    const { handleGetLoginInfo, handleGetAuthorMenu } = useAuth()
     const [AppBaseCheckState, setAppBaseCheckState] = useState<boolean>(false)
     const [ServerFailState, setServerFail] = useState<boolean>(false)
 
@@ -46,7 +49,33 @@ export default function useRoot() {
             // 로그인 체크.
             const tokenInfo = getTokenInfo()
 
-            // TODO : 토큰이 있을때 토큰 정보 체크.
+            // 토큰이 있을때 토큰 정보 체크.
+            let USID: null | string = null
+            let NM: null | string = null
+            let MBER_NO: null | number = null
+            let INST_NM: null | string = null
+            let AUTH_CODE: null | string = null
+
+            if (tokenInfo.TOKEN_INFO) {
+                const res = await handleGetLoginInfo()
+
+                if (res) {
+                    USID = res.USID
+                    NM = res.NM
+                    MBER_NO = res.MBER_NO
+                    INST_NM = res.INST_NM
+                    AUTH_CODE = res.AUTH_CODE
+                }
+
+                if (res) {
+                    await handleGetAuthorMenu({
+                        authCode: res.AUTH_CODE,
+                        menuCode: process.env.REACT_APP_MENU_CODE
+                            ? process.env.REACT_APP_MENU_CODE
+                            : '',
+                    })
+                }
+            }
 
             // TODO : 메뉴 불러오기.
 
@@ -63,6 +92,13 @@ export default function useRoot() {
                     TOKEN_LIMIT_TIME: tokenInfo.TOKEN_LIMIT_TIME,
                     AUTHORIZE_CODE: tokenInfo.AUTHORIZE_CODE,
                 },
+                userinfo: {
+                    USID: !isEmpty(USID) ? USID : null,
+                    NM: !isEmpty(NM) ? NM : null,
+                    MBER_NO: !isEmpty(MBER_NO) ? MBER_NO : null,
+                    AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
+                    INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
+                },
             }))
 
             COLORLOG('info', ':: App Init Finish :: ')
@@ -71,7 +107,7 @@ export default function useRoot() {
 
         COLORLOG('info', ':: App Init Start :: ')
         appStart().then()
-    }, [])
+    }, [handleGetAuthorMenu, handleGetLoginInfo, setAppRootState])
 
     // 서버 체크 에러 났을때.
     useEffect(() => {

@@ -1,4 +1,4 @@
-import { login } from '@Service/AuthService'
+import { getAuthorMenu, login, logininfo } from '@Service/AuthService'
 import { useRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import {
@@ -11,6 +11,9 @@ import {
     storageMaster,
 } from '@Helper'
 import { isEmpty } from 'lodash'
+import { LoginInfoInterface } from '@CommonTypes'
+import { useCallback } from 'react'
+import Const from '@Const'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -22,6 +25,58 @@ export default function useAuth() {
             checkRemainingTime()
         )
     }
+
+    const handleGetLoginInfo = useCallback(async (): Promise<
+        LoginInfoInterface | false
+    > => {
+        const { status, payload } = await logininfo()
+        if (status) {
+            return payload.CHARGER_INFO
+        } else {
+            return false
+        }
+    }, [])
+
+    const handleGetAuthorMenu = useCallback(
+        async ({
+            authCode,
+            menuCode,
+        }: {
+            authCode: string
+            menuCode: string
+        }) => {
+            const response = await getAuthorMenu({
+                authCode: authCode,
+                menuCode: menuCode,
+            })
+
+            const { AUTHOR_MENU_INFO_LIST, CHARGER_MENU_INFO } =
+                response.payload
+
+            setAppRootState(prevState => ({
+                ...prevState,
+
+                menuInfo: {
+                    CHARGER_MENU_INFO: CHARGER_MENU_INFO,
+                    AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
+                        const ckIndex = Const.Routers.findIndex(
+                            rt => rt.menuCode === el.MENU_CODE
+                        )
+
+                        return {
+                            ...el,
+                            pathName:
+                                ckIndex > -1
+                                    ? Const.Routers[ckIndex].pathName
+                                    : '',
+                            MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
+                        }
+                    }),
+                },
+            }))
+        },
+        [setAppRootState]
+    )
 
     // 로그인 시도.
     const handleAttemptLogin = async ({
@@ -44,14 +99,14 @@ export default function useAuth() {
                 Number(process.env.REACT_APP_LOGIN_EXPIRE_IN)
             )
 
-            // TODO : 메뉴 불러오기.
-
             const {
                 TOKEN_INFO,
                 VTOKEN_INFO,
                 TOKEN_LIMIT_TIME,
                 CHARGER_LOGIN_INFO: { USID, NM, MBER_NO, AUTH_CODE, INST_NM },
             } = response.payload
+
+            // TODO : 메뉴 불러오기.
 
             saveLoginToken({
                 TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
@@ -137,5 +192,7 @@ export default function useAuth() {
         handleAttemptLogin,
         handleAttemptLogout,
         handleLoginCheck,
+        handleGetLoginInfo,
+        handleGetAuthorMenu,
     }
 }

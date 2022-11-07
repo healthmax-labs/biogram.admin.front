@@ -31,6 +31,18 @@ export const AtomRootState = atom<AppRootStateInterface>({
             AUTH_CODE: null,
             INST_NM: null,
         },
+        menuInfo: {
+            CHARGER_MENU_INFO: {
+                AUTHOR_CODE: null,
+                MENU_COURS: null,
+                INST_NM: null,
+                MENU_NM: null,
+                MENU_CODE: null,
+                AUTHOR_NM: null,
+                NM: null,
+            },
+            AUTHOR_MENU_INFO_LIST: [],
+        },
     },
 })
 

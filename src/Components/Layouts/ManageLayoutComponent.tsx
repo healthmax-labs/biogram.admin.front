@@ -28,7 +28,7 @@ export default function ManageLayoutComponent() {
         }
 
         funcCheckLogin().then()
-    }, [])
+    }, [handleAttemptLogout, handleLoginCheck, navigate])
 
     return (
         <>
