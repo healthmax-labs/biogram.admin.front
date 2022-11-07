@@ -19,6 +19,6 @@ export default function LoginMain() {
         }
 
         funcCheckLogin().then()
-    }, [])
+    }, [handleLoginCheck, navigate])
     return <LoginForm />
 }

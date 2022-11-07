@@ -107,7 +107,7 @@ export default function useRoot() {
 
         COLORLOG('info', ':: App Init Start :: ')
         appStart().then()
-    }, [])
+    }, [handleGetAuthorMenu, handleGetLoginInfo, setAppRootState])
 
     // 서버 체크 에러 났을때.
     useEffect(() => {

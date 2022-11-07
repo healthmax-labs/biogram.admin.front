@@ -12,6 +12,8 @@ import {
 } from '@Helper'
 import { isEmpty } from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
+import { useCallback } from 'react'
+import Const from '@Const'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -24,7 +26,7 @@ export default function useAuth() {
         )
     }
 
-    const handleGetLoginInfo = async (): Promise<
+    const handleGetLoginInfo = useCallback(async (): Promise<
         LoginInfoInterface | false
     > => {
         const { status, payload } = await logininfo()
@@ -33,25 +35,48 @@ export default function useAuth() {
         } else {
             return false
         }
-    }
+    }, [])
 
-    const handleGetAuthorMenu = async ({
-        authCode,
-        menuCode,
-    }: {
-        authCode: string
-        menuCode: string
-    }) => {
-        const response = await getAuthorMenu({
-            authCode: authCode,
-            menuCode: menuCode,
-        })
+    const handleGetAuthorMenu = useCallback(
+        async ({
+            authCode,
+            menuCode,
+        }: {
+            authCode: string
+            menuCode: string
+        }) => {
+            const response = await getAuthorMenu({
+                authCode: authCode,
+                menuCode: menuCode,
+            })
 
-        setAppRootState(prevState => ({
-            ...prevState,
-            menuInfo: response.payload,
-        }))
-    }
+            const { AUTHOR_MENU_INFO_LIST, CHARGER_MENU_INFO } =
+                response.payload
+
+            setAppRootState(prevState => ({
+                ...prevState,
+
+                menuInfo: {
+                    CHARGER_MENU_INFO: CHARGER_MENU_INFO,
+                    AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
+                        const ckIndex = Const.Routers.findIndex(
+                            rt => rt.menuCode === el.MENU_CODE
+                        )
+
+                        return {
+                            ...el,
+                            pathName:
+                                ckIndex > -1
+                                    ? Const.Routers[ckIndex].pathName
+                                    : '',
+                            MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
+                        }
+                    }),
+                },
+            }))
+        },
+        [setAppRootState]
+    )
 
     // 로그인 시도.
     const handleAttemptLogin = async ({

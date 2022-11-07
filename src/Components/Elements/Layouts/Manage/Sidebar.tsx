@@ -5,7 +5,8 @@ import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AtomRootState } from '@Recoil/AppRootState'
-import { MenuInfoItemInterface } from '@CommonTypes'
+import { MenuItemInterface } from '@CommonTypes'
+import { isEmpty } from 'lodash'
 
 const {
     Nav,
@@ -29,8 +30,8 @@ export default function Sidebar() {
 
     const [pageState, setPageState] = useState<{
         Menus: {
-            main: MenuInfoItemInterface[]
-            sub: MenuInfoItemInterface[]
+            main: MenuItemInterface[]
+            sub: MenuItemInterface[]
         }
     }>({
         Menus: {
@@ -55,9 +56,6 @@ export default function Sidebar() {
         }
     }, [AUTHOR_MENU_INFO_LIST])
 
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
     return (
         <>
             <Nav MenuState={leftMenuShowStatus.leftMenuShow}>
@@ -67,172 +65,54 @@ export default function Sidebar() {
                     <Logo src={MenuLogo} alt="BioGram" />
                     {/* Collapse */}
                     <Collapse.Container>
-                        {/* Heading */}
-                        <MenuHeading>회원관리</MenuHeading>
-                        {/* Navigation */}
-
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink
-                                    Active={
-                                        location.pathname ===
-                                        `/manage/member/member-list`
-                                    }
-                                    onClick={() => {
-                                        navigate(
-                                            `${process.env.PUBLIC_URL}/manage/member/member-list`
-                                        )
-                                    }}>
-                                    회원현황
-                                </MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>소속관리</MenuHeading>
-                        {/* Navigation */}
-
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink
-                                    Active={
-                                        location.pathname ===
-                                        `/manage/belong/belong-status`
-                                    }
-                                    onClick={() => {
-                                        navigate(
-                                            `${process.env.PUBLIC_URL}/manage/belong/belong-status`
-                                        )
-                                    }}>
-                                    소속현황
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink
-                                    Active={
-                                        location.pathname ===
-                                        `/manage/belong/belong-manage`
-                                    }
-                                    onClick={() => {
-                                        navigate(
-                                            `${process.env.PUBLIC_URL}/manage/belong/belong-manage`
-                                        )
-                                    }}>
-                                    소속 가입신청
-                                </MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>컨텐츠 관리</MenuHeading>
-                        {/* Navigation */}
-
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink Active={false}>매거진</MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    바이오그램 존
-                                </MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>현황관리</MenuHeading>
-                        {/* Navigation */}
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    위험요인 현황
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    전후비교 현황
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    기기측정 현황
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>활동량 현황</MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>통계관리</MenuHeading>
-                        {/* Navigation */}
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink Active={false}>사용자 통계</MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>위험군 통계</MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    위혐요인 통계
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>복약 통계</MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    기기사용 통계
-                                </MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>관리자 설정</MenuHeading>
-                        {/* Navigation */}
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    태블릿 시리얼키 관리
-                                </MenuLink>
-                            </NavigationLi>
-
-                            <NavigationLi>
-                                <MenuLink Active={false}>
-                                    이용 약관 관리
-                                </MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
-
-                        {/* Divider */}
-                        <Divider />
-                        {/* Heading */}
-                        <MenuHeading>홈페이지 관리</MenuHeading>
-                        {/* Navigation */}
-                        <NavigationUl>
-                            <NavigationLi>
-                                <MenuLink Active={false}>게시판 관리</MenuLink>
-                            </NavigationLi>
-                        </NavigationUl>
+                        {pageState.Menus.main.map(
+                            (mainMenus: MenuItemInterface, mainIndex) => {
+                                return (
+                                    <div key={`sidebar-main-menu-${mainIndex}`}>
+                                        {mainIndex > 0 && <Divider />}
+                                        <MenuHeading>
+                                            {mainMenus.MENU_NM}
+                                        </MenuHeading>
+                                        {pageState.Menus.sub
+                                            .filter(
+                                                e =>
+                                                    e.MENU_ORDR_GUBUN ===
+                                                    mainMenus.MENU_ORDR_GUBUN
+                                            )
+                                            .map((subMenu, subIndex) => {
+                                                return (
+                                                    <NavigationUl
+                                                        key={`sidebar-sub-menu-${subIndex}`}>
+                                                        <NavigationLi>
+                                                            <MenuLink
+                                                                Active={
+                                                                    location.pathname ===
+                                                                    `${subMenu.pathName}`
+                                                                }
+                                                                onClick={() => {
+                                                                    if (
+                                                                        isEmpty(
+                                                                            subMenu.pathName
+                                                                        )
+                                                                    ) {
+                                                                        return
+                                                                    }
+                                                                    navigate(
+                                                                        `${process.env.PUBLIC_URL}${subMenu.pathName}`
+                                                                    )
+                                                                }}>
+                                                                {
+                                                                    subMenu.MENU_NM
+                                                                }
+                                                            </MenuLink>
+                                                        </NavigationLi>
+                                                    </NavigationUl>
+                                                )
+                                            })}
+                                    </div>
+                                )
+                            }
+                        )}
                         {process.env.REACT_APP_ENV === 'development' && (
                             <>
                                 {/* Divider */}

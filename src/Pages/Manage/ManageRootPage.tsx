@@ -1,22 +1,23 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { ElementLoading } from '@Elements'
-import { useTab } from '@Hooks'
 import Const from '@Const'
+import { useRecoilValue } from 'recoil'
+import { AtomPageTabState } from '@Recoil/PageTabState'
 
 export default function ManageRootPage() {
     const [activePathName, setActivePathName] = useState(
         '/manage/member/member-list'
     )
     const [pageTitle, setPageTitle] = useState<string>(``)
-    const { tabState } = useTab()
+    const tabState = useRecoilValue(AtomPageTabState)
 
     // 템에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
-        const chIndex = Const.Menus.findIndex(
+        const chIndex = Const.Routers.findIndex(
             el => el.pathName === activePathName
         )
-        const TabPageComponent = Const.Menus[chIndex].Component
+        const TabPageComponent = Const.Routers[chIndex].Component
         return <TabPageComponent />
     }
 
@@ -29,7 +30,6 @@ export default function ManageRootPage() {
                 setPageTitle(avticeTab.name)
             }
         }
-
         funcSetActivePathName()
     }, [tabState])
 

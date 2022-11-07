@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BlankLayoutComponent, MageLayoutComponent } from '@Layouts'
 import { LoginPage } from '@Page/Auth'
 import { ManageRootPage } from '@Page/Manage'
-
 import { DefaultListPage } from '@Page/Publish'
 
 function RootRoutes() {

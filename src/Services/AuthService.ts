@@ -1,6 +1,7 @@
 import { _Axios_ } from '@Modules'
 import {
     AuthorMenuInterface,
+    AuthorMenuItemInterface,
     LoginInfoInterface,
     LoginInterface,
     ServicesDefaultResult,
@@ -42,7 +43,9 @@ export function getAuthorMenu({
 }: {
     authCode: string
     menuCode: string
-}): Promise<ServicesDefaultResult<AuthorMenuInterface>> {
+}): Promise<
+    ServicesDefaultResult<AuthorMenuInterface<AuthorMenuItemInterface>>
+> {
     return _Axios_({
         method: 'get',
         url: `/mber/v1/charger/author/menu/${authCode}/${menuCode}`,
