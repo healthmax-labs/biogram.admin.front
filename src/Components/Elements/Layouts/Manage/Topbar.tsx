@@ -7,8 +7,8 @@ import { AtomRootState } from '@Recoil/AppRootState'
 import React, { useCallback, useEffect, useState } from 'react'
 import { checkRemainingTime, getRemainingTime } from '@Helper'
 import { useAuth } from '@Hooks'
-import { useNavigate } from 'react-router-dom'
 import { isEmpty } from 'lodash'
+import { useNavigate } from 'react-router-dom'
 
 const {
     Container,
@@ -50,13 +50,10 @@ const Topbar = () => {
     const handleLogout = useCallback(async () => {
         const task = await handleAttemptLogout()
         if (task.status) {
-            navigate({
-                pathname: process.env.PUBLIC_URL + `/auth/login`,
-            })
         } else {
             //
         }
-    }, [handleAttemptLogout, navigate])
+    }, [handleAttemptLogout])
 
     const handleLogoutButtonClick = async () => {
         handleLogout().then()
@@ -82,22 +79,34 @@ const Topbar = () => {
     }, [atomRootState])
 
     useEffect(() => {
+        // 시간이 남아 있는지 체크.
+        if (!checkRemainingTime()) {
+            handleLogout().then()
+            return
+        }
+
         const timer = setTimeout(() => {
-            // 시간이 남아 있는지 체크.
-            if (!checkRemainingTime()) {
-                handleLogout().then()
-                return false
-            }
             const time = getRemainingTime()
+            if (!time) {
+                navigate({
+                    pathname: process.env.PUBLIC_URL + `/auth/login`,
+                })
+            }
             const min =
-                time.min.toString().length < 2 ? '0' + time.min : time.min
+                time && time.min.toString().length < 2
+                    ? '0' + time.min
+                    : time && time.min
             const sec =
-                time.sec.toString().length < 2 ? '0' + time.sec : time.sec
+                time && time.sec.toString().length < 2
+                    ? '0' + time.sec
+                    : time && time.sec
             setRemainingTime(`${min}:${sec}`)
         }, 1000)
 
-        return () => clearTimeout(timer)
-    }, [handleLogout])
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [handleLogout, navigate])
 
     return (
         <>
