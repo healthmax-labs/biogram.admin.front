@@ -107,8 +107,6 @@ export default function useAuth() {
                 CHARGER_LOGIN_INFO: { USID, NM, MBER_NO, AUTH_CODE, INST_NM },
             } = response.payload
 
-            // TODO : 메뉴 불러오기.
-
             saveLoginToken({
                 TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
                 VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
@@ -118,6 +116,7 @@ export default function useAuth() {
                 AUTHORIZE_CODE: null,
             })
 
+            // 메뉴 불러오기.
             await handleGetAuthorMenu({
                 authCode: AUTH_CODE,
                 menuCode: process.env.REACT_APP_MENU_CODE

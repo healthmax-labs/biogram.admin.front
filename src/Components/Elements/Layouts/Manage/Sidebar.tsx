@@ -95,6 +95,9 @@ export default function Sidebar() {
                                                                             subMenu.pathName
                                                                         )
                                                                     ) {
+                                                                        alert(
+                                                                            '준비 중입니다.'
+                                                                        )
                                                                         return
                                                                     }
                                                                     navigate(
