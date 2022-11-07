@@ -262,12 +262,14 @@ export const checkRemainingTime = (): boolean => {
 /**
  * 페이지 상단 남은 시간 리턴
  */
-export const getRemainingTime = (): {
-    day: number
-    hour: number
-    min: number
-    sec: number
-} => {
+export const getRemainingTime = ():
+    | {
+          day: number
+          hour: number
+          min: number
+          sec: number
+      }
+    | false => {
     const end: number = storageMaster.get('LOGIN_EXPIREIN')
     const _second = 1000
     const _minute = _second * 60
@@ -276,6 +278,10 @@ export const getRemainingTime = (): {
 
     const now = new Date().getTime()
     const distance = end - now
+    if (distance < 0) {
+        return false
+    }
+    // console.debug(distance)
     const days = Math.floor(distance / _day)
     const hours = Math.floor((distance % _day) / _hour)
     const minutes = Math.floor((distance % _hour) / _minute)
