@@ -21,8 +21,13 @@ git clone https://gitlab.cady.kr/biogram/biogram.admin.front.git
 touch .env
 
 > .env
+REACT_APP_VERSION=$npm_package_version
+REACT_APP_NAME=$npm_package_name
 REACT_APP_ENV=development
 REACT_APP_API_SERVER_URL=${Server URL}
+REACT_APP_LOGIN_EXPIRE_IN=${time}
+REACT_APP_MENU_CODE=${menu code}
+
 
 
 yarn install || npm install
