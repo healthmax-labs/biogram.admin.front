@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
     "lint": "eslint --ext js,ts,tsx src --fix",
     "deploy:dev": "yarn build && ssh dev-server \"rm -rf /var/www/html/mybiogram.com/dev-admin/*\" && scp -r ./build/* dev-server:/var/www/html/mybiogram.com/dev-admin"
   },
