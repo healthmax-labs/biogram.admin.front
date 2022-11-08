@@ -8,7 +8,6 @@ import {
 import { DefaultPagination } from '@Elements'
 import BelongListTopBox from './BelongListTopBox'
 import BelongListTable from './BelongListTable'
-// import { ElementLoading } from '@Component/Elements/Loading'
 
 export default function BelongMain() {
     return (

@@ -1,6 +1,10 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
-import { DatepickerInput, DefaultSearchButton } from '@Elements'
+import {
+    DatepickerInput,
+    DefaultSearchButton,
+    PstinstSelector,
+} from '@Elements'
 
 const {
     SearchButtonBox,
@@ -13,12 +17,21 @@ const {
     Label,
     LabelItemBox,
     Wapper,
-    Select,
     Container,
     Relative,
 } = SearchBoxStyle
 
 export default function SearchBox() {
+    const handlePstinstSelect = ({
+        instNo,
+        instNm,
+    }: {
+        instNo: number
+        instNm: string
+    }) => {
+        console.debug(instNo, instNm)
+        //
+    }
     return (
         <Container>
             <Wapper>
@@ -29,12 +42,14 @@ export default function SearchBox() {
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
-                        <Select
-                            id="country"
-                            name="country"
-                            autoComplete="country">
-                            <option>소속 선택</option>
-                        </Select>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo, instNm }) =>
+                                handlePstinstSelect({
+                                    instNo,
+                                    instNm,
+                                })
+                            }
+                        />
                     </LabelItemBox>
                 </Item>
                 <Item></Item>

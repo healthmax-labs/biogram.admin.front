@@ -7,14 +7,37 @@ export default function SearchSelect({
     id,
     name,
     autoComplete,
+    handleOnFocus,
+    handleOnnBlur,
+    elements,
 }: {
     id: string
     name: string
     autoComplete: string
+    handleOnFocus: () => void
+    elements: Array<{
+        value: string | number
+        text: string
+    }>
+    handleOnnBlur?: () => void
 }) {
     return (
-        <DefaultSearchSelect id={id} name={name} autoComplete={autoComplete}>
-            <option>소속 선택</option>
+        <DefaultSearchSelect
+            id={id}
+            name={name}
+            autoComplete={autoComplete}
+            onBlur={() => (handleOnnBlur ? handleOnnBlur() : null)}
+            onFocus={() => handleOnFocus()}>
+            {elements &&
+                elements.map((el, i) => {
+                    return (
+                        <option
+                            key={`default-search-search-option-${i}`}
+                            value={el.value}>
+                            {el.text}
+                        </option>
+                    )
+                })}
         </DefaultSearchSelect>
     )
 }

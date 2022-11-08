@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { ElementLoading } from '@Elements'
+import { PageLoading } from '@Elements'
 import Const from '@Const'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
@@ -40,7 +40,7 @@ export default function ManageRootPage() {
                 <title>:: 바이오그램 어드민 :: {pageTitle}</title>
                 <link rel="canonical" href={`${process.env.PUBLIC_URL}`} />
             </Helmet>
-            <Suspense fallback={<ElementLoading />}>
+            <Suspense fallback={<PageLoading />}>
                 {renderTabPageComponent()}
             </Suspense>
         </HelmetProvider>

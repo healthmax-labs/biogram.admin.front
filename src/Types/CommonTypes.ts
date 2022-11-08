@@ -111,6 +111,7 @@ export interface AuthorMenuInterface<T> {
     AUTHOR_MENU_INFO_LIST: T[]
 }
 
+// 메뉴 아이템
 export interface MenuItemInterface {
     SORT_ORDR: number
     MENU_COURS: string
