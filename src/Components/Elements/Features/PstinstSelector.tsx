@@ -59,25 +59,30 @@ export default function PstinstSelector({
             const { PSTINST_INFO_LIST } = response.payload
 
             const step1 = PSTINST_INFO_LIST.filter(
-                el =>
+                (el: PstinstInfoItemInterface) =>
                     el.INST_NO_1 &&
                     el.INST_NO_2 === null &&
                     el.INST_NO_3 === null
             )
 
             const step2 = PSTINST_INFO_LIST.filter(
-                el => el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3 === null
+                (el: PstinstInfoItemInterface) =>
+                    el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3 === null
             )
 
             const step3 = PSTINST_INFO_LIST.filter(
-                el => el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
+                (el: PstinstInfoItemInterface) =>
+                    el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
             )
 
             const resultList = step1.map((step1: PstinstInfoItemInterface) => {
                 return {
                     ...step1,
                     list: step2
-                        .filter(step2 => step2.INST_NO_1 === step1.INST_NO_1)
+                        .filter(
+                            (step2: PstinstInfoItemInterface) =>
+                                step2.INST_NO_1 === step1.INST_NO_1
+                        )
                         .map((step2: PstinstInfoItemInterface) => {
                             return {
                                 ...step2,
@@ -96,19 +101,20 @@ export default function PstinstSelector({
                 PSTINST_INFO_LIST: {
                     ...prevState.PSTINST_INFO_LIST,
                     step1: PSTINST_INFO_LIST.filter(
-                        el =>
+                        (el: PstinstInfoItemInterface) =>
                             el.INST_NO_1 &&
                             el.INST_NO_2 === null &&
                             el.INST_NO_3 === null
                     ),
                     step2: PSTINST_INFO_LIST.filter(
-                        el =>
+                        (el: PstinstInfoItemInterface) =>
                             el.INST_NO_1 &&
                             el.INST_NO_2 &&
                             el.INST_NO_3 === null
                     ),
                     step3: PSTINST_INFO_LIST.filter(
-                        el => el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
+                        (el: PstinstInfoItemInterface) =>
+                            el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
                     ),
                     list: resultList,
                 },
