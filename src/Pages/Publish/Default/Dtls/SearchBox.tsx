@@ -21,6 +21,16 @@ const {
 } = SearchBoxStyle
 
 export default function SearchBox() {
+    const handlePstinstSelect = ({
+        instNo,
+        instNm,
+    }: {
+        instNo: number
+        instNm: string
+    }) => {
+        console.debug(instNo, instNm)
+        //
+    }
     return (
         <Container>
             <Wapper>
@@ -31,7 +41,14 @@ export default function SearchBox() {
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
-                        <PstinstSelector />
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo, instNm }) =>
+                                handlePstinstSelect({
+                                    instNo,
+                                    instNm,
+                                })
+                            }
+                        />
                     </LabelItemBox>
                 </Item>
                 <Item></Item>

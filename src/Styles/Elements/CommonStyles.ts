@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 //
 
 // DefaultPagination
-export const ElLoadingStyle = {
+export const PageLoadingStyle = {
     Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center h-screen`,
     Wapper: tw.div`flex items-center h-screen`,
     Text: tw.span`text-3xl mr-4`,
@@ -21,4 +21,15 @@ export const PaginationStyle = {
     ]),
     Right: tw.div`flex items-center pt-3 text-gray-600 dark:text-gray-200  hover:text-indigo-700 cursor-pointer`,
     NextText: tw.p`text-sm font-medium leading-none mr-3`,
+}
+
+export const ElementLoadingStyle = {
+    Container: tw.div`bg-white bg-opacity-60 z-10 w-full flex items-center justify-center`,
+    Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
+        {
+            background: `URL(${bgImage})`,
+        },
+        tw`items-center bg-cover`,
+    ]),
+    Text: tw.span`text-center text-xs`,
 }

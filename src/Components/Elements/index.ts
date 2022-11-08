@@ -9,11 +9,13 @@ export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'
 export { default as DefaultCheckBox } from './Inputs/DefaultCheckBox'
 
+export { default as PageLoading } from './Loading/PageLoading'
 export { default as ElementLoading } from './Loading/ElementLoading'
 
 export { default as AlertModal } from './Modals/AlertModal'
 export { default as ConfimModal } from './Modals/ConfimModal'
 export { default as PhoneAuthModal } from './Modals/PhoneAuthModal'
+export { default as VaryModal } from './Modals/VaryModal'
 
 export { default as DefaultPagination } from './Paginations/DefaultPagination'
 
