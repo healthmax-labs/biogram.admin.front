@@ -102,9 +102,29 @@ export default function useRoot() {
 
             COLORLOG('info', ':: App Init Finish :: ')
             setAppBaseCheckState(true)
+
+            console.log(`\x1b[7m┎───────────────────────────────────┐`)
+
+            console.log(
+                `\x1b[7m│ \x1b[32mApp \x1b[33mName \x1b[35m: \x1b[36m${process.env.REACT_APP_NAME}\x1b[0m \t\x1b[7m│`
+            )
+
+            console.log(
+                `\x1b[7m│ \x1b[32mApp \x1b[33mVersion \x1b[35m: \x1b[36m${process.env.REACT_APP_VERSION}\x1b[0m \t\t\t\t\x1b[7m│`
+            )
+
+            console.log(
+                `\x1b[7m│ \x1b[32mApp \x1b[33mNodeEnv \x1b[35m: \x1b[36m${process.env.NODE_ENV}\x1b[0m \t\t\x1b[7m│`
+            )
+
+            console.log(
+                `\x1b[7m│ \x1b[32mApp \x1b[33mEnv \x1b[35m: \x1b[36m${process.env.NODE_ENV}\x1b[0m \t\t\t\x1b[7m│`
+            )
+            console.log(`\x1b[7m┖───────────────────────────────────┙`)
         }
 
         COLORLOG('info', ':: App Init Start :: ')
+
         appStart().then()
     }, [handleGetAuthorMenu, handleGetLoginInfo, setAppRootState])
 
