@@ -11,6 +11,7 @@ export interface OptionsInterface {
 
 // 공통 테이블 프롭스
 export interface TablePropsInterface<T> {
+    Loading: boolean
     Options: OptionsInterface
     Columns: ColumnsInterface[]
     Lists: T[]
