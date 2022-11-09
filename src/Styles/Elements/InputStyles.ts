@@ -12,3 +12,9 @@ export const InputStyle = {
         SearchButton: tw.button`absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300`,
     },
 }
+
+export const VaryInputStyle = {
+    Container: tw.div`text-gray-700 flex items-center`,
+    Wapper: tw.div`w-1/6`,
+    Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+}

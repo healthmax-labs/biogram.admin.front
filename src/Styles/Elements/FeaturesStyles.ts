@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 // PstinstSelector
 export const PstinstSelectorStyle = {
     TableBox: tw.div`overflow-x-auto relative shadow-md`,
+    InputWapper: tw.div`pb-1`,
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
     TableHeader: tw.thead`w-full text-left text-white text-xs h-8`,
     HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
@@ -19,5 +20,9 @@ export const PstinstSelectorStyle = {
     ItemWapper: tw.div`flex items-center mb-1 ml-3`,
     ItemCols: tw.div`grid grid-cols-1`,
     ItemCheckBox: tw.input`w-4 h-4 text-m-blue bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
-    ItemLabel: tw.label`cursor-pointer ml-2 text-xs text-gray-900 dark:text-gray-300`,
+    ItemLabel: tw.label`cursor-pointer ml-2`,
+    // ItemLavelText: tw.p`text-gray-900 dark:text-gray-300`,
+    ItemLavelText: styled.p(({ BgState }: { BgState: boolean }) => [
+        BgState ? tw`text-xs text-white bg-m-blue` : tw`text-xs text-gray-500`,
+    ]),
 }

@@ -8,6 +8,7 @@ export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'
 export { default as DefaultCheckBox } from './Inputs/DefaultCheckBox'
+export { default as VaryInput } from './Inputs/VaryInput'
 
 export { default as PageLoading } from './Loading/PageLoading'
 export { default as ElementLoading } from './Loading/ElementLoading'
