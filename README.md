@@ -71,6 +71,13 @@ git push  || git push origin develop
 git branch -d feature/member-list || git branch -D feature/member-list
 ```
 
+> linebreak error fix
+```
+Just made autocrlf param in .gitconfig file false and recloned the code. It worked!
+
+[core]
+    autocrlf = false
+```
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
