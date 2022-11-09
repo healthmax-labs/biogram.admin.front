@@ -25,7 +25,7 @@ module.exports = {
         // "@typescript-eslint/no-var-requires": 0,
         'linebreak-style': [
             'error',
-            require('os').EOL === '\r\n' ? 'windows' : 'unix',
+            process.platform === 'win32' ? 'windows' : 'unix',
         ],
         // "linebreak-style": 0,
         'prettier/prettier': [
