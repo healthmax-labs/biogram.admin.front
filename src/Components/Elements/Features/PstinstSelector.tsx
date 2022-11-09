@@ -130,8 +130,6 @@ export default function PstinstSelector({
     ) => {
         if (event.key !== 'Enter') return
 
-        console.debug('enter')
-
         if (pstinstSearchState.length === 0) {
             pstinstSearch(pageState.searchValue)
         } else {
@@ -178,7 +176,6 @@ export default function PstinstSelector({
     useEffect(() => {
         const funcSetSearchFocus = () => {
             if (pageState.searchFocus === null) return
-            console.debug('focus : ', pageState.searchFocus)
             const refIndex = pstinstSearchState[pageState.searchFocus]
 
             inputRef.current[refIndex].scrollIntoView({
