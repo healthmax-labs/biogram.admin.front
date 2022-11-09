@@ -1,6 +1,6 @@
 import React from 'react'
 import { ElementLoadingStyle } from '@Style/Elements/CommonStyles'
-import { LoadingImage } from '@Asset/index'
+import { LoadingImage } from '@Assets'
 
 const { Wapper, Container } = ElementLoadingStyle
 

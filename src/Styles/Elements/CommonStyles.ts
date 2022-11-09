@@ -5,8 +5,14 @@ import styled from '@emotion/styled'
 // DefaultPagination
 export const PageLoadingStyle = {
     Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center h-screen`,
-    Wapper: tw.div`flex items-center h-screen`,
-    Text: tw.span`text-3xl mr-4`,
+    // Wapper: tw.div`flex items-center h-screen`,
+    Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
+        {
+            background: `URL(${bgImage})`,
+        },
+        tw`items-center bg-cover`,
+    ]),
+    Text: tw.span`text-xs py-2`,
 }
 export const PaginationStyle = {
     Container: tw.div`flex items-center justify-center py-10 lg:px-0 sm:px-6 px-4`,
