@@ -30,6 +30,17 @@ export const PaginationStyle = {
 }
 
 export const ElementLoadingStyle = {
+    Container: tw.div`bg-white bg-transparent z-10 w-full flex h-full items-center justify-center`,
+    Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
+        {
+            background: `URL(${bgImage})`,
+        },
+        tw`items-center bg-cover`,
+    ]),
+    Text: tw.span`text-center text-xs`,
+}
+
+export const TableLoadingStyle = {
     Container: tw.div`bg-white bg-opacity-60 z-10 w-full flex items-center justify-center`,
     Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
         {

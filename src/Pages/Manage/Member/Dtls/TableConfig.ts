@@ -13,6 +13,7 @@ export interface tableListInterface {
 
 // 테이블 설정.
 export const TableConfig = {
+    Loading: true,
     Options: {
         selectAll: true,
     },

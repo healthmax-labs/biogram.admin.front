@@ -3,10 +3,12 @@ import { TablePropsInterface } from '@Type/TableTypes'
 import React from 'react'
 import MainTableHeader from './MainTableHeader'
 import MainTableBody from './MainTableBody'
+import { ElementLoading } from '@Elements'
 
 const { TableWapper, TableHeader, TableBody } = TableStyle
 
 export default function MainTable<P>({
+    Loading,
     Columns,
     Options,
     Lists,
@@ -17,11 +19,18 @@ export default function MainTable<P>({
                 <MainTableHeader Columns={Columns} Options={Options} />
             </TableHeader>
             <TableBody>
-                <MainTableBody
-                    Columns={Columns}
-                    Options={Options}
-                    Lists={Lists}
-                />
+                {Loading ? (
+                    <div className="h-screen">
+                        <ElementLoading />
+                    </div>
+                ) : (
+                    <MainTableBody
+                        Loading={Loading}
+                        Columns={Columns}
+                        Options={Options}
+                        Lists={Lists}
+                    />
+                )}
             </TableBody>
         </TableWapper>
     )
