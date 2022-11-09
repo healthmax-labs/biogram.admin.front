@@ -7,6 +7,7 @@ import 'tw-elements'
 import SplashComponent from '@Component/SplashComponent'
 import UnderConstructionComponent from '@Component/UnderConstructionComponent'
 import { RecoilDevTools } from 'recoil-gear'
+import { RootRoutes } from '@Modules'
 
 function App() {
     const [AppLoading, setAppLoading] = useState<boolean>(true)
@@ -32,16 +33,16 @@ function App() {
                     return <UnderConstructionComponent />
                 }
 
-                // if (AppLoading) {
-                return (
-                    <SplashComponent
-                        appLoading={handleAppLoading}
-                        serverFail={handleServerFail}
-                    />
-                )
-                // }
+                if (AppLoading) {
+                    return (
+                        <SplashComponent
+                            appLoading={handleAppLoading}
+                            serverFail={handleServerFail}
+                        />
+                    )
+                }
 
-                // return <RootRoutes />
+                return <RootRoutes />
             })()}
         </RecoilRoot>
     )

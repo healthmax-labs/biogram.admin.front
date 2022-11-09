@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRoot } from '@Hooks'
-import { SplashPage } from '@Style/Pages/EtcPageStyles'
 import { PageLoading } from '@Elements'
-
-const { Container, Wapper, LoadingText } = SplashPage
 
 const SplashComponent = ({
     appLoading,
