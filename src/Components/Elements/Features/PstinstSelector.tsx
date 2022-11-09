@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
-import { DefaultManageButton, SearchSelect, VaryModal } from '@Elements'
+import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
+import {
+    DefaultManageButton,
+    SearchSelect,
+    VaryInput,
+    VaryModal,
+} from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
-import { getPstinst } from '@Service/MemberService'
-import { PstinstInfoItemInterface } from '@Type/MemberTypes'
+import { usePstinst } from '@Hooks'
+import { PstinstInfoItemType } from '@Hook/usePstinst'
 
 const {
     TableBox,
+    InputWapper,
     HeaderCell,
     HeaderRow,
     TableBodyCell,
@@ -17,6 +23,7 @@ const {
     ItemCheckBox,
     ItemLabel,
     ItemCols,
+    ItemLavelText,
 } = PstinstSelectorStyle
 
 const initializeState = {
@@ -28,6 +35,8 @@ const initializeState = {
         list: [],
     },
     selectElement: [{ value: 1, text: `소속선택` }],
+    searchValue: ``,
+    searchFocus: null,
 }
 
 export default function PstinstSelector({
@@ -41,89 +50,32 @@ export default function PstinstSelector({
         instNm: string
     }) => void
 }) {
+    // ref...
+    const inputRef = useRef<HTMLInputElement[]>([])
+
+    const {
+        pstinstState,
+        getPstinstList,
+        pstinstSearch,
+        pstinstSearchState,
+        pstinstSearchReset,
+    } = usePstinst()
+
     const [showModal, setShowModal] = useState<boolean>(false)
     const [pageState, setPageState] = useState<{
         loading: boolean
         PSTINST_INFO_LIST: {
-            step1: PstinstInfoItemInterface[]
-            step2: PstinstInfoItemInterface[]
-            step3: PstinstInfoItemInterface[]
+            step1: PstinstInfoItemType[]
+            step2: PstinstInfoItemType[]
+            step3: PstinstInfoItemType[]
             list: any
         }
         selectElement: Array<{ value: number; text: string }>
+        searchValue: string
+        searchFocus: number | null
     }>(initializeState)
 
-    const getList = async () => {
-        const response = await getPstinst()
-        if (response.status) {
-            const { PSTINST_INFO_LIST } = response.payload
-
-            const step1 = PSTINST_INFO_LIST.filter(
-                (el: PstinstInfoItemInterface) =>
-                    el.INST_NO_1 &&
-                    el.INST_NO_2 === null &&
-                    el.INST_NO_3 === null
-            )
-
-            const step2 = PSTINST_INFO_LIST.filter(
-                (el: PstinstInfoItemInterface) =>
-                    el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3 === null
-            )
-
-            const step3 = PSTINST_INFO_LIST.filter(
-                (el: PstinstInfoItemInterface) =>
-                    el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
-            )
-
-            const resultList = step1.map((step1: PstinstInfoItemInterface) => {
-                return {
-                    ...step1,
-                    list: step2
-                        .filter(
-                            (step2: PstinstInfoItemInterface) =>
-                                step2.INST_NO_1 === step1.INST_NO_1
-                        )
-                        .map((step2: PstinstInfoItemInterface) => {
-                            return {
-                                ...step2,
-                                list: step3.filter(
-                                    (step3: PstinstInfoItemInterface) =>
-                                        step3.INST_NO_1 === step1.INST_NO_1 &&
-                                        step3.INST_NO_2 === step2.INST_NO_2
-                                ),
-                            }
-                        }),
-                }
-            })
-
-            setPageState(prevState => ({
-                ...prevState,
-                PSTINST_INFO_LIST: {
-                    ...prevState.PSTINST_INFO_LIST,
-                    step1: PSTINST_INFO_LIST.filter(
-                        (el: PstinstInfoItemInterface) =>
-                            el.INST_NO_1 &&
-                            el.INST_NO_2 === null &&
-                            el.INST_NO_3 === null
-                    ),
-                    step2: PSTINST_INFO_LIST.filter(
-                        (el: PstinstInfoItemInterface) =>
-                            el.INST_NO_1 &&
-                            el.INST_NO_2 &&
-                            el.INST_NO_3 === null
-                    ),
-                    step3: PSTINST_INFO_LIST.filter(
-                        (el: PstinstInfoItemInterface) =>
-                            el.INST_NO_1 && el.INST_NO_2 && el.INST_NO_3
-                    ),
-                    list: resultList,
-                },
-            }))
-        } else {
-            // 에러
-        }
-    }
-
+    // 소속 선택.
     const handleItemClick = ({
         instNo,
         instNm,
@@ -139,6 +91,7 @@ export default function PstinstSelector({
         handleShowModal(false)
     }
 
+    // 모달 처리.
     const handleShowModal = (flag: boolean) => {
         setPageState(prevState => ({
             ...prevState,
@@ -148,14 +101,109 @@ export default function PstinstSelector({
         setShowModal(flag)
 
         if (flag) {
-            getList().then(() => {
+            getPstinstList().then(() => {
                 setPageState(prevState => ({
                     ...prevState,
                     loading: false,
                 }))
             })
+        } else {
         }
     }
+
+    // 검색 input 변경시.
+    const handleSearchInputOnChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setPageState(prevState => ({
+            ...prevState,
+            searchValue: event.target.value,
+            searchFocus: null,
+        }))
+
+        pstinstSearchReset()
+    }
+
+    // 엔터 키 입력 처리.
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+
+        console.debug('enter')
+
+        if (pstinstSearchState.length === 0) {
+            pstinstSearch(pageState.searchValue)
+        } else {
+            if (pageState.searchFocus === null) return
+
+            if (pstinstSearchState.length === pageState.searchFocus + 1) {
+                setPageState({
+                    ...pageState,
+                    searchFocus: 0,
+                })
+                return
+            }
+
+            setPageState({
+                ...pageState,
+                searchFocus: pageState.searchFocus + 1,
+            })
+        }
+    }
+
+    // 소속 리스트 업데이트 되었을때.
+    useEffect(() => {
+        const funcSetPstinst = () => {
+            setPageState(prevState => ({
+                ...prevState,
+                PSTINST_INFO_LIST: pstinstState.pstinsts,
+            }))
+        }
+
+        funcSetPstinst()
+    }, [pstinstState])
+
+    // 검색 리스트 업데이트 되었을때.
+    useEffect(() => {
+        if (pstinstSearchState.length > 0) {
+            setPageState(prevState => ({
+                ...prevState,
+                searchFocus: 0,
+            }))
+        }
+    }, [pstinstSearchState])
+
+    // 언테키 입력시 다름 검색어로 스크롤.
+    useEffect(() => {
+        const funcSetSearchFocus = () => {
+            if (pageState.searchFocus === null) return
+            console.debug('focus : ', pageState.searchFocus)
+            const refIndex = pstinstSearchState[pageState.searchFocus]
+
+            inputRef.current[refIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+            })
+        }
+
+        if (pstinstSearchState.length > 0 && pageState.searchFocus !== null) {
+            funcSetSearchFocus()
+        }
+    }, [pageState.searchFocus, pstinstSearchState])
+
+    //clean...........
+    useEffect(() => {
+        return () => {
+            setPageState(prevState => ({
+                ...prevState,
+                loading: false,
+                PSTINST_INFO_LIST: initializeState.PSTINST_INFO_LIST,
+                searchValue: initializeState.searchValue,
+                searchFocus: initializeState.searchFocus,
+            }))
+        }
+    }, [showModal])
 
     return (
         <>
@@ -172,6 +220,15 @@ export default function PstinstSelector({
                     ModalLoading={pageState.loading}
                     Children={
                         <TableBox>
+                            <InputWapper>
+                                <VaryInput
+                                    InputType={`search`}
+                                    Placeholder={`검색어를 입력해 주세요`}
+                                    HandleOnChange={handleSearchInputOnChange}
+                                    Value={pageState.searchValue}
+                                    HandleOnKeyDown={handleSearchInputOnKeyDown}
+                                />
+                            </InputWapper>
                             <TableWapper>
                                 <TableHeader>
                                     <HeaderRow>
@@ -183,7 +240,7 @@ export default function PstinstSelector({
                                 <TableBody>
                                     {pageState.PSTINST_INFO_LIST.step1.map(
                                         (
-                                            step1: PstinstInfoItemInterface,
+                                            step1: PstinstInfoItemType,
                                             step1Index: number
                                         ) => {
                                             return (
@@ -193,6 +250,11 @@ export default function PstinstSelector({
                                                     <TableBodyCell>
                                                         <ItemWapper>
                                                             <ItemCheckBox
+                                                                ref={el =>
+                                                                    (inputRef.current[
+                                                                        step1.INST_NO
+                                                                    ] = el as HTMLInputElement)
+                                                                }
                                                                 id={`item-checkbox-step1-${step1Index}`}
                                                                 type="checkbox"
                                                                 value={
@@ -209,9 +271,14 @@ export default function PstinstSelector({
                                                             />
                                                             <ItemLabel
                                                                 htmlFor={`item-checkbox-step1-${step1Index}`}>
-                                                                {
-                                                                    step1.INST_NM_1
-                                                                }
+                                                                <ItemLavelText
+                                                                    BgState={
+                                                                        step1.checkSearch
+                                                                    }>
+                                                                    {
+                                                                        step1.INST_NM_1
+                                                                    }
+                                                                </ItemLavelText>
                                                             </ItemLabel>
                                                         </ItemWapper>
                                                     </TableBodyCell>
@@ -232,6 +299,12 @@ export default function PstinstSelector({
                                                                             <ItemWapper
                                                                                 key={`pstinst-selector-step2-item-${step2Index}`}>
                                                                                 <ItemCheckBox
+                                                                                    ref={el =>
+                                                                                        (inputRef.current[
+                                                                                            step2.INST_NO
+                                                                                        ] =
+                                                                                            el as HTMLInputElement)
+                                                                                    }
                                                                                     id={`pstinst-selector-step2-item-${step2Index}`}
                                                                                     type="checkbox"
                                                                                     value={
@@ -248,9 +321,14 @@ export default function PstinstSelector({
                                                                                 />
                                                                                 <ItemLabel
                                                                                     htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
-                                                                                    {
-                                                                                        step2.INST_NM_2
-                                                                                    }
+                                                                                    <ItemLavelText
+                                                                                        BgState={
+                                                                                            step2.checkSearch
+                                                                                        }>
+                                                                                        {
+                                                                                            step2.INST_NM_2
+                                                                                        }
+                                                                                    </ItemLavelText>
                                                                                 </ItemLabel>
                                                                             </ItemWapper>
                                                                         )
@@ -275,6 +353,12 @@ export default function PstinstSelector({
                                                                             <ItemWapper
                                                                                 key={`pstinst-selector-step3-item-${step3Index}`}>
                                                                                 <ItemCheckBox
+                                                                                    ref={el =>
+                                                                                        (inputRef.current[
+                                                                                            step3.INST_NO
+                                                                                        ] =
+                                                                                            el as HTMLInputElement)
+                                                                                    }
                                                                                     id={`pstinst-selector-step3-item-${step3Index}`}
                                                                                     type="checkbox"
                                                                                     value={
@@ -291,9 +375,14 @@ export default function PstinstSelector({
                                                                                 />
                                                                                 <ItemLabel
                                                                                     htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
-                                                                                    {
-                                                                                        step3.INST_NM_3
-                                                                                    }
+                                                                                    <ItemLavelText
+                                                                                        BgState={
+                                                                                            step3.checkSearch
+                                                                                        }>
+                                                                                        {
+                                                                                            step3.INST_NM_3
+                                                                                        }
+                                                                                    </ItemLavelText>
                                                                                 </ItemLabel>
                                                                             </ItemWapper>
                                                                         )
