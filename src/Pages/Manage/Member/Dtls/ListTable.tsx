@@ -1,22 +1,41 @@
 import React, { useEffect, useState } from 'react'
-import { TablePropsInterface } from '@Type/TableTypes'
+import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { TableConfig, tableListInterface } from './TableConfig'
+import { TableConfig, tableListItemInterface } from './TableConfig'
+import { useNavigate } from 'react-router-dom'
+
+interface tableOption {
+    Loading: boolean
+    Options: OptionsInterface
+    Columns: ColumnsInterface[]
+    Lists: tableListItemInterface[]
+}
 
 export default function ListTable({
+    Loading,
     MemberList,
 }: {
-    MemberList: tableListInterface[]
+    Loading: boolean
+    MemberList: tableListItemInterface[]
 }) {
-    const [tableOptions, setTableOptions] =
-        useState<TablePropsInterface<tableListInterface>>(TableConfig)
+    const navigate = useNavigate()
+    const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
+
+    const handleRowClick = (element: tableListItemInterface) => {
+        navigate({
+            pathname:
+                process.env.PUBLIC_URL +
+                `/manage/member/${element.MBER_NO}/detail`,
+        })
+    }
 
     useEffect(() => {
         setTableOptions(prevState => ({
             ...prevState,
+            Loading: Loading,
             Lists: MemberList,
         }))
-    }, [MemberList])
+    }, [Loading, MemberList])
 
-    return <MainTable {...tableOptions} />
+    return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

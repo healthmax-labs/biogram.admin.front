@@ -8,30 +8,34 @@ import { ElementLoading } from '@Elements'
 const { TableWapper, TableHeader, TableBody } = TableStyle
 
 export default function MainTable<P>({
+    RowClick,
     Loading,
     Columns,
     Options,
     Lists,
 }: TablePropsInterface<P>) {
     return (
-        <TableWapper>
-            <TableHeader>
-                <MainTableHeader Columns={Columns} Options={Options} />
-            </TableHeader>
-            <TableBody>
-                {Loading ? (
-                    <div className="h-screen">
-                        <ElementLoading />
-                    </div>
-                ) : (
-                    <MainTableBody
-                        Loading={Loading}
-                        Columns={Columns}
-                        Options={Options}
-                        Lists={Lists}
-                    />
-                )}
-            </TableBody>
-        </TableWapper>
+        <>
+            {Loading ? (
+                <div className="h-[calc(100vh-10rem)]">
+                    <ElementLoading />
+                </div>
+            ) : (
+                <TableWapper>
+                    <TableHeader>
+                        <MainTableHeader Columns={Columns} Options={Options} />
+                    </TableHeader>
+                    <TableBody>
+                        <MainTableBody
+                            RowClick={RowClick}
+                            Loading={Loading}
+                            Columns={Columns}
+                            Options={Options}
+                            Lists={Lists}
+                        />
+                    </TableBody>
+                </TableWapper>
+            )}
+        </>
     )
 }

@@ -14,5 +14,6 @@ export interface TablePropsInterface<T> {
     Loading: boolean
     Options: OptionsInterface
     Columns: ColumnsInterface[]
+    RowClick: (element: T) => void
     Lists: T[]
 }

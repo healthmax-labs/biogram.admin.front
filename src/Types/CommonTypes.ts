@@ -7,6 +7,15 @@ export interface TabInterface {
     name: string
     pathname: string
     component: string
+    routePath: string
+}
+
+// router match
+
+export interface RouterMatchItemInterface {
+    pathname: string
+    pathnameBase: string
+    route: { path: string }
 }
 
 // 서버 결과.

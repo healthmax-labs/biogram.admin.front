@@ -3,6 +3,7 @@ import { BlankLayoutComponent, MageLayoutComponent } from '@Layouts'
 import { LoginPage } from '@Page/Auth'
 import { ManageRootPage } from '@Page/Manage'
 import { DefaultListPage } from '@Page/Publish'
+import Const from '@Const'
 
 function RootRoutes() {
     return (
@@ -17,7 +18,15 @@ function RootRoutes() {
                         path="/publish/default/default-list"
                         element={<DefaultListPage />}
                     />
-                    <Route path="/manage/*" element={<ManageRootPage />} />
+                    {Const.Routers.map((el, index) => {
+                        return (
+                            <Route
+                                key={index}
+                                path={el.pathName}
+                                element={<ManageRootPage />}
+                            />
+                        )
+                    })}
                 </Route>
             </Routes>
         </BrowserRouter>

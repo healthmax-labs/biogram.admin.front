@@ -7,6 +7,7 @@ import { get } from 'lodash'
 const { TableBodyCell, TbodyTdCheckbox, TableBodyRow } = TableStyle
 
 export default function MainTableBody<P>({
+    RowClick,
     Options,
     Columns,
     Lists,
@@ -27,6 +28,7 @@ export default function MainTableBody<P>({
                             const value = get(el, _.key)
                             return (
                                 <TableBodyCell
+                                    onClick={() => RowClick(el)}
                                     key={`main-table-body-cell-${i}`}>
                                     {value}
                                 </TableBodyCell>

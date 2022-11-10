@@ -1,6 +1,6 @@
 import React from 'react'
 import ListMain from './Dtls/ListMain'
 
-export default function MemberListPage() {
+export default function MemberDetailPage() {
     return <ListMain />
 }
