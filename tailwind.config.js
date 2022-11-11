@@ -14,9 +14,5 @@ module.exports = {
             'm-dip-blue': '#5d6787',
         },
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('flowbite/plugin'),
-        require('tw-elements/dist/plugin'),
-    ],
+    plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
 }
