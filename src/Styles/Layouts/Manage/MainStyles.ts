@@ -1,12 +1,13 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
-//
+// import ConstStyle from '@Style/ConstStyle'
+// import Const from '@Const'
+// import { get } from 'lodash'
 
 export const LayoutStyle = {
     Container: styled.div(({ MenuState }: { MenuState: boolean }) => [
-        MenuState
-            ? tw`relative ml-48 bg-white min-width[1650px]`
-            : tw`relative bg-white min-width[1650px]`,
+        tw`relative bg-white min-w-center-width`,
+        MenuState ? tw`ml-menu-width` : tw``,
     ]),
     CenterWapper: tw.div`pl-2 pr-2 mx-auto w-full`,
 }
@@ -36,10 +37,15 @@ export const HeaderStatsStyle = {
 }
 
 export const SidebarStyle = {
+    // Nav2: styled.div(({ MenuState }: { MenuState: boolean }) => [
+    //     MenuState
+    //         ? tw`z-10 items-center justify-between bg-white py-4 px-6 fixed left-0 top-0 bottom-0 block w-48 flex-row flex-nowrap overflow-hidden overflow-y-auto`
+    //         : tw`z-10 items-center justify-between bg-white fixed left-0 top-0 bottom-0 block w-0 flex-row flex-nowrap overflow-hidden overflow-y-auto`,
+    // ]),
     Nav: styled.div(({ MenuState }: { MenuState: boolean }) => [
-        MenuState
-            ? tw`z-10 items-center justify-between bg-white py-4 px-6 fixed left-0 top-0 bottom-0 block w-48 flex-row flex-nowrap overflow-hidden overflow-y-auto`
-            : tw`z-10 items-center justify-between bg-white fixed left-0 top-0 bottom-0 block w-0 flex-row flex-nowrap overflow-hidden overflow-y-auto`,
+        tw`z-10 items-center justify-between bg-white fixed left-0 top-0 w-0 bottom-0 block flex-row flex-nowrap overflow-hidden overflow-y-auto`,
+        MenuState ? tw`py-4 px-6` : tw``,
+        MenuState ? tw`w-menu-width` : tw``,
     ]),
     Container: tw.div`mx-auto flex w-full justify-between px-0 min-h-full flex-col flex-nowrap items-stretch`,
     TogglerButton: tw.button`cursor-pointer rounded border border-solid border-transparent bg-transparent px-3 py-1 text-xl leading-none text-black opacity-50 md:hidden`,

@@ -1,6 +1,11 @@
 import tw from 'twin.macro'
 
 export default {
+    bgColor: {
+        mBlue: tw`bg-m-blue`,
+        mBBlue: tw`bg-m-b-blue`,
+        mDipBlue: tw`bg-m-dip-blue`,
+    },
     maxWidth: {
         sm: tw`max-w-sm`,
         lg: tw`max-w-lg`,
@@ -20,6 +25,7 @@ export default {
         w12: tw`w-12`,
         w32: tw`w-32`,
         w40: tw`w-40`,
+        w48: tw`w-48`,
         w52: tw`w-52`,
         w60: tw`w-60`,
         w64: tw`w-64`,
@@ -28,6 +34,9 @@ export default {
         w96: tw`w-96`,
         w1012: tw`w-10/12`,
         w212: tw`w-2/12`,
+    },
+    marginLeft: {
+        ml48: tw`ml-48`,
     },
     padding: {
         pl0: tw`pl-0`,

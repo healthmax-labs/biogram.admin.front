@@ -193,6 +193,10 @@ export default {
         },
     ],
     Layout: {
-        LeftMenuWidth: 0,
+        Width: {
+            LeftMenuWidth: `w48`, // 192px
+            LeftMenuMarginLeft: `ml48`, // 192px
+            CenterWidth: ``,
+        },
     },
 }
