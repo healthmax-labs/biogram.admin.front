@@ -1,5 +1,5 @@
 // 회원 테이블 데이터
-export interface tableListInterface {
+export interface tableListItemInterface {
     MBER_NO: number
     MEBER_NM: string
     MBTLNUM: string

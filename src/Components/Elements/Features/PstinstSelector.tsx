@@ -216,7 +216,7 @@ export default function PstinstSelector({
                 <VaryModal
                     ModalLoading={pageState.loading}
                     Children={
-                        <TableBox>
+                        <>
                             <InputWapper>
                                 <VaryInput
                                     InputType={`search`}
@@ -226,174 +226,176 @@ export default function PstinstSelector({
                                     HandleOnKeyDown={handleSearchInputOnKeyDown}
                                 />
                             </InputWapper>
-                            <TableWapper>
-                                <TableHeader>
-                                    <HeaderRow>
-                                        <HeaderCell>1차</HeaderCell>
-                                        <HeaderCell>2차</HeaderCell>
-                                        <HeaderCell>3차</HeaderCell>
-                                    </HeaderRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {pageState.PSTINST_INFO_LIST.step1.map(
-                                        (
-                                            step1: PstinstInfoItemType,
-                                            step1Index: number
-                                        ) => {
-                                            return (
-                                                <TableBodyRow
-                                                    key={`pstinst-selector-table-row-item-${step1Index}`}
-                                                    BgState={true}>
-                                                    <TableBodyCell>
-                                                        <ItemWapper>
-                                                            <ItemCheckBox
-                                                                ref={el =>
-                                                                    (inputRef.current[
+                            <TableBox>
+                                <TableWapper>
+                                    <TableHeader>
+                                        <HeaderRow>
+                                            <HeaderCell>1차</HeaderCell>
+                                            <HeaderCell>2차</HeaderCell>
+                                            <HeaderCell>3차</HeaderCell>
+                                        </HeaderRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {pageState.PSTINST_INFO_LIST.step1.map(
+                                            (
+                                                step1: PstinstInfoItemType,
+                                                step1Index: number
+                                            ) => {
+                                                return (
+                                                    <TableBodyRow
+                                                        key={`pstinst-selector-table-row-item-${step1Index}`}
+                                                        BgState={true}>
+                                                        <TableBodyCell>
+                                                            <ItemWapper>
+                                                                <ItemCheckBox
+                                                                    ref={el =>
+                                                                        (inputRef.current[
+                                                                            step1.INST_NO
+                                                                        ] = el as HTMLInputElement)
+                                                                    }
+                                                                    id={`item-checkbox-step1-${step1Index}`}
+                                                                    type="checkbox"
+                                                                    value={
                                                                         step1.INST_NO
-                                                                    ] = el as HTMLInputElement)
-                                                                }
-                                                                id={`item-checkbox-step1-${step1Index}`}
-                                                                type="checkbox"
-                                                                value={
-                                                                    step1.INST_NO
-                                                                }
-                                                                onClick={() =>
-                                                                    handleItemClick(
+                                                                    }
+                                                                    onClick={() =>
+                                                                        handleItemClick(
+                                                                            {
+                                                                                instNo: step1.INST_NO,
+                                                                                instNm: step1.INST_NM_1,
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <ItemLabel
+                                                                    htmlFor={`item-checkbox-step1-${step1Index}`}>
+                                                                    <ItemLavelText
+                                                                        BgState={
+                                                                            step1.checkSearch
+                                                                        }>
                                                                         {
-                                                                            instNo: step1.INST_NO,
-                                                                            instNm: step1.INST_NM_1,
+                                                                            step1.INST_NM_1
                                                                         }
+                                                                    </ItemLavelText>
+                                                                </ItemLabel>
+                                                            </ItemWapper>
+                                                        </TableBodyCell>
+                                                        <TableBodyCell>
+                                                            <ItemCols>
+                                                                {pageState.PSTINST_INFO_LIST.step2
+                                                                    .filter(
+                                                                        el =>
+                                                                            el.INST_NO_1 ===
+                                                                            step1.INST_NO_1
                                                                     )
-                                                                }
-                                                            />
-                                                            <ItemLabel
-                                                                htmlFor={`item-checkbox-step1-${step1Index}`}>
-                                                                <ItemLavelText
-                                                                    BgState={
-                                                                        step1.checkSearch
-                                                                    }>
-                                                                    {
-                                                                        step1.INST_NM_1
-                                                                    }
-                                                                </ItemLavelText>
-                                                            </ItemLabel>
-                                                        </ItemWapper>
-                                                    </TableBodyCell>
-                                                    <TableBodyCell>
-                                                        <ItemCols>
-                                                            {pageState.PSTINST_INFO_LIST.step2
-                                                                .filter(
-                                                                    el =>
-                                                                        el.INST_NO_1 ===
-                                                                        step1.INST_NO_1
-                                                                )
-                                                                .map(
-                                                                    (
-                                                                        step2,
-                                                                        step2Index
-                                                                    ) => {
-                                                                        return (
-                                                                            <ItemWapper
-                                                                                key={`pstinst-selector-step2-item-${step2Index}`}>
-                                                                                <ItemCheckBox
-                                                                                    ref={el =>
-                                                                                        (inputRef.current[
+                                                                    .map(
+                                                                        (
+                                                                            step2,
+                                                                            step2Index
+                                                                        ) => {
+                                                                            return (
+                                                                                <ItemWapper
+                                                                                    key={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                    <ItemCheckBox
+                                                                                        ref={el =>
+                                                                                            (inputRef.current[
+                                                                                                step2.INST_NO
+                                                                                            ] =
+                                                                                                el as HTMLInputElement)
+                                                                                        }
+                                                                                        id={`pstinst-selector-step2-item-${step2Index}`}
+                                                                                        type="checkbox"
+                                                                                        value={
                                                                                             step2.INST_NO
-                                                                                        ] =
-                                                                                            el as HTMLInputElement)
-                                                                                    }
-                                                                                    id={`pstinst-selector-step2-item-${step2Index}`}
-                                                                                    type="checkbox"
-                                                                                    value={
-                                                                                        step2.INST_NO
-                                                                                    }
-                                                                                    onClick={() =>
-                                                                                        handleItemClick(
-                                                                                            {
-                                                                                                instNo: step2.INST_NO,
-                                                                                                instNm: step2.INST_NM_2,
-                                                                                            }
-                                                                                        )
-                                                                                    }
-                                                                                />
-                                                                                <ItemLabel
-                                                                                    htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
-                                                                                    <ItemLavelText
-                                                                                        BgState={
-                                                                                            step2.checkSearch
-                                                                                        }>
-                                                                                        {
-                                                                                            step2.INST_NM_2
                                                                                         }
-                                                                                    </ItemLavelText>
-                                                                                </ItemLabel>
-                                                                            </ItemWapper>
-                                                                        )
-                                                                    }
-                                                                )}
-                                                        </ItemCols>
-                                                    </TableBodyCell>
-                                                    <TableBodyCell>
-                                                        <ItemCols>
-                                                            {pageState.PSTINST_INFO_LIST.step3
-                                                                .filter(
-                                                                    el =>
-                                                                        el.INST_NO_1 ===
-                                                                        step1.INST_NO_1
-                                                                )
-                                                                .map(
-                                                                    (
-                                                                        step3,
-                                                                        step3Index
-                                                                    ) => {
-                                                                        return (
-                                                                            <ItemWapper
-                                                                                key={`pstinst-selector-step3-item-${step3Index}`}>
-                                                                                <ItemCheckBox
-                                                                                    ref={el =>
-                                                                                        (inputRef.current[
+                                                                                        onClick={() =>
+                                                                                            handleItemClick(
+                                                                                                {
+                                                                                                    instNo: step2.INST_NO,
+                                                                                                    instNm: step2.INST_NM_2,
+                                                                                                }
+                                                                                            )
+                                                                                        }
+                                                                                    />
+                                                                                    <ItemLabel
+                                                                                        htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                        <ItemLavelText
+                                                                                            BgState={
+                                                                                                step2.checkSearch
+                                                                                            }>
+                                                                                            {
+                                                                                                step2.INST_NM_2
+                                                                                            }
+                                                                                        </ItemLavelText>
+                                                                                    </ItemLabel>
+                                                                                </ItemWapper>
+                                                                            )
+                                                                        }
+                                                                    )}
+                                                            </ItemCols>
+                                                        </TableBodyCell>
+                                                        <TableBodyCell>
+                                                            <ItemCols>
+                                                                {pageState.PSTINST_INFO_LIST.step3
+                                                                    .filter(
+                                                                        el =>
+                                                                            el.INST_NO_1 ===
+                                                                            step1.INST_NO_1
+                                                                    )
+                                                                    .map(
+                                                                        (
+                                                                            step3,
+                                                                            step3Index
+                                                                        ) => {
+                                                                            return (
+                                                                                <ItemWapper
+                                                                                    key={`pstinst-selector-step3-item-${step3Index}`}>
+                                                                                    <ItemCheckBox
+                                                                                        ref={el =>
+                                                                                            (inputRef.current[
+                                                                                                step3.INST_NO
+                                                                                            ] =
+                                                                                                el as HTMLInputElement)
+                                                                                        }
+                                                                                        id={`pstinst-selector-step3-item-${step3Index}`}
+                                                                                        type="checkbox"
+                                                                                        value={
                                                                                             step3.INST_NO
-                                                                                        ] =
-                                                                                            el as HTMLInputElement)
-                                                                                    }
-                                                                                    id={`pstinst-selector-step3-item-${step3Index}`}
-                                                                                    type="checkbox"
-                                                                                    value={
-                                                                                        step3.INST_NO
-                                                                                    }
-                                                                                    onClick={() =>
-                                                                                        handleItemClick(
-                                                                                            {
-                                                                                                instNo: step3.INST_NO,
-                                                                                                instNm: step3.INST_NM_3,
-                                                                                            }
-                                                                                        )
-                                                                                    }
-                                                                                />
-                                                                                <ItemLabel
-                                                                                    htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
-                                                                                    <ItemLavelText
-                                                                                        BgState={
-                                                                                            step3.checkSearch
-                                                                                        }>
-                                                                                        {
-                                                                                            step3.INST_NM_3
                                                                                         }
-                                                                                    </ItemLavelText>
-                                                                                </ItemLabel>
-                                                                            </ItemWapper>
-                                                                        )
-                                                                    }
-                                                                )}
-                                                        </ItemCols>
-                                                    </TableBodyCell>
-                                                </TableBodyRow>
-                                            )
-                                        }
-                                    )}
-                                </TableBody>
-                            </TableWapper>
-                        </TableBox>
+                                                                                        onClick={() =>
+                                                                                            handleItemClick(
+                                                                                                {
+                                                                                                    instNo: step3.INST_NO,
+                                                                                                    instNm: step3.INST_NM_3,
+                                                                                                }
+                                                                                            )
+                                                                                        }
+                                                                                    />
+                                                                                    <ItemLabel
+                                                                                        htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
+                                                                                        <ItemLavelText
+                                                                                            BgState={
+                                                                                                step3.checkSearch
+                                                                                            }>
+                                                                                            {
+                                                                                                step3.INST_NM_3
+                                                                                            }
+                                                                                        </ItemLavelText>
+                                                                                    </ItemLabel>
+                                                                                </ItemWapper>
+                                                                            )
+                                                                        }
+                                                                    )}
+                                                            </ItemCols>
+                                                        </TableBodyCell>
+                                                    </TableBodyRow>
+                                                )
+                                            }
+                                        )}
+                                    </TableBody>
+                                </TableWapper>
+                            </TableBox>
+                        </>
                     }
                     Buttons={
                         <>

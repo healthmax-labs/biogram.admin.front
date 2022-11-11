@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useTab } from '@Hooks'
 import { TabInterface } from '@Type/CommonTypes'
 import { MainTabStyle } from '@Style/Layouts/TabStyles'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
+import { useTab } from '@Hooks'
 
 const { MainUl, MainLi, TabButton, CloseButton, ButtonWapper } = MainTabStyle
 

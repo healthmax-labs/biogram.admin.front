@@ -1,7 +1,8 @@
 import React, { KeyboardEvent } from 'react'
+import { InputWidthType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 
-const { Wapper, Container, Input } = VaryInputStyle
+const { Wapper, Input } = VaryInputStyle
 
 const VaryInput = ({
     InputType,
@@ -10,13 +11,17 @@ const VaryInput = ({
     HandleOnChange,
     Value,
     HandleOnKeyDown,
+    Width,
+    Required,
 }: {
     InputType: string
     id?: string
     Placeholder: string
     Value: string
+    Width?: InputWidthType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
+    Required?: boolean
 }) => {
     const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
@@ -25,23 +30,22 @@ const VaryInput = ({
     }
 
     return (
-        <Container>
-            <Wapper>
-                <Input
-                    type={InputType}
-                    id={id ? id : 'search'}
-                    placeholder={Placeholder}
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        HandleOnChange(e)
-                    }
-                    value={Value}
-                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
-                        handleOnKeyDown(e)
-                    }
-                />
-            </Wapper>
-        </Container>
+        <Wapper>
+            <Input
+                Width={Width ? Width : 'w60'}
+                type={InputType}
+                id={id ? id : 'search'}
+                placeholder={Placeholder}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    HandleOnChange(e)
+                }
+                value={Value}
+                onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
+                    handleOnKeyDown(e)
+                }
+                required={Required ? Required : false}
+            />
+        </Wapper>
     )
 }
 

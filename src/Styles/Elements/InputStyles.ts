@@ -1,4 +1,7 @@
 import tw from 'twin.macro'
+import styled from '@emotion/styled'
+import ConstStyle from '@Style/ConstStyle'
+import { InputWidthType } from '@CommonTypes'
 
 export const InputStyle = {
     DatePicker: tw.input`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
@@ -14,7 +17,32 @@ export const InputStyle = {
 }
 
 export const VaryInputStyle = {
-    Container: tw.div`text-gray-700 flex items-center`,
-    Wapper: tw.div`w-1/6`,
-    Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    Wapper: tw.div`flex items-center text-gray-700`,
+    // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
+        // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+        ConstStyle.width[Width],
+    ]),
+}
+
+export const VaryLabelInputStyle = {
+    Wapper: tw.div`flex items-center`,
+    InputLabel: tw.label`block uppercase text-gray-600 text-xs w-2/12 font-bold`,
+    Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
+        // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        tw`form-input block h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+        ConstStyle.width[Width],
+    ]),
+}
+
+export const VaryLabelStyle = {
+    Wapper: tw.div`flex items-center`,
+    InputLabel: styled.label(
+        ({ Width = `w60` }: { Width?: InputWidthType }) => [
+            tw`block uppercase text-gray-600 text-xs font-bold`,
+            ConstStyle.width[Width],
+            // tw`w-12`,
+        ]
+    ),
 }

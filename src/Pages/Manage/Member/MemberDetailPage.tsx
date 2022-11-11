@@ -1,6 +1,6 @@
 import React from 'react'
-import ListMain from './Dtls/ListMain'
+import DetailMain from './Dtls/DetailMain'
 
 export default function MemberDetailPage() {
-    return <ListMain />
+    return <DetailMain />
 }

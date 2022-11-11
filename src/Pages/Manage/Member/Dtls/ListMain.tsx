@@ -5,12 +5,20 @@ import ManageBox from './ManageBox'
 import ListTable from './ListTable'
 import { getList } from '@Service/InstdeptService'
 import { InstdeptListInterface } from '@CommonTypes'
-import { tableListInterface } from './TableConfig'
+import { tableListItemInterface } from './TableConfig'
 
 const { Container, SearchWapper, TableWapper, ManageWapper } = MainStyle
 
+const initializeState = {
+    loading: true,
+    memberList: [],
+}
+
 export default function ListMain() {
-    const [memberList, setMemberList] = useState<tableListInterface[]>([])
+    const [pageState, setPageState] = useState<{
+        loading: boolean
+        memberList: tableListItemInterface[]
+    }>(initializeState)
 
     const getTableList = async () => {
         const response = await getList({
@@ -22,8 +30,10 @@ export default function ListMain() {
 
         const listData: InstdeptListInterface[] = response.payload.INSTDEPT_LIST
 
-        setMemberList(
-            listData.map(_ => {
+        setPageState(prevState => ({
+            ...prevState,
+            loading: false,
+            memberList: listData.map(_ => {
                 return {
                     MBER_NO: _.MBER_NO,
                     MEBER_NM: _.MEBER_NM,
@@ -35,16 +45,20 @@ export default function ListMain() {
                     CONFM_DE: _.CONFM_DE,
                     STAT: _.STAT,
                 }
-            })
-        )
+            }),
+        }))
     }
 
     useEffect(() => {
-        const pageStart = async () => {
+        const pageStart = () => {
+            setPageState(prevState => ({
+                ...prevState,
+                loading: true,
+            }))
             getTableList().then()
         }
 
-        pageStart().then()
+        pageStart()
     }, [])
     return (
         <Container>
@@ -55,7 +69,10 @@ export default function ListMain() {
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable MemberList={memberList} />
+                <ListTable
+                    MemberList={pageState.memberList}
+                    Loading={pageState.loading}
+                />
             </TableWapper>
         </Container>
     )

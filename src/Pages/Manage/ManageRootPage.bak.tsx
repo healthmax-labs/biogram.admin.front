@@ -4,9 +4,10 @@ import { PageLoading } from '@Elements'
 import Const from '@Const'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
+import { Route, Routes } from 'react-router-dom'
 
 export default function ManageRootPage() {
-    const [activeRoutePathName, setActiveRoutePathName] = useState(
+    const [activePathName, setActivePathName] = useState(
         '/manage/member/member-list'
     )
     const [pageTitle, setPageTitle] = useState<string>(``)
@@ -15,7 +16,7 @@ export default function ManageRootPage() {
     // 템에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
         const chIndex = Const.Routers.findIndex(
-            el => el.pathName === activeRoutePathName
+            el => el.pathName === activePathName
         )
         const TabPageComponent = Const.Routers[chIndex].Component
         return <TabPageComponent />
@@ -26,7 +27,7 @@ export default function ManageRootPage() {
         const funcSetActivePathName = () => {
             const avticeTab = tabState.filter(el => el.active).shift()
             if (avticeTab) {
-                setActiveRoutePathName(avticeTab.routePath)
+                setActivePathName(avticeTab.pathname)
                 setPageTitle(avticeTab.name)
             }
         }
@@ -41,7 +42,17 @@ export default function ManageRootPage() {
                 <link rel="canonical" href={`${process.env.PUBLIC_URL}`} />
             </Helmet>
             <Suspense fallback={<PageLoading />}>
-                {renderTabPageComponent()}
+                {/*{renderTabPageComponent()}*/}
+                <Routes>
+                    {Const.Routers.map(el => {
+                        return (
+                            <Route
+                                path={el.pathName}
+                                element={renderTabPageComponent()}
+                            />
+                        )
+                    })}
+                </Routes>
             </Suspense>
         </HelmetProvider>
     )

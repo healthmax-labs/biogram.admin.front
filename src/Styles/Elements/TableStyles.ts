@@ -12,8 +12,8 @@ export const TableStyle = {
     TableBody: tw.tbody`w-full h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
-            ? tw`flex w-full bg-white h-9 items-center`
-            : tw`flex w-full h-9 items-center`,
+            ? tw`flex w-full bg-white h-9 items-center cursor-pointer hover:bg-green-200`
+            : tw`flex w-full h-9 items-center cursor-pointer hover:bg-green-200`,
     ]),
     TableBodyCell: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,

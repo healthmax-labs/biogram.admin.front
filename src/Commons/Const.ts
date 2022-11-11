@@ -13,6 +13,15 @@ export default {
         },
         {
             mainCode: `10000`,
+            menuCode: ``,
+            name: `회원상세`,
+            pathName: `/manage/member/:MEMBER_NO/detail`,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/MemberDetailPage')
+            ),
+        },
+        {
+            mainCode: `10000`,
             menuCode: `10102`,
             name: `메세지 발송이력`,
             pathName: ``,
@@ -183,4 +192,7 @@ export default {
             ),
         },
     ],
+    Layout: {
+        LeftMenuWidth: 0,
+    },
 }
