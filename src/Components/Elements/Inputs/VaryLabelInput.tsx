@@ -1,23 +1,23 @@
 import React, { KeyboardEvent } from 'react'
 import { InputWidthType } from '@CommonTypes'
-import { VaryInputStyle } from '@Style/Elements/InputStyles'
+import { VaryLabelInputStyle } from '@Style/Elements/InputStyles'
 
-const { Wapper, Input } = VaryInputStyle
+const { Wapper, InputLabel, Input } = VaryLabelInputStyle
 
-const VaryInput = ({
+const VaryLabelInput = ({
     InputType,
-    id,
+    LabelName,
     Placeholder,
+    InputValue,
     HandleOnChange,
-    Value,
     HandleOnKeyDown,
-    Width,
+    InputWidth,
 }: {
-    InputType: string
-    id?: string
-    Placeholder: string
-    Value: string
-    Width?: InputWidthType
+    InputType?: string
+    LabelName: string
+    Placeholder?: string
+    InputValue: string
+    InputWidth?: InputWidthType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
 }) => {
@@ -29,22 +29,22 @@ const VaryInput = ({
 
     return (
         <Wapper>
+            <InputLabel>{LabelName}</InputLabel>
             <Input
-                Width={Width ? Width : 'w60'}
-                type={InputType}
-                id={id ? id : 'search'}
-                placeholder={Placeholder}
-                required
+                Width={InputWidth ? InputWidth : 'w64'}
+                type={InputType ? InputType : `text`}
+                placeholder={Placeholder ? Placeholder : LabelName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     HandleOnChange(e)
                 }
-                value={Value}
+                value={InputValue}
                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
                     handleOnKeyDown(e)
                 }
+                required
             />
         </Wapper>
     )
 }
 
-export default VaryInput
+export default VaryLabelInput

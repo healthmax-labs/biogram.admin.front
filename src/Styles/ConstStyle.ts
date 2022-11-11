@@ -15,4 +15,22 @@ export default {
         full: tw`max-w-full`,
         max: tw`max-w-max`,
     },
+    width: {
+        w10: tw`w-10`,
+        w12: tw`w-12`,
+        w32: tw`w-32`,
+        w40: tw`w-40`,
+        w52: tw`w-52`,
+        w60: tw`w-60`,
+        w64: tw`w-64`,
+        w72: tw`w-72`,
+        w80: tw`w-80`,
+        w96: tw`w-96`,
+        w1012: tw`w-10/12`,
+        w212: tw`w-2/12`,
+    },
+    padding: {
+        pl0: tw`pl-0`,
+        pl1: tw`pl-1`,
+    },
 }

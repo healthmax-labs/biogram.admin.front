@@ -1,5 +1,20 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
 export type defaultYesNo = 'Y' | 'N'
+export type InputWidthType =
+    | 'w10'
+    | 'w12'
+    | 'w32'
+    | 'w40'
+    | 'w52'
+    | 'w60'
+    | 'w64'
+    | 'w72'
+    | 'w80'
+    | 'w96'
+    | 'w1012'
+    | 'w212'
+
+export type PaddingStyleType = 'pl0' | 'pl1'
 
 // page tab
 export interface TabInterface {

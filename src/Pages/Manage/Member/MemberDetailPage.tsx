@@ -1,6 +1,6 @@
 import React from 'react'
 import DetailMain from './Dtls/DetailMain'
 
-export default function MemberListPage() {
+export default function MemberDetailPage() {
     return <DetailMain />
 }
