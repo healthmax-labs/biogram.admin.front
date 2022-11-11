@@ -37,7 +37,7 @@ export const ModalStyle = {
     },
     ButtonBox: tw.div`items-center gap-2 mt-3`,
     ButtonCenterBox: tw.div`w-full text-center items-center gap-2 mt-3`,
-    Button: tw.button`w-1/3 px-3 py-1.5 bg-m-button hover:bg-m-blue text-white text-xs rounded-md mx-2`,
+    Button: tw.button`w-1/3 px-3 py-1.5 bg-m-b-blue hover:bg-m-blue text-white text-xs rounded-md mx-2`,
 }
 
 export const ConfimModalStyle = {

@@ -5,6 +5,7 @@ import { VaryInputStyle } from '@Style/Elements/InputStyles'
 const { Wapper, Input } = VaryInputStyle
 
 const VaryInput = ({
+    Ref,
     InputType,
     id,
     Placeholder,
@@ -13,7 +14,12 @@ const VaryInput = ({
     HandleOnKeyDown,
     Width,
     Required,
+    Children,
+    HandleOnFocus,
+    Disabled,
+    ReadOnly,
 }: {
+    Ref?: any
     InputType: string
     id?: string
     Placeholder: string
@@ -22,6 +28,10 @@ const VaryInput = ({
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
     Required?: boolean
+    Children?: React.ReactNode
+    HandleOnFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
+    Disabled?: boolean
+    ReadOnly?: boolean
 }) => {
     const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
@@ -32,6 +42,8 @@ const VaryInput = ({
     return (
         <Wapper>
             <Input
+                readOnly={ReadOnly ? ReadOnly : false}
+                ref={Ref}
                 Width={Width ? Width : 'w60'}
                 type={InputType}
                 id={id ? id : 'search'}
@@ -44,7 +56,11 @@ const VaryInput = ({
                     handleOnKeyDown(e)
                 }
                 required={Required ? Required : false}
+                onFocus={HandleOnFocus}
+                disabled={Disabled ? Disabled : false}
+                Disabled={Disabled ? Disabled : false}
             />
+            {Children ?? <div className="flex flex-1 px-10">{Children}</div>}
         </Wapper>
     )
 }

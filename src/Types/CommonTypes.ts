@@ -13,6 +13,7 @@ export type InputWidthType =
     | 'w96'
     | 'w1012'
     | 'w212'
+export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
 
