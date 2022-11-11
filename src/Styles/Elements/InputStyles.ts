@@ -20,9 +20,9 @@ export const VaryInputStyle = {
     Wapper: tw.div`flex items-center text-gray-700`,
     // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
-        tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
         ConstStyle.width[Width],
-        // tw`w-10`,
     ]),
 }
 
@@ -30,7 +30,8 @@ export const VaryLabelInputStyle = {
     Wapper: tw.div`flex items-center`,
     InputLabel: tw.label`block uppercase text-gray-600 text-xs w-2/12 font-bold`,
     Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
-        tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+        tw`form-input block h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
         ConstStyle.width[Width],
     ]),
 }

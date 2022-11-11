@@ -12,6 +12,7 @@ const VaryInput = ({
     Value,
     HandleOnKeyDown,
     Width,
+    Required,
 }: {
     InputType: string
     id?: string
@@ -20,6 +21,7 @@ const VaryInput = ({
     Width?: InputWidthType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
+    Required?: boolean
 }) => {
     const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
@@ -34,7 +36,6 @@ const VaryInput = ({
                 type={InputType}
                 id={id ? id : 'search'}
                 placeholder={Placeholder}
-                required
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     HandleOnChange(e)
                 }
@@ -42,6 +43,7 @@ const VaryInput = ({
                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
                     handleOnKeyDown(e)
                 }
+                required={Required ? Required : false}
             />
         </Wapper>
     )

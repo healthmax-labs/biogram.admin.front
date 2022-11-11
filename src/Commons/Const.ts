@@ -192,4 +192,7 @@ export default {
             ),
         },
     ],
+    Layout: {
+        LeftMenuWidth: 0,
+    },
 }

@@ -23,11 +23,11 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': ['warn'],
         // "@typescript-eslint/explicit-function-return-type": "off",
         // "@typescript-eslint/no-var-requires": 0,
-        'linebreak-style': [
-            'error',
-            process.platform === 'win32' ? 'windows' : 'unix',
-        ],
-        // "linebreak-style": 0,
+        // 'linebreak-style': [
+        //     'error',
+        //     process.platform === 'win32' ? 'windows' : 'unix',
+        // ],
+        'linebreak-style': 0,
         'prettier/prettier': [
             'error',
             {
