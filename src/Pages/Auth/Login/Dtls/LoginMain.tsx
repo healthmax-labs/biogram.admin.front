@@ -3,7 +3,7 @@ import LoginForm from './LoginForm'
 import { useAuth } from '@Hook/index'
 import { useNavigate } from 'react-router-dom'
 
-export default function LoginMain() {
+const LoginMain = () => {
     const navigate = useNavigate()
     const { handleLoginCheck } = useAuth()
 
@@ -22,3 +22,5 @@ export default function LoginMain() {
     }, [handleLoginCheck, navigate])
     return <LoginForm />
 }
+
+export default LoginMain

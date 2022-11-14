@@ -3,7 +3,7 @@ import { SelectStyle } from '@Style/Elements/SelectStyles'
 
 const { DefaultSearchSelect } = SelectStyle
 
-export default function SearchSelect({
+const SearchSelect = ({
     id,
     name,
     autoComplete,
@@ -20,7 +20,7 @@ export default function SearchSelect({
         text: string
     }>
     handleOnnBlur?: () => void
-}) {
+}) => {
     return (
         <DefaultSearchSelect
             id={id}
@@ -41,3 +41,5 @@ export default function SearchSelect({
         </DefaultSearchSelect>
     )
 }
+
+export default SearchSelect

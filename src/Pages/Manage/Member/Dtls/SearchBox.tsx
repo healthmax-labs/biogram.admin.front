@@ -21,7 +21,7 @@ const {
     Relative,
 } = SearchBoxStyle
 
-export default function SearchBox() {
+const SearchBox = () => {
     const handlePstinstSelect = ({
         instNo,
         instNm,
@@ -94,3 +94,4 @@ export default function SearchBox() {
         </Container>
     )
 }
+export default SearchBox

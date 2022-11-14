@@ -14,7 +14,7 @@ const {
 
 const { CenterText } = ConfimModalStyle
 
-export default function ConfimModal({
+const ConfimModal = ({
     title,
     showControl,
     cancleButtonClick,
@@ -24,7 +24,7 @@ export default function ConfimModal({
     showControl: boolean
     cancleButtonClick: () => void
     applyButtonClick: () => void
-}) {
+}) => {
     const [showModal, setShowModal] = useState<boolean>(true)
 
     useEffect(() => {
@@ -63,3 +63,5 @@ export default function ConfimModal({
         </>
     )
 }
+
+export default ConfimModal

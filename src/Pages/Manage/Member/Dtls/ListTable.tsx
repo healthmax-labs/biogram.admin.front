@@ -11,13 +11,13 @@ interface tableOption {
     Lists: tableListItemInterface[]
 }
 
-export default function ListTable({
+const ListTable = ({
     Loading,
     MemberList,
 }: {
     Loading: boolean
     MemberList: tableListItemInterface[]
-}) {
+}) => {
     const navigate = useNavigate()
     const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
 
@@ -39,3 +39,5 @@ export default function ListTable({
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
+
+export default ListTable

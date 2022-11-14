@@ -5,13 +5,13 @@ import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 
 const { HeaderRow, HeaderCell, HeaderCheckbox } = TableStyle
 
-export default function MainTableHeader({
+const MainTableHeader = ({
     Columns,
     Options,
 }: {
     Columns: ColumnsInterface[]
     Options: OptionsInterface
-}) {
+}) => {
     return (
         <HeaderRow>
             {Options.selectAll && (
@@ -29,3 +29,5 @@ export default function MainTableHeader({
         </HeaderRow>
     )
 }
+
+export default MainTableHeader

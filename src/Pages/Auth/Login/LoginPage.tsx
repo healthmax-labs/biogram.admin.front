@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 const DtlPage = React.lazy(() => import('./Dtls/LoginMain'))
 
-export default function LoginPage() {
+const LoginPage = () => {
     return (
         <HelmetProvider>
             <Helmet>
@@ -17,3 +17,5 @@ export default function LoginPage() {
         </HelmetProvider>
     )
 }
+
+export default LoginPage

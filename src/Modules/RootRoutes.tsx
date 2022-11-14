@@ -5,7 +5,7 @@ import { ManageRootPage } from '@Page/Manage'
 import { DefaultListPage } from '@Page/Publish'
 import Const from '@Const'
 
-function RootRoutes() {
+const RootRoutes = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>

@@ -14,7 +14,7 @@ const initializeState = {
     memberList: [],
 }
 
-export default function ListMain() {
+const ListMain = () => {
     const [pageState, setPageState] = useState<{
         loading: boolean
         memberList: tableListItemInterface[]
@@ -77,3 +77,5 @@ export default function ListMain() {
         </Container>
     )
 }
+
+export default ListMain

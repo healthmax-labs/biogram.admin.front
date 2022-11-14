@@ -4,7 +4,7 @@ import { LoadingImage } from '@Assets'
 
 const { Wapper, Container } = ElementLoadingStyle
 
-export default function ElementLoading() {
+const ElementLoading = () => {
     return (
         <Container>
             <Wapper bgImage={`${LoadingImage}`}>
@@ -23,3 +23,5 @@ export default function ElementLoading() {
         </Container>
     )
 }
+
+export default ElementLoading

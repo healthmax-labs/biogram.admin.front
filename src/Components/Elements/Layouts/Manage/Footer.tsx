@@ -12,7 +12,7 @@ const {
     Container,
 } = FooterStyle
 
-export default function Footer() {
+const Footer = () => {
     return (
         <>
             <Box>
@@ -57,3 +57,5 @@ export default function Footer() {
         </>
     )
 }
+
+export default Footer

@@ -12,7 +12,7 @@ const {
     Container,
 } = PaginationStyle
 
-export default function DefaultPagination() {
+const DefaultPagination = () => {
     return (
         <>
             <Container>
@@ -94,3 +94,5 @@ export default function DefaultPagination() {
         </>
     )
 }
+
+export default DefaultPagination

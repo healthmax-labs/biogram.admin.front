@@ -4,7 +4,7 @@ import { LoadingImage } from '@Assets'
 
 const { Text, Wapper, Container } = PageLoadingStyle
 
-export default function PageLoading() {
+const PageLoading = () => {
     return (
         <Container>
             <div>
@@ -28,3 +28,5 @@ export default function PageLoading() {
         </Container>
     )
 }
+
+export default PageLoading

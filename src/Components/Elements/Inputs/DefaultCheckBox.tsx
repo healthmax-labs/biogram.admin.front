@@ -3,7 +3,7 @@ import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { CheckBox } = InputStyle
 
-export default function DefaultCheckBox() {
+const DefaultCheckBox = () => {
     const handleTempOnChange = () => {
         //
     }
@@ -17,3 +17,5 @@ export default function DefaultCheckBox() {
         />
     )
 }
+
+export default DefaultCheckBox

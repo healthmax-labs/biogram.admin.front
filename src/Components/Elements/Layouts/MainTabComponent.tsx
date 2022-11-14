@@ -8,7 +8,7 @@ import { useTab } from '@Hooks'
 
 const { MainUl, MainLi, TabButton, CloseButton, ButtonWapper } = MainTabStyle
 
-export default function MainTabComponent() {
+const MainTabComponent = () => {
     const navigate = useNavigate()
     const tabState = useRecoilValue(AtomPageTabState)
     const { handleDeleteTab } = useTab()
@@ -94,3 +94,5 @@ export default function MainTabComponent() {
         </MainUl>
     )
 }
+
+export default MainTabComponent

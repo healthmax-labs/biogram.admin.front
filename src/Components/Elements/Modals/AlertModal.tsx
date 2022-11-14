@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ModalStyle, AlertModelStyle } from '@Style/Elements/ModalStyles'
+import { AlertModelStyle, ModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
     Container,
@@ -14,7 +14,7 @@ const {
 
 const { TitleText } = AlertModelStyle
 
-export default function PhoneAuthModal({
+const PhoneAuthModal = ({
     modalTitle,
     showControl,
     okButtonClick,
@@ -22,7 +22,7 @@ export default function PhoneAuthModal({
     modalTitle: string
     showControl: boolean
     okButtonClick: () => void
-}) {
+}) => {
     const authInputRef = useRef<HTMLInputElement>(null)
     const [showModal, setShowModal] = useState<boolean>(true)
 
@@ -61,3 +61,5 @@ export default function PhoneAuthModal({
         </>
     )
 }
+
+export default PhoneAuthModal

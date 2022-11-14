@@ -25,7 +25,7 @@ const {
     RememberIdLabel,
 } = LoginPageStyle
 
-export default function LoginForm() {
+const LoginForm = () => {
     const navigate = useNavigate()
     const inputPasswordRef = useRef<HTMLInputElement | null>(null)
     const { handleAttemptLogin } = useAuth()
@@ -224,3 +224,5 @@ export default function LoginForm() {
         </Container>
     )
 }
+
+export default LoginForm

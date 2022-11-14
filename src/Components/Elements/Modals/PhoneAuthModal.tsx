@@ -15,7 +15,7 @@ const {
 const { CenterText, AuthText, AuthInput, InputBox, AuthSpan, AuthErrorText } =
     AuthModalStyle
 
-export default function PhoneAuthModal({
+const PhoneAuthModal = ({
     phoneNumber,
     showControl,
     cancleButtonClick,
@@ -25,7 +25,7 @@ export default function PhoneAuthModal({
     showControl: boolean
     cancleButtonClick: () => void
     applyButtonClick: () => void
-}) {
+}) => {
     const authInputRef = useRef<HTMLInputElement>(null)
     const [showModal, setShowModal] = useState<boolean>(true)
 
@@ -88,3 +88,5 @@ export default function PhoneAuthModal({
         </>
     )
 }
+
+export default PhoneAuthModal

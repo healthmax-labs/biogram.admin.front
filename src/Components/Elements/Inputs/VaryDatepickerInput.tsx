@@ -27,7 +27,7 @@ const CustomInput = (
     />
 )
 
-export default function VaryDatepickerInput() {
+const VaryDatepickerInput = () => {
     const [startDate, setStartDate] = useState(new Date())
 
     return (
@@ -40,3 +40,5 @@ export default function VaryDatepickerInput() {
         />
     )
 }
+
+export default VaryDatepickerInput

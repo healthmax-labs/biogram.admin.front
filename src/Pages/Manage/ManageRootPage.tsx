@@ -5,7 +5,7 @@ import Const from '@Const'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
-export default function ManageRootPage() {
+const ManageRootPage = () => {
     const [activeRoutePathName, setActiveRoutePathName] = useState(
         '/manage/member/member-list'
     )
@@ -46,3 +46,5 @@ export default function ManageRootPage() {
         </HelmetProvider>
     )
 }
+
+export default ManageRootPage

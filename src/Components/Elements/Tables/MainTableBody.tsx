@@ -6,12 +6,12 @@ import { get } from 'lodash'
 
 const { TableBodyCell, TbodyTdCheckbox, TableBodyRow } = TableStyle
 
-export default function MainTableBody<P>({
+const MainTableBody = <P,>({
     RowClick,
     Options,
     Columns,
     Lists,
-}: TablePropsInterface<P>) {
+}: TablePropsInterface<P>) => {
     return (
         <>
             {Lists.map((el: P, index) => {
@@ -40,3 +40,5 @@ export default function MainTableBody<P>({
         </>
     )
 }
+
+export default MainTableBody

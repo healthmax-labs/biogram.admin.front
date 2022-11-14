@@ -5,7 +5,7 @@ const {
     Search: { Wapper, Search, SearchButton, SearchBox, Toggle, Label },
 } = InputStyle
 
-export default function SearchInput() {
+const SearchInput = () => {
     return (
         <Wapper>
             <Label htmlFor="search-dropdown">소속</Label>
@@ -54,3 +54,5 @@ export default function SearchInput() {
         </Wapper>
     )
 }
+
+export default SearchInput

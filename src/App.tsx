@@ -8,7 +8,7 @@ import UnderConstructionComponent from '@Component/UnderConstructionComponent'
 import { RecoilDevTools } from 'recoil-gear'
 import { RootRoutes } from '@Modules'
 
-function App() {
+const App = () => {
     const [AppLoading, setAppLoading] = useState<boolean>(true)
     const [serverFail, setServerFail] = useState<boolean>(false)
 

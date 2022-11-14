@@ -39,7 +39,7 @@ const initializeState = {
     searchFocus: null,
 }
 
-export default function PstinstSelector({
+const PstinstSelector = ({
     HandleSelectValue,
 }: {
     HandleSelectValue: ({
@@ -49,7 +49,7 @@ export default function PstinstSelector({
         instNo: number
         instNm: string
     }) => void
-}) {
+}) => {
     // ref...
     const inputRef = useRef<HTMLInputElement[]>([])
 
@@ -410,3 +410,5 @@ export default function PstinstSelector({
         </>
     )
 }
+
+export default PstinstSelector

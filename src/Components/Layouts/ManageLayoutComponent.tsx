@@ -9,7 +9,7 @@ import { useAuth } from '@Hooks'
 
 const { Container, CenterWapper } = LayoutStyle
 
-export default function ManageLayoutComponent() {
+const ManageLayoutComponent = () => {
     const navigate = useNavigate()
     const { handleLoginCheck, handleAttemptLogout } = useAuth()
     // 왼쪽 메뉴 보이기 상태.
@@ -44,3 +44,5 @@ export default function ManageLayoutComponent() {
         </>
     )
 }
+
+export default ManageLayoutComponent

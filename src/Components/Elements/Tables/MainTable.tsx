@@ -7,13 +7,13 @@ import { ElementLoading } from '@Elements'
 
 const { TableWapper, TableHeader, TableBody } = TableStyle
 
-export default function MainTable<P>({
+const MainTable = <P,>({
     RowClick,
     Loading,
     Columns,
     Options,
     Lists,
-}: TablePropsInterface<P>) {
+}: TablePropsInterface<P>) => {
     return (
         <>
             {Loading ? (
@@ -39,3 +39,5 @@ export default function MainTable<P>({
         </>
     )
 }
+
+export default MainTable

@@ -4,11 +4,7 @@ const {
     Hamburger: { Box, Item },
 } = ButtonStyle
 
-export default function Hamburger({
-    ButtonClick,
-}: {
-    ButtonClick: () => void
-}) {
+const Hamburger = ({ ButtonClick }: { ButtonClick: () => void }) => {
     return (
         <Box onClick={() => ButtonClick()}>
             <Item></Item>
@@ -16,3 +12,5 @@ export default function Hamburger({
         </Box>
     )
 }
+
+export default Hamburger

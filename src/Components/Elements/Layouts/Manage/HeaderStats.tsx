@@ -2,7 +2,7 @@ import { HeaderStatsStyle } from '@Style/Layouts/Manage/MainStyles'
 
 const { Cards, CardItem, Wapper, MainWapper, Container } = HeaderStatsStyle
 
-export default function HeaderStats() {
+const HeaderStats = () => {
     return (
         <>
             {/* Header */}
@@ -22,3 +22,5 @@ export default function HeaderStats() {
         </>
     )
 }
+
+export default HeaderStats

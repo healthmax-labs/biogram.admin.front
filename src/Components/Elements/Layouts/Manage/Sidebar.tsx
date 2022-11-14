@@ -20,7 +20,7 @@ const {
     NavigationLi,
 } = SidebarStyle
 
-export default function Sidebar() {
+const Sidebar = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
@@ -147,3 +147,5 @@ export default function Sidebar() {
         </>
     )
 }
+
+export default Sidebar
