@@ -1,4 +1,5 @@
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
+import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import {
     VaryButton,
     VaryDatepickerInput,
@@ -9,10 +10,11 @@ import {
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
+const { DetailContainer } = DetailPageStyle
 
 const DetailTable = () => {
     return (
-        <div className="flex flex-nowrap flex-col border">
+        <DetailContainer>
             <TableContainer>
                 <TableWapper>
                     <Row>
@@ -113,11 +115,23 @@ const DetailTable = () => {
                         <InputCell>
                             <div className="flex flex-nowrap px-0">
                                 <div className="mr-2">
-                                    <VaryRadioButton LabelName={`남성`} />
+                                    <VaryRadioButton
+                                        LabelName={`남성`}
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
                                 </div>
 
                                 <div className="mr-2">
-                                    <VaryRadioButton LabelName={`여성`} />
+                                    <VaryRadioButton
+                                        LabelName={`여성`}
+                                        Checked={true}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
                                 </div>
                             </div>
                         </InputCell>
@@ -292,7 +306,7 @@ const DetailTable = () => {
                     />
                 </div>
             </div>
-        </div>
+        </DetailContainer>
     )
 }
 

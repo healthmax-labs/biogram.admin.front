@@ -58,3 +58,7 @@ export const VaryLabelStyle = {
         ]
     ),
 }
+
+export const VaryLabelTextAreaStyle = {
+    TextArea: tw.textarea`block p-2.5 w-full text-xs text-gray-900 bg-gray-100 border-0 focus:ring-blue-500 focus:border-blue-500`,
+}

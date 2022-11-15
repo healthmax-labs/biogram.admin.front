@@ -42,4 +42,7 @@ export const ListTableStyle = {
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
 }
 
-export const DetailPageStyle = {}
+export const DetailPageStyle = {
+    DetailContainer: tw.div`flex flex-nowrap flex-col border`,
+    MemoContainer: tw.div`flex flex-col break-words bg-white`,
+}
