@@ -34,7 +34,7 @@ const VaryDatepickerInput = () => {
         <DatePicker
             selected={startDate}
             onChange={(date: any) => setStartDate(date)}
-            dateFormat={`yyyy/MM/dd`}
+            dateFormat={`yyyy년 MM월 dd일`}
             locale={ko}
             customInput={React.createElement(React.forwardRef(CustomInput))}
         />
