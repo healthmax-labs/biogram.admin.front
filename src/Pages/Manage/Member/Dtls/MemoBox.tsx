@@ -7,7 +7,7 @@ const MemoBox = () => {
     return (
         <MemoContainer>
             <VaryLabelTextArea
-                Rows={19}
+                Rows={22}
                 Placeholder={`메모를 입력해 주세요`}
                 Value={``}
                 HandleOnChange={() => console.debug('HandleOnChange')}
