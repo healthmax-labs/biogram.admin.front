@@ -12,7 +12,6 @@ deploy_production:
     refs:
       - develop
   stage: deploy
-  environment: Production
   script:
     - yarn install
     - yarn build
