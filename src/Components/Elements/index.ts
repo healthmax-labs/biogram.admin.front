@@ -14,6 +14,7 @@ export { default as VaryInput } from './Inputs/VaryInput'
 export { default as VaryLabelInput } from './Inputs/VaryLabelInput'
 export { default as VaryLabel } from './Inputs/VaryLabel'
 export { default as VaryDatepickerInput } from './Inputs/VaryDatepickerInput'
+export { default as VaryLabelTextArea } from './Inputs/VaryLabelTextArea'
 
 export { default as PageLoading } from './Loading/PageLoading'
 export { default as ElementLoading } from './Loading/ElementLoading'

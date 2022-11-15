@@ -2,7 +2,6 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 
 export const MainStyle = {
-    Container: tw.div`relative flex flex-col min-w-0 break-words w-full mb-6 rounded bg-white`,
     SearchWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
     ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
     TableWapper: tw.div`block w-full overflow-x-auto`,
@@ -41,4 +40,9 @@ export const ListTableStyle = {
     ]),
     TbodyTd: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
+}
+
+export const DetailPageStyle = {
+    DetailContainer: tw.div`flex flex-nowrap flex-col border`,
+    MemoContainer: tw.div`flex flex-col break-words bg-white`,
 }

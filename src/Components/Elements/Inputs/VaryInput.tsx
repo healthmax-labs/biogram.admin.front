@@ -21,12 +21,12 @@ const VaryInput = ({
 }: {
     Ref?: any
     InputType: string
-    id?: string
     Placeholder: string
     Value: string
-    Width?: InputWidthType
+    id?: string
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
+    Width?: InputWidthType
     Required?: boolean
     Children?: React.ReactNode
     HandleOnFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
