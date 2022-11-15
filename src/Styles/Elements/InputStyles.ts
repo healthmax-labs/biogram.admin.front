@@ -41,7 +41,7 @@ export const VaryInputStyle = {
             // tw`leading-none transition outline-none focus:outline-none flex items-center shadow-sm  border placeholder-opacity-40  bg-gray-100 cursor-not-allowed   h-10 px-4 text-base rounded`,
             // tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
             Disabled
-                ? tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-0`
+                ? tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`
                 : tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
             ConstStyle.width[Width],
         ]

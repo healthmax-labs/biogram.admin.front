@@ -251,10 +251,14 @@ const DetailTable = () => {
                             <VaryLabel LabelName={`RFID 카드 등록`} />
                         </InputCell>
                         <InputCell colSpan={3}>
-                            <VaryButton
-                                Name={`RFID 카드 등록하기`}
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
+                            <div className=" px-1">
+                                <VaryButton
+                                    Name={`RFID 카드 등록하기`}
+                                    HandleClick={() =>
+                                        console.debug('HandleClick')
+                                    }
+                                />
+                            </div>
                         </InputCell>
                     </Row>
                     <Row>
