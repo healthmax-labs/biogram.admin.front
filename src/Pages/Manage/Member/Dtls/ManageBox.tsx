@@ -1,0 +1,40 @@
+import React from 'react'
+import { ManageBoxStyle } from '@Style/Pages/MemberPageStyles'
+import { DefaultManageButton } from '@Elements'
+
+const { Wapper, Buttons } = ManageBoxStyle
+
+const ManageBox = () => {
+    return (
+        <Wapper>
+            <Buttons>
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인1'}
+                />
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인2'}
+                />
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인3'}
+                />
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인4'}
+                />
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인5'}
+                />
+                <DefaultManageButton
+                    ButtonClick={() => console.debug('DefaultManageButton')}
+                    ButtonName={'소승승인6'}
+                />
+            </Buttons>
+        </Wapper>
+    )
+}
+
+export default ManageBox

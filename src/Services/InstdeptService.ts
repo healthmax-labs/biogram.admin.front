@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Modules'
-import { ServicesDefaultResult, INSTDEPT_LIST } from '@Type/CommonTypes'
+import { InstdeptListInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 
 export function getList({
     CUR_PAGE,
@@ -14,7 +14,7 @@ export function getList({
 }): Promise<
     ServicesDefaultResult<{
         CUR_PAGE: number
-        INSTDEPT_LIST: INSTDEPT_LIST[]
+        INSTDEPT_LIST: InstdeptListInterface[]
         INST_NO: number
         TOT: number
         TOTAL_PAGE_CNT: number

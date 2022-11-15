@@ -1,322 +1,151 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from 'Assets/Images/logo.svg'
-import NotificationDropdown from './NotificationDropdown'
-import UserDropdown from './UserDropdown'
+import React, { useEffect, useState } from 'react'
+import { MenuLogo } from '@Assets'
+import { SidebarStyle } from '@Style/Layouts/Manage/MainStyles'
+import { useRecoilValue } from 'recoil'
+import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { AtomRootState } from '@Recoil/AppRootState'
+import { MenuItemInterface } from '@CommonTypes'
+import { isEmpty } from 'lodash'
 
-export default function Sidebar() {
-    const [collapseShow, setCollapseShow] = React.useState('hidden')
+const {
+    Nav,
+    Container,
+    Collapse,
+    Logo,
+    MenuLink,
+    MenuHeading,
+    Divider,
+    NavigationUl,
+    NavigationLi,
+} = SidebarStyle
+
+const Sidebar = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
+    const {
+        menuInfo: { AUTHOR_MENU_INFO_LIST },
+    } = useRecoilValue(AtomRootState)
+
+    const [pageState, setPageState] = useState<{
+        Menus: {
+            main: MenuItemInterface[]
+            sub: MenuItemInterface[]
+        }
+    }>({
+        Menus: {
+            main: [],
+            sub: [],
+        },
+    })
+
+    useEffect(() => {
+        const funcSetMenus = () => {
+            setPageState(prevState => ({
+                ...prevState,
+                Menus: {
+                    main: AUTHOR_MENU_INFO_LIST.filter(e => e.SORT_ORDR === 1),
+                    sub: AUTHOR_MENU_INFO_LIST.filter(e => e.SORT_ORDR !== 1),
+                },
+            }))
+        }
+
+        if (AUTHOR_MENU_INFO_LIST.length > 0) {
+            funcSetMenus()
+        }
+    }, [AUTHOR_MENU_INFO_LIST])
+
     return (
         <>
-            <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
-                <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+            <Nav MenuState={leftMenuShowStatus.leftMenuShow}>
+                <Container>
                     {/* Toggler */}
-                    <button
-                        className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                        type="button"
-                        onClick={() =>
-                            setCollapseShow('bg-white m-2 py-3 px-6')
-                        }>
-                        <i className="fas fa-bars"></i>
-                    </button>
                     {/* Brand */}
-                    <img src={logo} alt="BioGram" />
-                    {/* User */}
-                    <ul className="md:hidden items-center flex flex-wrap list-none">
-                        <li className="inline-block relative">
-                            <NotificationDropdown />
-                        </li>
-                        <li className="inline-block relative">
-                            <UserDropdown />
-                        </li>
-                    </ul>
+                    <Logo src={MenuLogo} alt="BioGram" />
                     {/* Collapse */}
-                    <div
-                        className={
-                            'md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded ' +
-                            collapseShow
-                        }>
-                        {/* Collapse header */}
-                        <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
-                            <div className="flex flex-wrap">
-                                <div className="w-6/12">
-                                    <Link
-                                        className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                                        to="/">
-                                        Notus React
-                                    </Link>
-                                </div>
-                                <div className="w-6/12 flex justify-end">
-                                    <button
-                                        type="button"
-                                        className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                                        onClick={() =>
-                                            setCollapseShow('hidden')
-                                        }>
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Form */}
-                        <form className="mt-6 mb-4 md:hidden">
-                            <div className="mb-3 pt-0">
-                                <input
-                                    type="text"
-                                    placeholder="Search"
-                                    className="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
-                                />
-                            </div>
-                        </form>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            회원관리
-                        </h6>
-                        {/* Navigation */}
-
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li className="items-center">
-                                <Link
-                                    className={
-                                        'text-xs uppercase py-3 font-bold block ' +
-                                        (window.location.href.indexOf(
-                                            '/admin/dashboard'
-                                        ) !== -1
-                                            ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                                            : 'text-blueGray-700 hover:text-blueGray-500')
-                                    }
-                                    to="/admin/dashboard">
-                                    <i
-                                        className={
-                                            'fas fa-tv mr-2 text-sm ' +
-                                            (window.location.href.indexOf(
-                                                '/admin/dashboard'
-                                            ) !== -1
-                                                ? 'opacity-75'
-                                                : 'text-blueGray-300')
-                                        }></i>{' '}
-                                    회원현황
-                                </Link>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            소속관리
-                        </h6>
-                        {/* Navigation */}
-
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="items-center">
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                                    to="/manage/belong/belong-status">
-                                    <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{' '}
-                                    소속현황
-                                </Link>
-                            </li>
-
-                            <li className="items-center">
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                                    to="/manage/belong/belong-manage">
-                                    <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{' '}
-                                    소속 가입신청
-                                </Link>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            컨텐츠 관리
-                        </h6>
-                        {/* Navigation */}
-
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="items-center">
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                                    to="/landing">
-                                    <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{' '}
-                                    매거진
-                                </Link>
-                            </li>
-
-                            <li className="items-center">
-                                <Link
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                                    to="/profile">
-                                    <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{' '}
-                                    바이오그램 존
-                                </Link>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            현황관리
-                        </h6>
-                        {/* Navigation */}
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/colors/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                                    휘험요인 현황
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                                    전후비교 현황
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-angular mr-2 text-blueGray-300 text-base"></i>
-                                    기기측정 현황
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-js-square mr-2 text-blueGray-300 text-base"></i>
-                                    활동량 현황
-                                </a>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            통계관리
-                        </h6>
-                        {/* Navigation */}
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/colors/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                                    사용자 통계
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                                    위험군 통계
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-angular mr-2 text-blueGray-300 text-base"></i>
-                                    위혐요인 통계
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-js-square mr-2 text-blueGray-300 text-base"></i>
-                                    복양 통계
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-js-square mr-2 text-blueGray-300 text-base"></i>
-                                    기기사용 통계
-                                </a>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            관리자 설정
-                        </h6>
-                        {/* Navigation */}
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/colors/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                                    태블릿 시리얼키 관리
-                                </a>
-                            </li>
-
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                                    이용 약관 관리
-                                </a>
-                            </li>
-                        </ul>
-
-                        {/* Divider */}
-                        <hr className="my-4 md:min-w-full" />
-                        {/* Heading */}
-                        <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                            홈페이지 관리
-                        </h6>
-                        {/* Navigation */}
-                        <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                            <li className="inline-flex">
-                                <a
-                                    href="https://www.creative-tim.com/learning-lab/tailwind/react/colors/notus"
-                                    target="_blank"
-                                    className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold">
-                                    <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                                    게시판 관리
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                    <Collapse.Container>
+                        {pageState.Menus.main.map(
+                            (mainMenus: MenuItemInterface, mainIndex) => {
+                                return (
+                                    <div key={`sidebar-main-menu-${mainIndex}`}>
+                                        {mainIndex > 0 && <Divider />}
+                                        <MenuHeading>
+                                            {mainMenus.MENU_NM}
+                                        </MenuHeading>
+                                        {pageState.Menus.sub
+                                            .filter(
+                                                e =>
+                                                    e.MENU_ORDR_GUBUN ===
+                                                    mainMenus.MENU_ORDR_GUBUN
+                                            )
+                                            .map((subMenu, subIndex) => {
+                                                return (
+                                                    <NavigationUl
+                                                        key={`sidebar-sub-menu-${subIndex}`}>
+                                                        <NavigationLi>
+                                                            <MenuLink
+                                                                Active={
+                                                                    location.pathname ===
+                                                                    `${subMenu.pathName}`
+                                                                }
+                                                                onClick={() => {
+                                                                    if (
+                                                                        isEmpty(
+                                                                            subMenu.pathName
+                                                                        )
+                                                                    ) {
+                                                                        alert(
+                                                                            '준비 중입니다.'
+                                                                        )
+                                                                        return
+                                                                    }
+                                                                    navigate(
+                                                                        `${process.env.PUBLIC_URL}${subMenu.pathName}`
+                                                                    )
+                                                                }}>
+                                                                {
+                                                                    subMenu.MENU_NM
+                                                                }
+                                                            </MenuLink>
+                                                        </NavigationLi>
+                                                    </NavigationUl>
+                                                )
+                                            })}
+                                    </div>
+                                )
+                            }
+                        )}
+                        {process.env.REACT_APP_ENV === 'development' && (
+                            <>
+                                {/* Divider */}
+                                <Divider />
+                                {/* Heading */}
+                                <MenuHeading>퍼블리싱 페이지</MenuHeading>
+                                {/* Navigation */}
+                                <NavigationUl>
+                                    <NavigationLi>
+                                        <MenuLink
+                                            Active={
+                                                location.pathname ===
+                                                `/publish/default/default-list`
+                                            }
+                                            onClick={() => {
+                                                navigate(
+                                                    `${process.env.PUBLIC_URL}/publish/default/default-list`
+                                                )
+                                            }}>
+                                            기본 리스트
+                                        </MenuLink>
+                                    </NavigationLi>
+                                </NavigationUl>
+                            </>
+                        )}
+                    </Collapse.Container>
+                </Container>
+            </Nav>
         </>
     )
 }
+
+export default Sidebar

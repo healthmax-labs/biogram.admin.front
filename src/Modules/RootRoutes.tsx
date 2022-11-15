@@ -1,29 +1,32 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BlankLayoutComponent, MageLayoutComponent } from '@Layouts'
-import {
-    LoginPage,
-    Dashboard,
-    BelongStatusPage,
-    BelongManagePage,
-} from '@Pages'
+import { LoginPage } from '@Page/Auth'
+import { ManageRootPage } from '@Page/Manage'
+import { DefaultListPage } from '@Page/Publish'
+import Const from '@Const'
 
-function RootRoutes() {
+const RootRoutes = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
                 <Route element={<BlankLayoutComponent />}>
+                    <Route path="/" element={<LoginPage />} />
                     <Route path="/auth/login" element={<LoginPage />} />
                 </Route>
                 <Route element={<MageLayoutComponent />}>
-                    <Route path="/manage/dashboard" element={<Dashboard />} />
                     <Route
-                        path="/manage/belong/belong-status"
-                        element={<BelongStatusPage />}
+                        path="/publish/default/default-list"
+                        element={<DefaultListPage />}
                     />
-                    <Route
-                        path="/manage/belong/belong-manage"
-                        element={<BelongManagePage />}
-                    />
+                    {Const.Routers.map((el, index) => {
+                        return (
+                            <Route
+                                key={index}
+                                path={el.pathName}
+                                element={<ManageRootPage />}
+                            />
+                        )
+                    })}
                 </Route>
             </Routes>
         </BrowserRouter>
