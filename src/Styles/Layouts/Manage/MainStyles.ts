@@ -82,3 +82,14 @@ export const TopbarStyle = {
     Logout: tw.div`items-center flex ml-2`,
     LogoutIcon: tw.img`cursor-pointer items-center flex pb-0.5 w-4`,
 }
+
+export const PageContainerStyle = {
+    ListPage: {
+        Container: tw.div`relative flex flex-col min-w-0 break-words w-full mb-6 rounded bg-white`,
+    },
+    DetailPage: {
+        Container: tw.div`flex flex-nowrap`,
+        LeftWapper: tw.div`w-left-box`,
+        RightWapper: tw.div`w-right-box`,
+    },
+}

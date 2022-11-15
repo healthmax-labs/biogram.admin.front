@@ -18,3 +18,11 @@ export const TableStyle = {
     TableBodyCell: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
 }
+
+export const DetailTableStyle = {
+    TableContainer: tw.table`divide-y divide-gray-300 w-full`,
+    TableWapper: tw.tbody`bg-white divide-y divide-gray-300`,
+    Row: tw.tr`whitespace-nowrap`,
+    LabelCell: tw.td`px-6 text-sm text-gray-500 border`,
+    InputCell: tw.td`px-6 py-1 border`,
+}

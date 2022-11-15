@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
@@ -7,7 +8,10 @@ import { getList } from '@Service/InstdeptService'
 import { InstdeptListInterface } from '@CommonTypes'
 import { tableListItemInterface } from './TableConfig'
 
-const { Container, SearchWapper, TableWapper, ManageWapper } = MainStyle
+const {
+    ListPage: { Container },
+} = PageContainerStyle
+const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const initializeState = {
     loading: true,
