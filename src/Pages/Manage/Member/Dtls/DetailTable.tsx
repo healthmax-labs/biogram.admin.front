@@ -251,7 +251,7 @@ const DetailTable = () => {
                             <VaryLabel LabelName={`RFID 카드 등록`} />
                         </InputCell>
                         <InputCell colSpan={3}>
-                            <div className=" px-1">
+                            <div className="px-1 py-1">
                                 <VaryButton
                                     Name={`RFID 카드 등록하기`}
                                     HandleClick={() =>
@@ -266,29 +266,33 @@ const DetailTable = () => {
                             <VaryLabel LabelName={`소속정보`} />
                         </InputCell>
                         <InputCell colSpan={3}>
-                            <table className="w-full bg-transparent border-collapse items-center scrollbar-hide">
-                                <tbody className="w-full bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll">
-                                    <tr className="flex w-full bg-white h-9 items-center cursor-pointer hover:bg-green-200">
-                                        <td className="flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
-                                            1
-                                        </td>
-                                        <td className="flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
-                                            테스트 소속
-                                        </td>
-                                        <td className="flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
-                                            2022-11-09
-                                        </td>
-                                        <td className="flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
-                                            <VaryButton
-                                                Name={`소속 탈퇴`}
-                                                HandleClick={() =>
-                                                    console.debug('HandleClick')
-                                                }
-                                            />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div className="px-1 py-0">
+                                <table className="w-full bg-transparent border-collapse items-center scrollbar-hide whitespace-nowrap overflow-auto scrollbar-hide">
+                                    <tbody className="w-full bg-gray-100 flex flex-col text-center items-center justify-between">
+                                        <tr className="flex w-full bg-white h-8 items-center cursor-pointer hover:bg-green-200">
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                1
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                테스트 소속
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                2022-11-09
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                <VaryButton
+                                                    Name={`소속 탈퇴`}
+                                                    HandleClick={() =>
+                                                        console.debug(
+                                                            'HandleClick'
+                                                        )
+                                                    }
+                                                />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </InputCell>
                     </Row>
                 </TableWapper>

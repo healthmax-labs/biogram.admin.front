@@ -23,6 +23,6 @@ export const DetailTableStyle = {
     TableContainer: tw.table`divide-y divide-gray-300 w-full`,
     TableWapper: tw.tbody`bg-white divide-y divide-gray-300`,
     Row: tw.tr`whitespace-nowrap`,
-    LabelCell: tw.td`px-6 text-sm text-gray-500 border`,
+    LabelCell: tw.td`px-6 h-10 text-sm text-gray-500 border`,
     InputCell: tw.td`px-6 py-1 border`,
 }
