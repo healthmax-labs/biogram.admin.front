@@ -32,5 +32,5 @@ module.exports = {
             'm-dip-blue': `#5d6787`,
         },
     },
-    plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
+    plugins: [require('@tailwindcss/forms'), require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
 }

@@ -43,6 +43,6 @@ export const ListTableStyle = {
 }
 
 export const DetailPageStyle = {
-    DetailContainer: tw.div`flex flex-nowrap flex-col border`,
+    DetailContainer: tw.div`flex flex-nowrap flex-col`,
     MemoContainer: tw.div`flex flex-col break-words bg-white`,
 }

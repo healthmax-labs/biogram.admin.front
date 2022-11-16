@@ -266,7 +266,7 @@ const DetailTable = () => {
                             <VaryLabel LabelName={`소속정보`} />
                         </InputCell>
                         <InputCell colSpan={3}>
-                            <table className="w-full bg-transparent border-collapse items-center">
+                            <table className="w-full bg-transparent border-collapse items-center scrollbar-hide">
                                 <tbody className="w-full bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll">
                                     <tr className="flex w-full bg-white h-9 items-center cursor-pointer hover:bg-green-200">
                                         <td className="flex items-center justify-center w-1/4 h-10 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">

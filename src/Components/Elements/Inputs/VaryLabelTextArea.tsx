@@ -9,7 +9,7 @@ const VaryLabelTextArea = ({
     Value,
     HandleOnChange,
 }: {
-    Rows: number
+    Rows?: number
     Placeholder: string
     Value: string
     HandleOnChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
