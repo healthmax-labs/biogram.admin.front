@@ -24,7 +24,6 @@ const DetailTable = () => {
                         <InputCell>
                             <VaryInput
                                 Width={'w64'}
-                                InputType={'text'}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
                                 }
@@ -39,7 +38,6 @@ const DetailTable = () => {
                         <InputCell>
                             <VaryInput
                                 Width={'w64'}
-                                InputType={'text'}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
                                 }
@@ -236,9 +234,9 @@ const DetailTable = () => {
                                 </div>
                             </div>
                         </InputCell>
-                        <InputCell>
+                        <LabelCell>
                             <VaryLabel LabelName={`비밀번호`} />
-                        </InputCell>
+                        </LabelCell>
                         <InputCell>
                             <VaryButton
                                 Name={`비밀번호 초기화`}
@@ -247,9 +245,9 @@ const DetailTable = () => {
                         </InputCell>
                     </Row>
                     <Row>
-                        <InputCell>
+                        <LabelCell>
                             <VaryLabel LabelName={`RFID 카드 등록`} />
-                        </InputCell>
+                        </LabelCell>
                         <InputCell colSpan={3}>
                             <div className="px-1 py-1">
                                 <VaryButton
@@ -262,13 +260,34 @@ const DetailTable = () => {
                         </InputCell>
                     </Row>
                     <Row>
-                        <InputCell>
+                        <LabelCell>
                             <VaryLabel LabelName={`소속정보`} />
-                        </InputCell>
+                        </LabelCell>
                         <InputCell colSpan={3}>
                             <div className="px-1 py-0">
                                 <table className="w-full bg-transparent border-collapse items-center scrollbar-hide whitespace-nowrap overflow-auto scrollbar-hide">
                                     <tbody className="w-full bg-gray-100 flex flex-col text-center items-center justify-between">
+                                        <tr className="flex w-full bg-white h-8 items-center cursor-pointer hover:bg-green-200">
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                1
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                테스트 소속
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                2022-11-09
+                                            </td>
+                                            <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
+                                                <VaryButton
+                                                    Name={`소속 탈퇴`}
+                                                    HandleClick={() =>
+                                                        console.debug(
+                                                            'HandleClick'
+                                                        )
+                                                    }
+                                                />
+                                            </td>
+                                        </tr>
                                         <tr className="flex w-full bg-white h-8 items-center cursor-pointer hover:bg-green-200">
                                             <td className="flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100">
                                                 1
