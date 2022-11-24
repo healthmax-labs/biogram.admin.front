@@ -78,9 +78,9 @@ export default {
             mainCode: `40000`,
             menuCode: `40101`,
             name: `위험요인 현황`,
-            pathName: ``,
+            pathName: `/manage/status-list/risk-fctr`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/RiskFctrList/RiskFctrListPage')
             ),
         },
         {
