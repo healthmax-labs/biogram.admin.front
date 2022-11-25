@@ -160,9 +160,9 @@ export default {
             mainCode: `40000`,
             menuCode: `40301`,
             name: `기기측정 현황`,
-            pathName: ``,
+            pathName: `/manage/status-list/statistics`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/StatisticsList/StatisticsListPage')
             ),
         },
         {

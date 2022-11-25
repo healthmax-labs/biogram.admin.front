@@ -3,8 +3,8 @@ import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'
-import { getBrftrCmprList } from '@Service/BrftrCmprService'
-import { BrftrCmprListItemInterface } from '@Type/BrftrCmprTypes'
+import { getStatisticsList } from '@Service/StatisticsService'
+import { StatisticsListItemInterface } from '@Type/StatisticsTypes'
 import { tableListItemInterface } from './TableConfig'
 
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
@@ -22,16 +22,16 @@ const ListMain = () => {
     }>(initializeState)
 
     const getTableList = async () => {
-        const response = await getBrftrCmprList({
+        const response = await getStatisticsList({
             CUR_PAGE: 1,
             INST_NO: 0,
             SEARCH_KEY: '',
-            BGNDE: '20190101',
-            ENDDE: '20221201',
+            BEGIN_DE: '20220501',
+            END_DE: '20220525',
         })
 
-        const listData: BrftrCmprListItemInterface[] =
-            response.payload.MESURE_BRFTR_CMPR_INFO_LIST
+        const listData: StatisticsListItemInterface[] =
+            response.payload.DEVICE_MESURE_INFO_LIST
 
         setPageState(prevState => ({
             ...prevState,
@@ -39,49 +39,39 @@ const ListMain = () => {
             memberList: listData.map(_ => {
                 return {
                     MBER_NO: _.MBER_NO,
-                    TG_3: _.TG_3,
-                    TG_2: _.TG_2,
-                    TG_1: _.TG_1,
-                    TG_0: _.TG_0,
-                    WAIST_0: _.WAIST_0,
-                    WAIST_1: _.WAIST_1,
-                    WAIST_2: _.WAIST_2,
-                    WAIST_3: _.WAIST_3,
-                    BP_MESURE_DT_3: _.BP_MESURE_DT_3,
-                    BP_MESURE_DT_2: _.BP_MESURE_DT_2,
-                    BP_MESURE_DT_1: _.BP_MESURE_DT_1,
-                    BP_MESURE_DT_0: _.BP_MESURE_DT_0,
+                    NM: _.NM,
                     BRTHDY: _.BRTHDY,
                     SEXDSTN: _.SEXDSTN,
-                    FBS_MESURE_DT_0: _.FBS_MESURE_DT_0,
-                    FBS_MESURE_DT_1: _.FBS_MESURE_DT_1,
-                    FBS_MESURE_DT_MESURE_DT_2: _.FBS_MESURE_DT_MESURE_DT_2,
-                    FBS_MESURE_DT_MESURE_DT_3: _.FBS_MESURE_DT_MESURE_DT_3,
-                    HDLC_0: _.HDLC_0,
-                    HDLC_1: _.HDLC_1,
-                    HDLC_2: _.HDLC_2,
-                    HDLC_3: _.HDLC_3,
-                    BP_3: _.BP_3,
-                    BP_2: _.BP_2,
-                    BP_1: _.BP_1,
-                    BP_0: _.BP_0,
-                    TG_MESURE_DT_0: _.TG_MESURE_DT_0,
-                    TG_MESURE_DT_1: _.TG_MESURE_DT_1,
-                    TG_MESURE_DT_2: _.TG_MESURE_DT_2,
-                    TG_MESURE_DT_3: _.TG_MESURE_DT_3,
-                    FBS_0: _.FBS_0,
-                    FBS_1: _.FBS_1,
-                    FBS_2: _.FBS_2,
-                    FBS_3: _.FBS_3,
-                    HDLC_MESURE_DT_0: _.HDLC_MESURE_DT_0,
-                    HDLC_MESURE_DT_1: _.HDLC_MESURE_DT_1,
-                    HDLC_MESURE_DT_2: _.HDLC_MESURE_DT_2,
-                    HDLC_MESURE_DT_3: _.HDLC_MESURE_DT_3,
-                    WAIST_MESURE_DT_0: _.WAIST_MESURE_DT_0,
-                    WAIST_MESURE_DT_1: _.WAIST_MESURE_DT_1,
-                    WAIST_MESURE_DT_2: _.WAIST_MESURE_DT_2,
-                    WAIST_MESURE_DT_3: _.WAIST_MESURE_DT_3,
-                    NM: _.NM,
+                    MESURE_DE: _.MESURE_DE,
+                    MBER_CNT: _.MBER_CNT,
+                    WEIGHT: _.WEIGHT,
+                    BMI: _.BMI,
+                    FAT_MAS: _.FAT_MAS,
+                    SYSTOLIC: _.SYSTOLIC,
+                    STRS_SCORE: _.STRS_SCORE,
+                    STRS_CNTRMSR_ABLTY: _.STRS_CNTRMSR_ABLTY,
+                    MNTL_STRS: _.MNTL_STRS,
+                    ELSTC_DGREE: _.ELSTC_DGREE,
+                    BLDVSS_STEP: _.BLDVSS_STEP,
+                    DIASTOLIC: _.DIASTOLIC,
+                    LDLC: _.LDLC,
+                    HDLC: _.HDLC,
+                    PBF: _.PBF,
+                    SLM: _.SLM,
+                    FBS: _.FBS,
+                    PP2: _.PP2,
+                    RBV_QY: _.RBV_QY,
+                    ODR: _.ODR,
+                    PHYSIC_STRS: _.PHYSIC_STRS,
+                    VFL: _.VFL,
+                    EST_BN_MAS: _.EST_BN_MAS,
+                    CAD_OUTPUT_IN: _.CAD_OUTPUT_IN,
+                    PULS: _.PULS,
+                    HEIGHT: _.HEIGHT,
+                    TG: _.TG,
+                    T_CHOL: _.T_CHOL,
+                    BDHEAT: _.BDHEAT,
+                    WAIST_CRCMFRNC: _.WAIST_CRCMFRNC,
                 }
             }),
         }))

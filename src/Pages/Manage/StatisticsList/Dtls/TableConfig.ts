@@ -1,49 +1,39 @@
 // 회원 테이블 데이터
 export interface tableListItemInterface {
     MBER_NO: number
-    TG_3: null | string
-    TG_2: null | string
-    TG_1: null | string
-    TG_0: null | string
-    WAIST_0: null | number
-    WAIST_1: null | number
-    WAIST_2: null | number
-    WAIST_3: null | number
-    BP_MESURE_DT_3: null | string
-    BP_MESURE_DT_2: null | string
-    BP_MESURE_DT_1: null | string
-    BP_MESURE_DT_0: null | string
+    NM: null | string
     BRTHDY: null | string
     SEXDSTN: null | string
-    FBS_MESURE_DT_0: null | string
-    FBS_MESURE_DT_1: null | string
-    FBS_MESURE_DT_MESURE_DT_2: null | string
-    FBS_MESURE_DT_MESURE_DT_3: null | string
-    HDLC_0: null | number
-    HDLC_1: null | number
-    HDLC_2: null | number
-    HDLC_3: null | number
-    BP_3: null | number
-    BP_2: null | number
-    BP_1: null | number
-    BP_0: null | number
-    TG_MESURE_DT_0: null | string
-    TG_MESURE_DT_1: null | string
-    TG_MESURE_DT_2: null | string
-    TG_MESURE_DT_3: null | string
-    FBS_0: null | number
-    FBS_1: null | number
-    FBS_2: null | number
-    FBS_3: null | number
-    HDLC_MESURE_DT_0: null | string
-    HDLC_MESURE_DT_1: null | string
-    HDLC_MESURE_DT_2: null | string
-    HDLC_MESURE_DT_3: null | string
-    WAIST_MESURE_DT_0: null | string
-    WAIST_MESURE_DT_1: null | string
-    WAIST_MESURE_DT_2: null | string
-    WAIST_MESURE_DT_3: null | string
-    NM: string
+    MESURE_DE: null | string
+    MBER_CNT: null | string
+    WEIGHT: null | string
+    BMI: null | string
+    PBF: null | string
+    FAT_MAS: null | string
+    SLM: null | string
+    ELSTC_DGREE: null | string
+    VFL: null | string
+    WAIST_CRCMFRNC: null | string
+    SYSTOLIC: null | string
+    DIASTOLIC: null | string
+    PULS: null | string
+    FBS: null | string
+    PP2: null | string
+    T_CHOL: null | string
+    TG: null | string
+    HDLC: null | string
+    LDLC: null | string
+    STRS_SCORE: null | string
+    MNTL_STRS: null | string
+    PHYSIC_STRS: null | string
+    STRS_CNTRMSR_ABLTY: null | string
+    BLDVSS_STEP: null | string
+    CAD_OUTPUT_IN: null | string
+    EST_BN_MAS: null | string
+    RBV_QY: null | string
+    HEIGHT: null | string
+    BDHEAT: null | string
+    ODR: number
 }
 
 // 테이블 설정.
@@ -70,164 +60,112 @@ export const TableConfig = {
             key: `SEXDSTN`,
         },
         {
-            name: `허리둘레(최초)`,
-            key: `WAIST_0`,
+            name: `체중(kg)`,
+            key: `WEIGHT`,
         },
         {
-            name: `허리둘레(최근1)`,
-            key: `WAIST_1`,
+            name: `BMI(kg/m²)`,
+            key: `BMI`,
         },
         {
-            name: `허리둘레(최근2)`,
-            key: `WAIST_2`,
+            name: `체지방률(%)`,
+            key: `FAT_MAS`,
         },
         {
-            name: `허리둘레(최근3)`,
+            name: `체지방량(kg)`,
             key: `WAIST_3`,
         },
         {
-            name: `허리둘레DT(최초)`,
+            name: `근육량(kg)`,
             key: `WAIST_MESURE_DT_0`,
         },
         {
-            name: `허리둘레DT(최근1)`,
+            name: `추정골량(kg)`,
             key: `WAIST_MESURE_DT_1`,
         },
         {
-            name: `허리둘레DT(최근2)`,
+            name: `내장지방(level)`,
             key: `WAIST_MESURE_DT_2`,
         },
         {
-            name: `허리둘레DT(최근3)`,
+            name: `수축기(mmHg)`,
             key: `WAIST_MESURE_DT_3`,
         },
         {
-            name: `혈압(최초)`,
+            name: `이완기(mmHg)`,
             key: `BP_0`,
         },
         {
-            name: `혈압(최근1)`,
+            name: `맥박(bpm)`,
             key: `BP_1`,
         },
         {
-            name: `혈압(최근2)`,
+            name: `공복(mg/dl)`,
             key: `BP_2`,
         },
         {
-            name: `혈압(최근3)`,
+            name: `식후(mg/dl)`,
             key: `BP_3`,
         },
         {
-            name: `혈압DT(최초)`,
+            name: `TC(mg/dl)`,
             key: `BP_MESURE_DT_0`,
         },
         {
-            name: `혈압DT(최근1)`,
+            name: `TG(mg/dl)`,
             key: `BP_MESURE_DT_1`,
         },
         {
-            name: `혈압DT(최근2)`,
+            name: `HDL-C(mg/dl)`,
             key: `BP_MESURE_DT_2`,
         },
         {
-            name: `혈압DT(최근3)`,
+            name: `LDL-C(mg/dl)`,
             key: `BP_MESURE_DT_3`,
         },
         {
-            name: `식전혈당(최초)`,
+            name: `점수(점)`,
             key: `FBS_0`,
         },
         {
-            name: `식전혈당(최근1)`,
+            name: `정신적(단계)`,
             key: `FBS_1`,
         },
         {
-            name: `식전혈당(최근2)`,
+            name: `신체적(단계)`,
             key: `FBS_2`,
         },
         {
-            name: `식전혈당(최근3)`,
+            name: `대처능력(단계)`,
             key: `FBS_3`,
         },
         {
-            name: `식전혈당DT(최초)`,
+            name: `혈관(단계)`,
             key: `FBS_MESURE_DT_0`,
         },
         {
-            name: `식전혈당DT(최근1)`,
+            name: `박출강도(단계)`,
             key: `FBS_MESURE_DT_1`,
         },
         {
-            name: `식전혈당DT(최근2)`,
+            name: `탄성도(단계)`,
             key: `FBS_MESURE_DT_MESURE_DT_2`,
         },
         {
-            name: `식전혈당DT(최근3)`,
+            name: `잔혈량(단계)`,
             key: `FBS_MESURE_DT_MESURE_DT_3`,
         },
         {
-            name: `중성지방(최초)`,
+            name: `신장(cm)`,
             key: `TG_0`,
         },
         {
-            name: `중성지방(최근1)`,
+            name: `체온(°c)`,
             key: `TG_1`,
         },
         {
-            name: `중성지방(최근2)`,
+            name: `허리둘레(cm)`,
             key: `TG_2`,
-        },
-        {
-            name: `중성지방(최근3)`,
-            key: `TG_3`,
-        },
-        {
-            name: `중성지방DT(최초)`,
-            key: `TG_MESURE_DT_0`,
-        },
-        {
-            name: `중성지방DT(최근1)`,
-            key: `TG_MESURE_DT_1`,
-        },
-        {
-            name: `중성지방DT(최근2)`,
-            key: `TG_MESURE_DT_2`,
-        },
-        {
-            name: `중성지방DT(최근3)`,
-            key: `TG_MESURE_DT_3`,
-        },
-        {
-            name: `HDLC(최초)`,
-            key: `HDLC_0`,
-        },
-        {
-            name: `HDLC(최근1)`,
-            key: `HDLC_1`,
-        },
-        {
-            name: `HDLC(최근2)`,
-            key: `HDLC_2`,
-        },
-        {
-            name: `HDLC(최근3)`,
-            key: `HDLC_3`,
-        },
-        {
-            name: `HDLCDT(최초)`,
-            key: `HDLC_MESURE_DT_0`,
-        },
-        {
-            name: `HDLCDT(최근1)`,
-            key: `HDLC_MESURE_DT_1`,
-        },
-        {
-            name: `HDLCDT(최근2)`,
-            key: `HDLC_MESURE_DT_2`,
-        },
-        {
-            name: `HDLCDT(최근3)`,
-            key: `HDLC_MESURE_DT_3`,
         },
     ],
     Lists: [],
