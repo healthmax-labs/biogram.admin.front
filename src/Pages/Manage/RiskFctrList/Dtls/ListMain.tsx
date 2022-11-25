@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MainStyle } from '@Style/Pages/MemberPageStyles'
+import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'
@@ -7,7 +7,8 @@ import { getRiskFctrList } from '@Service/RiskFctrService'
 import { RiskFctrListItemInterface } from '@Type/RiskFctrTypes'
 import { tableListItemInterface } from './TableConfig'
 
-const { Container, SearchWapper, TableWapper, ManageWapper } = MainStyle
+const { SearchWapper, TableWapper, ManageWapper } = MainStyle
+const { Container } = SearchBoxStyle
 
 const initializeState = {
     loading: true,

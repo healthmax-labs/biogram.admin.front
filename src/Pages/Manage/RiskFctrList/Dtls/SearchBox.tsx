@@ -94,22 +94,46 @@ const SearchBox = () => {
                     <LabelItemBox>
                         <div className="flex flex-nowrap px-0">
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="0개" />
+                                <VaryRadioButton
+                                    LabelName="0개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="1개" />
+                                <VaryRadioButton
+                                    LabelName="1개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="2개" />
+                                <VaryRadioButton
+                                    LabelName="2개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="3개" />
+                                <VaryRadioButton
+                                    LabelName="3개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="4개" />
+                                <VaryRadioButton
+                                    LabelName="4개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton LabelName="5개" />
+                                <VaryRadioButton
+                                    LabelName="5개"
+                                    Checked={false}
+                                    HandleOnChange={() => console.log('111')}
+                                />
                             </div>
                         </div>
                     </LabelItemBox>

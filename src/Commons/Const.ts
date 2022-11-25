@@ -151,9 +151,9 @@ export default {
             mainCode: `40000`,
             menuCode: `40201`,
             name: `전후비교 현황`,
-            pathName: ``,
+            pathName: `/manage/status-list/brftt-cmpr`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/BrftrCmprList/BrftrCmprListPage')
             ),
         },
         {
