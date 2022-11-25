@@ -4,7 +4,6 @@ import {
     DatepickerInput,
     DefaultSearchButton,
     PstinstSelector,
-    DefaultCheckBox,
 } from '@Elements'
 
 const {
@@ -51,41 +50,6 @@ const SearchBox = () => {
                                 })
                             }
                         />
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>요인 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <DefaultCheckBox />
-                        체성분
-                        <DefaultCheckBox />
-                        혈압
-                        <DefaultCheckBox />
-                        혈당
-                        <DefaultCheckBox />
-                        콜레스테롤
-                        <DefaultCheckBox />
-                        스트레스
-                        <DefaultCheckBox />
-                        기타
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>기간 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Datepicker>
-                            <DatepickerInput />
-                            <DatepickerLine>~</DatepickerLine>
-                            <DatepickerInput />
-                        </Datepicker>
                     </LabelItemBox>
                 </Item>
                 <Item></Item>

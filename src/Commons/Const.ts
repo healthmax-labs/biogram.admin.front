@@ -115,9 +115,9 @@ export default {
             mainCode: `20000`,
             menuCode: `20201`,
             name: `소속 가입신청`,
-            pathName: `/manage/belong/belong-manage`,
+            pathName: `/manage/inst/join-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/inst/joinList/JoinListPage')
             ),
         },
         {
