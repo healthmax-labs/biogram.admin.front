@@ -5,5 +5,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "files.eol": "\n"
+"files.eol": "\n",
+"[json]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+}
 }

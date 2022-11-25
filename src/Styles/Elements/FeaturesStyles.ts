@@ -26,3 +26,22 @@ export const PstinstSelectorStyle = {
         BgState ? tw`text-xs text-white bg-m-blue` : tw`text-xs text-gray-500`,
     ]),
 }
+
+export const StplatInfoAgreeModalStyle = {
+    Container: tw.div``,
+    TitleBox: tw.div`py-2 text-left text-2xl`,
+    ItemGrid: tw.div`grid grid-rows-4 grid-flow-col gap-1 h-1/6`,
+    ItemRow: styled.div(({ First }: { First: boolean }) => [
+        First ? tw`row-span-4` : tw`row-span-2 col-span-2`,
+    ]),
+    AgreeItemCard: tw.div`px-2 py-2 bg-white border border-gray-200 rounded-lg shadow-md`,
+    AgreeItemTitle: tw.div`mb-2 text-sm text-left font-bold tracking-tight text-gray-900`,
+    AgreeItemContent: styled.div(({ First }: { First: boolean }) => [
+        First
+            ? tw`h-[35rem] overflow-y-scroll`
+            : tw`h-[15rem] overflow-y-scroll`,
+        tw`text-left`,
+    ]),
+    AgreeItemCheckBox: tw.div`flex pt-3 items-end object-bottom place-items-end content-end`,
+    AllAgreeButton: tw.div`flex flex-row justify-center text-xs pt-3`,
+}

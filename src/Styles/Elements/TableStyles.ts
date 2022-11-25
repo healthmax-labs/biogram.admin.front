@@ -2,7 +2,6 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 //
 
-// DefaultPagination
 export const TableStyle = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,

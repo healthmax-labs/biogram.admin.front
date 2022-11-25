@@ -1,6 +1,70 @@
 import React from 'react'
 
 export default {
+    Codes: {
+        memberStplats: {
+            code: {
+                US: {
+                    name: '이용약관 동의여부',
+                    code: 'USE_STPLAT_AGRE_AT',
+                },
+                II: {
+                    name: '개인정보수집이용 동의여부',
+                    code: 'INDVDLINFO_AGRE_AT',
+                },
+                SI: {
+                    name: '민감정보 수집 및 이용 동의 여부',
+                    code: 'SNSTIIVEINFO_AGRE_AT',
+                },
+                IT: {
+                    name: '개인정보 제3자 제공 동의 여부',
+                    code: 'INDVDLINFO_THIRD_AGRE_AT',
+                },
+                ST: {
+                    name: '민감정보 제3자 제공 동의 여부',
+                    code: 'SNSTIIVEINFO_THIRD_AGRE_AT',
+                },
+                MP: {
+                    name: '마케팅 정보 수신 동의 여부(선택)',
+                    code: 'MARKTINFO_AGRE_AT',
+                },
+                MI: {
+                    name: '마케팅 목적 수집 이용 동의 여부(선택)',
+                    code: 'MARKTINFO_PURPOSE_AGRE_AT',
+                },
+            },
+            category: {
+                USE_STPLAT_AGRE_AT: {
+                    name: '이용약관 동의여부',
+                    code: 'US',
+                },
+                INDVDLINFO_AGRE_AT: {
+                    name: '개인정보수집이용 동의여부',
+                    code: 'II',
+                },
+                SNSTIIVEINFO_AGRE_AT: {
+                    name: '민감정보 수집 및 이용 동의 여부',
+                    code: 'SI',
+                },
+                INDVDLINFO_THIRD_AGRE_AT: {
+                    name: '개인정보 제3자 제공 동의 여부',
+                    code: 'IT',
+                },
+                SNSTIIVEINFO_THIRD_AGRE_AT: {
+                    name: '민감정보 제3자 제공 동의 여부',
+                    code: 'ST',
+                },
+                MARKTINFO_AGRE_AT: {
+                    name: '마케팅 정보 수신 동의 여부(선택)',
+                    code: 'MP',
+                },
+                MARKTINFO_PURPOSE_AGRE_AT: {
+                    name: '마케팅 목적 수집 이용 동의 여부(선택)',
+                    code: 'MI',
+                },
+            },
+        },
+    },
     Routers: [
         {
             mainCode: `10000`,

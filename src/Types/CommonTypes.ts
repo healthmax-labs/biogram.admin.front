@@ -1,5 +1,5 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
-export type defaultYesNo = 'Y' | 'N'
+export type DefaultYesNo = 'Y' | 'N'
 export type InputWidthType =
     | 'w10'
     | 'w12'
@@ -13,6 +13,35 @@ export type InputWidthType =
     | 'w96'
     | 'w1012'
     | 'w212'
+
+export type MaxWidthType =
+    | 'sm'
+    | 'lg'
+    | 'md'
+    | 'max'
+    | 'xl'
+    | 'xl2'
+    | 'xl3'
+    | 'xl4'
+    | 'xl5'
+    | 'xl6'
+    | 'xl7'
+    | 'full'
+
+export type MaxHeightType =
+    | 'sm'
+    | 'lg'
+    | 'md'
+    | 'max'
+    | 'xl'
+    | 'xl2'
+    | 'xl3'
+    | 'xl4'
+    | 'xl5'
+    | 'xl6'
+    | 'xl7'
+    | 'full'
+
 export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
@@ -162,4 +191,52 @@ export interface AppRootStateInterface {
         INST_NM: string | null
     }
     menuInfo: AuthorMenuInterface<MenuItemInterface>
+}
+
+// 약관 인터페이스
+export interface StplatInfoItem {
+    STPLAT_KND_CODE: 'US' | 'IT' | 'ST' | 'II' | 'SI' | 'MP' | 'MI'
+    STPLAT_KND_CODE_NM: string
+    STPLAT_DC: string
+}
+
+// 내몸관리 지수 아이템
+export interface MybodyManageScoreItemInterface {
+    CALC_DT: string
+    TOT_SCORE: number
+    HDLC_SCORE: number
+    MBER_NO: number
+    BP_SCORE: number
+    FBS_SCORE: number
+    TG_SCORE: number
+    WAIST_SCORE: number
+}
+
+// 내몸관리 지수
+export interface MybodyManageScoreInterface {
+    TOTAL_COUNT: number
+    MYBODY_MANAGE_SCORE_LIST: MybodyManageScoreItemInterface[]
+}
+
+export interface MberCashInfoItemInterface {
+    CHANGE_CASH: string
+    CHANGE_TIME: string
+    CHANGE_RESN: string
+    CHANGE_DE: string
+    CHANGE_SE_CODE: 'P' | 'M'
+    MBER_NO: number
+    CHANGE_SE_CODE_NM: string
+}
+
+// 회원 캐시 리스트
+export interface MberCashInfoInterface {
+    MBER_CASH_INFO: {
+        ACCML_CASH: number
+        TOT_CASH: number
+        MBTLNUM: string
+        USE_CASH: number
+        MBER_NO: number
+        EXTSH_CASH: 0
+    }
+    MBER_CASH_LIST: MberCashInfoItemInterface[]
 }

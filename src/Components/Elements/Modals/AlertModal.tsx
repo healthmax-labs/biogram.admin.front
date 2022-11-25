@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { AlertModelStyle, ModalStyle } from '@Style/Elements/ModalStyles'
 
 const {
@@ -14,52 +14,37 @@ const {
 
 const { TitleText } = AlertModelStyle
 
-const PhoneAuthModal = ({
+const AlertModal = ({
     modalTitle,
-    showControl,
     okButtonClick,
 }: {
     modalTitle: string
-    showControl: boolean
     okButtonClick: () => void
 }) => {
     const authInputRef = useRef<HTMLInputElement>(null)
-    const [showModal, setShowModal] = useState<boolean>(true)
-
-    useEffect(() => {
-        if (showControl) {
-            setShowModal(true)
-        } else {
-            setShowModal(false)
-        }
-    }, [showControl])
 
     useEffect(() => {
         authInputRef.current?.focus()
     }, [])
     return (
-        <>
-            {showModal && (
-                <Container>
-                    <ModalBackground></ModalBackground>
-                    <MainWapper>
-                        <Wapper>
-                            <MainBox>
-                                <CenterBox>
-                                    <TitleText>{`${modalTitle}`}</TitleText>
-                                    <ButtonBox>
-                                        <Button onClick={() => okButtonClick()}>
-                                            확인
-                                        </Button>
-                                    </ButtonBox>
-                                </CenterBox>
-                            </MainBox>
-                        </Wapper>
-                    </MainWapper>
-                </Container>
-            )}
-        </>
+        <Container>
+            <ModalBackground></ModalBackground>
+            <MainWapper>
+                <Wapper>
+                    <MainBox>
+                        <CenterBox>
+                            <TitleText>{`${modalTitle}`}</TitleText>
+                            <ButtonBox>
+                                <Button onClick={() => okButtonClick()}>
+                                    확인
+                                </Button>
+                            </ButtonBox>
+                        </CenterBox>
+                    </MainBox>
+                </Wapper>
+            </MainWapper>
+        </Container>
     )
 }
 
-export default PhoneAuthModal
+export default AlertModal

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/PublishPageStyle'
 import {
     AlertModal,
-    ConfimModal,
+    ConfirmModal,
     DefaultManageButton,
     PhoneAuthModal,
 } from '@Elements'
@@ -26,9 +26,9 @@ export default function ManageBox() {
         setShowStep2Modal(false)
     }
 
-    const handleStep2ModalApply = () => {
-        setShowStep2Modal(false)
-    }
+    // const handleStep2ModalApply = () => {
+    //     setShowStep2Modal(false)
+    // }
 
     const handleStep3ModalApply = () => {
         setShowStep3Modal(false)
@@ -62,23 +62,27 @@ export default function ManageBox() {
                     ButtonName={'모달6'}
                 />
             </Buttons>
-            <ConfimModal
-                title={`취소하시면 지금까지 입력한 정보는 저장되지 않습니다.`}
-                showControl={showStep1Modal}
-                cancleButtonClick={() => handleStep1ModalCancle()}
-                applyButtonClick={() => handleStep1ModalApply()}
-            />
-            <PhoneAuthModal
-                phoneNumber={`010-1234-1234`}
-                showControl={showStep2Modal}
-                cancleButtonClick={() => handleStep2ModalCancle()}
-                applyButtonClick={() => handleStep2ModalApply()}
-            />
-            <AlertModal
-                modalTitle={`이미 가입된 휴대폰 번호입니다`}
-                showControl={showStep3Modal}
-                okButtonClick={() => handleStep3ModalApply()}
-            />
+            {showStep1Modal && (
+                <ConfirmModal
+                    Title={`취소하시면 지금까지 입력한 정보는 저장되지 않습니다.`}
+                    CancleButtonClick={() => handleStep1ModalCancle()}
+                    ApplyButtonClick={() => handleStep1ModalApply()}
+                />
+            )}
+            {showStep2Modal && (
+                <PhoneAuthModal
+                    HandleSuccess={() => console.debug('HandleSuccess')}
+                    PhoneNumber={`010-1234-1234`}
+                    CancleButtonClick={() => handleStep2ModalCancle()}
+                />
+            )}
+
+            {showStep3Modal && (
+                <AlertModal
+                    modalTitle={`이미 가입된 휴대폰 번호입니다`}
+                    okButtonClick={() => handleStep3ModalApply()}
+                />
+            )}
         </Wapper>
     )
 }

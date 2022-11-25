@@ -30,7 +30,11 @@ export const PaginationStyle = {
 }
 
 export const ElementLoadingStyle = {
-    Container: tw.div`bg-white bg-transparent z-10 w-full flex h-full items-center justify-center`,
+    Container: styled.div(({ FullScreen }: { FullScreen: boolean }) => [
+        FullScreen
+            ? tw`bg-white bg-transparent z-10 w-full flex h-screen items-center justify-center`
+            : tw`bg-white bg-transparent z-10 w-full flex h-full items-center justify-center`,
+    ]),
     Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
         {
             background: `URL(${bgImage})`,
