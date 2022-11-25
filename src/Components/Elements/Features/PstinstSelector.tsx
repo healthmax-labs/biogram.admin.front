@@ -1,4 +1,10 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
+import React, {
+    KeyboardEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import {
     DefaultManageButton,
     SearchSelect,
@@ -6,8 +12,9 @@ import {
     VaryModal,
 } from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
-import { usePstinst } from '@Hooks'
+import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
+import Messages from '@Messages'
 
 const {
     TableBox,
@@ -34,14 +41,19 @@ const initializeState = {
         step3: [],
         list: [],
     },
-    selectElement: [{ value: 1, text: `소속선택` }],
+    selectElements: [],
+    selectElement: { value: null, text: `` },
     searchValue: ``,
     searchFocus: null,
 }
 
 const PstinstSelector = ({
+    SelectorType = 'input',
     HandleSelectValue,
+    HandleCancleClick,
 }: {
+    SelectorType?: 'input' | 'OnlyModal'
+    HandleCancleClick?: () => void
     HandleSelectValue: ({
         instNo,
         instNm,
@@ -60,6 +72,7 @@ const PstinstSelector = ({
         pstinstSearchState,
         pstinstSearchReset,
     } = usePstinst()
+    const { handlMainAlert } = useMainLayouts()
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [pageState, setPageState] = useState<{
@@ -70,7 +83,8 @@ const PstinstSelector = ({
             step3: PstinstInfoItemType[]
             list: any
         }
-        selectElement: Array<{ value: number; text: string }>
+        selectElements: Array<{ value: number; text: string }>
+        selectElement: { value: number | null; text: string | null }
         searchValue: string
         searchFocus: number | null
     }>(initializeState)
@@ -83,33 +97,62 @@ const PstinstSelector = ({
         instNo: number
         instNm: string
     }) => {
-        HandleSelectValue({ instNo: instNo, instNm: instNm })
         setPageState(prevState => ({
             ...prevState,
-            selectElement: [{ value: instNo, text: instNm }],
+            selectElements: [{ value: instNo, text: instNm }],
+            selectElement: { value: instNo, text: instNm },
         }))
-        handleShowModal(false)
+
+        if (SelectorType === 'input') {
+            HandleSelectValue({
+                instNo: instNo,
+                instNm: instNm,
+            })
+            handleShowModal(false)
+        }
+    }
+
+    // 확인 버튼 클릭
+    const handleCLickApplyButton = () => {
+        if (
+            pageState.selectElement.value !== null &&
+            pageState.selectElement.text !== null
+        ) {
+            HandleSelectValue({
+                instNo: pageState.selectElement.value,
+                instNm: pageState.selectElement.text,
+            })
+            handleShowModal(false)
+        } else {
+            handlMainAlert({
+                state: true,
+                message: `${Messages.Default.pstinstSelectEmpty}`,
+            })
+        }
     }
 
     // 모달 처리.
-    const handleShowModal = (flag: boolean) => {
-        setPageState(prevState => ({
-            ...prevState,
-            loading: true,
-        }))
+    const handleShowModal = useCallback(
+        (flag: boolean) => {
+            setPageState(prevState => ({
+                ...prevState,
+                loading: true,
+            }))
 
-        setShowModal(flag)
+            setShowModal(flag)
 
-        if (flag) {
-            getPstinstList().then(() => {
-                setPageState(prevState => ({
-                    ...prevState,
-                    loading: false,
-                }))
-            })
-        } else {
-        }
-    }
+            if (flag) {
+                getPstinstList().then(() => {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        loading: false,
+                    }))
+                })
+            } else {
+            }
+        },
+        [getPstinstList]
+    )
 
     // 검색 input 변경시.
     const handleSearchInputOnChange = (
@@ -150,6 +193,14 @@ const PstinstSelector = ({
         }
     }
 
+    // 취소 버튼 클릭 처리.
+    const handleCLickCancleButton = () => {
+        handleShowModal(false)
+        if (HandleCancleClick) {
+            HandleCancleClick()
+        }
+    }
+
     // 소속 리스트 업데이트 되었을때.
     useEffect(() => {
         const funcSetPstinst = () => {
@@ -172,7 +223,7 @@ const PstinstSelector = ({
         }
     }, [pstinstSearchState])
 
-    // 언테키 입력시 다름 검색어로 스크롤.
+    // 엔테키 입력시 다름 검색어로 스크롤.
     useEffect(() => {
         const funcSetSearchFocus = () => {
             if (pageState.searchFocus === null) return
@@ -202,16 +253,30 @@ const PstinstSelector = ({
         }
     }, [showModal])
 
+    // 보이는 타입 처리
+    useEffect(() => {
+        const funcSetModalByType = () => {
+            if (SelectorType === 'OnlyModal' && !showModal) {
+                handleShowModal(true)
+            }
+        }
+
+        funcSetModalByType()
+    }, [SelectorType, handleShowModal, showModal])
+
     return (
         <>
-            <SearchSelect
-                id={`id`}
-                name={`name`}
-                autoComplete={`autoComplete`}
-                handleOnFocus={() => handleShowModal(true)}
-                elements={pageState.selectElement}
-            />
-
+            {SelectorType && SelectorType === 'input' && (
+                <SearchSelect
+                    id={`id`}
+                    name={`name`}
+                    autoComplete={`autoComplete`}
+                    handleOnFocus={() => handleShowModal(true)}
+                    elements={
+                        pageState.selectElements && pageState.selectElements
+                    }
+                />
+            )}
             {showModal && (
                 <VaryModal
                     ModalLoading={pageState.loading}
@@ -400,9 +465,16 @@ const PstinstSelector = ({
                     Buttons={
                         <>
                             <DefaultManageButton
-                                ButtonClick={() => handleShowModal(false)}
+                                ButtonClick={() => handleCLickCancleButton()}
                                 ButtonName={'취소'}
                             />
+
+                            {SelectorType === 'OnlyModal' && (
+                                <DefaultManageButton
+                                    ButtonClick={() => handleCLickApplyButton()}
+                                    ButtonName={'확인'}
+                                />
+                            )}
                         </>
                     }
                 />

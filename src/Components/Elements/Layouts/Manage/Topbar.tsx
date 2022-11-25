@@ -1,12 +1,11 @@
 import { TopbarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
 import { HamburgerButton } from '@Component/Elements'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import { useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import React, { useCallback, useEffect, useState } from 'react'
 import { checkRemainingTime, getRemainingTime } from '@Helper'
-import { useAuth } from '@Hooks'
+import { useAuth, useMainLayouts } from '@Hooks'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
@@ -25,7 +24,7 @@ const {
 const Topbar = () => {
     const navigate = useNavigate()
     const { handleAttemptLogout } = useAuth()
-    const setLeftMenuShow = useSetRecoilState(AtomMainLayoutState)
+    const { handleLeftMenuShow } = useMainLayouts()
     const atomRootState = useRecoilValue(AtomRootState)
     const [remainingTime, setRemainingTime] = useState<string>(`00:00`)
     const [pageState, setPageState] = useState<{
@@ -41,10 +40,7 @@ const Topbar = () => {
     })
 
     const handleShowLeftMenu = () => {
-        setLeftMenuShow(prev => ({
-            ...prev,
-            leftMenuShow: !prev.leftMenuShow,
-        }))
+        handleLeftMenuShow()
     }
 
     const handleLogout = useCallback(async () => {
@@ -92,14 +88,10 @@ const Topbar = () => {
                     pathname: process.env.PUBLIC_URL + `/auth/login`,
                 })
             }
-            const min =
-                time && time.min.toString().length < 2
-                    ? '0' + time.min
-                    : time && time.min
-            const sec =
-                time && time.sec.toString().length < 2
-                    ? '0' + time.sec
-                    : time && time.sec
+
+            const min = time && String(time.min).padStart(2, '0')
+            const sec = time && String(time.sec).padStart(2, '0')
+
             setRemainingTime(`${min}:${sec}`)
         }, 1000)
 

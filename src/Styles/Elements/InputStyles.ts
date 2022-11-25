@@ -28,6 +28,7 @@ export const VaryLabelInputStyle = {
 
 export const VaryInputStyle = {
     Wapper: tw.div`flex items-center`,
+    CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
     // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     Input: styled.input(
         ({
@@ -57,6 +58,7 @@ export const VaryLabelStyle = {
             // tw`w-12`,
         ]
     ),
+    CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
 }
 
 export const VaryLabelTextAreaStyle = {

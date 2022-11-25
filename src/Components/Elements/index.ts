@@ -4,8 +4,10 @@ export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'
 export { default as VaryButton } from './Buttons/VaryButton'
 export { default as VaryRadioButton } from './Buttons/VaryRadioButton'
+export { default as InfoButton } from './Buttons/VaryInfoButton'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
+export { default as StplatInfoAgreeModal } from './Features/StplatInfoAgreeModal'
 
 export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'
@@ -15,14 +17,19 @@ export { default as VaryLabelInput } from './Inputs/VaryLabelInput'
 export { default as VaryLabel } from './Inputs/VaryLabel'
 export { default as VaryDatepickerInput } from './Inputs/VaryDatepickerInput'
 export { default as VaryLabelTextArea } from './Inputs/VaryLabelTextArea'
+export { default as VaryCheckBox } from './Inputs/VaryCheckBox'
+export { default as VaryLabelCheckBox } from './Inputs/VaryLabelCheckBox'
 
 export { default as PageLoading } from './Loading/PageLoading'
 export { default as ElementLoading } from './Loading/ElementLoading'
 
 export { default as AlertModal } from './Modals/AlertModal'
-export { default as ConfimModal } from './Modals/ConfimModal'
+export { default as ConfirmModal } from './Modals/ConfirmModal'
 export { default as PhoneAuthModal } from './Modals/PhoneAuthModal'
 export { default as VaryModal } from './Modals/VaryModal'
+export { default as PstinstAgreeModal } from './Modals/PstinstAgreeModal'
+export { default as TotalScoreModal } from './Modals/TotalScoreModal'
+export { default as TotalCashModal } from './Modals/TotalCashModal'
 
 export { default as DefaultPagination } from './Paginations/DefaultPagination'
 

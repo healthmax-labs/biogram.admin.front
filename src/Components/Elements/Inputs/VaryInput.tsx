@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useEffect } from 'react'
+import React, { KeyboardEvent } from 'react'
 import { InputWidthType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
@@ -23,7 +23,7 @@ const VaryInput = ({
     Ref?: any
     InputType?: string
     Placeholder: string
-    Value: string
+    Value: string | number
     id?: string
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
@@ -39,10 +39,6 @@ const VaryInput = ({
             HandleOnKeyDown(event)
         }
     }
-
-    useEffect(() => {
-        console.debug(!isEmpty(Children) ?? Children)
-    }, [Children])
 
     return (
         <Wapper>
@@ -65,9 +61,7 @@ const VaryInput = ({
                 disabled={Disabled ? Disabled : false}
                 Disabled={Disabled ? Disabled : false}
             />
-            {!isEmpty(Children) ?? (
-                <div className="flex flex-1 px-1">{Children}</div>
-            )}
+            {Children ?? <div className="flex flex-1 px-1">{Children}</div>}
         </Wapper>
     )
 }

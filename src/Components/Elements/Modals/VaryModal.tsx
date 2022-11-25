@@ -1,6 +1,7 @@
 import { ElementLoading } from '@Element/index'
 import React, { useEffect, useState } from 'react'
 import { ModalStyle } from '@Style/Elements/ModalStyles'
+import { MaxWidthType } from '@CommonTypes'
 
 const {
     Container,
@@ -18,12 +19,16 @@ const initializeState = {
 
 const VaryModal = ({
     ModalLoading = false,
+    NeedMax = false,
     Children,
     Buttons,
+    maxWidth,
 }: {
     ModalLoading: boolean
+    NeedMax?: boolean
     Children: React.ReactNode
     Buttons?: React.ReactNode
+    maxWidth?: MaxWidthType
 }) => {
     const [pageState, setPageState] = useState<{
         loading: boolean
@@ -39,12 +44,12 @@ const VaryModal = ({
     return (
         <Container>
             <ModalBackground></ModalBackground>
-            <MainWapper>
-                <Wapper maxWidth={`xl2`}>
+            <MainWapper needMax={NeedMax}>
+                <Wapper maxWidth={maxWidth ? maxWidth : `xl7`}>
                     <MainBox>
                         <CenterBox>
                             {pageState.loading ? (
-                                <ElementLoading />
+                                <ElementLoading FullScreen={false} />
                             ) : (
                                 <>{Children}</>
                             )}

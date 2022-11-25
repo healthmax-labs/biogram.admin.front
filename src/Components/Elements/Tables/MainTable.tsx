@@ -18,7 +18,7 @@ const MainTable = <P,>({
         <>
             {Loading ? (
                 <div className="h-[calc(100vh-10rem)]">
-                    <ElementLoading />
+                    <ElementLoading FullScreen={false} />
                 </div>
             ) : (
                 <TableWapper>

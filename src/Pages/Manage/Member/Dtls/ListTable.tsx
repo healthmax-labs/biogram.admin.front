@@ -3,6 +3,8 @@ import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
 import { TableConfig, tableListItemInterface } from './TableConfig'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { DetailState, GetState } from '@Recoil/MemberPagesState'
 
 interface tableOption {
     Loading: boolean
@@ -19,9 +21,17 @@ const ListTable = ({
     MemberList: tableListItemInterface[]
 }) => {
     const navigate = useNavigate()
+
+    const detailGetState = useRecoilValue(GetState)
+    const detailReset = useResetRecoilState(DetailState)
+
     const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
 
     const handleRowClick = (element: tableListItemInterface) => {
+        if (detailGetState.MBER_NO !== element.MBER_NO) {
+            detailReset()
+        }
+
         navigate({
             pathname:
                 process.env.PUBLIC_URL +

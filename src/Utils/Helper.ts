@@ -294,3 +294,68 @@ export const getRemainingTime = ():
         sec: seconds,
     }
 }
+
+/**
+ * 숫자만 리턴
+ * @param str
+ */
+export const getOnlyNumber = (str: string) => str.replace(/[^0-9]/g, '')
+
+/**
+ * 휴대폰 번호 포맷 변경.
+ * @param str
+ */
+export const phoneFormat = (str: string) => {
+    // 특수문자 제거
+    const value = str.replace(/[^0-9]/g, '')
+
+    // 00 OR 000 지정
+    const firstLength = value.length > 9 ? 3 : 2
+
+    // ({2,3}) - ({3,4}) - ({4})
+    return [
+        // 첫번째 구간 (00 or 000)
+        value.slice(0, firstLength),
+        // 두번째 구간 (000 or 0000)
+        value.slice(firstLength, value.length - 4),
+        // 남은 마지막 모든 숫자
+        value.slice(value.length - 4),
+    ].join('-')
+}
+
+export const gmtTimeToTimeObject = (
+    time: Date
+): {
+    year: number
+    month: number
+    monthPad: string
+    day: number
+    dayPad: string
+    hour: number
+    hourPad: string
+    minute: number
+    minutePad: string
+    second: number
+    secondPad: string
+} => {
+    const date = new Date(time)
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+
+    return {
+        year: date.getFullYear(),
+        month: month,
+        monthPad: String(month).padStart(2, '0'),
+        day: day,
+        dayPad: String(day).padStart(2, '0'),
+        hour: hour,
+        hourPad: String(hour).padStart(2, '0'),
+        minute: minute,
+        minutePad: String(minute).padStart(2, '0'),
+        second: second,
+        secondPad: String(second).padStart(2, '0'),
+    }
+}

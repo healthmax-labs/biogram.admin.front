@@ -80,6 +80,9 @@
       "@Const": [
         "src/Commons/Const"
       ],
+      "@Messages": [
+        "src/Commons/Messages"
+      ],
       "@CommonTypes": [
         "src/Types/CommonTypes"
       ]

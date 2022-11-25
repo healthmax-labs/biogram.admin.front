@@ -21,7 +21,8 @@ const VaryLabelTextArea = ({
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 HandleOnChange(e)
             }
-            value={Value}></TextArea>
+            value={Value}
+        />
     )
 }
 

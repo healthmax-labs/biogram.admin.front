@@ -1,19 +1,23 @@
 import { Outlet, useNavigate } from 'react-router-dom'
-import { ManageHeaderStats, ManageSidebar, ManageTopbar } from '@Elements'
+import {
+    AlertModal,
+    ElementLoading,
+    ManageHeaderStats,
+    ManageSidebar,
+    ManageTopbar,
+} from '@Elements'
 import { LayoutStyle } from '@Style/Layouts/Manage/MainStyles'
-import { useRecoilValue } from 'recoil'
-import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 import MainTabComponent from '@Element/Layouts/MainTabComponent'
 import { useEffect } from 'react'
-import { useAuth } from '@Hooks'
+import { useAuth, useMainLayouts } from '@Hooks'
 
 const { Container, CenterWapper } = LayoutStyle
 
 const ManageLayoutComponent = () => {
     const navigate = useNavigate()
     const { handleLoginCheck, handleAttemptLogout } = useAuth()
-    // 왼쪽 메뉴 보이기 상태.
-    const { leftMenuShow } = useRecoilValue(SelectMainLayoutState)
+    const { leftMenuShow, alertModel, handlMainAlert, OutletLoading } =
+        useMainLayouts()
 
     // 로그인 체크
     useEffect(() => {
@@ -38,9 +42,21 @@ const ManageLayoutComponent = () => {
                 <ManageHeaderStats />
                 <CenterWapper>
                     <MainTabComponent />
-                    <Outlet />
+                    {OutletLoading ? (
+                        <ElementLoading FullScreen={true} />
+                    ) : (
+                        <Outlet />
+                    )}
                 </CenterWapper>
             </Container>
+            {alertModel.state && (
+                <AlertModal
+                    modalTitle={alertModel.message}
+                    okButtonClick={() => {
+                        handlMainAlert({ state: false, message: `` })
+                    }}
+                />
+            )}
         </>
     )
 }
