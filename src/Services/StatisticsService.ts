@@ -1,37 +1,37 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { BrftrCmprListItemInterface } from '@Type/BrftrCmprTypes'
+import { StatisticsListItemInterface } from '@Type/StatisticsTypes'
 
 /**
  * 위험요인현황 리스트
  */
-export function getBrftrCmprList({
+export function getStatisticsList({
     CUR_PAGE,
     INST_NO,
     SEARCH_KEY,
-    BGNDE,
-    ENDDE,
+    BEGIN_DE,
+    END_DE,
 }: {
     CUR_PAGE: number
     INST_NO: number
     SEARCH_KEY: string
-    BGNDE: string
-    ENDDE: string
+    BEGIN_DE: string
+    END_DE: string
 }): Promise<
     ServicesDefaultResult<{
         CUR_PAGE: number
-        MESURE_BRFTR_CMPR_INFO_LIST: BrftrCmprListItemInterface[]
+        DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
         TOTAL_COUNT: number
     }>
 > {
     return _Axios_({
         method: 'post',
-        url: '/stats/v1/mesure/brftr_cmpr/' + CUR_PAGE,
+        url: '/stats/v1/device_mesure/' + CUR_PAGE,
         payload: {
             INST_NO,
             SEARCH_KEY,
-            BGNDE,
-            ENDDE,
+            BEGIN_DE,
+            END_DE,
         },
     })
 }
