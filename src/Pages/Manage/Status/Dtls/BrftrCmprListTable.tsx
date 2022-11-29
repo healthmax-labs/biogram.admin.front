@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { TableConfig, tableListItemInterface } from './TableConfig'
+import { TableConfig, tableListItemInterface } from './BrftrCmprTableConfig'
 import { useNavigate } from 'react-router-dom'
 
 interface tableOption {

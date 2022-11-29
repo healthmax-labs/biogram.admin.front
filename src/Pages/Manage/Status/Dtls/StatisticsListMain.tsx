@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
-import SearchBox from './SearchBox'
-import ManageBox from './ManageBox'
-import ListTable from './ListTable'
+import SearchBox from './StatisticsSearchBox'
+import ManageBox from './StatisticsManageBox'
+import ListTable from './StatisticsListTable'
 import { getStatisticsList } from '@Service/StatisticsService'
 import { StatisticsListItemInterface } from '@Type/StatisticsTypes'
-import { tableListItemInterface } from './TableConfig'
+import { tableListItemInterface } from './StatisticsTableConfig'
 
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const { Container } = SearchBoxStyle

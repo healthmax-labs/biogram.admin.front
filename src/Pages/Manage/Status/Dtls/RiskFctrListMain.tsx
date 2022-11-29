@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
-import SearchBox from './SearchBox'
-import ManageBox from './ManageBox'
-import ListTable from './ListTable'
+import SearchBox from './RiskFctrSearchBox'
+import ManageBox from './RiskFctrManageBox'
+import ListTable from './RiskFctrListTable'
 import { getRiskFctrList } from '@Service/RiskFctrService'
 import { RiskFctrListItemInterface } from '@Type/RiskFctrTypes'
-import { tableListItemInterface } from './TableConfig'
+import { tableListItemInterface } from './RiskFctrTableConfig'
 
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const { Container } = SearchBoxStyle

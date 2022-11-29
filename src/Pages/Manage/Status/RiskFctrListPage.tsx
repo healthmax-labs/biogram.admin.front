@@ -1,5 +1,5 @@
 import React from 'react'
-import ListMain from './Dtls/ListMain'
+import ListMain from './Dtls/RiskFctrListMain'
 
 const RiskFctrListPage = () => {
     return <ListMain />

@@ -144,7 +144,7 @@ export default {
             name: `위험요인 현황`,
             pathName: `/manage/status/risk-fctr`,
             Component: React.lazy(
-                () => import('@Page/Manage/Status/RiskFctr/RiskFctrListPage')
+                () => import('@Page/Manage/Status/RiskFctrListPage')
             ),
         },
         {
@@ -163,7 +163,7 @@ export default {
             pathName: `/manage/status/statistics`,
             Component: React.lazy(
                 () =>
-                    import('@Page/Manage/Status/Statistics/StatisticsListPage')
+                    import('@Page/Manage/Status/StatisticsListPage')
             ),
         },
         {

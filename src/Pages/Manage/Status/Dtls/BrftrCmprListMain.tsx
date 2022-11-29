@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
-import SearchBox from './SearchBox'
-import ManageBox from './ManageBox'
-import ListTable from './ListTable'
+import SearchBox from './BrftrCmprSearchBox'
+import ManageBox from './BrftrCmprManageBox'
+import ListTable from './BrftrCmprListTable'
 import { getBrftrCmprList } from '@Service/BrftrCmprService'
 import { BrftrCmprListItemInterface } from '@Type/BrftrCmprTypes'
-import { tableListItemInterface } from './TableConfig'
+import { tableListItemInterface } from './BrftrCmprTableConfig'
 
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const { Container } = SearchBoxStyle
