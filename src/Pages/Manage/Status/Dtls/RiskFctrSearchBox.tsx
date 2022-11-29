@@ -1,182 +1,205 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
 import {
-    DatepickerInput,
     DefaultSearchButton,
     PstinstSelector,
-    DefaultCheckBox,
+    VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
     VaryRadioButton,
+    VaryLabelCheckBox,
 } from '@Elements'
+import { gmtTimeToTimeObject } from '@Helper'
+import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 
 const {
-    SearchButtonBox,
+    SearchItemWapper,
+    SearchLabel,
+    RowContainer,
+    SearchRowWapper,
+    SearchItemRow,
+    RightSearchButton,
     DatepickerLine,
-    Datepicker,
-    Input,
-    LabelText,
-    LabelItem,
-    Item,
-    Label,
-    LabelItemBox,
-    Wapper,
-    Container,
-    Relative,
+    SearchItem,
 } = SearchBoxStyle
 
 const SearchBox = () => {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
-        //
-    }
     return (
-        <Container>
-            <Wapper>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
+        <RowContainer>
+            <SearchRowWapper>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`소속:`} />
+                        </SearchLabel>
                         <PstinstSelector
                             HandleSelectValue={({ instNo, instNm }) =>
-                                handlePstinstSelect({
-                                    instNo,
-                                    instNm,
-                                })
+                                console.debug(instNo, instNm)
                             }
                         />
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>요인 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <DefaultCheckBox />
-                        허리둘레
-                        <DefaultCheckBox />
-                        혈압
-                        <DefaultCheckBox />
-                        TG
-                        <DefaultCheckBox />
-                        HDL
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>기간 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Datepicker>
-                            <DatepickerInput />
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`기간:`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={new Date()}
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    console.debug(year, monthPad, dayPad)
+                                }}
+                            />
                             <DatepickerLine>~</DatepickerLine>
-                            <DatepickerInput />
-                        </Datepicker>
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>갯수 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <div className="flex flex-nowrap px-0">
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="0개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={new Date()}
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    console.debug(year, monthPad, dayPad)
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`소속:`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w64'}
+                                HandleOnChange={e => console.debug(e)}
+                                id={'id'}
+                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Value={``}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+                <SearchItemRow Second={true}>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`요인:`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryLabelCheckBox
+                                LabelName={`허리둘레`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                            <VaryLabelCheckBox
+                                LabelName={`혈압`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                            <VaryLabelCheckBox
+                                LabelName={`TG`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                            <VaryLabelCheckBox
+                                LabelName={`HDL`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`갯수:`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <div className="flex flex-nowrap px-0">
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="0개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="1개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="2개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="3개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="4개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
+                                <div className="mr-2">
+                                    <VaryRadioButton
+                                        LabelName="5개"
+                                        Checked={false}
+                                        HandleOnChange={() =>
+                                            console.log('111')
+                                        }
+                                    />
+                                </div>
                             </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="1개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="2개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="3개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="4개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="5개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                        </div>
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Input
-                            type="search"
-                            id="search-dropdown"
-                            placeholder="ID / 이름 / 연락처 / 전화번호"
-                            required
-                        />
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>복약 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <DefaultCheckBox />
-                        고혈압
-                        <DefaultCheckBox />
-                        당뇨
-                        <DefaultCheckBox />
-                        고지혈
-                    </LabelItemBox>
-                </Item>
-            </Wapper>
-            <Relative>
-                <SearchButtonBox>
-                    <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
-                    />
-                </SearchButtonBox>
-            </Relative>
-        </Container>
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`복약:`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryLabelCheckBox
+                                LabelName={`고혈압`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                            <VaryLabelCheckBox
+                                LabelName={`당뇨`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                            <VaryLabelCheckBox
+                                LabelName={`고지혈`}
+                                Checked={false}
+                                HandleOnChange={e => console.debug(e)}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+            </SearchRowWapper>
+            <RightSearchButton>
+                <DefaultSearchButton
+                    ButtonClick={() => console.debug('ButtonClick')}
+                />
+            </RightSearchButton>
+        </RowContainer>
     )
 }
 export default SearchBox
