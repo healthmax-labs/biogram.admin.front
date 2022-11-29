@@ -7,9 +7,11 @@ export const MainStyle = {
     TableWapper: tw.div`block w-full overflow-x-auto`,
 }
 export const SearchBoxStyle = {
-    Container: tw.div`mt-0 w-center-width`,
-    Wapper: tw.div`grid grid-cols-4 gap-1`,
-    Item: tw.div`text-gray-700 flex items-center`,
+    Container: tw.div`flex flex-nowrap items-center`,
+    SearchWapper: tw.div`mt-0 w-center-width grid grid-cols-4 gap-1`,
+    SearchItemWapper: tw.div`flex flex-nowrap`,
+    SearchLabel: tw.div`flex object-center content-center w-1/5`,
+    SearchItem: tw.div`flex flex-nowrap`,
     LabelItem: tw.div`w-20`,
     Label: tw.label`inline-block align-baseline text-xs uppercase whitespace-nowrap text-left text-gray-500`,
     LabelText: tw.p`text-xs uppercase whitespace-nowrap text-left text-gray-500`,
@@ -20,8 +22,9 @@ export const SearchBoxStyle = {
     Datepicker: tw.div`flex flex-row`,
     DatepickerLine: tw.p`px-5 inline-block align-baseline pt-2`,
     Relative: tw.div`relative`,
-    SearchButtonBox: tw.div`absolute bottom-1.5 right-10`,
+    SearchButtonBox: tw.div`bottom-1.5 right-0`,
 }
+
 export const ManageBoxStyle = {
     Wapper: tw.div`w-full justify-evenly object-right`,
     Buttons: tw.div`relative col-span-1 items-end justify-end text-right object-right -right-2`,

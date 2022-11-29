@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
+import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
@@ -12,18 +12,26 @@ import { useRecoilState } from 'recoil'
 import { ListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 
-const { Container } = SearchBoxStyle
+const {
+    Container,
+    SearchWapper,
+    SearchItemWapper,
+    SearchLabel,
+    SearchItem,
+    DatepickerLine,
+    SearchButton,
+} = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [listState, setListState] = useRecoilState(ListState)
 
     return (
         <Container>
-            <div className="grid grid-cols-4 gap-1">
-                <div className="flex flex-nowrap">
-                    <div className="flex object-center content-center w-1/5">
+            <SearchWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
                         <VaryLabel LabelName={`소속:`} />
-                    </div>
+                    </SearchLabel>
                     <PstinstSelector
                         HandleSelectValue={({ instNo }) =>
                             setListState(prevState => ({
@@ -35,12 +43,12 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             }))
                         }
                     />
-                </div>
-                <div className="flex flex-nowrap">
-                    <div className="flex object-center content-center w-1/4">
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
                         <VaryLabel LabelName={`가입일자:`} />
-                    </div>
-                    <div className="flex flex-nowrap">
+                    </SearchLabel>
+                    <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
                             Value={new Date()}
@@ -56,7 +64,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 }))
                             }}
                         />
-                        <div className="flex px-2 items-center">~</div>
+                        <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
                             Value={new Date()}
@@ -72,12 +80,12 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 }))
                             }}
                         />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap">
-                    <div className="flex object-center content-center w-1/4">
+                    </SearchItem>
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
                         <VaryLabel LabelName={`검색어:`} />
-                    </div>
+                    </SearchLabel>
                     <VaryInput
                         ContentsType={`search`}
                         Width={'w64'}
@@ -98,12 +106,11 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 : listState.search.searchKey
                         }
                     />
-                </div>
-
-                <div className="flex object-center item-center justify-end pr-10">
-                    <DefaultSearchButton ButtonClick={() => HandleGetList()} />
-                </div>
-            </div>
+                </SearchItemWapper>
+            </SearchWapper>
+            <SearchButton>
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
+            </SearchButton>
         </Container>
     )
 }
