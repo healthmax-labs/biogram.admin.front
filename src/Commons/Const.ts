@@ -153,7 +153,7 @@ export default {
             name: `전후비교 현황`,
             pathName: `/manage/status/brftt-cmpr`,
             Component: React.lazy(
-                () => import('@Page/Manage/Status/BrftrCmpr/BrftrCmprListPage')
+                () => import('@Page/Manage/Status/BrftrCmprListPage')
             ),
         },
         {
@@ -162,8 +162,7 @@ export default {
             name: `기기측정 현황`,
             pathName: `/manage/status/statistics`,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Status/StatisticsListPage')
+                () => import('@Page/Manage/Status/StatisticsListPage')
             ),
         },
         {
