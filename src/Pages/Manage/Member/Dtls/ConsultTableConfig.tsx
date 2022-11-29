@@ -45,8 +45,12 @@ export const TableConfig = {
             key: `INST_NM`,
         },
         {
-            name: `가입일`,
-            key: `REGIST_DT`,
+            name: `최근측정일`,
+            key: `MESURE_DT`,
+        },
+        {
+            name: `휘험요인`,
+            key: `RISK_FCTR`,
         },
     ],
     Lists: [],

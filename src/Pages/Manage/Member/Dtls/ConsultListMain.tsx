@@ -20,6 +20,10 @@ const ConsultListMain = () => {
     const [listState, setListState] = useRecoilState(ConsultListState)
     const { handlMainAlert } = useMainLayouts()
     const handleGetList = useCallback(async () => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const { status, payload } = await getMberCnsltlist({
             curPage: 1,
             instNo: !isNull(listState.search.instNo)
