@@ -4,31 +4,27 @@ import { MainTable } from '@Elements'
 import { TableConfig, tableListItemInterface } from './TableConfig'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
-import { DetailState, GetState } from '@Recoil/MemberPagesState'
+import { DetailState, ListState } from '@Recoil/MemberPagesState'
 
-interface tableOption {
+interface tableOptionInterface {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface[]
+    Columns: ColumnsInterface<tableListItemInterface>[]
     Lists: tableListItemInterface[]
 }
 
-const ListTable = ({
-    Loading,
-    MemberList,
-}: {
-    Loading: boolean
-    MemberList: tableListItemInterface[]
-}) => {
+const ListTable = () => {
     const navigate = useNavigate()
 
-    const detailGetState = useRecoilValue(GetState)
+    const listState = useRecoilValue(ListState)
+    const detailState = useRecoilValue(DetailState)
     const detailReset = useResetRecoilState(DetailState)
 
-    const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
+    const [tableOptions, setTableOptions] =
+        useState<tableOptionInterface>(TableConfig)
 
     const handleRowClick = (element: tableListItemInterface) => {
-        if (detailGetState.MBER_NO !== element.MBER_NO) {
+        if (detailState.MBER_NO !== element.MBER_NO) {
             detailReset()
         }
 
@@ -42,10 +38,10 @@ const ListTable = ({
     useEffect(() => {
         setTableOptions(prevState => ({
             ...prevState,
-            Loading: Loading,
-            Lists: MemberList,
+            Loading: listState.status === 'loading',
+            Lists: listState.list.MBER_INFO_LIST,
         }))
-    }, [Loading, MemberList])
+    }, [listState.list.MBER_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

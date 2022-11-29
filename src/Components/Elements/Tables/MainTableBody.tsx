@@ -26,11 +26,14 @@ const MainTableBody = <P,>({
                         )}
                         {Columns.map((_, i) => {
                             const value = get(el, _.key)
+
                             return (
                                 <TableBodyCell
                                     onClick={() => RowClick(el)}
                                     key={`main-table-body-cell-${i}`}>
-                                    {value}
+                                    {_.component
+                                        ? _.component({ el: el })
+                                        : value}
                                 </TableBodyCell>
                             )
                         })}

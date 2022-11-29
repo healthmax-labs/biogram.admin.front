@@ -1,96 +1,109 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
 import {
-    DatepickerInput,
     DefaultSearchButton,
     PstinstSelector,
+    VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
 } from '@Elements'
+import { gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { ListState } from '@Recoil/MemberPagesState'
+import { isNull } from 'lodash'
 
-const {
-    SearchButtonBox,
-    DatepickerLine,
-    Datepicker,
-    Input,
-    LabelText,
-    LabelItem,
-    Item,
-    Label,
-    LabelItemBox,
-    Wapper,
-    Container,
-    Relative,
-} = SearchBoxStyle
+const { Container } = SearchBoxStyle
 
-const SearchBox = () => {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
-        //
-    }
+const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+    const [listState, setListState] = useRecoilState(ListState)
+
     return (
         <Container>
-            <Wapper>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                handlePstinstSelect({
-                                    instNo,
-                                    instNm,
-                                })
-                            }
-                        />
-                    </LabelItemBox>
-                </Item>
-                <Item></Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>가입일자 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Datepicker>
-                            <DatepickerInput />
-                            <DatepickerLine>~</DatepickerLine>
-                            <DatepickerInput />
-                        </Datepicker>
-                    </LabelItemBox>
-                </Item>
-                <Item></Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Input
-                            type="search"
-                            id="search-dropdown"
-                            placeholder="ID / 이름 / 연락처 / 전화번호"
-                            required
-                        />
-                    </LabelItemBox>
-                </Item>
-            </Wapper>
-            <Relative>
-                <SearchButtonBox>
-                    <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
+            <div className="grid grid-cols-4 gap-1">
+                <div className="flex flex-nowrap">
+                    <div className="flex object-center content-center w-1/5">
+                        <VaryLabel LabelName={`소속:`} />
+                    </div>
+                    <PstinstSelector
+                        HandleSelectValue={({ instNo }) =>
+                            setListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    instNo: String(instNo),
+                                },
+                            }))
+                        }
                     />
-                </SearchButtonBox>
-            </Relative>
+                </div>
+                <div className="flex flex-nowrap">
+                    <div className="flex object-center content-center w-1/4">
+                        <VaryLabel LabelName={`가입일자:`} />
+                    </div>
+                    <div className="flex flex-nowrap">
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                        <div className="flex px-2 items-center">~</div>
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-nowrap">
+                    <div className="flex object-center content-center w-1/4">
+                        <VaryLabel LabelName={`검색어:`} />
+                    </div>
+                    <VaryInput
+                        ContentsType={`search`}
+                        Width={'w64'}
+                        HandleOnChange={e =>
+                            setListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    searchKey: e.target.value,
+                                },
+                            }))
+                        }
+                        id={'id'}
+                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                        Value={
+                            isNull(listState.search.searchKey)
+                                ? ''
+                                : listState.search.searchKey
+                        }
+                    />
+                </div>
+
+                <div className="flex object-center item-center justify-end pr-10">
+                    <DefaultSearchButton ButtonClick={() => HandleGetList()} />
+                </div>
+            </div>
         </Container>
     )
 }

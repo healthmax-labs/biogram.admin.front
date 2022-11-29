@@ -1,4 +1,4 @@
-// 소석 선택 리스트.
+// 소속 선택 리스트.
 
 export interface PstinstInfoItemInterface {
     CHK_INST_1: 'Y' | 'N'
@@ -27,6 +27,47 @@ export interface MesureInfoItem {
     MESURE_GRAD_NM: string
     MESURE_MTHD_NM: string
     MESURE_CODE: string
+}
+
+//회원 리스트
+// export interface MemberInfoListItemInterface {
+//     INST_NO: 1365
+//     INST_NM: '테슷트 소속'
+//     MBER_NO: 87334
+//     MBTLNUM_CRTFC_AT_NM: '인증'
+//     BRTHDY: '1980-02-02'
+//     SEXDSTN: 'M'
+//     SEXDSTN_NM: '남'
+//     CONECT_DT: '2022-11-15'
+//     TOT_CASH: '0'
+//     MBTLNUM: '010-6248-4549'
+//     REGIST_DT: '2022-10-24 10:41:06'
+//     USID: 'testcs3'
+//     MBTLNUM_CRTFC_AT: 'Y'
+//     ACCML_POINT: 0
+//     NM: '최현소속관2'
+// }
+export interface MemberInfoListItemInterface {
+    INST_NO: number
+    INST_NM: string
+    MBER_NO: number
+    MBTLNUM_CRTFC_AT_NM: `인증` | `미인증`
+    BRTHDY: string
+    SEXDSTN: 'M' | 'F'
+    SEXDSTN_NM: '남' | '여'
+    CONECT_DT: string
+    TOT_CASH: string
+    MBTLNUM: string
+    REGIST_DT: string
+    USID: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    ACCML_POINT: number
+    NM: string
+}
+
+export interface MemberInfoListInterface {
+    MBER_INFO_LIST: MemberInfoListItemInterface[]
+    TOTAL_COUNT: number
 }
 
 // 회원 정보.

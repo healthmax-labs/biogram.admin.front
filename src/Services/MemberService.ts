@@ -2,11 +2,37 @@ import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     MemberInfoInterface,
+    MemberInfoListInterface,
     PstinstInfoItemInterface,
 } from '@Type/MemberTypes'
 
+export const getMemberList = ({
+    curPage,
+    instNo,
+    searchKey,
+    registDtFrom,
+    registDtTo,
+}: {
+    curPage: number
+    instNo: string
+    searchKey: string
+    registDtFrom: string
+    registDtTo: string
+}): Promise<ServicesDefaultResult<MemberInfoListInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/mber/list/${curPage}`,
+        payload: {
+            INST_NO: instNo,
+            SEARCH_KEY: searchKey,
+            REGIST_DT_FROM: registDtFrom,
+            REGIST_DT_TO: registDtTo,
+        },
+    })
+}
+
 /**
- * 소속 리스트
+ * 소ㅅ 리스트
  */
 export const getPstinst = (): Promise<
     ServicesDefaultResult<{
