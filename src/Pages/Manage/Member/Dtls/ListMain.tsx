@@ -22,6 +22,11 @@ const ListMain = () => {
     const { handlMainAlert } = useMainLayouts()
 
     const getList = useCallback(async () => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: { searchKey, registDtFrom, registDtTo, instNo, curPage },
         } = listState
