@@ -1,6 +1,7 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
+    ConsultInfoListInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
     PstinstInfoItemInterface,
@@ -234,5 +235,34 @@ export const postMemberInfoUpdate = (payload: {
         method: 'post',
         url: `/mber/v1/info/update`,
         payload: payload,
+    })
+}
+
+/**
+ * 상담회원 리스트
+ * @param curPage
+ * @param instNo
+ * @param searchKey
+ * @param riskFctr
+ */
+export const getMberCnsltlist = ({
+    curPage,
+    instNo,
+    searchKey,
+    riskFctr,
+}: {
+    curPage: number
+    instNo: string
+    searchKey: string
+    riskFctr: string
+}): Promise<ServicesDefaultResult<ConsultInfoListInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/mber/cnsltlist/${curPage}`,
+        payload: {
+            INST_NO: instNo,
+            SEARCH_KEY: searchKey,
+            RISK_FCTR: riskFctr,
+        },
     })
 }

@@ -88,13 +88,11 @@ export const VaryInputStyle = {
 
 export const VaryLabelStyle = {
     Wapper: tw.div`flex items-center object-center`,
-    InputLabel: styled.label(
-        ({ Width = `w60` }: { Width?: InputWidthType }) => [
-            tw`block uppercase text-gray-600 text-xs font-bold`,
-            ConstStyle.width[Width],
-            // tw`w-12`,
-        ]
-    ),
+    InputLabel: styled.label(({ Width }: { Width?: InputWidthType }) => [
+        tw`block uppercase text-gray-600 text-xs font-bold`,
+        Width ? ConstStyle.width[Width] : tw``,
+        // tw`w-12`,
+    ]),
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
 }
 

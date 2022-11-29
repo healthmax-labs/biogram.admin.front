@@ -70,6 +70,29 @@ export interface MemberInfoListInterface {
     TOTAL_COUNT: number
 }
 
+export interface ConsultInfoListItemInterface {
+    INST_NO: 1443
+    INST_NM: '건다온'
+    MBER_NO: 87335
+    MBTLNUM_CRTFC_AT_NM: '인증'
+    BRTHDY: '2022-11-29'
+    SEXDSTN: 'M'
+    RISK_FCTR: 'BMI'
+    SEXDSTN_NM: '남'
+    MESURE_DT: '20221129095659'
+    MBTLNUM: '010-9279-0312'
+    REGIST_DT: '2022-11-29 09:56:59'
+    USID: 'geondaon'
+    MBTLNUM_CRTFC_AT: 'Y'
+    NM: '건다온'
+}
+
+// 회원
+export interface ConsultInfoListInterface {
+    MBER_INFO_LIST: ConsultInfoListItemInterface[]
+    TOTAL_COUNT: number
+}
+
 // 회원 정보.
 export interface MemberInfoInterface {
     MBER_INFO: {

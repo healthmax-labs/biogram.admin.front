@@ -22,7 +22,7 @@ const VaryLabelCheckBox = ({
                 Checked={Checked}
                 HandleOnChange={e => HandleOnChange(e)}
             />
-            <InputLabel Width={LabelWidth ? LabelWidth : `w12`}>
+            <InputLabel Width={LabelWidth ?? LabelWidth}>
                 {LabelName}
             </InputLabel>
         </Wapper>
