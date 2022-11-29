@@ -1,10 +1,23 @@
 import { atom, DefaultValue, selector } from 'recoil'
 import { MemberDetailInterface } from '@Type/PageStateType'
 import { DefaultStatus } from '@CommonTypes'
+import { MemberInfoListInterface } from '@Type/MemberTypes'
 
 /**
  * member 페이지.
  */
+
+interface ListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        instNo: string | null
+        searchKey: string | null
+        registDtFrom: string | null
+        registDtTo: string | null
+    }
+    list: MemberInfoListInterface
+}
 
 interface DetailInterface {
     status: DefaultStatus
@@ -18,6 +31,26 @@ interface DetailInterface {
     phoneAuth: boolean
 }
 
+// 회원 현황 페이지
+export const ListState = atom<ListInterface>({
+    key: `memberPage/list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            instNo: null,
+            searchKey: null,
+            registDtFrom: null,
+            registDtTo: null,
+        },
+        list: {
+            MBER_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+// 회원 상세 페이지.
 export const DetailState = atom<DetailInterface>({
     key: `memberPage/detail`,
     default: {
@@ -77,7 +110,7 @@ export const DetailState = atom<DetailInterface>({
     },
 })
 
-export const GetState = selector<{
+export const detailStatus = selector<{
     status: DefaultStatus
     MBER_NO: number | null
 }>({

@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { InputWidthType } from '@CommonTypes'
+import { InputWidthType, ContentType } from '@CommonTypes'
 
 export const InputStyle = {
     DatePicker: tw.input`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
@@ -26,26 +26,63 @@ export const VaryLabelInputStyle = {
     ]),
 }
 
+// export const VaryInputStyle = {
+//     Wapper: tw.div`flex items-center`,
+//     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
+//     // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+//     Input: styled.input(
+//         ({
+//             ContentsType,
+//             Disabled,
+//             Width = `w60`,
+//         }: {
+//             ContentsType?: ContentType
+//             Disabled?: boolean
+//             Width?: InputWidthType
+//         }) => [
+//             Disabled
+//                 ? tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`
+//                 : tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
+//             tw`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+//             ConstStyle.width[Width],
+//         ]
+//     ),
+// }
+
 export const VaryInputStyle = {
     Wapper: tw.div`flex items-center`,
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
     // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     Input: styled.input(
         ({
+            ContentsType = 'default',
             Disabled,
             Width = `w60`,
         }: {
+            ContentsType?: ContentType
             Disabled?: boolean
             Width?: InputWidthType
-        }) => [
-            // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
-            // tw`leading-none transition outline-none focus:outline-none flex items-center shadow-sm  border placeholder-opacity-40  bg-gray-100 cursor-not-allowed   h-10 px-4 text-base rounded`,
-            // tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
-            Disabled
-                ? tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`
-                : tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
-            ConstStyle.width[Width],
-        ]
+        }) => {
+            let returnTw
+
+            if (Disabled) {
+                returnTw = [
+                    tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
+                ]
+            } else if (ContentsType === 'search') {
+                returnTw = [
+                    tw`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+                ]
+            } else {
+                returnTw = [
+                    tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition`,
+                ]
+            }
+
+            returnTw.push(ConstStyle.width[Width])
+
+            return returnTw
+        }
     ),
 }
 

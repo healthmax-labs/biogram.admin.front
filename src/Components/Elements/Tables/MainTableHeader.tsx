@@ -5,11 +5,11 @@ import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 
 const { HeaderRow, HeaderCell, HeaderCheckbox } = TableStyle
 
-const MainTableHeader = ({
+const MainTableHeader = <E,>({
     Columns,
     Options,
 }: {
-    Columns: ColumnsInterface[]
+    Columns: ColumnsInterface<E>[]
     Options: OptionsInterface
 }) => {
     return (

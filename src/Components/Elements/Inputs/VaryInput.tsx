@@ -1,11 +1,12 @@
 import React, { KeyboardEvent } from 'react'
-import { InputWidthType } from '@CommonTypes'
+import { InputWidthType, ContentType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
 
 const { Wapper, Input } = VaryInputStyle
 
 const VaryInput = ({
+    ContentsType = 'default',
     Ref,
     InputType,
     id,
@@ -20,6 +21,7 @@ const VaryInput = ({
     Disabled,
     ReadOnly,
 }: {
+    ContentsType?: ContentType
     Ref?: any
     InputType?: string
     Placeholder: string
@@ -43,9 +45,12 @@ const VaryInput = ({
     return (
         <Wapper>
             <Input
+                ContentsType={ContentsType ? ContentsType : 'default'}
+                Width={Width ? Width : 'w60'}
+                Disabled={Disabled ? Disabled : false}
+                disabled={Disabled ? Disabled : false}
                 readOnly={ReadOnly ? ReadOnly : false}
                 ref={Ref}
-                Width={Width ? Width : 'w60'}
                 type={!isEmpty(InputType) ? InputType : 'text'}
                 id={id ? id : 'search'}
                 placeholder={Placeholder}
@@ -58,8 +63,6 @@ const VaryInput = ({
                 }
                 required={Required ? Required : false}
                 onFocus={HandleOnFocus}
-                disabled={Disabled ? Disabled : false}
-                Disabled={Disabled ? Disabled : false}
             />
             {Children ?? <div className="flex flex-1 px-1">{Children}</div>}
         </Wapper>
