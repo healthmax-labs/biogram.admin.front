@@ -9,5 +9,5 @@ export const SearchBoxStyle = {
     SearchItem: tw.div`flex flex-nowrap`,
     LabelItem: tw.div`w-20`,
     DatepickerLine: tw.div`flex px-2 items-center`,
-    SearchButton: tw.div`flex object-center justify-end pr-10 w-full`,
+    SearchButton: tw.div`flex flex-1 object-center justify-end pr-10 w-full`,
 }
