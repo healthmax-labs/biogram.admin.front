@@ -142,27 +142,28 @@ export default {
             mainCode: `40000`,
             menuCode: `40101`,
             name: `위험요인 현황`,
-            pathName: `/manage/status-list/risk-fctr`,
+            pathName: `/manage/status/risk-fctr`,
             Component: React.lazy(
-                () => import('@Page/Manage/RiskFctrList/RiskFctrListPage')
+                () => import('@Page/Manage/Status/RiskFctr/RiskFctrListPage')
             ),
         },
         {
             mainCode: `40000`,
             menuCode: `40201`,
             name: `전후비교 현황`,
-            pathName: `/manage/status-list/brftt-cmpr`,
+            pathName: `/manage/status/brftt-cmpr`,
             Component: React.lazy(
-                () => import('@Page/Manage/BrftrCmprList/BrftrCmprListPage')
+                () => import('@Page/Manage/Status/BrftrCmpr/BrftrCmprListPage')
             ),
         },
         {
             mainCode: `40000`,
             menuCode: `40301`,
             name: `기기측정 현황`,
-            pathName: `/manage/status-list/statistics`,
+            pathName: `/manage/status/statistics`,
             Component: React.lazy(
-                () => import('@Page/Manage/StatisticsList/StatisticsListPage')
+                () =>
+                    import('@Page/Manage/Status/Statistics/StatisticsListPage')
             ),
         },
         {
