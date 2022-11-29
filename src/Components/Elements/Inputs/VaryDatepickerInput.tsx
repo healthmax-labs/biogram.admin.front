@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { InputWidthType } from '@CommonTypes'
+import { InputWidthType, ContentType } from '@CommonTypes'
+import { InputStyle } from '@Style/Elements/InputStyles'
 
-const CustomInput = (
+const { DatePicker: Input } = InputStyle
+
+const DefaultInput = (
     {
         value,
         onFocus,
@@ -30,10 +33,25 @@ const CustomInput = (
     />
 )
 
+const SearchInput = (
+    {
+        value,
+        onFocus,
+        onChange,
+    }: {
+        value: string
+        onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    },
+    ref: any
+) => <Input ref={ref} onFocus={onFocus} value={value} onChange={onChange} />
+
 const VaryDatepickerInput = ({
+    ContentsType = 'default',
     Value,
     CallBackReturn,
 }: {
+    ContentsType?: ContentType
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
 }) => {
@@ -58,9 +76,15 @@ const VaryDatepickerInput = ({
         <DatePicker
             selected={selectDate}
             onChange={(date: Date) => setSelectDate(date)}
-            dateFormat={`yyyy년 MM월 dd일`}
+            dateFormat={
+                ContentsType === 'search' ? `yyyy/MM/dd` : `yyyy년 MM월 dd일`
+            }
             locale={ko}
-            customInput={React.createElement(React.forwardRef(CustomInput))}
+            customInput={
+                ContentsType === 'search'
+                    ? React.createElement(React.forwardRef(SearchInput))
+                    : React.createElement(React.forwardRef(DefaultInput))
+            }
         />
     )
 }

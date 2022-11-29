@@ -38,6 +38,7 @@ import {
     ThptyStplatInfoInterface,
 } from '@Type/MemberTypes'
 import { isEmpty } from 'lodash'
+import { useNavigate } from 'react-router-dom'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
@@ -113,6 +114,7 @@ const DetailTable = ({
 }: {
     HandleGetInfo: (memNo: number) => void
 }) => {
+    const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(DetailState)
     const originInfo = useRecoilValue(OriginSelector)
     const { handlMainAlert, handleOutletLoading } = useMainLayouts()
@@ -1051,7 +1053,13 @@ const DetailTable = ({
                     <VaryButton
                         BgColor={`mBBlue`}
                         Name={`목록으로`}
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() => {
+                            navigate({
+                                pathname:
+                                    process.env.PUBLIC_URL +
+                                    `/manage/member/member-list`,
+                            })
+                        }}
                     />
                 </ButtonItem>
             </ButtonBox>

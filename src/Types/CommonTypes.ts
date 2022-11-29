@@ -45,6 +45,7 @@ export type MaxHeightType =
 export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
+export type ContentType = 'default' | 'search'
 
 // page tab
 export interface TabInterface {

@@ -1,82 +1,81 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './SearchBox'
 import ManageBox from './ManageBox'
 import ListTable from './ListTable'
-import { getList } from '@Service/InstdeptService'
-import { InstdeptListInterface } from '@CommonTypes'
-import { tableListItemInterface } from './TableConfig'
+import { getMemberList } from '@Service/MemberService'
+import { useRecoilState } from 'recoil'
+import { ListState } from '@Recoil/MemberPagesState'
+import { isNull } from 'lodash'
+import { gmtTimeToTimeObject } from '@Helper'
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
 } = PageContainerStyle
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
-const initializeState = {
-    loading: true,
-    memberList: [],
-}
-
 const ListMain = () => {
-    const [pageState, setPageState] = useState<{
-        loading: boolean
-        memberList: tableListItemInterface[]
-    }>(initializeState)
+    const [listState, setListState] = useRecoilState(ListState)
+    const { handlMainAlert } = useMainLayouts()
 
-    const getTableList = async () => {
-        const response = await getList({
-            CUR_PAGE: 1,
-            INST_NO: 0,
-            ITEM_COUNT: 200,
-            SEARCH_KEY: '',
+    const getList = useCallback(async () => {
+        const {
+            search: { searchKey, registDtFrom, registDtTo, instNo, curPage },
+        } = listState
+
+        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+
+        const { status, payload } = await getMemberList({
+            curPage: !isNull(curPage) ? curPage : 1,
+            instNo: !isNull(instNo) ? instNo : '',
+            searchKey: !isNull(searchKey) ? searchKey : '',
+            registDtFrom: !isNull(registDtFrom)
+                ? registDtFrom
+                : `${year}${monthPad}${dayPad}`,
+            registDtTo: !isNull(registDtTo)
+                ? registDtTo
+                : `${year}${monthPad}${dayPad}`,
         })
 
-        const listData: InstdeptListInterface[] = response.payload.INSTDEPT_LIST
-
-        setPageState(prevState => ({
-            ...prevState,
-            loading: false,
-            memberList: listData.map(_ => {
-                return {
-                    MBER_NO: _.MBER_NO,
-                    MEBER_NM: _.MEBER_NM,
-                    MBTLNUM: _.MBTLNUM,
-                    BRTHDY: _.BRTHDY,
-                    SEXDSTN: _.SEXDSTN,
-                    INST_NM: _.INST_NM,
-                    DEPT_NM: _.DEPT_NM,
-                    CONFM_DE: _.CONFM_DE,
-                    STAT: _.STAT,
-                }
-            }),
-        }))
-    }
+        if (status) {
+            setListState(prevState => ({
+                ...prevState,
+                status: 'success',
+                list: payload,
+            }))
+        } else {
+            setListState(prevState => ({
+                ...prevState,
+                status: 'failure',
+            }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.stplatSuccess,
+            })
+        }
+    }, [handlMainAlert, listState, setListState])
 
     useEffect(() => {
         const pageStart = () => {
-            setPageState(prevState => ({
-                ...prevState,
-                loading: true,
-            }))
-            getTableList().then()
+            if (listState.status == 'idle') getList().then()
         }
 
         pageStart()
-    }, [])
+    }, [getList, listState.status])
+
     return (
         <Container>
             <SearchWapper>
-                <SearchBox />
+                <SearchBox HandleGetList={() => getList()} />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable
-                    MemberList={pageState.memberList}
-                    Loading={pageState.loading}
-                />
+                <ListTable />
             </TableWapper>
         </Container>
     )
