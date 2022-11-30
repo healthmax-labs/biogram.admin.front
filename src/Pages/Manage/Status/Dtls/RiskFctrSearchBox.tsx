@@ -1,66 +1,59 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
+import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
-    DatepickerInput,
     DefaultSearchButton,
     PstinstSelector,
-    DefaultCheckBox,
+    VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
     VaryRadioButton,
 } from '@Elements'
+import { DefaultCheckBox } from '@Element/index'
+import { gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { RiskFctrListState } from '@Recoil/StatusPagesState'
+import { isNull } from 'lodash'
 
 const {
-    SearchButtonBox,
-    DatepickerLine,
-    Datepicker,
-    Input,
-    LabelText,
-    LabelItem,
-    Item,
-    Label,
-    LabelItemBox,
-    Wapper,
     Container,
-    Relative,
+    SearchWapper,
+    SearchItemWapper,
+    SearchLabel,
+    SearchItem,
+    DatepickerLine,
+    SearchButton,
+    LabelItem,
 } = SearchBoxStyle
 
-const SearchBox = () => {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
-        //
-    }
+const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+    const [riskFctrListState, setRiskFctrListState] =
+        useRecoilState(RiskFctrListState)
     return (
         <Container>
-            <Wapper>
-                <Item>
+            <SearchWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`소속:`} />
+                    </SearchLabel>
+                    <PstinstSelector
+                        HandleSelectValue={({ instNo }) =>
+                            setRiskFctrListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    instNo: String(instNo),
+                                },
+                            }))
+                        }
+                    />
+                </SearchItemWapper>
+                <SearchItemWapper>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
-                        </Label>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`요인:`} />
+                        </SearchLabel>
                     </LabelItem>
-                    <LabelItemBox>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                handlePstinstSelect({
-                                    instNo,
-                                    instNm,
-                                })
-                            }
-                        />
-                    </LabelItemBox>
-                </Item>
-                <Item>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>요인 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
                         <DefaultCheckBox />
                         허리둘레
                         <DefaultCheckBox />
@@ -69,29 +62,53 @@ const SearchBox = () => {
                         TG
                         <DefaultCheckBox />
                         HDL
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>기간 :</LabelText>
-                        </Label>
                     </LabelItem>
-                    <LabelItemBox>
-                        <Datepicker>
-                            <DatepickerInput />
-                            <DatepickerLine>~</DatepickerLine>
-                            <DatepickerInput />
-                        </Datepicker>
-                    </LabelItemBox>
-                </Item>
-                <Item>
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`기간:`} />
+                    </SearchLabel>
+                    <SearchItem>
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setRiskFctrListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                        <DatepickerLine>~</DatepickerLine>
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setRiskFctrListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                    </SearchItem>
+                </SearchItemWapper>
+                <SearchItemWapper>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>갯수 :</LabelText>
-                        </Label>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`갯수:`} />
+                        </SearchLabel>
                     </LabelItem>
-                    <LabelItemBox>
+                    <LabelItem>
                         <div className="flex flex-nowrap px-0">
                             <div className="mr-2">
                                 <VaryRadioButton
@@ -136,46 +153,52 @@ const SearchBox = () => {
                                 />
                             </div>
                         </div>
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
-                        </Label>
                     </LabelItem>
-                    <LabelItemBox>
-                        <Input
-                            type="search"
-                            id="search-dropdown"
-                            placeholder="ID / 이름 / 연락처 / 전화번호"
-                            required
-                        />
-                    </LabelItemBox>
-                </Item>
-                <Item>
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`검색어:`} />
+                    </SearchLabel>
+                    <VaryInput
+                        ContentsType={`search`}
+                        Width={'w64'}
+                        HandleOnChange={e =>
+                            setRiskFctrListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    searchKey: e.target.value,
+                                },
+                            }))
+                        }
+                        id={'id'}
+                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                        Value={
+                            isNull(riskFctrListState.search.SEARCH_KEY)
+                                ? ''
+                                : riskFctrListState.search.SEARCH_KEY
+                        }
+                    />
+                </SearchItemWapper>
+                <SearchItemWapper>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>복약 :</LabelText>
-                        </Label>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`복약:`} />
+                        </SearchLabel>
                     </LabelItem>
-                    <LabelItemBox>
+                    <LabelItem>
                         <DefaultCheckBox />
                         고혈압
                         <DefaultCheckBox />
                         당뇨
                         <DefaultCheckBox />
                         고지혈
-                    </LabelItemBox>
-                </Item>
-            </Wapper>
-            <Relative>
-                <SearchButtonBox>
-                    <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
-                    />
-                </SearchButtonBox>
-            </Relative>
+                    </LabelItem>
+                </SearchItemWapper>
+            </SearchWapper>
+            <SearchButton>
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
+            </SearchButton>
         </Container>
     )
 }
