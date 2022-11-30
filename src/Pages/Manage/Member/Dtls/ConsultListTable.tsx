@@ -31,12 +31,11 @@ const ConsultListTable = () => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.MBER_NO}/detail`,
+                `/manage/member/${element.MBER_NO}/consult-detail`,
         })
     }
 
     useEffect(() => {
-        console.debug('useEffect')
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',

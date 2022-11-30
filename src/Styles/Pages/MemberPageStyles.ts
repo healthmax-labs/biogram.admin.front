@@ -47,3 +47,31 @@ export const DetailPageStyle = {
     ButtonBox: tw.div`flex flex-nowrap py-2 justify-center`,
     ButtonItem: tw.div`pl-1`,
 }
+
+export const ConsultDetailStyle = {
+    Tabs: {
+        Container: tw.div` pt-2 `,
+        Rows: tw.ul`flex flex-wrap text-xs text-center text-gray-500 border-b border-gray-200`,
+        Cells: tw.li`mr-2`,
+        Items1: tw.div`inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg`,
+        Items: styled.div(({ Active }: { Active: boolean }) => [
+            tw`inline-block p-2 rounded-t-lg`,
+            Active
+                ? tw`text-blue-600 bg-gray-100`
+                : tw`hover:text-gray-600 hover:bg-gray-50 cursor-pointer`,
+        ]),
+    },
+    Detail: {
+        Container: tw.div`flex flex-col`,
+        MyData: {
+            Wapper: tw.table`min-w-full text-center`,
+            Head: tw.thead`h-8 border bg-m-dip-blue text-xs font-medium`,
+            HeadRow: tw.tr`h-8`,
+            HeadCell: tw.th`h-8 text-xs font-medium text-white`,
+            Body: tw.tbody``,
+            BodyRow: tw.tr`bg-white border`,
+            BodyCellBef: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
+            BodyCell: tw.td`h-8 border-r text-xs text-gray-600 whitespace-nowrap`,
+        },
+    },
+}

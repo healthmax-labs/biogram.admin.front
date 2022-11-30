@@ -1,8 +1,8 @@
 import React from 'react'
 import ListMain from './Dtls/ListMain'
 
-const MemberDetailPage = () => {
+const MemberListPage = () => {
     return <ListMain />
 }
 
-export default MemberDetailPage
+export default MemberListPage
