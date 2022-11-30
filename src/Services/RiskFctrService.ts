@@ -1,9 +1,9 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { RiskFctrListItemInterface } from '@Type/RiskFctrTypes'
+import { RiskFctrListItemInterface } from '@Type/StatusTypes'
 
 /**
- * 위험요인현황 리스트
+ * 위험요인 현황 리스트
  */
 export function getRiskFctrList({
     CUR_PAGE,
@@ -16,7 +16,7 @@ export function getRiskFctrList({
     TAKNG_MDCIN,
 }: {
     CUR_PAGE: number
-    INST_NO: number
+    INST_NO: string
     SEARCH_KEY: string
     BGNDE: string
     ENDDE: string

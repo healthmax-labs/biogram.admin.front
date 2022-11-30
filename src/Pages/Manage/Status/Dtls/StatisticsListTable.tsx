@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { TableConfig, tableListItemInterface } from './StatisticsTableConfig'
+import {
+    StatisticsTableConfig,
+    StatisticsTableListItemInterface,
+} from './StatusTableConfig'
+import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+import { StatisticsListState } from '@Recoil/StatusPagesState'
 
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<tableListItemInterface>[]
-    Lists: tableListItemInterface[]
+    Columns: ColumnsInterface<StatisticsTableListItemInterface>[]
+    Lists: StatisticsTableListItemInterface[]
 }
 
-const ListTable = ({
-    Loading,
-    MemberList,
-}: {
-    Loading: boolean
-    MemberList: tableListItemInterface[]
-}) => {
+const ListTable = () => {
     const navigate = useNavigate()
-    const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
+    const listState = useRecoilValue(StatisticsListState)
 
-    const handleRowClick = (element: tableListItemInterface) => {
+    const [tableOptions, setTableOptions] = useState<tableOption>(
+        StatisticsTableConfig
+    )
+
+    const handleRowClick = (element: StatisticsTableListItemInterface) => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
@@ -30,12 +33,14 @@ const ListTable = ({
     }
 
     useEffect(() => {
+        console.log('기기측정현황')
         setTableOptions(prevState => ({
             ...prevState,
-            Loading: Loading,
-            Lists: MemberList,
+            Loading: listState.status === 'loading',
+            list: listState.list.DEVICE_MESURE_INFO_LIST,
         }))
-    }, [Loading, MemberList])
+        console.log(listState.list.DEVICE_MESURE_INFO_LIST)
+    }, [listState.list.DEVICE_MESURE_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

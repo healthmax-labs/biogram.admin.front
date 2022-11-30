@@ -1,9 +1,9 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { StatisticsListItemInterface } from '@Type/StatisticsTypes'
+import { StatisticsListItemInterface } from '@Type/StatusTypes'
 
 /**
- * 위험요인현황 리스트
+ * 기기측정 현황 리스트
  */
 export function getStatisticsList({
     CUR_PAGE,
@@ -13,7 +13,7 @@ export function getStatisticsList({
     END_DE,
 }: {
     CUR_PAGE: number
-    INST_NO: number
+    INST_NO: string
     SEARCH_KEY: string
     BEGIN_DE: string
     END_DE: string

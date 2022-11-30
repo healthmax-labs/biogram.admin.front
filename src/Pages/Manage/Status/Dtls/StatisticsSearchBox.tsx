@@ -1,117 +1,135 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
+import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
-    DatepickerInput,
     DefaultSearchButton,
     PstinstSelector,
-    DefaultCheckBox,
+    VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
 } from '@Elements'
+import { DefaultCheckBox } from '@Element/index'
+import { gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { StatisticsListState } from '@Recoil/StatusPagesState'
+import { isNull } from 'lodash'
 
 const {
-    SearchButtonBox,
-    DatepickerLine,
-    Datepicker,
-    Input,
-    LabelText,
-    LabelItem,
-    Item,
-    Label,
-    LabelItemBox,
-    Wapper,
     Container,
-    Relative,
+    SearchWapper,
+    SearchItemWapper,
+    SearchLabel,
+    SearchItem,
+    DatepickerLine,
+    SearchButton,
+    LabelItem,
 } = SearchBoxStyle
 
-const SearchBox = () => {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
-        //
-    }
+const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+    const [statisticsListState, setStatisticsListState] =
+        useRecoilState(StatisticsListState)
     return (
         <Container>
-            <Wapper>
-                <Item>
+            <SearchWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`소속:`} />
+                    </SearchLabel>
+                    <PstinstSelector
+                        HandleSelectValue={({ instNo }) =>
+                            setStatisticsListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    instNo: String(instNo),
+                                },
+                            }))
+                        }
+                    />
+                </SearchItemWapper>
+                <SearchItemWapper>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
-                        </Label>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`요인:`} />
+                        </SearchLabel>
                     </LabelItem>
-                    <LabelItemBox>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                handlePstinstSelect({
-                                    instNo,
-                                    instNm,
-                                })
-                            }
-                        />
-                    </LabelItemBox>
-                </Item>
-                <Item>
                     <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>요인 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
                         <DefaultCheckBox />
-                        체성분
+                        허리둘레
                         <DefaultCheckBox />
                         혈압
                         <DefaultCheckBox />
-                        혈당
+                        TG
                         <DefaultCheckBox />
-                        콜레스테롤
-                        <DefaultCheckBox />
-                        스트레스
-                        <DefaultCheckBox />
-                        기타
-                    </LabelItemBox>
-                </Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>기간 :</LabelText>
-                        </Label>
+                        HDL
                     </LabelItem>
-                    <LabelItemBox>
-                        <Datepicker>
-                            <DatepickerInput />
-                            <DatepickerLine>~</DatepickerLine>
-                            <DatepickerInput />
-                        </Datepicker>
-                    </LabelItemBox>
-                </Item>
-                <Item></Item>
-                <Item>
-                    <LabelItem>
-                        <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
-                        </Label>
-                    </LabelItem>
-                    <LabelItemBox>
-                        <Input
-                            type="search"
-                            id="search-dropdown"
-                            placeholder="ID / 이름 / 연락처 / 전화번호"
-                            required
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`기간:`} />
+                    </SearchLabel>
+                    <SearchItem>
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setStatisticsListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
                         />
-                    </LabelItemBox>
-                </Item>
-            </Wapper>
-            <Relative>
-                <SearchButtonBox>
-                    <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
+                        <DatepickerLine>~</DatepickerLine>
+                        <VaryDatepickerInput
+                            ContentsType={`search`}
+                            Value={new Date()}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setStatisticsListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                    </SearchItem>
+                </SearchItemWapper>
+                <SearchItemWapper>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`검색어:`} />
+                    </SearchLabel>
+                    <VaryInput
+                        ContentsType={`search`}
+                        Width={'w64'}
+                        HandleOnChange={e =>
+                            setStatisticsListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    searchKey: e.target.value,
+                                },
+                            }))
+                        }
+                        id={'id'}
+                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                        Value={
+                            isNull(statisticsListState.search.SEARCH_KEY)
+                                ? ''
+                                : statisticsListState.search.SEARCH_KEY
+                        }
                     />
-                </SearchButtonBox>
-            </Relative>
+                </SearchItemWapper>
+            </SearchWapper>
+            <SearchButton>
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
+            </SearchButton>
         </Container>
     )
 }

@@ -3,7 +3,7 @@ import { ServicesDefaultResult } from '@Type/CommonTypes'
 import { BrftrCmprListItemInterface } from '@Type/BrftrCmprTypes'
 
 /**
- * 위험요인현황 리스트
+ * 전후비교 현황 리스트
  */
 export function getBrftrCmprList({
     CUR_PAGE,
@@ -13,7 +13,7 @@ export function getBrftrCmprList({
     ENDDE,
 }: {
     CUR_PAGE: number
-    INST_NO: number
+    INST_NO: string
     SEARCH_KEY: string
     BGNDE: string
     ENDDE: string

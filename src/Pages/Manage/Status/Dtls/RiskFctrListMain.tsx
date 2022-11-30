@@ -1,116 +1,96 @@
-import React, { useEffect, useState } from 'react'
-import { MainStyle, SearchBoxStyle } from '@Style/Pages/MemberPageStyles'
+import React, { useCallback, useEffect } from 'react'
+import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
+import { MainStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './RiskFctrSearchBox'
 import ManageBox from './RiskFctrManageBox'
 import ListTable from './RiskFctrListTable'
 import { getRiskFctrList } from '@Service/RiskFctrService'
-import { RiskFctrListItemInterface } from '@Type/RiskFctrTypes'
-import { tableListItemInterface } from './RiskFctrTableConfig'
+import { useRecoilState } from 'recoil'
+import { RiskFctrListState } from '@Recoil/StatusPagesState'
+import { isNull } from 'lodash'
+import { gmtTimeToTimeObject } from '@Helper'
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
+const {
+    ListPage: { Container },
+} = PageContainerStyle
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
-const { Container } = SearchBoxStyle
 
-const initializeState = {
-    loading: true,
-    memberList: [],
-}
+const RiskFctrListMain = () => {
+    const [riskFctrListState, setRiskFctrListState] =
+        useRecoilState(RiskFctrListState)
+    const { handlMainAlert } = useMainLayouts()
 
-const ListMain = () => {
-    const [pageState, setPageState] = useState<{
-        loading: boolean
-        memberList: tableListItemInterface[]
-    }>(initializeState)
+    const getTableList = useCallback(async () => {
+        const {
+            search: {
+                SEARCH_KEY,
+                BGNDE,
+                ENDDE,
+                INST_NO,
+                curPage,
+                RISK_FCTR_CNT,
+                RISK_FCTR,
+                TAKNG_MDCIN,
+            },
+        } = riskFctrListState
 
-    const getTableList = async () => {
-        const response = await getRiskFctrList({
-            CUR_PAGE: 1,
-            INST_NO: 0,
-            SEARCH_KEY: '',
-            BGNDE: '20190101',
-            ENDDE: '20221201',
-            RISK_FCTR_CNT: '1',
-            RISK_FCTR: 'WS,BP,BS,TG,HD',
-            TAKNG_MDCIN: 'OB,HP,DB,DP',
+        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+
+        const { status, payload } = await getRiskFctrList({
+            CUR_PAGE: !isNull(curPage) ? curPage : 1,
+            INST_NO: !isNull(INST_NO) ? INST_NO : '',
+            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
+            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
+            BGNDE: !isNull(BGNDE) ? BGNDE : `20211130`,
+            ENDDE: !isNull(ENDDE) ? ENDDE : `${year}${monthPad}${dayPad}`,
+            // RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '',
+            RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '2',
+            RISK_FCTR: !isNull(RISK_FCTR) ? RISK_FCTR : 'WS,BP,BS,TG,HD',
+            TAKNG_MDCIN: !isNull(TAKNG_MDCIN) ? TAKNG_MDCIN : '',
         })
 
-        const listData: RiskFctrListItemInterface[] =
-            response.payload.RISK_FCTR_INFO_LIST
-
-        setPageState(prevState => ({
-            ...prevState,
-            loading: false,
-            memberList: listData.map(_ => {
-                return {
-                    SLM_JDGMNT: _.SLM_JDGMNT,
-                    TAKNG_MDCIN: _.TAKNG_MDCIN,
-                    WAIST: _.WAIST,
-                    DIASTOLIC: _.DIASTOLIC,
-                    LDLC_JDGMNT: _.LDLC_JDGMNT,
-                    MBER_NO: _.MBER_NO,
-                    TG_JDGMNT: _.TG_JDGMNT,
-                    LDLC: _.LDLC,
-                    SYSTOLIC: _.SYSTOLIC,
-                    TC_JDGMNT: _.TC_JDGMNT,
-                    HDLC: _.HDLC,
-                    BRTHDY: _.BRTHDY,
-                    SEXDSTN: _.SEXDSTN,
-                    PBF: _.PBF,
-                    SLM: _.SLM,
-                    EST_BN_MAS_JDGMNT: _.EST_BN_MAS_JDGMNT,
-                    FBS: _.FBS,
-                    HDLC_JDGMNT: _.HDLC_JDGMNT,
-                    VFL: _.VFL,
-                    DIASTOLIC_JDGMNT: _.DIASTOLIC_JDGMNT,
-                    BMI: _.BMI,
-                    FBS_JDGMNT: _.FBS_JDGMNT,
-                    EST_BN_MAS: _.EST_BN_MAS,
-                    BDWGH_JDGMNT: _.BDWGH_JDGMNT,
-                    PULS: _.PULS,
-                    SYSTOLIC_JDGMNT: _.SYSTOLIC_JDGMNT,
-                    WAIST_JDGMNT: _.WAIST_JDGMNT,
-                    TC: _.TC,
-                    PBF_JDGMNT: _.PBF_JDGMNT,
-                    PP2: _.PP2,
-                    TG: _.TG,
-                    BDWGH: _.BDWGH,
-                    PP2_JDGMNT: _.PP2_JDGMNT,
-                    RISK_FCTR: _.RISK_FCTR,
-                    BMI_JDGMNT: _.BMI_JDGMNT,
-                    VFL_JDGMNT: _.VFL_JDGMNT,
-                    MESURE_DT: _.MESURE_DT,
-                    NM: _.NM,
-                }
-            }),
-        }))
-    }
+        if (status) {
+            setRiskFctrListState(prevState => ({
+                ...prevState,
+                status: 'success',
+                memberList: payload,
+            }))
+        } else {
+            setRiskFctrListState(prevState => ({
+                ...prevState,
+                status: 'failure',
+            }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+    }, [handlMainAlert, riskFctrListState, setRiskFctrListState])
 
     useEffect(() => {
         const pageStart = () => {
-            setPageState(prevState => ({
-                ...prevState,
-                loading: true,
-            }))
-            getTableList().then()
+            if (riskFctrListState.status == 'idle') {
+                getTableList().then()
+            }
         }
 
         pageStart()
-    }, [])
+    }, [getTableList, riskFctrListState.status])
     return (
         <Container>
             <SearchWapper>
-                <SearchBox />
+                <SearchBox HandleGetList={() => getTableList()} />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable
-                    MemberList={pageState.memberList}
-                    Loading={pageState.loading}
-                />
+                <ListTable />
             </TableWapper>
         </Container>
     )
 }
 
-export default ListMain
+export default RiskFctrListMain

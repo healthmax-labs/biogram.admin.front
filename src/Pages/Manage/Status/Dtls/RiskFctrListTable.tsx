@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { TableConfig, tableListItemInterface } from './RiskFctrTableConfig'
+import {
+    RiskFctrTableConfig,
+    RiskFctrTableListItemInterface,
+} from './StatusTableConfig'
+import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+import { RiskFctrListState } from '@Recoil/StatusPagesState'
 
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<tableListItemInterface>[]
-    Lists: tableListItemInterface[]
+    Columns: ColumnsInterface<RiskFctrTableListItemInterface>[]
+    Lists: RiskFctrTableListItemInterface[]
 }
 
-const ListTable = ({
-    Loading,
-    MemberList,
-}: {
-    Loading: boolean
-    MemberList: tableListItemInterface[]
-}) => {
+const ListTable = () => {
     const navigate = useNavigate()
-    const [tableOptions, setTableOptions] = useState<tableOption>(TableConfig)
+    const listState = useRecoilValue(RiskFctrListState)
 
-    const handleRowClick = (element: tableListItemInterface) => {
+    const [tableOptions, setTableOptions] =
+        useState<tableOption>(RiskFctrTableConfig)
+
+    const handleRowClick = (element: RiskFctrTableListItemInterface) => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
@@ -32,10 +34,10 @@ const ListTable = ({
     useEffect(() => {
         setTableOptions(prevState => ({
             ...prevState,
-            Loading: Loading,
-            Lists: MemberList,
+            Loading: listState.status === 'loading',
+            list: listState.list.RISK_FCTR_INFO_LIST,
         }))
-    }, [Loading, MemberList])
+    }, [listState.list.RISK_FCTR_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
