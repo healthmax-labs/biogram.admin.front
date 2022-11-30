@@ -65,13 +65,30 @@ export const ConsultDetailStyle = {
         Container: tw.div`flex flex-col`,
         MyData: {
             Wapper: tw.table`min-w-full text-center`,
-            Head: tw.thead`h-8 border bg-m-dip-blue text-xs font-medium`,
+            Head: tw.thead`h-8 border text-xs bg-m-dip-blue font-medium`,
             HeadRow: tw.tr`h-8`,
-            HeadCell: tw.th`h-8 text-xs font-medium text-white`,
+            HeadCell: tw.th`h-8 text-xs font-medium text-white border-l border-l-gray-50`,
             Body: tw.tbody``,
             BodyRow: tw.tr`bg-white border`,
             BodyCellBef: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
-            BodyCell: tw.td`h-8 border-r text-xs text-gray-600 whitespace-nowrap`,
+            // BodyCell: tw.td`h-8 border-r text-xs text-gray-600 whitespace-nowrap`,
+            BodyCell: styled.td(
+                ({ Color }: { Color?: 'block' | 'red' | 'green' }) => {
+                    const returnCss = [
+                        tw`h-8 border-r text-xs whitespace-nowrap`,
+                    ]
+
+                    if (Color && Color === 'red') {
+                        returnCss.push(tw`text-red-600`)
+                    } else if (Color && Color === 'green') {
+                        returnCss.push(tw`text-green-500`)
+                    } else {
+                        returnCss.push(tw`text-gray-600`)
+                    }
+
+                    return returnCss
+                }
+            ),
         },
     },
 }

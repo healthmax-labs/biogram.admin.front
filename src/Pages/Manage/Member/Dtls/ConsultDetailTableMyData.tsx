@@ -37,10 +37,12 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
+                            좋음
+                        </Detail.MyData.BodyCell>
                     </Detail.MyData.BodyRow>
                     <Detail.MyData.BodyRow>
                         <Detail.MyData.BodyCellBef>
@@ -53,10 +55,12 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
+                            좋음
+                        </Detail.MyData.BodyCell>
                     </Detail.MyData.BodyRow>
                     <Detail.MyData.BodyRow>
                         <Detail.MyData.BodyCellBef>
@@ -101,10 +105,12 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'green'}>
+                            좋음
+                        </Detail.MyData.BodyCell>
                     </Detail.MyData.BodyRow>
                     <Detail.MyData.BodyRow>
                         <Detail.MyData.BodyCellBef>
@@ -170,7 +176,7 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'red'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
@@ -186,10 +192,12 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'red'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'red'}>
+                            좋음
+                        </Detail.MyData.BodyCell>
                     </Detail.MyData.BodyRow>
                     <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
                     <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
@@ -239,10 +247,12 @@ const ConsultDetailTableMyData = () => {
                             2022-11-10 17:54:27
                         </Detail.MyData.BodyCell>
                         <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'red'}>
                             51.80 ~ 64.40
                         </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
+                        <Detail.MyData.BodyCell Color={'red'}>
+                            좋음
+                        </Detail.MyData.BodyCell>
                     </Detail.MyData.BodyRow>
                 </Detail.MyData.Body>
             </Detail.MyData.Wapper>
