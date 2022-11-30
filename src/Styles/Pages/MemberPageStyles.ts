@@ -53,7 +53,6 @@ export const ConsultDetailStyle = {
         Container: tw.div` pt-2 `,
         Rows: tw.ul`flex flex-wrap text-xs text-center text-gray-500 border-b border-gray-200`,
         Cells: tw.li`mr-2`,
-        Items1: tw.div`inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg`,
         Items: styled.div(({ Active }: { Active: boolean }) => [
             tw`inline-block p-2 rounded-t-lg`,
             Active
@@ -90,5 +89,8 @@ export const ConsultDetailStyle = {
                 }
             ),
         },
+    },
+    Message: {
+        Container: tw.div`flex flex-col break-words bg-white`,
     },
 }

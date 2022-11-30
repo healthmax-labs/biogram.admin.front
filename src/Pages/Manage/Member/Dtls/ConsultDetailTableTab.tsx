@@ -36,18 +36,8 @@ const initializeState = {
             active: false,
         },
         {
-            name: `메시지`,
+            name: `메시지 발송함`,
             key: `mesg`,
-            active: false,
-        },
-        {
-            name: `발송함`,
-            key: `send`,
-            active: false,
-        },
-        {
-            name: `회원정보`,
-            key: `myinfo`,
             active: false,
         },
         {

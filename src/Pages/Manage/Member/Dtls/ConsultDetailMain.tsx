@@ -1,5 +1,6 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import ConsultDetailTable from './ConsultDetailTable'
+import ConsultDetailTableMessageBox from './ConsultDetailTableMessageBox'
 
 const {
     DetailPage: { Container, LeftWapper, RightWapper },
@@ -11,7 +12,9 @@ const ConsultDetailMain = () => {
             <LeftWapper>
                 <ConsultDetailTable />
             </LeftWapper>
-            <RightWapper></RightWapper>
+            <RightWapper>
+                <ConsultDetailTableMessageBox />
+            </RightWapper>
         </Container>
     )
 }

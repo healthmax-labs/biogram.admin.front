@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
-import { InputStyle } from '@Style/Elements/InputStyles'
+import { VaryInput } from '@Elements'
+import { InputWidthType } from '@CommonTypes'
 
-const { DatePicker: Input } = InputStyle
-
-const CustomInput = (
+const DefaultInput = (
     {
         value,
         onFocus,
         onChange,
+        Width,
     }: {
         value: string
+        Width?: InputWidthType
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
     ref: any
-) => <Input ref={ref} onFocus={onFocus} value={value} onChange={onChange} />
+) => (
+    <VaryInput
+        Ref={ref}
+        Width={Width ? Width : 'w28'}
+        InputType={'text'}
+        HandleOnChange={onChange}
+        id={'id'}
+        Placeholder={'생년월일'}
+        Value={value}
+        HandleOnFocus={onFocus}
+    />
+)
 
-const Datepicker = ({
+const SendBoxDatepickerInput = ({
     Value,
+    DateFormat,
     CallBackReturn,
 }: {
     Value?: Date | null
+    DateFormat?: string
     CallBackReturn?: (e: Date) => void
 }) => {
     const [selectDate, setSelectDate] = useState(new Date())
@@ -46,11 +60,11 @@ const Datepicker = ({
         <DatePicker
             selected={selectDate}
             onChange={(date: any) => setSelectDate(date)}
-            dateFormat={`yyyy/MM/dd`}
+            dateFormat={DateFormat ? DateFormat : `yyyy/MM/dd`}
             locale={ko}
-            customInput={React.createElement(React.forwardRef(CustomInput))}
+            customInput={React.createElement(React.forwardRef(DefaultInput))}
         />
     )
 }
 
-export default Datepicker
+export default SendBoxDatepickerInput
