@@ -62,11 +62,11 @@ const ConsultListMain = () => {
 
     useEffect(() => {
         const pageStart = () => {
-            handleGetList().then()
+            if (listState.status == 'idle') handleGetList().then()
         }
 
         pageStart()
-    }, [handleGetList])
+    }, [handleGetList, listState.status])
 
     return (
         <Container>

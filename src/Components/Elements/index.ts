@@ -11,6 +11,7 @@ export { default as StplatInfoAgreeModal } from './Features/StplatInfoAgreeModal
 
 export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'
+export { default as SendBoxDatepickerInput } from './Inputs/SendBoxDatepickerInput'
 export { default as DefaultCheckBox } from './Inputs/DefaultCheckBox'
 export { default as VaryInput } from './Inputs/VaryInput'
 export { default as VaryLabelInput } from './Inputs/VaryLabelInput'
