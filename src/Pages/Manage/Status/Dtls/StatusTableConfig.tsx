@@ -368,7 +368,7 @@ export const BrftrCmprTableConfig = {
     Lists: [],
 }
 
-// 회원 테이블 데이터
+// 기기측정 현황 테이블 데이터
 export interface StatisticsTableListItemInterface {
     MBER_NO: number
     NM: null | string

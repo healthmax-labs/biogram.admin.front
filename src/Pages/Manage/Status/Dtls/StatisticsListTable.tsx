@@ -33,14 +33,12 @@ const ListTable = () => {
     }
 
     useEffect(() => {
-        console.log('기기측정현황')
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            list: listState.list.DEVICE_MESURE_INFO_LIST,
+            Lists: listState.memberList.DEVICE_MESURE_INFO_LIST,
         }))
-        console.log(listState.list.DEVICE_MESURE_INFO_LIST)
-    }, [listState.list.DEVICE_MESURE_INFO_LIST, listState.status])
+    }, [listState.memberList.DEVICE_MESURE_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

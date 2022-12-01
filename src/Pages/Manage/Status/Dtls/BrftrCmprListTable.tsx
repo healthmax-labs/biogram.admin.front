@@ -18,6 +18,7 @@ interface tableOption {
 
 const ListTable = () => {
     const navigate = useNavigate()
+
     const listState = useRecoilValue(BrftrCmprListState)
 
     const [tableOptions, setTableOptions] =
@@ -32,14 +33,12 @@ const ListTable = () => {
     }
 
     useEffect(() => {
-        console.log('전후비교현황')
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            list: listState.list.MESURE_BRFTR_CMPR_INFO_LIST,
+            Lists: listState.memberList.MESURE_BRFTR_CMPR_INFO_LIST,
         }))
-        console.log(listState.list.MESURE_BRFTR_CMPR_INFO_LIST)
-    }, [listState.list.MESURE_BRFTR_CMPR_INFO_LIST, listState.status])
+    }, [listState.memberList.MESURE_BRFTR_CMPR_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
