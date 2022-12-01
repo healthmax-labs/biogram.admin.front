@@ -23,7 +23,11 @@ export default {
     width: {
         w10: tw`w-10`,
         w12: tw`w-12`,
+        w20: tw`w-20`,
+        w24: tw`w-24`,
+        w28: tw`w-28`,
         w32: tw`w-32`,
+        w36: tw`w-36`,
         w40: tw`w-40`,
         w48: tw`w-48`,
         w52: tw`w-52`,

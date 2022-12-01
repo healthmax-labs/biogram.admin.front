@@ -1,50 +1,41 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/MemberPageStyles'
-import SearchBox from './SearchBox'
-import ManageBox from './ManageBox'
-import ListTable from './ListTable'
-import { getMemberList } from '@Service/MemberService'
+import { getMberCnsltlist } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
-import { ListState } from '@Recoil/MemberPagesState'
+import { ConsultListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
+import SearchBox from './ConsultSearchBox'
+import ManageBox from './ConsultManageBox'
+import ListTable from './ConsultListTable'
 
 const {
     ListPage: { Container },
 } = PageContainerStyle
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
-const ListMain = () => {
-    const [listState, setListState] = useRecoilState(ListState)
+const ConsultListMain = () => {
+    const [listState, setListState] = useRecoilState(ConsultListState)
     const { handlMainAlert } = useMainLayouts()
-
-    const getList = useCallback(async () => {
+    const handleGetList = useCallback(async () => {
         setListState(prevState => ({
             ...prevState,
             status: 'loading',
         }))
-
-        const {
-            search: { searchKey, registDtFrom, registDtTo, instNo, curPage },
-        } = listState
-
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
-
-        const { status, payload } = await getMemberList({
-            curPage: !isNull(curPage) ? curPage : 1,
-            instNo: !isNull(instNo) ? instNo : '',
-            searchKey: !isNull(searchKey) ? searchKey : '',
-            registDtFrom: !isNull(registDtFrom)
-                ? registDtFrom
-                : `${year}${monthPad}${dayPad}`,
-            registDtTo: !isNull(registDtTo)
-                ? registDtTo
-                : `${year}${monthPad}${dayPad}`,
+        const { status, payload } = await getMberCnsltlist({
+            curPage: 1,
+            instNo: !isNull(listState.search.instNo)
+                ? listState.search.instNo
+                : ``,
+            searchKey: !isNull(listState.search.searchKey)
+                ? listState.search.searchKey
+                : ``,
+            riskFctr: !isNull(listState.search.riskFctr)
+                ? listState.search.riskFctr
+                : ``,
         })
-
         if (status) {
             setListState(prevState => ({
                 ...prevState,
@@ -61,20 +52,28 @@ const ListMain = () => {
                 message: Messages.Default.stplatSuccess,
             })
         }
-    }, [handlMainAlert, listState, setListState])
+    }, [
+        handlMainAlert,
+        listState.search.instNo,
+        listState.search.riskFctr,
+        listState.search.searchKey,
+        setListState,
+    ])
 
     useEffect(() => {
         const pageStart = () => {
-            if (listState.status == 'idle') getList().then()
+            handleGetList().then()
         }
 
         pageStart()
-    }, [getList, listState.status])
+    }, [handleGetList])
 
     return (
         <Container>
             <SearchWapper>
-                <SearchBox HandleGetList={() => getList()} />
+                <SearchBox
+                    HandleGetList={() => console.debug('HandleGetList')}
+                />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />
@@ -86,4 +85,4 @@ const ListMain = () => {
     )
 }
 
-export default ListMain
+export default ConsultListMain

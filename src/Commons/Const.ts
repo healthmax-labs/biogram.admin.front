@@ -103,6 +103,15 @@ export default {
             ),
         },
         {
+            mainCode: `10000`,
+            menuCode: `10401`,
+            name: `상담회원 현황`,
+            pathName: `/manage/member/consult-list`,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/ConsultListPage')
+            ),
+        },
+        {
             mainCode: `20000`,
             menuCode: `20101`,
             name: `소속현황`,

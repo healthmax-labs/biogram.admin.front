@@ -15,6 +15,7 @@ module.exports = {
             },
             width: {
                 'center-width': `107rem`,
+                'center-search-box': `97rem`,
                 'left-box': `67rem`,
                 'right-box': `40rem`,
             },
