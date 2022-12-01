@@ -61,7 +61,7 @@ export const ConsultDetailStyle = {
         ]),
     },
     Detail: {
-        Container: tw.div`flex flex-col`,
+        Container: tw.div`flex flex-col max-h-[77vh] overflow-y-scroll`,
         MyData: {
             Wapper: tw.table`min-w-full text-center`,
             Head: tw.thead`h-8 border text-xs bg-m-dip-blue font-medium`,

@@ -48,7 +48,7 @@ const ConsultDetailTableMessageBox = () => {
     }
 
     return (
-        <div className="px-2">
+        <div className="px-2 pt-20">
             <div className="flex flex-col break-words bg-white">
                 <Tabs.Container>
                     <Tabs.Rows>
