@@ -57,7 +57,7 @@ export const VaryInputStyle = {
         ({
             ContentsType = 'default',
             Disabled,
-            Width = `w60`,
+            Width,
         }: {
             ContentsType?: ContentType
             Disabled?: boolean
@@ -79,7 +79,11 @@ export const VaryInputStyle = {
                 ]
             }
 
-            returnTw.push(ConstStyle.width[Width])
+            if (Width) {
+                returnTw.push(ConstStyle.width[Width])
+            } else {
+                returnTw.push(tw`w-full`)
+            }
 
             return returnTw
         }

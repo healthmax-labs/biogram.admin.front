@@ -20,7 +20,6 @@ const DefaultInput = (
 ) => (
     <VaryInput
         Ref={ref}
-        Width={Width ? Width : 'w28'}
         InputType={'text'}
         HandleOnChange={onChange}
         id={'id'}

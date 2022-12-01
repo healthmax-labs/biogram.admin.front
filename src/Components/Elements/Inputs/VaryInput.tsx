@@ -46,7 +46,7 @@ const VaryInput = ({
         <Wapper>
             <Input
                 ContentsType={ContentsType ? ContentsType : 'default'}
-                Width={Width ? Width : 'w60'}
+                Width={Width ?? Width}
                 Disabled={Disabled ? Disabled : false}
                 disabled={Disabled ? Disabled : false}
                 readOnly={ReadOnly ? ReadOnly : false}

@@ -26,7 +26,7 @@ const ConsultDetailTableMessageSend = () => {
                     <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
                         <VaryLabel LabelName={`발신번호:`} />
                     </div>
-                    <div className="w-full">
+                    <div className="flex w-full">
                         <VaryInput
                             HandleOnChange={e => console.debug(e)}
                             id={'id'}
@@ -41,7 +41,7 @@ const ConsultDetailTableMessageSend = () => {
                     </div>
                     <div className="w-full">
                         <div className="grid grid-rows-2 grid-flow-col gap-1">
-                            <div className="flex flex-nowrap">
+                            <div className="flex flex-nowrap items-center">
                                 <div className="px-0">
                                     <VaryLabelCheckBox
                                         LabelName={`바로발송`}
