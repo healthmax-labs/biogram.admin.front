@@ -1,4 +1,4 @@
-import { VaryLabel, VaryInput, VaryLabelTextArea, VaryButton } from '@Elements'
+import { VaryButton, VaryInput, VaryLabel, VaryLabelTextArea } from '@Elements'
 
 const ConsultDetailTableMemo = () => {
     return (
@@ -29,7 +29,7 @@ const ConsultDetailTableMemo = () => {
                             HandleOnChange={() => console.debug(11)}
                             Placeholder={`상담내역`}
                             Value={``}
-                            Rows={20}
+                            Rows={15}
                         />
                     </div>
                 </div>
@@ -44,7 +44,7 @@ const ConsultDetailTableMemo = () => {
                             HandleOnChange={() => console.debug(11)}
                             Placeholder={`추후계획`}
                             Value={``}
-                            Rows={20}
+                            Rows={15}
                         />
                     </div>
                 </div>
