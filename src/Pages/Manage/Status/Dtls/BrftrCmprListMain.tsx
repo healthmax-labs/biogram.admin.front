@@ -4,7 +4,7 @@ import { MainStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './BrftrCmprSearchBox'
 import ManageBox from './BrftrCmprManageBox'
 import ListTable from './BrftrCmprListTable'
-import { getBrftrCmprList } from '@Service/BrftrCmprService'
+import { getBrftrCmprList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -24,7 +24,7 @@ const BrftrCmprListMain = () => {
 
     const getTableList = useCallback(async () => {
         const {
-            search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage },
+            search: { SEARCH_KEY, /*BGNDE,*/ ENDDE, INST_NO, curPage },
         } = brftrCmprListState
 
         const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
@@ -34,7 +34,7 @@ const BrftrCmprListMain = () => {
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            BGNDE: !isNull(BGNDE) ? BGNDE : `20211130`,
+            BGNDE: `20211130`,
             ENDDE: !isNull(ENDDE) ? ENDDE : `${year}${monthPad}${dayPad}`,
         })
 

@@ -18,29 +18,11 @@ interface BrftrCmprSearchListInterface {
         BGNDE: string | null
         ENDDE: string | null
     }
-    list: BrftrCmprListInterface
+    memberList: BrftrCmprListInterface
 }
 
-export const BrftrCmprSchListState = atom<BrftrCmprSearchListInterface>({
-    key: `brftrCmprPage/list`,
-    default: {
-        status: 'idle',
-        search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
-        },
-        list: {
-            MESURE_BRFTR_CMPR_INFO_LIST: [],
-            TOTAL_COUNT: 0,
-        },
-    },
-})
-
 export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
-    key: `brftrCmprListPage/list`,
+    key: `statusPage/brftrCmprList`,
     default: {
         status: 'idle',
         search: {
@@ -50,7 +32,7 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
             BGNDE: null,
             ENDDE: null,
         },
-        list: {
+        memberList: {
             MESURE_BRFTR_CMPR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -70,32 +52,11 @@ interface RiskFctrSearchListInterface {
         RISK_FCTR: string | null
         TAKNG_MDCIN: string | null
     }
-    list: RiskFctrListInterface
+    memberList: RiskFctrListInterface
 }
 
-export const RiskFctrSchListState = atom<RiskFctrSearchListInterface>({
-    key: `riskFctrPage/list`,
-    default: {
-        status: 'idle',
-        search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
-            RISK_FCTR_CNT: null,
-            RISK_FCTR: null,
-            TAKNG_MDCIN: null,
-        },
-        list: {
-            RISK_FCTR_INFO_LIST: [],
-            TOTAL_COUNT: 0,
-        },
-    },
-})
-
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
-    key: `riskFctrListPage/list`,
+    key: `statusPage/RiskFctrList`,
     default: {
         status: 'idle',
         search: {
@@ -108,7 +69,7 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
             RISK_FCTR: null,
             TAKNG_MDCIN: null,
         },
-        list: {
+        memberList: {
             RISK_FCTR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -125,11 +86,11 @@ interface StatisticsSearchListInterface {
         BEGIN_DE: string | null
         END_DE: string | null
     }
-    list: StatisticsListInterface
+    memberList: StatisticsListInterface
 }
 
 export const StatisticsListState = atom<StatisticsSearchListInterface>({
-    key: `statisticsListPage/list`,
+    key: `statusPage/statisticsList`,
     default: {
         status: 'idle',
         search: {
@@ -139,7 +100,7 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
             BEGIN_DE: null,
             END_DE: null,
         },
-        list: {
+        memberList: {
             DEVICE_MESURE_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },

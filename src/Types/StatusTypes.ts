@@ -1,9 +1,3 @@
-//전후비교 현황
-export interface RiskFctrListInterface {
-    RISK_FCTR_INFO_LIST: RiskFctrListInterface[]
-    TOTAL_COUNT: number
-}
-
 //위험요인 현황
 export interface RiskFctrListItemInterface {
     SLM_JDGMNT: null | string
@@ -46,15 +40,69 @@ export interface RiskFctrListItemInterface {
     NM: string
 }
 
+//위험요인 현황
+export interface RiskFctrListInterface {
+    RISK_FCTR_INFO_LIST: RiskFctrListItemInterface[]
+    TOTAL_COUNT: number
+}
+
+//전후비교 현황
+export interface BrftrCmprListItemInterface {
+    MBER_NO: number
+    NM: string
+    BRTHDY: null | string
+    SEXDSTN: null | string
+    WAIST_0: null | number
+    WAIST_1: null | number
+    WAIST_2: null | number
+    WAIST_3: null | number
+    WAIST_MESURE_DT_0: null | string
+    WAIST_MESURE_DT_1: null | string
+    WAIST_MESURE_DT_2: null | string
+    WAIST_MESURE_DT_3: null | string
+    BP_3: null | number
+    BP_2: null | number
+    BP_1: null | number
+    BP_0: null | number
+    BP_MESURE_DT_3: null | string
+    BP_MESURE_DT_2: null | string
+    BP_MESURE_DT_1: null | string
+    BP_MESURE_DT_0: null | string
+    FBS_0: null | number
+    FBS_1: null | number
+    FBS_2: null | number
+    FBS_3: null | number
+    FBS_MESURE_DT_0: null | string
+    FBS_MESURE_DT_1: null | string
+    FBS_MESURE_DT_MESURE_DT_2: null | string
+    FBS_MESURE_DT_MESURE_DT_3: null | string
+    TG_3: null | string
+    TG_2: null | string
+    TG_1: null | string
+    TG_0: null | string
+    TG_MESURE_DT_0: null | string
+    TG_MESURE_DT_1: null | string
+    TG_MESURE_DT_2: null | string
+    TG_MESURE_DT_3: null | string
+    HDLC_0: null | number
+    HDLC_1: null | number
+    HDLC_2: null | number
+    HDLC_3: null | number
+    HDLC_MESURE_DT_0: null | string
+    HDLC_MESURE_DT_1: null | string
+    HDLC_MESURE_DT_2: null | string
+    HDLC_MESURE_DT_3: null | string
+}
+
 //전후비교 현황
 export interface BrftrCmprListInterface {
-    MESURE_BRFTR_CMPR_INFO_LIST: BrftrCmprListInterface[]
+    MESURE_BRFTR_CMPR_INFO_LIST: BrftrCmprListItemInterface[]
     TOTAL_COUNT: number
 }
 
 //기기측정 현황
 export interface StatisticsListInterface {
-    DEVICE_MESURE_INFO_LIST: StatisticsListInterface[]
+    DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
     TOTAL_COUNT: number
 }
 //기기측정 현황

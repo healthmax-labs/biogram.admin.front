@@ -4,7 +4,7 @@ import { MainStyle } from '@Style/Pages/MemberPageStyles'
 import SearchBox from './StatisticsSearchBox'
 import ManageBox from './StatisticsManageBox'
 import ListTable from './StatisticsListTable'
-import { getStatisticsList } from '@Service/StatisticsService'
+import { getStatisticsList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -63,7 +63,7 @@ const StatisticsListMain = () => {
             }
         }
         pageStart()
-    }, [])
+    }, [getTableList, statisticsListState.status])
     return (
         <Container>
             <SearchWapper>
