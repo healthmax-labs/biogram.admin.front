@@ -1,629 +1,178 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import Codes from '@Codes'
+import React, { useState } from 'react'
+import {
+    DefaultManageButton,
+    MemberMyDataInputModal,
+    MemberMyDataModal,
+} from '@Elements'
 
 const { Detail } = ConsultDetailStyle
 
+const initializeState = {
+    modal: {
+        selectCode: null,
+        myData: {
+            state: false,
+            selectCode: null,
+            selectName: null,
+        },
+        myDataInput: {
+            state: false,
+        },
+    },
+}
+
 const ConsultDetailTableMyData = () => {
+    const [pageState, setPageState] = useState<{
+        modal: {
+            myData: {
+                state: boolean
+                selectCode: string | null
+                selectName: string | null
+            }
+            myDataInput: {
+                state: boolean
+            }
+        }
+    }>(initializeState)
+
     return (
-        <Detail.Container>
-            <Detail.MyData.Wapper>
-                <Detail.MyData.Head>
-                    <Detail.MyData.HeadRow>
-                        <Detail.MyData.HeadCell colSpan={2}>
-                            구분
-                        </Detail.MyData.HeadCell>
-                        <Detail.MyData.HeadCell>
-                            기록구분
-                        </Detail.MyData.HeadCell>
-                        <Detail.MyData.HeadCell>일시</Detail.MyData.HeadCell>
-                        <Detail.MyData.HeadCell>수치</Detail.MyData.HeadCell>
-                        <Detail.MyData.HeadCell>
-                            정상범위
-                        </Detail.MyData.HeadCell>
-                        <Detail.MyData.HeadCell>평가</Detail.MyData.HeadCell>
-                    </Detail.MyData.HeadRow>
-                </Detail.MyData.Head>
-                <Detail.MyData.Body>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={7}>
-                            채성분
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            몸무게(kg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            좋음
-                        </Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            근육량(kg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            좋음
-                        </Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            체지방률(%)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            체지방량(kg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            내장지방(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'green'}>
-                            좋음
-                        </Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            BMI(kg/m<sup>2</sup>)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            추정골량(kg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={3}>
-                            혈압
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            수축기(mmHg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            이완기(mmHg)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'red'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            맥박(bpm)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'red'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'red'}>
-                            좋음
-                        </Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow></Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={3}>
-                            혈당
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            공복혈당(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            식후혈당(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            당화혈색소(%)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'red'}>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell Color={'red'}>
-                            좋음
-                        </Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={4}>
-                            콜레스테롤
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            총 콜레스테롤(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            HDL-C(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            LDL-C(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            중성지방(mg/dl)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={4}>
-                            혈관
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            혈관노화도(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            박출강도(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            탄성도(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            잔혈량(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={4}>
-                            스트레스
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            스트레스 점수(point)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            신체적 스트레스(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            정신적 스트레스(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            스트레스 대처능력(level)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={3}>
-                            기타
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            신장(cm)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            허리둘레(cm)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            체온(℃)
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef rowSpan={7}>
-                            뇌 기능
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCellBef>
-                            기초 뇌 기능
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            인지 뇌 기능
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            인지 능력
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            인지 기능 점수
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            뇌 혈류 조절 시간
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            뇌 혈류 기능 점수
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                    <Detail.MyData.BodyRow>
-                        <Detail.MyData.BodyCellBef>
-                            뇌 건강 종합 점수
-                        </Detail.MyData.BodyCellBef>
-                        <Detail.MyData.BodyCell>
-                            기기측정
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            2022-11-10 17:54:27
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>55.8</Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>
-                            51.80 ~ 64.40
-                        </Detail.MyData.BodyCell>
-                        <Detail.MyData.BodyCell>좋음</Detail.MyData.BodyCell>
-                    </Detail.MyData.BodyRow>
-                </Detail.MyData.Body>
-            </Detail.MyData.Wapper>
-        </Detail.Container>
+        <>
+            <Detail.Container>
+                <Detail.MyData.Wapper>
+                    <Detail.MyData.Head>
+                        <Detail.MyData.HeadRow>
+                            <Detail.MyData.HeadCell colSpan={2}>
+                                구분
+                            </Detail.MyData.HeadCell>
+                            <Detail.MyData.HeadCell>
+                                기록구분
+                            </Detail.MyData.HeadCell>
+                            <Detail.MyData.HeadCell>
+                                일시
+                            </Detail.MyData.HeadCell>
+                            <Detail.MyData.HeadCell>
+                                수치
+                            </Detail.MyData.HeadCell>
+                            <Detail.MyData.HeadCell>
+                                정상범위
+                            </Detail.MyData.HeadCell>
+                            <Detail.MyData.HeadCell>
+                                평가
+                            </Detail.MyData.HeadCell>
+                        </Detail.MyData.HeadRow>
+                    </Detail.MyData.Head>
+                    <Detail.MyData.Body>
+                        {Codes.myData.map((el, index) => {
+                            return el.list.map((e, i) => {
+                                return (
+                                    <Detail.MyData.BodyRow
+                                        key={`consult-detail-table-mydata-row-item-${index}-${i}`}>
+                                        {i === 0 && (
+                                            <Detail.MyData.BodyCellBef
+                                                rowSpan={el.list.length}>
+                                                {el.name}
+                                            </Detail.MyData.BodyCellBef>
+                                        )}
+                                        <Detail.MyData.BodyCellBef>
+                                            <Detail.MyData.BodyCellBefLink
+                                                onClick={() => {
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        modal: {
+                                                            ...prevState.modal,
+                                                            myData: {
+                                                                state: true,
+                                                                selectCode:
+                                                                    e.code,
+                                                                selectName:
+                                                                    e.name,
+                                                            },
+                                                        },
+                                                    }))
+                                                }}>
+                                                {e.name}
+                                            </Detail.MyData.BodyCellBefLink>
+                                        </Detail.MyData.BodyCellBef>
+                                        <Detail.MyData.BodyCell>
+                                            기기측정
+                                        </Detail.MyData.BodyCell>
+                                        <Detail.MyData.BodyCell>
+                                            2022-11-10 17:54:27
+                                        </Detail.MyData.BodyCell>
+                                        <Detail.MyData.BodyCell>
+                                            55.8
+                                        </Detail.MyData.BodyCell>
+                                        <Detail.MyData.BodyCell Color={'green'}>
+                                            51.80 ~ 64.40
+                                        </Detail.MyData.BodyCell>
+                                        <Detail.MyData.BodyCell Color={'green'}>
+                                            좋음
+                                        </Detail.MyData.BodyCell>
+                                    </Detail.MyData.BodyRow>
+                                )
+                            })
+                        })}
+                    </Detail.MyData.Body>
+                </Detail.MyData.Wapper>
+            </Detail.Container>
+            <div className="w-full text-left items-center gap-2 mt-3">
+                <DefaultManageButton
+                    ButtonName={'수기입력'}
+                    ButtonClick={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                myDataInput: {
+                                    state: true,
+                                },
+                            },
+                        }))
+                    }
+                />
+            </div>
+            {pageState.modal.myData.state &&
+                pageState.modal.myData.selectCode &&
+                pageState.modal.myData.selectName && (
+                    <MemberMyDataModal
+                        MemberNo={87335}
+                        DataCode={pageState.modal.myData.selectCode}
+                        DataName={pageState.modal.myData.selectName}
+                        CancleButtonClick={() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    myData: {
+                                        state: false,
+                                        selectCode: null,
+                                        selectName: null,
+                                    },
+                                },
+                            }))
+                        }
+                    />
+                )}
+
+            {pageState.modal.myDataInput.state && (
+                <MemberMyDataInputModal
+                    MemberNo={87335}
+                    CancleButtonClick={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                myDataInput: {
+                                    state: false,
+                                },
+                            },
+                        }))
+                    }
+                />
+            )}
+        </>
     )
 }
 

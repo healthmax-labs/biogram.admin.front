@@ -24,6 +24,9 @@ module.exports = {
                 'center-left-width': `67rem`,
                 'center-right-width': `40rem`,
             },
+            gridRow: {
+                'span-7': 'span 7 / span 7',
+               }
         },
         colors: {
             transparent: 'transparent',
