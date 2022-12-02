@@ -4,7 +4,7 @@ import { DefaultManageButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
-const InitListManageBox = () => {
+const InstListManageBox = () => {
     return (
         <Wapper>
             <Buttons>
@@ -21,4 +21,4 @@ const InitListManageBox = () => {
     )
 }
 
-export default InitListManageBox
+export default InstListManageBox
