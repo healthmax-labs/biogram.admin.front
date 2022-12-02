@@ -56,7 +56,6 @@ const JoinListMain = () => {
             if (instJoinListState.status === 'idle') {
                 getTableList().then()
             }
-            getTableList().then()
         }
 
         pageStart()
