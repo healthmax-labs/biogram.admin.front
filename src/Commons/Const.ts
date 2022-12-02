@@ -78,18 +78,18 @@ export default {
             mainCode: `30000`,
             menuCode: `30101`,
             name: `매거진`,
-            pathName: ``,
+            pathName: `/manage/contents/magazine-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Contents/MagazineListPage')
             ),
         },
         {
             mainCode: `30000`,
             menuCode: `30201`,
             name: `바이오그램 존`,
-            pathName: ``,
+            pathName: `/manage/contents/uhealthzone-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Contents/UhealthzoneListPage')
             ),
         },
         {
