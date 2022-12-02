@@ -7,7 +7,7 @@ export interface InstJoinListItemInterface {
     NM: null | string
 }
 
-//기기측정 현황
+//소속 가입 신청 리스트
 export interface InstJoinListInterface {
     PSTINST_REQUEST_INFO_LIST: InstJoinListItemInterface[]
     TOTAL_COUNT: number
