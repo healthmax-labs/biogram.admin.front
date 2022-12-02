@@ -195,9 +195,9 @@ export default {
             mainCode: `60000`,
             menuCode: `60201`,
             name: `이용 약관 관리`,
-            pathName: ``,
+            pathName: `/manage/manager/stplat`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Manager/StplatListPage')
             ),
         },
         {
