@@ -18,7 +18,7 @@ export const SearchBoxStyle = {
         Second ?? tw`pb-4`,
     ]),
 
-    SearchLabel: tw.div`flex object-center content-center w-1/6`,
+    SearchLabel: tw.div`flex object-center content-center w-[50px]`,
     SearchColSpanLabel: tw.div`flex object-center content-center w-16`,
     SearchItem: tw.div`flex flex-nowrap`,
     LabelItem: tw.div`w-20`,

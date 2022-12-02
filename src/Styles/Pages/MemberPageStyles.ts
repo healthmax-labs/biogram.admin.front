@@ -45,7 +45,7 @@ export const DetailPageStyle = {
 
 export const ConsultDetailStyle = {
     Tabs: {
-        Container: tw.div` pt-2 `,
+        Container: tw.div`pt-2 `,
         Rows: tw.ul`flex flex-wrap text-xs text-center text-gray-500 border-b border-gray-200`,
         Cells: tw.li`mr-2`,
         Items: styled.div(({ Active }: { Active: boolean }) => [
