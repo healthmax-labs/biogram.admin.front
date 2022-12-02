@@ -23,11 +23,6 @@ export const SearchBoxStyle = {
     SearchButtonBox: tw.div`absolute bottom-0 -right-2`,
 }
 
-export const ManageBoxStyle = {
-    Wapper: tw.div`w-full justify-evenly object-right`,
-    Buttons: tw.div`relative col-span-1 items-end justify-end text-right object-right -right-2`,
-}
-
 export const ListTableStyle = {
     MbtlnumCell: styled.div(({ CRTFC }: { CRTFC: 'Y' | 'N' }) => [
         CRTFC === 'Y' ? tw`` : tw`text-red-700`,
