@@ -105,7 +105,7 @@ export const VaryInputStyle = {
 export const VaryLabelStyle = {
     Wapper: tw.div`flex items-center object-center`,
     InputLabel: styled.label(({ Width }: { Width?: InputWidthType }) => [
-        tw`block uppercase text-gray-600 text-xs font-bold`,
+        tw`block text-gray-600 text-xs font-bold`,
         Width ? ConstStyle.width[Width] : tw``,
         // tw`w-12`,
     ]),

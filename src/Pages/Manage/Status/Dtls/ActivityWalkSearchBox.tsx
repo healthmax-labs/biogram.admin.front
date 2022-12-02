@@ -9,7 +9,7 @@ import {
 } from '@Elements'
 import { gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
-import { ListState } from '@Recoil/MemberPagesState'
+import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 
 const {
@@ -23,18 +23,20 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const [listState, setListState] = useRecoilState(ListState)
+    const [activityWalkListState, setActivityWalkListState] = useRecoilState(
+        ActivityWalkListState
+    )
 
     return (
         <Container>
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`소속`} />
+                        <VaryLabel LabelName={`소속:`} />
                     </SearchLabel>
                     <PstinstSelector
                         HandleSelectValue={({ instNo }) =>
-                            setListState(prevState => ({
+                            setActivityWalkListState(prevState => ({
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
@@ -46,7 +48,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`가입일자`} />
+                        <VaryLabel LabelName={`기간:`} />
                     </SearchLabel>
                     <SearchItem>
                         <VaryDatepickerInput
@@ -55,7 +57,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
-                                setListState(prevState => ({
+                                setActivityWalkListState(prevState => ({
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
@@ -71,7 +73,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
-                                setListState(prevState => ({
+                                setActivityWalkListState(prevState => ({
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
@@ -84,13 +86,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`검색어`} />
+                        <VaryLabel LabelName={`검색어:`} />
                     </SearchLabel>
                     <VaryInput
                         ContentsType={`search`}
                         Width={'w64'}
                         HandleOnChange={e =>
-                            setListState(prevState => ({
+                            setActivityWalkListState(prevState => ({
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
@@ -101,9 +103,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         id={'id'}
                         Placeholder={'ID / 이름 / 연락처 / 전화번호'}
                         Value={
-                            isNull(listState.search.searchKey)
+                            isNull(activityWalkListState.search.SEARCH)
                                 ? ''
-                                : listState.search.searchKey
+                                : activityWalkListState.search.SEARCH
                         }
                     />
                 </SearchItemWapper>

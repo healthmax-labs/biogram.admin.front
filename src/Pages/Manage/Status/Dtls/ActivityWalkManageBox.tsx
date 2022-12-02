@@ -4,21 +4,17 @@ import { DefaultManageButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
-const InitListManageBox = () => {
+const ManageBox = () => {
     return (
         <Wapper>
             <Buttons>
                 <DefaultManageButton
                     ButtonClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'승인'}
-                />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'거절'}
+                    ButtonName={'엑셀 다운로드'}
                 />
             </Buttons>
         </Wapper>
     )
 }
 
-export default InitListManageBox
+export default ManageBox

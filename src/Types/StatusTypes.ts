@@ -101,11 +101,6 @@ export interface BrftrCmprListInterface {
 }
 
 //기기측정 현황
-export interface StatisticsListInterface {
-    DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
-    TOTAL_COUNT: number
-}
-//기기측정 현황
 export interface StatisticsListItemInterface {
     MBER_NO: number
     NM: null | string
@@ -141,4 +136,31 @@ export interface StatisticsListItemInterface {
     HEIGHT: null | string
     BDHEAT: null | string
     ODR: number
+}
+//기기측정 현황
+export interface StatisticsListInterface {
+    DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
+    TOTAL_COUNT: number
+}
+
+//활동량 현황
+export interface ActivityWalkListItemInterface {
+    CNSMP_CALORIE: null | string
+    BRTHDY: null | string
+    SEXDSTN: null | string
+    SPORTS_DSTNC: null | string
+    MAX_HR: null | string
+    MESURE_DE: null | string
+    SPORTS_TOT_STEPS: null | string
+    MBER_NO: number
+    ODR: number
+    NM: null | string
+    MBER_CNT: null | string
+    AVG_HR: null | string
+}
+
+//전후비교 현황
+export interface ActivityWalkListInterface {
+    ACTIVITY_STATE_LIST: ActivityWalkListItemInterface[]
+    TOTAL_COUNT: number
 }

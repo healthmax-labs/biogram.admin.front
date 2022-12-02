@@ -3,6 +3,7 @@ import { ServicesDefaultResult } from '@Type/CommonTypes'
 import { BrftrCmprListItemInterface } from '@Type/StatusTypes'
 import { RiskFctrListItemInterface } from '@Type/StatusTypes'
 import { StatisticsListItemInterface } from '@Type/StatusTypes'
+import { ActivityWalkListItemInterface } from '@Type/StatusTypes'
 
 /**
  * 전후비교 현황 리스트
@@ -109,6 +110,40 @@ export function getStatisticsList({
         payload: {
             INST_NO,
             SEARCH_KEY,
+            BEGIN_DE,
+            END_DE,
+        },
+    })
+}
+
+/**
+ * 활동량 현황 리스트
+ */
+export function getActivityWalkList({
+    curPage,
+    INST_NO,
+    SEARCH,
+    BEGIN_DE,
+    END_DE,
+}: {
+    curPage: number
+    INST_NO: string
+    SEARCH: string
+    BEGIN_DE: string
+    END_DE: string
+}): Promise<
+    ServicesDefaultResult<{
+        CUR_PAGE: number
+        ACTIVITY_STATE_LIST: ActivityWalkListItemInterface[]
+        TOTAL_COUNT: number
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/stats/v1/activity_walk/' + curPage,
+        payload: {
+            INST_NO,
+            SEARCH,
             BEGIN_DE,
             END_DE,
         },

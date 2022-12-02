@@ -60,9 +60,9 @@ export default {
             mainCode: `20000`,
             menuCode: `20101`,
             name: `소속현황`,
-            pathName: `/manage/init/init-list`,
+            pathName: `/manage/inst/inst-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/InitListPage')
+                () => import('@Page/Manage/inst/InstListPage')
             ),
         },
         {
@@ -123,9 +123,9 @@ export default {
             mainCode: `40000`,
             menuCode: `40401`,
             name: `활동량 현황`,
-            pathName: ``,
+            pathName: `/manage/status/activity-walk`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Status/ActivityWalkListPage')
             ),
         },
         {

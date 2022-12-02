@@ -7,7 +7,7 @@ import { InstJoinListState } from '@Recoil/InstPagesState'
 const { Container, SearchWapper, SearchItemWapper, SearchLabel, SearchButton } =
     SearchBoxStyle
 
-const InitListSearchBox = ({
+const InstListSearchBox = ({
     HandleGetList,
 }: {
     HandleGetList: () => void
@@ -41,4 +41,4 @@ const InitListSearchBox = ({
         </Container>
     )
 }
-export default InitListSearchBox
+export default InstListSearchBox
