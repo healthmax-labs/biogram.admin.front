@@ -1,5 +1,5 @@
 import React from 'react'
-import { ManageBoxStyle } from '@Style/Pages/MemberPageStyles'
+import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
 import { DefaultManageButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
