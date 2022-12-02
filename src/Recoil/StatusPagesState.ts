@@ -3,6 +3,7 @@ import { DefaultStatus } from '@CommonTypes'
 import { BrftrCmprListInterface } from '@Type/StatusTypes'
 import { RiskFctrListInterface } from '@Type/StatusTypes'
 import { StatisticsListInterface } from '@Type/StatusTypes'
+import { ActivityWalkListInterface } from '@Type/StatusTypes'
 
 /**
  * status 페이지.
@@ -102,6 +103,37 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
         },
         memberList: {
             DEVICE_MESURE_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+//활동량 현황
+interface ActivityWalkInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH: string | null
+        BEGIN_DE: string | null
+        END_DE: string | null
+    }
+    memberList: ActivityWalkListInterface
+}
+
+export const ActivityWalkListState = atom<ActivityWalkInterface>({
+    key: `statusPage/activityWalkList`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            SEARCH: null,
+            BEGIN_DE: null,
+            END_DE: null,
+        },
+        memberList: {
+            ACTIVITY_STATE_LIST: [],
             TOTAL_COUNT: 0,
         },
     },

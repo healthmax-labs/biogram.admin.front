@@ -540,3 +540,65 @@ export const StatisticsTableConfig = {
     ],
     Lists: [],
 }
+// 기기측정 현황 테이블 데이터
+export interface ActivityWalkTableListItemInterface {
+    CNSMP_CALORIE: null | string
+    BRTHDY: null | string
+    SEXDSTN: null | string
+    SPORTS_DSTNC: null | string
+    MAX_HR: null | string
+    MESURE_DE: null | string
+    SPORTS_TOT_STEPS: null | string
+    MBER_NO: number
+    ODR: number
+    NM: null | string
+    MBER_CNT: null | string
+    AVG_HR: null | string
+}
+
+// 활동량 현황 테이블 설정.
+export const ActivityWalkTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: true,
+    },
+    Columns: [
+        {
+            name: `회원번호`,
+            key: `MBER_NO`,
+        },
+        {
+            name: `회원명`,
+            key: `NM`,
+        },
+        {
+            name: `생년월일`,
+            key: `BRTHDY`,
+        },
+        {
+            name: `성별`,
+            key: `SEXDSTN`,
+        },
+        {
+            name: `총보행수(걸음)`,
+            key: `WEIGHT`,
+        },
+        {
+            name: `활동 거리(m)`,
+            key: `BMI`,
+        },
+        {
+            name: `소비칼로리(kcal)`,
+            key: `FAT_MAS`,
+        },
+        {
+            name: `최대심박수(bpm)`,
+            key: `WAIST_3`,
+        },
+        {
+            name: `평균심박수(bpm)`,
+            key: `WAIST_MESURE_DT_0`,
+        },
+    ],
+    Lists: [],
+}

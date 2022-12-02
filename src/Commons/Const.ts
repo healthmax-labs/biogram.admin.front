@@ -123,9 +123,9 @@ export default {
             mainCode: `40000`,
             menuCode: `40401`,
             name: `활동량 현황`,
-            pathName: ``,
+            pathName: `/manage/status/activity-walk`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Status/ActivityWalkListPage')
             ),
         },
         {
