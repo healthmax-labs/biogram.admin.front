@@ -9,7 +9,6 @@ const DefaultInput = (
         value,
         onFocus,
         onChange,
-        Width,
     }: {
         value: string
         Width?: InputWidthType
