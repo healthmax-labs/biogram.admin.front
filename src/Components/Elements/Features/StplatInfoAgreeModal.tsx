@@ -7,7 +7,7 @@ import { getStplatInfo } from '@Service/CommonService'
 import { DefaultManageButton, VaryLabelCheckBox, VaryModal } from '@Elements'
 import { StplatInfoAgreeModalStyle } from '@Style/Elements/FeaturesStyles'
 import { get } from 'lodash'
-import Const from '@Const'
+import Codes from '@Codes'
 
 const {
     Container,
@@ -117,7 +117,7 @@ const StplatInfoAgreeModal = ({
                                 pageState.stplatInfoList.map(
                                     (el: StplatInfoItem, i) => {
                                         const { code } = get(
-                                            Const.Codes.memberStplats.code,
+                                            Codes.memberStplats.code,
                                             el.STPLAT_KND_CODE
                                         )
 

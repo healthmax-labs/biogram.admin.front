@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { InputWidthType, ContentType } from '@CommonTypes'
+import { ContentType, InputWidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { DatePicker: Input } = InputStyle
@@ -48,10 +48,12 @@ const SearchInput = (
 
 const VaryDatepickerInput = ({
     ContentsType = 'default',
+    DateFormat,
     Value,
     CallBackReturn,
 }: {
     ContentsType?: ContentType
+    DateFormat?: string
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
 }) => {
@@ -77,7 +79,11 @@ const VaryDatepickerInput = ({
             selected={selectDate}
             onChange={(date: Date) => setSelectDate(date)}
             dateFormat={
-                ContentsType === 'search' ? `yyyy/MM/dd` : `yyyy년 MM월 dd일`
+                ContentsType === 'search'
+                    ? `yyyy/MM/dd`
+                    : DateFormat
+                    ? DateFormat
+                    : `yyyy년 MM월 dd일`
             }
             locale={ko}
             customInput={

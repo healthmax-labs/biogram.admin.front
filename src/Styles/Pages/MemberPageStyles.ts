@@ -42,7 +42,7 @@ export const DetailPageStyle = {
         Table: tw.table`w-full bg-transparent border-collapse items-center scrollbar-hide whitespace-nowrap overflow-auto`,
         Tbody: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center justify-between`,
         TableRow: tw.tr`flex w-full bg-white h-8 items-center cursor-pointer hover:bg-green-200`,
-        TableCell: tw.td`flex items-center justify-center w-1/4 h-8 align-middle text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
+        TableCell: tw.td`flex items-center justify-center w-1/4 h-8 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     },
     ButtonBox: tw.div`flex flex-nowrap py-2 justify-center`,
     ButtonItem: tw.div`pl-1`,
@@ -61,7 +61,7 @@ export const ConsultDetailStyle = {
         ]),
     },
     Detail: {
-        Container: tw.div`flex flex-col max-h-[77vh] overflow-y-scroll`,
+        Container: tw.div`flex flex-col max-h-[75vh] overflow-y-scroll`,
         MyData: {
             Wapper: tw.table`min-w-full text-center`,
             Head: tw.thead`h-8 border text-xs bg-m-dip-blue font-medium`,
@@ -69,7 +69,9 @@ export const ConsultDetailStyle = {
             HeadCell: tw.th`h-8 text-xs font-medium text-white border-l border-l-gray-50`,
             Body: tw.tbody``,
             BodyRow: tw.tr`bg-white border`,
+            BodyCellBef1: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
             BodyCellBef: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
+            BodyCellBefLink: tw.div`cursor-pointer`,
             // BodyCell: tw.td`h-8 border-r text-xs text-gray-600 whitespace-nowrap`,
             BodyCell: styled.td(
                 ({ Color }: { Color?: 'block' | 'red' | 'green' }) => {
