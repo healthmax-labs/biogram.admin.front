@@ -47,6 +47,7 @@ export type MaxHeightType =
     | 'full'
 
 export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
+export type InputBgColorType = `white` | `gray1` | `gray2`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
 export type ContentType = 'default' | 'search'

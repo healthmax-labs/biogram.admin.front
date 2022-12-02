@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { InputWidthType, ContentType } from '@CommonTypes'
+import { InputWidthType, ContentType, InputBgColorType } from '@CommonTypes'
 
 export const InputStyle = {
     DatePicker: tw.input`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
@@ -56,10 +56,12 @@ export const VaryInputStyle = {
     Input: styled.input(
         ({
             ContentsType = 'default',
+            Bg,
             Disabled,
             Width,
         }: {
             ContentsType?: ContentType
+            Bg?: InputBgColorType
             Disabled?: boolean
             Width?: InputWidthType
         }) => {
@@ -67,16 +69,26 @@ export const VaryInputStyle = {
 
             if (Disabled) {
                 returnTw = [
-                    tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
+                    tw`form-input block h-8 border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
                 ]
             } else if (ContentsType === 'search') {
                 returnTw = [
-                    tw`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+                    tw`block h-8 px-3 w-24 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
                 ]
             } else {
                 returnTw = [
-                    tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition`,
+                    tw`form-input block h-8 border-0 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition`,
                 ]
+            }
+
+            if (Bg && Bg === 'white') {
+                returnTw.push(tw`bg-white`)
+            } else if (Bg && Bg === 'gray1') {
+                returnTw.push(tw`border-gray-300 bg-gray-300 `)
+            } else if (Bg && Bg === 'gray2') {
+                returnTw.push(tw`border-gray-100 bg-gray-100 `)
+            } else {
+                returnTw.push(tw`border-gray-300 bg-gray-300 `)
             }
 
             if (Width) {

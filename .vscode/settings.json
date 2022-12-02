@@ -8,5 +8,8 @@
 "files.eol": "\n",
 "[json]": {
     "editor.defaultFormatter": "HookyQR.beautify"
+},
+"[html]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
 }
 }

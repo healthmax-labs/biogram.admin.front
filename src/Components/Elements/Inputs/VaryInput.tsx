@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from 'react'
-import { InputWidthType, ContentType } from '@CommonTypes'
+import { InputWidthType, ContentType, InputBgColorType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
 
@@ -7,6 +7,7 @@ const { Wapper, Input } = VaryInputStyle
 
 const VaryInput = ({
     ContentsType = 'default',
+    Bg,
     Ref,
     InputType,
     id,
@@ -22,6 +23,7 @@ const VaryInput = ({
     ReadOnly,
 }: {
     ContentsType?: ContentType
+    Bg?: InputBgColorType
     Ref?: any
     InputType?: string
     Placeholder: string
@@ -45,6 +47,7 @@ const VaryInput = ({
     return (
         <Wapper>
             <Input
+                Bg={Bg ?? Bg}
                 ContentsType={ContentsType ? ContentsType : 'default'}
                 Width={Width ?? Width}
                 Disabled={Disabled ? Disabled : false}

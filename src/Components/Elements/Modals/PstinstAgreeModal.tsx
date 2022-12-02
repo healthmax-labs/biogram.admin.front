@@ -9,7 +9,7 @@ import { PstinstAgreeModalStyle } from '@Style/Elements/ModalStyles'
 import { getCommonThptyStplatInfo } from '@Service/CommonService'
 import { ThptyStplatInfoInterface } from '@Type/MemberTypes'
 import { get } from 'lodash'
-import Const from '@Const'
+import Codes from '@Codes'
 
 const {
     Container,
@@ -92,7 +92,7 @@ const PstinstAgreeModal = ({
                                 pageState.stplatInfoList.map(
                                     (el: StplatInfoItem, i) => {
                                         const { code } = get(
-                                            Const.Codes.memberStplats.code,
+                                            Codes.memberStplats.code,
                                             el.STPLAT_KND_CODE
                                         )
 
