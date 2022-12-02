@@ -64,6 +64,7 @@ export default {
     myData: [
         {
             name: `체성분`,
+            key: '0010',
             list: [
                 { code: '6021', name: '몸무게(kg)' },
                 { code: '6023', name: '근육량(kg)' },
@@ -76,6 +77,7 @@ export default {
         },
         {
             name: `혈압`,
+            key: '0020',
             list: [
                 { code: '622E', name: '수축기(mmHg)' },
                 { code: '622F', name: '이완기(mmHg)' },
@@ -84,6 +86,7 @@ export default {
         },
         {
             name: `혈당`,
+            key: '0030',
             list: [
                 { code: '624A', name: '공복혈당(mg/dl)' },
                 { code: '624B', name: '식후혈당(mg/dl)' },
@@ -92,6 +95,7 @@ export default {
         },
         {
             name: `콜레스테롤`,
+            key: '0040',
             list: [
                 { code: '624C', name: '총 콜레스테롤(mg/dl)' },
                 { code: '624E', name: 'HDL-C(mg/dl)' },
@@ -101,6 +105,7 @@ export default {
         },
         {
             name: `혈관`,
+            key: '0050',
             list: [
                 { code: '7016', name: '혈관노화도(level)' },
                 { code: '7017', name: '박출강도(level)' },
@@ -110,6 +115,7 @@ export default {
         },
         {
             name: `스트레스`,
+            key: '0060',
             list: [
                 { code: '7012', name: '스트레스 점수(point)' },
                 { code: '7013', name: '신체적 스트레스(level)' },
@@ -119,6 +125,7 @@ export default {
         },
         {
             name: `기타`,
+            key: '0070',
             list: [
                 { code: '6A35', name: '신장(cm)' },
                 { code: '8072', name: '허리둘레(cm)' },
@@ -127,6 +134,7 @@ export default {
         },
         {
             name: `뇌기능`,
+            key: '0080',
             list: [
                 { code: '10001', name: '기초 뇌 기능' },
                 { code: '10003', name: '인지 뇌 기능' },

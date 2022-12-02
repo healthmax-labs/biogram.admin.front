@@ -85,52 +85,59 @@ const MemberMyDataInputModal = ({
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-1 border">
-                            {Codes.myData.map((el, index) => {
-                                return (
-                                    <table
-                                        className="table-fixed border"
-                                        key={`member-mydata-input-modal-table-${index}`}>
-                                        <tbody>
-                                            {el.list.map((e, i) => {
-                                                return (
-                                                    <tr
-                                                        className="border max-h-8"
-                                                        key={`member-mydata-input-modal-table-row-item-${index}-${i}`}>
-                                                        {i === 0 && (
-                                                            <td
-                                                                className="border w-1/4 text-xs"
-                                                                rowSpan={
-                                                                    el.list
-                                                                        .length
-                                                                }>
-                                                                {el.name}
-                                                            </td>
-                                                        )}
-
-                                                        <td className="border w-1/4 text-xs max-h-8">
-                                                            {e.name}
-                                                        </td>
-                                                        <td className="border w-2/4 max-h-8">
-                                                            <VaryInput
-                                                                Bg={'gray2'}
-                                                                Value={``}
-                                                                Placeholder={
-                                                                    e.name
-                                                                }
-                                                                HandleOnChange={() =>
-                                                                    console.debug(
-                                                                        '1'
-                                                                    )
-                                                                }
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })}
-                                        </tbody>
-                                    </table>
+                            {Codes.myData
+                                .filter(
+                                    e =>
+                                        e.key !== '0050' &&
+                                        e.key !== '0060' &&
+                                        e.key !== '0080'
                                 )
-                            })}
+                                .map((el, index) => {
+                                    return (
+                                        <table
+                                            className="table-fixed border"
+                                            key={`member-mydata-input-modal-table-${index}`}>
+                                            <tbody>
+                                                {el.list.map((e, i) => {
+                                                    return (
+                                                        <tr
+                                                            className="border max-h-8"
+                                                            key={`member-mydata-input-modal-table-row-item-${index}-${i}`}>
+                                                            {i === 0 && (
+                                                                <td
+                                                                    className="border w-1/4 text-xs"
+                                                                    rowSpan={
+                                                                        el.list
+                                                                            .length
+                                                                    }>
+                                                                    {el.name}
+                                                                </td>
+                                                            )}
+
+                                                            <td className="border w-1/4 text-xs max-h-8">
+                                                                {e.name}
+                                                            </td>
+                                                            <td className="border w-2/4 max-h-8">
+                                                                <VaryInput
+                                                                    Bg={'gray2'}
+                                                                    Value={``}
+                                                                    Placeholder={
+                                                                        e.name
+                                                                    }
+                                                                    HandleOnChange={() =>
+                                                                        console.debug(
+                                                                            '1'
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    )
+                                })}
                         </div>
                     </>
                 }
