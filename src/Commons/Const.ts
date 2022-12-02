@@ -60,9 +60,9 @@ export default {
             mainCode: `20000`,
             menuCode: `20101`,
             name: `소속현황`,
-            pathName: `/manage/belong/belong-status`,
+            pathName: `/manage/init/init-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongStatusPage')
+                () => import('@Page/Manage/inst/InitListPage')
             ),
         },
         {

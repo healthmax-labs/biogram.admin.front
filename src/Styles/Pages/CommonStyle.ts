@@ -26,3 +26,8 @@ export const SearchBoxStyle = {
     SearchButton: tw.div`flex flex-1 object-center justify-end pr-10 w-full`,
     RightSearchButton: tw.div`flex flex-1 items-end justify-end w-full`,
 }
+
+export const ManageBoxStyle = {
+    Wapper: tw.div`w-full justify-evenly object-right`,
+    Buttons: tw.div`relative col-span-1 items-end justify-end text-right object-right -right-2`,
+}
