@@ -135,7 +135,7 @@ export default {
             name: `소속 가입신청`,
             pathName: `/manage/inst/join-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/joinList/JoinListPage')
+                () => import('@Page/Manage/inst/JoinListPage')
             ),
         },
         {
