@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { TableConfig, tableListItemInterface } from './ConsultTableConfig'
+import {
+    ConsultTableConfig,
+    ConsulttableListItemInterface,
+} from './TableConfig'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
@@ -9,8 +12,8 @@ import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
 interface tableOptionInterface {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<tableListItemInterface>[]
-    Lists: tableListItemInterface[]
+    Columns: ColumnsInterface<ConsulttableListItemInterface>[]
+    Lists: ConsulttableListItemInterface[]
 }
 
 const ConsultListTable = () => {
@@ -21,9 +24,9 @@ const ConsultListTable = () => {
     const detailReset = useResetRecoilState(ConsultDetailState)
 
     const [tableOptions, setTableOptions] =
-        useState<tableOptionInterface>(TableConfig)
+        useState<tableOptionInterface>(ConsultTableConfig)
 
-    const handleRowClick = (element: tableListItemInterface) => {
+    const handleRowClick = (element: ConsulttableListItemInterface) => {
         if (detailState.MBER_NO !== element.MBER_NO) {
             detailReset()
         }

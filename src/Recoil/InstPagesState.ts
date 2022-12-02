@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
-import { InstJoinListInterface } from '@Type/InstTypes'
+import { InstJoinListInterface, InstListInterface } from '@Type/InstTypes'
 
 /**
  * inst join 페이지.
@@ -17,6 +17,14 @@ interface InstJoinSearchListInterface {
     memberList: InstJoinListInterface
 }
 
+interface InstListStateInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string | null
+    }
+    list: InstListInterface
+}
+
 export const InstJoinListState = atom<InstJoinSearchListInterface>({
     key: `instPage/instJoinList`,
     default: {
@@ -29,6 +37,21 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
         memberList: {
             PSTINST_REQUEST_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+    },
+})
+
+// 소속 현환 스테이트
+export const InstListState = atom<InstListStateInterface>({
+    key: `instPage/instList`,
+    default: {
+        status: 'idle',
+        search: {
+            INST_NO: null,
+        },
+        list: {
+            TOTAL_COUNT: 0,
+            INST_INFO_LIST: [],
         },
     },
 })

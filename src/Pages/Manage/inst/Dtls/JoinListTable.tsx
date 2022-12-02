@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { JoinTableConfig, JoinTableListItemInterface } from './InstTableConfig'
+import { JoinTableConfig, JoinTableListItemInterface } from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { InstJoinListState } from '@Recoil/InstPagesState'

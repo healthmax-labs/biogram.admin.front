@@ -12,3 +12,25 @@ export interface InstJoinListInterface {
     PSTINST_REQUEST_INFO_LIST: InstJoinListItemInterface[]
     TOTAL_COUNT: number
 }
+
+export interface InstListItemInterface {
+    INST_NO: 1000
+    UPPER_INST_NO: null
+    INST_TY_CODE: 'M'
+    BUDGET_ASIGN_AMOUNT: 0
+    MBER_CNT: 7
+    INST_NM_1: '(주)헬스맥스'
+    INST_NM_2: ''
+    INST_NO_3: null
+    BUDGET_ASIGN_AT: 'N'
+    INST_NO_1: 1000
+    INST_NM_3: ''
+    INST_NO_2: null
+    REGIST_DT: 1246579707000
+    REQ_MBER_CNT: 0
+}
+
+export interface InstListInterface {
+    TOTAL_COUNT: number
+    INST_INFO_LIST: InstListItemInterface[]
+}

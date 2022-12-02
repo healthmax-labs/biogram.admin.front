@@ -10,11 +10,11 @@ const InitListManageBox = () => {
             <Buttons>
                 <DefaultManageButton
                     ButtonClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'승인'}
+                    ButtonName={'소속 신규 등록'}
                 />
                 <DefaultManageButton
                     ButtonClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'거절'}
+                    ButtonName={'엑셀내려받기'}
                 />
             </Buttons>
         </Wapper>
