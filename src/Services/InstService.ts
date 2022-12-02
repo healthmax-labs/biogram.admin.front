@@ -1,9 +1,6 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import {
-    InstListItemInterface,
-    InstJoinListItemInterface,
-} from '@Type/InstTypes'
+import { InstJoinListItemInterface } from '@Type/InstTypes'
 /**
  * 소속관리 리스트
  */
@@ -14,15 +11,15 @@ export function getInstList({
     BGNDE,
     ENDDE,
 }: {
-    CUR_PAGE: number
-    INST_NO: number
+    CUR_PAGE: string
+    INST_NO: string
     SEARCH_KEY: string
     BGNDE: string
     ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
-        CUR_PAGE: number
-        MESURE_BRFTR_CMPR_INFO_LIST: InstListItemInterface[]
+        CUR_PAGE: string
+        MESURE_BRFTR_CMPR_INFO_LIST: InstJoinListItemInterface[]
         TOTAL_COUNT: number
     }>
 > {
@@ -41,12 +38,14 @@ export function getInstList({
 export function getInstJoinList({
     CUR_PAGE,
     INST_NO,
+    SEARCH_KEY,
 }: {
-    CUR_PAGE: number
-    INST_NO: number
+    CUR_PAGE: string
+    INST_NO: string
+    SEARCH_KEY: string
 }): Promise<
     ServicesDefaultResult<{
-        CUR_PAGE: number
+        CUR_PAGE: string
         PSTINST_REQUEST_INFO_LIST: InstJoinListItemInterface[]
         TOTAL_COUNT: number
     }>
@@ -56,6 +55,7 @@ export function getInstJoinList({
         url: '/inst/v1/request/list/' + CUR_PAGE,
         payload: {
             INST_NO,
+            SEARCH_KEY,
         },
     })
 }

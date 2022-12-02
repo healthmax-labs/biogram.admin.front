@@ -1,6 +1,7 @@
 // 회원 테이블 데이터
-export interface tableListItemInterface {
-    MBER_NO: number
+export interface JoinTableListItemInterface {
+    WORK_TY_CODE: null | string
+    MBER_NO: number | null
     NM: null | string
     BRTHDY: null | string
     SEXDSTN: null | string
@@ -8,7 +9,7 @@ export interface tableListItemInterface {
 }
 
 // 테이블 설정.
-export const TableConfig = {
+export const JoinTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
