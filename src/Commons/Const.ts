@@ -24,9 +24,9 @@ export default {
             mainCode: `10000`,
             menuCode: `10102`,
             name: `메세지 발송이력`,
-            pathName: ``,
+            pathName: `/manage/member/msgsend-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/MemberListPage')
+                () => import('@Page/Manage/Member/MsgSendListPage')
             ),
         },
         {
