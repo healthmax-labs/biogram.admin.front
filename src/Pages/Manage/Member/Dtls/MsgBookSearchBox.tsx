@@ -8,7 +8,6 @@ import {
     VaryLabel,
     VaryRadioButton,
 } from '@Elements'
-import { DefaultCheckBox } from '@Element/index'
 import { gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { MsgSendListState } from '@Recoil/MsgPagesState'
@@ -71,17 +70,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 : msgSendListState.search.SEARCH_KEY
                         }
                     />
-                </SearchItemWapper>
-                <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`발송:`} />
-                        </SearchLabel>
-                    </LabelItem>
-                    <LabelItem>
-                        <DefaultCheckBox />
-                        실패만
-                    </LabelItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>

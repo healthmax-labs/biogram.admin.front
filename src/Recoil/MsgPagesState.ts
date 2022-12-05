@@ -42,3 +42,36 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
         },
     },
 })
+
+//메세지 예약 현황
+interface MsgBookListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH_KEY: string | null
+        FROM_DAY: string | null
+        TO_DAY: string | null
+        SNDNG_STDR: string | null
+    }
+    memberList: MsgSendListInterface
+}
+
+export const MsgBookListState = atom<MsgBookListInterface>({
+    key: `statusPage/MsgBookList`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            SEARCH_KEY: null,
+            FROM_DAY: null,
+            TO_DAY: null,
+            SNDNG_STDR: null,
+        },
+        memberList: {
+            SMS_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})

@@ -22,7 +22,7 @@ export default {
         },
         {
             mainCode: `10000`,
-            menuCode: `10102`,
+            menuCode: `10201`,
             name: `메세지 발송이력`,
             pathName: `/manage/member/msgsend-list`,
             Component: React.lazy(
@@ -31,11 +31,11 @@ export default {
         },
         {
             mainCode: `10000`,
-            menuCode: `10103`,
+            menuCode: `10301`,
             name: `예약 메세지 발송현황`,
-            pathName: ``,
+            pathName: `/manage/member/msgbook-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/MemberListPage')
+                () => import('@Page/Manage/Member/MsgBookListPage')
             ),
         },
         {
