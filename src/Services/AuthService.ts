@@ -48,7 +48,7 @@ export function getAuthorMenu({
 > {
     return _Axios_({
         method: 'get',
-        url: `/mber/v1/charger/author/menu/${authCode}/${menuCode}`,
+        url: `/mng/v1/charger/author/mngmenu/${authCode}/${menuCode}`,
         payload: {},
     })
 }
