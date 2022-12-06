@@ -1,4 +1,4 @@
-//위험요인 현황
+//메세지 현황
 export interface MsgSendListItemInterface {
     SNDNG_NO: null | string
     SNDNGDE: null | string
@@ -16,7 +16,7 @@ export interface MsgSendListItemInterface {
     RGSDE: null | string
 }
 
-//위험요인 현황
+//메세지 현황
 export interface MsgSendListInterface {
     SMS_INFO_LIST: MsgSendListItemInterface[]
     TOTAL_COUNT: number

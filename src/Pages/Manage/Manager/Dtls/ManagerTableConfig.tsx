@@ -1,4 +1,4 @@
-// 위험요인 현황 테이블 데이터
+// 이용약관 테이블 데이터
 export interface StplatTableListItemInterface {
     STPLAT_SE_CODE: string
     STPLAT_SE_CODE_NM: string
@@ -9,7 +9,7 @@ export interface StplatTableListItemInterface {
     STPLAT_CHANGE_RESN: string
 }
 
-//위험요인 현황 테이블 설정.
+//이용약관 테이블 설정.
 export const StplatTableConfig = {
     Loading: true,
     Options: {
@@ -35,6 +35,42 @@ export const StplatTableConfig = {
         {
             name: `변경 사유`,
             key: `STPLAT_CHANGE_RESN`,
+        },
+    ],
+    Lists: [],
+}
+
+// 게시판 테이블 데이터
+export interface NoticeTableListItemInterface {
+    NOTICE_NO: null | string
+    NOTICE_SJ: null | string
+    REGDT: null | string
+    NOTI_DT: null | string
+    TRGET_SVC_CODE: null | string
+}
+
+//게시판 테이블 설정.
+export const NoticeTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: true,
+    },
+    Columns: [
+        {
+            name: `게시물 번호`,
+            key: `NOTICE_NO`,
+        },
+        {
+            name: `제목`,
+            key: `NOTICE_SJ`,
+        },
+        {
+            name: `등록 일자`,
+            key: `REGDT`,
+        },
+        {
+            name: `게시유형`,
+            key: `TRGET_SVC_CODE`,
         },
     ],
     Lists: [],
