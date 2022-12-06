@@ -36,7 +36,7 @@ const MsgSendListMain = () => {
             },
         } = msgSendListState
 
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+        const { /*year, monthPad,*/ dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getMsgSendList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,

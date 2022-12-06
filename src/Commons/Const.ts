@@ -204,9 +204,9 @@ export default {
             mainCode: `70000`,
             menuCode: `70101`,
             name: `게시판 관리`,
-            pathName: ``,
+            pathName: `/manage/manager/notice-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/Belong/BelongManagePage')
+                () => import('@Page/Manage/Manager/NoticeListPage')
             ),
         },
     ],

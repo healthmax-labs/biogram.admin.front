@@ -8,7 +8,7 @@ import { getMsgBookList } from '@Service/MsgService'
 import { useRecoilState } from 'recoil'
 import { MsgBookListState } from '@Recoil/MsgPagesState'
 import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
+// import { gmtTimeToTimeObject } from '@Helper'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
@@ -34,7 +34,7 @@ const MsgBookListMain = () => {
             },
         } = msgBookListState
 
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+        // const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getMsgBookList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
