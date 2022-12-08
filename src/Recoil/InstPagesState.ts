@@ -26,6 +26,7 @@ interface InstListStateInterface {
 }
 
 interface InstDetailStateInterface {
+    status: DefaultStatus
     info: {
         INST_NO: number | null
         ATCHMNFL_NO: number | null
@@ -83,6 +84,7 @@ export const InstListState = atom<InstListStateInterface>({
 export const InstDetailState = atom<InstDetailStateInterface>({
     key: `instPage/instDetail`,
     default: {
+        status: 'idle',
         info: {
             INST_NO: null,
             ATCHMNFL_NO: null,

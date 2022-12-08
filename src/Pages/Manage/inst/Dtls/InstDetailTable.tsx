@@ -172,6 +172,10 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     }
 
     const handleGetInfo = async (instNo: number) => {
+        setDetailState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const { status, payload } = await getInstInfo({ instNo: instNo })
         if (status) {
             const {
@@ -205,6 +209,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
 
             setDetailState(prevState => ({
                 ...prevState,
+                status: 'success',
                 info: {
                     ...prevState.info,
                     INST_NO: INST_NO,
@@ -227,6 +232,10 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 infoStep: infoStep,
             }))
         } else {
+            setDetailState(prevState => ({
+                ...prevState,
+                status: 'failure',
+            }))
             handlMainAlert({
                 state: true,
                 message: Messages.Default.pageError,
@@ -432,6 +441,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <div className="w-full items-center">
                                 <PstinstSelectBox
                                     Value={{
+                                        status: detailState.status,
                                         infoStep: detailState.infoStep
                                             ? detailState.infoStep
                                             : 'step1',
