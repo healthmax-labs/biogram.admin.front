@@ -246,3 +246,48 @@ export interface MberCashInfoInterface {
     }
     MBER_CASH_LIST: MberCashInfoItemInterface[]
 }
+
+// 소속 상위 리스트 아이템
+export interface InstInstCodeItemInterface {
+    INST_NO: number
+    INST_NM: string
+}
+
+// 소속 상위 초크 리스트.
+export interface InstTopInstCodeInterface {
+    INST_CODE_LIST: InstInstCodeItemInterface[]
+}
+
+// 소속 하위 코드.
+export interface InstLowInstCodeInterface {
+    INST_CODE_LIST: InstInstCodeItemInterface[]
+    INST_INFO: {
+        INST_NO: number
+        REPRSNT_TELNO: string
+        SIGUNGU_CD: string
+        MBER_CNT: number
+    }
+}
+
+// 시군구 그룹 코드
+export interface SiGunGroupItemInterface {
+    IEM_CODE: string
+    GROUP_CODE: string
+    IEM_NM: string
+}
+
+export interface SiGunGroupInterface {
+    IEM_CODE_LIST: SiGunGroupItemInterface[]
+}
+
+// 시군구 코드
+export interface SiGunGuCodeItemInterface {
+    IEM_CODE: string
+    IEM_NM: string
+    GROUP_CODE: string
+}
+
+export interface SiGunGuCodeInterface {
+    IEM_CODE_LIST: SiGunGuCodeItemInterface[]
+    RequestVO: null
+}

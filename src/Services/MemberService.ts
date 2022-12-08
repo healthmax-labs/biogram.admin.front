@@ -4,7 +4,6 @@ import {
     ConsultInfoListInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
-    PstinstInfoItemInterface,
 } from '@Type/MemberTypes'
 
 export const getMemberList = ({
@@ -29,21 +28,6 @@ export const getMemberList = ({
             REGIST_DT_FROM: registDtFrom,
             REGIST_DT_TO: registDtTo,
         },
-    })
-}
-
-/**
- * 소ㅅ 리스트
- */
-export const getPstinst = (): Promise<
-    ServicesDefaultResult<{
-        PSTINST_INFO_LIST: PstinstInfoItemInterface[]
-    }>
-> => {
-    return _Axios_({
-        method: 'get',
-        url: '/mber/v1/pstinst',
-        payload: {},
     })
 }
 
