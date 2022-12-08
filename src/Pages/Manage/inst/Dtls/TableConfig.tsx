@@ -79,7 +79,7 @@ export const InitTableConfig = {
         },
         {
             name: `3차`,
-            key: `INST_NO_3`,
+            key: `INST_NM_3`,
         },
         {
             name: `생성일자`,

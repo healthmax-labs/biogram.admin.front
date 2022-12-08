@@ -16,7 +16,7 @@ const {
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const InstListMain = () => {
-    const [, setListState] = useRecoilState(InstListState)
+    const [listState, setListState] = useRecoilState(InstListState)
     const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
@@ -46,10 +46,12 @@ const InstListMain = () => {
 
     useEffect(() => {
         const pageStart = () => {
-            getTableList().then()
+            if (listState.status !== 'success') {
+                getTableList().then()
+            }
         }
         pageStart()
-    }, [getTableList])
+    }, [getTableList, listState.status])
 
     return (
         <Container>

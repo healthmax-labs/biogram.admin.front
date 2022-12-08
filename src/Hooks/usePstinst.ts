@@ -1,6 +1,6 @@
 import { PstinstInfoItemInterface } from '@Type/MemberTypes'
 import { useState } from 'react'
-import { getPstinst } from '@Service/MemberService'
+import { getPstinst } from '@Service/CommonService'
 
 export interface PstinstInfoItemType extends PstinstInfoItemInterface {
     checkSearch: boolean

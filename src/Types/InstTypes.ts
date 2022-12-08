@@ -34,3 +34,18 @@ export interface InstListInterface {
     TOTAL_COUNT: number
     INST_INFO_LIST: InstListItemInterface[]
 }
+
+// 소속 등록
+export interface InstInfoInterface {
+    INST_NO?: string
+    ATCHMNFL_NO: number | null
+    BIZ_INFO: string
+    INST_NM: string
+    INST_TY_CODE: string | 'M' | 'O'
+    REPRSNT_TELNO: string
+    SIGUNGU_CD: string
+    SPUSE_STPLAT_AT: string | 'Y' | 'N'
+    TOP_INST_NO?: string
+    MIDDLE_INST_NO?: string
+    UPPER_INST_NO?: string
+}

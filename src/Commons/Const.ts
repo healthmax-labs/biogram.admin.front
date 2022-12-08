@@ -67,6 +67,24 @@ export default {
         },
         {
             mainCode: `20000`,
+            menuCode: `20101`,
+            name: `소속등록`,
+            pathName: `/manage/inst/inst-list/new`,
+            Component: React.lazy(
+                () => import('@Page/Manage/inst/InstNewPage')
+            ),
+        },
+        {
+            mainCode: `20000`,
+            menuCode: `20101`,
+            name: `소속상세`,
+            pathName: `/manage/inst/inst-list/:instNo/detail`,
+            Component: React.lazy(
+                () => import('@Page/Manage/inst/InstDetailPage')
+            ),
+        },
+        {
+            mainCode: `20000`,
             menuCode: `20201`,
             name: `소속 가입신청`,
             pathName: `/manage/inst/join-list`,

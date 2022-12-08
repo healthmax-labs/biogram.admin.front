@@ -4,6 +4,7 @@ export default {
     Default: {
         pageError: `잘못된 접근 입니다.`,
         processFail: `처리중 문제가 발생했습니다.`,
+        processSuccess: `정상 처리 하였습니다.`,
         pstinstSelectEmpty: `소속을 선택해 주세요.`,
         notAllAgree: `모든 약관에 동의 해야 합니다.`,
         stplatSuccess: `약관 동의처리 되었습니다.`,
@@ -43,6 +44,19 @@ export default {
             contentEmpty: `내용을 입력해 주세요`,
             infoUpdate: `회원정보를 수정 하시겠습니까?`,
             infoUpdateSuccess: `회원정보를 수정 했습니다.`,
+        },
+        instSelectStep1: `1차 소속을 입력해 주세요`,
+        instSelectStep2: `2차 소속을 입력해 주세요`,
+        instSelectStep3: `2차 소속을 입력해 주세요`,
+        sidoCodeSelect: `시도 코드를 입력해 주세요`,
+        sigunCodeSelect: `시군구 코드를 입력해 주세요`,
+        inst: {
+            instNmEmpty: `소속명을 입력해 주세요`,
+            instNmCheckYet: `소속명 중복 체크를 해주세요`,
+            instNmCheckSuccess: `사용 가능한 소속명 입니다`,
+            instNmCheckFail: `이미 사용중인 소속명 입니다`,
+            newConfirm: `소속 정보를 저장 하시겠습니까?`,
+            deleteConfirm: `소속을 삭제 하시겠습니까?`,
         },
     },
 }

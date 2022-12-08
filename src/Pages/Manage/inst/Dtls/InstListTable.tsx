@@ -4,6 +4,7 @@ import { MainTable } from '@Elements'
 import { InitTableConfig, InitTableListItemInterface } from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
+import { useNavigate } from 'react-router-dom'
 
 interface tableOption {
     Loading: boolean
@@ -13,19 +14,18 @@ interface tableOption {
 }
 
 const ListTable = () => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const listState = useRecoilValue(InstListState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(InitTableConfig)
 
     const handleRowClick = (element: InitTableListItemInterface) => {
-        console.debug(element)
-        // navigate({
-        //     pathname:
-        //         process.env.PUBLIC_URL +
-        //         `/manage/member/${element.MBER_NO}/detail`,
-        // })
+        navigate({
+            pathname:
+                process.env.PUBLIC_URL +
+                `/manage/inst/inst-list/${element.INST_NO}/detail`,
+        })
     }
 
     useEffect(() => {

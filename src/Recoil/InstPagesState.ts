@@ -25,6 +25,30 @@ interface InstListStateInterface {
     list: InstListInterface
 }
 
+interface InstDetailStateInterface {
+    info: {
+        INST_NO: number | null
+        ATCHMNFL_NO: number | null
+        BIZ_INFO: string
+        INST_NM: string
+        INST_TY_CODE: string | 'M' | 'O'
+        REPRSNT_TELNO: string
+        SIGUNGU_CD: string
+        SPUSE_STPLAT_AT: string | 'Y' | 'N'
+        INST_NM_CHECK: boolean
+        TOP_INST_NO: string
+        MIDDLE_INST_NO: string
+        UPPER_INST_NO: string
+        ATCHMNFL_PATH: string
+        ORGINL_FILE_NM: string
+    }
+    infoStep: string | 'step1' | 'step2' | 'step3'
+    modal: {
+        confirm: boolean
+        delete: boolean
+    }
+}
+
 export const InstJoinListState = atom<InstJoinSearchListInterface>({
     key: `instPage/instJoinList`,
     default: {
@@ -41,7 +65,7 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
     },
 })
 
-// 소속 현환 스테이트
+// 소속 현황 스테이트
 export const InstListState = atom<InstListStateInterface>({
     key: `instPage/instList`,
     default: {
@@ -52,6 +76,33 @@ export const InstListState = atom<InstListStateInterface>({
         list: {
             TOTAL_COUNT: 0,
             INST_INFO_LIST: [],
+        },
+    },
+})
+
+export const InstDetailState = atom<InstDetailStateInterface>({
+    key: `instPage/instDetail`,
+    default: {
+        info: {
+            INST_NO: null,
+            ATCHMNFL_NO: null,
+            BIZ_INFO: '',
+            INST_NM: '',
+            INST_TY_CODE: 'O',
+            REPRSNT_TELNO: '',
+            SIGUNGU_CD: '',
+            SPUSE_STPLAT_AT: 'N',
+            TOP_INST_NO: '',
+            MIDDLE_INST_NO: '',
+            UPPER_INST_NO: '',
+            ATCHMNFL_PATH: '',
+            ORGINL_FILE_NM: '',
+            INST_NM_CHECK: false,
+        },
+        infoStep: 'step1',
+        modal: {
+            confirm: false,
+            delete: false,
         },
     },
 })

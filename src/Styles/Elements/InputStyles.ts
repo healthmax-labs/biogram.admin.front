@@ -84,11 +84,11 @@ export const VaryInputStyle = {
             if (Bg && Bg === 'white') {
                 returnTw.push(tw`bg-white`)
             } else if (Bg && Bg === 'gray1') {
-                returnTw.push(tw`border-gray-300 bg-gray-300 `)
+                returnTw.push(tw`border-gray-300 bg-gray-300`)
             } else if (Bg && Bg === 'gray2') {
-                returnTw.push(tw`border-gray-100 bg-gray-100 `)
+                returnTw.push(tw`border-gray-100 bg-gray-100`)
             } else {
-                returnTw.push(tw`border-gray-300 bg-gray-300 `)
+                returnTw.push(tw`border-gray-300 bg-gray-300`)
             }
 
             if (Width) {
