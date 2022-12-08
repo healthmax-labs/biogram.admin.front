@@ -78,7 +78,7 @@ const SiGunSelectBox = ({
     }, [handlMainAlert])
 
     const handleSiDoOnChange = useCallback(
-        async ({ value, text }: { text: string; value: string }) => {
+        async ({ value }: { text: string; value: string }) => {
             const valueSubString = value.substring(0, 2)
             const { status, payload } = await getSiGunCode({
                 GuBun: valueSubString,

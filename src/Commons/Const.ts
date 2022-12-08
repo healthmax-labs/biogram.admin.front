@@ -51,7 +51,7 @@ export default {
             mainCode: `10000`,
             menuCode: `10401`,
             name: `상담회원 상세`,
-            pathName: `/manage/member/:MEMBER_NO/consult-detail`,
+            pathName: `/manage/member/consult-detail/:memNo/:category`,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/ConsultDetailPage')
             ),
@@ -235,4 +235,77 @@ export default {
             CenterWidth: ``,
         },
     },
+    ConsultTabs: [
+        {
+            name: `마이데이터`,
+            category: `mydata`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `마이그래프`,
+            category: `mygraph`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `생체나이`,
+            category: `raw-age`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `마이코치`,
+            category: `mycoach`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `식사일기`,
+            category: `mealdiary`,
+            active: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailMealdiary')
+            ),
+        },
+        {
+            name: `설문조사`,
+            category: `survey`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `메시지 발송함`,
+            category: `mesg`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+        {
+            name: `상담차트`,
+            category: `chart`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+            ),
+        },
+    ],
 }

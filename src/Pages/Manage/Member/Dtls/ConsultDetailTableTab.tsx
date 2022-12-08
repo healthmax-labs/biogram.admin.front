@@ -1,73 +1,47 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import Const from '@Const'
 
 const { Tabs } = ConsultDetailStyle
 
 const initializeState = {
-    Tab: [
-        {
-            name: `마이데이터`,
-            key: `mydata`,
-            active: true,
-        },
-        {
-            name: `마이그래프`,
-            key: `mygraph`,
-            active: false,
-        },
-        {
-            name: `생체나이`,
-            key: `raw-age`,
-            active: false,
-        },
-        {
-            name: `마이코치`,
-            key: `mycoach`,
-            active: false,
-        },
-        {
-            name: `식사일기`,
-            key: `mealdiary`,
-            active: false,
-        },
-        {
-            name: `설문조사`,
-            key: `survey`,
-            active: false,
-        },
-        {
-            name: `메시지 발송함`,
-            key: `mesg`,
-            active: false,
-        },
-        {
-            name: `상담차트`,
-            key: `chart`,
-            active: false,
-        },
-    ],
+    Tab: Const.ConsultTabs,
 }
 
 const ConsultDetailTableTab = () => {
+    const navigate = useNavigate()
+    const params = useParams<{
+        memNo: string | undefined
+        category: string | undefined
+    }>()
     const [pageState, setPageState] = useState<{
-        Tab: Array<{ name: string; key: string; active: boolean }>
+        Tab: Array<{ name: string; category: string; active: boolean }>
     }>(initializeState)
 
     const handleTabClick = (el: {
         name: string
-        key: string
+        category: string
         active: boolean
     }) => {
+        navigate({
+            pathname:
+                process.env.PUBLIC_URL +
+                `/manage/member/consult-detail/${params.memNo}/${el.category}`,
+        })
+    }
+
+    useEffect(() => {
         setPageState(prevState => ({
             ...prevState,
             Tab: prevState.Tab.map(e => {
                 return {
                     ...e,
-                    active: e.key === el.key,
+                    active: e.category === params.category,
                 }
             }),
         }))
-    }
+    }, [params])
 
     return (
         <Tabs.Container>
