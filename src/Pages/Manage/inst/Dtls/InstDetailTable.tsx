@@ -36,23 +36,6 @@ const {
     ButtonItem,
 } = DetailTableStyle
 
-interface InfoItemInterface {
-    INST_NO: number | null
-    ATCHMNFL_NO: number | null
-    BIZ_INFO: string
-    INST_NM: string
-    INST_TY_CODE: string | 'M' | 'O'
-    REPRSNT_TELNO: string
-    SIGUNGU_CD: string
-    SPUSE_STPLAT_AT: string | 'Y' | 'N'
-    INST_NM_CHECK: boolean
-    TOP_INST_NO: string
-    MIDDLE_INST_NO: string
-    UPPER_INST_NO: string
-    ATCHMNFL_PATH: string
-    ORGINL_FILE_NM: string
-}
-
 const { DetailContainer } = DetailPageStyle
 
 const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
