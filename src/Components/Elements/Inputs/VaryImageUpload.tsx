@@ -97,10 +97,6 @@ const VaryImageUpload = ({
         funcSetImage()
     }, [Image])
 
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
-
     return (
         <div className="grid grid-rows-3 grid-flow-col gap-4">
             <div className="row-span-3">

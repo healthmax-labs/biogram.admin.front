@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
 import {
@@ -23,6 +23,8 @@ import Messages from '@Messages'
 import { useNavigate, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { InstInfoInterface } from '@Type/InstTypes'
+import { useRecoilState } from 'recoil'
+import { InstDetailState } from '@Recoil/InstPagesState'
 
 const {
     TableContainer,
@@ -53,42 +55,11 @@ interface InfoItemInterface {
 
 const { DetailContainer } = DetailPageStyle
 
-const initializeState = {
-    info: {
-        INST_NO: null,
-        ATCHMNFL_NO: null,
-        BIZ_INFO: '',
-        INST_NM: '',
-        INST_TY_CODE: 'O',
-        REPRSNT_TELNO: '',
-        SIGUNGU_CD: '',
-        SPUSE_STPLAT_AT: 'N',
-        TOP_INST_NO: '',
-        MIDDLE_INST_NO: '',
-        UPPER_INST_NO: '',
-        ATCHMNFL_PATH: '',
-        ORGINL_FILE_NM: '',
-        INST_NM_CHECK: false,
-    },
-    infoStep: 'step1',
-    modal: {
-        confirm: false,
-        delete: false,
-    },
-}
-
 const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ instNo: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
     const navigate = useNavigate()
-    const [pageState, setPageState] = useState<{
-        info: InfoItemInterface
-        infoStep: string | 'step1' | 'step2' | 'step3'
-        modal: {
-            confirm: boolean
-            delete: boolean
-        }
-    }>(initializeState)
+    const [detailState, setDetailState] = useRecoilState(InstDetailState)
 
     const handleNewInst = async () => {
         const {
@@ -102,7 +73,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             ATCHMNFL_NO,
             SIGUNGU_CD,
             REPRSNT_TELNO,
-        } = pageState.info
+        } = detailState.info
 
         let payload: InstInfoInterface = {
             ATCHMNFL_NO: ATCHMNFL_NO ? ATCHMNFL_NO : null,
@@ -157,14 +128,14 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 }
             }
         } else if (pageMode === 'modify') {
-            if (pageState.infoStep === 'step1') {
-            } else if (pageState.infoStep === 'step2') {
+            if (detailState.infoStep === 'step1') {
+            } else if (detailState.infoStep === 'step2') {
                 payload = {
                     ...payload,
                     TOP_INST_NO: TOP_INST_NO,
                     UPPER_INST_NO: TOP_INST_NO,
                 }
-            } else if (pageState.infoStep === 'step3') {
+            } else if (detailState.infoStep === 'step3') {
                 payload = {
                     ...payload,
                     TOP_INST_NO: TOP_INST_NO,
@@ -206,7 +177,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     }
 
     const handleClickApplyButton = () => {
-        if (!pageState.info.INST_NM_CHECK) {
+        if (!detailState.info.INST_NM_CHECK) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.inst.instNmCheckYet,
@@ -249,7 +220,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 infoStep = 'step3'
             }
 
-            setPageState(prevState => ({
+            setDetailState(prevState => ({
                 ...prevState,
                 info: {
                     ...prevState.info,
@@ -281,9 +252,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     }
 
     const handleDelete = async () => {
-        if (pageState.info.INST_NO) {
+        if (detailState.info.INST_NO) {
             const { status } = await postInstInfoDelete({
-                instNo: pageState.info.INST_NO,
+                instNo: detailState.info.INST_NO,
             })
 
             if (status) {
@@ -317,10 +288,6 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         // FIXME : 종속성에서 handleGetInfo 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageMode, params.instNo])
-
-    useEffect(() => {
-        // console.debug(pageState.info)
-    }, [pageState.info])
 
     return (
         <DetailContainer>
@@ -362,7 +329,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         HandleOnChange={(
                                             e: React.ChangeEvent<HTMLInputElement>
                                         ) =>
-                                            setPageState(prevState => ({
+                                            setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
@@ -373,8 +340,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         id={'id'}
                                         Placeholder={'소속명'}
                                         Value={
-                                            pageState.info.INST_NM
-                                                ? pageState.info.INST_NM
+                                            detailState.info.INST_NM
+                                                ? detailState.info.INST_NM
                                                 : ``
                                         }
                                     />
@@ -383,13 +350,13 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     <VaryButton
                                         HandleClick={async () => {
                                             if (
-                                                pageState.info.INST_NM &&
-                                                pageState.info.INST_NM.length >
-                                                    0
+                                                detailState.info.INST_NM &&
+                                                detailState.info.INST_NM
+                                                    .length > 0
                                             ) {
                                                 const { status, payload } =
                                                     await getInstCheckInstNm({
-                                                        instNm: pageState.info
+                                                        instNm: detailState.info
                                                             .INST_NM,
                                                     })
 
@@ -405,7 +372,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                                     .inst
                                                                     .instNmCheckSuccess,
                                                         })
-                                                        setPageState(
+                                                        setDetailState(
                                                             prevState => ({
                                                                 ...prevState,
                                                                 info: {
@@ -423,7 +390,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                                     .inst
                                                                     .instNmCheckFail,
                                                         })
-                                                        setPageState(
+                                                        setDetailState(
                                                             prevState => ({
                                                                 ...prevState,
                                                                 info: {
@@ -441,14 +408,16 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                             Messages.Default
                                                                 .pageError,
                                                     })
-                                                    setPageState(prevState => ({
-                                                        ...prevState,
-                                                        info: {
-                                                            ...prevState.info,
-                                                            INST_NM_CHECK:
-                                                                false,
-                                                        },
-                                                    }))
+                                                    setDetailState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            info: {
+                                                                ...prevState.info,
+                                                                INST_NM_CHECK:
+                                                                    false,
+                                                            },
+                                                        })
+                                                    )
                                                 }
                                             } else {
                                                 handlMainAlert({
@@ -457,7 +426,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                         Messages.Default.inst
                                                             .instNmEmpty,
                                                 })
-                                                setPageState(prevState => ({
+                                                setDetailState(prevState => ({
                                                     ...prevState,
                                                     info: {
                                                         ...prevState.info,
@@ -480,16 +449,18 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <div className="w-full items-center">
                                 <PstinstSelectBox
                                     Value={{
-                                        infoStep: pageState.infoStep
-                                            ? pageState.infoStep
+                                        infoStep: detailState.infoStep
+                                            ? detailState.infoStep
                                             : 'step1',
-                                        instNo: String(pageState.info.INST_NO),
-                                        step1: pageState.info.TOP_INST_NO,
-                                        step2: pageState.info.MIDDLE_INST_NO,
-                                        step3: pageState.info.UPPER_INST_NO,
+                                        instNo: String(
+                                            detailState.info.INST_NO
+                                        ),
+                                        step1: detailState.info.TOP_INST_NO,
+                                        step2: detailState.info.MIDDLE_INST_NO,
+                                        step3: detailState.info.UPPER_INST_NO,
                                     }}
                                     ReturnCallback={e => {
-                                        setPageState(prevState => ({
+                                        setDetailState(prevState => ({
                                             ...prevState,
                                             info: {
                                                 ...prevState.info,
@@ -517,12 +488,12 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <div className="w-full items-center">
                                 <SiGunSelectBox
                                     SigunguCd={
-                                        pageState.info.SIGUNGU_CD
-                                            ? pageState.info.SIGUNGU_CD
+                                        detailState.info.SIGUNGU_CD
+                                            ? detailState.info.SIGUNGU_CD
                                             : ''
                                     }
                                     ReturnCallback={e =>
-                                        setPageState(prevState => ({
+                                        setDetailState(prevState => ({
                                             ...prevState,
                                             info: {
                                                 ...prevState.info,
@@ -545,7 +516,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         Bg={`gray1`}
                                         InputType={'text'}
                                         HandleOnChange={e =>
-                                            setPageState(prevState => ({
+                                            setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
@@ -556,8 +527,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         id={'id'}
                                         Placeholder={'사업정보'}
                                         Value={
-                                            pageState.info.BIZ_INFO
-                                                ? pageState.info.BIZ_INFO
+                                            detailState.info.BIZ_INFO
+                                                ? detailState.info.BIZ_INFO
                                                 : ''
                                         }
                                     />
@@ -576,7 +547,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         Bg={`gray1`}
                                         InputType={'text'}
                                         HandleOnChange={e =>
-                                            setPageState(prevState => ({
+                                            setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
@@ -588,8 +559,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         id={'id'}
                                         Placeholder={'대표번호'}
                                         Value={
-                                            pageState.info.REPRSNT_TELNO
-                                                ? pageState.info.REPRSNT_TELNO
+                                            detailState.info.REPRSNT_TELNO
+                                                ? detailState.info.REPRSNT_TELNO
                                                 : ''
                                         }
                                     />
@@ -606,11 +577,12 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <div className="w-2/4">
                                     <VaryLabelCheckBox
                                         Checked={
-                                            pageState.info.INST_TY_CODE === 'M'
+                                            detailState.info.INST_TY_CODE ===
+                                            'M'
                                         }
                                         LabelName={`가입시 관리자의 승인이 필요합니다. (미 체크시 바로 가입 할수 있습니다)`}
                                         HandleOnChange={e =>
-                                            setPageState(prevState => ({
+                                            setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
@@ -635,12 +607,12 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <div className="w-2/4">
                                     <VaryLabelCheckBox
                                         Checked={
-                                            pageState.info.SPUSE_STPLAT_AT ===
+                                            detailState.info.SPUSE_STPLAT_AT ===
                                             'Y'
                                         }
                                         LabelName={`별도의 약관이 존재하는 경우 체크합니다.`}
                                         HandleOnChange={e =>
-                                            setPageState(prevState => ({
+                                            setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
@@ -663,11 +635,13 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         <InputCell>
                             <VaryImageUpload
                                 Image={{
-                                    AtchmnflPath: pageState.info.ATCHMNFL_PATH,
-                                    OrginlFileNm: pageState.info.ORGINL_FILE_NM,
+                                    AtchmnflPath:
+                                        detailState.info.ATCHMNFL_PATH,
+                                    OrginlFileNm:
+                                        detailState.info.ORGINL_FILE_NM,
                                 }}
                                 ReturnCallback={e =>
-                                    setPageState(prevState => ({
+                                    setDetailState(prevState => ({
                                         ...prevState,
                                         info: {
                                             ...prevState.info,
@@ -700,7 +674,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         BgColor={`mBBlue`}
                         Name={`확인`}
                         HandleClick={() =>
-                            setPageState(prevState => ({
+                            setDetailState(prevState => ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
@@ -716,7 +690,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             BgColor={`mBBlue`}
                             Name={`삭제`}
                             HandleClick={() =>
-                                setPageState(prevState => ({
+                                setDetailState(prevState => ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
@@ -728,13 +702,13 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     </ButtonItem>
                 )}
             </ButtonBox>
-            {pageState.modal.confirm && (
+            {detailState.modal.confirm && (
                 <ConfirmModal
                     Title={Messages.Default.inst.newConfirm}
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {
-                        setPageState(prevState => ({
+                        setDetailState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -743,7 +717,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         }))
                     }}
                     ApplyButtonClick={() => {
-                        setPageState(prevState => ({
+                        setDetailState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -754,13 +728,13 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     }}
                 />
             )}
-            {pageState.modal.delete && (
+            {detailState.modal.delete && (
                 <ConfirmModal
                     Title={Messages.Default.inst.deleteConfirm}
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {
-                        setPageState(prevState => ({
+                        setDetailState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -769,7 +743,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         }))
                     }}
                     ApplyButtonClick={() => {
-                        setPageState(prevState => ({
+                        setDetailState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
