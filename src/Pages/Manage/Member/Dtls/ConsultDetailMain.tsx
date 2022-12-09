@@ -3,18 +3,18 @@ import ConsultDetailTable from './ConsultDetailTable'
 import ConsultDetailTableMessageBox from './ConsultDetailTableMessageBox'
 
 const {
-    DetailPage: { Container, LeftWapper, RightWapper },
+    DetailPage: { Container, ChartLeftWapper, ChartRightWapper },
 } = PageContainerStyle
 
 const ConsultDetailMain = () => {
     return (
         <Container>
-            <LeftWapper>
+            <ChartLeftWapper>
                 <ConsultDetailTable />
-            </LeftWapper>
-            <RightWapper>
+            </ChartLeftWapper>
+            <ChartRightWapper>
                 <ConsultDetailTableMessageBox />
-            </RightWapper>
+            </ChartRightWapper>
         </Container>
     )
 }

@@ -2,13 +2,34 @@ import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Elements'
 import ConsultDetailTableTab from './ConsultDetailTableTab'
-import ConsultDetailTableMyData from './ConsultDetailTableMyData'
+import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import Const from '@Const'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
 const { DetailContainer } = DetailPageStyle
 
 const ConsultDetailTable = () => {
+    const params = useParams<{
+        memNo: string | undefined
+        category: string | undefined
+    }>()
+
+    // 템에 따른 메인 페이지 동적 로딩.
+    const renderTabPageComponent = () => {
+        const category = params.category
+
+        const chIndex = Const.ConsultTabs.findIndex(
+            el => el.category === category
+        )
+        const TabPageComponent = Const.ConsultTabs[chIndex].Component
+        return <TabPageComponent />
+    }
+
+    useEffect(() => {
+        console.debug(params)
+    }, [params])
     return (
         <>
             <DetailContainer>
@@ -75,7 +96,7 @@ const ConsultDetailTable = () => {
 
                 <ConsultDetailTableTab />
 
-                <ConsultDetailTableMyData />
+                <>{renderTabPageComponent()}</>
             </DetailContainer>
         </>
     )

@@ -18,6 +18,8 @@ module.exports = {
                 'center-search-box': `97rem`,
                 'left-box': `67rem`,
                 'right-box': `40rem`,
+                'chart-left-box': `90rem`,
+                'chart-right-box': `17rem`,
             },
             minWidth: {
                 'center-width': `107rem`,
