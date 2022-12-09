@@ -5,7 +5,7 @@ import {
     VaryDatepickerInput,
 } from '@Elements'
 import { gmtTimeToTimeObject } from '@Helper'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Messages from '@Messages'
 
 const {
@@ -59,6 +59,18 @@ const ConsultDetailChart = () => {
                             ButtonClick={() =>
                                 console.debug('DefaultManageButton')
                             }
+                        />
+                    </div>
+                    <div className="flex py-2">
+                        <DefaultManageButton
+                            ButtonName={'신규'}
+                            ButtonClick={() => console.debug('ButtonClick')}
+                        />
+                    </div>
+                    <div className="flex py-2">
+                        <DefaultManageButton
+                            ButtonName={'삭제'}
+                            ButtonClick={() => console.debug('ButtonClick')}
                         />
                     </div>
                 </div>
