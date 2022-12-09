@@ -1,4 +1,3 @@
-import { DefaultManageButton } from '@Elements'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 
 const { Detail } = ConsultDetailStyle
@@ -11,12 +10,6 @@ const ConsultDetailRawAge = () => {
                     <div className="">
                         아무개 님의 현재 나이는 44.2 세 입니다.
                     </div>
-                </div>
-                <div className="text-left items-center">
-                    <DefaultManageButton
-                        ButtonName={'수기입력'}
-                        ButtonClick={() => console.debug('ButtonClick')}
-                    />
                 </div>
             </div>
             <div className="flex flex-nowrap pt-4">
@@ -102,20 +95,6 @@ const ConsultDetailRawAge = () => {
                                 </Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell>
                                     -0.2
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                            </Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Row>
-                                <Detail.RawAge.Table.Cell>
-                                    2022-12-07
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell>
-                                    40(-4.4)
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell>
-                                    -2
                                 </Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
@@ -210,20 +189,6 @@ const ConsultDetailRawAge = () => {
                                 </Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell>
                                     -0.2
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
-                            </Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Row>
-                                <Detail.RawAge.Table.Cell>
-                                    2022-12-07
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell>
-                                    40(-4.4)
-                                </Detail.RawAge.Table.Cell>
-                                <Detail.RawAge.Table.Cell>
-                                    -2
                                 </Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
                                 <Detail.RawAge.Table.Cell></Detail.RawAge.Table.Cell>
