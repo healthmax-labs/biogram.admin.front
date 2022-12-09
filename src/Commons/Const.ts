@@ -303,8 +303,7 @@ export default {
             category: `chart`,
             active: false,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailChart')
             ),
         },
     ],
