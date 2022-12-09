@@ -259,8 +259,7 @@ export default {
             category: `raw-age`,
             active: false,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailRawAge')
             ),
         },
         {
