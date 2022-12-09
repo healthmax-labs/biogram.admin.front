@@ -294,8 +294,7 @@ export default {
             category: `mesg`,
             active: false,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailMessage')
             ),
         },
         {
