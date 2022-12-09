@@ -93,14 +93,14 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white`,
-                Cell: tw.td`border text-xs`,
+                CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
+                Cell: tw.td`border text-xs text-gray-500`,
             },
             TableStep2: {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`bg-m-dip-blue text-white`,
+                TheadCell: tw.th`bg-m-dip-blue text-xs text-white`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
                 Cell: styled.td(
@@ -124,11 +124,12 @@ export const ConsultDetailStyle = {
                         }
 
                         if (Bg === 'dip') {
-                            returnCss.push(tw`bg-m-dip-blue`)
-                        }
-
-                        if (Bg === 'gray') {
+                            returnCss.push(tw`text-gray-500`)
+                        } else if (Bg === 'gray') {
                             returnCss.push(tw`bg-gray-400`)
+                            returnCss.push(tw`text-gray-600`)
+                        } else {
+                            returnCss.push(tw`text-gray-500`)
                         }
 
                         return returnCss

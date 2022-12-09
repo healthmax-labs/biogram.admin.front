@@ -91,5 +91,7 @@ export const PageContainerStyle = {
         Container: tw.div`flex flex-nowrap`,
         LeftWapper: tw.div`w-left-box`,
         RightWapper: tw.div`w-right-box`,
+        ChartLeftWapper: tw.div`w-chart-left-box`,
+        ChartRightWapper: tw.div`w-chart-right-box`,
     },
 }

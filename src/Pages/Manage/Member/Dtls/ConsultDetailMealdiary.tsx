@@ -649,7 +649,9 @@ const ConsultDetailMealdiary = () => {
                         </Detail.MealDiary.TableStep2.Row>
                     </Detail.MealDiary.TableStep2.Body>
                     <Detail.MealDiary.TableStep2.Body>
-                        <div className="pt-2"></div>
+                        <Detail.MealDiary.TableStep2.Row>
+                            <Detail.MealDiary.TableStep2.Cell></Detail.MealDiary.TableStep2.Cell>
+                        </Detail.MealDiary.TableStep2.Row>
                     </Detail.MealDiary.TableStep2.Body>
                     <Detail.MealDiary.TableStep2.Body>
                         <Detail.MealDiary.TableStep2.Row>
