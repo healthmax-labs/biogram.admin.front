@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { gmtTimeToTimeObject } from '@Helper'
 import { getCashInfo } from '@Service/DataService'
 import Messages from '@Messages'
-import { TotalScoreModalStyle } from '@Style/Elements/ModalStyles'
+import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { MberCashInfoItemInterface } from '@CommonTypes'
 
 const {
@@ -19,7 +19,7 @@ const {
     TableBody,
     TableBodyRow,
     TableBodyCell,
-} = TotalScoreModalStyle
+} = CommonListTableStyle
 
 const initializeState = {
     search: {

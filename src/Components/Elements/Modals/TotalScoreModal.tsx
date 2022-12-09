@@ -5,7 +5,7 @@ import {
     VaryDatepickerInput,
     VaryModal,
 } from '@Elements'
-import { TotalScoreModalStyle } from '@Style/Elements/ModalStyles'
+import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { gmtTimeToTimeObject } from '@Helper'
 import { getDataMybodyManageScore } from '@Service/DataService'
 import { MybodyManageScoreItemInterface } from '@CommonTypes'
@@ -19,7 +19,7 @@ const {
     TableBody,
     TableBodyRow,
     TableBodyCell,
-} = TotalScoreModalStyle
+} = CommonListTableStyle
 
 const initializeState = {
     search: {
