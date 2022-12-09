@@ -1,7 +1,12 @@
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
-import { ElementLoading } from '@Elements'
+import {
+    DefaultManageButton,
+    ElementLoading,
+    VaryDatepickerInput,
+} from '@Elements'
 import React, { useState } from 'react'
 import Messages from '@Messages'
+import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     HeaderRow,
@@ -31,6 +36,33 @@ const ConsultDetailMessage = () => {
     })
     return (
         <div className="">
+            <div className="flex flex-nowrap">
+                <div className="flex py-2 items-center w-1/3 justify-start">
+                    <VaryDatepickerInput
+                        CallBackReturn={e => {
+                            const dateObj = gmtTimeToTimeObject(e)
+                            console.debug(dateObj)
+                        }}
+                    />
+                    ~
+                    <VaryDatepickerInput
+                        CallBackReturn={e => {
+                            const dateObj = gmtTimeToTimeObject(e)
+                            console.debug(dateObj)
+                        }}
+                    />
+                </div>
+                <div className="flex py-2 items-center w-full justify-end">
+                    <div className="flex py-2">
+                        <DefaultManageButton
+                            ButtonName={'조회'}
+                            ButtonClick={() =>
+                                console.debug('DefaultManageButton')
+                            }
+                        />
+                    </div>
+                </div>
+            </div>
             {pageState.loading ? (
                 <div className="h-[calc(100vh-10rem)]">
                     <ElementLoading FullScreen={false} />
