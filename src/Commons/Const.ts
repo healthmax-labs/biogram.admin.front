@@ -285,8 +285,7 @@ export default {
             category: `survey`,
             active: false,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailSurvey')
             ),
         },
         {

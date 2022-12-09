@@ -137,6 +137,16 @@ export const ConsultDetailStyle = {
                 ),
             },
         },
+        Survey: {
+            RowWapper: tw.div`w-full pb-1`,
+            Table: {
+                Table: tw.table`text-left min-w-full shadow-md rounded`,
+                Body: tw.tbody``,
+                Row: tw.tr``,
+                CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
+                Cell: tw.td`border text-xs text-gray-500`,
+            },
+        },
     },
     Message: {
         Container: tw.div`flex flex-col break-words bg-white`,
