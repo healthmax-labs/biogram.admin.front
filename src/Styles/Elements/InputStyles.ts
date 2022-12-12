@@ -103,12 +103,30 @@ export const VaryInputStyle = {
 }
 
 export const VaryLabelStyle = {
-    Wapper: tw.div`flex items-center object-center`,
-    InputLabel: styled.label(({ Width }: { Width?: InputWidthType }) => [
-        tw`block text-gray-600 text-xs font-bold`,
-        Width ? ConstStyle.width[Width] : tw``,
-        // tw`w-12`,
-    ]),
+    Wapper: styled.div(({ Reverse }: { Reverse: boolean }) => {
+        const returnTw = [tw`flex items-center object-center`]
+
+        if (Reverse) {
+            returnTw.push(tw`flex-row-reverse`)
+        }
+
+        returnTw.push(tw`items-center object-center`)
+
+        return returnTw
+    }),
+    InputLabel: styled.label(
+        ({
+            Width,
+            TextColor,
+        }: {
+            Width?: InputWidthType
+            TextColor: 'gray' | 'white'
+        }) => [
+            tw`block text-xs`,
+            Width ? ConstStyle.width[Width] : tw``,
+            TextColor === 'gray' ? tw`text-gray-500` : tw``,
+        ]
+    ),
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
 }
 

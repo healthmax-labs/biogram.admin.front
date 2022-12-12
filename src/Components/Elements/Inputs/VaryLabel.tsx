@@ -14,8 +14,10 @@ const VaryLabel = ({
     Children?: React.ReactNode
 }) => {
     return (
-        <Wapper>
-            <InputLabel Width={LabelWidth ? LabelWidth : 'w212'}>
+        <Wapper Reverse={false}>
+            <InputLabel
+                Width={LabelWidth ? LabelWidth : 'w212'}
+                TextColor={'gray'}>
                 {LabelName}
             </InputLabel>
             {Children ?? Children}
