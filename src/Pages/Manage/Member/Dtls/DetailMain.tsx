@@ -70,10 +70,13 @@ const DetailMain = () => {
                     },
                 }))
             } else {
-                // FIXME: 에러처리.
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.pageError,
+                })
             }
         },
-        [setDetailState]
+        [handlMainAlert, setDetailState]
     )
 
     // 첫 로딩시 회원 정보 가지고 오기.

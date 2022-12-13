@@ -3,13 +3,11 @@ import { MemberDetailInterface } from '@Type/PageStateType'
 import { DefaultStatus } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
+    MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
 
-/**
- * member 페이지.
- */
-
+// member 페이지.
 interface ListInterface {
     status: DefaultStatus
     search: {
@@ -34,6 +32,7 @@ interface ConsultListInterface {
     list: ConsultInfoListInterface
 }
 
+// 회원 상세
 interface DetailInterface {
     status: DefaultStatus
     MBER_NO: number | null
@@ -44,6 +43,13 @@ interface DetailInterface {
         text: string | null
     }
     phoneAuth: boolean
+}
+
+// 상담 회원 상세
+interface ConsultDetailInterface {
+    status: DefaultStatus
+    memNo: number | null
+    detail: MemberInfoInterface | null
 }
 
 // 회원 현황 페이지
@@ -125,6 +131,7 @@ export const DetailState = atom<DetailInterface>({
     },
 })
 
+// 상세 정보 데이터
 export const detailStatus = selector<{
     status: DefaultStatus
     MBER_NO: number | null
@@ -139,6 +146,7 @@ export const detailStatus = selector<{
     },
 })
 
+// 회원 origin 데이터
 export const OriginSelector = selector<MemberDetailInterface>({
     key: `memberPage/originInfo`,
     get: ({ get }) => {
@@ -147,6 +155,7 @@ export const OriginSelector = selector<MemberDetailInterface>({
     },
 })
 
+// 회원 상세
 export const DetailSelector = selector<MemberDetailInterface>({
     key: `memberPage/detailInfo`,
     get: ({ get }) => {
@@ -205,62 +214,12 @@ export const ConsultListState = atom<ConsultListInterface>({
     },
 })
 
-// 회원 상세 페이지.
-export const ConsultDetailState = atom<DetailInterface>({
+// 상담회원 상세 페이지.
+export const ConsultDetailState = atom<ConsultDetailInterface>({
     key: `memberPage/consultDetail`,
     default: {
         status: 'idle',
-        MBER_NO: null,
-        detail: {
-            NM: null,
-            MBER_NO: null,
-            MBTLNUM: null,
-            MBTLNUM_CRTFC_AT: null,
-            EMAIL_ADRES: null,
-            BRTHDY: null,
-            SEX: null,
-            REGIST_DT: null,
-            USID: null,
-            MEMO: null,
-            PSTINST_INFO_LIST: [],
-            MBTLNUM_CNT: null,
-            TOT_CASH: '',
-            TOT_SCORE: null,
-            USE_STPLAT_AGRE_AT: null,
-            INDVDLINFO_AGRE_AT: null,
-            SNSTIIVEINFO_AGRE_AT: null,
-            INDVDLINFO_THIRD_AGRE_AT: null,
-            SNSTIIVEINFO_THIRD_AGRE_AT: null,
-            MARKTINFO_AGRE_AT: null,
-            MARKTINFO_PURPOSE_AGRE_AT: null,
-        },
-        origin: {
-            NM: null,
-            MBER_NO: null,
-            MBTLNUM: null,
-            MBTLNUM_CRTFC_AT: null,
-            EMAIL_ADRES: null,
-            BRTHDY: null,
-            SEX: null,
-            REGIST_DT: null,
-            USID: null,
-            MEMO: null,
-            PSTINST_INFO_LIST: [],
-            MBTLNUM_CNT: null,
-            TOT_CASH: '',
-            TOT_SCORE: null,
-            USE_STPLAT_AGRE_AT: null,
-            INDVDLINFO_AGRE_AT: null,
-            SNSTIIVEINFO_AGRE_AT: null,
-            INDVDLINFO_THIRD_AGRE_AT: null,
-            SNSTIIVEINFO_THIRD_AGRE_AT: null,
-            MARKTINFO_AGRE_AT: null,
-            MARKTINFO_PURPOSE_AGRE_AT: null,
-        },
-        pstinstLeave: {
-            selectNo: null,
-            text: null,
-        },
-        phoneAuth: false,
+        memNo: null,
+        detail: null,
     },
 })

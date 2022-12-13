@@ -1,15 +1,21 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import { MemberMesureInfoInterface } from '@Type/MemberTypes'
 import Codes from '@Codes'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     DefaultManageButton,
     MemberMyDataInputModal,
     MemberMyDataModal,
 } from '@Elements'
+import { useRecoilValue } from 'recoil'
+import { ConsultDetailState } from '@Recoil/MemberPagesState'
+import _ from 'lodash'
+import { timeStringParse } from '@Helper'
 
 const { Detail } = ConsultDetailStyle
 
 const initializeState = {
+    MESURE_INFO: null,
     modal: {
         selectCode: null,
         myData: {
@@ -24,7 +30,9 @@ const initializeState = {
 }
 
 const ConsultDetailTableMyData = () => {
+    const detailState = useRecoilValue(ConsultDetailState)
     const [pageState, setPageState] = useState<{
+        MESURE_INFO: MemberMesureInfoInterface | null
         modal: {
             myData: {
                 state: boolean
@@ -36,6 +44,19 @@ const ConsultDetailTableMyData = () => {
             }
         }
     }>(initializeState)
+
+    useEffect(() => {
+        const funcSetData = (info: MemberMesureInfoInterface) => {
+            setPageState(prevState => ({
+                ...prevState,
+                MESURE_INFO: info,
+            }))
+        }
+
+        if (detailState.status === 'success' && detailState.detail) {
+            funcSetData(detailState.detail.MESURE_INFO)
+        }
+    }, [detailState])
 
     return (
         <>
@@ -64,56 +85,116 @@ const ConsultDetailTableMyData = () => {
                         </Detail.MyData.HeadRow>
                     </Detail.MyData.Head>
                     <Detail.MyData.Body>
-                        {Codes.myData.map((el, index) => {
-                            return el.list.map((e, i) => {
-                                return (
-                                    <Detail.MyData.BodyRow
-                                        key={`consult-detail-table-mydata-row-item-${index}-${i}`}>
-                                        {i === 0 && (
-                                            <Detail.MyData.BodyCellBef
-                                                rowSpan={el.list.length}>
-                                                {el.name}
+                        {pageState.MESURE_INFO !== null &&
+                            Codes.myData.map((el, index) => {
+                                return el.list.map((e, i) => {
+                                    const { MESURE_INFO } = pageState
+
+                                    const MesureData = _.find(MESURE_INFO, {
+                                        MESURE_CODE: e.code,
+                                    })
+
+                                    const MESURE_MTHD_NM =
+                                        MesureData && MesureData.MESURE_MTHD_NM
+                                            ? MesureData.MESURE_MTHD_NM
+                                            : '-'
+
+                                    const MESURE_DT =
+                                        MesureData && MesureData.MESURE_DT
+                                            ? timeStringParse(
+                                                  MesureData.MESURE_DT
+                                              )
+                                            : '-'
+
+                                    const DATAS =
+                                        MesureData && MesureData.DATAS
+                                            ? MesureData.DATAS
+                                            : '-'
+
+                                    const MNVL =
+                                        MesureData && MesureData.MNVL
+                                            ? MesureData.MNVL
+                                            : null
+
+                                    const MVL =
+                                        MesureData && MesureData.MVL
+                                            ? MesureData.MVL
+                                            : null
+
+                                    const MNVLMVL =
+                                        MNVL && MVL ? `${MNVL} ~ ${MVL}` : '-'
+
+                                    const MESURE_GRAD_NM =
+                                        MesureData && MesureData.MESURE_GRAD_NM
+                                            ? MesureData.MESURE_GRAD_NM
+                                            : '-'
+
+                                    const textColor =
+                                        MesureData &&
+                                        MesureData.COLOR_CODE_VALUE
+                                            ? MesureData.COLOR_CODE_VALUE
+                                            : '-'
+
+                                    return (
+                                        <Detail.MyData.BodyRow
+                                            key={`consult-detail-table-mydata-row-item-${index}-${i}`}>
+                                            {i === 0 && (
+                                                <Detail.MyData.BodyCellBef
+                                                    rowSpan={el.list.length}>
+                                                    {el.name}
+                                                </Detail.MyData.BodyCellBef>
+                                            )}
+                                            <Detail.MyData.BodyCellBef>
+                                                <Detail.MyData.BodyCellBefLink
+                                                    onClick={() => {
+                                                        setPageState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                modal: {
+                                                                    ...prevState.modal,
+                                                                    myData: {
+                                                                        state: true,
+                                                                        selectCode:
+                                                                            e.code,
+                                                                        selectName:
+                                                                            e.name,
+                                                                    },
+                                                                },
+                                                            })
+                                                        )
+                                                    }}>
+                                                    {e.name}
+                                                </Detail.MyData.BodyCellBefLink>
                                             </Detail.MyData.BodyCellBef>
-                                        )}
-                                        <Detail.MyData.BodyCellBef>
-                                            <Detail.MyData.BodyCellBefLink
-                                                onClick={() => {
-                                                    setPageState(prevState => ({
-                                                        ...prevState,
-                                                        modal: {
-                                                            ...prevState.modal,
-                                                            myData: {
-                                                                state: true,
-                                                                selectCode:
-                                                                    e.code,
-                                                                selectName:
-                                                                    e.name,
-                                                            },
-                                                        },
-                                                    }))
-                                                }}>
-                                                {e.name}
-                                            </Detail.MyData.BodyCellBefLink>
-                                        </Detail.MyData.BodyCellBef>
-                                        <Detail.MyData.BodyCell>
-                                            기기측정
-                                        </Detail.MyData.BodyCell>
-                                        <Detail.MyData.BodyCell>
-                                            2022-11-10 17:54:27
-                                        </Detail.MyData.BodyCell>
-                                        <Detail.MyData.BodyCell>
-                                            55.8
-                                        </Detail.MyData.BodyCell>
-                                        <Detail.MyData.BodyCell Color={'green'}>
-                                            51.80 ~ 64.40
-                                        </Detail.MyData.BodyCell>
-                                        <Detail.MyData.BodyCell Color={'green'}>
-                                            좋음
-                                        </Detail.MyData.BodyCell>
-                                    </Detail.MyData.BodyRow>
-                                )
-                            })
-                        })}
+                                            <Detail.MyData.BodyCell>
+                                                {MESURE_MTHD_NM}
+                                            </Detail.MyData.BodyCell>
+                                            <Detail.MyData.BodyCell>
+                                                {MESURE_DT}
+                                            </Detail.MyData.BodyCell>
+                                            <Detail.MyData.BodyCell>
+                                                {DATAS}
+                                            </Detail.MyData.BodyCell>
+                                            <Detail.MyData.BodyCell>
+                                                <p
+                                                    style={{
+                                                        color: `#${textColor}`,
+                                                    }}>
+                                                    {MNVLMVL}
+                                                </p>
+                                            </Detail.MyData.BodyCell>
+                                            <Detail.MyData.BodyCell>
+                                                <p
+                                                    style={{
+                                                        color: `#${textColor}`,
+                                                    }}>
+                                                    {MESURE_GRAD_NM}
+                                                </p>
+                                            </Detail.MyData.BodyCell>
+                                        </Detail.MyData.BodyRow>
+                                    )
+                                })
+                            })}
                     </Detail.MyData.Body>
                 </Detail.MyData.Wapper>
             </Detail.Container>

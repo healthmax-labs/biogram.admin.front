@@ -323,6 +323,10 @@ export const phoneFormat = (str: string) => {
     ].join('-')
 }
 
+/**
+ * gmt 시간 변경
+ * @param time
+ */
 export const gmtTimeToTimeObject = (
     time: Date
 ): {
@@ -358,4 +362,13 @@ export const gmtTimeToTimeObject = (
         second: second,
         secondPad: String(second).padStart(2, '0'),
     }
+}
+
+export const timeStringParse = (str: string) => {
+    if (str.length !== 14) return false
+
+    return str.replace(
+        /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
+        '$1-$2-$3 $4:$5:$6'
+    )
 }

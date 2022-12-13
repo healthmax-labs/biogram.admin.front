@@ -10,7 +10,6 @@ const ConsultDetailTableMemo = () => {
                     </div>
                     <div className="w-full">
                         <VaryInput
-                            Width={'w64'}
                             HandleOnChange={e => console.debug(e)}
                             id={'id'}
                             Placeholder={'작성자명'}

@@ -14,7 +14,7 @@ export interface PstinstInfoItemInterface {
     UPPER_INST_NO: number
 }
 
-export interface MesureInfoItem {
+export interface MesureInfoItemInterface {
     COLOR_CODE_VALUE: string
     MVL: string
     INCRS_QY: string
@@ -93,6 +93,48 @@ export interface ConsultInfoListInterface {
     TOTAL_COUNT: number
 }
 
+export interface MemberMesureInfoInterface {
+    //측정정보
+    BDWGH_INFO: MesureInfoItemInterface //[체성분]체중(몸무게) 6021
+    SLM_INFO: MesureInfoItemInterface //[체성분]근육량 6023
+    PBF_INFO: MesureInfoItemInterface //[체성분]체지방률 6022
+    FAT_MAS_INFO: MesureInfoItemInterface //[체성분]체지방량 8010
+    VFL_INFO: MesureInfoItemInterface //[체성분]내장지방레벨 6026
+    BMI_INFO: MesureInfoItemInterface //[체성분]BMI 6056
+    EST_BN_MAS_INFO: MesureInfoItemInterface //[체성분]추정골량 6029
+    SYSTOLIC_INFO: MesureInfoItemInterface //[혈압]수축기(최고 혈압) 622E
+    DIASTOLIC_INFO: MesureInfoItemInterface //[혈압]이완기(최저 혈압) 622F
+    PULS_INFO: MesureInfoItemInterface //[혈압]맥박 6230
+    FBS_INFO: MesureInfoItemInterface //[혈당]식전혈당 624A
+    PP2_INFO: MesureInfoItemInterface //[혈당]식후혈당 624B
+    HBA1C_INFO: MesureInfoItemInterface //[혈당]당화혈색소 624M
+    T_CHOL_INFO: MesureInfoItemInterface //[콜레스테롤]총콜레스테롤 624C
+    HDLC_INFO: MesureInfoItemInterface //[콜레스테롤]HDL 콜레스테롤(HDL-C)-고밀도콜레스테롤 624E
+    LDLC_INFO: MesureInfoItemInterface //[콜레스테롤]LDL 콜레스테롤(LDL-C)-저밀도콜레스테롤 624F
+    TG_INFO: MesureInfoItemInterface //[콜레스테롤]중성지방(TG) 624D
+    BLDVSS_STEP_INFO: MesureInfoItemInterface //[혈관]혈관단계 7016
+    CAD_OUTPUT_IN_INFO: MesureInfoItemInterface //[혈관]박출강도 7017
+    ELSTC_DGREE_INFO: MesureInfoItemInterface //[혈관]탄성도(혈관) 7018
+    RBV_QY_INFO: MesureInfoItemInterface //[혈관]잔혈량 7019
+    STRS_SCORE_INFO: MesureInfoItemInterface //[스트레스]스트레스 점수 7012
+    PHYSIC_STRS_INFO: MesureInfoItemInterface //[스트레스]신체적 스트레스 7013
+    MNTL_STRS_INFO: MesureInfoItemInterface //[스트레스]정신적 스트레스 7014
+    STRS_CNTRMSR_ABLTY_INFO: MesureInfoItemInterface //[스트레스]스트레스 대처능력 7015
+    HEIGHT_INFO: MesureInfoItemInterface //[기타]신장(키) 6A35
+    WAIST_CRCMFRNC_INFO: MesureInfoItemInterface //[기타]허리둘레 8072
+    BDHEAT_INFO: MesureInfoItemInterface //[기타]체온 5010
+    BB_FNCT_INFO: MesureInfoItemInterface //[뇌기능]기초 뇌 기능 10001
+    CB_FNCT_INFO: MesureInfoItemInterface //[뇌기능]인지 뇌 기능 10003
+    CB_ABLTY_INFO: MesureInfoItemInterface //[뇌기능]인지 능력 10006
+    CB_ABLTY_SCORE_INFO: MesureInfoItemInterface //[뇌기능]인지 기능 점수 10007
+    BBF_ADJST_TIME_INFO: MesureInfoItemInterface //[뇌기능]뇌 혈류 조절 시간 10008
+    BBF_FNCT_SCORE_INFO: MesureInfoItemInterface //[뇌기능]뇌 혈류 기능 점수10009
+    BH_TNT_SCORE_INFO: MesureInfoItemInterface //[뇌기능]뇌 건강 종합 점수 10010
+    BB_FNCT_IMAGE_INFO: MesureInfoItemInterface //[뇌기능]기초 뇌 기능 이미지 10002
+    CB_FNCT_IMAGE_INFO: MesureInfoItemInterface //[뇌기능]인지 뇌 기능 이미지 10004
+    CH_GRAPH_IMAGE_INFO: MesureInfoItemInterface //[뇌기능]뇌 혈류 변화 그래프 이미지 10005
+}
+
 // 회원 정보.
 export interface MemberInfoInterface {
     MBER_INFO: {
@@ -129,47 +171,7 @@ export interface MemberInfoInterface {
         MBTLNUM_CRTFC_AT: 'Y' | 'N'
         NM: string
     }
-    MESURE_INFO: {
-        //측정정보
-        BDWGH_INFO: MesureInfoItem //[체성분]체중(몸무게) 6021
-        SLM_INFO: MesureInfoItem //[체성분]근육량 6023
-        PBF_INFO: MesureInfoItem //[체성분]체지방률 6022
-        FAT_MAS_INFO: MesureInfoItem //[체성분]체지방량 8010
-        VFL_INFO: MesureInfoItem //[체성분]내장지방레벨 6026
-        BMI_INFO: MesureInfoItem //[체성분]BMI 6056
-        EST_BN_MAS_INFO: MesureInfoItem //[체성분]추정골량 6029
-        SYSTOLIC_INFO: MesureInfoItem //[혈압]수축기(최고 혈압) 622E
-        DIASTOLIC_INFO: MesureInfoItem //[혈압]이완기(최저 혈압) 622F
-        PULS_INFO: MesureInfoItem //[혈압]맥박 6230
-        FBS_INFO: MesureInfoItem //[혈당]식전혈당 624A
-        PP2_INFO: MesureInfoItem //[혈당]식후혈당 624B
-        HBA1C_INFO: MesureInfoItem //[혈당]당화혈색소 624M
-        T_CHOL_INFO: MesureInfoItem //[콜레스테롤]총콜레스테롤 624C
-        HDLC_INFO: MesureInfoItem //[콜레스테롤]HDL 콜레스테롤(HDL-C)-고밀도콜레스테롤 624E
-        LDLC_INFO: MesureInfoItem //[콜레스테롤]LDL 콜레스테롤(LDL-C)-저밀도콜레스테롤 624F
-        TG_INFO: MesureInfoItem //[콜레스테롤]중성지방(TG) 624D
-        BLDVSS_STEP_INFO: MesureInfoItem //[혈관]혈관단계 7016
-        CAD_OUTPUT_IN_INFO: MesureInfoItem //[혈관]박출강도 7017
-        ELSTC_DGREE_INFO: MesureInfoItem //[혈관]탄성도(혈관) 7018
-        RBV_QY_INFO: MesureInfoItem //[혈관]잔혈량 7019
-        STRS_SCORE_INFO: MesureInfoItem //[스트레스]스트레스 점수 7012
-        PHYSIC_STRS_INFO: MesureInfoItem //[스트레스]신체적 스트레스 7013
-        MNTL_STRS_INFO: MesureInfoItem //[스트레스]정신적 스트레스 7014
-        STRS_CNTRMSR_ABLTY_INFO: MesureInfoItem //[스트레스]스트레스 대처능력 7015
-        HEIGHT_INFO: MesureInfoItem //[기타]신장(키) 6A35
-        WAIST_CRCMFRNC_INFO: MesureInfoItem //[기타]허리둘레 8072
-        BDHEAT_INFO: MesureInfoItem //[기타]체온 5010
-        BB_FNCT_INFO: MesureInfoItem //[뇌기능]기초 뇌 기능 10001
-        CB_FNCT_INFO: MesureInfoItem //[뇌기능]인지 뇌 기능 10003
-        CB_ABLTY_INFO: MesureInfoItem //[뇌기능]인지 능력 10006
-        CB_ABLTY_SCORE_INFO: MesureInfoItem //[뇌기능]인지 기능 점수 10007
-        BBF_ADJST_TIME_INFO: MesureInfoItem //[뇌기능]뇌 혈류 조절 시간 10008
-        BBF_FNCT_SCORE_INFO: MesureInfoItem //[뇌기능]뇌 혈류 기능 점수10009
-        BH_TNT_SCORE_INFO: MesureInfoItem //[뇌기능]뇌 건강 종합 점수 10010
-        BB_FNCT_IMAGE_INFO: MesureInfoItem //[뇌기능]기초 뇌 기능 이미지 10002
-        CB_FNCT_IMAGE_INFO: MesureInfoItem //[뇌기능]인지 뇌 기능 이미지 10004
-        CH_GRAPH_IMAGE_INFO: MesureInfoItem //[뇌기능]뇌 혈류 변화 그래프 이미지 10005
-    }
+    MESURE_INFO: MemberMesureInfoInterface
     QUSTNR_ANSWER_LIST: Array<{
         QUSTNR_SN: number
         QESTN_SUMRY_1: string
