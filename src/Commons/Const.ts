@@ -62,7 +62,7 @@ export default {
             name: `소속현황`,
             pathName: `/manage/inst/inst-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/InstListPage')
+                () => import('@Page/Manage/Inst/InstListPage')
             ),
         },
         {
@@ -71,7 +71,7 @@ export default {
             name: `소속등록`,
             pathName: `/manage/inst/inst-list/new`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/InstNewPage')
+                () => import('@Page/Manage/Inst/InstNewPage')
             ),
         },
         {
@@ -80,7 +80,7 @@ export default {
             name: `소속상세`,
             pathName: `/manage/inst/inst-list/:instNo/detail`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/InstDetailPage')
+                () => import('@Page/Manage/Inst/InstDetailPage')
             ),
         },
         {
@@ -89,7 +89,7 @@ export default {
             name: `소속 가입신청`,
             pathName: `/manage/inst/join-list`,
             Component: React.lazy(
-                () => import('@Page/Manage/inst/JoinListPage')
+                () => import('@Page/Manage/Inst/JoinListPage')
             ),
         },
         {
