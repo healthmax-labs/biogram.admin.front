@@ -1,5 +1,5 @@
 import tw from 'twin.macro'
-import { css } from '@emotion/react'
+// import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 export const MainStyle = {
@@ -89,52 +89,58 @@ export const ConsultDetailStyle = {
         },
         MealDiary: {
             RowWapper: tw.div`w-full`,
-            TableStep1: {
-                Table: tw.table`text-center min-w-full shadow-md rounded`,
-                Body: tw.tbody``,
-                Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
-                Cell: tw.td`border text-xs text-gray-500`,
+            Search: {
+                SearchBox: tw.div`flex flex-nowrap w-full border justify-end`,
+                SearchItem: tw.div`flex py-2`,
             },
-            TableStep2: {
+            TitleBox: tw.div`w-full pt-3 text-xs font-medium text-gray-600`,
+            Table: {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`bg-m-dip-blue text-xs text-white`,
+                TheadCell: tw.th`border bg-m-dip-blue text-xs text-white`,
+                TheadCellItem: tw.div`flex w-full justify-center`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                Cell: styled.td(
+                BlankRow: tw.tr`h-5`,
+                Cell: tw.td`border text-xs text-gray-500 object-center`,
+                CellBg: tw.td`border text-xs text-white bg-m-dip-blue items-center object-center`,
+                TextCell: styled.td(({ Bg }: { Bg?: boolean }) => {
+                    const returnCss = [
+                        tw`border text-xs text-gray-500 object-center`,
+                    ]
+
+                    if (Bg) {
+                        returnCss.push(tw`bg-m-dip-blue`)
+                    }
+
+                    return returnCss
+                }),
+                CellText: styled.span(
                     ({
-                        Diagonal,
-                        Bg,
+                        Color,
                     }: {
-                        Diagonal?: boolean
-                        Bg?: 'dip' | 'gray'
+                        Color: 'red' | 'blue' | 'gray' | 'white'
                     }) => {
-                        const returnCss = []
+                        const returnCss = [tw`text-xs`]
 
-                        returnCss.push([tw`border text-xs`])
-
-                        if (Diagonal) {
-                            returnCss.push(
-                                css`
-                                    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
-                                `
-                            )
-                        }
-
-                        if (Bg === 'dip') {
-                            returnCss.push(tw`text-gray-500`)
-                        } else if (Bg === 'gray') {
-                            returnCss.push(tw`bg-gray-400`)
-                            returnCss.push(tw`text-gray-600`)
+                        if (Color === 'red') {
+                            returnCss.push(tw`text-red-600`)
+                        } else if (Color === 'blue') {
+                            returnCss.push(tw`text-blue-600`)
+                        } else if (Color === 'white') {
+                            returnCss.push(tw`text-white`)
                         } else {
-                            returnCss.push(tw`text-gray-500`)
+                            returnCss.push(tw`text-gray-600`)
                         }
 
                         return returnCss
                     }
                 ),
+            },
+            History: {
+                Wapper: tw.div`w-full`,
+                ButtonBox: tw.div`flex flex-nowrap gap-2 pt-2`,
             },
         },
         Survey: {

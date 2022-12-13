@@ -3,7 +3,7 @@ import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Elements'
 import ConsultDetailTableTab from './ConsultDetailTableTab'
 import { useParams } from 'react-router-dom'
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 import Const from '@Const'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
@@ -27,9 +27,9 @@ const ConsultDetailTable = () => {
         return <TabPageComponent />
     }
 
-    useEffect(() => {
-        console.debug(params)
-    }, [params])
+    // useEffect(() => {
+    //     console.debug(params)
+    // }, [params])
     return (
         <>
             <DetailContainer>

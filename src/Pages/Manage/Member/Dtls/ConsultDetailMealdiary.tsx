@@ -1,1339 +1,1217 @@
+import {
+    VaryDatepickerInput,
+    DefaultManageButton,
+    VaryLabel,
+    VaryLabelCheckBox,
+    VaryButton,
+} from '@Elements'
+import { gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-const { Detail } = ConsultDetailStyle
+import Slider from 'react-slick'
+const {
+    Detail: D,
+    Detail: {
+        MealDiary: { RowWapper, Search, TitleBox, Table: STable, History },
+    },
+} = ConsultDetailStyle
+
+function SampleNextArrow(props: any) {
+    const { className, style, onClick } = props
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: 'block', background: 'gray' }}
+            onClick={onClick}
+        />
+    )
+}
+
+function SamplePrevArrow(props: any) {
+    const { className, style, onClick } = props
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: 'block', background: 'gray' }}
+            onClick={onClick}
+        />
+    )
+}
 
 const ConsultDetailMealdiary = () => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+    }
     return (
-        <Detail.Container>
-            <Detail.MealDiary.RowWapper>
-                <Detail.MealDiary.TableStep1.Table>
-                    <Detail.MealDiary.TableStep1.Body>
-                        <Detail.MealDiary.TableStep1.Row>
-                            <Detail.MealDiary.TableStep1.CellBg rowSpan={3}>
-                                건다온님의 섭취기준
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
-                                총열량
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+        <D.Container>
+            <RowWapper>
+                <Search.SearchBox>
+                    <Search.SearchItem>
+                        <VaryLabel LabelName={`날짜`} LabelWidth={'w10'} />
+                        <VaryDatepickerInput
+                            CallBackReturn={e => {
+                                const dateObj = gmtTimeToTimeObject(e)
+                                console.debug(dateObj)
+                            }}
+                        />
+                    </Search.SearchItem>
+                    <Search.SearchItem>
+                        <DefaultManageButton
+                            ButtonName={'조회'}
+                            ButtonClick={() =>
+                                console.debug('DefaultManageButton')
+                            }
+                        />
+                    </Search.SearchItem>
+                </Search.SearchBox>
+            </RowWapper>
+            <RowWapper>
+                <TitleBox>섭취기준</TitleBox>
+                <STable.Table>
+                    <STable.Thead>
+                        <STable.TheadRow>
+                            <STable.TheadCell>총열량</STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 탄수화물
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 단백질
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 지방
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 당류
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 나트륨
-                            </Detail.MealDiary.TableStep1.CellBg>
-                            <Detail.MealDiary.TableStep1.CellBg colSpan={2}>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
                                 수분
-                            </Detail.MealDiary.TableStep1.CellBg>
-                        </Detail.MealDiary.TableStep1.Row>
-                        <Detail.MealDiary.TableStep1.Row>
-                            <Detail.MealDiary.TableStep1.Cell
-                                colSpan={2}
-                                rowSpan={2}>
-                                1732kcal
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                52 %
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                19 %
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                29 %
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                *총 에너지 섭취의 10% 이내
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                *한국인 영양섭취 성인 평균
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                *한국인 영양섭취 성인 평균
-                            </Detail.MealDiary.TableStep1.Cell>
-                        </Detail.MealDiary.TableStep1.Row>
-                        <Detail.MealDiary.TableStep1.Row>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                254 g
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                1017 kcal
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                95 g
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                381 kcal
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                64 g
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                572 kcal
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                49 g
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell>
-                                197 kcal
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                2000
-                            </Detail.MealDiary.TableStep1.Cell>
-                            <Detail.MealDiary.TableStep1.Cell colSpan={2}>
-                                1800ml
-                            </Detail.MealDiary.TableStep1.Cell>
-                        </Detail.MealDiary.TableStep1.Row>
-                    </Detail.MealDiary.TableStep1.Body>
-                </Detail.MealDiary.TableStep1.Table>
-            </Detail.MealDiary.RowWapper>
-            <Detail.MealDiary.RowWapper>
-                <Detail.MealDiary.TableStep2.Table>
-                    <Detail.MealDiary.TableStep2.Thead>
-                        <Detail.MealDiary.TableStep2.TheadRow>
-                            <th>|| 일별섭취현황 및 차이</th>
-                        </Detail.MealDiary.TableStep2.TheadRow>
-                        <Detail.MealDiary.TableStep2.TheadRow>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/02(금)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/03(토)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/04(일)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/05(월)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/06(화)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/07(수)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                            <Detail.MealDiary.TableStep2.TheadCell colSpan={4}>
-                                12/08(목)
-                            </Detail.MealDiary.TableStep2.TheadCell>
-                        </Detail.MealDiary.TableStep2.TheadRow>
-                    </Detail.MealDiary.TableStep2.Thead>
-                    <Detail.MealDiary.TableStep2.Body>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                일섭취
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={4}>
-                                0 kcal ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                나트륨
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                수분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                0 ( - )
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                    </Detail.MealDiary.TableStep2.Body>
-                    <Detail.MealDiary.TableStep2.Body>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell></Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                    </Detail.MealDiary.TableStep2.Body>
-                    <Detail.MealDiary.TableStep2.Body>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                Bg={`gray`}
-                                colSpan={2}
-                                Diagonal={
-                                    true
-                                }></Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (kcal)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell Bg={`gray`}>
-                                (%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                간식(오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                Bg={`gray`}>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                -
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                    </Detail.MealDiary.TableStep2.Body>
-                </Detail.MealDiary.TableStep2.Table>
-            </Detail.MealDiary.RowWapper>
-            <Detail.MealDiary.RowWapper>
-                <Detail.MealDiary.TableStep2.Table>
-                    <Detail.MealDiary.TableStep2.Thead>
-                        <Detail.MealDiary.TableStep2.TheadRow>
-                            <th>|| 평균섭취 현황</th>
-                        </Detail.MealDiary.TableStep2.TheadRow>
-                    </Detail.MealDiary.TableStep2.Thead>
-                    <Detail.MealDiary.TableStep2.Body>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                선택일수
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균 섭취 열량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                기준치 대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                구분
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                탄수화물
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                단백질
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                지방
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                당류
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                나트륨(mg)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell colSpan={2}>
-                                수분(ml)
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                7일
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                - 1732 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균섭취량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                섭취기준대비
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                끼니별
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균 열량
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                평균열량대비(%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 1017 kcal{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 kcal{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 381 kcal{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 572 kcal{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 kcal{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 197 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={4}>
-                                0 mg
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={4}>
-                                - 2000 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={4}>
-                                0 mg
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={4}>
-                                - 1800 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                아침
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0%
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                점심
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kcal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0%
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                (g)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 254 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 95 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 64 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                0 g{' '}
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                - 49 g
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                저녁
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0%
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                간식 (오전+오후)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0%
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell rowSpan={2}>
-                                평균섭취 열량비(%)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                rowSpan={2}>
-                                0 % (+ 52)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                rowSpan={2}>
-                                0 % (+ 19)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={2}
-                                rowSpan={2}>
-                                0 % (+ 29)
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell
-                                colSpan={6}
-                                rowSpan={2}></Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                        <Detail.MealDiary.TableStep2.Row>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                야식
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0 kal
-                            </Detail.MealDiary.TableStep2.Cell>
-                            <Detail.MealDiary.TableStep2.Cell>
-                                0%
-                            </Detail.MealDiary.TableStep2.Cell>
-                        </Detail.MealDiary.TableStep2.Row>
-                    </Detail.MealDiary.TableStep2.Body>
-                </Detail.MealDiary.TableStep2.Table>
-            </Detail.MealDiary.RowWapper>
-        </Detail.Container>
+                            </STable.TheadCell>
+                        </STable.TheadRow>
+                    </STable.Thead>
+                    <STable.Body>
+                        <STable.Row>
+                            <STable.Cell rowSpan={2}>1830 Kcal</STable.Cell>
+                            <STable.Cell colSpan={2}>52%</STable.Cell>
+                            <STable.Cell colSpan={2}>52%</STable.Cell>
+                            <STable.Cell colSpan={2}>52%</STable.Cell>
+                            <STable.Cell colSpan={2}>52%</STable.Cell>
+                            <STable.Cell colSpan={2}>
+                                * 한국인 영양섭취 성인 평균
+                            </STable.Cell>
+                            <STable.Cell colSpan={2}>
+                                * 한국인 영양섭취 성인 평균
+                            </STable.Cell>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.Cell>244 g</STable.Cell>
+                            <STable.Cell>976 Kcal</STable.Cell>
+                            <STable.Cell>244 g</STable.Cell>
+                            <STable.Cell>976 Kcal</STable.Cell>
+                            <STable.Cell>244 g</STable.Cell>
+                            <STable.Cell>976 Kcal</STable.Cell>
+                            <STable.Cell>244 g</STable.Cell>
+                            <STable.Cell>976 Kcal</STable.Cell>
+                            <STable.Cell colSpan={2}>200 g</STable.Cell>
+                            <STable.Cell colSpan={2}>1800 m2</STable.Cell>
+                        </STable.Row>
+                    </STable.Body>
+                </STable.Table>
+            </RowWapper>
+            <RowWapper>
+                <TitleBox>일별 섭취현황 및 차이</TitleBox>
+                <STable.Table>
+                    <STable.Thead>
+                        <STable.TheadRow>
+                            <STable.TheadCell></STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        TextColor={`white`}
+                                        LabelReverse={true}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/05 (토)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/06 (일)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/07 (월)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/08 (화)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/09 (수)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/10 (목)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={2}>
+                                <STable.TheadCellItem>
+                                    <VaryLabelCheckBox
+                                        LabelReverse={true}
+                                        TextColor={`white`}
+                                        Checked={false}
+                                        HandleOnChange={() => console.debug(1)}
+                                        LabelName={'11/11 (금)'}
+                                    />
+                                </STable.TheadCellItem>
+                            </STable.TheadCell>
+                            <STable.TheadCell colSpan={4}>
+                                평균 섭취 현황
+                            </STable.TheadCell>
+                        </STable.TheadRow>
+                    </STable.Thead>
+                    <STable.Body>
+                        <STable.Row>
+                            <STable.CellBg>일섭취</STable.CellBg>
+                            <STable.Cell colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.Cell>
+                            <STable.CellBg colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.CellBg>
+                            <STable.Cell colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.Cell>
+                            <STable.CellBg colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.CellBg>
+                            <STable.Cell colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.Cell>
+                            <STable.CellBg colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.CellBg>
+                            <STable.Cell colSpan={2}>
+                                744 kcal( &#9660; 1057)
+                            </STable.Cell>
+                            <STable.CellBg colSpan={4}>
+                                744 kcal( &#9660; 1057)
+                            </STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg></STable.CellBg>
+                            <STable.Cell>( g )</STable.Cell>
+                            <STable.Cell>( % )</STable.Cell>
+                            <STable.CellBg>( g )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.Cell>( g )</STable.Cell>
+                            <STable.Cell>( % )</STable.Cell>
+                            <STable.CellBg>( g )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.Cell>( g )</STable.Cell>
+                            <STable.Cell>( % )</STable.Cell>
+                            <STable.CellBg>( g )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.Cell>( g )</STable.Cell>
+                            <STable.Cell>( % )</STable.Cell>
+                            <STable.CellBg colSpan={2}>( kcal )</STable.CellBg>
+                            <STable.CellBg>( g )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    탄수화물
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`blue`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2} Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    529
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-215)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    단백질
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`blue`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2} Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    529
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-215)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    지방
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`blue`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2} Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    529
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-215)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    지방
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`blue`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell>
+                                <STable.CellText Color={`gray`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2} Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    529
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-215)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    129
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (115)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    69
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    당류
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (-)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    27
+                                </STable.CellText>
+                                <STable.CellText Color={`red`}>
+                                    (+4)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    27
+                                </STable.CellText>
+                                <STable.CellText Color={`red`}>
+                                    (+4)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    27
+                                </STable.CellText>
+                                <STable.CellText Color={`red`}>
+                                    (+4)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    (-)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    42
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-12)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    12
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-15)
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true}></STable.TextCell>
+                        </STable.Row>
+
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    나트륨
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={4}>
+                                <STable.CellText Color={`white`}>
+                                    558 mg
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-1442 mg)
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+
+                        <STable.Row>
+                            <STable.TextCell Bg={true}>
+                                <STable.CellText Color={`white`}>
+                                    수분
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={2}>
+                                <STable.CellText Color={`white`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell colSpan={2}>
+                                <STable.CellText Color={`gray`}>
+                                    0 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`gray`}>
+                                    ( - )
+                                </STable.CellText>
+                            </STable.TextCell>
+                            <STable.TextCell Bg={true} colSpan={4}>
+                                <STable.CellText Color={`white`}>
+                                    257 ml
+                                </STable.CellText>
+                                <STable.CellText Color={`white`}>
+                                    (-1500 ml)
+                                </STable.CellText>
+                            </STable.TextCell>
+                        </STable.Row>
+                        <STable.BlankRow>
+                            <STable.Cell colSpan={19}></STable.Cell>
+                        </STable.BlankRow>
+                        <STable.Row>
+                            <STable.CellBg>끼니별</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg>( kcal )</STable.CellBg>
+                            <STable.CellBg>( % )</STable.CellBg>
+                            <STable.CellBg colSpan={2}>( kcal )</STable.CellBg>
+                            <STable.CellBg colSpan={2}>( % )</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg>아침</STable.CellBg>
+                            <STable.Cell>360</STable.Cell>
+                            <STable.Cell>47</STable.Cell>
+                            <STable.CellBg>360</STable.CellBg>
+                            <STable.CellBg>47</STable.CellBg>
+                            <STable.Cell>360</STable.Cell>
+                            <STable.Cell>47</STable.Cell>
+                            <STable.CellBg>360</STable.CellBg>
+                            <STable.CellBg>47</STable.CellBg>
+                            <STable.Cell>360</STable.Cell>
+                            <STable.Cell>47</STable.Cell>
+                            <STable.CellBg>360</STable.CellBg>
+                            <STable.CellBg>47</STable.CellBg>
+                            <STable.Cell>360</STable.Cell>
+                            <STable.Cell>47</STable.Cell>
+                            <STable.CellBg colSpan={2}>360</STable.CellBg>
+                            <STable.CellBg colSpan={2}>47</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg>점심</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg>저녁</STable.CellBg>
+                            <STable.Cell>413</STable.Cell>
+                            <STable.Cell>53</STable.Cell>
+                            <STable.CellBg>413</STable.CellBg>
+                            <STable.CellBg>53</STable.CellBg>
+                            <STable.Cell>413</STable.Cell>
+                            <STable.Cell>53</STable.Cell>
+                            <STable.CellBg>413</STable.CellBg>
+                            <STable.CellBg>53</STable.CellBg>
+                            <STable.Cell>413</STable.Cell>
+                            <STable.Cell>53</STable.Cell>
+                            <STable.CellBg>413</STable.CellBg>
+                            <STable.CellBg>53</STable.CellBg>
+                            <STable.Cell>413</STable.Cell>
+                            <STable.Cell>53</STable.Cell>
+                            <STable.CellBg colSpan={2}>413</STable.CellBg>
+                            <STable.CellBg colSpan={2}>53</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg>간식(오전+오후)</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                        </STable.Row>
+                        <STable.Row>
+                            <STable.CellBg>야식</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.CellBg>0</STable.CellBg>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.Cell>0</STable.Cell>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                            <STable.CellBg colSpan={2}>0</STable.CellBg>
+                        </STable.Row>
+                    </STable.Body>
+                </STable.Table>
+            </RowWapper>
+            <RowWapper>
+                <TitleBox>일별 식사 내역 ( 11 / 05 )</TitleBox>
+                <History.Wapper>
+                    <History.ButtonBox>
+                        <VaryButton
+                            BgColor="mBBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`아침`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`오전간식`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`점심`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`오후간식`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`저녁`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`야식`}
+                        />
+                    </History.ButtonBox>
+                </History.Wapper>
+                <History.Wapper>
+                    <div className="flex flex-nowrap w-full">
+                        <div className="w-1/2">
+                            <div className="flex flex-nowrap w-full py-2">
+                                <div className="w-1/6"></div>
+                                <div className="w-4/6 text-xs">
+                                    메뉴명: 돈육 김치찌개, 밥, 콩나물
+                                </div>
+                                <div className="w-1/6"></div>
+                            </div>
+                            <div className="flex flex-nowrap w-full">
+                                <div className="w-1/6"></div>
+                                <div className="w-4/6 text-xs">
+                                    <Slider {...settings}>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" />
+                                            </h3>
+                                        </div>
+                                    </Slider>
+                                </div>
+                                <div className="w-1/6"></div>
+                            </div>
+                        </div>
+                        <div className="w-1/2">
+                            <div className="w-1/2">
+                                <STable.Table>
+                                    <STable.Body>
+                                        <STable.Row>
+                                            <STable.CellBg>
+                                                식사시간
+                                            </STable.CellBg>
+                                            <STable.CellBg>10:10</STable.CellBg>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.CellBg>
+                                                총열량
+                                            </STable.CellBg>
+                                            <STable.CellBg>
+                                                561 kcal
+                                            </STable.CellBg>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>열량</STable.Cell>
+                                            <STable.Cell>2000 kcal</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>탄수화물</STable.Cell>
+                                            <STable.Cell>10 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>단백질</STable.Cell>
+                                            <STable.Cell>4 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>지방</STable.Cell>
+                                            <STable.Cell>3 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>당류</STable.Cell>
+                                            <STable.Cell>1 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>나트륨</STable.Cell>
+                                            <STable.Cell>2 g</STable.Cell>
+                                        </STable.Row>
+                                    </STable.Body>
+                                </STable.Table>
+                            </div>
+                        </div>
+                    </div>
+                </History.Wapper>
+            </RowWapper>
+        </D.Container>
     )
 }
 
