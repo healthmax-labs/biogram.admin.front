@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     DefaultManageButton,
     ElementLoading,
@@ -7,9 +7,10 @@ import {
 } from '@Elements'
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { gmtTimeToTimeObject } from '@Helper'
-import { MybodyManageScoreItemInterface } from '@CommonTypes'
+import { MesureInfoListItemInterface } from '@Type/MemberTypes'
 import Messages from '@Messages'
 import Codes from '@Codes'
+import { getMesureInfo } from '@Service/MemberService'
 
 const {
     HeaderRow,
@@ -23,6 +24,7 @@ const {
 
 const initializeState = {
     search: {
+        page: 1,
         startDate: null,
         endDate: null,
     },
@@ -37,28 +39,67 @@ const MemberMyDataModal = ({
     DataName,
     CancleButtonClick,
 }: {
-    MemberNo: number
+    MemberNo: number | null
     DataCode: string
     DataName: string
     CancleButtonClick: () => void
 }) => {
     const [pageState, setPageState] = useState<{
         search: {
+            page: number
             startDate: string | null
             endDate: string | null
         }
-        list: MybodyManageScoreItemInterface[]
+        list: MesureInfoListItemInterface[]
         loading: boolean
         title: string
     }>(initializeState)
 
+    const handleGetList = useCallback(async () => {
+        if (
+            MemberNo &&
+            DataCode &&
+            pageState.search.startDate &&
+            pageState.search.endDate &&
+            pageState.search.page
+        ) {
+            const { status, payload } = await getMesureInfo({
+                memNo: MemberNo,
+                dataCode: DataCode,
+                startDate: pageState.search.startDate,
+                endDate: pageState.search.endDate,
+                pageNo: pageState.search.page,
+            })
+            if (status) {
+                setPageState(prevState => ({
+                    ...prevState,
+                    list: payload.MESURE_INFO_LIST,
+                }))
+            } else {
+                // FIXME: 에러처리.
+                // handlMainAlert({
+                //     state: true,
+                //     message: Messages.Default.pageError,
+                // })
+            }
+        }
+    }, [
+        DataCode,
+        MemberNo,
+        pageState.search.endDate,
+        pageState.search.page,
+        pageState.search.startDate,
+    ])
+
     useEffect(() => {
         const funcSetState = () => {
             console.debug(DataCode, Codes.myData, MemberNo)
+
+            handleGetList().then()
         }
 
         funcSetState()
-    }, [DataCode, MemberNo])
+    }, [DataCode, MemberNo, handleGetList])
 
     return (
         <>
@@ -125,30 +166,31 @@ const MemberMyDataModal = ({
                                 <TableBody>
                                     {pageState.list.length > 0 ? (
                                         pageState.list.map((el, index) => {
+                                            const MNVL = el.MNVL
+                                            const MVL = el.MVL
+                                            const MNVLMVL =
+                                                MNVL && MVL
+                                                    ? `${MNVL} ~ ${MVL}`
+                                                    : '-'
+
                                             return (
                                                 <TableBodyRow
                                                     key={`main-table-body-row-${index}`}
                                                     BgState={index % 2 === 0}>
                                                     <TableBodyCell>
-                                                        {el.CALC_DT}
+                                                        {el.MESURE_MTHD_NM}
                                                     </TableBodyCell>
                                                     <TableBodyCell>
-                                                        {el.TOT_SCORE}
+                                                        {el.MESURE_DT}
                                                     </TableBodyCell>
                                                     <TableBodyCell>
-                                                        {el.WAIST_SCORE}
+                                                        {el.DATAS}
                                                     </TableBodyCell>
                                                     <TableBodyCell>
-                                                        {el.BP_SCORE}
+                                                        {MNVLMVL}
                                                     </TableBodyCell>
                                                     <TableBodyCell>
-                                                        {el.FBS_SCORE}
-                                                    </TableBodyCell>
-                                                    <TableBodyCell>
-                                                        {el.HDLC_SCORE}
-                                                    </TableBodyCell>
-                                                    <TableBodyCell>
-                                                        {el.TG_SCORE}
+                                                        {el.MESURE_GRAD_NM}
                                                     </TableBodyCell>
                                                 </TableBodyRow>
                                             )

@@ -15,6 +15,7 @@ import { timeStringParse } from '@Helper'
 const { Detail } = ConsultDetailStyle
 
 const initializeState = {
+    memNo: null,
     MESURE_INFO: null,
     modal: {
         selectCode: null,
@@ -32,6 +33,7 @@ const initializeState = {
 const ConsultDetailTableMyData = () => {
     const detailState = useRecoilValue(ConsultDetailState)
     const [pageState, setPageState] = useState<{
+        memNo: number | null
         MESURE_INFO: MemberMesureInfoInterface | null
         modal: {
             myData: {
@@ -46,15 +48,23 @@ const ConsultDetailTableMyData = () => {
     }>(initializeState)
 
     useEffect(() => {
-        const funcSetData = (info: MemberMesureInfoInterface) => {
+        const funcSetData = (
+            info: MemberMesureInfoInterface,
+            memNo: number
+        ) => {
             setPageState(prevState => ({
                 ...prevState,
                 MESURE_INFO: info,
+                memNo: memNo,
             }))
         }
 
-        if (detailState.status === 'success' && detailState.detail) {
-            funcSetData(detailState.detail.MESURE_INFO)
+        if (
+            detailState.status === 'success' &&
+            detailState.detail &&
+            detailState.memNo
+        ) {
+            funcSetData(detailState.detail.MESURE_INFO, detailState.memNo)
         }
     }, [detailState])
 
@@ -218,7 +228,7 @@ const ConsultDetailTableMyData = () => {
                 pageState.modal.myData.selectCode &&
                 pageState.modal.myData.selectName && (
                     <MemberMyDataModal
-                        MemberNo={87335}
+                        MemberNo={pageState.memNo}
                         DataCode={pageState.modal.myData.selectCode}
                         DataName={pageState.modal.myData.selectName}
                         CancleButtonClick={() =>

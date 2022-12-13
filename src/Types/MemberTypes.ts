@@ -208,3 +208,20 @@ export interface ThptyStplatInfoInterface {
     INDVDLINFO_THIRD_AGRE_AT: 'Y' | 'N' | string
     SNSTIIVEINFO_THIRD_AGRE_AT: 'Y' | 'N' | string
 }
+
+// 상담회원 상세 리스트
+export interface MesureInfoListItemInterface {
+    MESURE_MTHD: 'M'
+    MVL: 66.7
+    MNVL: 53.65
+    DATAS: '70.0'
+    MESURE_DT: '2022-11-29 09:56'
+    MBER_NO: 87335
+    MESURE_GRAD_NM: '주의'
+    MESURE_MTHD_NM: '수기 입력'
+}
+
+export interface MesureInfoListInterface {
+    TOTAL_COUNT: number
+    MESURE_INFO_LIST: MesureInfoListItemInterface[]
+}

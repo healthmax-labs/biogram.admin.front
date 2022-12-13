@@ -4,6 +4,7 @@ import {
     ConsultInfoListInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
+    MesureInfoListInterface,
 } from '@Type/MemberTypes'
 
 export const getMemberList = ({
@@ -248,5 +249,26 @@ export const getMberCnsltlist = ({
             SEARCH_KEY: searchKey,
             RISK_FCTR: riskFctr,
         },
+    })
+}
+
+// http://58.227.2.174:24771/mber/v1/info/87335/mesure_info/6023/20221113/20221213/1
+export const getMesureInfo = ({
+    memNo,
+    dataCode,
+    startDate,
+    endDate,
+    pageNo,
+}: {
+    memNo: number
+    dataCode: string
+    startDate: string
+    endDate: string
+    pageNo: number
+}): Promise<ServicesDefaultResult<MesureInfoListInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mber/v1/info/${memNo}/mesure_info/${dataCode}/${startDate}/${endDate}/${pageNo}`,
+        payload: {},
     })
 }
