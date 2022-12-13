@@ -87,61 +87,6 @@ export const ConsultDetailStyle = {
                 }
             ),
         },
-        // MealDiary: {
-        //     RowWapper: tw.div`w-full`,
-        //     TableStep1: {
-        //         Table: tw.table`text-center min-w-full shadow-md rounded`,
-        //         Thead: tw.thead`text-xs border`,
-        //         TheadRow: tw.tr``,
-        //         TheadCell: tw.th`text-xs text-left`,
-        //         TheadCellBg: tw.th`bg-m-dip-blue text-xs text-white border`,
-        //         Body: tw.tbody``,
-        //         Row: tw.tr``,
-        //         CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
-        //         Cell: tw.td`border text-xs text-gray-500`,
-        //     },
-        //     TableStep2: {
-        //         Table: tw.table`text-center min-w-full shadow-md rounded`,
-        //         Thead: tw.thead`text-xs border`,
-        //         TheadRow: tw.tr``,
-        //         TheadCell: tw.th`text-xs text-left`,
-        //         TheadCellBg: tw.th`bg-m-dip-blue text-xs text-white`,
-        //         Body: tw.tbody``,
-        //         Row: tw.tr``,
-        //         Cell: styled.td(
-        //             ({
-        //                 Diagonal,
-        //                 Bg,
-        //             }: {
-        //                 Diagonal?: boolean
-        //                 Bg?: 'dip' | 'gray'
-        //             }) => {
-        //                 const returnCss = []
-
-        //                 returnCss.push([tw`border text-xs`])
-
-        //                 if (Diagonal) {
-        //                     returnCss.push(
-        //                         css`
-        //                             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="0" x2="100%" y2="100%" stroke="gray" /></svg>');
-        //                         `
-        //                     )
-        //                 }
-
-        //                 if (Bg === 'dip') {
-        //                     returnCss.push(tw`text-gray-500`)
-        //                 } else if (Bg === 'gray') {
-        //                     returnCss.push(tw`bg-gray-400`)
-        //                     returnCss.push(tw`text-gray-600`)
-        //                 } else {
-        //                     returnCss.push(tw`text-gray-500`)
-        //                 }
-
-        //                 return returnCss
-        //             }
-        //         ),
-        //     },
-        // },
         MealDiary: {
             RowWapper: tw.div`w-full`,
             Search: {
@@ -192,6 +137,10 @@ export const ConsultDetailStyle = {
                         return returnCss
                     }
                 ),
+            },
+            History: {
+                Wapper: tw.div`w-full`,
+                ButtonBox: tw.div`flex flex-nowrap gap-2 pt-2`,
             },
         },
         Survey: {

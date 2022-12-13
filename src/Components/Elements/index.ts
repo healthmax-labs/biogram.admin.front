@@ -4,7 +4,7 @@ export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'
 export { default as VaryButton } from './Buttons/VaryButton'
 export { default as VaryRadioButton } from './Buttons/VaryRadioButton'
-export { default as InfoButton } from './Buttons/VaryInfoButton'
+export { default as VaryInfoButton } from './Buttons/VaryInfoButton'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'

@@ -3,17 +3,50 @@ import {
     DefaultManageButton,
     VaryLabel,
     VaryLabelCheckBox,
+    VaryButton,
 } from '@Elements'
 import { gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import Slider from 'react-slick'
 const {
     Detail: D,
     Detail: {
-        MealDiary: { RowWapper, Search, TitleBox, Table: STable },
+        MealDiary: { RowWapper, Search, TitleBox, Table: STable, History },
     },
 } = ConsultDetailStyle
 
+function SampleNextArrow(props: any) {
+    const { className, style, onClick } = props
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: 'block', background: 'gray' }}
+            onClick={onClick}
+        />
+    )
+}
+
+function SamplePrevArrow(props: any) {
+    const { className, style, onClick } = props
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: 'block', background: 'gray' }}
+            onClick={onClick}
+        />
+    )
+}
+
 const ConsultDetailMealdiary = () => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+    }
     return (
         <D.Container>
             <RowWapper>
@@ -1048,6 +1081,135 @@ const ConsultDetailMealdiary = () => {
                         </STable.Row>
                     </STable.Body>
                 </STable.Table>
+            </RowWapper>
+            <RowWapper>
+                <TitleBox>일별 식사 내역 ( 11 / 05 )</TitleBox>
+                <History.Wapper>
+                    <History.ButtonBox>
+                        <VaryButton
+                            BgColor="mBBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`아침`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`오전간식`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`점심`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`오후간식`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`저녁`}
+                        />
+                        <VaryButton
+                            BgColor="mDipBlue"
+                            HandleClick={() => console.debug()}
+                            Name={`야식`}
+                        />
+                    </History.ButtonBox>
+                </History.Wapper>
+                <History.Wapper>
+                    <div className="flex flex-nowrap w-full">
+                        <div className="w-1/2">
+                            <div className="flex flex-nowrap w-full py-2">
+                                <div className="w-1/6"></div>
+                                <div className="w-4/6 text-xs">
+                                    메뉴명: 돈육 김치찌개, 밥, 콩나물
+                                </div>
+                                <div className="w-1/6"></div>
+                            </div>
+                            <div className="flex flex-nowrap w-full">
+                                <div className="w-1/6"></div>
+                                <div className="w-4/6 text-xs">
+                                    <Slider {...settings}>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" />
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            <h3>
+                                                <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" />
+                                            </h3>
+                                        </div>
+                                    </Slider>
+                                </div>
+                                <div className="w-1/6"></div>
+                            </div>
+                        </div>
+                        <div className="w-1/2">
+                            <div className="w-1/2">
+                                <STable.Table>
+                                    <STable.Body>
+                                        <STable.Row>
+                                            <STable.CellBg>
+                                                식사시간
+                                            </STable.CellBg>
+                                            <STable.CellBg>10:10</STable.CellBg>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.CellBg>
+                                                총열량
+                                            </STable.CellBg>
+                                            <STable.CellBg>
+                                                561 kcal
+                                            </STable.CellBg>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>열량</STable.Cell>
+                                            <STable.Cell>2000 kcal</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>탄수화물</STable.Cell>
+                                            <STable.Cell>10 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>단백질</STable.Cell>
+                                            <STable.Cell>4 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>지방</STable.Cell>
+                                            <STable.Cell>3 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>당류</STable.Cell>
+                                            <STable.Cell>1 g</STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell>나트륨</STable.Cell>
+                                            <STable.Cell>2 g</STable.Cell>
+                                        </STable.Row>
+                                    </STable.Body>
+                                </STable.Table>
+                            </div>
+                        </div>
+                    </div>
+                </History.Wapper>
             </RowWapper>
         </D.Container>
     )

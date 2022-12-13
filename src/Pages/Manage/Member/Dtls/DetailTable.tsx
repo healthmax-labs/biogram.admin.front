@@ -15,7 +15,7 @@ import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import {
     ConfirmModal,
     DefaultManageButton,
-    InfoButton,
+    VaryInfoButton,
     PhoneAuthModal,
     PstinstAgreeModal,
     PstinstSelector,
@@ -847,7 +847,7 @@ const DetailTable = ({
                             <VaryLabel LabelName={`내몸관리지수`} />
                         </LabelCell>
                         <InputCell>
-                            <InfoButton
+                            <VaryInfoButton
                                 ButtonName={`${
                                     detailState.detail.TOT_SCORE
                                         ? detailState.detail.TOT_SCORE
@@ -870,7 +870,7 @@ const DetailTable = ({
                             <VaryLabel LabelName={`캐쉬`} />
                         </LabelCell>
                         <InputCell>
-                            <InfoButton
+                            <VaryInfoButton
                                 ButtonName={`${
                                     detailState.detail.TOT_CASH
                                         ? detailState.detail.TOT_CASH
