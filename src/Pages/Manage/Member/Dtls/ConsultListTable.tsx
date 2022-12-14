@@ -27,7 +27,7 @@ const ConsultListTable = () => {
         useState<tableOptionInterface>(ConsultTableConfig)
 
     const handleRowClick = (element: ConsulttableListItemInterface) => {
-        if (detailState.MBER_NO !== element.MBER_NO) {
+        if (detailState.memNo !== element.MBER_NO) {
             detailReset()
         }
 

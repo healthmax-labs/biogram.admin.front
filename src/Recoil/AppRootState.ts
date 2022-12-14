@@ -50,12 +50,13 @@ export const AtomRootState = atom<AppRootStateInterface>({
 export const SelectRootState = selector({
     key: `app/SelectRootState`,
     get: ({ get }) => {
-        const { uuid, Geolocation, ConHistory } = get(AtomRootState)
+        const { uuid, Geolocation, ConHistory, userinfo } = get(AtomRootState)
 
         return {
             uuid,
             Geolocation,
             ConHistory,
+            userinfo,
         }
     },
 })

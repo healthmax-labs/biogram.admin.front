@@ -34,7 +34,7 @@ export { default as VaryModal } from './Modals/VaryModal'
 export { default as PstinstAgreeModal } from './Modals/PstinstAgreeModal'
 export { default as TotalScoreModal } from './Modals/TotalScoreModal'
 export { default as TotalCashModal } from './Modals/TotalCashModal'
-export { default as MemberMyDataModal } from './Modals/MemberMyDataModal'
+export { default as MemberMyDataModal } from './Modals/MemberMyDataHistoryModal'
 export { default as MemberMyDataInputModal } from './Modals/MemberMyDataInputModal'
 
 export { default as DefaultPagination } from './Paginations/DefaultPagination'

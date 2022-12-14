@@ -10,7 +10,7 @@ import {
     saveLoginToken,
     storageMaster,
 } from '@Helper'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNull } from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
 import { useCallback } from 'react'
 import Const from '@Const'
@@ -138,7 +138,7 @@ export default function useAuth() {
                 userinfo: {
                     USID: !isEmpty(USID) ? USID : null,
                     NM: !isEmpty(NM) ? NM : null,
-                    MBER_NO: !isEmpty(MBER_NO) ? MBER_NO : null,
+                    MBER_NO: !isNull(MBER_NO) ? MBER_NO : null,
                     AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                     INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
                 },
