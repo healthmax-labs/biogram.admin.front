@@ -7,7 +7,10 @@ import { getMemberInfo } from '@Service/MemberService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 import { useSetRecoilState } from 'recoil'
-import { ConsultDetailState } from '@Recoil/MemberPagesState'
+import {
+    ConsultDetailChartState,
+    ConsultDetailState,
+} from '@Recoil/MemberPagesState'
 
 const {
     DetailPage: { Container, ChartLeftWapper, ChartRightWapper },
@@ -17,6 +20,7 @@ const ConsultDetailMain = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const { handlMainAlert } = useMainLayouts()
     const setConsultDetail = useSetRecoilState(ConsultDetailState)
+    const setConsultChart = useSetRecoilState(ConsultDetailChartState)
 
     const handleGetMemberInfo = useCallback(async () => {
         if (memNo) {
@@ -53,12 +57,24 @@ const ConsultDetailMain = () => {
     useEffect(() => {
         const pageStart = () => {
             if (memNo) {
+                setConsultChart(() => ({
+                    CNST: null,
+                    MBER_NO: Number(memNo),
+                    PLN: null,
+                    REG_NM: null,
+                    CNST_NO: null,
+                    MNG_ID: null,
+                    MNG_NM: null,
+                    MOD_DT: null,
+                    MOD_MNG_NM: null,
+                    REGDT: null,
+                }))
                 handleGetMemberInfo().then()
             }
         }
 
         pageStart()
-    }, [handleGetMemberInfo, memNo])
+    }, [handleGetMemberInfo, memNo, setConsultChart])
     return (
         <Container>
             <ChartLeftWapper>

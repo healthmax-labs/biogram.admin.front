@@ -4,9 +4,23 @@ import {
     ElementLoading,
     VaryDatepickerInput,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
-import React, { useState } from 'react'
+import {
+    changeDatePickerDate,
+    getNowDate,
+    getOneMonthAgo,
+    gmtTimeToTimeObject,
+    timeStringParse,
+} from '@Helper'
+import React, { useCallback, useEffect } from 'react'
 import Messages from '@Messages'
+import { useParams } from 'react-router-dom'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import {
+    ConsultDetailChartListState,
+    ConsultDetailChartState,
+} from '@Recoil/MemberPagesState'
+import { postManageCounsel } from '@Service/MemberService'
+import { ManageCounselItemInterface } from '@Type/MemberTypes'
 
 const {
     HeaderRow,
@@ -19,36 +33,140 @@ const {
 } = CommonListTableStyle
 
 const ConsultDetailChart = () => {
-    const [pageState] = useState<{
-        loading: boolean
-        list: Array<{
-            step1: string
-            step2: string
-            step3: string
-            step4: string
-            step5: string
-            step6: string
-            step7: string
-        }>
-    }>({
-        loading: false,
-        list: [],
-    })
+    const { memNo } = useParams<{ memNo: string }>()
+
+    const [chartState, setChartState] = useRecoilState(
+        ConsultDetailChartListState
+    )
+    const setConsultChart = useSetRecoilState(ConsultDetailChartState)
+
+    const handleGetList = useCallback(async () => {
+        if (
+            chartState.status === 'success' &&
+            chartState.search.mberNo &&
+            chartState.search.endDt &&
+            chartState.search.startDt
+        ) {
+            setChartState(prevState => ({
+                ...prevState,
+                listStatus: 'loading',
+            }))
+            const { status, payload } = await postManageCounsel({
+                MBER_NO: chartState.search.mberNo,
+                END_DT: chartState.search.endDt,
+                START_DT: chartState.search.startDt,
+            })
+
+            if (status) {
+                const { CHART_LIST } = payload
+                setChartState(prevState => ({
+                    ...prevState,
+                    listStatus: 'success',
+                    list: CHART_LIST,
+                }))
+            } else {
+                // FIXME: 에러 처리
+                setChartState(prevState => ({
+                    ...prevState,
+                    listStatus: 'failure',
+                }))
+            }
+        }
+    }, [
+        chartState.search.endDt,
+        chartState.search.mberNo,
+        chartState.search.startDt,
+        chartState.status,
+        setChartState,
+    ])
+
+    const handleRowClick = (element: ManageCounselItemInterface) => {
+        setConsultChart(prevState => ({
+            ...prevState,
+            CNST: element.CNST,
+            PLN: element.PLN,
+            REG_NM: element.REG_NM,
+            CNST_NO: element.CNST_NO,
+            MNG_ID: element.MNG_ID,
+            MNG_NM: element.MNG_NM,
+            MOD_DT: element.MOD_DT,
+            MOD_MNG_NM: element.MOD_MNG_NM,
+            REGDT: element.REGDT,
+        }))
+    }
+
+    useEffect(() => {
+        const pageStart = () => {
+            if (memNo && chartState.status === 'idle') {
+                setChartState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                    search: {
+                        endDt: getNowDate(),
+                        startDt: getOneMonthAgo(),
+                        mberNo: memNo,
+                    },
+                }))
+            }
+        }
+
+        pageStart()
+    }, [chartState.status, setChartState, memNo])
+
+    useEffect(() => {
+        const funcGetList = () => {
+            handleGetList().then()
+        }
+
+        if (
+            chartState.status === 'success' &&
+            chartState.listStatus === 'idle'
+        ) {
+            funcGetList()
+        }
+    }, [chartState, handleGetList])
+
     return (
         <div className="">
             <div className="flex flex-nowrap">
                 <div className="flex py-2 items-center w-1/3 justify-start">
                     <VaryDatepickerInput
+                        Value={
+                            chartState.status === 'success' &&
+                            chartState.search.startDt
+                                ? changeDatePickerDate(
+                                      chartState.search.startDt
+                                  )
+                                : new Date()
+                        }
                         CallBackReturn={e => {
                             const dateObj = gmtTimeToTimeObject(e)
-                            console.debug(dateObj)
+                            setChartState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    startDt: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                },
+                            }))
                         }}
                     />
                     ~
                     <VaryDatepickerInput
+                        Value={
+                            chartState.status === 'success' &&
+                            chartState.search.endDt
+                                ? changeDatePickerDate(chartState.search.endDt)
+                                : new Date()
+                        }
                         CallBackReturn={e => {
                             const dateObj = gmtTimeToTimeObject(e)
-                            console.debug(dateObj)
+                            setChartState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    endDt: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                },
+                            }))
                         }}
                     />
                 </div>
@@ -56,9 +174,7 @@ const ConsultDetailChart = () => {
                     <div className="flex py-2">
                         <DefaultManageButton
                             ButtonName={'조회'}
-                            ButtonClick={() =>
-                                console.debug('DefaultManageButton')
-                            }
+                            ButtonClick={() => handleGetList().then()}
                         />
                     </div>
                     <div className="flex py-2">
@@ -75,7 +191,7 @@ const ConsultDetailChart = () => {
                     </div>
                 </div>
             </div>
-            {pageState.loading ? (
+            {chartState.listStatus === 'loading' ? (
                 <div className="h-[calc(100vh-10rem)]">
                     <ElementLoading FullScreen={false} />
                 </div>
@@ -94,33 +210,31 @@ const ConsultDetailChart = () => {
                         </HeaderRow>
                     </TableHeader>
                     <TableBody>
-                        {pageState.list.length > 0 ? (
-                            pageState.list.map((el, index) => {
+                        {chartState.list.length > 0 ? (
+                            chartState.list.map((el, index) => {
                                 return (
                                     <TableBodyRow
                                         key={`main-table-body-row-${index}`}
-                                        BgState={index % 2 === 0}>
+                                        BgState={index % 2 === 0}
+                                        onClick={() => handleRowClick(el)}>
+                                        <TableBodyCell></TableBodyCell>
                                         <TableBodyCell>
-                                            {el.step1}
+                                            {timeStringParse(el.REGDT)}
                                         </TableBodyCell>
                                         <TableBodyCell>
-                                            {el.step2}
+                                            {el.MNG_ID}
                                         </TableBodyCell>
                                         <TableBodyCell>
-                                            {el.step3}
+                                            {el.REG_NM}
                                         </TableBodyCell>
                                         <TableBodyCell>
-                                            {el.step4}
+                                            {timeStringParse(el.MOD_DT)}
                                         </TableBodyCell>
                                         <TableBodyCell>
-                                            {el.step5}
+                                            {el.MOD_MNG_NM}
                                         </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step6}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step7}
-                                        </TableBodyCell>
+                                        <TableBodyCell>{el.CNST}</TableBodyCell>
+                                        <TableBodyCell>{el.PLN}</TableBodyCell>
                                     </TableBodyRow>
                                 )
                             })

@@ -61,6 +61,10 @@ export default {
         },
         consult: {
             mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
+            chartSaveEmptyRegNm: `작성자 이름을 입력해 주세요`,
+            chartSaveEmptyCnst: `상담 내역을 입력해 주세요`,
+            chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
+            chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
         },
     },
 }
