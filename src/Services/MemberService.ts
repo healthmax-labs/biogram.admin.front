@@ -2,6 +2,7 @@ import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
+    ManageCounselInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
@@ -416,6 +417,89 @@ export const postDataMesureInfoManual = ({
                     TG, //중성지방
                 },
             ],
+        },
+    })
+}
+
+/**
+ * 상담 차트 리스트
+ * @param END_DT
+ * @param MBER_NO
+ * @param START_DT
+ */
+export const postManageCounsel = ({
+    END_DT,
+    MBER_NO,
+    START_DT,
+}: {
+    END_DT: string
+    MBER_NO: string
+    START_DT: string
+}): Promise<ServicesDefaultResult<ManageCounselInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/manage/v1/counsel`,
+        payload: {
+            END_DT,
+            MBER_NO,
+            START_DT,
+        },
+    })
+}
+
+/**
+ * 상담 차트 작성
+ * @param CNST
+ * @param MBER_NO
+ * @param PLN
+ * @param REG_NM
+ */
+export const postManageaddCounsel = ({
+    CNST,
+    MBER_NO,
+    PLN,
+    REG_NM,
+}: {
+    CNST: string
+    MBER_NO: string
+    PLN: string
+    REG_NM: string
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/manage/v1/add_counsel`,
+        payload: {
+            CNST,
+            MBER_NO,
+            PLN,
+            REG_NM,
+        },
+    })
+}
+
+// /manage/v1/update_counsel
+export const postManageUpdateCounsel = ({
+    CNST,
+    CNST_NO,
+    MBER_NO,
+    PLN,
+    REG_NM,
+}: {
+    CNST: string
+    CNST_NO: string
+    MBER_NO: string
+    PLN: string
+    REG_NM: string
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/manage/v1/update_counsel`,
+        payload: {
+            CNST,
+            CNST_NO,
+            MBER_NO,
+            PLN,
+            REG_NM,
         },
     })
 }

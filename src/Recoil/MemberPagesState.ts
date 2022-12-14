@@ -3,6 +3,7 @@ import { MemberDetailInterface } from '@Type/PageStateType'
 import { DefaultStatus } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
+    ManageCounselItemInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
@@ -30,6 +31,32 @@ interface ConsultListInterface {
         riskFctr: string | null
     }
     list: ConsultInfoListInterface
+}
+
+// 상담 차트 리스트
+interface ConsultChartListInterface {
+    status: DefaultStatus
+    listStatus: DefaultStatus
+    search: {
+        endDt: string | null
+        mberNo: string | null
+        startDt: string | null
+    }
+    list: ManageCounselItemInterface[]
+}
+
+// 상담 차트 작성
+interface ConsultChartInterface {
+    CNST: string | null
+    MBER_NO: number | null
+    PLN: string | null
+    REG_NM: string | null
+    CNST_NO: number | null
+    MNG_ID: string | null
+    MNG_NM: string | null
+    MOD_DT: string | null
+    MOD_MNG_NM: string | null
+    REGDT: string | null
 }
 
 // 회원 상세
@@ -221,5 +248,37 @@ export const ConsultDetailState = atom<ConsultDetailInterface>({
         status: 'idle',
         memNo: null,
         detail: null,
+    },
+})
+
+// 상담 차트 리스트
+export const ConsultDetailChartListState = atom<ConsultChartListInterface>({
+    key: `memberPage/consult-chart-list`,
+    default: {
+        status: 'idle',
+        listStatus: 'idle',
+        search: {
+            endDt: null,
+            mberNo: null,
+            startDt: null,
+        },
+        list: [],
+    },
+})
+
+// 상담 차트
+export const ConsultDetailChartState = atom<ConsultChartInterface>({
+    key: `memberPage/consult-chart`,
+    default: {
+        CNST: null,
+        MBER_NO: null,
+        PLN: null,
+        REG_NM: null,
+        CNST_NO: null,
+        MNG_ID: null,
+        MNG_NM: null,
+        MOD_DT: null,
+        MOD_MNG_NM: null,
+        REGDT: null,
     },
 })

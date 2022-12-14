@@ -209,7 +209,7 @@ export interface ThptyStplatInfoInterface {
     SNSTIIVEINFO_THIRD_AGRE_AT: 'Y' | 'N' | string
 }
 
-// 상담회원 상세 리스트
+// 상담회원 상세 리스트 아이템
 export interface MesureInfoListItemInterface {
     MESURE_MTHD: 'M' | 'D'
     MVL: number
@@ -221,7 +221,26 @@ export interface MesureInfoListItemInterface {
     MESURE_MTHD_NM: string
 }
 
+// 상담회원 상세 리스트
 export interface MesureInfoListInterface {
     TOTAL_COUNT: number
     MESURE_INFO_LIST: MesureInfoListItemInterface[]
+}
+
+// 상담차트 리스트
+export interface ManageCounselItemInterface {
+    CNST_NO: number
+    REG_NM: string
+    MOD_MNG_NM: string
+    MOD_DT: string
+    CNST: string
+    PLN: string
+    MNG_ID: string
+    REGDT: string
+    MNG_NM: string
+    MBER_NO: number
+}
+
+export interface ManageCounselInterface {
+    CHART_LIST: ManageCounselItemInterface[]
 }
