@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from 'react'
-import { InputWidthType, ContentType, InputBgColorType } from '@CommonTypes'
+import { ContentType, InputBgColorType, InputWidthType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
 
@@ -26,7 +26,7 @@ const VaryInput = ({
     Bg?: InputBgColorType
     Ref?: any
     InputType?: string
-    Placeholder: string
+    Placeholder?: string
     Value: string | number
     id?: string
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -56,7 +56,7 @@ const VaryInput = ({
                 ref={Ref}
                 type={!isEmpty(InputType) ? InputType : 'text'}
                 id={id ? id : 'search'}
-                placeholder={Placeholder}
+                placeholder={Placeholder ? Placeholder : ''}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     HandleOnChange(e)
                 }

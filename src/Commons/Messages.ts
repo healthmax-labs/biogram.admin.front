@@ -9,6 +9,7 @@ export default {
         notAllAgree: `모든 약관에 동의 해야 합니다.`,
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
+        memberConfirmMesure: `수기입력을 하시겠습니까?`,
         phoneAuth: {
             authYet: `인증 되지 않은 휴대폰 번호 입니다.`,
             duplicate: `중복된 번호 입니다. 본인 번호가 맞습니까?`,

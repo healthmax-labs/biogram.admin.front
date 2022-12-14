@@ -252,7 +252,14 @@ export const getMberCnsltlist = ({
     })
 }
 
-// http://58.227.2.174:24771/mber/v1/info/87335/mesure_info/6023/20221113/20221213/1
+/**
+ * 상담회원 상세 히스토리.
+ * @param memNo
+ * @param dataCode
+ * @param startDate
+ * @param endDate
+ * @param pageNo
+ */
 export const getMesureInfo = ({
     memNo,
     dataCode,
@@ -270,5 +277,39 @@ export const getMesureInfo = ({
         method: 'get',
         url: `/mber/v1/info/${memNo}/mesure_info/${dataCode}/${startDate}/${endDate}/${pageNo}`,
         payload: {},
+    })
+}
+
+/**
+ * 상담회원 히스토리 데이터 수기 입력
+ * @param MBER_NO
+ * @param MESURE_CODE
+ * @param MESURE_DATA
+ * @param MESURE_DT
+ * @param REGIST_MBER_NO
+ */
+export const postDataMesureInfoManualUpdate = ({
+    MBER_NO,
+    MESURE_CODE,
+    MESURE_DATA,
+    MESURE_DT,
+    REGIST_MBER_NO,
+}: {
+    MBER_NO: number
+    MESURE_CODE: string
+    MESURE_DATA: string
+    MESURE_DT: string
+    REGIST_MBER_NO: number | null
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/mesure_info/manual/update`,
+        payload: {
+            MBER_NO,
+            MESURE_CODE,
+            MESURE_DATA,
+            MESURE_DT,
+            REGIST_MBER_NO,
+        },
     })
 }

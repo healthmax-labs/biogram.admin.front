@@ -57,13 +57,13 @@ const VaryDatepickerInput = ({
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
 }) => {
-    const [selectDate, setSelectDate] = useState(new Date())
+    const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
 
     useEffect(() => {
-        if (Value) {
+        if (Value && selectDate.getTime() !== Value?.getTime()) {
             setSelectDate(Value)
         }
-    }, [Value])
+    }, [Value, selectDate])
 
     useEffect(() => {
         if (CallBackReturn && selectDate.getTime() !== Value?.getTime()) {

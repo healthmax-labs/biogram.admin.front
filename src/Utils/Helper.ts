@@ -364,11 +364,66 @@ export const gmtTimeToTimeObject = (
     }
 }
 
-export const timeStringParse = (str: string) => {
+/**
+ * 20221214112300 -> 2022-12-14 11:23:00
+ * 14자리 날짜 변환
+ * @param str
+ */
+export const timeStringParse = (str: string): string | boolean => {
     if (str.length !== 14) return false
 
     return str.replace(
         /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
         '$1-$2-$3 $4:$5:$6'
     )
+}
+
+/**
+ * 2022-12-14 11:23:00 -> 20221214112300
+ * 16자리 날짜 변환
+ * @param str
+ */
+export const timeStringToParse = (str: string): string | boolean => {
+    const date = new Date(str)
+    console.debug(date)
+
+    return 'dsfsd'
+}
+
+/**
+ * 한달전 날짜.
+ */
+export const getOneMonthAgo = () => {
+    const date = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() - 1,
+        new Date().getDate()
+    )
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+    return year + '' + month + '' + day
+}
+
+/**
+ * 오늘 날짜.
+ */
+export const getNowDate = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+    return year + '' + month + '' + day
+}
+
+export const changeDatePickerDate = (dateString: string) => {
+    const year = dateString.substring(0, 4)
+    const month = dateString.substring(4, 6)
+    const day = dateString.substring(6, 8)
+
+    return new Date(Number(year), Number(Number(month) - 1), Number(day))
 }

@@ -211,14 +211,14 @@ export interface ThptyStplatInfoInterface {
 
 // 상담회원 상세 리스트
 export interface MesureInfoListItemInterface {
-    MESURE_MTHD: 'M'
-    MVL: 66.7
-    MNVL: 53.65
-    DATAS: '70.0'
-    MESURE_DT: '2022-11-29 09:56'
-    MBER_NO: 87335
-    MESURE_GRAD_NM: '주의'
-    MESURE_MTHD_NM: '수기 입력'
+    MESURE_MTHD: 'M' | 'D'
+    MVL: number
+    MNVL: number
+    DATAS: string
+    MESURE_DT: string
+    MBER_NO: number
+    MESURE_GRAD_NM: string
+    MESURE_MTHD_NM: string
 }
 
 export interface MesureInfoListInterface {

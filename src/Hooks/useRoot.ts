@@ -6,7 +6,7 @@ import { AtomRootState } from '@Recoil/AppRootState'
 import { v4 as uuid } from 'uuid'
 import { getGeolocation } from '@Service/EtcService'
 import { useAuth } from '@Hooks'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNull } from 'lodash'
 
 export default function useRoot() {
     const setAppRootState = useSetRecoilState(AtomRootState)
@@ -94,7 +94,7 @@ export default function useRoot() {
                 userinfo: {
                     USID: !isEmpty(USID) ? USID : null,
                     NM: !isEmpty(NM) ? NM : null,
-                    MBER_NO: !isEmpty(MBER_NO) ? MBER_NO : null,
+                    MBER_NO: !isNull(MBER_NO) ? MBER_NO : null,
                     AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                     INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
                 },
