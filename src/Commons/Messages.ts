@@ -59,5 +59,8 @@ export default {
             newConfirm: `소속 정보를 저장 하시겠습니까?`,
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
         },
+        consult: {
+            mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
+        },
     },
 }

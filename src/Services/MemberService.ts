@@ -313,3 +313,109 @@ export const postDataMesureInfoManualUpdate = ({
         },
     })
 }
+
+/**
+ * 상담회원 MyData 수기 입력
+ * @param MBER_NO
+ * @param REGIST_MBER_NO
+ * @param MESURE_DE
+ * @param MESURE_TIME
+ * @param SLM
+ * @param PBF
+ * @param VFL
+ * @param EST_BN_MAS
+ * @param BMI
+ * @param HEIGHT
+ * @param BDWGH
+ * @param WAIST_CRCMFRNC
+ * @param BDHEAT
+ * @param SYSTOLIC
+ * @param DIASTOLIC
+ * @param PULS
+ * @param FBS
+ * @param PP2
+ * @param T_CHOL
+ * @param HDLC
+ * @param LDLC
+ * @param TG
+ */
+export const postDataMesureInfoManual = ({
+    MBER_NO,
+    REGIST_MBER_NO,
+    MESURE_DE,
+    MESURE_TIME,
+    SLM,
+    PBF,
+    VFL,
+    EST_BN_MAS,
+    BMI,
+    HEIGHT,
+    BDWGH,
+    WAIST_CRCMFRNC,
+    BDHEAT,
+    SYSTOLIC,
+    DIASTOLIC,
+    PULS,
+    FBS,
+    PP2,
+    T_CHOL,
+    HDLC,
+    LDLC,
+    TG,
+}: {
+    MBER_NO: number
+    REGIST_MBER_NO: number // 작성자 회원번호
+    MESURE_DE: string // 측정일
+    MESURE_TIME: string //측정시분초
+    SLM: string // 근육량
+    PBF: string // 체지방률
+    VFL: string // 내장지방(레벨)
+    EST_BN_MAS: string // 추정골량
+    BMI: string // BMI
+    HEIGHT: string // 신장
+    BDWGH: string //몸무게
+    WAIST_CRCMFRNC: string // 허리둘레
+    BDHEAT: string //체온
+    SYSTOLIC: string // 수축기
+    DIASTOLIC: string /// 이완기
+    PULS: string // 맥박
+    FBS?: string // 식전혈당
+    PP2?: string //식후혈당
+    T_CHOL: string // 총콜레스테롤
+    HDLC: string //HDLC
+    LDLC: string //LDLC
+    TG: string //중성지방
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/mesure_info/manual`,
+        payload: {
+            MBER_NO: MBER_NO,
+            MESURE_DATA: [
+                {
+                    REGIST_MBER_NO, // 작성자 회원번호
+                    MESURE_DE, // 측정일
+                    MESURE_TIME, //측정시분초
+                    SLM, // 근육량
+                    PBF, // 체지방률
+                    VFL, // 내장지방(레벨)
+                    EST_BN_MAS, // 추정골량
+                    BMI, // BMI
+                    HEIGHT, // 신장
+                    BDWGH, //몸무게
+                    WAIST_CRCMFRNC, // 허리둘레
+                    BDHEAT, //체온
+                    SYSTOLIC, // 수축기
+                    DIASTOLIC, /// 이완기
+                    PULS, // 맥박
+                    FBS, // 식전혈당
+                    PP2, //식후혈당
+                    T_CHOL, // 총콜레스테롤
+                    HDLC, //HDLC
+                    LDLC, //LDLC
+                    TG, //중성지방
+                },
+            ],
+        },
+    })
+}

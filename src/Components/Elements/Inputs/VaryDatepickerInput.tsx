@@ -58,12 +58,15 @@ const VaryDatepickerInput = ({
     CallBackReturn?: (e: Date) => void
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
+    const [dateFormat, setDateFormat] = useState(`yyyy/MM/dd`)
 
     useEffect(() => {
         if (Value && selectDate.getTime() !== Value?.getTime()) {
             setSelectDate(Value)
         }
-    }, [Value, selectDate])
+        // FIXME : 종속성에서 selectDate 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [Value])
 
     useEffect(() => {
         if (CallBackReturn && selectDate.getTime() !== Value?.getTime()) {
@@ -74,18 +77,38 @@ const VaryDatepickerInput = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectDate])
 
+    useEffect(() => {
+        if (ContentsType === 'search') {
+            return
+        }
+
+        if (ContentsType === 'default') {
+            if (DateFormat) {
+                setDateFormat(DateFormat)
+            } else {
+                setDateFormat(`yyyy년 MM월 dd일`)
+            }
+        }
+
+        if (ContentsType === 'time') {
+            if (DateFormat) {
+                setDateFormat(DateFormat)
+            } else {
+                setDateFormat(`h:mm`)
+            }
+        }
+    }, [ContentsType, DateFormat])
+
     return (
         <DatePicker
             selected={selectDate}
             onChange={(date: Date) => setSelectDate(date)}
-            dateFormat={
-                ContentsType === 'search'
-                    ? `yyyy/MM/dd`
-                    : DateFormat
-                    ? DateFormat
-                    : `yyyy년 MM월 dd일`
-            }
+            dateFormat={dateFormat}
             locale={ko}
+            showTimeSelect={ContentsType === 'time'}
+            showTimeSelectOnly={ContentsType === 'time'}
+            timeIntervals={ContentsType === 'time' ? 1 : 15}
+            timeCaption={ContentsType === 'time' ? '시간' : ''}
             customInput={
                 ContentsType === 'search'
                     ? React.createElement(React.forwardRef(SearchInput))
