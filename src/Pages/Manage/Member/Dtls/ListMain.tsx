@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { ListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -18,7 +17,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const ListMain = () => {
     const [listState, setListState] = useRecoilState(ListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getList = useCallback(async () => {
         setListState(prevState => ({
@@ -55,12 +53,8 @@ const ListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            // handlMainAlert({
-            //     state: true,
-            //     message: Messages.Default.stplatSuccess,
-            // })
         }
-    }, [handlMainAlert, listState, setListState])
+    }, [listState, setListState])
 
     useEffect(() => {
         const pageStart = () => {
