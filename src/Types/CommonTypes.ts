@@ -291,3 +291,21 @@ export interface SiGunGuCodeInterface {
     IEM_CODE_LIST: SiGunGuCodeItemInterface[]
     RequestVO: null
 }
+
+export interface SendSmsItemInterface {
+    MBER_NO: string
+    NM: string
+    USID: string
+    MBTLNUM: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    SV00_NTCN_AT: 'Y' | 'N'
+}
+
+export interface SendSmsInterface {
+    SMS_SJ: string
+    SMS_CN: string
+    SNDNG_NO: string
+    SNDNG_DT: string
+    SEND_ALL_MBER: 'N' | 'Y'
+    SEND_MBER_INFO_LIST: SendSmsItemInterface[]
+}

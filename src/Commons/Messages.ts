@@ -10,6 +10,12 @@ export default {
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
         memberConfirmMesure: `수기입력을 하시겠습니까?`,
+        sms: {
+            smsSj: `관리자 페이지 메세지 전송`,
+            sendConfirm: `메시지를 발송 하시겠습니까?`,
+            sendContentEmpty: `내용을 입력해 주세요`,
+            sendSndngNoEmpty: `발신번호를 입력해 주세요`,
+        },
         phoneAuth: {
             authYet: `인증 되지 않은 휴대폰 번호 입니다.`,
             duplicate: `중복된 번호 입니다. 본인 번호가 맞습니까?`,

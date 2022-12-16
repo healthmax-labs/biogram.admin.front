@@ -1,5 +1,5 @@
 import { _Axios_ } from '@Modules'
-import { ServicesDefaultResult } from '@Type/CommonTypes'
+import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselInterface,
@@ -477,7 +477,14 @@ export const postManageaddCounsel = ({
     })
 }
 
-// /manage/v1/update_counsel
+/**
+ * 상담 차트 수정.
+ * @param CNST
+ * @param CNST_NO
+ * @param MBER_NO
+ * @param PLN
+ * @param REG_NM
+ */
 export const postManageUpdateCounsel = ({
     CNST,
     CNST_NO,
@@ -500,6 +507,37 @@ export const postManageUpdateCounsel = ({
             MBER_NO,
             PLN,
             REG_NM,
+        },
+    })
+}
+
+/**
+ * 회원 메지시 보내기
+ * @param SMS_SJ
+ * @param SMS_CN
+ * @param SNDNG_NO
+ * @param SNDNG_DT
+ * @param SEND_ALL_MBER
+ * @param SEND_MBER_INFO_LIST
+ */
+export const mberSendSms = ({
+    SMS_SJ,
+    SMS_CN,
+    SNDNG_NO,
+    SNDNG_DT,
+    SEND_ALL_MBER,
+    SEND_MBER_INFO_LIST,
+}: SendSmsInterface): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/send/sms`,
+        payload: {
+            SMS_SJ,
+            SMS_CN,
+            SNDNG_NO,
+            SNDNG_DT,
+            SEND_ALL_MBER,
+            SEND_MBER_INFO_LIST,
         },
     })
 }
