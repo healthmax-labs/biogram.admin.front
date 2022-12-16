@@ -146,4 +146,31 @@ export default {
             ],
         },
     ],
+    RIKS_CODE: [
+        {
+            name: `위험요인`,
+            key: 'RIKS_FCTR',
+            list: [
+                { code: 'WS', name: '허리둘레' },
+                { code: 'BP', name: '혈압' },
+                { code: 'BS', name: '혈당' },
+                { code: 'TG', name: '중성지방' },
+                { code: 'HD', name: 'HDLC' },
+                //이하 미정
+                { code: 'BMI', name: 'BMI' },
+                { code: 'PP2', name: '식후혈당' },
+                { code: 'ST', name: '스트레스' },
+            ],
+        },
+        {
+            name: `복약정보`,
+            key: 'TAKNG_MDCIN',
+            list: [
+                { code: 'OB', name: '비만' },
+                { code: 'HP', name: '고혈압' },
+                { code: 'DB', name: '당뇨' },
+                { code: 'DP', name: '고지혈' },
+            ],
+        },
+    ],
 }
