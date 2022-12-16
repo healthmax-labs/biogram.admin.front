@@ -154,10 +154,10 @@ export default {
             ],
         },
     ],
-    RIKS_CODE: [
+    riksCode: [
         {
             name: `위험요인`,
-            key: 'RIKS_FCTR',
+            key: 'riksDctr',
             list: [
                 { code: 'WS', name: '허리둘레' },
                 { code: 'BP', name: '혈압' },
@@ -172,7 +172,7 @@ export default {
         },
         {
             name: `복약정보`,
-            key: 'TAKNG_MDCIN',
+            key: 'takngMdcin',
             list: [
                 { code: 'OB', name: '비만' },
                 { code: 'HP', name: '고혈압' },
