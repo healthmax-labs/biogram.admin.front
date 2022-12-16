@@ -7,7 +7,6 @@ import ListTable from '@Page/Manage/Inst/Dtls/InstListTable'
 import { getInstList } from '@Service/InstService'
 import { useRecoilState } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -16,7 +15,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const InstListMain = () => {
     const [listState, setListState] = useRecoilState(InstListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         setListState(prevState => ({
@@ -36,12 +34,8 @@ const InstListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            // handlMainAlert({
-            //     state: true,
-            //     message: Messages.Default.stplatSuccess,
-            // })
         }
-    }, [handlMainAlert, setListState])
+    }, [setListState])
 
     useEffect(() => {
         const pageStart = () => {

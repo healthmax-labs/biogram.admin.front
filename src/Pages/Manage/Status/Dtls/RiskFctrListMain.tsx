@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -19,8 +18,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const RiskFctrListMain = () => {
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
-    const { handlMainAlert } = useMainLayouts()
-
     const getTableList = useCallback(async () => {
         const {
             search: {
@@ -61,12 +58,8 @@ const RiskFctrListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            // handlMainAlert({
-            //     state: true,
-            //     message: Messages.Default.processFail,
-            // })
         }
-    }, [handlMainAlert, riskFctrListState, setRiskFctrListState])
+    }, [riskFctrListState, setRiskFctrListState])
 
     useEffect(() => {
         const pageStart = () => {

@@ -8,7 +8,6 @@ import { getMagazineList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { MagazineListState } from '@Recoil/ContentsPagesState'
 import { isNull } from 'lodash'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -18,7 +17,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const InitListMain = () => {
     const [magazineListState, setMagazineListState] =
         useRecoilState(MagazineListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         setMagazineListState(prevState => ({
@@ -47,12 +45,8 @@ const InitListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            // handlMainAlert({
-            //     state: true,
-            //     message: Messages.Default.processFail,
-            // })
         }
-    }, [handlMainAlert, magazineListState, setMagazineListState])
+    }, [magazineListState, setMagazineListState])
 
     useEffect(() => {
         const pageStart = () => {
