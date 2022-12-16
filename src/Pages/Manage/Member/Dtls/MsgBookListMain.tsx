@@ -9,8 +9,6 @@ import { useRecoilState } from 'recoil'
 import { MsgBookListState } from '@Recoil/MsgPagesState'
 import { isNull } from 'lodash'
 // import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -20,7 +18,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const MsgBookListMain = () => {
     const [msgBookListState, setMsgBookListState] =
         useRecoilState(MsgBookListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
@@ -57,12 +54,8 @@ const MsgBookListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, msgBookListState, setMsgBookListState])
+    }, [msgBookListState, setMsgBookListState])
 
     useEffect(() => {
         const pageStart = () => {

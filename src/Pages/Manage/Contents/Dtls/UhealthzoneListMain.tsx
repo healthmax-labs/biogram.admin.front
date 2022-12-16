@@ -8,8 +8,6 @@ import { getUhealthzoneList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { UhealthzoneListState } from '@Recoil/ContentsPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -19,7 +17,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const InitListMain = () => {
     const [uhealthzoneListState, setUhealthzoneListState] =
         useRecoilState(UhealthzoneListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         setUhealthzoneListState(prevState => ({
@@ -48,12 +45,8 @@ const InitListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, uhealthzoneListState, setUhealthzoneListState])
+    }, [uhealthzoneListState, setUhealthzoneListState])
 
     useEffect(() => {
         const pageStart = () => {

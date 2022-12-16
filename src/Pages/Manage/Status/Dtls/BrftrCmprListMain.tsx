@@ -9,8 +9,6 @@ import { useRecoilState } from 'recoil'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -20,7 +18,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const BrftrCmprListMain = () => {
     const [brftrCmprListState, setBrftrCmprListState] =
         useRecoilState(BrftrCmprListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
@@ -49,12 +46,8 @@ const BrftrCmprListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, brftrCmprListState, setBrftrCmprListState])
+    }, [brftrCmprListState, setBrftrCmprListState])
 
     useEffect(() => {
         const pageStart = () => {

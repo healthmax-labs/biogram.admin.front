@@ -9,8 +9,6 @@ import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -21,7 +19,6 @@ const ActivityWalkListMain = () => {
     const [activityWalkListState, setActivityWalkListState] = useRecoilState(
         ActivityWalkListState
     )
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
@@ -50,12 +47,8 @@ const ActivityWalkListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, activityWalkListState, setActivityWalkListState])
+    }, [activityWalkListState, setActivityWalkListState])
 
     useEffect(() => {
         const pageStart = () => {

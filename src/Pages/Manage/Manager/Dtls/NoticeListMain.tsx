@@ -8,8 +8,6 @@ import { getNoticeSendList } from '@Service/NoticeService'
 import { useRecoilState } from 'recoil'
 import { NoticeListState } from '@Recoil/NoticePagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -19,7 +17,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const NoticeListMain = () => {
     const [noticeListState, setNoticeListState] =
         useRecoilState(NoticeListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
@@ -44,12 +41,8 @@ const NoticeListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, noticeListState, setNoticeListState])
+    }, [noticeListState, setNoticeListState])
 
     useEffect(() => {
         const pageStart = () => {

@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { ListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -56,10 +55,10 @@ const ListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.stplatSuccess,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.stplatSuccess,
+            // })
         }
     }, [handlMainAlert, listState, setListState])
 
