@@ -541,3 +541,23 @@ export const mberSendSms = ({
         },
     })
 }
+
+/**
+ * 상차트 삭제 처리.
+ * @param CNST_LIST
+ */
+export const manageRemoveCounsel = ({
+    CNST_LIST,
+}: {
+    CNST_LIST: Array<{
+        CNST_NO: number
+    }>
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/manage/v1/remove_counsel`,
+        payload: {
+            CNST_LIST,
+        },
+    })
+}

@@ -10,6 +10,10 @@ export default {
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
         memberConfirmMesure: `수기입력을 하시겠습니까?`,
+        remove: {
+            removeConfirm: `삭제 하시겠습니까?`,
+            removeSelectEmpty: `삭제할 항목을 선택해 주세요`,
+        },
         sms: {
             smsSj: `관리자 페이지 메세지 전송`,
             sendConfirm: `메시지를 발송 하시겠습니까?`,

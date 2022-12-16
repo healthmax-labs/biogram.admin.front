@@ -1,7 +1,9 @@
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import {
+    ConfirmModal,
     DefaultManageButton,
     ElementLoading,
+    VaryCheckBox,
     VaryDatepickerInput,
 } from '@Elements'
 import {
@@ -11,16 +13,17 @@ import {
     gmtTimeToTimeObject,
     timeStringParse,
 } from '@Helper'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Messages from '@Messages'
 import { useParams } from 'react-router-dom'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartListState,
     ConsultDetailChartState,
 } from '@Recoil/MemberPagesState'
-import { postManageCounsel } from '@Service/MemberService'
+import { manageRemoveCounsel, postManageCounsel } from '@Service/MemberService'
 import { ManageCounselItemInterface } from '@Type/MemberTypes'
+import { useMainLayouts } from '@Hook/index'
 
 const {
     HeaderRow,
@@ -32,13 +35,29 @@ const {
     TableBodyCell,
 } = CommonListTableStyle
 
+const initializeState = {
+    select: [],
+    modal: {
+        removeConfirm: false,
+    },
+}
+
 const ConsultDetailChart = () => {
+    const { handlMainAlert } = useMainLayouts()
     const { memNo } = useParams<{ memNo: string }>()
 
     const [chartState, setChartState] = useRecoilState(
         ConsultDetailChartListState
     )
     const setConsultChart = useSetRecoilState(ConsultDetailChartState)
+    const resetConsultChart = useResetRecoilState(ConsultDetailChartState)
+
+    const [pageState, setPageState] = useState<{
+        select: number[]
+        modal: {
+            removeConfirm: boolean
+        }
+    }>(initializeState)
 
     const handleGetList = useCallback(async () => {
         if (
@@ -69,6 +88,7 @@ const ConsultDetailChart = () => {
                 setChartState(prevState => ({
                     ...prevState,
                     listStatus: 'failure',
+                    list: [],
                 }))
             }
         }
@@ -93,6 +113,37 @@ const ConsultDetailChart = () => {
             MOD_MNG_NM: element.MOD_MNG_NM,
             REGDT: element.REGDT,
         }))
+    }
+
+    const handleChartItemRemove = async () => {
+        if (pageState.select.length === 0) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.remove.removeSelectEmpty,
+            })
+            return
+        }
+
+        const { status } = await manageRemoveCounsel({
+            CNST_LIST: pageState.select.map(e => {
+                return {
+                    CNST_NO: e,
+                }
+            }),
+        })
+
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+            handleGetList().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
     }
 
     useEffect(() => {
@@ -126,8 +177,12 @@ const ConsultDetailChart = () => {
         }
     }, [chartState, handleGetList])
 
+    useEffect(() => {
+        console.debug(pageState)
+    }, [pageState])
+
     return (
-        <div className="">
+        <>
             <div className="flex flex-nowrap">
                 <div className="flex py-2 items-center w-1/3 justify-start">
                     <VaryDatepickerInput
@@ -180,13 +235,21 @@ const ConsultDetailChart = () => {
                     <div className="flex py-2">
                         <DefaultManageButton
                             ButtonName={'신규'}
-                            ButtonClick={() => console.debug('ButtonClick')}
+                            ButtonClick={() => resetConsultChart()}
                         />
                     </div>
                     <div className="flex py-2">
                         <DefaultManageButton
                             ButtonName={'삭제'}
-                            ButtonClick={() => console.debug('ButtonClick')}
+                            ButtonClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        removeConfirm: true,
+                                    },
+                                }))
+                            }}
                         />
                     </div>
                 </div>
@@ -199,7 +262,32 @@ const ConsultDetailChart = () => {
                 <TableWapper>
                     <TableHeader>
                         <HeaderRow>
-                            <HeaderCell></HeaderCell>
+                            <HeaderCell>
+                                <VaryCheckBox
+                                    Checked={
+                                        chartState.list.length > 0 &&
+                                        chartState.list.length ===
+                                            pageState.select.length
+                                    }
+                                    HandleOnChange={e => {
+                                        if (chartState.list.length > 0) {
+                                            if (e.target.checked) {
+                                                setPageState(prevState => ({
+                                                    ...prevState,
+                                                    select: chartState.list.map(
+                                                        e => Number(e.CNST_NO)
+                                                    ),
+                                                }))
+                                            } else {
+                                                setPageState(prevState => ({
+                                                    ...prevState,
+                                                    select: initializeState.select,
+                                                }))
+                                            }
+                                        }
+                                    }}
+                                />
+                            </HeaderCell>
                             <HeaderCell>등록일시</HeaderCell>
                             <HeaderCell>작성 아이디</HeaderCell>
                             <HeaderCell>작성자</HeaderCell>
@@ -217,7 +305,45 @@ const ConsultDetailChart = () => {
                                         key={`main-table-body-row-${index}`}
                                         BgState={index % 2 === 0}
                                         onClick={() => handleRowClick(el)}>
-                                        <TableBodyCell></TableBodyCell>
+                                        <TableBodyCell>
+                                            <VaryCheckBox
+                                                Checked={
+                                                    pageState.select.findIndex(
+                                                        e =>
+                                                            e ===
+                                                            Number(el.CNST_NO)
+                                                    ) > -1
+                                                }
+                                                HandleOnChange={e => {
+                                                    if (e.target.checked) {
+                                                        setPageState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                select: [
+                                                                    ...prevState.select,
+                                                                    Number(
+                                                                        el.CNST_NO
+                                                                    ),
+                                                                ],
+                                                            })
+                                                        )
+                                                    } else {
+                                                        setPageState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                select: prevState.select.filter(
+                                                                    e =>
+                                                                        e !==
+                                                                        Number(
+                                                                            el.CNST_NO
+                                                                        )
+                                                                ),
+                                                            })
+                                                        )
+                                                    }
+                                                }}
+                                            />
+                                        </TableBodyCell>
                                         <TableBodyCell>
                                             {timeStringParse(el.REGDT)}
                                         </TableBodyCell>
@@ -248,7 +374,33 @@ const ConsultDetailChart = () => {
                     </TableBody>
                 </TableWapper>
             )}
-        </div>
+            {pageState.modal.removeConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.remove.removeConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                removeConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                removeConfirm: false,
+                            },
+                        }))
+                        handleChartItemRemove().then()
+                    }}
+                />
+            )}
+        </>
     )
 }
 
