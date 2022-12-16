@@ -8,7 +8,6 @@ import { getInstJoinList } from '@Service/InstService'
 import { useRecoilState } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -44,10 +43,10 @@ const JoinListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, instJoinListState, setInstJoinListState])
 

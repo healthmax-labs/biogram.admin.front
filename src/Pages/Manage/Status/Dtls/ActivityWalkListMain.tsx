@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -50,10 +49,10 @@ const ActivityWalkListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, activityWalkListState, setActivityWalkListState])
 

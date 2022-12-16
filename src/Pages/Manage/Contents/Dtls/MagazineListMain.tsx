@@ -8,7 +8,6 @@ import { getMagazineList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { MagazineListState } from '@Recoil/ContentsPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -48,10 +47,10 @@ const InitListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, magazineListState, setMagazineListState])
 

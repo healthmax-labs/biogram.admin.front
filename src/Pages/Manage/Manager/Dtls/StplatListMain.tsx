@@ -6,7 +6,6 @@ import { getStplatList } from '@Service/ManagerService'
 import { useRecoilState } from 'recoil'
 import { StplatListState } from '@Recoil/ManagerPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -39,10 +38,10 @@ const StplatListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, stplatListState, setStplatListState])
 

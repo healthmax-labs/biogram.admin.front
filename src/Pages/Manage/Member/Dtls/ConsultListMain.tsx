@@ -5,7 +5,6 @@ import { getMberCnsltlist } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 import SearchBox from './ConsultSearchBox'
 import ManageBox from './ConsultManageBox'
@@ -47,10 +46,10 @@ const ConsultListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.stplatSuccess,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.stplatSuccess,
+            // })
         }
     }, [
         handlMainAlert,

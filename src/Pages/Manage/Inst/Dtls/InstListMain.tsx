@@ -7,7 +7,6 @@ import ListTable from '@Page/Manage/Inst/Dtls/InstListTable'
 import { getInstList } from '@Service/InstService'
 import { useRecoilState } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -37,10 +36,10 @@ const InstListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.stplatSuccess,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.stplatSuccess,
+            // })
         }
     }, [handlMainAlert, setListState])
 

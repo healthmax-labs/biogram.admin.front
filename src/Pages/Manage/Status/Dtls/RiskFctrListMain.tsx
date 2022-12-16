@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -62,10 +61,10 @@ const RiskFctrListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, riskFctrListState, setRiskFctrListState])
 

@@ -9,7 +9,6 @@ import { useRecoilState } from 'recoil'
 import { MsgBookListState } from '@Recoil/MsgPagesState'
 import { isNull } from 'lodash'
 // import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -57,10 +56,10 @@ const MsgBookListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, msgBookListState, setMsgBookListState])
 

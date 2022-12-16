@@ -8,7 +8,6 @@ import { getNoticeSendList } from '@Service/NoticeService'
 import { useRecoilState } from 'recoil'
 import { NoticeListState } from '@Recoil/NoticePagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -44,10 +43,10 @@ const NoticeListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            // handlMainAlert({
+            //     state: true,
+            //     message: Messages.Default.processFail,
+            // })
         }
     }, [handlMainAlert, noticeListState, setNoticeListState])
 
