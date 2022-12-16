@@ -8,7 +8,9 @@ import {
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { ConsultListState } from '@Recoil/MemberPagesState'
 // import { useRecoilState } from 'recoil'
 // import { ListState } from '@Recoil/MemberPagesState'
 
@@ -25,7 +27,7 @@ const {
 } = SearchBoxStyle
 
 const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    // const [listState, setListState] = useRecoilState(ListState)
+    const [listState, setListState] = useRecoilState(ConsultListState)
 
     return (
         <RowContainer>
@@ -48,21 +50,45 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.startDt
+                                        ? changeDatePickerDate(
+                                              listState.search.startDt
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            startDt: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.endDt
+                                        ? changeDatePickerDate(
+                                              listState.search.endDt
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            endDt: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>

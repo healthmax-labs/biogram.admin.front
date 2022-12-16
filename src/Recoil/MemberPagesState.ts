@@ -7,6 +7,7 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
+import { getNowDate, getOneMonthAgo } from '@Helper'
 
 // member 페이지.
 interface ListInterface {
@@ -29,6 +30,8 @@ interface ConsultListInterface {
         instNo: string | null
         searchKey: string | null
         riskFctr: string | null
+        startDt: string | null
+        endDt: string | null
     }
     list: ConsultInfoListInterface
 }
@@ -233,6 +236,8 @@ export const ConsultListState = atom<ConsultListInterface>({
             instNo: null,
             searchKey: null,
             riskFctr: null,
+            startDt: getOneMonthAgo(),
+            endDt: getNowDate(),
         },
         list: {
             MBER_INFO_LIST: [],

@@ -16,6 +16,7 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const ConsultListMain = () => {
     const [listState, setListState] = useRecoilState(ConsultListState)
+
     const handleGetList = useCallback(async () => {
         setListState(prevState => ({
             ...prevState,
@@ -63,9 +64,7 @@ const ConsultListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <SearchBox
-                    HandleGetList={() => console.debug('HandleGetList')}
-                />
+                <SearchBox HandleGetList={() => handleGetList()} />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />
