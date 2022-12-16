@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { DatePicker: Input } = InputStyle
@@ -12,10 +12,8 @@ const DefaultInput = (
         value,
         onFocus,
         onChange,
-        Width,
     }: {
         value: string
-        Width?: InputWidthType
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
@@ -23,7 +21,6 @@ const DefaultInput = (
 ) => (
     <VaryInput
         Ref={ref}
-        Width={Width ? Width : 'w64'}
         InputType={'text'}
         HandleOnChange={onChange}
         id={'id'}

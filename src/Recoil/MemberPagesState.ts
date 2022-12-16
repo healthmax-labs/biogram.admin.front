@@ -1,6 +1,6 @@
 import { atom, DefaultValue, selector } from 'recoil'
 import { MemberDetailInterface } from '@Type/PageStateType'
-import { DefaultStatus } from '@CommonTypes'
+import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselItemInterface,
@@ -8,6 +8,7 @@ import {
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
+import Const from '@Const'
 
 // member 페이지.
 interface ListInterface {
@@ -60,6 +61,18 @@ interface ConsultChartInterface {
     MOD_DT: string | null
     MOD_MNG_NM: string | null
     REGDT: string | null
+}
+
+interface ConsultSmsSendInterface {
+    send: {
+        SMS_SJ: string | null
+        SMS_CN: string | null
+        SNDNG_NO: string | null
+        SNDNG_DT: string | null
+        SEND_ALL_MBER: 'N' | 'Y'
+        SNDNG_GBN: 'N' | 'Y'
+        SEND_MBER_INFO_LIST: SendSmsItemInterface[]
+    }
 }
 
 // 회원 상세
@@ -285,5 +298,22 @@ export const ConsultDetailChartState = atom<ConsultChartInterface>({
         MOD_DT: null,
         MOD_MNG_NM: null,
         REGDT: null,
+    },
+})
+
+// 메시지발송
+export const ConsultDetailSmsSendState = atom<ConsultSmsSendInterface>({
+    key: `memberPage/consult-sms-send`,
+    default: {
+        send: {
+            SMS_SJ: null,
+            SMS_CN: null,
+            SNDNG_NO: Const.reprsntTelno,
+
+            SNDNG_DT: null,
+            SEND_ALL_MBER: 'N',
+            SNDNG_GBN: 'N',
+            SEND_MBER_INFO_LIST: [],
+        },
     },
 })

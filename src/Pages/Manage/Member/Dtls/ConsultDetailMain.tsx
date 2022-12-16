@@ -6,9 +6,10 @@ import { useCallback, useEffect } from 'react'
 import { getMemberInfo } from '@Service/MemberService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import { useSetRecoilState } from 'recoil'
+import { useResetRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartState,
+    ConsultDetailSmsSendState,
     ConsultDetailState,
 } from '@Recoil/MemberPagesState'
 
@@ -21,6 +22,8 @@ const ConsultDetailMain = () => {
     const { handlMainAlert } = useMainLayouts()
     const setConsultDetail = useSetRecoilState(ConsultDetailState)
     const setConsultChart = useSetRecoilState(ConsultDetailChartState)
+    const setConsultSmsSend = useSetRecoilState(ConsultDetailSmsSendState)
+    const resetConsultSmsSend = useResetRecoilState(ConsultDetailSmsSendState)
 
     const handleGetMemberInfo = useCallback(async () => {
         if (memNo) {
@@ -40,6 +43,26 @@ const ConsultDetailMain = () => {
                     status: 'success',
                     detail: payload,
                 }))
+
+                setConsultSmsSend(prevState => ({
+                    ...prevState,
+                    send: {
+                        ...prevState.send,
+                        SMS_SJ: Messages.Default.sms.smsSj,
+                        SEND_MBER_INFO_LIST: [
+                            ...prevState.send.SEND_MBER_INFO_LIST,
+                            {
+                                MBER_NO: memNo,
+                                MBTLNUM: payload.MBER_INFO.MBTLNUM,
+                                MBTLNUM_CRTFC_AT:
+                                    payload.MBER_INFO.MBTLNUM_CRTFC_AT,
+                                USID: payload.MBER_INFO.USID,
+                                NM: payload.MBER_INFO.NM,
+                                SV00_NTCN_AT: 'Y', // FIXME: 이게 뭔지?
+                            },
+                        ],
+                    },
+                }))
             } else {
                 setConsultDetail(prevState => ({
                     ...prevState,
@@ -52,7 +75,7 @@ const ConsultDetailMain = () => {
                 })
             }
         }
-    }, [handlMainAlert, memNo, setConsultDetail])
+    }, [handlMainAlert, memNo, setConsultDetail, setConsultSmsSend])
 
     useEffect(() => {
         const pageStart = () => {
@@ -69,12 +92,13 @@ const ConsultDetailMain = () => {
                     MOD_MNG_NM: null,
                     REGDT: null,
                 }))
+                resetConsultSmsSend()
                 handleGetMemberInfo().then()
             }
         }
 
         pageStart()
-    }, [handleGetMemberInfo, memNo, setConsultChart])
+    }, [handleGetMemberInfo, memNo, resetConsultSmsSend, setConsultChart])
     return (
         <Container>
             <ChartLeftWapper>
