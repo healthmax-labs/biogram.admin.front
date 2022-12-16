@@ -33,6 +33,7 @@ const {
     TableBody,
     TableBodyRow,
     TableBodyCell,
+    HeaderCheckbox,
 } = CommonListTableStyle
 
 const initializeState = {
