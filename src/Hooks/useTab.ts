@@ -3,7 +3,7 @@ import { AtomPageTabState } from '@Recoil/PageTabState'
 import { matchRoutes, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { TabInterface } from '@Type/CommonTypes'
-import Const from '@Const'
+import Routers from '@Routers'
 import { getPathNameToMenuInfo } from '@Helper'
 
 export default function useTab() {
@@ -28,7 +28,7 @@ export default function useTab() {
     // 라우터 변경시 텝 세팅
     useEffect(() => {
         const routerMatchs = matchRoutes(
-            Const.Routers.map(el => {
+            Routers.map(el => {
                 return {
                     path: el.pathName,
                 }

@@ -1,5 +1,5 @@
-import Const from '@Const'
 import { LoginTokenInterface } from '@CommonTypes'
+import Routers from '@Routers'
 
 /**
  * 개발 디버그.
@@ -233,7 +233,6 @@ export const removeLoginExpirein = (): void => {
  * @param pathName
  */
 export const getPathNameToMenuInfo = (pathName: string): string => {
-    const Routers = Const.Routers
     const chIdex = Routers.findIndex(el => el.pathName === pathName)
     if (chIdex === -1) {
         return ''

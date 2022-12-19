@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { PageLoading } from '@Elements'
-import Const from '@Const'
+import Routers from '@Routers'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
@@ -14,10 +14,10 @@ const ManageRootPage = () => {
 
     // 템에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
-        const chIndex = Const.Routers.findIndex(
+        const chIndex = Routers.findIndex(
             el => el.pathName === activeRoutePathName
         )
-        const TabPageComponent = Const.Routers[chIndex].Component
+        const TabPageComponent = Routers[chIndex].Component
         return <TabPageComponent />
     }
 

@@ -13,7 +13,7 @@ import {
 import { isEmpty, isNull } from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
 import { useCallback } from 'react'
-import Const from '@Const'
+import Routers from '@Routers'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -60,16 +60,14 @@ export default function useAuth() {
                 menuInfo: {
                     CHARGER_MENU_INFO: CHARGER_MENU_INFO,
                     AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
-                        const ckIndex = Const.Routers.findIndex(
+                        const ckIndex = Routers.findIndex(
                             rt => rt.menuCode === el.MENU_CODE
                         )
 
                         return {
                             ...el,
                             pathName:
-                                ckIndex > -1
-                                    ? Const.Routers[ckIndex].pathName
-                                    : '',
+                                ckIndex > -1 ? Routers[ckIndex].pathName : '',
                             MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
                         }
                     }),
