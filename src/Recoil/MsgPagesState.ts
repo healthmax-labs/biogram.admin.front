@@ -1,6 +1,9 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import { MsgSendListInterface } from '@Type/MsgTypes'
+import { getSearchDateObject } from '@Helper'
+
+const searchDateObject = getSearchDateObject()
 
 /*
  * Msg 페이지.
@@ -13,30 +16,30 @@ interface MsgSendSearchListInterface {
         curPage: number | null
         INST_NO: string | null
         SEARCH_KEY: string | null
-        FROM_MONTH: string | null
-        FROM_DAY: string | null
-        TO_DAY: string | null
-        SNDNG_FAILR: string | null
+        FROM_MONTH: string
+        FROM_DAY: string
+        TO_DAY: string
+        SNDNG_FAILR: 'F' | null
         SNDNG_STDR: string | null
     }
-    memberList: MsgSendListInterface
+    list: MsgSendListInterface
 }
 
 export const MsgSendListState = atom<MsgSendSearchListInterface>({
-    key: `statusPage/MsgSendList`,
+    key: `statusPage/msg-send-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            FROM_MONTH: null,
-            FROM_DAY: null,
-            TO_DAY: null,
             SNDNG_FAILR: null,
             SNDNG_STDR: null,
+            FROM_MONTH: `${searchDateObject.start.year}${searchDateObject.start.month}`,
+            FROM_DAY: `01`,
+            TO_DAY: `19`,
         },
-        memberList: {
+        list: {
             SMS_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -54,11 +57,11 @@ interface MsgBookListInterface {
         TO_DAY: string | null
         SNDNG_STDR: string | null
     }
-    memberList: MsgSendListInterface
+    list: MsgSendListInterface
 }
 
 export const MsgBookListState = atom<MsgBookListInterface>({
-    key: `statusPage/MsgBookList`,
+    key: `statusPage/msg-book-list`,
     default: {
         status: 'idle',
         search: {
@@ -69,7 +72,7 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             TO_DAY: null,
             SNDNG_STDR: null,
         },
-        memberList: {
+        list: {
             SMS_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },

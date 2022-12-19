@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -8,7 +8,7 @@ import {
     VaryLabel,
     VaryRadioButton,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { MsgSendListState } from '@Recoil/MsgPagesState'
 import { isNull } from 'lodash'
@@ -27,6 +27,13 @@ const {
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [msgSendListState, setMsgSendListState] =
         useRecoilState(MsgSendListState)
+
+    useEffect(() => {
+        console.debug(
+            msgSendListState.search.FROM_MONTH,
+            msgSendListState.search.FROM_DAY
+        )
+    }, [msgSendListState])
     return (
         <Container>
             <SearchWapper>
@@ -78,7 +85,14 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                msgSendListState.search.FROM_MONTH &&
+                                msgSendListState.search.FROM_DAY
+                                    ? changeDatePickerDate(
+                                          `${msgSendListState.search.FROM_MONTH}${msgSendListState.search.FROM_DAY}`
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -86,7 +100,8 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        FROM_MONTH: `${year}${monthPad}`,
+                                        FROM_DAY: `${dayPad}`,
                                     },
                                 }))
                             }}

@@ -51,7 +51,7 @@ const MsgSendListMain = () => {
             setMsgSendListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setMsgSendListState(prevState => ({
