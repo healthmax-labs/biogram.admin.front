@@ -87,8 +87,9 @@ interface StatisticsSearchListInterface {
         curPage: number | null
         INST_NO: string | null
         SEARCH_KEY: string | null
-        BEGIN_DE: string | null
-        END_DE: string | null
+        BEGIN_DE: string
+        END_DE: string
+        RISK_FCTR: string | null
     }
     list: StatisticsListInterface
 }
@@ -101,8 +102,9 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BEGIN_DE: null,
-            END_DE: null,
+            RISK_FCTR: null,
+            BEGIN_DE: getOneMonthAgo(),
+            END_DE: getNowDate(),
         },
         list: {
             DEVICE_MESURE_INFO_LIST: [],
