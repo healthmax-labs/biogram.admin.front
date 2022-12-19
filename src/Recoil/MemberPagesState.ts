@@ -97,7 +97,7 @@ interface ConsultDetailInterface {
 
 // 회원 현황 리스트 페이지
 export const MemberListState = atom<MemberListInterface>({
-    key: `memberPage/list`,
+    key: `memberPage/member-list`,
     default: {
         status: 'idle',
         search: {
@@ -116,7 +116,7 @@ export const MemberListState = atom<MemberListInterface>({
 
 // 회원 상세 페이지.
 export const MemberDetailState = atom<MemberDetailInterface>({
-    key: `memberPage/detail`,
+    key: `memberPage/member-detail`,
     default: {
         status: 'idle',
         MBER_NO: null,
@@ -179,7 +179,7 @@ export const detailStatus = selector<{
     status: DefaultStatus
     MBER_NO: number | null
 }>({
-    key: `memberPage/detailStatus`,
+    key: `memberPage/member-detailStatus`,
     get: ({ get }) => {
         const { status, MBER_NO } = get(MemberDetailState)
         return {
@@ -191,7 +191,7 @@ export const detailStatus = selector<{
 
 // 회원 origin 데이터
 export const MemberOriginSelector = selector<MemberDetailInfoInterface>({
-    key: `memberPage/originInfo`,
+    key: `memberPage/member-originInfo`,
     get: ({ get }) => {
         const { origin } = get(MemberDetailState)
         return origin
@@ -200,7 +200,7 @@ export const MemberOriginSelector = selector<MemberDetailInfoInterface>({
 
 // 회원 상세
 export const MemberDetailSelector = selector<MemberDetailInfoInterface>({
-    key: `memberPage/detailInfo`,
+    key: `memberPage/member-detailInfo`,
     get: ({ get }) => {
         const { detail } = get(MemberDetailState)
         return detail
@@ -241,7 +241,7 @@ export const MemberDetailSelector = selector<MemberDetailInfoInterface>({
 
 // 상담회원 현황 리스트
 export const ConsultListState = atom<ConsultListInterface>({
-    key: `memberPage/consult`,
+    key: `memberPage/consult-list`,
     default: {
         status: 'idle',
         search: {
@@ -261,7 +261,7 @@ export const ConsultListState = atom<ConsultListInterface>({
 
 // 상담회원 상세 페이지.
 export const ConsultDetailState = atom<ConsultDetailInterface>({
-    key: `memberPage/consultDetail`,
+    key: `memberPage/consult-detail`,
     default: {
         status: 'idle',
         memNo: null,
