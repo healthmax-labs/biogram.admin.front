@@ -19,8 +19,8 @@ interface BrftrCmprSearchListInterface {
         curPage: number | null
         INST_NO: string | null
         SEARCH_KEY: string | null
-        BGNDE: string | null
-        ENDDE: string | null
+        BGNDE: string
+        ENDDE: string
     }
     list: BrftrCmprListInterface
 }
@@ -33,8 +33,8 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
         },
         list: {
             MESURE_BRFTR_CMPR_INFO_LIST: [],

@@ -7,7 +7,7 @@ import {
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -52,7 +52,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                brftrCmprListState.search.BGNDE
+                                    ? changeDatePickerDate(
+                                          brftrCmprListState.search.BGNDE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -60,7 +66,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        BGNDE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -68,7 +74,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                brftrCmprListState.search.ENDDE
+                                    ? changeDatePickerDate(
+                                          brftrCmprListState.search.ENDDE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -76,7 +88,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        ENDDE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
