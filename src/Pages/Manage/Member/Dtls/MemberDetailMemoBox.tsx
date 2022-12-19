@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil'
-import { DetailSelector } from '@Recoil/MemberPagesState'
+import { MemberDetailSelector } from '@Recoil/MemberPagesState'
 
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { VaryLabelTextArea } from '@Elements'
@@ -7,8 +7,8 @@ import React from 'react'
 
 const { MemoContainer } = DetailPageStyle
 
-const MemoBox = () => {
-    const [detailState, setDetailState] = useRecoilState(DetailSelector)
+const MemberDetailMemoBox = () => {
+    const [detailState, setDetailState] = useRecoilState(MemberDetailSelector)
     return (
         <MemoContainer>
             <VaryLabelTextArea
@@ -28,4 +28,4 @@ const MemoBox = () => {
     )
 }
 
-export default MemoBox
+export default MemberDetailMemoBox

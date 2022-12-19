@@ -8,7 +8,7 @@ export interface PstinstInfoInterface {
 }
 
 // 회원 상세
-export interface MemberDetailInterface {
+export interface MemberDetailInfoInterface {
     NM: string | null
     MBER_NO: number | null
     MBTLNUM: string | null

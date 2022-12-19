@@ -4,7 +4,7 @@ import { DefaultManageButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
-const ManageBox = () => {
+const MemberListManageBox = () => {
     return (
         <Wapper>
             <Buttons>
@@ -37,4 +37,4 @@ const ManageBox = () => {
     )
 }
 
-export default ManageBox
+export default MemberListManageBox

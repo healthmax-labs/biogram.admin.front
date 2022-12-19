@@ -1,8 +1,8 @@
 import React from 'react'
-import DetailMain from './Dtls/DetailMain'
+import MemberDetailMain from './Dtls/MemberDetailMain'
 
 const MemberDetailPage = () => {
-    return <DetailMain />
+    return <MemberDetailMain />
 }
 
 export default MemberDetailPage

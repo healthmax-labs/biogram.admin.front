@@ -1,5 +1,5 @@
 import { atom, DefaultValue, selector } from 'recoil'
-import { MemberDetailInterface } from '@Type/PageStateType'
+import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
@@ -11,7 +11,7 @@ import { getNowDate, getOneMonthAgo } from '@Helper'
 import Const from '@Const'
 
 // member 페이지.
-interface ListInterface {
+interface MemberListInterface {
     status: DefaultStatus
     search: {
         curPage: number | null
@@ -76,11 +76,11 @@ interface ConsultSmsSendInterface {
 }
 
 // 회원 상세
-interface DetailInterface {
+interface MemberDetailInterface {
     status: DefaultStatus
     MBER_NO: number | null
-    detail: MemberDetailInterface
-    origin: MemberDetailInterface
+    detail: MemberDetailInfoInterface
+    origin: MemberDetailInfoInterface
     pstinstLeave: {
         selectNo: number | null
         text: string | null
@@ -95,8 +95,8 @@ interface ConsultDetailInterface {
     detail: MemberInfoInterface | null
 }
 
-// 회원 현황 페이지
-export const ListState = atom<ListInterface>({
+// 회원 현황 리스트 페이지
+export const MemberListState = atom<MemberListInterface>({
     key: `memberPage/list`,
     default: {
         status: 'idle',
@@ -104,8 +104,8 @@ export const ListState = atom<ListInterface>({
             curPage: null,
             instNo: null,
             searchKey: null,
-            registDtFrom: null,
-            registDtTo: null,
+            registDtFrom: getOneMonthAgo(),
+            registDtTo: getNowDate(),
         },
         list: {
             MBER_INFO_LIST: [],
@@ -115,7 +115,7 @@ export const ListState = atom<ListInterface>({
 })
 
 // 회원 상세 페이지.
-export const DetailState = atom<DetailInterface>({
+export const MemberDetailState = atom<MemberDetailInterface>({
     key: `memberPage/detail`,
     default: {
         status: 'idle',
@@ -181,7 +181,7 @@ export const detailStatus = selector<{
 }>({
     key: `memberPage/detailStatus`,
     get: ({ get }) => {
-        const { status, MBER_NO } = get(DetailState)
+        const { status, MBER_NO } = get(MemberDetailState)
         return {
             status,
             MBER_NO,
@@ -190,24 +190,24 @@ export const detailStatus = selector<{
 })
 
 // 회원 origin 데이터
-export const OriginSelector = selector<MemberDetailInterface>({
+export const MemberOriginSelector = selector<MemberDetailInfoInterface>({
     key: `memberPage/originInfo`,
     get: ({ get }) => {
-        const { origin } = get(DetailState)
+        const { origin } = get(MemberDetailState)
         return origin
     },
 })
 
 // 회원 상세
-export const DetailSelector = selector<MemberDetailInterface>({
+export const MemberDetailSelector = selector<MemberDetailInfoInterface>({
     key: `memberPage/detailInfo`,
     get: ({ get }) => {
-        const { detail } = get(DetailState)
+        const { detail } = get(MemberDetailState)
         return detail
     },
     set: ({ set }, newValue) => {
         if (!(newValue instanceof DefaultValue)) {
-            set(DetailState, currentState => ({
+            set(MemberDetailState, currentState => ({
                 ...currentState,
                 detail: {
                     NM: newValue.NM,
