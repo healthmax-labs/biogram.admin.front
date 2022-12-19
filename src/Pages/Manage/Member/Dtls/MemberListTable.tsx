@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import { TableConfig, tableListItemInterface } from './TableConfig'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
-import { DetailState, ListState } from '@Recoil/MemberPagesState'
+import { MemberDetailState, MemberListState } from '@Recoil/MemberPagesState'
 
 interface tableOptionInterface {
     Loading: boolean
@@ -13,12 +13,12 @@ interface tableOptionInterface {
     Lists: tableListItemInterface[]
 }
 
-const ListTable = () => {
+const MemberListTable = () => {
     const navigate = useNavigate()
 
-    const listState = useRecoilValue(ListState)
-    const detailState = useRecoilValue(DetailState)
-    const detailReset = useResetRecoilState(DetailState)
+    const listState = useRecoilValue(MemberListState)
+    const detailState = useRecoilValue(MemberDetailState)
+    const detailReset = useResetRecoilState(MemberDetailState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOptionInterface>(TableConfig)
@@ -46,4 +46,4 @@ const ListTable = () => {
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
 
-export default ListTable
+export default MemberListTable

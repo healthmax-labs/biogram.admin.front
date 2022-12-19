@@ -9,13 +9,15 @@ import {
     postMemberPstinstLeave,
     postPasswordReset,
 } from '@Service/MemberService'
-import { DetailState, OriginSelector } from '@Recoil/MemberPagesState'
+import {
+    MemberDetailState,
+    MemberOriginSelector,
+} from '@Recoil/MemberPagesState'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import {
     ConfirmModal,
     DefaultManageButton,
-    VaryInfoButton,
     PhoneAuthModal,
     PstinstAgreeModal,
     PstinstSelector,
@@ -24,6 +26,7 @@ import {
     TotalScoreModal,
     VaryButton,
     VaryDatepickerInput,
+    VaryInfoButton,
     VaryInput,
     VaryLabel,
     VaryLabelTextArea,
@@ -109,14 +112,14 @@ const initializeState = {
     },
 }
 
-const DetailTable = ({
+const MemberDetailTable = ({
     HandleGetInfo,
 }: {
     HandleGetInfo: (memNo: number) => void
 }) => {
     const navigate = useNavigate()
-    const [detailState, setDetailState] = useRecoilState(DetailState)
-    const originInfo = useRecoilValue(OriginSelector)
+    const [detailState, setDetailState] = useRecoilState(MemberDetailState)
+    const originInfo = useRecoilValue(MemberOriginSelector)
     const { handlMainAlert, handleOutletLoading } = useMainLayouts()
 
     const inputPhoneNumberRef = useRef<HTMLInputElement>()
@@ -1666,4 +1669,4 @@ const DetailTable = ({
     )
 }
 
-export default DetailTable
+export default MemberDetailTable

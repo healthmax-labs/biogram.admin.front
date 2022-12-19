@@ -1,8 +1,8 @@
 import React from 'react'
-import ListMain from './Dtls/ListMain'
+import MemberListMain from './Dtls/MemberListMain'
 
 const MemberListPage = () => {
-    return <ListMain />
+    return <MemberListMain />
 }
 
 export default MemberListPage

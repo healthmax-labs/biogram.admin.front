@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/MemberPageStyles'
-import SearchBox from './SearchBox'
-import ManageBox from './ManageBox'
-import ListTable from './ListTable'
+import MemberListSearchBox from './MemberListSearchBox'
+import MemberListManageBox from './MemberListManageBox'
+import MemberListTable from './MemberListTable'
 import { getMemberList } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
-import { ListState } from '@Recoil/MemberPagesState'
+import { MemberListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
 
@@ -15,8 +15,8 @@ const {
 } = PageContainerStyle
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
-const ListMain = () => {
-    const [listState, setListState] = useRecoilState(ListState)
+const MemberListMain = () => {
+    const [listState, setListState] = useRecoilState(MemberListState)
 
     const getList = useCallback(async () => {
         setListState(prevState => ({
@@ -67,16 +67,16 @@ const ListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <SearchBox HandleGetList={() => getList()} />
+                <MemberListSearchBox HandleGetList={() => getList()} />
             </SearchWapper>
             <ManageWapper>
-                <ManageBox />
+                <MemberListManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable />
+                <MemberListTable />
             </TableWapper>
         </Container>
     )
 }
 
-export default ListMain
+export default MemberListMain

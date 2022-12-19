@@ -7,9 +7,9 @@ import {
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
-import { ListState } from '@Recoil/MemberPagesState'
+import { MemberListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 
 const {
@@ -22,8 +22,12 @@ const {
     SearchButton,
 } = SearchBoxStyle
 
-const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const [listState, setListState] = useRecoilState(ListState)
+const MemberListSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [listState, setListState] = useRecoilState(MemberListState)
 
     return (
         <Container>
@@ -51,7 +55,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                listState.search.registDtFrom
+                                    ? changeDatePickerDate(
+                                          listState.search.registDtFrom
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -67,7 +77,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                listState.search.registDtTo
+                                    ? changeDatePickerDate(
+                                          listState.search.registDtTo
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -114,4 +130,4 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
         </Container>
     )
 }
-export default SearchBox
+export default MemberListSearchBox
