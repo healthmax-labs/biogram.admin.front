@@ -393,6 +393,7 @@ export const getOneMonthAgo = () => {
     month = month >= 10 ? month : '0' + month
     let day: string | number = date.getDate()
     day = day >= 10 ? day : '0' + day
+
     return year + '' + month + '' + day
 }
 
@@ -411,6 +412,31 @@ export const getNowDate = () => {
     day = day >= 10 ? day : '0' + day
 
     return year + '' + month + '' + day
+}
+
+/**
+ * 20221210
+ * 한달전 날짜.
+ */
+export const getSearchDateObject = (): {
+    start: { year: string; month: string; day: string }
+    end: { year: string; month: string; day: string }
+} => {
+    const startDate = getOneMonthAgo()
+    const endDate = getNowDate()
+
+    return {
+        start: {
+            year: startDate.substring(0, 4),
+            month: startDate.substring(4, 6),
+            day: startDate.substring(6, 8),
+        },
+        end: {
+            year: endDate.substring(0, 4),
+            month: endDate.substring(4, 6),
+            day: endDate.substring(6, 8),
+        },
+    }
 }
 
 /**

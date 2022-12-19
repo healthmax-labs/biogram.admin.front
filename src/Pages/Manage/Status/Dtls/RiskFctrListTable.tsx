@@ -35,9 +35,9 @@ const ListTable = () => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.memberList.RISK_FCTR_INFO_LIST,
+            Lists: listState.list.RISK_FCTR_INFO_LIST,
         }))
-    }, [listState.memberList.RISK_FCTR_INFO_LIST, listState.status])
+    }, [listState.list.RISK_FCTR_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

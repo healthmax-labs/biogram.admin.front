@@ -36,9 +36,9 @@ const ListTable = () => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.memberList.DEVICE_MESURE_INFO_LIST,
+            Lists: listState.list.DEVICE_MESURE_INFO_LIST,
         }))
-    }, [listState.memberList.DEVICE_MESURE_INFO_LIST, listState.status])
+    }, [listState.list.DEVICE_MESURE_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

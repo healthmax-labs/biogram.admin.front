@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -6,13 +6,14 @@ import {
     VaryDatepickerInput,
     VaryInput,
     VaryLabel,
+    VaryLabelCheckBox,
     VaryRadioButton,
 } from '@Elements'
-import { DefaultCheckBox } from '@Element/index'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
+import Codes from '@Codes'
 
 const {
     Container,
@@ -25,9 +26,22 @@ const {
     LabelItem,
 } = SearchBoxStyle
 
-const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+const initializeState = {
+    riskFctrCnt: [...Array(6).keys()],
+}
+
+const RiskFctrSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [pageState] = useState<{
+        riskFctrCnt: number[]
+    }>(initializeState)
+
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
+
     return (
         <Container>
             <SearchWapper>
@@ -53,16 +67,83 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryLabel LabelName={`요인:`} />
                         </SearchLabel>
                     </LabelItem>
-                    <LabelItem>
-                        <DefaultCheckBox />
-                        허리둘레
-                        <DefaultCheckBox />
-                        혈압
-                        <DefaultCheckBox />
-                        TG
-                        <DefaultCheckBox />
-                        HDL
-                    </LabelItem>
+                    <SearchItem>
+                        {(() => {
+                            const items = Codes.riksCode
+                                .filter(e => e.key === 'riksDctr')
+                                .shift()
+                            if (items && items.list) {
+                                return items.list.map((el, i) => {
+                                    const riskFctrs = riskFctrListState.search
+                                        .RISK_FCTR
+                                        ? riskFctrListState.search.RISK_FCTR.split(
+                                              ','
+                                          ).map(element => element.trim())
+                                        : []
+
+                                    return (
+                                        <div
+                                            className="pr-1"
+                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                            <VaryLabelCheckBox
+                                                LabelName={`${el.name}`}
+                                                Checked={
+                                                    riskFctrs.findIndex(
+                                                        e => e === el.code
+                                                    ) > -1
+                                                }
+                                                HandleOnChange={e => {
+                                                    if (
+                                                        riskFctrs &&
+                                                        e.target.checked
+                                                    ) {
+                                                        const newRiskFctrs = [
+                                                            ...riskFctrs,
+                                                            el.code,
+                                                        ]
+                                                        setRiskFctrListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    RISK_FCTR:
+                                                                        newRiskFctrs.join(
+                                                                            ', '
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    } else if (
+                                                        riskFctrs &&
+                                                        !e.target.checked
+                                                    ) {
+                                                        const newRiskFctrs =
+                                                            riskFctrs.filter(
+                                                                e =>
+                                                                    e !==
+                                                                    el.code
+                                                            )
+                                                        setRiskFctrListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    RISK_FCTR:
+                                                                        newRiskFctrs.join(
+                                                                            ','
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        })()}
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -71,7 +152,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                riskFctrListState.search.BGNDE
+                                    ? changeDatePickerDate(
+                                          riskFctrListState.search.BGNDE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -79,7 +166,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        BGNDE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -87,7 +174,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                riskFctrListState.search.ENDDE
+                                    ? changeDatePickerDate(
+                                          riskFctrListState.search.ENDDE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -95,7 +188,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        ENDDE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -105,55 +198,44 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`갯수:`} />
+                            <VaryLabel LabelName={`개수:`} />
                         </SearchLabel>
                     </LabelItem>
-                    <LabelItem>
+                    <SearchItem>
                         <div className="flex flex-nowrap px-0">
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="0개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="1개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="2개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="3개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="4개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryRadioButton
-                                    LabelName="5개"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
+                            {pageState.riskFctrCnt.map((el, i) => {
+                                return (
+                                    <div
+                                        className="mr-2"
+                                        key={`risk-fctr-search-box-risk-fctr-Cnt-item-${i}`}>
+                                        <VaryRadioButton
+                                            LabelName={`${el}개`}
+                                            Checked={
+                                                Number(
+                                                    riskFctrListState.search
+                                                        .RISK_FCTR_CNT
+                                                ) === el
+                                            }
+                                            HandleOnChange={e => {
+                                                if (e.target.checked) {
+                                                    setRiskFctrListState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            search: {
+                                                                ...prevState.search,
+                                                                RISK_FCTR_CNT:
+                                                                    String(el),
+                                                            },
+                                                        })
+                                                    )
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                )
+                            })}
                         </div>
-                    </LabelItem>
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -162,21 +244,21 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <VaryInput
                         ContentsType={`search`}
                         Width={'w64'}
-                        HandleOnChange={e =>
-                            setRiskFctrListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    searchKey: e.target.value,
-                                },
-                            }))
-                        }
                         id={'id'}
                         Placeholder={'ID / 이름 / 연락처 / 전화번호'}
                         Value={
                             isNull(riskFctrListState.search.SEARCH_KEY)
                                 ? ''
                                 : riskFctrListState.search.SEARCH_KEY
+                        }
+                        HandleOnChange={e =>
+                            setRiskFctrListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    SEARCH_KEY: e.target.value,
+                                },
+                            }))
                         }
                     />
                 </SearchItemWapper>
@@ -186,14 +268,83 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryLabel LabelName={`복약:`} />
                         </SearchLabel>
                     </LabelItem>
-                    <LabelItem>
-                        <DefaultCheckBox />
-                        고혈압
-                        <DefaultCheckBox />
-                        당뇨
-                        <DefaultCheckBox />
-                        고지혈
-                    </LabelItem>
+                    <SearchItem>
+                        {(() => {
+                            const items = Codes.riksCode
+                                .filter(e => e.key === 'takngMdcin')
+                                .shift()
+                            if (items && items.list) {
+                                return items.list.map((el, i) => {
+                                    const takngMdcin = riskFctrListState.search
+                                        .TAKNG_MDCIN
+                                        ? riskFctrListState.search.TAKNG_MDCIN.split(
+                                              ','
+                                          ).map(element => element.trim())
+                                        : []
+
+                                    return (
+                                        <div
+                                            className="pr-1"
+                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                            <VaryLabelCheckBox
+                                                LabelName={`${el.name}`}
+                                                Checked={
+                                                    takngMdcin.findIndex(
+                                                        e => e === el.code
+                                                    ) > -1
+                                                }
+                                                HandleOnChange={e => {
+                                                    if (
+                                                        takngMdcin &&
+                                                        e.target.checked
+                                                    ) {
+                                                        const newTakngMdcin = [
+                                                            ...takngMdcin,
+                                                            el.code,
+                                                        ]
+                                                        setRiskFctrListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    TAKNG_MDCIN:
+                                                                        newTakngMdcin.join(
+                                                                            ', '
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    } else if (
+                                                        takngMdcin &&
+                                                        !e.target.checked
+                                                    ) {
+                                                        const newTakngMdcin =
+                                                            takngMdcin.filter(
+                                                                e =>
+                                                                    e !==
+                                                                    el.code
+                                                            )
+                                                        setRiskFctrListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    TAKNG_MDCIN:
+                                                                        newTakngMdcin.join(
+                                                                            ','
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        })()}
+                    </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>
@@ -202,4 +353,4 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
         </Container>
     )
 }
-export default SearchBox
+export default RiskFctrSearchBox

@@ -8,10 +8,9 @@ import {
     VaryLabel,
     VaryRadioButton,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
-import { MsgSendListState } from '@Recoil/MsgPagesState'
-import { isNull } from 'lodash'
+import { MsgBookListState } from '@Recoil/MsgPagesState'
 
 const {
     Container,
@@ -26,7 +25,8 @@ const {
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [msgSendListState, setMsgSendListState] =
-        useRecoilState(MsgSendListState)
+        useRecoilState(MsgBookListState)
+
     return (
         <Container>
             <SearchWapper>
@@ -40,7 +40,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    instNo: String(instNo),
+                                    INST_NO: String(instNo),
                                 },
                             }))
                         }
@@ -58,16 +58,16 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    searchKey: e.target.value,
+                                    SEARCH_KEY: e.target.value,
                                 },
                             }))
                         }
                         id={'id'}
                         Placeholder={'ID / 이름 / 연락처 / 전화번호'}
                         Value={
-                            isNull(msgSendListState.search.SEARCH_KEY)
-                                ? ''
-                                : msgSendListState.search.SEARCH_KEY
+                            msgSendListState.search.SEARCH_KEY
+                                ? msgSendListState.search.SEARCH_KEY
+                                : ''
                         }
                     />
                 </SearchItemWapper>
@@ -78,7 +78,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                msgSendListState.search.FROM_DAY
+                                    ? changeDatePickerDate(
+                                          `${msgSendListState.search.FROM_DAY}`
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -86,7 +92,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        FROM_DAY: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -94,7 +100,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                msgSendListState.search.TO_DAY
+                                    ? changeDatePickerDate(
+                                          `${msgSendListState.search.TO_DAY}`
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -102,7 +114,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        TO_DAY: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}

@@ -29,9 +29,9 @@ const ListTable = () => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.memberList.SMS_INFO_LIST,
+            Lists: listState.list.SMS_INFO_LIST,
         }))
-    }, [listState.memberList.SMS_INFO_LIST, listState.status])
+    }, [listState.list.SMS_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

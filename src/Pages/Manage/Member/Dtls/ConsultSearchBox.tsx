@@ -119,7 +119,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             {(() => {
                                 const items = Codes.riksCode
-                                    .filter(e => e.key === 'riksDctr')
+                                    .filter(e => e.key === 'riks')
                                     .shift()
 
                                 if (items && items.list) {
