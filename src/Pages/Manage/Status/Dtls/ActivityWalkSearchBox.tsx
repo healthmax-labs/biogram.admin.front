@@ -7,7 +7,7 @@ import {
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -53,7 +53,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                activityWalkListState.search.BEGIN_DE
+                                    ? changeDatePickerDate(
+                                          activityWalkListState.search.BEGIN_DE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -61,7 +67,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        BEGIN_DE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -69,7 +75,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                activityWalkListState.search.END_DE
+                                    ? changeDatePickerDate(
+                                          activityWalkListState.search.END_DE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -77,7 +89,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        END_DE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -96,7 +108,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    searchKey: e.target.value,
+                                    SEARCH: e.target.value,
                                 },
                             }))
                         }

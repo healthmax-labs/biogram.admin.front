@@ -134,8 +134,8 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH: null,
-            BEGIN_DE: null,
-            END_DE: null,
+            BEGIN_DE: getOneMonthAgo(),
+            END_DE: getNowDate(),
         },
         list: {
             ACTIVITY_STATE_LIST: [],
