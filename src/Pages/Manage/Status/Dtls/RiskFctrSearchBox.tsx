@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -41,10 +41,6 @@ const RiskFctrSearchBox = ({
 
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
-
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
 
     return (
         <Container>
