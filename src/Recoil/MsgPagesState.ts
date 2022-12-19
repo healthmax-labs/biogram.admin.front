@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import { MsgSendListInterface } from '@Type/MsgTypes'
-import { getSearchDateObject } from '@Helper'
+import { getNowDate, getOneMonthAgo, getSearchDateObject } from '@Helper'
 
 const searchDateObject = getSearchDateObject()
 
@@ -68,8 +68,8 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            FROM_DAY: null,
-            TO_DAY: null,
+            FROM_DAY: getOneMonthAgo(),
+            TO_DAY: getNowDate(),
             SNDNG_STDR: null,
         },
         list: {
