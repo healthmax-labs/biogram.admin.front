@@ -8,7 +8,6 @@ import { getRiskFctrList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -32,18 +31,16 @@ const RiskFctrListMain = () => {
             },
         } = riskFctrListState
 
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
-
         const { status, payload } = await getRiskFctrList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            BGNDE: !isNull(BGNDE) ? BGNDE : `20211130`,
-            ENDDE: !isNull(ENDDE) ? ENDDE : `${year}${monthPad}${dayPad}`,
+            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
+            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
             // RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '',
-            RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '2',
-            RISK_FCTR: !isNull(RISK_FCTR) ? RISK_FCTR : 'WS,BP,BS,TG,HD',
+            RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '',
+            RISK_FCTR: !isNull(RISK_FCTR) ? RISK_FCTR : '',
             TAKNG_MDCIN: !isNull(TAKNG_MDCIN) ? TAKNG_MDCIN : '',
         })
 
@@ -51,7 +48,7 @@ const RiskFctrListMain = () => {
             setRiskFctrListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setRiskFctrListState(prevState => ({

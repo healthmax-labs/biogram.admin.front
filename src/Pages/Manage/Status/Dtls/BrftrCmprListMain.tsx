@@ -39,7 +39,7 @@ const BrftrCmprListMain = () => {
             setBrftrCmprListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setBrftrCmprListState(prevState => ({

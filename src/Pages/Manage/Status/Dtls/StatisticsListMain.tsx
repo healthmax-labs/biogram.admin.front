@@ -39,7 +39,7 @@ const StatisticsListMain = () => {
             setStatisticsListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setStatisticsListState(prevState => ({

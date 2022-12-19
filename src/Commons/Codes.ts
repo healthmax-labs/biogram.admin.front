@@ -157,7 +157,7 @@ export default {
     riksCode: [
         {
             name: `위험요인`,
-            key: 'riksDctr',
+            key: 'riks',
             list: [
                 { code: 'WS', name: '허리둘레' },
                 { code: 'BP', name: '혈압' },
@@ -168,6 +168,17 @@ export default {
                 { code: 'BMI', name: 'BMI' },
                 { code: 'PP2', name: '식후혈당' },
                 { code: 'ST', name: '스트레스' },
+            ],
+        },
+        {
+            name: `위험요인`,
+            key: 'riksDctr',
+            list: [
+                { code: 'WS', name: '허리둘레' },
+                { code: 'BP', name: '혈압' },
+                { code: 'BS', name: '혈당' },
+                { code: 'TG', name: '중성지방' },
+                { code: 'HD', name: 'HDLC' },
             ],
         },
         {

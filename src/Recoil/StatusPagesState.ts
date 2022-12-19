@@ -1,9 +1,12 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
-import { BrftrCmprListInterface } from '@Type/StatusTypes'
-import { RiskFctrListInterface } from '@Type/StatusTypes'
-import { StatisticsListInterface } from '@Type/StatusTypes'
-import { ActivityWalkListInterface } from '@Type/StatusTypes'
+import {
+    ActivityWalkListInterface,
+    BrftrCmprListInterface,
+    RiskFctrListInterface,
+    StatisticsListInterface,
+} from '@Type/StatusTypes'
+import { getNowDate, getOneMonthAgo } from '@Helper'
 
 /**
  * status 페이지.
@@ -19,11 +22,11 @@ interface BrftrCmprSearchListInterface {
         BGNDE: string | null
         ENDDE: string | null
     }
-    memberList: BrftrCmprListInterface
+    list: BrftrCmprListInterface
 }
 
 export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
-    key: `statusPage/brftrCmprList`,
+    key: `statusPage/brftr-cmpr-list`,
     default: {
         status: 'idle',
         search: {
@@ -33,7 +36,7 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
             BGNDE: null,
             ENDDE: null,
         },
-        memberList: {
+        list: {
             MESURE_BRFTR_CMPR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -53,24 +56,24 @@ interface RiskFctrSearchListInterface {
         RISK_FCTR: string | null
         TAKNG_MDCIN: string | null
     }
-    memberList: RiskFctrListInterface
+    list: RiskFctrListInterface
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
-    key: `statusPage/RiskFctrList`,
+    key: `statusPage/risk-fctr-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
-            RISK_FCTR_CNT: null,
-            RISK_FCTR: null,
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
+            RISK_FCTR_CNT: '2',
+            RISK_FCTR: 'WS,BP,BS,TG,HD',
             TAKNG_MDCIN: null,
         },
-        memberList: {
+        list: {
             RISK_FCTR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -87,11 +90,11 @@ interface StatisticsSearchListInterface {
         BEGIN_DE: string | null
         END_DE: string | null
     }
-    memberList: StatisticsListInterface
+    list: StatisticsListInterface
 }
 
 export const StatisticsListState = atom<StatisticsSearchListInterface>({
-    key: `statusPage/statisticsList`,
+    key: `statusPage/statistics-list`,
     default: {
         status: 'idle',
         search: {
@@ -101,7 +104,7 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
             BEGIN_DE: null,
             END_DE: null,
         },
-        memberList: {
+        list: {
             DEVICE_MESURE_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -118,7 +121,7 @@ interface ActivityWalkInterface {
         BEGIN_DE: string | null
         END_DE: string | null
     }
-    memberList: ActivityWalkListInterface
+    list: ActivityWalkListInterface
 }
 
 export const ActivityWalkListState = atom<ActivityWalkInterface>({
@@ -132,7 +135,7 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
             BEGIN_DE: null,
             END_DE: null,
         },
-        memberList: {
+        list: {
             ACTIVITY_STATE_LIST: [],
             TOTAL_COUNT: 0,
         },

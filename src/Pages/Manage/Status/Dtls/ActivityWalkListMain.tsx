@@ -40,7 +40,7 @@ const ActivityWalkListMain = () => {
             setActivityWalkListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setActivityWalkListState(prevState => ({
