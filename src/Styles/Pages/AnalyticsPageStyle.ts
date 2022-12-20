@@ -56,6 +56,6 @@ export const ContentsStyle = {
         ),
         TFoot: tw.tfoot`text-xs border`,
         TFootRow: tw.tr``,
-        TFootCell: tw.th`bg-m-dip-blue text-xs text-white`,
+        TFootCell: tw.th`border bg-m-dip-blue text-xs text-white`,
     },
 }
