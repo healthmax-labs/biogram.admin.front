@@ -1,5 +1,7 @@
+import DeviceUseMain from './Dtls/DeviceUseMain'
+
 const DeviceUsePage = () => {
-    return <div>DeviceUsePage</div>
+    return <DeviceUseMain />
 }
 
 export default DeviceUsePage

@@ -20,7 +20,7 @@ const {
     DatepickerLine,
 } = SearchBoxStyle
 
-const MemberSearchBox = () => {
+const AnalyticsSearchBox = () => {
     return (
         <Container>
             <RowContainer>
@@ -201,4 +201,4 @@ const MemberSearchBox = () => {
     )
 }
 
-export default MemberSearchBox
+export default AnalyticsSearchBox

@@ -22,9 +22,11 @@ export const ContentsStyle = {
         TheadCell: tw.th`border bg-m-dip-blue text-xs text-white max-w-xs`,
         TheadCellItem: tw.div`flex w-full justify-center`,
         Body: tw.tbody``,
-        Row: tw.tr``,
+        Row: tw.tr`w-full`,
         BlankRow: tw.tr`h-5`,
         Cell: tw.td`border text-xs text-gray-500 object-center w-1/12`,
+        CellW: tw.td`border text-xs text-gray-500 object-center`,
+        CellWW: tw.td`border text-xs text-gray-500 object-center w-2/12`,
         CellBg: tw.td`border text-xs text-white bg-m-dip-blue items-center object-center`,
         TextCell: styled.td(({ Bg }: { Bg?: boolean }) => {
             const returnCss = [tw`border text-xs text-gray-500 object-center`]

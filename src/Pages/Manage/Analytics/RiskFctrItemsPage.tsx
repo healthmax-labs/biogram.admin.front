@@ -1,5 +1,7 @@
+import RiskFctrItemsMain from './Dtls/RiskFctrItemsMain'
+
 const RiskFctrItemsPage = () => {
-    return <div>위험요인 항목별 통계</div>
+    return <RiskFctrItemsMain />
 }
 
 export default RiskFctrItemsPage

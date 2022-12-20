@@ -1,5 +1,7 @@
+import RiskFctrCountMain from './Dtls/RiskFctrCountMain'
+
 const RiskFctrCountPage = () => {
-    return <div>RiskFctrCountPage</div>
+    return <RiskFctrCountMain />
 }
 
 export default RiskFctrCountPage

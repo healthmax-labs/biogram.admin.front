@@ -1,24 +1,24 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/AnalyticsPageStyle'
 import AnalyticsSearchBox from './AnalyticsSearchBox'
-import MemberTable from './MemberTable'
+import RiskFctrItemsTable from './RiskFctrItemsTable'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
     ListPage: { Container },
 } = PageContainerStyle
 
-const MemberMain = () => {
+const RiskFctrItemsMain = () => {
     return (
         <Container>
             <SearchWapper>
                 <AnalyticsSearchBox />
             </SearchWapper>
             <TableWapper>
-                <MemberTable />
+                <RiskFctrItemsTable />
             </TableWapper>
         </Container>
     )
 }
 
-export default MemberMain
+export default RiskFctrItemsMain

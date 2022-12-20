@@ -1,5 +1,7 @@
+import MeasureUserMain from './Dtls/MeasureUserMain'
+
 const MeasureUserPage = () => {
-    return <div>측정 이용자 통계</div>
+    return <MeasureUserMain />
 }
 
 export default MeasureUserPage
