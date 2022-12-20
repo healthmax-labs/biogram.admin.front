@@ -7,6 +7,7 @@ export const MainStyle = {
     ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
     TableWapper: tw.div`block w-full overflow-x-auto`,
 }
+
 export const SearchBoxStyle = {
     Container: tw.div`mt-0`,
     Wapper: tw.div`grid grid-cols-2 gap-1`,

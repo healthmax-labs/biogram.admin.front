@@ -14,13 +14,14 @@ export const SearchBoxStyle = {
         ]
     ),
     SearchItemRow: styled.div(({ Second }: { Second?: boolean }) => [
-        tw`w-center-search-box mt-0 items-center grid grid-cols-4 gap-1`,
+        tw`w-center-search-box mt-0 items-center grid grid-cols-4 gap-1 h-10`,
         Second ?? tw`pb-4`,
     ]),
 
     SearchLabel: tw.div`flex object-center content-center w-[50px]`,
     SearchColSpanLabel: tw.div`flex object-center content-center w-16`,
     SearchItem: tw.div`flex flex-nowrap`,
+    SearchItemGap: tw.div`flex flex-nowrap gap-3`,
     LabelItem: tw.div`w-20`,
     DatepickerLine: tw.div`flex px-2 items-center`,
     SearchButton: tw.div`flex flex-1 object-center justify-end pr-10 w-full`,

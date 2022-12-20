@@ -149,46 +149,46 @@ export default [
     {
         mainCode: `50000`,
         menuCode: `50101`,
-        name: `사용자 통계`,
-        pathName: ``,
+        name: `회원 통계`,
+        pathName: `/manage/analytics/member`,
         Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
+            () => import('@Page/Manage/Analytics/MemberPage')
         ),
     },
     {
         mainCode: `50000`,
         menuCode: `50201`,
-        name: `위험군 통계`,
-        pathName: ``,
+        name: `측정 이용자 통계`,
+        pathName: `/manage/analytics/measure-user`,
         Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
+            () => import('@Page/Manage/Analytics/MeasureUserPage')
         ),
     },
     {
         mainCode: `50000`,
         menuCode: `50301`,
-        name: `위험요인 통계`,
-        pathName: ``,
+        name: `위험요인 항목별 통계`,
+        pathName: `/manage/analytics/risk-fctr-items`,
         Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
+            () => import('@Page/Manage/Analytics/RiskFctrItemsPage')
         ),
     },
     {
         mainCode: `50000`,
         menuCode: `50401`,
-        name: `복약 통계`,
-        pathName: ``,
+        name: `위험요인 개수별 통계`,
+        pathName: `/manage/analytics/risk-fctr-count`,
         Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
+            () => import('@Page/Manage/Analytics/RiskFctrCountPage')
         ),
     },
     {
         mainCode: `50000`,
         menuCode: `50501`,
         name: `기기사용 통계`,
-        pathName: ``,
+        pathName: `/manage/analytics/device-use`,
         Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
+            () => import('@Page/Manage/Analytics/DeviceUsePage')
         ),
     },
     {
