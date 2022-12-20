@@ -8,9 +8,6 @@ import { getActivityWalkList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -21,41 +18,34 @@ const ActivityWalkListMain = () => {
     const [activityWalkListState, setActivityWalkListState] = useRecoilState(
         ActivityWalkListState
     )
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
-            search: { SEARCH, /*BEGIN_DE,*/ END_DE, INST_NO, curPage },
+            search: { SEARCH, BEGIN_DE, END_DE, INST_NO, curPage },
         } = activityWalkListState
-
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getActivityWalkList({
             curPage: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH: !isNull(SEARCH) ? SEARCH : '',
             // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            BEGIN_DE: `20211130`,
-            END_DE: !isNull(END_DE) ? END_DE : `${year}${monthPad}${dayPad}`,
+            BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
+            END_DE: !isNull(END_DE) ? END_DE : ``,
         })
 
         if (status) {
             setActivityWalkListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setActivityWalkListState(prevState => ({
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, activityWalkListState, setActivityWalkListState])
+    }, [activityWalkListState, setActivityWalkListState])
 
     useEffect(() => {
         const pageStart = () => {

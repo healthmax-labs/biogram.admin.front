@@ -1,8 +1,8 @@
 import React from 'react'
-import ListMain from './Dtls/MsgSendListMain'
+import MsgSendListMain from './Dtls/MsgSendListMain'
 
 const MsgSendListPage = () => {
-    return <ListMain />
+    return <MsgSendListMain />
 }
 
 export default MsgSendListPage

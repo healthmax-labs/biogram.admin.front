@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -6,13 +6,13 @@ import {
     VaryDatepickerInput,
     VaryInput,
     VaryLabel,
+    VaryLabelCheckBox,
     VaryRadioButton,
+    VarySelectBox,
 } from '@Elements'
-import { DefaultCheckBox } from '@Element/index'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { MsgSendListState } from '@Recoil/MsgPagesState'
-import { isNull } from 'lodash'
 
 const {
     Container,
@@ -25,9 +25,22 @@ const {
     LabelItem,
 } = SearchBoxStyle
 
+const initializeState = {
+    searchDays: Array.from({ length: 31 }, (_, i) => i + 1).map(e => {
+        return {
+            value: String(e).padStart(2, '0'),
+            text: String(e).padStart(2, '0'),
+        }
+    }),
+}
+
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [msgSendListState, setMsgSendListState] =
         useRecoilState(MsgSendListState)
+    const [pageState] = useState<{
+        searchDays: Array<{ value: string; text: string }>
+    }>(initializeState)
+
     return (
         <Container>
             <SearchWapper>
@@ -41,7 +54,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    instNo: String(instNo),
+                                    INST_NO: String(instNo),
                                 },
                             }))
                         }
@@ -54,21 +67,21 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <VaryInput
                         ContentsType={`search`}
                         Width={'w64'}
+                        id={'id'}
+                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                        Value={
+                            msgSendListState.search.SEARCH_KEY
+                                ? msgSendListState.search.SEARCH_KEY
+                                : ''
+                        }
                         HandleOnChange={e =>
                             setMsgSendListState(prevState => ({
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    searchKey: e.target.value,
+                                    SEARCH_KEY: e.target.value,
                                 },
                             }))
-                        }
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            isNull(msgSendListState.search.SEARCH_KEY)
-                                ? ''
-                                : msgSendListState.search.SEARCH_KEY
                         }
                     />
                 </SearchItemWapper>
@@ -79,8 +92,23 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                     </LabelItem>
                     <LabelItem>
-                        <DefaultCheckBox />
-                        실패만
+                        <VaryLabelCheckBox
+                            LabelName={`실패만`}
+                            Checked={
+                                msgSendListState.search.SNDNG_FAILR === 'F'
+                            }
+                            HandleOnChange={e => {
+                                setMsgSendListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        SNDNG_FAILR: e.target.checked
+                                            ? 'F'
+                                            : null,
+                                    },
+                                }))
+                            }}
+                        />
                     </LabelItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
@@ -90,7 +118,14 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                msgSendListState.search.FROM_MONTH &&
+                                msgSendListState.search.FROM_DAY
+                                    ? changeDatePickerDate(
+                                          `${msgSendListState.search.FROM_MONTH}${msgSendListState.search.FROM_DAY}`
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -98,26 +133,26 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        FROM_MONTH: `${year}${monthPad}`,
+                                        FROM_DAY: `${dayPad}`,
                                     },
                                 }))
                             }}
                         />
                         <DatepickerLine>~</DatepickerLine>
-                        <VaryDatepickerInput
+                        <VarySelectBox
                             ContentsType={`search`}
-                            Value={new Date()}
-                            CallBackReturn={e => {
-                                const { year, monthPad, dayPad } =
-                                    gmtTimeToTimeObject(e)
+                            Elements={pageState.searchDays}
+                            Value={msgSendListState.search.TO_DAY}
+                            HandleOnChange={e =>
                                 setMsgSendListState(prevState => ({
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        TO_DAY: e.value,
                                     },
                                 }))
-                            }}
+                            }
                         />
                     </SearchItem>
                 </SearchItemWapper>

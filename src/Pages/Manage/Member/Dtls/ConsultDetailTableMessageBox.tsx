@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import ConsultDetailTableMemo from './ConsultDetailTableMemo'
 import ConsultDetailTableMessageSend from './ConsultDetailTableMessageSend'
+import { useRecoilValue } from 'recoil'
+import { ConsultDetailChartState } from '@Recoil/MemberPagesState'
+import _ from 'lodash'
 
 const { Tabs } = ConsultDetailStyle
 
@@ -21,6 +24,7 @@ const initializeState = {
     activeTab: 'memo',
 }
 const ConsultDetailTableMessageBox = () => {
+    const chartState = useRecoilValue(ConsultDetailChartState)
     const [pageState, setPageState] = useState<{
         Tab: Array<{
             name: string
@@ -46,6 +50,26 @@ const ConsultDetailTableMessageBox = () => {
             activeTab: el.key,
         }))
     }
+
+    useEffect(() => {
+        const funcSetCHartTab = () => {
+            const { Tab } = pageState
+            let nowTab
+
+            const findActiveTabIndex = Tab.findIndex(e => e.active)
+            if (findActiveTabIndex > -1) {
+                nowTab = pageState.Tab[findActiveTabIndex].key
+            } else {
+                nowTab = ''
+            }
+
+            if (!_.isNull(chartState.CNST_NO) && nowTab !== 'memo') {
+                handleTabClick({ name: '', active: false, key: 'memo' })
+            }
+        }
+
+        funcSetCHartTab()
+    }, [chartState, pageState])
 
     return (
         <div className="px-2 pt-20">

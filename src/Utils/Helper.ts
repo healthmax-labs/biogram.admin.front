@@ -1,5 +1,5 @@
-import Const from '@Const'
 import { LoginTokenInterface } from '@CommonTypes'
+import Routers from '@Routers'
 
 /**
  * 개발 디버그.
@@ -233,7 +233,6 @@ export const removeLoginExpirein = (): void => {
  * @param pathName
  */
 export const getPathNameToMenuInfo = (pathName: string): string => {
-    const Routers = Const.Routers
     const chIdex = Routers.findIndex(el => el.pathName === pathName)
     if (chIdex === -1) {
         return ''
@@ -323,6 +322,10 @@ export const phoneFormat = (str: string) => {
     ].join('-')
 }
 
+/**
+ * gmt 시간 변경
+ * @param time
+ */
 export const gmtTimeToTimeObject = (
     time: Date
 ): {
@@ -357,5 +360,145 @@ export const gmtTimeToTimeObject = (
         minutePad: String(minute).padStart(2, '0'),
         second: second,
         secondPad: String(second).padStart(2, '0'),
+    }
+}
+
+/**
+ * 20221214112300 -> 2022-12-14 11:23:00
+ * 14자리 날짜 변환
+ * @param str
+ */
+export const timeStringParse = (str: string): string | boolean => {
+    if (str.length !== 14) return false
+
+    return str.replace(
+        /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
+        '$1-$2-$3 $4:$5:$6'
+    )
+}
+
+/**
+ * 20221210
+ * 한달전 날짜.
+ */
+export const getOneMonthAgo = () => {
+    const date = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() - 1,
+        new Date().getDate()
+    )
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    return year + '' + month + '' + day
+}
+
+/**
+ * 20221210
+ * 오늘 날짜.
+ */
+export const getNowDate = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    return year + '' + month + '' + day
+}
+
+/**
+ * 20221210
+ * 한달전 날짜.
+ */
+export const getSearchDateObject = (): {
+    start: { year: string; month: string; day: string }
+    end: { year: string; month: string; day: string }
+} => {
+    const startDate = getOneMonthAgo()
+    const endDate = getNowDate()
+
+    return {
+        start: {
+            year: startDate.substring(0, 4),
+            month: startDate.substring(4, 6),
+            day: startDate.substring(6, 8),
+        },
+        end: {
+            year: endDate.substring(0, 4),
+            month: endDate.substring(4, 6),
+            day: endDate.substring(6, 8),
+        },
+    }
+}
+
+/**
+ * 20221100061010
+ * 오늘 날짜 상세
+ */
+export const getNowDateDetail = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+
+    return (
+        year +
+        '' +
+        month +
+        '' +
+        day +
+        '' +
+        String(hour).padStart(2, '0') +
+        '' +
+        String(minute).padStart(2, '0') +
+        '' +
+        String(second).padStart(2, '0')
+    )
+}
+
+/**
+ * DatePickerDate 용 날짜로 변경
+ * @param dateString
+ */
+export const changeDatePickerDate = (dateString: string) => {
+    if (dateString.length === 6) {
+        const year = dateString.substring(0, 4)
+        const month = dateString.substring(4, 6)
+        const day = dateString.substring(6, 8)
+
+        return new Date(Number(year), Number(Number(month) - 1), Number(day))
+    }
+
+    if (dateString.length > 6) {
+        const year = dateString.substring(0, 4)
+        const month = dateString.substring(4, 6)
+        const day = dateString.substring(6, 8)
+        const hour = dateString.substring(8, 10)
+        const minute = dateString.substring(10, 12)
+        const second = dateString.substring(12, 14)
+
+        return new Date(
+            Number(year),
+            Number(Number(month) - 1),
+            Number(day),
+            Number(hour),
+            Number(minute),
+            Number(second)
+        )
     }
 }

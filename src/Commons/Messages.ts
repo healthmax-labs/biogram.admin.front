@@ -9,6 +9,17 @@ export default {
         notAllAgree: `모든 약관에 동의 해야 합니다.`,
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
+        memberConfirmMesure: `수기입력을 하시겠습니까?`,
+        remove: {
+            removeConfirm: `삭제 하시겠습니까?`,
+            removeSelectEmpty: `삭제할 항목을 선택해 주세요`,
+        },
+        sms: {
+            smsSj: `관리자 페이지 메세지 전송`,
+            sendConfirm: `메시지를 발송 하시겠습니까?`,
+            sendContentEmpty: `내용을 입력해 주세요`,
+            sendSndngNoEmpty: `발신번호를 입력해 주세요`,
+        },
         phoneAuth: {
             authYet: `인증 되지 않은 휴대폰 번호 입니다.`,
             duplicate: `중복된 번호 입니다. 본인 번호가 맞습니까?`,
@@ -57,6 +68,13 @@ export default {
             instNmCheckFail: `이미 사용중인 소속명 입니다`,
             newConfirm: `소속 정보를 저장 하시겠습니까?`,
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
+        },
+        consult: {
+            mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
+            chartSaveEmptyRegNm: `작성자 이름을 입력해 주세요`,
+            chartSaveEmptyCnst: `상담 내역을 입력해 주세요`,
+            chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
+            chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
         },
     },
 }

@@ -9,8 +9,6 @@ import { useRecoilState } from 'recoil'
 import { MsgSendListState } from '@Recoil/MsgPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -20,7 +18,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const MsgSendListMain = () => {
     const [msgSendListState, setMsgSendListState] =
         useRecoilState(MsgSendListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
@@ -54,19 +51,15 @@ const MsgSendListMain = () => {
             setMsgSendListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setMsgSendListState(prevState => ({
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, msgSendListState, setMsgSendListState])
+    }, [msgSendListState, setMsgSendListState])
 
     useEffect(() => {
         const pageStart = () => {

@@ -8,8 +8,6 @@ import { getInstJoinList } from '@Service/InstService'
 import { useRecoilState } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 import { isNull } from 'lodash'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -19,8 +17,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const JoinListMain = () => {
     const [instJoinListState, setInstJoinListState] =
         useRecoilState(InstJoinListState)
-    const { handlMainAlert } = useMainLayouts()
-
     const getTableList = useCallback(async () => {
         const {
             search: { INST_NO, CUR_PAGE, SEARCH_KEY },
@@ -44,12 +40,8 @@ const JoinListMain = () => {
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, instJoinListState, setInstJoinListState])
+    }, [instJoinListState, setInstJoinListState])
 
     useEffect(() => {
         const pageStart = () => {

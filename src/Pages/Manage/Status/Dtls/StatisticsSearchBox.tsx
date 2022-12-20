@@ -6,12 +6,13 @@ import {
     VaryDatepickerInput,
     VaryInput,
     VaryLabel,
+    VaryLabelCheckBox,
 } from '@Elements'
-import { DefaultCheckBox } from '@Element/index'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
+import Codes from '@Codes'
 
 const {
     Container,
@@ -52,16 +53,83 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryLabel LabelName={`요인:`} />
                         </SearchLabel>
                     </LabelItem>
-                    <LabelItem>
-                        <DefaultCheckBox />
-                        허리둘레
-                        <DefaultCheckBox />
-                        혈압
-                        <DefaultCheckBox />
-                        TG
-                        <DefaultCheckBox />
-                        HDL
-                    </LabelItem>
+                    <SearchItem>
+                        {(() => {
+                            const items = Codes.riksCode
+                                .filter(e => e.key === 'riksDctr')
+                                .shift()
+                            if (items && items.list) {
+                                return items.list.map((el, i) => {
+                                    const riskFctrs = statisticsListState.search
+                                        .RISK_FCTR
+                                        ? statisticsListState.search.RISK_FCTR.split(
+                                              ','
+                                          ).map(element => element.trim())
+                                        : []
+
+                                    return (
+                                        <div
+                                            className="pr-1"
+                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                            <VaryLabelCheckBox
+                                                LabelName={`${el.name}`}
+                                                Checked={
+                                                    riskFctrs.findIndex(
+                                                        e => e === el.code
+                                                    ) > -1
+                                                }
+                                                HandleOnChange={e => {
+                                                    if (
+                                                        riskFctrs &&
+                                                        e.target.checked
+                                                    ) {
+                                                        const newRiskFctrs = [
+                                                            ...riskFctrs,
+                                                            el.code,
+                                                        ]
+                                                        setStatisticsListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    RISK_FCTR:
+                                                                        newRiskFctrs.join(
+                                                                            ', '
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    } else if (
+                                                        riskFctrs &&
+                                                        !e.target.checked
+                                                    ) {
+                                                        const newRiskFctrs =
+                                                            riskFctrs.filter(
+                                                                e =>
+                                                                    e !==
+                                                                    el.code
+                                                            )
+                                                        setStatisticsListState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                search: {
+                                                                    ...prevState.search,
+                                                                    RISK_FCTR:
+                                                                        newRiskFctrs.join(
+                                                                            ','
+                                                                        ),
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )
+                                })
+                            }
+                        })()}
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -70,7 +138,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItem>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                statisticsListState.search.BEGIN_DE
+                                    ? changeDatePickerDate(
+                                          statisticsListState.search.BEGIN_DE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -78,7 +152,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtFrom: `${year}${monthPad}${dayPad}`,
+                                        BEGIN_DE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}
@@ -86,7 +160,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <DatepickerLine>~</DatepickerLine>
                         <VaryDatepickerInput
                             ContentsType={`search`}
-                            Value={new Date()}
+                            Value={
+                                statisticsListState.search.END_DE
+                                    ? changeDatePickerDate(
+                                          statisticsListState.search.END_DE
+                                      )
+                                    : new Date()
+                            }
                             CallBackReturn={e => {
                                 const { year, monthPad, dayPad } =
                                     gmtTimeToTimeObject(e)
@@ -94,7 +174,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     ...prevState,
                                     search: {
                                         ...prevState.search,
-                                        registDtTo: `${year}${monthPad}${dayPad}`,
+                                        END_DE: `${year}${monthPad}${dayPad}`,
                                     },
                                 }))
                             }}

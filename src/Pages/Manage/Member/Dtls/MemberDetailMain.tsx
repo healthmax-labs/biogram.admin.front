@@ -1,26 +1,26 @@
 import { useCallback, useEffect } from 'react'
-import DetailTable from './DetailTable'
-import MemoBox from './MemoBox'
+import MemberDetailTable from './MemberDetailTable'
+import MemberDetailMemoBox from './MemberDetailMemoBox'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toNumber } from 'lodash'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { useRecoilState } from 'recoil'
-import { DetailState } from '@Recoil/MemberPagesState'
+import { MemberDetailState } from '@Recoil/MemberPagesState'
 import { getMemberInfo } from '@Service/MemberService'
-import { MemberDetailInterface } from '@Type/PageStateType'
+import { MemberDetailInfoInterface } from '@Type/PageStateType'
 
 const {
     DetailPage: { Container, LeftWapper, RightWapper },
 } = PageContainerStyle
 
-const DetailMain = () => {
+const MemberDetailMain = () => {
     const { MEMBER_NO } = useParams<{ MEMBER_NO: string }>()
     const navigate = useNavigate()
     const { handlMainAlert } = useMainLayouts()
 
-    const [detailState, setDetailState] = useRecoilState(DetailState)
+    const [detailState, setDetailState] = useRecoilState(MemberDetailState)
 
     const handleGetMemberInfo = useCallback(
         async (member_no: number) => {
@@ -31,7 +31,7 @@ const DetailMain = () => {
             if (status) {
                 const { MBER_INFO } = payload
 
-                const memberInfo: MemberDetailInterface = {
+                const memberInfo: MemberDetailInfoInterface = {
                     NM: MBER_INFO.NM,
                     MBER_NO: MBER_INFO.MBER_NO,
                     MBTLNUM: MBER_INFO.MBTLNUM,
@@ -70,10 +70,13 @@ const DetailMain = () => {
                     },
                 }))
             } else {
-                // FIXME: 에러처리.
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.pageError,
+                })
             }
         },
-        [setDetailState]
+        [handlMainAlert, setDetailState]
     )
 
     // 첫 로딩시 회원 정보 가지고 오기.
@@ -105,17 +108,17 @@ const DetailMain = () => {
     return (
         <Container>
             <LeftWapper>
-                <DetailTable
+                <MemberDetailTable
                     HandleGetInfo={(memNo: number) =>
                         handleGetMemberInfo(memNo)
                     }
                 />
             </LeftWapper>
             <RightWapper>
-                <MemoBox />
+                <MemberDetailMemoBox />
             </RightWapper>
         </Container>
     )
 }
 
-export default DetailMain
+export default MemberDetailMain

@@ -1,16 +1,17 @@
 import { atom, DefaultValue, selector } from 'recoil'
-import { MemberDetailInterface } from '@Type/PageStateType'
-import { DefaultStatus } from '@CommonTypes'
+import { MemberDetailInfoInterface } from '@Type/PageStateType'
+import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
+    ManageCounselItemInterface,
+    MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
+import { getNowDate, getOneMonthAgo } from '@Helper'
+import Const from '@Const'
 
-/**
- * member 페이지.
- */
-
-interface ListInterface {
+// member 페이지.
+interface MemberListInterface {
     status: DefaultStatus
     search: {
         curPage: number | null
@@ -30,15 +31,56 @@ interface ConsultListInterface {
         instNo: string | null
         searchKey: string | null
         riskFctr: string | null
+        startDt: string | null
+        endDt: string | null
     }
     list: ConsultInfoListInterface
 }
 
-interface DetailInterface {
+// 상담 차트 리스트
+interface ConsultChartListInterface {
+    status: DefaultStatus
+    listStatus: DefaultStatus
+    search: {
+        endDt: string | null
+        mberNo: string | null
+        startDt: string | null
+    }
+    list: ManageCounselItemInterface[]
+}
+
+// 상담 차트 작성
+interface ConsultChartInterface {
+    CNST: string | null
+    MBER_NO: number | null
+    PLN: string | null
+    REG_NM: string | null
+    CNST_NO: number | null
+    MNG_ID: string | null
+    MNG_NM: string | null
+    MOD_DT: string | null
+    MOD_MNG_NM: string | null
+    REGDT: string | null
+}
+
+interface ConsultSmsSendInterface {
+    send: {
+        SMS_SJ: string | null
+        SMS_CN: string | null
+        SNDNG_NO: string | null
+        SNDNG_DT: string | null
+        SEND_ALL_MBER: 'N' | 'Y'
+        SNDNG_GBN: 'N' | 'Y'
+        SEND_MBER_INFO_LIST: SendSmsItemInterface[]
+    }
+}
+
+// 회원 상세
+interface MemberDetailInterface {
     status: DefaultStatus
     MBER_NO: number | null
-    detail: MemberDetailInterface
-    origin: MemberDetailInterface
+    detail: MemberDetailInfoInterface
+    origin: MemberDetailInfoInterface
     pstinstLeave: {
         selectNo: number | null
         text: string | null
@@ -46,17 +88,24 @@ interface DetailInterface {
     phoneAuth: boolean
 }
 
-// 회원 현황 페이지
-export const ListState = atom<ListInterface>({
-    key: `memberPage/list`,
+// 상담 회원 상세
+interface ConsultDetailInterface {
+    status: DefaultStatus
+    memNo: number | null
+    detail: MemberInfoInterface | null
+}
+
+// 회원 현황 리스트 페이지
+export const MemberListState = atom<MemberListInterface>({
+    key: `memberPage/member-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             instNo: null,
             searchKey: null,
-            registDtFrom: null,
-            registDtTo: null,
+            registDtFrom: getOneMonthAgo(),
+            registDtTo: getNowDate(),
         },
         list: {
             MBER_INFO_LIST: [],
@@ -66,8 +115,8 @@ export const ListState = atom<ListInterface>({
 })
 
 // 회원 상세 페이지.
-export const DetailState = atom<DetailInterface>({
-    key: `memberPage/detail`,
+export const MemberDetailState = atom<MemberDetailInterface>({
+    key: `memberPage/member-detail`,
     default: {
         status: 'idle',
         MBER_NO: null,
@@ -125,13 +174,14 @@ export const DetailState = atom<DetailInterface>({
     },
 })
 
+// 상세 정보 데이터
 export const detailStatus = selector<{
     status: DefaultStatus
     MBER_NO: number | null
 }>({
-    key: `memberPage/detailStatus`,
+    key: `memberPage/member-detailStatus`,
     get: ({ get }) => {
-        const { status, MBER_NO } = get(DetailState)
+        const { status, MBER_NO } = get(MemberDetailState)
         return {
             status,
             MBER_NO,
@@ -139,23 +189,25 @@ export const detailStatus = selector<{
     },
 })
 
-export const OriginSelector = selector<MemberDetailInterface>({
-    key: `memberPage/originInfo`,
+// 회원 origin 데이터
+export const MemberOriginSelector = selector<MemberDetailInfoInterface>({
+    key: `memberPage/member-originInfo`,
     get: ({ get }) => {
-        const { origin } = get(DetailState)
+        const { origin } = get(MemberDetailState)
         return origin
     },
 })
 
-export const DetailSelector = selector<MemberDetailInterface>({
-    key: `memberPage/detailInfo`,
+// 회원 상세
+export const MemberDetailSelector = selector<MemberDetailInfoInterface>({
+    key: `memberPage/member-detailInfo`,
     get: ({ get }) => {
-        const { detail } = get(DetailState)
+        const { detail } = get(MemberDetailState)
         return detail
     },
     set: ({ set }, newValue) => {
         if (!(newValue instanceof DefaultValue)) {
-            set(DetailState, currentState => ({
+            set(MemberDetailState, currentState => ({
                 ...currentState,
                 detail: {
                     NM: newValue.NM,
@@ -189,7 +241,7 @@ export const DetailSelector = selector<MemberDetailInterface>({
 
 // 상담회원 현황 리스트
 export const ConsultListState = atom<ConsultListInterface>({
-    key: `memberPage/consult`,
+    key: `memberPage/consult-list`,
     default: {
         status: 'idle',
         search: {
@@ -197,6 +249,8 @@ export const ConsultListState = atom<ConsultListInterface>({
             instNo: null,
             searchKey: null,
             riskFctr: null,
+            startDt: getOneMonthAgo(),
+            endDt: getNowDate(),
         },
         list: {
             MBER_INFO_LIST: [],
@@ -205,62 +259,61 @@ export const ConsultListState = atom<ConsultListInterface>({
     },
 })
 
-// 회원 상세 페이지.
-export const ConsultDetailState = atom<DetailInterface>({
-    key: `memberPage/consultDetail`,
+// 상담회원 상세 페이지.
+export const ConsultDetailState = atom<ConsultDetailInterface>({
+    key: `memberPage/consult-detail`,
     default: {
         status: 'idle',
+        memNo: null,
+        detail: null,
+    },
+})
+
+// 상담 차트 리스트
+export const ConsultDetailChartListState = atom<ConsultChartListInterface>({
+    key: `memberPage/consult-chart-list`,
+    default: {
+        status: 'idle',
+        listStatus: 'idle',
+        search: {
+            endDt: null,
+            mberNo: null,
+            startDt: null,
+        },
+        list: [],
+    },
+})
+
+// 상담 차트
+export const ConsultDetailChartState = atom<ConsultChartInterface>({
+    key: `memberPage/consult-chart`,
+    default: {
+        CNST: null,
         MBER_NO: null,
-        detail: {
-            NM: null,
-            MBER_NO: null,
-            MBTLNUM: null,
-            MBTLNUM_CRTFC_AT: null,
-            EMAIL_ADRES: null,
-            BRTHDY: null,
-            SEX: null,
-            REGIST_DT: null,
-            USID: null,
-            MEMO: null,
-            PSTINST_INFO_LIST: [],
-            MBTLNUM_CNT: null,
-            TOT_CASH: '',
-            TOT_SCORE: null,
-            USE_STPLAT_AGRE_AT: null,
-            INDVDLINFO_AGRE_AT: null,
-            SNSTIIVEINFO_AGRE_AT: null,
-            INDVDLINFO_THIRD_AGRE_AT: null,
-            SNSTIIVEINFO_THIRD_AGRE_AT: null,
-            MARKTINFO_AGRE_AT: null,
-            MARKTINFO_PURPOSE_AGRE_AT: null,
+        PLN: null,
+        REG_NM: null,
+        CNST_NO: null,
+        MNG_ID: null,
+        MNG_NM: null,
+        MOD_DT: null,
+        MOD_MNG_NM: null,
+        REGDT: null,
+    },
+})
+
+// 메시지발송
+export const ConsultDetailSmsSendState = atom<ConsultSmsSendInterface>({
+    key: `memberPage/consult-sms-send`,
+    default: {
+        send: {
+            SMS_SJ: null,
+            SMS_CN: null,
+            SNDNG_NO: Const.reprsntTelno,
+
+            SNDNG_DT: null,
+            SEND_ALL_MBER: 'N',
+            SNDNG_GBN: 'N',
+            SEND_MBER_INFO_LIST: [],
         },
-        origin: {
-            NM: null,
-            MBER_NO: null,
-            MBTLNUM: null,
-            MBTLNUM_CRTFC_AT: null,
-            EMAIL_ADRES: null,
-            BRTHDY: null,
-            SEX: null,
-            REGIST_DT: null,
-            USID: null,
-            MEMO: null,
-            PSTINST_INFO_LIST: [],
-            MBTLNUM_CNT: null,
-            TOT_CASH: '',
-            TOT_SCORE: null,
-            USE_STPLAT_AGRE_AT: null,
-            INDVDLINFO_AGRE_AT: null,
-            SNSTIIVEINFO_AGRE_AT: null,
-            INDVDLINFO_THIRD_AGRE_AT: null,
-            SNSTIIVEINFO_THIRD_AGRE_AT: null,
-            MARKTINFO_AGRE_AT: null,
-            MARKTINFO_PURPOSE_AGRE_AT: null,
-        },
-        pstinstLeave: {
-            selectNo: null,
-            text: null,
-        },
-        phoneAuth: false,
     },
 })

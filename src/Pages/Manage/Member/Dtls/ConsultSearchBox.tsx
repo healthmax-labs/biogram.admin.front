@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -8,9 +8,10 @@ import {
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
-// import { useRecoilState } from 'recoil'
-// import { ListState } from '@Recoil/MemberPagesState'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { ConsultListState } from '@Recoil/MemberPagesState'
+import Codes from '@Codes'
 
 const {
     SearchItemWapper,
@@ -25,8 +26,11 @@ const {
 } = SearchBoxStyle
 
 const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    // const [listState, setListState] = useRecoilState(ListState)
+    const [listState, setListState] = useRecoilState(ConsultListState)
 
+    useEffect(() => {
+        console.debug(listState.search)
+    }, [listState.search])
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -48,21 +52,45 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.startDt
+                                        ? changeDatePickerDate(
+                                              listState.search.startDt
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            startDt: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.endDt
+                                        ? changeDatePickerDate(
+                                              listState.search.endDt
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            endDt: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>
@@ -89,61 +117,85 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryLabel LabelName={`요인:`} />
                         </SearchColSpanLabel>
                         <SearchItem>
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`혈압`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`식후혈당`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
+                            {(() => {
+                                const items = Codes.riksCode
+                                    .filter(e => e.key === 'riks')
+                                    .shift()
 
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`허리둘레`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
+                                if (items && items.list) {
+                                    return items.list.map((el, i) => {
+                                        const riskFctrs = listState.search
+                                            .riskFctr
+                                            ? listState.search.riskFctr
+                                                  .split(',')
+                                                  .map(element =>
+                                                      element.trim()
+                                                  )
+                                            : []
 
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`BMI`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
-
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`중성지방`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
-
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`고밀도콜레스테롤`}
-                                    Checked={false}
-                                    LabelWidth={`w20`}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
-
-                            <div className="px-2">
-                                <VaryLabelCheckBox
-                                    LabelName={`스트레스`}
-                                    Checked={false}
-                                    HandleOnChange={e => console.debug(e)}
-                                />
-                            </div>
+                                        return (
+                                            <div
+                                                className="px-2"
+                                                key={`consult-searchbox-search-item-${i}`}>
+                                                <VaryLabelCheckBox
+                                                    LabelName={`${el.name}`}
+                                                    Checked={
+                                                        riskFctrs.findIndex(
+                                                            e => e === el.code
+                                                        ) > -1
+                                                    }
+                                                    HandleOnChange={e => {
+                                                        if (
+                                                            riskFctrs &&
+                                                            e.target.checked
+                                                        ) {
+                                                            const newRiskFctrs =
+                                                                [
+                                                                    ...riskFctrs,
+                                                                    el.code,
+                                                                ]
+                                                            setListState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    search: {
+                                                                        ...prevState.search,
+                                                                        riskFctr:
+                                                                            newRiskFctrs.join(
+                                                                                ', '
+                                                                            ),
+                                                                    },
+                                                                })
+                                                            )
+                                                        } else if (
+                                                            riskFctrs &&
+                                                            !e.target.checked
+                                                        ) {
+                                                            const newRiskFctrs =
+                                                                riskFctrs.filter(
+                                                                    e =>
+                                                                        e !==
+                                                                        el.code
+                                                                )
+                                                            setListState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    search: {
+                                                                        ...prevState.search,
+                                                                        riskFctr:
+                                                                            newRiskFctrs.join(
+                                                                                ','
+                                                                            ),
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            })()}
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper></SearchItemWapper>

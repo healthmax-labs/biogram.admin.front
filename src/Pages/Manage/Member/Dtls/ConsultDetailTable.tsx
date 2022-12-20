@@ -3,18 +3,40 @@ import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Elements'
 import ConsultDetailTableTab from './ConsultDetailTableTab'
 import { useParams } from 'react-router-dom'
-// import React, { useEffect } from 'react'
 import Const from '@Const'
+import { useRecoilValue } from 'recoil'
+import { ConsultDetailState } from '@Recoil/MemberPagesState'
+import { useEffect, useState } from 'react'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
 const { DetailContainer } = DetailPageStyle
+
+const initializeState = {
+    info: {
+        NM: '',
+        MBTLNUM: '',
+        SEXDSTN: '',
+        BRTHDY: '',
+    },
+}
 
 const ConsultDetailTable = () => {
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
     }>()
+
+    const [pageState, setPageState] = useState<{
+        info: {
+            NM: string
+            MBTLNUM: string
+            SEXDSTN: string
+            BRTHDY: string
+        }
+    }>(initializeState)
+
+    const detailState = useRecoilValue(ConsultDetailState)
 
     // 템에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
@@ -27,9 +49,28 @@ const ConsultDetailTable = () => {
         return <TabPageComponent />
     }
 
-    // useEffect(() => {
-    //     console.debug(params)
-    // }, [params])
+    useEffect(() => {
+        const funcSetData = () => {
+            if (detailState.detail) {
+                const { NM, BRTHDY, SEXDSTN, MBTLNUM } =
+                    detailState.detail.MBER_INFO
+                setPageState(prevState => ({
+                    ...prevState,
+                    info: {
+                        NM: NM,
+                        BRTHDY: BRTHDY,
+                        MBTLNUM: MBTLNUM,
+                        SEXDSTN: SEXDSTN,
+                    },
+                }))
+            }
+        }
+
+        if (detailState.status === 'success') {
+            funcSetData()
+        }
+    }, [detailState])
+
     return (
         <>
             <DetailContainer>
@@ -45,7 +86,7 @@ const ConsultDetailTable = () => {
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'이름'}
-                                    Value={``}
+                                    Value={pageState.info.NM}
                                     Disabled={true}
                                 />
                             </InputCell>
@@ -58,7 +99,7 @@ const ConsultDetailTable = () => {
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'핸드폰번호'}
-                                    Value={``}
+                                    Value={pageState.info.MBTLNUM}
                                     Disabled={true}
                                 />
                             </InputCell>
@@ -73,7 +114,7 @@ const ConsultDetailTable = () => {
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'성별'}
-                                    Value={``}
+                                    Value={pageState.info.SEXDSTN}
                                     Disabled={true}
                                 />
                             </InputCell>
@@ -86,7 +127,7 @@ const ConsultDetailTable = () => {
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'생년월일'}
-                                    Value={``}
+                                    Value={pageState.info.BRTHDY}
                                     Disabled={true}
                                 />
                             </InputCell>

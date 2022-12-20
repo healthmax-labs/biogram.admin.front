@@ -8,9 +8,6 @@ import { getBrftrCmprList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
-import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
 
 const {
     ListPage: { Container },
@@ -20,41 +17,34 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const BrftrCmprListMain = () => {
     const [brftrCmprListState, setBrftrCmprListState] =
         useRecoilState(BrftrCmprListState)
-    const { handlMainAlert } = useMainLayouts()
 
     const getTableList = useCallback(async () => {
         const {
-            search: { SEARCH_KEY, /*BGNDE,*/ ENDDE, INST_NO, curPage },
+            search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage },
         } = brftrCmprListState
-
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getBrftrCmprList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            BGNDE: `20211130`,
-            ENDDE: !isNull(ENDDE) ? ENDDE : `${year}${monthPad}${dayPad}`,
+            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
+            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
         })
 
         if (status) {
             setBrftrCmprListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setBrftrCmprListState(prevState => ({
                 ...prevState,
                 status: 'failure',
             }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
         }
-    }, [handlMainAlert, brftrCmprListState, setBrftrCmprListState])
+    }, [brftrCmprListState, setBrftrCmprListState])
 
     useEffect(() => {
         const pageStart = () => {

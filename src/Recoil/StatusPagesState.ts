@@ -1,9 +1,12 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
-import { BrftrCmprListInterface } from '@Type/StatusTypes'
-import { RiskFctrListInterface } from '@Type/StatusTypes'
-import { StatisticsListInterface } from '@Type/StatusTypes'
-import { ActivityWalkListInterface } from '@Type/StatusTypes'
+import {
+    ActivityWalkListInterface,
+    BrftrCmprListInterface,
+    RiskFctrListInterface,
+    StatisticsListInterface,
+} from '@Type/StatusTypes'
+import { getNowDate, getOneMonthAgo } from '@Helper'
 
 /**
  * status 페이지.
@@ -16,24 +19,24 @@ interface BrftrCmprSearchListInterface {
         curPage: number | null
         INST_NO: string | null
         SEARCH_KEY: string | null
-        BGNDE: string | null
-        ENDDE: string | null
+        BGNDE: string
+        ENDDE: string
     }
-    memberList: BrftrCmprListInterface
+    list: BrftrCmprListInterface
 }
 
 export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
-    key: `statusPage/brftrCmprList`,
+    key: `statusPage/brftr-cmpr-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
         },
-        memberList: {
+        list: {
             MESURE_BRFTR_CMPR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -53,24 +56,24 @@ interface RiskFctrSearchListInterface {
         RISK_FCTR: string | null
         TAKNG_MDCIN: string | null
     }
-    memberList: RiskFctrListInterface
+    list: RiskFctrListInterface
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
-    key: `statusPage/RiskFctrList`,
+    key: `statusPage/risk-fctr-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BGNDE: null,
-            ENDDE: null,
-            RISK_FCTR_CNT: null,
-            RISK_FCTR: null,
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
+            RISK_FCTR_CNT: '2',
+            RISK_FCTR: 'WS,BP,BS,TG,HD',
             TAKNG_MDCIN: null,
         },
-        memberList: {
+        list: {
             RISK_FCTR_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -84,24 +87,26 @@ interface StatisticsSearchListInterface {
         curPage: number | null
         INST_NO: string | null
         SEARCH_KEY: string | null
-        BEGIN_DE: string | null
-        END_DE: string | null
+        BEGIN_DE: string
+        END_DE: string
+        RISK_FCTR: string | null
     }
-    memberList: StatisticsListInterface
+    list: StatisticsListInterface
 }
 
 export const StatisticsListState = atom<StatisticsSearchListInterface>({
-    key: `statusPage/statisticsList`,
+    key: `statusPage/statistics-list`,
     default: {
         status: 'idle',
         search: {
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            BEGIN_DE: null,
-            END_DE: null,
+            RISK_FCTR: null,
+            BEGIN_DE: getOneMonthAgo(),
+            END_DE: getNowDate(),
         },
-        memberList: {
+        list: {
             DEVICE_MESURE_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
@@ -118,7 +123,7 @@ interface ActivityWalkInterface {
         BEGIN_DE: string | null
         END_DE: string | null
     }
-    memberList: ActivityWalkListInterface
+    list: ActivityWalkListInterface
 }
 
 export const ActivityWalkListState = atom<ActivityWalkInterface>({
@@ -129,10 +134,10 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH: null,
-            BEGIN_DE: null,
-            END_DE: null,
+            BEGIN_DE: getOneMonthAgo(),
+            END_DE: getNowDate(),
         },
-        memberList: {
+        list: {
             ACTIVITY_STATE_LIST: [],
             TOTAL_COUNT: 0,
         },

@@ -66,30 +66,30 @@ export default {
             name: `체성분`,
             key: '0010',
             list: [
-                { code: '6021', name: '몸무게(kg)' },
-                { code: '6023', name: '근육량(kg)' },
-                { code: '6022', name: '체지방률' },
+                { code: '6021', name: '몸무게(kg)', keyCode: 'BDWGH' },
+                { code: '6023', name: '근육량(kg)', keyCode: 'SLM' },
+                { code: '6022', name: '체지방률', keyCode: 'PBF' },
                 { code: '8010', name: '체지방량(kg)' },
-                { code: '6026', name: '내장지방(level)' },
-                { code: '6056', name: 'BMI(kg/㎡)' },
-                { code: '6029', name: '추정골량(kg)' },
+                { code: '6026', name: '내장지방(level)', keyCode: 'VFL' },
+                { code: '6056', name: 'BMI(kg/㎡)', keyCode: 'BMI' },
+                { code: '6029', name: '추정골량(kg)', keyCode: 'EST_BN_MAS' },
             ],
         },
         {
             name: `혈압`,
             key: '0020',
             list: [
-                { code: '622E', name: '수축기(mmHg)' },
-                { code: '622F', name: '이완기(mmHg)' },
-                { code: '6230', name: '맥박(bpm)' },
+                { code: '622E', name: '수축기(mmHg)', keyCode: 'SYSTOLIC' },
+                { code: '622F', name: '이완기(mmHg)', keyCode: 'DIASTOLIC' },
+                { code: '6230', name: '맥박(bpm)', keyCode: 'PULS' },
             ],
         },
         {
             name: `혈당`,
             key: '0030',
             list: [
-                { code: '624A', name: '공복혈당(mg/dl)' },
-                { code: '624B', name: '식후혈당(mg/dl)' },
+                { code: '624A', name: '공복혈당(mg/dl)', keyCode: 'FBS' },
+                { code: '624B', name: '식후혈당(mg/dl)', keyCode: 'PP2' },
                 { code: '624M', name: '당화혈색소(％)' },
             ],
         },
@@ -97,10 +97,14 @@ export default {
             name: `콜레스테롤`,
             key: '0040',
             list: [
-                { code: '624C', name: '총 콜레스테롤(mg/dl)' },
-                { code: '624E', name: 'HDL-C(mg/dl)' },
-                { code: '624F', name: 'LDL-C(mg/dl)' },
-                { code: '624D', name: '중성지방(mg/dl)' },
+                {
+                    code: '624C',
+                    name: '총 콜레스테롤(mg/dl)',
+                    keyCode: 'T_CHOL',
+                },
+                { code: '624E', name: 'HDL-C(mg/dl)', keyCode: 'HDLC' },
+                { code: '624F', name: 'LDL-C(mg/dl)', keyCode: 'LDLC' },
+                { code: '624D', name: '중성지방(mg/dl)', keyCode: 'TG' },
             ],
         },
         {
@@ -127,9 +131,13 @@ export default {
             name: `기타`,
             key: '0070',
             list: [
-                { code: '6A35', name: '신장(cm)' },
-                { code: '8072', name: '허리둘레(cm)' },
-                { code: '5010', name: '체온(℃)' },
+                { code: '6A35', name: '신장(cm)', keyCode: 'HEIGHT' },
+                {
+                    code: '8072',
+                    name: '허리둘레(cm)',
+                    keyCode: 'WAIST_CRCMFRNC',
+                },
+                { code: '5010', name: '체온(℃)', keyCode: 'BDHEAT' },
             ],
         },
         {
@@ -146,10 +154,10 @@ export default {
             ],
         },
     ],
-    RIKS_CODE: [
+    riksCode: [
         {
             name: `위험요인`,
-            key: 'RIKS_FCTR',
+            key: 'riks',
             list: [
                 { code: 'WS', name: '허리둘레' },
                 { code: 'BP', name: '혈압' },
@@ -163,8 +171,19 @@ export default {
             ],
         },
         {
+            name: `위험요인`,
+            key: 'riksDctr',
+            list: [
+                { code: 'WS', name: '허리둘레' },
+                { code: 'BP', name: '혈압' },
+                { code: 'BS', name: '혈당' },
+                { code: 'TG', name: '중성지방' },
+                { code: 'HD', name: 'HDLC' },
+            ],
+        },
+        {
             name: `복약정보`,
-            key: 'TAKNG_MDCIN',
+            key: 'takngMdcin',
             list: [
                 { code: 'OB', name: '비만' },
                 { code: 'HP', name: '고혈압' },

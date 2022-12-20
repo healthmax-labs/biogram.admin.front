@@ -10,10 +10,10 @@ import {
     saveLoginToken,
     storageMaster,
 } from '@Helper'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNull } from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
 import { useCallback } from 'react'
-import Const from '@Const'
+import Routers from '@Routers'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -60,16 +60,14 @@ export default function useAuth() {
                 menuInfo: {
                     CHARGER_MENU_INFO: CHARGER_MENU_INFO,
                     AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
-                        const ckIndex = Const.Routers.findIndex(
+                        const ckIndex = Routers.findIndex(
                             rt => rt.menuCode === el.MENU_CODE
                         )
 
                         return {
                             ...el,
                             pathName:
-                                ckIndex > -1
-                                    ? Const.Routers[ckIndex].pathName
-                                    : '',
+                                ckIndex > -1 ? Routers[ckIndex].pathName : '',
                             MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
                         }
                     }),
@@ -138,7 +136,7 @@ export default function useAuth() {
                 userinfo: {
                     USID: !isEmpty(USID) ? USID : null,
                     NM: !isEmpty(NM) ? NM : null,
-                    MBER_NO: !isEmpty(MBER_NO) ? MBER_NO : null,
+                    MBER_NO: !isNull(MBER_NO) ? MBER_NO : null,
                     AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                     INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
                 },

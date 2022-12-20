@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { DatePicker: Input } = InputStyle
@@ -12,10 +12,8 @@ const DefaultInput = (
         value,
         onFocus,
         onChange,
-        Width,
     }: {
         value: string
-        Width?: InputWidthType
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
@@ -23,7 +21,6 @@ const DefaultInput = (
 ) => (
     <VaryInput
         Ref={ref}
-        Width={Width ? Width : 'w64'}
         InputType={'text'}
         HandleOnChange={onChange}
         id={'id'}
@@ -57,12 +54,15 @@ const VaryDatepickerInput = ({
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
 }) => {
-    const [selectDate, setSelectDate] = useState(new Date())
+    const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
+    const [dateFormat, setDateFormat] = useState(`yyyy/MM/dd`)
 
     useEffect(() => {
-        if (Value) {
+        if (Value && selectDate.getTime() !== Value?.getTime()) {
             setSelectDate(Value)
         }
+        // FIXME : 종속성에서 selectDate 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Value])
 
     useEffect(() => {
@@ -74,18 +74,38 @@ const VaryDatepickerInput = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectDate])
 
+    useEffect(() => {
+        if (ContentsType === 'search') {
+            return
+        }
+
+        if (ContentsType === 'default') {
+            if (DateFormat) {
+                setDateFormat(DateFormat)
+            } else {
+                setDateFormat(`yyyy년 MM월 dd일`)
+            }
+        }
+
+        if (ContentsType === 'time') {
+            if (DateFormat) {
+                setDateFormat(DateFormat)
+            } else {
+                setDateFormat(`h:mm`)
+            }
+        }
+    }, [ContentsType, DateFormat])
+
     return (
         <DatePicker
             selected={selectDate}
             onChange={(date: Date) => setSelectDate(date)}
-            dateFormat={
-                ContentsType === 'search'
-                    ? `yyyy/MM/dd`
-                    : DateFormat
-                    ? DateFormat
-                    : `yyyy년 MM월 dd일`
-            }
+            dateFormat={dateFormat}
             locale={ko}
+            showTimeSelect={ContentsType === 'time'}
+            showTimeSelectOnly={ContentsType === 'time'}
+            timeIntervals={ContentsType === 'time' ? 1 : 15}
+            timeCaption={ContentsType === 'time' ? '시간' : ''}
             customInput={
                 ContentsType === 'search'
                     ? React.createElement(React.forwardRef(SearchInput))
