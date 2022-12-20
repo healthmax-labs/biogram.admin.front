@@ -20,6 +20,34 @@ export const ButtonStyle = {
         Label: tw.label`inline-block text-gray-800 text-xs`,
     },
     VaryInfoButtonStyle: {
-        Button: tw.button`inline-flex items-center bg-white text-black text-xs rounded-md mx-1 no-underline hover:underline`,
+        Button: styled.button(
+            ({
+                ButtonType,
+                Active,
+            }: {
+                ButtonType: `button` | `info`
+                Active: boolean
+            }) => {
+                const returnTw = []
+
+                if (ButtonType === 'info') {
+                    returnTw.push(
+                        tw`inline-flex items-center bg-white text-black text-xs rounded-md mx-1 no-underline hover:underline`
+                    )
+                } else if (ButtonType === 'button') {
+                    if (Active) {
+                        returnTw.push(
+                            tw`bg-transparent bg-m-blue text-xs text-white hover:bg-m-blue py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                        )
+                    } else {
+                        returnTw.push(
+                            tw`bg-transparent hover:bg-m-blue text-xs text-gray-500 hover:text-white py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                        )
+                    }
+                }
+
+                return returnTw
+            }
+        ),
     },
 }
