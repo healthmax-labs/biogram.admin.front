@@ -24,6 +24,7 @@ export const DetailTableStyle = {
     Row: tw.tr`whitespace-nowrap max-h-11 w-full`,
     LabelCell: tw.td`px-6 w-1/4 text-sm text-gray-500 border`,
     InputCell: tw.td`px-6 w-3/4 py-1 border`,
+    InputCellGap: tw.td`flex flex-nowrap px-6 w-3/4 py-1 border gap-1`,
     ButtonBox: tw.div`flex flex-nowrap py-2 justify-center`,
     ButtonItem: tw.div`pl-1`,
 }

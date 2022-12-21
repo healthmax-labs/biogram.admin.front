@@ -36,6 +36,7 @@ export { default as TotalScoreModal } from './Modals/TotalScoreModal'
 export { default as TotalCashModal } from './Modals/TotalCashModal'
 export { default as MemberMyDataModal } from './Modals/MemberMyDataHistoryModal'
 export { default as MemberMyDataInputModal } from './Modals/MemberMyDataInputModal'
+export { default as DaumPostCodeModal } from './Modals/DaumPostCodeModal'
 
 export { default as DefaultPagination } from './Paginations/DefaultPagination'
 

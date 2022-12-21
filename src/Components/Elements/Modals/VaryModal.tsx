@@ -22,13 +22,13 @@ const VaryModal = ({
     NeedMax = false,
     Children,
     Buttons,
-    maxWidth,
+    MaxWidth,
 }: {
     ModalLoading: boolean
     NeedMax?: boolean
     Children: React.ReactNode
     Buttons?: React.ReactNode
-    maxWidth?: MaxWidthType
+    MaxWidth?: MaxWidthType
 }) => {
     const [pageState, setPageState] = useState<{
         loading: boolean
@@ -45,7 +45,7 @@ const VaryModal = ({
         <Container>
             <ModalBackground></ModalBackground>
             <MainWapper needMax={NeedMax}>
-                <Wapper maxWidth={maxWidth ? maxWidth : `xl7`}>
+                <Wapper maxWidth={MaxWidth ? MaxWidth : `xl7`}>
                     <MainBox>
                         <CenterBox>
                             {pageState.loading ? (

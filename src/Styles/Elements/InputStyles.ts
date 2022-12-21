@@ -63,7 +63,7 @@ export const VaryInputStyle = {
             ContentsType?: ContentType
             Bg?: InputBgColorType
             Disabled?: boolean
-            Width?: InputWidthType
+            Width?: InputWidthType | null
         }) => {
             let returnTw
 

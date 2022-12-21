@@ -1384,7 +1384,7 @@ const MemberDetailTable = ({
                 {/*소속 탈퇴 처리*/}
                 {pageState.modal.pstinstInfoListLeave.state && (
                     <VaryModal
-                        maxWidth={`lg`}
+                        MaxWidth={`lg`}
                         ModalLoading={false}
                         NeedMax={false}
                         Children={

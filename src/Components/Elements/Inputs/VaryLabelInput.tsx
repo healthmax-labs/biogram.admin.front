@@ -34,7 +34,7 @@ const VaryLabelInput = ({
         <Wapper>
             <InputLabel>{LabelName}</InputLabel>
             <VaryInput
-                Width={InputWidth ? InputWidth : 'w64'}
+                Width={InputWidth ? InputWidth : null}
                 InputType={InputType ? InputType : `text`}
                 Placeholder={Placeholder ? Placeholder : LabelName}
                 HandleOnChange={(e: React.ChangeEvent<HTMLInputElement>) =>

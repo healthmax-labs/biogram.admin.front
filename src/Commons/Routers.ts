@@ -102,6 +102,24 @@ export default [
         ),
     },
     {
+        mainCode: `30000`,
+        menuCode: `30201`,
+        name: `바이오그램 상세`,
+        pathName: `/manage/contents/uhealthzone/:UhealthZoneNo/detail`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Contents/UhealthzoneDetailPage')
+        ),
+    },
+    {
+        mainCode: `30000`,
+        menuCode: `30201`,
+        name: `바이오그램 등록`,
+        pathName: `/manage/contents/uhealthzone/new`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Contents/UhealthzoneDetailPage')
+        ),
+    },
+    {
         mainCode: `40000`,
         menuCode: `40101`,
         name: `위험요인 현황`,
