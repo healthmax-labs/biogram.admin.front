@@ -23,8 +23,8 @@ export const DetailTableStyle = {
     TableWapper: tw.tbody`bg-white`,
     Row: tw.tr`whitespace-nowrap max-h-11 w-full`,
     LabelCell: tw.td`px-6 w-1/4 text-sm text-gray-500 border`,
-    InputCell: tw.td`px-6 w-3/4 py-1 border`,
-    InputCellGap: tw.td`flex flex-nowrap px-6 w-3/4 py-1 border gap-1`,
+    InputCell: tw.td`px-6 w-3/4 py-1 border h-8`,
+    InputItem: tw.div`w-3/12`,
     ButtonBox: tw.div`flex flex-nowrap py-2 justify-center`,
     ButtonItem: tw.div`pl-1`,
 }
@@ -34,8 +34,9 @@ export const CommonListTableStyle = {
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
     HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
-    HeaderCell: tw.th`flex p-4 w-1/4 px-3 align-middle py-1 items-center justify-center text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
+    HeaderCell: tw.th`flex p-4 w-2/4 px-3 align-middle py-1 items-center justify-center text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full h-[59vh] bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
+    TableBodyS: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
             ? tw`flex w-full bg-white h-9 items-center cursor-pointer hover:bg-green-200 text-center`

@@ -1,24 +1,39 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
-    DaumPostCodeModal,
+    KaKaoMapModal,
+    KaKaoPostCodeModal,
     PstinstSelectBox,
     VaryButton,
+    VaryDatepickerInput,
     VaryInput,
     VaryLabel,
+    VaryLabelCheckBox,
     VaryLabelInput,
+    VaryLabelRadioButton,
+    VarySelectBox,
+    VaryImageUpload,
 } from '@Elements'
-import { DetailTableStyle } from '@Style/Elements/TableStyles'
-import { DetailPageStyle } from '@Style/Pages/ContentsPageStyle'
+import { gmtTimeToTimeObject } from '@Helper'
+import {
+    DetailTableStyle,
+    CommonListTableStyle as CT,
+} from '@Style/Elements/TableStyles'
+import { DetailPageStyle as DPS } from '@Style/Pages/ContentsPageStyle'
+import { WapperStyle as WS } from '@Style/Pages/CommonStyle'
 
-const { TableContainer, TableWapper, Row, LabelCell, InputCell, InputCellGap } =
+const { TableContainer, TableWapper, Row, LabelCell, InputCell, InputItem } =
     DetailTableStyle
 
-const { DetailContainer } = DetailPageStyle
-
 const initializeState = {
+    address: {
+        fullAddress: '',
+        long: '',
+        lat: '',
+    },
     modal: {
         postcode: false,
+        kakaomap: false,
     },
 }
 
@@ -30,8 +45,14 @@ const UhealthzoneDetailTable = ({
     const params = useParams<{ UhealthZoneNo: string | undefined }>()
 
     const [pageState, setPageState] = useState<{
+        address: {
+            fullAddress: string
+            long: string
+            lat: string
+        }
         modal: {
             postcode: boolean
+            kakaomap: boolean
         }
     }>(initializeState)
 
@@ -50,59 +71,43 @@ const UhealthzoneDetailTable = ({
     }, [pageMode, params.UhealthZoneNo])
 
     return (
-        <DetailContainer>
+        <DPS.DetailContainer>
             <TableContainer>
                 <TableWapper>
-                    {pageMode === 'modify' && (
-                        <Row>
-                            <LabelCell>
-                                <VaryLabel LabelName={`소속코드`} />
-                            </LabelCell>
-                            <InputCell>
-                                <div className="flex flex-nowrap w-full items-center">
-                                    <div className="w-2/4">
-                                        <VaryInput
-                                            Bg={`white`}
-                                            ReadOnly={true}
-                                            InputType={'text'}
-                                            HandleOnChange={() =>
-                                                console.debug('HandleOnChange')
-                                            }
-                                            id={'id'}
-                                            Placeholder={'가입일자'}
-                                            Value={`${params.UhealthZoneNo}`}
-                                        />
-                                    </div>
-                                </div>
-                            </InputCell>
-                        </Row>
-                    )}
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`지점명`} />
                         </LabelCell>
-                        <InputCellGap>
-                            <VaryInput
-                                InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
-                                id={'id'}
-                                Placeholder={'지점명'}
-                                Value={``}
-                            />
-                            <VaryButton
-                                Name={`지점 중복확인`}
-                                HandleClick={() => console.debug('VaryButton')}
-                            />
-                        </InputCellGap>
+                        <InputCell>
+                            <WS.InputWapper>
+                                <InputItem>
+                                    <VaryInput
+                                        InputType={'text'}
+                                        HandleOnChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) => console.debug(e)}
+                                        id={'id'}
+                                        Placeholder={'지점명'}
+                                        Value={``}
+                                    />
+                                </InputItem>
+                                <InputItem>
+                                    <VaryButton
+                                        Name={`지점 중복확인`}
+                                        HandleClick={() =>
+                                            console.debug('VaryButton')
+                                        }
+                                    />
+                                </InputItem>
+                            </WS.InputWapper>
+                        </InputCell>
                     </Row>
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`소속 위치`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="w-full items-center">
+                            <WS.InputWapper>
                                 <PstinstSelectBox
                                     Value={{
                                         status: 'loading',
@@ -116,33 +121,37 @@ const UhealthzoneDetailTable = ({
                                         console.debug(e)
                                     }}
                                 />
-                            </div>
+                            </WS.InputWapper>
                         </InputCell>
                     </Row>
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`전화번호`} />
                         </LabelCell>
-                        <InputCellGap>
-                            <VaryInput
-                                InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
-                                id={'id'}
-                                Placeholder={'전화번호'}
-                                Value={``}
-                            />
-                        </InputCellGap>
+                        <InputCell>
+                            <WS.InputWapper>
+                                <InputItem>
+                                    <VaryInput
+                                        InputType={'text'}
+                                        HandleOnChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) => console.debug(e)}
+                                        id={'id'}
+                                        Placeholder={'전화번호'}
+                                        Value={``}
+                                    />
+                                </InputItem>
+                            </WS.InputWapper>
+                        </InputCell>
                     </Row>
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`주소 정보`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="">
-                                <div className="flex flex-nowrap">
-                                    <div className="">
+                            <WS.FullWapper>
+                                <WS.FlexNoWarapGap>
+                                    <DPS.Address.Button>
                                         <VaryButton
                                             Name={`주소 검색`}
                                             HandleClick={() =>
@@ -155,8 +164,8 @@ const UhealthzoneDetailTable = ({
                                                 }))
                                             }
                                         />
-                                    </div>
-                                    <div className="">
+                                    </DPS.Address.Button>
+                                    <DPS.Address.Input>
                                         <VaryInput
                                             InputType={'text'}
                                             HandleOnChange={(
@@ -164,13 +173,15 @@ const UhealthzoneDetailTable = ({
                                             ) => console.debug(e)}
                                             id={'id'}
                                             Placeholder={'주소를 입력해 주세요'}
-                                            Value={``}
+                                            Value={
+                                                pageState.address.fullAddress
+                                            }
                                         />
-                                    </div>
-                                </div>
-                                <div className="flex flex-nowrap">
-                                    <div className="flex flex-nowrap w-full">
-                                        <div className="w-1/12">
+                                    </DPS.Address.Input>
+                                </WS.FlexNoWarapGap>
+                                <WS.FlexNoWarapGap>
+                                    <WS.FullNoWarap>
+                                        <DPS.Geo>
                                             <VaryLabelInput
                                                 LabelName="위도"
                                                 HandleOnChange={() =>
@@ -178,10 +189,12 @@ const UhealthzoneDetailTable = ({
                                                         'HandleOnChange'
                                                     )
                                                 }
-                                                InputValue={''}
+                                                InputValue={
+                                                    pageState.address.long
+                                                }
                                             />
-                                        </div>
-                                        <div className="w-1/6">
+                                        </DPS.Geo>
+                                        <DPS.Geo>
                                             <VaryLabelInput
                                                 LabelName="경도"
                                                 HandleOnChange={() =>
@@ -189,27 +202,650 @@ const UhealthzoneDetailTable = ({
                                                         'HandleOnChange'
                                                     )
                                                 }
-                                                InputValue={''}
+                                                InputValue={
+                                                    pageState.address.lat
+                                                }
                                             />
-                                        </div>
-
-                                        <div className="w-4/6">
-                                            (구글 지도에 해당위치를 우클릭 후
-                                            위/경도를 입력해 주세요)
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        </DPS.Geo>
+                                    </WS.FullNoWarap>
+                                </WS.FlexNoWarapGap>
+                                <WS.FlexNoWarapGap>
+                                    <WS.FullNoWarap>
+                                        <DPS.MapURL>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={(
+                                                    e: React.ChangeEvent<HTMLInputElement>
+                                                ) => console.debug(e)}
+                                                id={'id'}
+                                                Placeholder={
+                                                    'URL을 입력해 주세요'
+                                                }
+                                                Value={``}
+                                            />
+                                        </DPS.MapURL>
+                                        <DPS.MapURL>
+                                            <VaryButton
+                                                Name={`지도보기`}
+                                                HandleClick={() => {
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        modal: {
+                                                            ...prevState.modal,
+                                                            kakaomap: true,
+                                                        },
+                                                    }))
+                                                }}
+                                            />
+                                        </DPS.MapURL>
+                                    </WS.FullNoWarap>
+                                </WS.FlexNoWarapGap>
+                            </WS.FullWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`운영시간`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WS.FullWapper>
+                                <WS.FlexNoWarapGap>
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`일`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`월`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`화`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`수`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`목`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`금`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`토`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`공휴일 휴무`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                </WS.FlexNoWarapGap>
+                                <WS.FlexNoWarap>
+                                    <DPS.DatePicker>
+                                        <VaryDatepickerInput
+                                            ContentsType={`time`}
+                                            Value={new Date()}
+                                            CallBackReturn={e => {
+                                                const {
+                                                    year,
+                                                    monthPad,
+                                                    dayPad,
+                                                } = gmtTimeToTimeObject(e)
+                                                console.debug(
+                                                    year,
+                                                    monthPad,
+                                                    dayPad
+                                                )
+                                            }}
+                                        />
+                                    </DPS.DatePicker>
+                                    <DPS.DatePickerLine>~</DPS.DatePickerLine>
+                                    <DPS.DatePicker>
+                                        <VaryDatepickerInput
+                                            ContentsType={`time`}
+                                            Value={new Date()}
+                                            CallBackReturn={e => {
+                                                const {
+                                                    year,
+                                                    monthPad,
+                                                    dayPad,
+                                                } = gmtTimeToTimeObject(e)
+                                                console.debug(
+                                                    year,
+                                                    monthPad,
+                                                    dayPad
+                                                )
+                                            }}
+                                        />
+                                    </DPS.DatePicker>
+                                </WS.FlexNoWarap>
+                            </WS.FullWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`혈액 측정 시간`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WS.FullWapper>
+                                <WS.FlexNoWarapGap>
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`일`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`월`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`화`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`수`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`목`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`금`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`토`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                    <VaryLabelCheckBox
+                                        Checked={false}
+                                        LabelName={`공휴일 휴무`}
+                                        HandleOnChange={() =>
+                                            console.debug('HandleOnChange')
+                                        }
+                                    />
+                                </WS.FlexNoWarapGap>
+                                <WS.FlexNoWarap>
+                                    <DPS.DatePicker>
+                                        <VaryDatepickerInput
+                                            ContentsType={`time`}
+                                            Value={new Date()}
+                                            CallBackReturn={e => {
+                                                const {
+                                                    year,
+                                                    monthPad,
+                                                    dayPad,
+                                                } = gmtTimeToTimeObject(e)
+                                                console.debug(
+                                                    year,
+                                                    monthPad,
+                                                    dayPad
+                                                )
+                                            }}
+                                        />
+                                    </DPS.DatePicker>
+                                    <DPS.DatePickerLine>~</DPS.DatePickerLine>
+                                    <DPS.DatePicker>
+                                        <VaryDatepickerInput
+                                            ContentsType={`time`}
+                                            Value={new Date()}
+                                            CallBackReturn={e => {
+                                                const {
+                                                    year,
+                                                    monthPad,
+                                                    dayPad,
+                                                } = gmtTimeToTimeObject(e)
+                                                console.debug(
+                                                    year,
+                                                    monthPad,
+                                                    dayPad
+                                                )
+                                            }}
+                                        />
+                                    </DPS.DatePicker>
+                                </WS.FlexNoWarap>
+                            </WS.FullWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`설치 기기`} />
+                        </LabelCell>
+                        <InputCell>
+                            <TableContainer>
+                                <TableWapper>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel LabelName={`모델`} />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`프로`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`베이직`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel
+                                                LabelName={`로그인 방식`}
+                                            />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`복합`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`지정맥`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`RFID카드`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel
+                                                LabelName={`외부인 사용`}
+                                            />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`가능`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`불가능`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel LabelName={`오픈`} />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`오픈`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`미오픈`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel LabelName={`프린트`} />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`가능`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelRadioButton
+                                                    Checked={false}
+                                                    LabelName={`불가능`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel LabelName={`설치기기`} />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <div className="flex flex-nowrap">
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`키오스크`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`신장`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`체성분`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`혈압`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`혈당`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`콜레스트롤`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`스트레스`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    Checked={false}
+                                                    LabelName={`뇌건강 측정`}
+                                                    HandleOnChange={() =>
+                                                        console.debug(
+                                                            'HandleOnChange'
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <InputCell colSpan={2}>
+                                            <WS.FullWapperGap>
+                                                <WS.FlexNoWarapGap>
+                                                    <DPS.DeviceKeySelect>
+                                                        <VarySelectBox
+                                                            Elements={[
+                                                                {
+                                                                    value: '',
+                                                                    text: '신장',
+                                                                },
+                                                                {
+                                                                    value: '',
+                                                                    text: '체성분',
+                                                                },
+                                                            ]}
+                                                            HandleOnChange={() =>
+                                                                console.debug(
+                                                                    'HandleOnChange'
+                                                                )
+                                                            }
+                                                            Value={''}
+                                                        />
+                                                    </DPS.DeviceKeySelect>
+                                                    <DPS.DeviceKeySelect>
+                                                        <VaryInput
+                                                            InputType={'text'}
+                                                            HandleOnChange={(
+                                                                e: React.ChangeEvent<HTMLInputElement>
+                                                            ) =>
+                                                                console.debug(e)
+                                                            }
+                                                            id={'id'}
+                                                            Placeholder={
+                                                                '시리얼 번호를 입력해 주세요.'
+                                                            }
+                                                            Value={``}
+                                                        />
+                                                    </DPS.DeviceKeySelect>
+                                                    <DPS.DeviceKeySelectButton>
+                                                        <VaryButton
+                                                            Name={`추가`}
+                                                            HandleClick={() =>
+                                                                console.debug(
+                                                                    'VaryButton'
+                                                                )
+                                                            }
+                                                        />
+                                                    </DPS.DeviceKeySelectButton>
+                                                </WS.FlexNoWarapGap>
+                                            </WS.FullWapperGap>
+                                            <WS.FullWapperGap>
+                                                <CT.TableWapper>
+                                                    <CT.TableHeader>
+                                                        <CT.HeaderRow>
+                                                            <CT.HeaderCell>
+                                                                측정코드
+                                                            </CT.HeaderCell>
+                                                            <CT.HeaderCell>
+                                                                지정맥 시리얼
+                                                                번호
+                                                            </CT.HeaderCell>
+                                                            <CT.HeaderCell>
+                                                                삭제
+                                                            </CT.HeaderCell>
+                                                        </CT.HeaderRow>
+                                                    </CT.TableHeader>
+                                                    <CT.TableBodyS>
+                                                        <CT.TableBodyRow
+                                                            BgState={false}>
+                                                            <CT.TableBodyCell>
+                                                                혈압
+                                                            </CT.TableBodyCell>
+                                                            <CT.TableBodyCell>
+                                                                1234123123
+                                                            </CT.TableBodyCell>
+                                                            <CT.TableBodyCell>
+                                                                <VaryButton
+                                                                    Name={`삭제`}
+                                                                    HandleClick={() =>
+                                                                        console.debug(
+                                                                            'VaryButton'
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </CT.TableBodyCell>
+                                                        </CT.TableBodyRow>
+                                                    </CT.TableBodyS>
+                                                </CT.TableWapper>
+                                            </WS.FullWapperGap>
+                                        </InputCell>
+                                    </Row>
+                                </TableWapper>
+                            </TableContainer>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`로고 이미지`} />
+                        </LabelCell>
+                        <InputCell>
+                            <VaryImageUpload
+                                ReturnCallback={() =>
+                                    console.debug('ReturnCallback')
+                                }
+                            />
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`장소 이미지`} />
+                        </LabelCell>
+                        <InputCell>
+                            <VaryImageUpload
+                                ReturnCallback={() =>
+                                    console.debug('ReturnCallback')
+                                }
+                            />
                         </InputCell>
                     </Row>
                 </TableWapper>
             </TableContainer>
+            <DPS.ButtonBox>
+                <DPS.ButtonItem>
+                    <VaryButton
+                        BgColor={`mBBlue`}
+                        Name={`취소`}
+                        HandleClick={() => {
+                            console.debug('HandleClick')
+                        }}
+                    />
+                </DPS.ButtonItem>
+                <DPS.ButtonItem>
+                    <VaryButton
+                        BgColor={`mBBlue`}
+                        Name={`확인`}
+                        HandleClick={() => {
+                            console.debug('HandleClick')
+                        }}
+                    />
+                </DPS.ButtonItem>
+            </DPS.ButtonBox>
             {pageState.modal.postcode && (
-                <DaumPostCodeModal
+                <KaKaoPostCodeModal
                     Complete={address => {
-                        console.debug(address)
                         setPageState(prevState => ({
                             ...prevState,
+                            address: {
+                                ...prevState.address,
+                                fullAddress: address.fullAddress
+                                    ? address.fullAddress
+                                    : '',
+                                lat: address.x ? address.x : '',
+                                long: address.y ? address.y : '',
+                            },
                             modal: {
                                 ...prevState.modal,
                                 postcode: false,
@@ -218,7 +854,20 @@ const UhealthzoneDetailTable = ({
                     }}
                 />
             )}
-        </DetailContainer>
+            {pageState.modal.kakaomap && (
+                <KaKaoMapModal
+                    Complete={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                kakaomap: false,
+                            },
+                        }))
+                    }}
+                />
+            )}
+        </DPS.DetailContainer>
     )
 }
 

@@ -3,7 +3,7 @@ export { default as DefaultManageButton } from './Buttons/DefaultManage'
 export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'
 export { default as VaryButton } from './Buttons/VaryButton'
-export { default as VaryRadioButton } from './Buttons/VaryRadioButton'
+export { default as VaryLabelRadioButton } from './Buttons/VaryLabelRadioButton'
 export { default as VaryInfoButton } from './Buttons/VaryInfoButton'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
@@ -36,7 +36,8 @@ export { default as TotalScoreModal } from './Modals/TotalScoreModal'
 export { default as TotalCashModal } from './Modals/TotalCashModal'
 export { default as MemberMyDataModal } from './Modals/MemberMyDataHistoryModal'
 export { default as MemberMyDataInputModal } from './Modals/MemberMyDataInputModal'
-export { default as DaumPostCodeModal } from './Modals/DaumPostCodeModal'
+export { default as KaKaoPostCodeModal } from './Modals/KaKaoPostCodeModal'
+export { default as KaKaoMapModal } from './Modals/KaKaoMapModal'
 
 export { default as DefaultPagination } from './Paginations/DefaultPagination'
 

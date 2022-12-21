@@ -32,3 +32,12 @@ export const ManageBoxStyle = {
     Wapper: tw.div`w-full justify-evenly object-right`,
     Buttons: tw.div`relative col-span-1 items-end justify-end text-right object-right -right-2`,
 }
+
+export const WapperStyle = {
+    InputWapper: tw.div`flex flex-nowrap w-full items-center`,
+    FullWapper: tw.div`w-full`,
+    FullWapperGap: tw.div`w-full gap-2 py-1`,
+    FullNoWarap: tw.div`flex flex-nowrap w-full`,
+    FlexNoWarap: tw.div`flex flex-nowrap`,
+    FlexNoWarapGap: tw.div`flex flex-nowrap gap-2 py-1`,
+}

@@ -1,9 +1,13 @@
+import React from 'react'
 import { DefaultManageButton, VaryModal } from '@Elements'
 import DaumPostcode from 'react-daum-postcode'
-import { DaumPostCodeInterface } from '@CommonTypes'
-import React from 'react'
+import {
+    DaumPostCodeInterface,
+    KaKaoAddressSearchInterface,
+} from '@CommonTypes'
+import { getKaKaoAddressInfo } from '@Service/EtcService'
 
-const DaumPostCodeModal = ({
+const KaKaoPostCodeModal = ({
     Complete,
 }: {
     Complete: ({
@@ -11,11 +15,16 @@ const DaumPostCodeModal = ({
         address,
     }: {
         state: boolean
+        postState?: boolean
+        infoState?: boolean
         address?: DaumPostCodeInterface
         fullAddress?: string
+        info?: KaKaoAddressSearchInterface
+        x?: string
+        y?: string
     }) => void
 }) => {
-    const handleComplete = (e: any) => {
+    const handleComplete = async (e: any) => {
         const getAddress: DaumPostCodeInterface = e as DaumPostCodeInterface
 
         let fullAddress = getAddress.address
@@ -33,7 +42,30 @@ const DaumPostCodeModal = ({
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : ''
         }
 
-        Complete({ state: true, address: getAddress, fullAddress: fullAddress })
+        const { status, payload } = await getKaKaoAddressInfo({
+            fullAddress: fullAddress,
+        })
+
+        if (status) {
+            Complete({
+                state: true,
+                postState: true,
+                infoState: true,
+                address: getAddress,
+                fullAddress: fullAddress,
+                info: payload,
+                x: payload.documents[0].x ? payload.documents[0].x : '',
+                y: payload.documents[0].y ? payload.documents[0].y : '',
+            })
+        } else {
+            Complete({
+                state: true,
+                postState: true,
+                infoState: false,
+                address: getAddress,
+                fullAddress: fullAddress,
+            })
+        }
     }
     return (
         <>
@@ -61,4 +93,4 @@ const DaumPostCodeModal = ({
     )
 }
 
-export default DaumPostCodeModal
+export default KaKaoPostCodeModal
