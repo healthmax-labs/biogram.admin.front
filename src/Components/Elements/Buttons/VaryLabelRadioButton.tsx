@@ -7,7 +7,7 @@ const {
     VaryRadioButtonStyle: { Label, Input },
 } = ButtonStyle
 
-const VaryRadioButton = ({
+const VaryLabelRadioButton = ({
     LabelName,
     Checked,
     HandleOnChange,
@@ -36,4 +36,4 @@ const VaryRadioButton = ({
     )
 }
 
-export default VaryRadioButton
+export default VaryLabelRadioButton

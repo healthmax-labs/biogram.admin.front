@@ -7,7 +7,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
-    VaryRadioButton,
+    VaryLabelRadioButton,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
@@ -208,7 +208,7 @@ const RiskFctrSearchBox = ({
                                     <div
                                         className="mr-2"
                                         key={`risk-fctr-search-box-risk-fctr-Cnt-item-${i}`}>
-                                        <VaryRadioButton
+                                        <VaryLabelRadioButton
                                             LabelName={`${el}개`}
                                             Checked={
                                                 Number(

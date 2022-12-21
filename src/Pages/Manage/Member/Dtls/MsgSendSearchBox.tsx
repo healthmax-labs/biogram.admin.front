@@ -7,7 +7,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
-    VaryRadioButton,
+    VaryLabelRadioButton,
     VarySelectBox,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
@@ -165,14 +165,14 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <LabelItem>
                         <div className="flex flex-nowrap px-0">
                             <div className="mr-2">
-                                <VaryRadioButton
+                                <VaryLabelRadioButton
                                     LabelName="발송일시"
                                     Checked={false}
                                     HandleOnChange={() => console.log('111')}
                                 />
                             </div>
                             <div className="mr-2">
-                                <VaryRadioButton
+                                <VaryLabelRadioButton
                                     LabelName="작성일시"
                                     Checked={false}
                                     HandleOnChange={() => console.log('111')}

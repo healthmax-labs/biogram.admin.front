@@ -302,7 +302,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             }
                                             id={'id'}
                                             Placeholder={'가입일자'}
-                                            Value={`1000`}
+                                            Value={`${params.instNo}`}
                                         />
                                     </div>
                                 </div>
