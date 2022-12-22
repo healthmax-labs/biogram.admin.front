@@ -2,26 +2,39 @@ import React from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import { DefaultManageButton, VaryModal } from '@Elements'
 
+const MarkerBox = ({ title }: { title: string }) => {
+    return (
+        <>
+            <div className="absolute top-0 left-3 transform">
+                <div className="text-center w-20">{title}</div>
+            </div>
+        </>
+    )
+}
+
 const KaKaoMapModal = ({
+    Lat,
+    Lng,
+    MarkeName,
     Complete,
 }: {
+    Lat: number
+    Lng: number
+    MarkeName: string
     Complete: ({ state }: { state: boolean }) => void
 }) => {
     return (
         <>
             <VaryModal
                 ModalLoading={false}
-                MaxWidth={`lg`}
+                MaxWidth={`xl6`}
                 Children={
                     <>
                         <Map
-                            center={{ lat: 33.5563, lng: 126.79581 }}
-                            style={{ width: '100%', height: '360px' }}>
-                            <MapMarker
-                                position={{ lat: 33.55635, lng: 126.795841 }}>
-                                <div style={{ color: '#000' }}>
-                                    Hello World!
-                                </div>
+                            center={{ lat: Lat, lng: Lng }}
+                            style={{ width: '100%', height: '560px' }}>
+                            <MapMarker position={{ lat: Lat, lng: Lng }}>
+                                <MarkerBox title={MarkeName} />
                             </MapMarker>
                         </Map>
                     </>
