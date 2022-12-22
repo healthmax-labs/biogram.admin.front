@@ -6,18 +6,18 @@ import {
     PstinstSelectBox,
     VaryButton,
     VaryDatepickerInput,
+    VaryImageUpload,
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
     VaryLabelInput,
     VaryLabelRadioButton,
     VarySelectBox,
-    VaryImageUpload,
 } from '@Elements'
 import { gmtTimeToTimeObject } from '@Helper'
 import {
-    DetailTableStyle,
     CommonListTableStyle as CT,
+    DetailTableStyle,
 } from '@Style/Elements/TableStyles'
 import { DetailPageStyle as DPS } from '@Style/Pages/ContentsPageStyle'
 import { WapperStyle as WS } from '@Style/Pages/CommonStyle'
@@ -26,9 +26,10 @@ const { TableContainer, TableWapper, Row, LabelCell, InputCell, InputItem } =
     DetailTableStyle
 
 const initializeState = {
+    title: '',
     address: {
         fullAddress: '',
-        long: '',
+        lng: '',
         lat: '',
     },
     modal: {
@@ -45,9 +46,10 @@ const UhealthzoneDetailTable = ({
     const params = useParams<{ UhealthZoneNo: string | undefined }>()
 
     const [pageState, setPageState] = useState<{
+        title: string
         address: {
             fullAddress: string
-            long: string
+            lng: string
             lat: string
         }
         modal: {
@@ -85,10 +87,15 @@ const UhealthzoneDetailTable = ({
                                         InputType={'text'}
                                         HandleOnChange={(
                                             e: React.ChangeEvent<HTMLInputElement>
-                                        ) => console.debug(e)}
+                                        ) =>
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                title: e.target.value,
+                                            }))
+                                        }
                                         id={'id'}
                                         Placeholder={'지점명'}
-                                        Value={``}
+                                        Value={pageState.title}
                                     />
                                 </InputItem>
                                 <InputItem>
@@ -190,7 +197,7 @@ const UhealthzoneDetailTable = ({
                                                     )
                                                 }
                                                 InputValue={
-                                                    pageState.address.long
+                                                    pageState.address.lat
                                                 }
                                             />
                                         </DPS.Geo>
@@ -203,7 +210,7 @@ const UhealthzoneDetailTable = ({
                                                     )
                                                 }
                                                 InputValue={
-                                                    pageState.address.lat
+                                                    pageState.address.lng
                                                 }
                                             />
                                         </DPS.Geo>
@@ -843,8 +850,8 @@ const UhealthzoneDetailTable = ({
                                 fullAddress: address.fullAddress
                                     ? address.fullAddress
                                     : '',
-                                lat: address.x ? address.x : '',
-                                long: address.y ? address.y : '',
+                                lat: address.y ? address.y : '',
+                                lng: address.x ? address.x : '',
                             },
                             modal: {
                                 ...prevState.modal,
@@ -856,6 +863,9 @@ const UhealthzoneDetailTable = ({
             )}
             {pageState.modal.kakaomap && (
                 <KaKaoMapModal
+                    Lat={Number(pageState.address.lat)}
+                    Lng={Number(pageState.address.lng)}
+                    MarkeName={pageState.title}
                     Complete={() => {
                         setPageState(prevState => ({
                             ...prevState,
