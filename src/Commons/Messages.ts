@@ -10,6 +10,10 @@ export default {
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
         memberConfirmMesure: `수기입력을 하시겠습니까?`,
+        duplicate: {
+            uhealthzoneNameDup: '이미 사용중인 설치 장소명 입니다.',
+            uhealthzoneNamePoss: '사용가능한 설치 장소명 입니다.',
+        },
         remove: {
             removeConfirm: `삭제 하시겠습니까?`,
             removeSelectEmpty: `삭제할 항목을 선택해 주세요`,
@@ -75,6 +79,18 @@ export default {
             chartSaveEmptyCnst: `상담 내역을 입력해 주세요`,
             chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
             chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
+        },
+        contents: {
+            instlPlaceEmpty: `지점명을 입력해 주세요.`,
+            instlPlaceDuplicate: `지점 중복확인 해주세요.`,
+            pstinstEmpty: `소속을 선택해 주세요.`,
+            addressEmpty: `주소를 선택해 주세요.`,
+            locationEmpty: `위치 정보를 입력해 주세요.`,
+            mapAddresEmpty: `지도 URL 을 입력해 주세요.`,
+            mhrlsEmpty: `설치 장비를 선택해 주세요.`,
+            selectMeasureCodeEmpty: `측정코드를 선택해 주세요.`,
+            selectMeasureCodeKeyEmpty: `시리얼 번호를 입력해 주세요.`,
+            saveConfirm: `바이오그램존 정보를 저장 하시겠습니까?`,
         },
     },
 }
