@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import {
-    StplatTableConfig,
-    StplatTableListItemInterface,
-} from './ManagerTableConfig'
+import { StplatTableConfig, StplatTableListItemInterface } from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { StplatListState } from '@Recoil/ManagerPagesState'
@@ -28,7 +25,7 @@ const ListTable = () => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.STPLAT_SN}/detail`,
+                `/manage/manager/stplat/${element.STPLAT_SN}/detail`,
         })
     }
 

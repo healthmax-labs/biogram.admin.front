@@ -246,6 +246,15 @@ export default [
         ),
     },
     {
+        mainCode: `60000`,
+        menuCode: `60201`,
+        name: `이용 약관 관리 상세`,
+        pathName: `/manage/manager/stplat/:stplatNum/detail`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Manager/StplatDetailPage')
+        ),
+    },
+    {
         mainCode: `70000`,
         menuCode: `70101`,
         name: `게시판 관리`,
