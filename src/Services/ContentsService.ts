@@ -2,6 +2,7 @@ import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     MagazineListItemInterface,
+    UhealthZoneChargerInfoInterface,
     UhealthzoneInfoInterface,
     UhealthZoneListItemInterface,
 } from '@Type/ContentsTypes'
@@ -90,6 +91,37 @@ export const postDataUhealthZone = (
     return _Axios_({
         method: 'post',
         url: `/data/v1/uhealth_zone`,
+        payload: payload,
+    })
+}
+
+/**
+ * 바이오그램 존 정보 조회
+ * @param zoneNum
+ */
+export const getDataUhealthZoneChargerInfo = ({
+    zoneNum,
+}: {
+    zoneNum: number
+}): Promise<ServicesDefaultResult<UhealthZoneChargerInfoInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/data/v1/uhealth_zone/charger_info/${zoneNum}`,
+        payload: {},
+    })
+}
+
+// /data/v1/uhealth_zone/371/update
+export const postDataUhealthZoneUpdate = ({
+    zoneNum,
+    payload,
+}: {
+    zoneNum: number
+    payload: UhealthzoneInfoInterface
+}): Promise<ServicesDefaultResult<{ test: boolean }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/uhealth_zone/${zoneNum}/update`,
         payload: payload,
     })
 }

@@ -104,14 +104,14 @@ export interface UhealthzoneInfoSampleInterface {
 }
 
 export interface UhealthzoneInfoOperWikInfoInfoInterface {
-    TIME_KND_CODE: 'BSTM' | 'BMTM'
-    WIK_SE_CODE: 'RD' | 'BD'
+    TIME_KND_CODE: string | 'BSTM' | 'BMTM'
+    WIK_SE_CODE: string | 'RD' | 'BD'
     WIK_CODE: string
 }
 
 export interface UhealthzoneInfoOperTimeInfoInterface {
-    TIME_KND_CODE: 'BSTM' | 'BMTM'
-    TIME_SE_CODE: 'WD'
+    TIME_KND_CODE: string | 'BSTM' | 'BMTM'
+    TIME_SE_CODE: string | 'WD'
     BEGIN_TIME: string
     END_TIME: string
 }
@@ -156,7 +156,7 @@ export interface UhealthZoneChargerInfoInterface {
         MHRLS_CODE_NM: string
     }>
     UHEALTH_ZONE_INFO: {
-        INST_NO: number
+        INST_NO: number | null
         LO: string
         PRINT_AT: 'N' | 'Y'
         INSTL_PLACE: string
@@ -174,9 +174,9 @@ export interface UhealthZoneChargerInfoInterface {
         EXTRL_PERSON_USE_AT: 'Y' | 'N'
         UHEALTH_ZONE_NO: number
         BCRN_ATCHMNFL_PATH: string
-        MIDDLE_INST_NO: number
+        MIDDLE_INST_NO: number | null
         TELNO: string
-        BOTTOM_INST_NO: number
+        BOTTOM_INST_NO: number | null
         MAP_ADRES: string
         LOGIN_AT: 'Y' | 'N'
     }

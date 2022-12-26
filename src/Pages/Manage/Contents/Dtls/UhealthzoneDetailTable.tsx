@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import {
     ConfirmModal,
     KaKaoMapModal,
@@ -27,6 +26,7 @@ import { useRecoilState } from 'recoil'
 import {
     getDataCheckInstlPlace,
     postDataUhealthZone,
+    postDataUhealthZoneUpdate,
 } from '@Service/ContentsService'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
@@ -106,15 +106,19 @@ const initializeState = {
         postcode: false,
         kakaomap: false,
         saveConfirm: false,
+        updateConfirm: false,
     },
 }
 
 const UhealthzoneDetailTable = ({
     pageMode,
+    zoneNum,
+    HandleGetInfo,
 }: {
     pageMode: `new` | `modify`
+    zoneNum: number | null
+    HandleGetInfo: (zoneNum: number) => void
 }) => {
-    const params = useParams<{ UhealthZoneNo: string | undefined }>()
     const [detailState, setDetailState] = useRecoilState(UhealthzoneDetailState)
     const { handlMainAlert } = useMainLayouts()
 
@@ -127,6 +131,7 @@ const UhealthzoneDetailTable = ({
             postcode: boolean
             kakaomap: boolean
             saveConfirm: boolean
+            updateConfirm: boolean
         }
     }>(initializeState)
 
@@ -139,7 +144,6 @@ const UhealthzoneDetailTable = ({
             const { INSTL_PLACE_USE_AT } = payload
 
             if (INSTL_PLACE_USE_AT === 'N') {
-                console.debug(INSTL_PLACE_USE_AT)
                 setDetailState(prevState => ({
                     ...prevState,
                     sub: {
@@ -173,20 +177,78 @@ const UhealthzoneDetailTable = ({
     }, [detailState.detail.INSTL_PLACE, handlMainAlert, setDetailState])
 
     const handleSave = async () => {
-        const payload = detailState.detail
+        const {
+            INSTL_PLACE,
+            INST_NO,
+            TELNO,
+            INSTL_ADRES,
+            LA,
+            LO,
+            MAP_ADRES,
+            OPER_WIK_INFO,
+            OPER_TIME_INFO,
+            INSTL_TY_CD,
+            LOGIN_AT,
+            EXTRL_PERSON_USE_AT,
+            OPEN_AT,
+            PRINT_AT,
+            LOGO_ATCHMNFL_NO,
+            BCRN_ATCHMNFL_NO,
+            MHRLS_INFO,
+            VEIN_RCIVR,
+        } = detailState.detail
+        const payload = {
+            INSTL_PLACE: INSTL_PLACE,
+            INST_NO: INST_NO,
+            TELNO: TELNO,
+            INSTL_ADRES: INSTL_ADRES,
+            LA: LA,
+            LO: LO,
+            MAP_ADRES: MAP_ADRES,
+            OPER_WIK_INFO: OPER_WIK_INFO,
+            OPER_TIME_INFO: OPER_TIME_INFO,
+            INSTL_TY_CD: INSTL_TY_CD,
+            LOGIN_AT: LOGIN_AT,
+            EXTRL_PERSON_USE_AT: EXTRL_PERSON_USE_AT,
+            OPEN_AT: OPEN_AT,
+            PRINT_AT: PRINT_AT,
+            LOGO_ATCHMNFL_NO: LOGO_ATCHMNFL_NO,
+            BCRN_ATCHMNFL_NO: BCRN_ATCHMNFL_NO,
+            MHRLS_INFO: MHRLS_INFO,
+            VEIN_RCIVR: VEIN_RCIVR,
+        }
 
-        const { status } = await postDataUhealthZone(payload)
+        if (pageMode === 'new') {
+            const { status } = await postDataUhealthZone(payload)
+            if (status) {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processSuccess,
+                })
+            } else {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+            }
+        } else if (pageMode === 'modify' && zoneNum) {
+            const { status } = await postDataUhealthZoneUpdate({
+                zoneNum: zoneNum,
+                payload: payload,
+            })
+            if (status) {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processSuccess,
+                })
 
-        if (status) {
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processSuccess,
-            })
-        } else {
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+                HandleGetInfo(zoneNum)
+            } else {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+            }
         }
     }
 
@@ -194,23 +256,48 @@ const UhealthzoneDetailTable = ({
         handleSave().then()
     }
 
+    // 지점명 변경 체크.
     useEffect(() => {
-        const funcSetDetail = () => {
-            if (params.UhealthZoneNo) {
-                // handleGetInfo(Number(params.UhealthZoneNo)).then()
+        const funcCheckInstlPlace = () => {
+            if (pageMode === 'modify') {
+                if (
+                    detailState.detail.INSTL_PLACE !==
+                    detailState.origin.INSTL_PLACE
+                ) {
+                    setDetailState(prevState => ({
+                        ...prevState,
+                        sub: {
+                            ...prevState.sub,
+                            instlPlaceCheck: false,
+                        },
+                    }))
+                } else {
+                    setDetailState(prevState => ({
+                        ...prevState,
+                        sub: {
+                            ...prevState.sub,
+                            instlPlaceCheck: true,
+                        },
+                    }))
+                }
+            } else {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    sub: {
+                        ...prevState.sub,
+                        instlPlaceCheck: false,
+                    },
+                }))
             }
         }
 
-        if (pageMode === `modify` && params.UhealthZoneNo) {
-            funcSetDetail()
-        }
-        // FIXME : 종속성에서 handleGetInfo 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageMode, params.UhealthZoneNo])
-
-    useEffect(() => {
-        console.debug(detailState)
-    }, [detailState])
+        funcCheckInstlPlace()
+    }, [
+        detailState.detail.INSTL_PLACE,
+        detailState.origin.INSTL_PLACE,
+        pageMode,
+        setDetailState,
+    ])
 
     return (
         <DPS.DetailContainer>
@@ -227,7 +314,7 @@ const UhealthzoneDetailTable = ({
                                         InputType={'text'}
                                         HandleOnChange={(
                                             e: React.ChangeEvent<HTMLInputElement>
-                                        ) =>
+                                        ) => {
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 detail: {
@@ -235,20 +322,22 @@ const UhealthzoneDetailTable = ({
                                                     INSTL_PLACE: e.target.value,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         id={'id'}
                                         Placeholder={'지점명'}
                                         Value={detailState.detail.INSTL_PLACE}
                                     />
                                 </InputItem>
-                                <InputItem>
-                                    <VaryButton
-                                        Name={`지점 중복확인`}
-                                        HandleClick={() =>
-                                            handleInstlPlaceCheck()
-                                        }
-                                    />
-                                </InputItem>
+                                {!detailState.sub.instlPlaceCheck && (
+                                    <InputItem>
+                                        <VaryButton
+                                            Name={`지점 중복확인`}
+                                            HandleClick={() =>
+                                                handleInstlPlaceCheck()
+                                            }
+                                        />
+                                    </InputItem>
+                                )}
                             </WS.InputWapper>
                         </InputCell>
                     </Row>
@@ -260,7 +349,7 @@ const UhealthzoneDetailTable = ({
                             <WS.InputWapper>
                                 <PstinstSelectBox
                                     Value={{
-                                        status: 'loading',
+                                        status: 'success',
                                         infoStep:
                                             detailState.sub.pstinst.infoStep,
                                         instNo: !_.isEmpty(
@@ -282,6 +371,7 @@ const UhealthzoneDetailTable = ({
                                     }}
                                     ReturnCallback={e => {
                                         const { step1, step2, step3 } = e
+
                                         if (
                                             !_.isEmpty(step1.value) &&
                                             _.isEmpty(step2.value) &&
@@ -292,8 +382,6 @@ const UhealthzoneDetailTable = ({
                                                 sub: {
                                                     ...prevState.sub,
                                                     pstinst: {
-                                                        ...prevState.sub
-                                                            .pstinst,
                                                         infoStep: 'step1',
                                                         step1: step1.value,
                                                         step2: '',
@@ -315,16 +403,15 @@ const UhealthzoneDetailTable = ({
                                                 sub: {
                                                     ...prevState.sub,
                                                     pstinst: {
-                                                        ...prevState.sub
-                                                            .pstinst,
                                                         infoStep: 'step2',
+                                                        step1: step1.value,
                                                         step2: step2.value,
                                                         step3: '',
                                                     },
                                                 },
                                                 detail: {
                                                     ...prevState.detail,
-                                                    INST_NO: step1.value,
+                                                    INST_NO: step2.value,
                                                 },
                                             }))
                                         } else if (
@@ -337,15 +424,15 @@ const UhealthzoneDetailTable = ({
                                                 sub: {
                                                     ...prevState.sub,
                                                     pstinst: {
-                                                        ...prevState.sub
-                                                            .pstinst,
                                                         infoStep: 'step3',
+                                                        step1: step1.value,
+                                                        step2: step2.value,
                                                         step3: step3.value,
                                                     },
                                                 },
                                                 detail: {
                                                     ...prevState.detail,
-                                                    INST_NO: step1.value,
+                                                    INST_NO: step3.value,
                                                 },
                                             }))
                                         }
@@ -791,7 +878,7 @@ const UhealthzoneDetailTable = ({
                                                         .OPER_TIME_INFO
                                                 )
 
-                                                return time.step2.start
+                                                return time.step2.end
                                             })()}
                                             CallBackReturn={e => {
                                                 const { hourPad, minutePad } =
@@ -1253,8 +1340,9 @@ const UhealthzoneDetailTable = ({
                                                     <CT.TableBodyS>
                                                         {detailState.detail.VEIN_RCIVR.map(
                                                             (el, index) => {
-                                                                let codeName =
-                                                                    ''
+                                                                let codeName:
+                                                                    | string
+                                                                    | ''
                                                                 const ckFindIndex =
                                                                     Codes.deviceGubun.measureCode.list.findIndex(
                                                                         e =>
@@ -1468,6 +1556,23 @@ const UhealthzoneDetailTable = ({
                         }}
                     />
                 </DPS.ButtonItem>
+                {pageMode === 'modify' && (
+                    <DPS.ButtonItem>
+                        <VaryButton
+                            BgColor={`mBBlue`}
+                            Name={`삭제`}
+                            HandleClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        updateConfirm: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    </DPS.ButtonItem>
+                )}
             </DPS.ButtonBox>
             {pageState.modal.postcode && (
                 <KaKaoPostCodeModal
@@ -1530,6 +1635,32 @@ const UhealthzoneDetailTable = ({
                             modal: {
                                 ...prevState.modal,
                                 saveConfirm: false,
+                            },
+                        }))
+                        handleClickSaveButton()
+                    }}
+                />
+            )}
+            {pageState.modal.updateConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.contents.updateConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                updateConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                updateConfirm: false,
                             },
                         }))
                         handleClickSaveButton()

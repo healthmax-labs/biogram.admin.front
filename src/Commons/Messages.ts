@@ -91,6 +91,7 @@ export default {
             selectMeasureCodeEmpty: `측정코드를 선택해 주세요.`,
             selectMeasureCodeKeyEmpty: `시리얼 번호를 입력해 주세요.`,
             saveConfirm: `바이오그램존 정보를 저장 하시겠습니까?`,
+            updateConfirm: `바이오그램존 정보를 수정 하시겠습니까?`,
         },
     },
 }

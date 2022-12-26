@@ -2,6 +2,7 @@ import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import {
     MagazineListItemInterface,
+    UhealthZoneChargerInfoInterface,
     UhealthzoneInfoInterface,
     UhealthZoneListItemInterface,
 } from '@Type/ContentsTypes'
@@ -27,15 +28,15 @@ interface UhealthzoneDetailInterface {
     sub: {
         instlPlaceCheck: boolean
         pstinst: {
-            infoStep: 'step1' | 'step2' | 'step3'
+            infoStep: string | 'step1' | 'step2' | 'step3'
             step1: string
             step2: string
             step3: string
         }
     }
-
     detail: UhealthzoneInfoInterface
     origin: UhealthzoneInfoInterface
+    getInfo: UhealthZoneChargerInfoInterface | null
 }
 
 export const MagazineListState = atom<MagazineSearchListInterface>({
@@ -155,5 +156,6 @@ export const UhealthzoneDetailState = atom<UhealthzoneDetailInterface>({
             MHRLS_INFO: [],
             VEIN_RCIVR: [],
         },
+        getInfo: null,
     },
 })
