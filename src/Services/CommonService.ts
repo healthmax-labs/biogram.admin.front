@@ -134,3 +134,19 @@ export const commonFileInst = (
         payload: formData,
     })
 }
+
+/**
+ * 이미지 업로드 인서트
+ * @param formData
+ * @param Category
+ */
+export const commonFileImg = (
+    formData: FormData,
+    Category: string
+): Promise<ServicesDefaultResult<{ ATCHMNFL_NO: number }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/common/file/${Category}/I`,
+        payload: formData,
+    })
+}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { commonFileInst } from '@Service/CommonService'
+import { commonFileImg } from '@Service/CommonService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 import { VaryButton } from '@Element/index'
@@ -10,6 +10,7 @@ const initializeState = {
     SelectFileName: '',
     SelectImagePrev: null,
     ATCHMNFL_NO: null,
+    Category: '',
 }
 
 const VaryImageUpload = ({
@@ -19,6 +20,7 @@ const VaryImageUpload = ({
     Image?: {
         AtchmnflPath: string
         OrginlFileNm: string
+        Category: string
     }
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
 }) => {
@@ -29,6 +31,7 @@ const VaryImageUpload = ({
         SelectFileName: string
         SelectImagePrev: string | null
         ATCHMNFL_NO: number | null
+        Category: string
     }>(initializeState)
 
     const handleChangeSelectImage = (
@@ -50,7 +53,10 @@ const VaryImageUpload = ({
             const formData = new FormData()
             formData.append('file', pageState.SelectFile)
 
-            const { status, payload } = await commonFileInst(formData)
+            const { status, payload } = await commonFileImg(
+                formData,
+                pageState.Category
+            )
 
             if (status) {
                 ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
@@ -90,6 +96,13 @@ const VaryImageUpload = ({
                 setPageState(prevState => ({
                     ...prevState,
                     SelectImagePrev: `${process.env.REACT_APP_API_SERVER_URL}${Image.AtchmnflPath}`,
+                }))
+            }
+
+            if (Image && !isEmpty(Image.Category)) {
+                setPageState(prevState => ({
+                    ...prevState,
+                    Category: Image.Category,
                 }))
             }
         }
