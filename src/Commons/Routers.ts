@@ -94,6 +94,24 @@ export default [
     },
     {
         mainCode: `30000`,
+        menuCode: ``,
+        name: `메거진 상세`,
+        pathName: `/manage/contents/:misn_step/detail`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Contents/MagazineDetailPage')
+        ),
+    },
+    {
+        mainCode: `30000`,
+        menuCode: `30101`,
+        name: `매거진 신규 등록`,
+        pathName: `/manage/contents/magazine-list/new`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Contents/MagazineDetailPage')
+        ),
+    },
+    {
+        mainCode: `30000`,
         menuCode: `30201`,
         name: `바이오그램 존`,
         pathName: `/manage/contents/uhealthzone-list`,

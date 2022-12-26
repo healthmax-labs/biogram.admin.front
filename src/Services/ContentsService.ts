@@ -1,6 +1,9 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { MagazineListItemInterface } from '@Type/ContentsTypes'
+import {
+    MagazineListItemInterface,
+    MagazineItemInterface,
+} from '@Type/ContentsTypes'
 import { UhealthZoneListItemInterface } from '@Type/ContentsTypes'
 
 /**
@@ -24,6 +27,61 @@ export function getMagazineList({
         payload: {
             SEARCH_KEY,
         },
+    })
+}
+
+/**
+ * 매거진 상세 조회
+ */
+export function getMagazineDetail({
+    misn_step,
+}: {
+    misn_step: string
+}): Promise<
+    ServicesDefaultResult<{
+        MISN_MAGAZINE_INFO: MagazineItemInterface
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/todo/v1/misn/magazine/${misn_step}`,
+        payload: {},
+    })
+}
+
+/**
+ * 매거진 등록
+ * @param payload
+ */
+export const postMagazineDetail = (
+    payload: MagazineItemInterface
+): Promise<
+    ServicesDefaultResult<{
+        test: boolean
+    }>
+> => {
+    return _Axios_({
+        method: 'post',
+        url: `/todo/v1/misn/magazine`,
+        payload: payload,
+    })
+}
+
+/**
+ * 매거진 수정
+ * @param payload
+ */
+export const postMagazineDetailUpdate = (
+    payload: MagazineItemInterface
+): Promise<
+    ServicesDefaultResult<{
+        test: boolean
+    }>
+> => {
+    return _Axios_({
+        method: 'post',
+        url: `/todo/v1/misn/magazine/${payload.MISN_STEP}/update`,
+        payload: payload,
     })
 }
 

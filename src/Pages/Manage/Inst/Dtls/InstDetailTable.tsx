@@ -632,6 +632,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         detailState.info.ATCHMNFL_PATH,
                                     OrginlFileNm:
                                         detailState.info.ORGINL_FILE_NM,
+                                    Category: 'INST',
                                 }}
                                 ReturnCallback={e =>
                                     setDetailState(prevState => ({

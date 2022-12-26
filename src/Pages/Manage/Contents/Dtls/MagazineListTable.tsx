@@ -27,7 +27,7 @@ const ListTable = () => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.MISN_STEP}/detail`,
+                `/manage/contents/${element.MISN_STEP}/detail`,
         })
     }
 

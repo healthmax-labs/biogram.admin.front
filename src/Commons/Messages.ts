@@ -76,5 +76,17 @@ export default {
             chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
             chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
         },
+        contents: {
+            magazine: {
+                update: `매거진을 저장하시겠습니까?`,
+                updateSuccess: `매거진이 저장되었습니다.`,
+                error: {
+                    nameLong: `제목이 너무 깁니다.(25자)`,
+                    nameEmpty: `제목이 입력되지 않았습니다.`,
+                    subNameLong: `설명이 입력되지 않았습니다.`,
+                    subNameEmpty: `설명이 입력되지 않았습니다.(100자)`,
+                },
+            },
+        },
     },
 }
