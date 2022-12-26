@@ -33,6 +33,18 @@ interface UhealthzoneDetailInterface {
             step2: string
             step3: string
         }
+        image: {
+            logo: {
+                no: number | null
+                path: string
+                name: string
+            }
+            bcrn: {
+                no: number | null
+                path: string
+                name: string
+            }
+        }
     }
     detail: UhealthzoneInfoInterface
     origin: UhealthzoneInfoInterface
@@ -156,6 +168,18 @@ export const UhealthzoneDetailState = atom<UhealthzoneDetailInterface>({
                 step1: '',
                 step2: '',
                 step3: '',
+            },
+            image: {
+                logo: {
+                    no: null,
+                    path: '',
+                    name: '',
+                },
+                bcrn: {
+                    no: null,
+                    path: '',
+                    name: '',
+                },
             },
         },
         detail: {

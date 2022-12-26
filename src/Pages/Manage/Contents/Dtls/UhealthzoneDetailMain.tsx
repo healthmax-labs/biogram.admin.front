@@ -165,6 +165,35 @@ const UhealthzoneDetailMain = () => {
                             step2: step2,
                             step3: step3,
                         },
+                        image: {
+                            logo: {
+                                no: payload.UHEALTH_ZONE_INFO.LOGO_ATCHMNFL_NO
+                                    ? payload.UHEALTH_ZONE_INFO.LOGO_ATCHMNFL_NO
+                                    : null,
+                                path: payload.UHEALTH_ZONE_INFO
+                                    .LOGO_ATCHMNFL_PATH
+                                    ? payload.UHEALTH_ZONE_INFO
+                                          .LOGO_ATCHMNFL_PATH
+                                    : '',
+                                name: payload.UHEALTH_ZONE_INFO.LOGO_ATCHMNFL_NM
+                                    ? payload.UHEALTH_ZONE_INFO.LOGO_ATCHMNFL_NM
+                                    : '',
+                            },
+                            bcrn: {
+                                no: payload.UHEALTH_ZONE_INFO.BCRN_ATCHMNFL_NO
+                                    ? payload.UHEALTH_ZONE_INFO.BCRN_ATCHMNFL_NO
+                                    : null,
+                                path: payload.UHEALTH_ZONE_INFO
+                                    .BCRN_ATCHMNFL_PATH
+                                    ? payload.UHEALTH_ZONE_INFO
+                                          .BCRN_ATCHMNFL_PATH
+                                    : '',
+
+                                name: payload.UHEALTH_ZONE_INFO.BCRN_ATCHMNFL_NM
+                                    ? payload.UHEALTH_ZONE_INFO.BCRN_ATCHMNFL_NM
+                                    : '',
+                            },
+                        },
                     },
                     detail: detail,
                     origin: detail,

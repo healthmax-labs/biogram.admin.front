@@ -20,7 +20,7 @@ const VaryImageUpload = ({
     Image?: {
         AtchmnflPath: string
         OrginlFileNm: string
-        Category: string
+        Category: string | 'MISN' | 'INST'
     }
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
 }) => {

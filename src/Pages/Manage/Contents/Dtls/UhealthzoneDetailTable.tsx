@@ -1459,9 +1459,28 @@ const UhealthzoneDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryImageUpload
+                                Image={{
+                                    OrginlFileNm:
+                                        detailState.sub.image.logo.name,
+                                    AtchmnflPath:
+                                        detailState.sub.image.logo.path,
+                                    Category: 'INST',
+                                }}
                                 ReturnCallback={e =>
                                     setDetailState(prevState => ({
                                         ...prevState,
+                                        sub: {
+                                            ...prevState.sub,
+                                            image: {
+                                                ...prevState.sub.image,
+                                                logo: {
+                                                    ...prevState.sub.image.logo,
+                                                    path: '',
+                                                    name: '',
+                                                    no: null,
+                                                },
+                                            },
+                                        },
                                         detail: {
                                             ...prevState.detail,
                                             LOGO_ATCHMNFL_NO: e.ATCHMNFL_NO,
@@ -1477,9 +1496,28 @@ const UhealthzoneDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryImageUpload
+                                Image={{
+                                    OrginlFileNm:
+                                        detailState.sub.image.bcrn.name,
+                                    AtchmnflPath:
+                                        detailState.sub.image.bcrn.path,
+                                    Category: 'INST',
+                                }}
                                 ReturnCallback={e =>
                                     setDetailState(prevState => ({
                                         ...prevState,
+                                        sub: {
+                                            ...prevState.sub,
+                                            image: {
+                                                ...prevState.sub.image,
+                                                bcrn: {
+                                                    ...prevState.sub.image.bcrn,
+                                                    path: '',
+                                                    name: '',
+                                                    no: null,
+                                                },
+                                            },
+                                        },
                                         detail: {
                                             ...prevState.detail,
                                             BCRN_ATCHMNFL_NO: e.ATCHMNFL_NO,
