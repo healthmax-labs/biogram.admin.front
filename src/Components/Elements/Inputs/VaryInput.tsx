@@ -33,7 +33,7 @@ const VaryInput = ({
     Name?: string
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
-    Width?: InputWidthType
+    Width?: InputWidthType | null
     Required?: boolean
     Children?: React.ReactNode
     HandleOnFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
@@ -51,7 +51,7 @@ const VaryInput = ({
             <Input
                 Bg={Bg ?? Bg}
                 ContentsType={ContentsType ? ContentsType : 'default'}
-                Width={Width ?? Width}
+                Width={Width ? Width : null}
                 Disabled={Disabled ? Disabled : false}
                 disabled={Disabled ? Disabled : false}
                 readOnly={ReadOnly ? ReadOnly : false}

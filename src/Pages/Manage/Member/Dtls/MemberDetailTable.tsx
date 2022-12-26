@@ -29,9 +29,9 @@ import {
     VaryInfoButton,
     VaryInput,
     VaryLabel,
+    VaryLabelRadioButton,
     VaryLabelTextArea,
     VaryModal,
-    VaryRadioButton,
 } from '@Elements'
 import { getOnlyNumber, gmtTimeToTimeObject } from '@Helper'
 import Messages from '@Messages'
@@ -756,7 +756,7 @@ const MemberDetailTable = ({
                         <InputCell>
                             <div className="flex flex-nowrap px-0">
                                 <div className="mr-2">
-                                    <VaryRadioButton
+                                    <VaryLabelRadioButton
                                         LabelName={`남성`}
                                         Checked={
                                             !!(
@@ -779,7 +779,7 @@ const MemberDetailTable = ({
                                 </div>
 
                                 <div className="mr-2">
-                                    <VaryRadioButton
+                                    <VaryLabelRadioButton
                                         LabelName={`여성`}
                                         Checked={
                                             !!(
@@ -1384,7 +1384,7 @@ const MemberDetailTable = ({
                 {/*소속 탈퇴 처리*/}
                 {pageState.modal.pstinstInfoListLeave.state && (
                     <VaryModal
-                        maxWidth={`lg`}
+                        MaxWidth={`lg`}
                         ModalLoading={false}
                         NeedMax={false}
                         Children={

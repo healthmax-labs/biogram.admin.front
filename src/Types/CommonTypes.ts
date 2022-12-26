@@ -301,6 +301,7 @@ export interface SendSmsItemInterface {
     SV00_NTCN_AT: 'Y' | 'N'
 }
 
+// 메시지 발송
 export interface SendSmsInterface {
     SMS_SJ: string
     SMS_CN: string
@@ -308,4 +309,92 @@ export interface SendSmsInterface {
     SNDNG_DT: string
     SEND_ALL_MBER: 'N' | 'Y'
     SEND_MBER_INFO_LIST: SendSmsItemInterface[]
+}
+
+// 다음 주소 검색
+export interface DaumPostCodeInterface {
+    address: string
+    addressEnglish: string
+    addressType: string
+    apartment: string
+    autoJibunAddress: string
+    autoJibunAddressEnglish: string
+    autoRoadAddress: string
+    autoRoadAddressEnglish: string
+    bcode: string
+    bname: string
+    bname1: string
+    bname1English: string
+    bname2: string
+    bname2English: string
+    bnameEnglish: string
+    buildingCode: string
+    buildingName: string
+    hname: string
+    jibunAddress: string
+    jibunAddressEnglish: string
+    noSelected: string
+    postcode: string
+    postcode1: string
+    postcode2: string
+    postcodeSeq: string
+    query: string
+    roadAddress: string
+    roadAddressEnglish: string
+    roadname: string
+    roadnameCode: string
+    roadnameEnglish: string
+    sido: string
+    sidoEnglish: string
+    sigungu: string
+    sigunguCode: string
+    sigunguEnglish: string
+    userLanguageType: string
+    userSelectedType: string
+    zonecode: string
+}
+
+// KaKao Address Info
+export interface KaKaoAddressSearchItemInterface {
+    address: {
+        address_name: string
+        b_code: string
+        h_code: string
+        main_address_no: string
+        mountain_yn: string
+        region_1depth_name: string
+        region_2depth_name: string
+        region_3depth_h_name: string
+        region_3depth_name: string
+        sub_address_no: string
+        x: string
+        y: string
+    }
+    address_name: string
+    address_type: string
+    road_address: {
+        address_name: string
+        building_name: string
+        main_building_no: string
+        region_1depth_name: string
+        region_2depth_name: string
+        region_3depth_name: string
+        road_name: string
+        sub_building_no: string
+        underground_yn: string
+        x: string
+        y: string
+        zone_no: string
+    }
+    x: string
+    y: string
+}
+
+export interface KaKaoAddressSearchInterface {
+    documents: KaKaoAddressSearchItemInterface[]
+    meta: {
+        is_end: boolean
+        pageable_count: number
+        total_count: number
+    }
 }
