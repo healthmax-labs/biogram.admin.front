@@ -111,7 +111,11 @@ export const getDataUhealthZoneChargerInfo = ({
     })
 }
 
-// /data/v1/uhealth_zone/371/update
+/**
+ * 바이그램존 내용 업데이트
+ * @param zoneNum
+ * @param payload
+ */
 export const postDataUhealthZoneUpdate = ({
     zoneNum,
     payload,
@@ -123,5 +127,21 @@ export const postDataUhealthZoneUpdate = ({
         method: 'post',
         url: `/data/v1/uhealth_zone/${zoneNum}/update`,
         payload: payload,
+    })
+}
+
+/**
+ * 바이오그램 존 삭제
+ * @param zoneNum
+ */
+export const postDataUhealthZoneDelete = ({
+    zoneNum,
+}: {
+    zoneNum: number
+}): Promise<ServicesDefaultResult<{ test: boolean }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/uhealth_zone/${zoneNum}/delete`,
+        payload: {},
     })
 }

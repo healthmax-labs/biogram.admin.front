@@ -26,6 +26,7 @@ import { useRecoilState } from 'recoil'
 import {
     getDataCheckInstlPlace,
     postDataUhealthZone,
+    postDataUhealthZoneDelete,
     postDataUhealthZoneUpdate,
 } from '@Service/ContentsService'
 import { useMainLayouts } from '@Hook/index'
@@ -33,6 +34,7 @@ import Messages from '@Messages'
 import _ from 'lodash'
 import Codes from '@Codes'
 import { UhealthzoneInfoOperTimeInfoInterface } from '@Type/ContentsTypes'
+import { useNavigate } from 'react-router-dom'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell, InputItem } =
     DetailTableStyle
@@ -107,6 +109,7 @@ const initializeState = {
         kakaomap: false,
         saveConfirm: false,
         updateConfirm: false,
+        deleteConfirm: false,
     },
 }
 
@@ -119,6 +122,7 @@ const UhealthzoneDetailTable = ({
     zoneNum: number | null
     HandleGetInfo: (zoneNum: number) => void
 }) => {
+    const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(UhealthzoneDetailState)
     const { handlMainAlert } = useMainLayouts()
 
@@ -132,6 +136,7 @@ const UhealthzoneDetailTable = ({
             kakaomap: boolean
             saveConfirm: boolean
             updateConfirm: boolean
+            deleteConfirm: boolean
         }
     }>(initializeState)
 
@@ -250,6 +255,38 @@ const UhealthzoneDetailTable = ({
                 })
             }
         }
+    }
+
+    const handleDelete = async () => {
+        if (pageMode === 'modify' && zoneNum) {
+            const { status } = await postDataUhealthZoneDelete({
+                zoneNum: zoneNum,
+            })
+            if (status) {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processSuccess,
+                })
+
+                navigate(
+                    {
+                        pathname:
+                            process.env.PUBLIC_URL +
+                            `/manage/contents/uhealthzone-list`,
+                    },
+                    { state: { renew: true } }
+                )
+            } else {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+            }
+        }
+    }
+
+    const handleClickDeleteButton = () => {
+        handleDelete().then()
     }
 
     const handleClickSaveButton = () => {
@@ -1566,7 +1603,7 @@ const UhealthzoneDetailTable = ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
-                                        updateConfirm: true,
+                                        deleteConfirm: true,
                                     },
                                 }))
                             }}
@@ -1664,6 +1701,32 @@ const UhealthzoneDetailTable = ({
                             },
                         }))
                         handleClickSaveButton()
+                    }}
+                />
+            )}
+            {pageState.modal.deleteConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.contents.deleteConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                deleteConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                deleteConfirm: false,
+                            },
+                        }))
+                        handleClickDeleteButton()
                     }}
                 />
             )}

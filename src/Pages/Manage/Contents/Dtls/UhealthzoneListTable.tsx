@@ -5,9 +5,12 @@ import {
     UhealthzoneTableConfig,
     UhealthzoneTableListItemInterface,
 } from './UhealthzoneTableConfig'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
-import { UhealthzoneListState } from '@Recoil/ContentsPagesState'
+import {
+    UhealthzoneDetailState,
+    UhealthzoneListState,
+} from '@Recoil/ContentsPagesState'
 
 interface tableOption {
     Loading: boolean
@@ -19,12 +22,14 @@ interface tableOption {
 const ListTable = () => {
     const navigate = useNavigate()
     const listState = useRecoilValue(UhealthzoneListState)
+    const resetDetail = useResetRecoilState(UhealthzoneDetailState)
 
     const [tableOptions, setTableOptions] = useState<tableOption>(
         UhealthzoneTableConfig
     )
 
     const handleRowClick = (element: UhealthzoneTableListItemInterface) => {
+        resetDetail()
         navigate({
             pathname:
                 process.env.PUBLIC_URL +

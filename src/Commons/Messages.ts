@@ -92,6 +92,7 @@ export default {
             selectMeasureCodeKeyEmpty: `시리얼 번호를 입력해 주세요.`,
             saveConfirm: `바이오그램존 정보를 저장 하시겠습니까?`,
             updateConfirm: `바이오그램존 정보를 수정 하시겠습니까?`,
+            deleteConfirm: `바이오그램존 정보을 삭제 하시겠습니까?`,
         },
     },
 }

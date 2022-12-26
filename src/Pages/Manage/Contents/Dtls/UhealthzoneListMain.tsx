@@ -7,16 +7,19 @@ import ListTable from '@Page/Manage/Contents/Dtls/UhealthzoneListTable'
 import { getUhealthzoneList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { UhealthzoneListState } from '@Recoil/ContentsPagesState'
-import { isNull } from 'lodash'
+import { has, isNull } from 'lodash'
+import { useLocation } from 'react-router'
 
 const {
     ListPage: { Container },
 } = PageContainerStyle
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
-const InitListMain = () => {
+const UhealthzoneListMain = () => {
     const [uhealthzoneListState, setUhealthzoneListState] =
         useRecoilState(UhealthzoneListState)
+
+    const location = useLocation()
 
     const getTableList = useCallback(async () => {
         setUhealthzoneListState(prevState => ({
@@ -58,6 +61,23 @@ const InitListMain = () => {
         pageStart()
     }, [getTableList, uhealthzoneListState.status])
 
+    // 다시 가지고 오기.
+    useEffect(() => {
+        const funcCheckLocationState = () => {
+            if (location.state && has(location.state, 'renew')) {
+                if (location.state.renew) {
+                    getTableList().then()
+                }
+            }
+        }
+
+        if (location.state) {
+            funcCheckLocationState()
+        }
+        // FIXME : 종속성에서 getTableList 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.state])
+
     return (
         <Container>
             <SearchWapper>
@@ -73,4 +93,4 @@ const InitListMain = () => {
     )
 }
 
-export default InitListMain
+export default UhealthzoneListMain
