@@ -4,10 +4,10 @@ import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
 import {
     ConfirmModal,
     VaryButton,
+    VaryDatepickerInput,
     VaryInput,
     VaryLabel,
-    VaryRadioButton,
-    VaryDatepickerInput,
+    VaryLabelRadioButton,
 } from '@Elements'
 import VaryImageUpload from '@Element/Inputs/VaryImageUpload'
 import {
@@ -505,7 +505,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         <InputCell>
                             <div className="flex flex-nowrap px-0">
                                 <div className="mr-2">
-                                    <VaryRadioButton
+                                    <VaryLabelRadioButton
                                         LabelName={`노출`}
                                         Checked={
                                             !!(
@@ -528,7 +528,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 </div>
 
                                 <div className="mr-2">
-                                    <VaryRadioButton
+                                    <VaryLabelRadioButton
                                         LabelName={`비노출`}
                                         Checked={
                                             !!(
