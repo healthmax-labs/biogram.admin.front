@@ -324,7 +324,7 @@ export const phoneFormat = (str: string) => {
 
 export const formatPhoneNumber = (input: string) => {
     const cleanInput = input.replaceAll(/[^0-9]/g, '')
-    let result = ''
+    let result: string
     const length = cleanInput.length
     if (length === 8) {
         result = cleanInput.replace(/(\d{4})(\d{4})/, '$1-$2')
