@@ -9,10 +9,14 @@ const {
 
 const VaryLabelRadioButton = ({
     LabelName,
+    RadioId,
+    RedioName,
     Checked,
     HandleOnChange,
 }: {
     LabelName: string
+    RadioId?: string
+    RedioName?: string
     Checked: boolean
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
@@ -20,8 +24,8 @@ const VaryLabelRadioButton = ({
         <Wapper>
             <Input
                 type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault2"
+                name={RedioName ? RedioName : 'defaultRadio'}
+                id={RadioId ? RadioId : 'defaultRadio'}
                 checked={Checked}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     HandleOnChange(e)

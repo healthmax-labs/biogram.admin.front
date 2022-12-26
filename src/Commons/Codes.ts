@@ -192,4 +192,276 @@ export default {
             ],
         },
     ],
+    week: [
+        {
+            name1: `일요일`,
+            name2: '일',
+            key: `time_7`,
+            code: 7,
+        },
+        {
+            name1: `월요일`,
+            name2: '월',
+            key: `time_1`,
+            code: 1,
+        },
+        {
+            name1: `화요일`,
+            name2: '화',
+            key: `time_2`,
+            code: 2,
+        },
+        {
+            name1: `수요일`,
+            name2: '수',
+            key: `time_3`,
+            code: 3,
+        },
+        {
+            name1: `목요일`,
+            name2: '목',
+            key: `time_4`,
+            code: 4,
+        },
+        {
+            name1: `금요일`,
+            name2: '금',
+            key: `time_5`,
+            code: 5,
+        },
+        {
+            name1: `토요일`,
+            name2: '토',
+            key: `time_6`,
+            code: 6,
+        },
+        {
+            name1: `공휴일`,
+            name2: '공휴일 휴무',
+            key: `time_rd`,
+            code: 21,
+        },
+    ],
+    deviceGubun: {
+        modal: {
+            name: `모델`,
+            list: [
+                {
+                    name: `프로`,
+                    key: 'pro',
+                    code: 'P',
+                },
+                {
+                    name: `베이직`,
+                    key: 'basic',
+                    code: 'B',
+                },
+            ],
+        },
+        loginType: {
+            name: `로그인 방식`,
+            list: [
+                {
+                    name: `복합`,
+                    key: `A`,
+                    code: `A`,
+                },
+                {
+                    name: `지정맥`,
+                    key: `Y`,
+                    code: `Y`,
+                },
+                {
+                    name: `RFID카드`,
+                    key: `R`,
+                    code: `R`,
+                },
+            ],
+        },
+        outSiderUse: {
+            name: `외부인 사용`,
+            list: [
+                {
+                    name: `가능`,
+                    key: 'Y',
+                    code: 'Y',
+                },
+                {
+                    name: `불가능`,
+                    key: 'N',
+                    code: 'N',
+                },
+            ],
+        },
+        deviceOpen: {
+            name: `오픈`,
+            list: [
+                {
+                    name: `오픈`,
+                    key: 'Y',
+                    code: 'Y',
+                },
+                {
+                    name: `미오픈`,
+                    key: 'N',
+                    code: 'N',
+                },
+            ],
+        },
+        printUse: {
+            name: `프린트`,
+            list: [
+                {
+                    name: `가능`,
+                    key: 'Y',
+                    code: 'Y',
+                },
+                {
+                    name: `불가능`,
+                    key: 'N',
+                    code: 'N',
+                },
+            ],
+        },
+        mhrls: {
+            name: `설치기기`,
+            list: [
+                {
+                    name: `키오스크`,
+                    key: `KK`,
+                    code: `KK`,
+                },
+                {
+                    name: `신장`,
+                    key: `HT`,
+                    code: `HT`,
+                },
+                {
+                    name: `체성분`,
+                    key: `IS`,
+                    code: `IS`,
+                },
+                {
+                    name: `혈압`,
+                    key: `BP`,
+                    code: `BP`,
+                },
+                {
+                    name: `혈당`,
+                    key: `BS`,
+                    code: `BS`,
+                },
+                {
+                    name: `콜레스트롤`,
+                    key: `BC`,
+                    code: `BC`,
+                },
+                {
+                    name: `스트레스`,
+                    key: `SR`,
+                    code: `SR`,
+                },
+                {
+                    name: `뇌건강 측정`,
+                    key: `BI`,
+                    code: `BI`,
+                },
+            ],
+        },
+        measureCode: {
+            name: ``,
+            list: [
+                {
+                    name: `신장`,
+                    key: `HT`,
+                    code: `HT`,
+                },
+                {
+                    name: `체성분`,
+                    key: `IS`,
+                    code: `IS`,
+                },
+                {
+                    name: `혈압`,
+                    key: `BP`,
+                    code: `BP`,
+                },
+                {
+                    name: `혈당`,
+                    key: `BS`,
+                    code: `BS`,
+                },
+                {
+                    name: `콜레스테롤`,
+                    key: `BC`,
+                    code: `BC`,
+                },
+                {
+                    name: `체온`,
+                    key: `BH`,
+                    code: `BH`,
+                },
+                {
+                    name: `스트레스`,
+                    key: `SR`,
+                    code: `SR`,
+                },
+                // {
+                //     name: `악력`,
+                //     key: `GP`,
+                //     code: `GP`,
+                // },
+                {
+                    name: `뇌건강 측정`,
+                    key: `BI`,
+                    code: `BI`,
+                },
+                // {
+                //     name: `당화혈색소`,
+                //     key: `GH`,
+                //     code: `GH`,
+                // },
+                {
+                    name: `혈당/콜레스테롤`,
+                    key: `BSBC`,
+                    code: `BSBC`,
+                },
+                {
+                    name: `혈압/체성분`,
+                    key: `BPIS`,
+                    code: `BPIS`,
+                },
+                {
+                    name: `혈압/체성분/콜레스테롤`,
+                    key: `BPIC`,
+                    code: `BPIC`,
+                },
+                // {
+                //     name: `혈압계 악력계`,
+                //     key: `BPGP`,
+                //     code: `BPGP`,
+                // },
+                {
+                    name: `혈압/스트레스`,
+                    key: `BPSR`,
+                    code: `BPSR`,
+                },
+                {
+                    name: `신장/체성분`,
+                    key: `HTIS`,
+                    code: `HTIS`,
+                },
+                {
+                    name: `신장/혈압`,
+                    key: `HTBP`,
+                    code: `HTBP`,
+                },
+                // {
+                //     name: `혈압/체성분/당화혈색소`,
+                //     key: `BPIG`,
+                //     code: `BPIG`,
+                // },
+            ],
+        },
+    },
 }

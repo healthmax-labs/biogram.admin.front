@@ -322,6 +322,26 @@ export const phoneFormat = (str: string) => {
     ].join('-')
 }
 
+export const formatPhoneNumber = (input: string) => {
+    const cleanInput = input.replaceAll(/[^0-9]/g, '')
+    let result = ''
+    const length = cleanInput.length
+    if (length === 8) {
+        result = cleanInput.replace(/(\d{4})(\d{4})/, '$1-$2')
+    } else if (cleanInput.startsWith('02') && (length === 9 || length === 10)) {
+        result = cleanInput.replace(/(\d{2})(\d{3,4})(\d{4})/, '$1-$2-$3')
+    } else if (
+        !cleanInput.startsWith('02') &&
+        (length === 10 || length === 11)
+    ) {
+        result = cleanInput.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3')
+    } else {
+        result = ''
+    }
+
+    return result
+}
+
 /**
  * gmt 시간 변경
  * @param time
@@ -501,4 +521,19 @@ export const changeDatePickerDate = (dateString: string) => {
             Number(second)
         )
     }
+}
+
+/**
+ * 시간분 date object 로 변경.
+ * 12:30 -> date()
+ * @param date
+ */
+export const toDateWithOutTimeZone = (date: string) => {
+    const hours = date.substring(0, 2)
+    const minutes = date.substring(2, 4)
+
+    const dt = new Date()
+    dt.setHours(Number(hours))
+    dt.setMinutes(Number(minutes))
+    return dt
 }
