@@ -372,7 +372,7 @@ const StplatDetailTable = () => {
                             약관 변경 히스트리
                         </DPS.Stplat.Table.HeadCell>
                         <DPS.Stplat.Table.HeadCell>
-                            양관 변경 사유
+                            약관 변경 사유
                         </DPS.Stplat.Table.HeadCell>
                     </DPS.Stplat.Table.HeadRow>
                 </DPS.Stplat.Table.Head>
