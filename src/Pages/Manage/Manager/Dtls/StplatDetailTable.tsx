@@ -16,9 +16,11 @@ import _ from 'lodash'
 import { StplatKndCodeType, StplatSeCodeType } from '@CommonTypes'
 import {
     getCommonStplatStplatSeCodeStplatKndCodeStplatSn,
+    postCommonStplatDelete,
     postCommonStplatUpdate,
 } from '@Service/ManagerService'
 import { useMainLayouts } from '@Hook/index'
+import { useNavigate } from 'react-router-dom'
 
 const {
     TableContainer,
@@ -43,6 +45,7 @@ const initializeState = {
 const resnLength = 50
 
 const StplatDetailTable = () => {
+    const navigate = useNavigate()
     const { handlMainAlert } = useMainLayouts()
     const [detailState, setDetailState] = useRecoilState(StplatDetailState)
     const [pageState, setPageState] = useState<{
@@ -87,6 +90,36 @@ const StplatDetailTable = () => {
             detailState.detail.STPLAT_CHANGE_RESN
         ) {
             const { status } = await postCommonStplatUpdate({
+                STPLAT_DC: detailState.detail.STPLAT_DC,
+                STPLAT_SN: detailState.detail.STPLAT_SN,
+                STPLAT_KND_CODE: detailState.detail.STPLAT_KND_CODE,
+                STPLAT_SE_CODE: detailState.detail.STPLAT_SE_CODE,
+                STPLAT_CHANGE_RESN: detailState.detail.STPLAT_CHANGE_RESN,
+            })
+
+            if (status) {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processSuccess,
+                })
+            } else {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+            }
+        }
+    }
+
+    const handleInfoDelete = async () => {
+        if (
+            detailState.detail.STPLAT_DC &&
+            detailState.detail.STPLAT_SN &&
+            detailState.detail.STPLAT_KND_CODE &&
+            detailState.detail.STPLAT_SE_CODE &&
+            detailState.detail.STPLAT_CHANGE_RESN
+        ) {
+            const { status } = await postCommonStplatDelete({
                 STPLAT_DC: detailState.detail.STPLAT_DC,
                 STPLAT_SN: detailState.detail.STPLAT_SN,
                 STPLAT_KND_CODE: detailState.detail.STPLAT_KND_CODE,
@@ -432,13 +465,23 @@ const StplatDetailTable = () => {
                         }))
                     }}
                     ApplyButtonClick={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                deleteConfirm: false,
+                        handleInfoDelete().then(() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    deleteConfirm: false,
+                                },
+                            }))
+                        })
+                        navigate(
+                            {
+                                pathname:
+                                    process.env.PUBLIC_URL +
+                                    `/manage/manager/stplat`,
                             },
-                        }))
+                            { state: { renew: true } }
+                        )
                     }}
                 />
             )}
