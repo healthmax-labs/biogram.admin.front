@@ -29,7 +29,7 @@ const StplatListMain = () => {
             setStplatListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
             }))
         } else {
             setStplatListState(prevState => ({

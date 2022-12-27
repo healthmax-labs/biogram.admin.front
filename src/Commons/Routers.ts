@@ -249,7 +249,7 @@ export default [
         mainCode: `60000`,
         menuCode: `60201`,
         name: `이용 약관 관리 상세`,
-        pathName: `/manage/manager/stplat/:stplatNum/detail`,
+        pathName: `/manage/manager/stplat/:seCode/:kndCode/:SN/detail`,
         Component: React.lazy(
             () => import('@Page/Manage/Manager/StplatDetailPage')
         ),

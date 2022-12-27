@@ -1,9 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import ReactQuill from 'react-quill'
 
-const ReactQuillEditor = () => {
+const ReactQuillEditor = ({
+    Value,
+    OnChange,
+}: {
+    Value: string
+    OnChange: (contents: string) => void
+}) => {
     const QuillRef = useRef<ReactQuill>()
-    const [value, setValue] = useState('')
 
     // const imageHandler = () => {
     //     const input = document.createElement('input')
@@ -112,9 +117,9 @@ const ReactQuillEditor = () => {
                             QuillRef.current = element
                         }
                     }}
-                    value={value}
+                    value={Value}
                     onChange={(content, delta, source, editor) =>
-                        setValue(editor.getHTML())
+                        OnChange(editor.getHTML())
                     }
                     modules={modules}
                     formats={formats}

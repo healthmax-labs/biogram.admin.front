@@ -9,6 +9,12 @@ import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Element/index'
 import { DetailPageStyle as DPS } from '@Style/Pages/ManagerPageStyle'
 import Messages from '@Messages'
+import { useRecoilState } from 'recoil'
+import { StplatDetailState } from '@Recoil/ManagerPagesState'
+import { dateInsertHypen, timeStringDateParse } from '@Helper'
+import _ from 'lodash'
+import { StplatKndCodeType, StplatSeCodeType } from '@CommonTypes'
+import { getCommonStplatStplatSeCodeStplatKndCodeStplatSn } from '@Service/ManagerService'
 
 const {
     TableContainer,
@@ -22,6 +28,7 @@ const {
 } = DetailTableStyle
 
 const initializeState = {
+    selectHistoryStplatDc: '',
     modal: {
         updateConfirm: false,
         deleteConfirm: false,
@@ -29,44 +36,44 @@ const initializeState = {
     },
 }
 
-const sampleText = `
-수집 및 이용 목적....<br />
-1. 회원제 서비스 이용에 따른 가입 및 본인 식별<br />
-2. 신체 정보 기반 개인 맞춤형 통합 건강관리 서비스 제공<br />
-<br />
-수집 및 이용하는 개인정보 항목<br />
-1. 회원정보 : ID, 이름, 비밀번호, CI (본인 인증 정보), 성별, 전화번호, 휴대전화번호, 이용자 e-mai 주소, 생년월일<br />
-<br />
-2. 설문을 통한 복약 여부 및 생활습관 정보: 흡연여부 및 흡연량, 음주여부 및 음주량, 음주횟수, 운동 습관, 식사 습관<br />
-<br />
-3. 지정맥 정보 (지정맥을 통한 등록 시)<br />
-<br />
-4. 디바이스를 통해 측정되고 분석된 정보<br />
--체성분: 체중, 체지방률, 체지방량, 제지방량, 근육량, 체수분량, 체수분율, 기초대사량, 추정골량, BMI, WHR, 내장지방레벨<br />
--혈압: 수축기, 이완기<br />
--혈액: 혈당(식전,후), 콜레스테롤(TC, TG, HDL-C, LDL-C)<br />
--스트레스: 스트레스 점수, 신체적 스트레스, 정신적 스트레스, 스트레스 대처능력<br />
--혈관: 혈관단계, 박출강도, 탄성도, 잔혈량<br />
--활동량 정보: 걸음 수, 칼로리 소모량, 보행 거리, 보행 시간, 실시간 심박<br />
--기타 정보: 신장, 허리둘레, 체온, 섭취 식단 정보, 위치 정보(GPS), 측정 일자<br />
-<br />
-5. 사용 디바이스 정보 : 기기 모델 번호, 소프트웨어 플랫폼 버전, IP address, 서비스를 위한 registration id, 접속 로그, 외부기기의 device id<br />
-<br />
-보유 및 이용 기간<br />
--바이오그램 서비스 종료일 혹은 탈퇴일로부터 5년까지<br />
-<br />
-*동의를 거부할 권리가 있다는 사실과 동의 거부에 따른 불이익 내용: 수집하는 개인정보에 대해 동의를 거부할 권리가 있으며 동의 거부 시에는 회원가입이 제한됩니다.<br />
-<br />
-`
+const resnLength = 50
 
 const StplatDetailTable = () => {
+    const [detailState, setDetailState] = useRecoilState(StplatDetailState)
     const [pageState, setPageState] = useState<{
+        selectHistoryStplatDc: string
         modal: {
             updateConfirm: boolean
             deleteConfirm: boolean
             history: boolean
         }
     }>(initializeState)
+
+    const handleClickHistoryRow = async ({
+        seCode,
+        kndCode,
+        SN,
+    }: {
+        seCode: StplatSeCodeType
+        kndCode: StplatKndCodeType
+        SN: number
+    }) => {
+        const { status, payload } =
+            await getCommonStplatStplatSeCodeStplatKndCodeStplatSn({
+                stplatSn: SN,
+                stplatKndCode: kndCode,
+                stplatSeCode: seCode,
+            })
+
+        if (status) {
+            setPageState(prevState => ({
+                ...prevState,
+                selectHistoryStplatDc: payload.STPLAT_MANAGE_INFO.STPLAT_DC,
+            }))
+        }
+
+        //
+    }
 
     return (
         <DPS.DetailContainer>
@@ -80,12 +87,15 @@ const StplatDetailTable = () => {
                             <VaryInput
                                 Width={'w64'}
                                 InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'약관명'}
-                                Value={``}
+                                // Disabled={true}
+                                ReadOnly={true}
+                                Value={
+                                    detailState.detail.STPLAT_KND_CODE_NM
+                                        ? detailState.detail.STPLAT_KND_CODE_NM
+                                        : ''
+                                }
                             />
                         </InputCell>
                         <LabelCell>
@@ -95,12 +105,14 @@ const StplatDetailTable = () => {
                             <VaryInput
                                 Width={'w64'}
                                 InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'약관명'}
-                                Value={``}
+                                ReadOnly={true}
+                                Value={
+                                    detailState.detail.STPLAT_SN
+                                        ? `ver. ${detailState.detail.STPLAT_SN}`
+                                        : ''
+                                }
                             />
                         </InputCell>
                     </Row>
@@ -112,12 +124,14 @@ const StplatDetailTable = () => {
                             <VaryInput
                                 Width={'w64'}
                                 InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'약관명'}
-                                Value={``}
+                                ReadOnly={true}
+                                Value={
+                                    detailState.detail.STPLAT_SE_CODE_NM
+                                        ? detailState.detail.STPLAT_SE_CODE_NM
+                                        : ''
+                                }
                             />
                         </InputCell>
                         <LabelCell>
@@ -127,12 +141,14 @@ const StplatDetailTable = () => {
                             <VaryInput
                                 Width={'w64'}
                                 InputType={'text'}
-                                HandleOnChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'약관명'}
-                                Value={``}
+                                ReadOnly={true}
+                                Value={
+                                    detailState.detail.REGIST_ID
+                                        ? detailState.detail.REGIST_ID
+                                        : ''
+                                }
                             />
                         </InputCell>
                     </Row>
@@ -143,7 +159,11 @@ const StplatDetailTable = () => {
                         <InputCell colSpan={3}>
                             <InputItem>
                                 <div className="flex items-center h-8 text-xs text-gray-500">
-                                    2021-07-13
+                                    {detailState.detail.REGIST_DT
+                                        ? timeStringDateParse(
+                                              detailState.detail.REGIST_DT
+                                          )
+                                        : ''}
                                 </div>
                             </InputItem>
                         </InputCell>
@@ -155,7 +175,12 @@ const StplatDetailTable = () => {
                         <InputCell colSpan={3}>
                             <InputItem>
                                 <div className="flex items-center h-8 text-xs text-gray-500">
-                                    2021-07-13
+                                    {detailState.detail.STPLAT_CHANGE_DE
+                                        ? dateInsertHypen(
+                                              detailState.detail
+                                                  .STPLAT_CHANGE_DE
+                                          )
+                                        : ''}
                                 </div>
                             </InputItem>
                         </InputCell>
@@ -172,14 +197,34 @@ const StplatDetailTable = () => {
                                         InputType={'text'}
                                         HandleOnChange={(
                                             e: React.ChangeEvent<HTMLInputElement>
-                                        ) => console.debug(e)}
+                                        ) =>
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                detail: {
+                                                    ...prevState.detail,
+                                                    STPLAT_CHANGE_RESN:
+                                                        e.target.value.substring(
+                                                            0,
+                                                            resnLength
+                                                        ),
+                                                },
+                                            }))
+                                        }
                                         id={'id'}
                                         Placeholder={'약관명'}
-                                        Value={``}
+                                        Value={
+                                            detailState.detail
+                                                .STPLAT_CHANGE_RESN
+                                                ? detailState.detail
+                                                      .STPLAT_CHANGE_RESN
+                                                : ''
+                                        }
                                     />
                                 </div>
                                 <div className="grow text-sm text-gray-500">
-                                    23/50
+                                    {`${_.size(
+                                        detailState.detail.STPLAT_CHANGE_RESN
+                                    )}/50`}
                                 </div>
                             </div>
                         </InputCell>
@@ -191,7 +236,22 @@ const StplatDetailTable = () => {
                         <QuilEditorCell colSpan={3}>
                             <div className="flex flex-nowrap w-full items-center">
                                 <div className="grow">
-                                    <ReactQuillEditor />
+                                    <ReactQuillEditor
+                                        Value={
+                                            detailState.detail.STPLAT_DC
+                                                ? detailState.detail.STPLAT_DC
+                                                : ''
+                                        }
+                                        OnChange={e =>
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                detail: {
+                                                    ...prevState.detail,
+                                                    STPLAT_DC: e,
+                                                },
+                                            }))
+                                        }
+                                    />
                                 </div>
                             </div>
                         </QuilEditorCell>
@@ -251,29 +311,48 @@ const StplatDetailTable = () => {
                     </DPS.Stplat.Table.HeadRow>
                 </DPS.Stplat.Table.Head>
                 <DPS.Stplat.Table.Body>
-                    <DPS.Stplat.Table.BodyRow
-                        onClick={() =>
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    history: true,
-                                },
-                            }))
-                        }>
-                        <DPS.Stplat.Table.BodyCell>
-                            Ver.1
-                        </DPS.Stplat.Table.BodyCell>
-                        <DPS.Stplat.Table.BodyCell>
-                            변경일
-                        </DPS.Stplat.Table.BodyCell>
-                        <DPS.Stplat.Table.BodyCell>
-                            2021-07-12
-                        </DPS.Stplat.Table.BodyCell>
-                        <DPS.Stplat.Table.BodyCell>
-                            개인정보 수집 및 이용
-                        </DPS.Stplat.Table.BodyCell>
-                    </DPS.Stplat.Table.BodyRow>
+                    {detailState.detail.history &&
+                        detailState.detail.history.length > 0 &&
+                        detailState.detail.history.map((el, index) => {
+                            return (
+                                <DPS.Stplat.Table.BodyRow
+                                    key={`stplat-detail-table-history-row-${index}`}
+                                    onClick={() => {
+                                        if (
+                                            el.STPLAT_SE_CODE &&
+                                            el.STPLAT_KND_CODE &&
+                                            el.STPLAT_SN
+                                        ) {
+                                            handleClickHistoryRow({
+                                                seCode: el.STPLAT_SE_CODE,
+                                                kndCode: el.STPLAT_KND_CODE,
+                                                SN: el.STPLAT_SN,
+                                            }).then(() =>
+                                                setPageState(prevState => ({
+                                                    ...prevState,
+                                                    modal: {
+                                                        ...prevState.modal,
+                                                        history: true,
+                                                    },
+                                                }))
+                                            )
+                                        }
+                                    }}>
+                                    <DPS.Stplat.Table.BodyCell>
+                                        {`Ver.${el.STPLAT_SN}`}
+                                    </DPS.Stplat.Table.BodyCell>
+                                    <DPS.Stplat.Table.BodyCell>
+                                        변경일
+                                    </DPS.Stplat.Table.BodyCell>
+                                    <DPS.Stplat.Table.BodyCell>
+                                        {`Ver.${el.STPLAT_CHANGE_DE}`}
+                                    </DPS.Stplat.Table.BodyCell>
+                                    <DPS.Stplat.Table.BodyCell>
+                                        {`${el.STPLAT_CHANGE_RESN}`}
+                                    </DPS.Stplat.Table.BodyCell>
+                                </DPS.Stplat.Table.BodyRow>
+                            )
+                        })}
                 </DPS.Stplat.Table.Body>
             </DPS.Stplat.Table.Wapper>
 
@@ -339,7 +418,7 @@ const StplatDetailTable = () => {
                                     <p className="text-gray-700 text-xs text-justify">
                                         <div
                                             dangerouslySetInnerHTML={{
-                                                __html: sampleText,
+                                                __html: pageState.selectHistoryStplatDc,
                                             }}></div>
                                     </p>
                                 </div>
