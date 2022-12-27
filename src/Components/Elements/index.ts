@@ -10,6 +10,7 @@ export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'
 export { default as StplatInfoAgreeModal } from './Features/StplatInfoAgreeModal'
 export { default as SiGunSelectBox } from './Features/SiGunSelectBox'
+export { default as ReactQuillEditor } from './Features/ReactQuillEditor'
 
 export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'

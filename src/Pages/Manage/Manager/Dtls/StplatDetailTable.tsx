@@ -1,12 +1,25 @@
 import React, { useState } from 'react'
-import { ConfirmModal, VaryButton, VaryModal } from '@Elements'
+import {
+    ConfirmModal,
+    ReactQuillEditor,
+    VaryButton,
+    VaryModal,
+} from '@Elements'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Element/index'
 import { DetailPageStyle as DPS } from '@Style/Pages/ManagerPageStyle'
 import Messages from '@Messages'
 
-const { TableContainer, TableWapper, Row, LabelCell, InputCell, InputItem } =
-    DetailTableStyle
+const {
+    TableContainer,
+    TableWapper,
+    Row,
+    LabelCell,
+    InputCell,
+    InputItem,
+    QuilEditorLabelCell,
+    QuilEditorCell,
+} = DetailTableStyle
 
 const initializeState = {
     modal: {
@@ -172,25 +185,16 @@ const StplatDetailTable = () => {
                         </InputCell>
                     </Row>
                     <Row>
-                        <LabelCell>
+                        <QuilEditorLabelCell>
                             <VaryLabel LabelName={`약관 내용`} />
-                        </LabelCell>
-                        <InputCell colSpan={3}>
-                            <div className="flex flex-nowrap w-1/2 items-center">
+                        </QuilEditorLabelCell>
+                        <QuilEditorCell colSpan={3}>
+                            <div className="flex flex-nowrap w-full items-center">
                                 <div className="grow">
-                                    <VaryInput
-                                        Width={'w96'}
-                                        InputType={'text'}
-                                        HandleOnChange={(
-                                            e: React.ChangeEvent<HTMLInputElement>
-                                        ) => console.debug(e)}
-                                        id={'id'}
-                                        Placeholder={'약관명'}
-                                        Value={``}
-                                    />
+                                    <ReactQuillEditor />
                                 </div>
                             </div>
-                        </InputCell>
+                        </QuilEditorCell>
                     </Row>
                 </TableWapper>
             </TableContainer>
