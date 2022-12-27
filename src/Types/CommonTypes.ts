@@ -46,6 +46,18 @@ export type MaxHeightType =
     | 'xl7'
     | 'full'
 
+// 이용약관 se code
+export type StplatSeCodeType =
+    | 'HMAX'
+    | 'SAMC'
+    | 'MDAG'
+    | 'MPAS'
+    | 'PSIS'
+    | 'SUBS'
+
+// 이용약관 knd code
+export type StplatKndCodeType = 'II' | 'MI' | 'MP' | 'SI' | 'US' | 'IT' | 'ST'
+
 export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
 export type InputBgColorType = `white` | `gray1` | `gray2`
 

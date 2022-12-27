@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import {
-    NoticeTableConfig,
-    NoticeTableListItemInterface,
-} from './ManagerTableConfig'
+import { NoticeTableConfig, NoticeTableListItemInterface } from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { NoticeListState } from '@Recoil/NoticePagesState'

@@ -31,7 +31,7 @@ const VaryInput = ({
     Value: string | number
     id?: string
     Name?: string
-    HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    HandleOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
     Width?: InputWidthType | null
     Required?: boolean
@@ -61,7 +61,7 @@ const VaryInput = ({
                 name={Name ? Name : 'input'}
                 placeholder={Placeholder ? Placeholder : ''}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    HandleOnChange(e)
+                    HandleOnChange ? HandleOnChange(e) : ''
                 }
                 value={Value}
                 onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>

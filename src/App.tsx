@@ -3,6 +3,8 @@ import { RecoilRoot } from 'recoil'
 import '@Style/global.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import 'react-quill/dist/quill.snow.css'
+
 import SplashComponent from '@Component/SplashComponent'
 import UnderConstructionComponent from '@Component/UnderConstructionComponent'
 import { RecoilDevTools } from 'recoil-gear'

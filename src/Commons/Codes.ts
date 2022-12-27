@@ -463,5 +463,80 @@ export default {
                 // },
             ],
         },
+        stplatCode: {
+            name: `이용약관 코드`,
+            list: [
+                {
+                    code: 'II',
+                    seCode: 'HMAX',
+                    name: '개인정보 수집 및 이용',
+                },
+                {
+                    code: 'MI',
+                    seCode: 'HMAX',
+                    name: '마케팅 정보 수신',
+                },
+                {
+                    code: 'MP',
+                    seCode: 'HMAX',
+                    name: '마케팅 목적 수집 이용',
+                },
+                {
+                    code: 'SI',
+                    seCode: 'HMAX',
+                    name: '민감정보 수집 및 이용',
+                },
+                {
+                    code: 'US',
+                    seCode: 'HMAX',
+                    name: '이용약관',
+                },
+                {
+                    code: 'IT',
+                    seCode: 'MDAG',
+                    name: '개인정보 제3자 제공',
+                },
+                {
+                    code: 'IT',
+                    seCode: 'PSIS',
+                    name: '개인정보 제3자 제공',
+                },
+                {
+                    code: 'IT',
+                    seCode: 'MPAS',
+                    name: '개인정보 제3자 제공',
+                },
+                {
+                    code: 'IT',
+                    seCode: 'SAMC',
+                    name: '개인정보 제3자 제공',
+                },
+                {
+                    code: 'IT',
+                    seCode: 'SUBS',
+                    name: '개인정보 제3자 제공',
+                },
+                {
+                    code: 'ST',
+                    seCode: 'MDAG',
+                    name: '민감정보 제3자 제공',
+                },
+                {
+                    code: 'ST',
+                    seCode: 'MPAS',
+                    name: '민감정보 제3자 제공',
+                },
+                {
+                    code: 'ST',
+                    seCode: 'PSIS',
+                    name: '민감정보 제3자 제공',
+                },
+                {
+                    code: 'ST',
+                    seCode: 'SUBS',
+                    name: '민감정보 제3자 제공',
+                },
+            ],
+        },
     },
 }

@@ -398,6 +398,31 @@ export const timeStringParse = (str: string): string | boolean => {
 }
 
 /**
+ * 20221214112300 -> 2022-12-14
+ * 20221214112300 -> { year: 2022, month: 12, monthPad: 14, day: 11, hour: 23, minute: 00, }
+ * @param str
+ */
+export const timeStringDateParse = (str: string): string | boolean => {
+    if (str.length !== 14) return false
+
+    return str.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3')
+}
+
+/**
+ * 날자에 자동 하이픈
+ * 20221227 -> 2022-12-27
+ * @param date
+ */
+export const dateInsertHypen = (date: string): string | boolean => {
+    if (date.length !== 8) return false
+
+    return `${date.substring(0, 4)}-${date.substring(4, 6)}-${date.substring(
+        6,
+        8
+    )}`
+}
+
+/**
  * 20221210
  * 한달전 날짜.
  */
@@ -536,4 +561,15 @@ export const toDateWithOutTimeZone = (date: string) => {
     dt.setHours(Number(hours))
     dt.setMinutes(Number(minutes))
     return dt
+}
+
+export const getTextLength = (str: string) => {
+    let len = 0
+    for (let i = 0; i < str.length; i++) {
+        if (escape(str.charAt(i)).length == 6) {
+            len++
+        }
+        len++
+    }
+    return len
 }
