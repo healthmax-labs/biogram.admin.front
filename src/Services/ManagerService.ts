@@ -50,3 +50,37 @@ export const getCommonStplatStplatSeCodeStplatKndCodeStplatSn = ({
         payload: {},
     })
 }
+
+/**
+ * 약관 수정.
+ * @param STPLAT_DC
+ * @param STPLAT_SE_CODE
+ * @param STPLAT_KND_CODE
+ * @param STPLAT_SN
+ * @param STPLAT_CHANGE_RESN
+ */
+export const postCommonStplatUpdate = ({
+    STPLAT_DC,
+    STPLAT_SE_CODE,
+    STPLAT_KND_CODE,
+    STPLAT_SN,
+    STPLAT_CHANGE_RESN,
+}: {
+    STPLAT_SE_CODE: StplatSeCodeType
+    STPLAT_KND_CODE: StplatKndCodeType
+    STPLAT_CHANGE_RESN: string
+    STPLAT_DC: string
+    STPLAT_SN: number
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/common/v1/stplat/update`,
+        payload: {
+            STPLAT_DC,
+            STPLAT_SE_CODE,
+            STPLAT_KND_CODE,
+            STPLAT_SN,
+            STPLAT_CHANGE_RESN,
+        },
+    })
+}
