@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, version } from 'react'
 import { COLORLOG, getTokenInfo } from '@Helper'
 import { systemHealthCheck } from '@Service/SystemService'
 import { useSetRecoilState } from 'recoil'
@@ -114,7 +114,7 @@ export default function useRoot() {
                 'border: 1px dashed;',
             ].join(';')
 
-            const appNameMsg = `%c Hi 👋! Welcome to BoiGram Admin! \t\t \n App Name : ${process.env.REACT_APP_NAME} \t\t \n App Version : ${process.env.REACT_APP_VERSION} \t\t\t\t\t \n App NodeEnv : ${process.env.NODE_ENV} \t\t\t\t \n App Env : ${process.env.REACT_APP_ENV} \t\t\t\t\t `
+            const appNameMsg = `%c Hi 👋! Welcome to BoiGram Admin! \t\t \n App Name : ${process.env.REACT_APP_NAME} \t\t \n App Version : ${process.env.REACT_APP_VERSION} \t\t\t\t\t \n React Version : ${version} \t\t\t\t \n App NodeEnv : ${process.env.NODE_ENV} \t\t\t\t \n App Env : ${process.env.REACT_APP_ENV} \t\t\t\t\t `
             console.log(appNameMsg, styles)
         }
 
