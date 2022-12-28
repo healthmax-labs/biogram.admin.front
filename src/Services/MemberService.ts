@@ -3,6 +3,7 @@ import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselInterface,
+    ManageCounselMycoachInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
@@ -559,5 +560,20 @@ export const manageRemoveCounsel = ({
         payload: {
             CNST_LIST,
         },
+    })
+}
+
+// /mng/v1/my_coach/:mber_no/:coach_de
+export const getMngMyCoach = ({
+    memNo,
+    searchDate,
+}: {
+    memNo: number
+    searchDate: string
+}): Promise<ServicesDefaultResult<ManageCounselMycoachInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/my_coach/${memNo}/${searchDate}`,
+        payload: {},
     })
 }
