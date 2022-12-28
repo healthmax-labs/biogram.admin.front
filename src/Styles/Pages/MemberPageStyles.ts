@@ -159,6 +159,7 @@ export const ConsultDetailStyle = {
             SearchWapper: tw.div`flex flex-nowrap w-full border`,
             SearchBox: tw.div`flex py-2 items-center w-full justify-end`,
             SearchItem: tw.div`flex py-2`,
+            LoadingBox: tw.div`flex flex-col pt-32`,
             TableBox: tw.div`flex`,
             Table: {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
