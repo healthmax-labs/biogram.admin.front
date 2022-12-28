@@ -5,6 +5,7 @@ import {
     ConsultInfoListInterface,
     ManageCounselItemInterface,
     ManageCounselMycoachInterface,
+    ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
@@ -104,6 +105,13 @@ interface ConsultMyCoachInterface {
         searchDate: string
     }
     data: ManageCounselMycoachInterface | null
+}
+
+// 상담 회원 설문 조사
+interface ConsultSurveyInterface {
+    status: DefaultStatus
+    memNo: number | null
+    data: ManageCounselQustnrAnswerInterface | null
 }
 
 // 회원 현황 리스트 페이지
@@ -338,6 +346,16 @@ export const ConsultMyCoachState = atom<ConsultMyCoachInterface>({
         search: {
             searchDate: getNowDate(),
         },
+        data: null,
+    },
+})
+
+// 상담 회원 설문조사
+export const ConsultSurveyState = atom<ConsultSurveyInterface>({
+    key: `memberPage/consult-survey`,
+    default: {
+        status: 'idle',
+        memNo: null,
         data: null,
     },
 })
