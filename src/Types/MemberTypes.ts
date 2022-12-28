@@ -244,3 +244,21 @@ export interface ManageCounselItemInterface {
 export interface ManageCounselInterface {
     CHART_LIST: ManageCounselItemInterface[]
 }
+
+// 상담회원 마이코치
+
+export interface ManageCounselMycoachItemInterface {
+    DATE: '20221222'
+    CNSMP_CALORIE: 0
+    MEAL_CALORIE: 0
+}
+
+export interface ManageCounselMycoachInterface {
+    MEAL_CALORIE_DIFF: number
+    CALORIE_7_DAY_LIST: ManageCounselMycoachItemInterface[]
+    MEAL_CALORIE_RECMND: number
+    MEAL_CALORIE_AVG: number
+    CNSMP_CALORIE_AVG: number
+    CNSMP_CALORIE_GOAL: number
+    CNSMP_CALORIE_DIFF: number
+}
