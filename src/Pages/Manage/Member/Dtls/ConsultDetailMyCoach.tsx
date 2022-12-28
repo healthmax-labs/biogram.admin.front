@@ -65,9 +65,9 @@ const ConsultDetailMyCoach = () => {
 
     return (
         <Detail.Container>
-            <div className="flex flex-nowrap w-full border">
-                <div className="flex py-2 items-center w-full justify-end">
-                    <div className="flex py-2">
+            <Detail.MyCoach.SearchWapper>
+                <Detail.MyCoach.SearchBox>
+                    <Detail.MyCoach.SearchItem>
                         <VaryDatepickerInput
                             Value={changeDatePickerDate(
                                 coachState.search.searchDate
@@ -84,81 +84,81 @@ const ConsultDetailMyCoach = () => {
                                 }))
                             }}
                         />
-                    </div>
-                    <div className="flex py-2">
+                    </Detail.MyCoach.SearchItem>
+                    <Detail.MyCoach.SearchItem>
                         <DefaultManageButton
                             ButtonName={'조회'}
                             ButtonClick={() => handleGetData().then()}
                         />
-                    </div>
-                </div>
-            </div>
-            <div className="">
-                <Detail.RawAge.Table.Table>
-                    <Detail.RawAge.Table.Thead>
-                        <Detail.RawAge.Table.TheadRow>
-                            <Detail.RawAge.Table.TheadCell></Detail.RawAge.Table.TheadCell>
-                            <Detail.RawAge.Table.TheadCell>
+                    </Detail.MyCoach.SearchItem>
+                </Detail.MyCoach.SearchBox>
+            </Detail.MyCoach.SearchWapper>
+            <Detail.MyCoach.TableBox>
+                <Detail.MyCoach.Table.Table>
+                    <Detail.MyCoach.Table.Thead>
+                        <Detail.MyCoach.Table.TheadRow>
+                            <Detail.MyCoach.Table.TheadCell></Detail.MyCoach.Table.TheadCell>
+                            <Detail.MyCoach.Table.TheadCell>
                                 섭취 칼로리
-                            </Detail.RawAge.Table.TheadCell>
-                            <Detail.RawAge.Table.TheadCell>
+                            </Detail.MyCoach.Table.TheadCell>
+                            <Detail.MyCoach.Table.TheadCell>
                                 소비 칼로리
-                            </Detail.RawAge.Table.TheadCell>
-                        </Detail.RawAge.Table.TheadRow>
-                        <Detail.RawAge.Table.TheadRow>
-                            <Detail.RawAge.Table.TheadYCell>
+                            </Detail.MyCoach.Table.TheadCell>
+                        </Detail.MyCoach.Table.TheadRow>
+                        <Detail.MyCoach.Table.TheadRow>
+                            <Detail.MyCoach.Table.TheadYCell>
                                 권장 칼로리
-                            </Detail.RawAge.Table.TheadYCell>
-                            <Detail.RawAge.Table.TheadYCell>
+                            </Detail.MyCoach.Table.TheadYCell>
+                            <Detail.MyCoach.Table.TheadYCell>
                                 {coachState.data &&
                                     coachState.data.MEAL_CALORIE_RECMND}
-                            </Detail.RawAge.Table.TheadYCell>
-                            <Detail.RawAge.Table.TheadYCell>
+                            </Detail.MyCoach.Table.TheadYCell>
+                            <Detail.MyCoach.Table.TheadYCell>
                                 {coachState.data &&
                                     coachState.data.CNSMP_CALORIE_GOAL}
-                            </Detail.RawAge.Table.TheadYCell>
-                        </Detail.RawAge.Table.TheadRow>
-                    </Detail.RawAge.Table.Thead>
-                    <Detail.RawAge.Table.Body>
+                            </Detail.MyCoach.Table.TheadYCell>
+                        </Detail.MyCoach.Table.TheadRow>
+                    </Detail.MyCoach.Table.Thead>
+                    <Detail.MyCoach.Table.Body>
                         {coachState.data &&
                             coachState.data.CALORIE_7_DAY_LIST &&
                             coachState.data.CALORIE_7_DAY_LIST.length > 0 &&
                             coachState.data.CALORIE_7_DAY_LIST.map(
                                 (el, index) => {
                                     return (
-                                        <Detail.RawAge.Table.Row
+                                        <Detail.MyCoach.Table.Row
                                             key={`consult-detail-my-coach-table-row-item-${index}`}>
-                                            <Detail.RawAge.Table.Cell>
+                                            <Detail.MyCoach.Table.Cell>
                                                 {dateInsertHypen(el.DATE)}
-                                            </Detail.RawAge.Table.Cell>
-                                            <Detail.RawAge.Table.Cell>
+                                            </Detail.MyCoach.Table.Cell>
+                                            <Detail.MyCoach.Table.Cell>
                                                 {el.MEAL_CALORIE}
-                                            </Detail.RawAge.Table.Cell>
-                                            <Detail.RawAge.Table.Cell>
+                                            </Detail.MyCoach.Table.Cell>
+                                            <Detail.MyCoach.Table.Cell>
                                                 {el.CNSMP_CALORIE}
-                                            </Detail.RawAge.Table.Cell>
-                                        </Detail.RawAge.Table.Row>
+                                            </Detail.MyCoach.Table.Cell>
+                                        </Detail.MyCoach.Table.Row>
                                     )
                                 }
                             )}
-                    </Detail.RawAge.Table.Body>
-                    <Detail.RawAge.Table.TFoot>
-                        <Detail.RawAge.Table.TFootRow>
-                            <Detail.RawAge.Table.TFootCell>
+                    </Detail.MyCoach.Table.Body>
+                    <Detail.MyCoach.Table.TFoot>
+                        <Detail.MyCoach.Table.TFootRow>
+                            <Detail.MyCoach.Table.TFootCell>
                                 평균
-                            </Detail.RawAge.Table.TFootCell>
-                            <Detail.RawAge.Table.TFootCell>
+                            </Detail.MyCoach.Table.TFootCell>
+                            <Detail.MyCoach.Table.TFootCell>
                                 {coachState.data &&
                                     coachState.data.MEAL_CALORIE_AVG}
-                            </Detail.RawAge.Table.TFootCell>
-                            <Detail.RawAge.Table.TFootCell>
+                            </Detail.MyCoach.Table.TFootCell>
+                            <Detail.MyCoach.Table.TFootCell>
                                 {coachState.data &&
                                     coachState.data.CNSMP_CALORIE_AVG}
-                            </Detail.RawAge.Table.TFootCell>
-                        </Detail.RawAge.Table.TFootRow>
-                    </Detail.RawAge.Table.TFoot>
-                </Detail.RawAge.Table.Table>
-            </div>
+                            </Detail.MyCoach.Table.TFootCell>
+                        </Detail.MyCoach.Table.TFootRow>
+                    </Detail.MyCoach.Table.TFoot>
+                </Detail.MyCoach.Table.Table>
+            </Detail.MyCoach.TableBox>
         </Detail.Container>
     )
 }

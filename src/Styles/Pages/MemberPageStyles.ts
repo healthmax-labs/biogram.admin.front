@@ -154,6 +154,27 @@ export const ConsultDetailStyle = {
                 Cell: tw.td`border text-xs text-gray-500`,
             },
         },
+        MyCoach: {
+            RowWapper: tw.div`w-full pb-1`,
+            SearchWapper: tw.div`flex flex-nowrap w-full border`,
+            SearchBox: tw.div`flex py-2 items-center w-full justify-end`,
+            SearchItem: tw.div`flex py-2`,
+            TableBox: tw.div`flex`,
+            Table: {
+                Table: tw.table`text-center min-w-full shadow-md rounded`,
+                Thead: tw.thead`text-xs border`,
+                TheadRow: tw.tr``,
+                TheadCell: tw.th`bg-m-dip-blue text-xs text-white h-8`,
+                TheadYCell: tw.th`bg-yellow-300 text-xs text-white h-8`,
+                Body: tw.tbody``,
+                Row: tw.tr``,
+                CellBg: tw.td`border bg-m-dip-blue text-xs text-white h-8`,
+                Cell: tw.td`border text-xs text-gray-500 h-8`,
+                TFoot: tw.tfoot`text-xs border bg-gray-500`,
+                TFootRow: tw.tr``,
+                TFootCell: tw.th`bg-m-dip-blue text-xs text-white h-8`,
+            },
+        },
         RawAge: {
             RowWapper: tw.div`w-full pb-1`,
             Table: {
