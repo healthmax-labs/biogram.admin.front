@@ -150,8 +150,8 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-left min-w-full shadow-md rounded`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
-                Cell: tw.td`border text-xs text-gray-500`,
+                CellBg: tw.td`border bg-m-dip-blue text-xs text-white w-1/12 h-8`,
+                Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8`,
             },
         },
         MyCoach: {
@@ -162,7 +162,7 @@ export const ConsultDetailStyle = {
             LoadingBox: tw.div`flex flex-col pt-32`,
             TableBox: tw.div`flex`,
             Table: {
-                Table: tw.table`text-center min-w-full shadow-md rounded`,
+                Table: tw.table`text-center min-w-full shadow-md rounded table-fixed`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
                 TheadCell: tw.th`bg-m-dip-blue text-xs text-white h-8`,
