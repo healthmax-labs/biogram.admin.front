@@ -103,24 +103,19 @@ export default function useRoot() {
             COLORLOG('info', ':: App Init Finish :: ')
             setAppBaseCheckState(true)
 
-            console.log(`\x1b[7m┎───────────────────────────────────┐`)
+            const styles = [
+                'min-width: 20px',
+                'font-size: 12px',
+                'font-family: monospace',
+                'background: white',
+                'display: inline-block',
+                'color: black',
+                'padding: 8px 19px',
+                'border: 1px dashed;',
+            ].join(';')
 
-            console.log(
-                `\x1b[7m│ \x1b[32mApp \x1b[33mName \x1b[35m: \x1b[36m${process.env.REACT_APP_NAME}\x1b[0m \t\x1b[7m│`
-            )
-
-            console.log(
-                `\x1b[7m│ \x1b[32mApp \x1b[33mVersion \x1b[35m: \x1b[36m${process.env.REACT_APP_VERSION}\x1b[0m \t\t\t\t\x1b[7m│`
-            )
-
-            console.log(
-                `\x1b[7m│ \x1b[32mApp \x1b[33mNodeEnv \x1b[35m: \x1b[36m${process.env.NODE_ENV}\x1b[0m \t\t\x1b[7m│`
-            )
-
-            console.log(
-                `\x1b[7m│ \x1b[32mApp \x1b[33mEnv \x1b[35m: \x1b[36m${process.env.NODE_ENV}\x1b[0m \t\t\t\x1b[7m│`
-            )
-            console.log(`\x1b[7m┖───────────────────────────────────┙`)
+            const appNameMsg = `%c Hi 👋! Welcome to BoiGram Admin! \t\t \n App Name : ${process.env.REACT_APP_NAME} \t\t \n App Version : ${process.env.REACT_APP_VERSION} \t\t\t\t\t \n App NodeEnv : ${process.env.NODE_ENV} \t\t\t\t \n App Env : ${process.env.REACT_APP_ENV} \t\t\t\t\t `
+            console.log(appNameMsg, styles)
         }
 
         COLORLOG('info', ':: App Init Start :: ')
