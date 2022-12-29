@@ -539,4 +539,364 @@ export default {
             ],
         },
     },
+    surveyCode: [
+        {
+            name: `기초생활습관`,
+            seCode: `LLHB`,
+            category: [
+                {
+                    title: `흡연`,
+                    name: `흡연`,
+                    sn: 1,
+                    code: `CM00`,
+                    question: [
+                        {
+                            name: '비흡연',
+                            code: 'N',
+                        },
+                        {
+                            name: '흡연',
+                            code: 'Y',
+                        },
+                    ],
+                },
+                {
+                    title: `음주`,
+                    name: `음주`,
+                    sn: 2,
+                    code: `MB08`,
+                    question: [
+                        {
+                            name: '없음',
+                            code: 'NONE',
+                        },
+                        {
+                            name: '월 1회',
+                            code: 'LOTM',
+                        },
+                        {
+                            name: '월 2~4회',
+                            code: 'TFTM',
+                        },
+                        {
+                            name: '월 5 회 이상',
+                            code: 'MFTM',
+                        },
+                        {
+                            name: '주 2~3회',
+                            code: 'TTTW',
+                        },
+                        {
+                            name: '주 4회 이상',
+                            code: 'MFTW',
+                        },
+                    ],
+                },
+                {
+                    title: `복약`,
+                    name: `복약(중복가능)`,
+                    sn: 3,
+                    code: `MB13`,
+                    question: [
+                        {
+                            name: '없음',
+                            code: 'NONE',
+                        },
+                        {
+                            name: '비만',
+                            code: 'OBST',
+                        },
+                        {
+                            name: '고혈압',
+                            code: 'HBPS',
+                        },
+                        {
+                            name: '당뇨',
+                            code: 'DABT',
+                        },
+                        {
+                            name: '고지혈',
+                            code: 'DSPD',
+                        },
+                        {
+                            name: '기타',
+                            code: '9999',
+                        },
+                    ],
+                },
+                {
+                    title: `위험요인`,
+                    name: `위험요인(중복가능)`,
+                    sn: 4,
+                    code: `MB17`,
+                    question: [
+                        {
+                            name: '없음',
+                            code: 'NONE',
+                        },
+                        {
+                            name: '허리둘레',
+                            code: 'WAST',
+                        },
+                        {
+                            name: '혈압',
+                            code: 'HBPS',
+                        },
+                        {
+                            name: '공복혈당',
+                            code: 'BFBS',
+                        },
+                        {
+                            name: '중성지방',
+                            code: 'TGCL',
+                        },
+                        {
+                            name: 'HDL-C',
+                            code: 'HDLC',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            name: `식습관`,
+            seCode: `MLHB`,
+            category: [
+                {
+                    title: `규칙적인 식사`,
+                    name: `규칙적인 식사`,
+                    sn: 1,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '주 2일 이하',
+                            code: 'LTTW',
+                        },
+                        {
+                            name: '주 3~5일',
+                            code: 'TFTW',
+                        },
+                        {
+                            name: '거의 매일',
+                            code: 'AMED',
+                        },
+                    ],
+                },
+                {
+                    title: `1일 2끼이상 단백질 섭취`,
+                    name: `1일 2끼이상 단백질 섭취`,
+                    sn: 2,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '주 2일 이하',
+                            code: 'LTTW',
+                        },
+                        {
+                            name: '주 3~5일',
+                            code: 'TFTW',
+                        },
+                        {
+                            name: '거의 매일',
+                            code: 'AMED',
+                        },
+                    ],
+                },
+                {
+                    title: `동물성지방 섭취`,
+                    name: `동물성지방 섭취`,
+                    sn: 3,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '거의먹지 않음',
+                            code: 'AMNE',
+                        },
+                        {
+                            name: '주 1~2회',
+                            code: 'OTTW',
+                        },
+                        {
+                            name: '주 3일 이상',
+                            code: 'MTTW',
+                        },
+                    ],
+                },
+                {
+                    title: `짠음식 섭취빈도`,
+                    name: `짠음식 섭취빈도`,
+                    sn: 4,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '거의먹지 않음',
+                            code: 'AMNE',
+                        },
+                        {
+                            name: '주 1~2회',
+                            code: 'OTTW',
+                        },
+                        {
+                            name: '주 3일 이상',
+                            code: 'MTTW',
+                        },
+                    ],
+                },
+                {
+                    title: `채소/과일 섭취빈도`,
+                    name: `채소/과일 섭취빈도`,
+                    sn: 5,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '주 2일 이하',
+                            code: 'LTTW',
+                        },
+                        {
+                            name: '주 3~5일',
+                            code: 'TFTW',
+                        },
+                        {
+                            name: '거의 매일',
+                            code: 'AMED',
+                        },
+                    ],
+                },
+                {
+                    title: `유제품 섭취빈도`,
+                    name: `유제품 섭취빈도`,
+                    sn: 6,
+                    code: `MB14`,
+                    question: [
+                        {
+                            name: '거의먹지 않음',
+                            code: 'AMNE',
+                        },
+                        {
+                            name: '주 1~2회',
+                            code: 'OTTW',
+                        },
+                        {
+                            name: '주 3일 이상',
+                            code: 'MTTW',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            name: `운동습관`,
+            seCode: `SPHB`,
+            category: [
+                {
+                    title: `운동 규칙성`,
+                    name: `운동 규칙성`,
+                    sn: 1,
+                    code: `CM00`,
+                    question: [
+                        {
+                            name: '아니오',
+                            code: 'N',
+                        },
+                        {
+                            name: '예',
+                            code: 'Y',
+                        },
+                    ],
+                },
+                {
+                    title: `활동량`,
+                    name: `활동량`,
+                    sn: 2,
+                    code: `MB15`,
+                    question: [
+                        {
+                            name: '1회 이하',
+                            code: 'LOTW',
+                        },
+                        {
+                            name: '주 2~3회',
+                            code: 'TTTW',
+                        },
+                        {
+                            name: '주 3~4회',
+                            code: 'TFTW',
+                        },
+                        {
+                            name: '주 4~5회',
+                            code: 'FFTW',
+                        },
+                        {
+                            name: '주 5~6회',
+                            code: 'FSTW',
+                        },
+                        {
+                            name: '거의 매일',
+                            code: 'AMED',
+                        },
+                    ],
+                },
+                {
+                    title: `중강도 운동량`,
+                    name: `중강도 운동량`,
+                    sn: 3,
+                    code: `MB15`,
+                    question: [
+                        {
+                            name: '1회 이하',
+                            code: 'LOTW',
+                        },
+                        {
+                            name: '주 2~3회',
+                            code: 'TTTW',
+                        },
+                        {
+                            name: '주 3~4회',
+                            code: 'TFTW',
+                        },
+                        {
+                            name: '주 4~5회',
+                            code: 'FFTW',
+                        },
+                        {
+                            name: '주 5~6회',
+                            code: 'FSTW',
+                        },
+                        {
+                            name: '거의 매일',
+                            code: 'AMED',
+                        },
+                    ],
+                },
+                {
+                    title: `고강도`,
+                    name: `고강도`,
+                    sn: 4,
+                    code: `MB16`,
+                    question: [
+                        {
+                            name: '20분 이하',
+                            code: 'LTT',
+                        },
+                        {
+                            name: '20~40분',
+                            code: 'TFT',
+                        },
+                        {
+                            name: '40~60분',
+                            code: 'FST',
+                        },
+                        {
+                            name: '60~90분',
+                            code: 'SNT',
+                        },
+                        {
+                            name: '90분이상',
+                            code: 'MNT',
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 }

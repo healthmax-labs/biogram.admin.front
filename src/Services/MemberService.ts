@@ -583,7 +583,10 @@ export const getMngMyCoach = ({
     })
 }
 
-// /mng/v1/qustnr_answer/:mber_no
+/**
+ * 상담회원 설문 조사 정보 조회.
+ * @param memNo
+ */
 export const getMngQustnrAnswer = ({
     memNo,
 }: {
@@ -592,6 +595,15 @@ export const getMngQustnrAnswer = ({
     return _Axios_({
         method: 'get',
         url: `/mng/v1/qustnr_answer/${memNo}`,
+        payload: {},
+    })
+}
+
+// ttp://58.227.2.174:24771/data/v1/qustnr/answer
+export const postDataQustnrAnswer = () => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/qustnr/answer`,
         payload: {},
     })
 }
