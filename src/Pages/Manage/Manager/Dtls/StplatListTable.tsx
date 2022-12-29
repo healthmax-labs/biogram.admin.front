@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import {
-    StplatTableConfig,
-    StplatTableListItemInterface,
-} from './ManagerTableConfig'
-import { useRecoilValue } from 'recoil'
+import { StplatTableConfig, StplatTableListItemInterface } from './TableConfig'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
-import { StplatListState } from '@Recoil/ManagerPagesState'
+import { StplatDetailState, StplatListState } from '@Recoil/ManagerPagesState'
 
 interface tableOption {
     Loading: boolean
@@ -20,15 +17,17 @@ const ListTable = () => {
     const navigate = useNavigate()
 
     const listState = useRecoilValue(StplatListState)
+    const resetDetailState = useResetRecoilState(StplatDetailState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(StplatTableConfig)
 
     const handleRowClick = (element: StplatTableListItemInterface) => {
+        resetDetailState()
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.STPLAT_SN}/detail`,
+                `/manage/manager/stplat/${element.STPLAT_SE_CODE}/${element.STPLAT_KND_CODE}/${element.STPLAT_SN}/detail`,
         })
     }
 
@@ -36,9 +35,9 @@ const ListTable = () => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.memberList.STPLAT_MANAGE_INFO_LIST,
+            Lists: listState.list.STPLAT_MANAGE_INFO_LIST,
         }))
-    }, [listState.memberList.STPLAT_MANAGE_INFO_LIST, listState.status])
+    }, [listState.list.STPLAT_MANAGE_INFO_LIST, listState.status])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

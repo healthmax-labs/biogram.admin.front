@@ -244,3 +244,49 @@ export interface ManageCounselItemInterface {
 export interface ManageCounselInterface {
     CHART_LIST: ManageCounselItemInterface[]
 }
+
+// 상담회원 마이코치
+export interface ManageCounselMycoachItemInterface {
+    DATE: '20221222'
+    CNSMP_CALORIE: 0
+    MEAL_CALORIE: 0
+}
+
+export interface ManageCounselMycoachInterface {
+    MEAL_CALORIE_DIFF: number
+    CALORIE_7_DAY_LIST: ManageCounselMycoachItemInterface[]
+    MEAL_CALORIE_RECMND: number
+    MEAL_CALORIE_AVG: number
+    CNSMP_CALORIE_AVG: number
+    CNSMP_CALORIE_GOAL: number
+    CNSMP_CALORIE_DIFF: number
+}
+
+// 상담 회원 설문 조사.
+export interface ManageCounselQustnrAnswerSubItemInterface {
+    QESTN_SN: string
+    QUSTNR_SN: string
+    ANSWER_6: string
+    ANSWER_5: string
+    ANSWER_4: string
+    QUSTNR_NM: string
+    ANSWER_3: string
+    ANSWER_2: string
+    QUSTNR_DE: string
+    QUSTNR_SE_CODE: 'SPHB' | 'LLHB' | 'MLHB'
+    ANSWER_1: string
+    QUSTNR_DT: string
+}
+
+export interface ManageCounselQustnrAnswerItemInterface {
+    ANSWER: {
+        SPHB: ManageCounselQustnrAnswerSubItemInterface
+        LLHB: ManageCounselQustnrAnswerSubItemInterface
+        MLHB: ManageCounselQustnrAnswerSubItemInterface
+    }
+    QUSTNR_DE: string
+}
+
+export interface ManageCounselQustnrAnswerInterface {
+    QUSTNR_ANSWERS: ManageCounselQustnrAnswerItemInterface[]
+}

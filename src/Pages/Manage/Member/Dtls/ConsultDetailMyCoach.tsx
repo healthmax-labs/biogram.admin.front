@@ -1,162 +1,180 @@
-import { VaryDatepickerInput, DefaultManageButton } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
+import {
+    DefaultManageButton,
+    ElementLoading,
+    VaryDatepickerInput,
+} from '@Elements'
+import {
+    changeDatePickerDate,
+    dateInsertHypen,
+    gmtTimeToTimeObject,
+} from '@Helper'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import { useParams } from 'react-router-dom'
+import React, { useCallback, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { ConsultMyCoachState } from '@Recoil/MemberPagesState'
+import { getMngMyCoach } from '@Service/MemberService'
 
 const { Detail } = ConsultDetailStyle
 
 const ConsultDetailMyCoach = () => {
+    const params = useParams<{
+        memNo: string | undefined
+        category: string | undefined
+    }>()
+
+    const [coachState, setCoachState] = useRecoilState(ConsultMyCoachState)
+
+    const handleGetData = useCallback(async () => {
+        if (coachState.memNo && coachState.search.searchDate) {
+            setCoachState(prevState => ({
+                ...prevState,
+                status: 'loading',
+            }))
+
+            const { status, payload } = await getMngMyCoach({
+                memNo: coachState.memNo,
+                searchDate: coachState.search.searchDate,
+            })
+
+            if (status) {
+                setCoachState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                    data: payload,
+                }))
+            } else {
+                setCoachState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                    data: null,
+                }))
+            }
+        }
+    }, [coachState.memNo, coachState.search.searchDate, setCoachState])
+
+    useEffect(() => {
+        const pageStart = () => {
+            const { memNo } = params
+
+            if (memNo) {
+                setCoachState(prevState => ({
+                    ...prevState,
+                    memNo: Number(memNo),
+                }))
+
+                handleGetData().then()
+            }
+        }
+
+        if (coachState.status === 'idle') {
+            pageStart()
+        }
+    }, [coachState.status, handleGetData, params, setCoachState])
+
     return (
         <Detail.Container>
-            <div className="flex flex-nowrap w-full border">
-                <div className="flex py-2 items-center w-full justify-end">
-                    <div className="flex py-2">
+            <Detail.MyCoach.SearchWapper>
+                <Detail.MyCoach.SearchBox>
+                    <Detail.MyCoach.SearchItem>
                         <VaryDatepickerInput
+                            Value={changeDatePickerDate(
+                                coachState.search.searchDate
+                            )}
                             CallBackReturn={e => {
-                                const dateObj = gmtTimeToTimeObject(e)
-                                console.debug(dateObj)
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setCoachState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        searchDate: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
                             }}
                         />
-                        ~
-                        <VaryDatepickerInput
-                            CallBackReturn={e => {
-                                const dateObj = gmtTimeToTimeObject(e)
-                                console.debug(dateObj)
-                            }}
-                        />
-                    </div>
-                    <div className="flex py-2">
+                    </Detail.MyCoach.SearchItem>
+                    <Detail.MyCoach.SearchItem>
                         <DefaultManageButton
                             ButtonName={'조회'}
-                            ButtonClick={() =>
-                                console.debug('DefaultManageButton')
-                            }
+                            ButtonClick={() => handleGetData().then()}
                         />
-                    </div>
-                </div>
-            </div>
-            <div className="flex w-full border py-4 items-center">
-                <div className="flex w-full border h-8 text-center text-xs items-center justify-center">
-                    차트
-                </div>
-            </div>
-            <div className="">
-                <Detail.RawAge.Table.Table>
-                    <Detail.RawAge.Table.Thead>
-                        <Detail.RawAge.Table.TheadRow>
-                            <Detail.RawAge.Table.TheadCell></Detail.RawAge.Table.TheadCell>
-                            <Detail.RawAge.Table.TheadCell>
-                                섭취 칼로리
-                            </Detail.RawAge.Table.TheadCell>
-                            <Detail.RawAge.Table.TheadCell>
-                                소비 칼로리
-                            </Detail.RawAge.Table.TheadCell>
-                        </Detail.RawAge.Table.TheadRow>
-                        <Detail.RawAge.Table.TheadRow>
-                            <Detail.RawAge.Table.TheadYCell>
-                                권장 칼로리
-                            </Detail.RawAge.Table.TheadYCell>
-                            <Detail.RawAge.Table.TheadYCell>
-                                1500
-                            </Detail.RawAge.Table.TheadYCell>
-                            <Detail.RawAge.Table.TheadYCell>
-                                245
-                            </Detail.RawAge.Table.TheadYCell>
-                        </Detail.RawAge.Table.TheadRow>
-                    </Detail.RawAge.Table.Thead>
-                    <Detail.RawAge.Table.Body>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-09
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                1500
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                245
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-08
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                1500
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                200
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-07
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                -
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                200
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-06
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                -
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                245
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-05
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                1400
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                200
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-04
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                1400
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                200
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                        <Detail.RawAge.Table.Row>
-                            <Detail.RawAge.Table.Cell>
-                                2022-12-03
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                1400
-                            </Detail.RawAge.Table.Cell>
-                            <Detail.RawAge.Table.Cell>
-                                200
-                            </Detail.RawAge.Table.Cell>
-                        </Detail.RawAge.Table.Row>
-                    </Detail.RawAge.Table.Body>
-                    <Detail.RawAge.Table.TFoot>
-                        <Detail.RawAge.Table.TFootRow>
-                            <Detail.RawAge.Table.TFootCell>
-                                평균
-                            </Detail.RawAge.Table.TFootCell>
-                            <Detail.RawAge.Table.TFootCell>
-                                1400
-                            </Detail.RawAge.Table.TFootCell>
-                            <Detail.RawAge.Table.TFootCell>
-                                200
-                            </Detail.RawAge.Table.TFootCell>
-                        </Detail.RawAge.Table.TFootRow>
-                    </Detail.RawAge.Table.TFoot>
-                </Detail.RawAge.Table.Table>
-            </div>
+                    </Detail.MyCoach.SearchItem>
+                </Detail.MyCoach.SearchBox>
+            </Detail.MyCoach.SearchWapper>
+
+            {coachState.status === 'loading' ? (
+                <Detail.MyCoach.LoadingBox>
+                    <ElementLoading FullScreen={false} />
+                </Detail.MyCoach.LoadingBox>
+            ) : (
+                <Detail.MyCoach.TableBox>
+                    <Detail.MyCoach.Table.Table>
+                        <Detail.MyCoach.Table.Thead>
+                            <Detail.MyCoach.Table.TheadRow>
+                                <Detail.MyCoach.Table.TheadCell></Detail.MyCoach.Table.TheadCell>
+                                <Detail.MyCoach.Table.TheadCell>
+                                    섭취 칼로리
+                                </Detail.MyCoach.Table.TheadCell>
+                                <Detail.MyCoach.Table.TheadCell>
+                                    소비 칼로리
+                                </Detail.MyCoach.Table.TheadCell>
+                            </Detail.MyCoach.Table.TheadRow>
+                            <Detail.MyCoach.Table.TheadRow>
+                                <Detail.MyCoach.Table.TheadYCell>
+                                    권장 칼로리
+                                </Detail.MyCoach.Table.TheadYCell>
+                                <Detail.MyCoach.Table.TheadYCell>
+                                    {coachState.data &&
+                                        coachState.data.MEAL_CALORIE_RECMND}
+                                </Detail.MyCoach.Table.TheadYCell>
+                                <Detail.MyCoach.Table.TheadYCell>
+                                    {coachState.data &&
+                                        coachState.data.CNSMP_CALORIE_GOAL}
+                                </Detail.MyCoach.Table.TheadYCell>
+                            </Detail.MyCoach.Table.TheadRow>
+                        </Detail.MyCoach.Table.Thead>
+                        <Detail.MyCoach.Table.Body>
+                            {coachState.data &&
+                                coachState.data.CALORIE_7_DAY_LIST &&
+                                coachState.data.CALORIE_7_DAY_LIST.length > 0 &&
+                                coachState.data.CALORIE_7_DAY_LIST.map(
+                                    (el, index) => {
+                                        return (
+                                            <Detail.MyCoach.Table.Row
+                                                key={`consult-detail-my-coach-table-row-item-${index}`}>
+                                                <Detail.MyCoach.Table.Cell>
+                                                    {dateInsertHypen(el.DATE)}
+                                                </Detail.MyCoach.Table.Cell>
+                                                <Detail.MyCoach.Table.Cell>
+                                                    {el.MEAL_CALORIE}
+                                                </Detail.MyCoach.Table.Cell>
+                                                <Detail.MyCoach.Table.Cell>
+                                                    {el.CNSMP_CALORIE}
+                                                </Detail.MyCoach.Table.Cell>
+                                            </Detail.MyCoach.Table.Row>
+                                        )
+                                    }
+                                )}
+                        </Detail.MyCoach.Table.Body>
+                        <Detail.MyCoach.Table.TFoot>
+                            <Detail.MyCoach.Table.TFootRow>
+                                <Detail.MyCoach.Table.TFootCell>
+                                    평균
+                                </Detail.MyCoach.Table.TFootCell>
+                                <Detail.MyCoach.Table.TFootCell>
+                                    {coachState.data &&
+                                        coachState.data.MEAL_CALORIE_AVG}
+                                </Detail.MyCoach.Table.TFootCell>
+                                <Detail.MyCoach.Table.TFootCell>
+                                    {coachState.data &&
+                                        coachState.data.CNSMP_CALORIE_AVG}
+                                </Detail.MyCoach.Table.TFootCell>
+                            </Detail.MyCoach.Table.TFootRow>
+                        </Detail.MyCoach.Table.TFoot>
+                    </Detail.MyCoach.Table.Table>
+                </Detail.MyCoach.TableBox>
+            )}
         </Detail.Container>
     )
 }

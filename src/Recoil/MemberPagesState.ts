@@ -4,6 +4,8 @@ import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselItemInterface,
+    ManageCounselMycoachInterface,
+    ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
@@ -93,6 +95,23 @@ interface ConsultDetailInterface {
     status: DefaultStatus
     memNo: number | null
     detail: MemberInfoInterface | null
+}
+
+// 상담 회원 마이코치
+interface ConsultMyCoachInterface {
+    status: DefaultStatus
+    memNo: number | null
+    search: {
+        searchDate: string
+    }
+    data: ManageCounselMycoachInterface | null
+}
+
+// 상담 회원 설문 조사
+interface ConsultSurveyInterface {
+    status: DefaultStatus
+    memNo: number | null
+    data: ManageCounselQustnrAnswerInterface | null
 }
 
 // 회원 현황 리스트 페이지
@@ -315,5 +334,28 @@ export const ConsultDetailSmsSendState = atom<ConsultSmsSendInterface>({
             SNDNG_GBN: 'N',
             SEND_MBER_INFO_LIST: [],
         },
+    },
+})
+
+// 상담 회원 마이코치
+export const ConsultMyCoachState = atom<ConsultMyCoachInterface>({
+    key: `memberPage/consult-my-coach`,
+    default: {
+        status: 'idle',
+        memNo: null,
+        search: {
+            searchDate: getNowDate(),
+        },
+        data: null,
+    },
+})
+
+// 상담 회원 설문조사
+export const ConsultSurveyState = atom<ConsultSurveyInterface>({
+    key: `memberPage/consult-survey`,
+    default: {
+        status: 'idle',
+        memNo: null,
+        data: null,
     },
 })

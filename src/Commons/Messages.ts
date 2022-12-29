@@ -10,6 +10,9 @@ export default {
         stplatSuccess: `약관 동의처리 되었습니다.`,
         searchEmpty: `조회된 데이터가 없습니다`,
         memberConfirmMesure: `수기입력을 하시겠습니까?`,
+        saveConfirm: `저장 하시겠습니까?`,
+        updateConfirm: `수정 하시겠습니까?`,
+        deleteConfirm: `삭제 하시겠습니까?`,
         duplicate: {
             uhealthzoneNameDup: '이미 사용중인 설치 장소명 입니다.',
             uhealthzoneNamePoss: '사용가능한 설치 장소명 입니다.',

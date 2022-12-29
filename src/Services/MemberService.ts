@@ -3,6 +3,8 @@ import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselInterface,
+    ManageCounselMycoachInterface,
+    ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
@@ -559,5 +561,37 @@ export const manageRemoveCounsel = ({
         payload: {
             CNST_LIST,
         },
+    })
+}
+
+/**
+ * 마이코치 데이터 조회.
+ * @param memNo
+ * @param searchDate
+ */
+export const getMngMyCoach = ({
+    memNo,
+    searchDate,
+}: {
+    memNo: number
+    searchDate: string
+}): Promise<ServicesDefaultResult<ManageCounselMycoachInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/my_coach/${memNo}/${searchDate}`,
+        payload: {},
+    })
+}
+
+// /mng/v1/qustnr_answer/:mber_no
+export const getMngQustnrAnswer = ({
+    memNo,
+}: {
+    memNo: number
+}): Promise<ServicesDefaultResult<ManageCounselQustnrAnswerInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/qustnr_answer/${memNo}`,
+        payload: {},
     })
 }
