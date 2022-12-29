@@ -8,12 +8,16 @@ import { NoticeListItemInterface } from '@Type/NoticeTypes'
 export function getNoticeSendList({
     CUR_PAGE,
     ITEM_COUNT,
+    REGIST_DT,
     TRGET_SVC_CODE,
+    TRGET_SVC_CODE_NM,
     USE_AT,
 }: {
     CUR_PAGE: number
     ITEM_COUNT: number
+    REGIST_DT: string
     TRGET_SVC_CODE: number
+    TRGET_SVC_CODE_NM: string
     USE_AT: string
 }): Promise<
     ServicesDefaultResult<{
@@ -23,12 +27,15 @@ export function getNoticeSendList({
     }>
 > {
     return _Axios_({
-        method: 'post',
-        url: '/hp/v1/cpnoti/',
+        method: 'get',
+        //url: '/hp/v1/cpnoti/',
+        url: '/data/v1/notice/list/' + CUR_PAGE,
         payload: {
             CUR_PAGE,
             ITEM_COUNT,
+            REGIST_DT,
             TRGET_SVC_CODE,
+            TRGET_SVC_CODE_NM,
             USE_AT,
         },
     })
