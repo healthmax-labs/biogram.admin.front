@@ -1,7 +1,7 @@
 import MagazineDetailMain from './Dtls/MagazineDetailMain'
 
-const MagazineDetailNewPage = () => {
+const MagazineDetailPage = () => {
     return <MagazineDetailMain />
 }
 
-export default MagazineDetailNewPage
+export default MagazineDetailPage

@@ -42,11 +42,13 @@ export const StplatTableConfig = {
 
 // 게시판 테이블 데이터
 export interface NoticeTableListItemInterface {
+    NM: null | string
     NOTICE_NO: null | string
     NOTICE_SJ: null | string
-    REGDT: null | string
-    NOTI_DT: null | string
+    REGIST_DT: null | string
+    REGIST_ID: null | string
     TRGET_SVC_CODE: null | string
+    TRGET_SVC_CODE_NM: null | string
 }
 
 //게시판 테이블 설정.
@@ -66,11 +68,11 @@ export const NoticeTableConfig = {
         },
         {
             name: `등록 일자`,
-            key: `REGDT`,
+            key: `REGIST_DT`,
         },
         {
             name: `게시유형`,
-            key: `TRGET_SVC_CODE`,
+            key: `TRGET_SVC_CODE_NM`,
         },
     ],
     Lists: [],

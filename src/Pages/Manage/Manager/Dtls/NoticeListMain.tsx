@@ -6,7 +6,7 @@ import ManageBox from './NoticeManageBox'
 import ListTable from './NoticeListTable'
 import { getNoticeSendList } from '@Service/NoticeService'
 import { useRecoilState } from 'recoil'
-import { NoticeListState } from '@Recoil/NoticePagesState'
+import { NoticeListState } from '@Recoil/ManagerPagesState'
 import { isNull } from 'lodash'
 
 const {
@@ -20,13 +20,24 @@ const NoticeListMain = () => {
 
     const getTableList = useCallback(async () => {
         const {
-            search: { CUR_PAGE, ITEM_COUNT, TRGET_SVC_CODE, USE_AT },
+            search: {
+                CUR_PAGE,
+                ITEM_COUNT,
+                REGIST_DT,
+                TRGET_SVC_CODE,
+                TRGET_SVC_CODE_NM,
+                USE_AT,
+            },
         } = noticeListState
 
         const { status, payload } = await getNoticeSendList({
             CUR_PAGE: !isNull(CUR_PAGE) ? CUR_PAGE : 1,
             ITEM_COUNT: !isNull(ITEM_COUNT) ? ITEM_COUNT : 30,
+            REGIST_DT: !isNull(REGIST_DT) ? REGIST_DT : '',
             TRGET_SVC_CODE: !isNull(TRGET_SVC_CODE) ? TRGET_SVC_CODE : 1,
+            TRGET_SVC_CODE_NM: !isNull(TRGET_SVC_CODE_NM)
+                ? TRGET_SVC_CODE_NM
+                : '미상',
             USE_AT: !isNull(USE_AT) ? USE_AT : `A`,
         })
 
