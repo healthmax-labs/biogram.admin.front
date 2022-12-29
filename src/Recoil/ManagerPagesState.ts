@@ -1,9 +1,5 @@
 import { atom } from 'recoil'
-<<<<<<< HEAD
-import { DefaultStatus } from '@CommonTypes'
-import { StplatListInterface } from '@Type/MangerTypes'
 import { NoticeListInterface } from '@Type/NoticeTypes'
-=======
 import {
     DefaultStatus,
     DefaultYesNo,
@@ -15,7 +11,6 @@ import {
     StplatInfoInterface,
     StplatListInterface,
 } from '@Type/MangerTypes'
->>>>>>> e261085c387955a45a77850c9b63923fcce8d9c7
 
 /**
  * manager 페이지.
@@ -80,7 +75,6 @@ export const StplatListState = atom<StplatSearchListInterface>({
     },
 })
 
-<<<<<<< HEAD
 /*
  * Notice 페이지.
  */
@@ -115,7 +109,9 @@ export const NoticeListState = atom<NoticeSearchListInterface>({
             NOTICE_LIST: [],
             TOTAL_COUNT: 0,
         },
-=======
+    },
+})
+
 export const StplatDetailState = atom<StplatDetailInterface>({
     key: `managerPage/stplatDetail`,
     default: {
@@ -152,6 +148,5 @@ export const StplatDetailState = atom<StplatDetailInterface>({
             history: null,
         },
         info: null,
->>>>>>> e261085c387955a45a77850c9b63923fcce8d9c7
     },
 })
