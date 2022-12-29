@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import { NoticeTableConfig, NoticeTableListItemInterface } from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
-import { NoticeListState } from '@Recoil/NoticePagesState'
+import { NoticeListState } from '@Recoil/ManagerPagesState'
 
 interface tableOption {
     Loading: boolean
@@ -24,7 +24,7 @@ const ListTable = () => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.NOTICE_NO}/detail`,
+                `/manage/manager/notice/${element.NOTICE_NO}/detail`,
         })
     }
 

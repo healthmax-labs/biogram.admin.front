@@ -263,4 +263,13 @@ export default [
             () => import('@Page/Manage/Manager/NoticeListPage')
         ),
     },
+    {
+        mainCode: `70000`,
+        menuCode: `70201`,
+        name: `게시물 상세`,
+        pathName: `/manage/manager/notice/:NOTICE_NO/detail`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Manager/NoticeListPage')
+        ),
+    },
 ]
