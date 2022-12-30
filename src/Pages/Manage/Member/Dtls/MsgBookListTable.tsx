@@ -22,7 +22,7 @@ const ListTable = () => {
         useState<tableOption>(MsgBookTableConfig)
 
     const handleRowClick = () => {
-        console.log('1111111111111')
+        // console.log('1111111111111')
     }
 
     useEffect(() => {
