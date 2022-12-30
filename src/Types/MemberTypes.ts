@@ -290,3 +290,17 @@ export interface ManageCounselQustnrAnswerItemInterface {
 export interface ManageCounselQustnrAnswerInterface {
     QUSTNR_ANSWERS: ManageCounselQustnrAnswerItemInterface[]
 }
+
+// 설문 조사 등록
+export interface ManageCounselQustnrAnswerDataItemInterface {
+    QUSTNR_SE_CODE: string | 'SPHB' | 'LLHB' | 'MLHB'
+    QUSTNR_SN: number
+    QESTN_SN: number
+    ANSWER_CODE: string
+    ANSWER: string
+}
+
+export interface ManageCounselQustnrAnswerDataInterface {
+    MBER_NO: number
+    ANSWER_LIST: ManageCounselQustnrAnswerDataItemInterface[]
+}

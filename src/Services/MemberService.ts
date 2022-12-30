@@ -4,6 +4,7 @@ import {
     ConsultInfoListInterface,
     ManageCounselInterface,
     ManageCounselMycoachInterface,
+    ManageCounselQustnrAnswerDataInterface,
     ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
@@ -599,11 +600,16 @@ export const getMngQustnrAnswer = ({
     })
 }
 
-// ttp://58.227.2.174:24771/data/v1/qustnr/answer
-export const postDataQustnrAnswer = () => {
+/**
+ * 상담 회원 설문 조사 등록
+ * @param payload
+ */
+export const postDataQustnrAnswer = (
+    payload: ManageCounselQustnrAnswerDataInterface
+): Promise<ServicesDefaultResult<{ test: boolean }>> => {
     return _Axios_({
         method: 'post',
         url: `/data/v1/qustnr/answer`,
-        payload: {},
+        payload: payload,
     })
 }

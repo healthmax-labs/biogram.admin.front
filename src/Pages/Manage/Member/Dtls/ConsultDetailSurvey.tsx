@@ -1,13 +1,133 @@
-import { useCallback, useEffect, useState } from 'react'
-import { DefaultManageButton, VaryLabelCheckBox, VaryModal } from '@Elements'
+import React, { useCallback, useEffect, useState } from 'react'
+import {
+    ConfirmModal,
+    DefaultManageButton,
+    VaryLabelCheckBox,
+    VaryModal,
+} from '@Elements'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { useRecoilState } from 'recoil'
 import { ConsultSurveyState } from '@Recoil/MemberPagesState'
 import { useParams } from 'react-router-dom'
-import { getMngQustnrAnswer } from '@Service/MemberService'
+import {
+    getMngQustnrAnswer,
+    postDataQustnrAnswer,
+} from '@Service/MemberService'
 import Codes from '@Codes'
+import Messages from '@Messages'
+import _ from 'lodash'
+import { useMainLayouts } from '@Hook/index'
 
 const { Detail } = ConsultDetailStyle
+
+const initializeState = {
+    modal: {
+        survey: false,
+        surveyConfirm: false,
+    },
+    surveyData: [
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'CM00',
+            ANSWER: 'N',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB08',
+            ANSWER: 'NONE',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB13',
+            ANSWER: 'NONE',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB17',
+            ANSWER: 'NONE',
+        },
+
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 5,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 6,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'CM00',
+            ANSWER: 'N',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB15',
+            ANSWER: 'LOTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB15',
+            ANSWER: 'LOTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB16',
+            ANSWER: 'LTT',
+        },
+    ],
+}
 
 const ConsultDetailSurvey = () => {
     const params = useParams<{
@@ -15,16 +135,21 @@ const ConsultDetailSurvey = () => {
         category: string | undefined
     }>()
     const [surveyState, setSurveyState] = useRecoilState(ConsultSurveyState)
+    const { handlMainAlert } = useMainLayouts()
 
     const [pageState, setPageState] = useState<{
         modal: {
             survey: boolean
+            surveyConfirm: boolean
         }
-    }>({
-        modal: {
-            survey: false,
-        },
-    })
+        surveyData: Array<{
+            QUSTNR_SE_CODE: string
+            QUSTNR_SN: number
+            QESTN_SN: number
+            ANSWER_CODE: string
+            ANSWER: string
+        }>
+    }>(initializeState)
 
     const handleGetData = useCallback(async () => {
         if (surveyState.memNo) {
@@ -53,6 +178,28 @@ const ConsultDetailSurvey = () => {
         }
     }, [surveyState.memNo, setSurveyState])
 
+    const handlSaveSurveyData = useCallback(async () => {
+        const { memNo } = params
+        const { status } = await postDataQustnrAnswer({
+            MBER_NO: Number(memNo),
+            ANSWER_LIST: pageState.surveyData,
+        })
+
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+
+            handleGetData().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+    }, [handlMainAlert, handleGetData, pageState.surveyData, params])
+
     useEffect(() => {
         const pageStart = () => {
             const { memNo } = params
@@ -71,11 +218,6 @@ const ConsultDetailSurvey = () => {
             pageStart()
         }
     }, [surveyState.status, handleGetData, params, setSurveyState])
-
-    useEffect(() => {
-        console.debug(Codes.surveyCode)
-        // console.debug([...new Array(5)])
-    }, [])
 
     return (
         <Detail.Container>
@@ -279,13 +421,43 @@ const ConsultDetailSurvey = () => {
                                                                                 question.name
                                                                             }
                                                                             Checked={
-                                                                                false
+                                                                                _.findIndex(
+                                                                                    pageState.surveyData,
+                                                                                    {
+                                                                                        QUSTNR_SE_CODE:
+                                                                                            code.seCode,
+                                                                                        QESTN_SN:
+                                                                                            category.sn,
+                                                                                        ANSWER: question.code,
+                                                                                    }
+                                                                                ) >
+                                                                                -1
                                                                             }
-                                                                            HandleOnChange={() =>
-                                                                                console.debug(
-                                                                                    'HandleOnChange'
+                                                                            HandleOnChange={() => {
+                                                                                setPageState(
+                                                                                    prevState => ({
+                                                                                        ...prevState,
+                                                                                        surveyData:
+                                                                                            prevState.surveyData.map(
+                                                                                                surveyData => {
+                                                                                                    if (
+                                                                                                        surveyData.QUSTNR_SE_CODE ===
+                                                                                                            code.seCode &&
+                                                                                                        surveyData.QESTN_SN ===
+                                                                                                            category.sn
+                                                                                                    ) {
+                                                                                                        return {
+                                                                                                            ...surveyData,
+                                                                                                            ANSWER: question.code,
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        return surveyData
+                                                                                                    }
+                                                                                                }
+                                                                                            ),
+                                                                                    })
                                                                                 )
-                                                                            }
+                                                                            }}
                                                                         />
                                                                     </Detail.Survey.Table.Cell>
                                                                 )
@@ -333,10 +505,46 @@ const ConsultDetailSurvey = () => {
                             />
                             <DefaultManageButton
                                 ButtonName={'저장'}
-                                ButtonClick={() => console.debug('ButtonClick')}
+                                ButtonClick={() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            surveyConfirm: true,
+                                        },
+                                    }))
+                                }
                             />
                         </>
                     }></VaryModal>
+            )}
+            {pageState.modal.surveyConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.saveConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                surveyConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        handlSaveSurveyData().then(() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    survey: false,
+                                    surveyConfirm: false,
+                                },
+                            }))
+                        )
+                    }}
+                />
             )}
         </Detail.Container>
     )
