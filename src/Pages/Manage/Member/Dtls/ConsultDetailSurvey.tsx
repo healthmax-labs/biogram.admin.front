@@ -496,6 +496,7 @@ const ConsultDetailSurvey = () => {
                                 ButtonClick={() =>
                                     setPageState(prevState => ({
                                         ...prevState,
+                                        surveyData: initializeState.surveyData,
                                         modal: {
                                             ...prevState.modal,
                                             survey: false,
@@ -526,6 +527,7 @@ const ConsultDetailSurvey = () => {
                     CancleButtonClick={() => {
                         setPageState(prevState => ({
                             ...prevState,
+                            surveyData: initializeState.surveyData,
                             modal: {
                                 ...prevState.modal,
                                 surveyConfirm: false,
@@ -536,6 +538,7 @@ const ConsultDetailSurvey = () => {
                         handlSaveSurveyData().then(() =>
                             setPageState(prevState => ({
                                 ...prevState,
+                                surveyData: initializeState.surveyData,
                                 modal: {
                                     ...prevState.modal,
                                     survey: false,
