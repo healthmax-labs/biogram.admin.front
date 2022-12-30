@@ -17,6 +17,7 @@ export default function useRoot() {
     // 최초 로딩시 앱 초기화.
     useEffect(() => {
         const appStart = async () => {
+            console.clear()
             COLORLOG('warning', ':: App Server Check :: ')
 
             let geolocation = {
