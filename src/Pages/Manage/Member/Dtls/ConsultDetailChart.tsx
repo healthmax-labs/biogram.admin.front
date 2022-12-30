@@ -177,10 +177,6 @@ const ConsultDetailChart = () => {
         }
     }, [chartState, handleGetList])
 
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
-
     return (
         <>
             <div className="flex flex-nowrap">

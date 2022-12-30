@@ -103,6 +103,7 @@ export default function useTab() {
     }, [locationState])
 
     return {
+        tabState,
         setUseTabState,
         handleDeleteTab,
     }

@@ -2,6 +2,7 @@ import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Const from '@Const'
+import { useTab } from '@Hook/index'
 
 const { Tabs } = ConsultDetailStyle
 
@@ -10,6 +11,7 @@ const initializeState = {
 }
 
 const ConsultDetailTableTab = () => {
+    const { tabState, setUseTabState } = useTab()
     const navigate = useNavigate()
     const params = useParams<{
         memNo: string | undefined
@@ -24,6 +26,21 @@ const ConsultDetailTableTab = () => {
         category: string
         active: boolean
     }) => {
+        setUseTabState(
+            tabState.map(tab => {
+                if (
+                    tab.routePath ===
+                    '/manage/member/consult-detail/:memNo/:category'
+                ) {
+                    return {
+                        ...tab,
+                        pathname: `/manage/member/consult-detail/${params.memNo}/${el.category}`,
+                    }
+                }
+
+                return tab
+            })
+        )
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
