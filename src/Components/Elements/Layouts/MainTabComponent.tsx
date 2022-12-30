@@ -58,9 +58,9 @@ const MainTabComponent = () => {
                             <ButtonWapper>
                                 <TabButton
                                     Active={element.active}
-                                    onClick={() =>
+                                    onClick={() => {
                                         handleTabClick(element.pathname)
-                                    }>
+                                    }}>
                                     {element.name}
                                 </TabButton>
                                 {showCloseButton && (
