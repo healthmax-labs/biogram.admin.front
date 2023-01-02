@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
+import Codes from '@Codes'
 
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
     ConfirmModal,
     VaryButton,
+    VaryDatepickerInput,
     VaryInput,
     VaryLabel,
-    VaryDatepickerInput,
     VaryLabelRadioButton,
+    VarySelectBox,
 } from '@Elements'
 import {
     getNoticeDetail,
-    postNoticeDetailUpdate,
     postNoticeDetailInsert,
+    postNoticeDetailUpdate,
 } from '@Service/NoticeService'
 import { useMainLayouts } from '@Hooks'
 import Messages from '@Messages'
@@ -34,9 +36,9 @@ const {
 } = DetailTableStyle
 
 const { DetailContainer } = DetailPageStyle
-const changeOption = () => {
-    console.log('1111111')
-}
+// const changeOption = () => {
+//     console.log('1111111')
+// }
 const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     console.log(pageMode)
     const params = useParams<{ NOTICE_NO: string | undefined }>()
@@ -162,31 +164,31 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         }
     }
 
-    const SelectBox = () => {
-        //TRGET_SVC_CODE	A:전체, 1:공지, 2:보도자료, 3:웹, 4:안드로이드, 5:아이폰, 6:안드로이드&아이폰
-        return (
-            <select onChange={changeOption}>
-                <option key="1" value="1">
-                    공지
-                </option>
-                <option key="2" value="2">
-                    보도자료
-                </option>
-                <option key="3" value="3">
-                    웹
-                </option>
-                <option key="4" value="4">
-                    안드로이드
-                </option>
-                <option key="5" value="5">
-                    아이폰
-                </option>
-                <option key="6" value="6">
-                    아이폰,안드로이드
-                </option>
-            </select>
-        )
-    }
+    // const SelectBox = () => {
+    //     //TRGET_SVC_CODE	A:전체, 1:공지, 2:보도자료, 3:웹, 4:안드로이드, 5:아이폰, 6:안드로이드&아이폰
+    //     return (
+    //         <select onChange={changeOption}>
+    //             <option key="1" value="1">
+    //                 공지
+    //             </option>
+    //             <option key="2" value="2">
+    //                 보도자료
+    //             </option>
+    //             <option key="3" value="3">
+    //                 웹
+    //             </option>
+    //             <option key="4" value="4">
+    //                 안드로이드
+    //             </option>
+    //             <option key="5" value="5">
+    //                 아이폰
+    //             </option>
+    //             <option key="6" value="6">
+    //                 아이폰,안드로이드
+    //             </option>
+    //         </select>
+    //     )
+    // }
 
     const handleClickApplyButton = () => {
         //제목이 입력되지 않음
@@ -288,31 +290,55 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`게시물 유형`} />
                         </LabelCell>
                         <InputCell>
-                            <SelectBox />
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    detailState.info.NOTI_DT
-                                        ? changeDatePickerDate(
-                                              detailState.info.NOTI_DT.replaceAll(
-                                                  '-',
-                                                  ''
+                            <div className="flex flex-nowrap gap-1">
+                                <VarySelectBox
+                                    Value={
+                                        detailState.info.TRGET_SVC_CODE
+                                            ? detailState.info.TRGET_SVC_CODE
+                                            : ''
+                                    }
+                                    Elements={Codes.boardCode.list.map(e => {
+                                        return {
+                                            value: e.code,
+                                            text: e.name,
+                                        }
+                                    })}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                TRGET_SVC_CODE: e.value,
+                                                TRGET_SVC_CODE_NM: e.text,
+                                            },
+                                        }))
+                                    }
+                                />
+                                <VaryDatepickerInput
+                                    ContentsType={`search`}
+                                    Value={
+                                        detailState.info.NOTI_DT
+                                            ? changeDatePickerDate(
+                                                  detailState.info.NOTI_DT.replaceAll(
+                                                      '-',
+                                                      ''
+                                                  )
                                               )
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        info: {
-                                            ...prevState.info,
-                                            NOTI_DT: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
+                                            : new Date()
+                                    }
+                                    CallBackReturn={e => {
+                                        const { year, monthPad, dayPad } =
+                                            gmtTimeToTimeObject(e)
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                NOTI_DT: `${year}${monthPad}${dayPad}`,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </div>
                         </InputCell>
                     </Row>
                     <Row>
