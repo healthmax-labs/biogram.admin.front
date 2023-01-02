@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { useTab } from '@Hooks'
 
-const { MainUl, MainLi, TabButton, CloseButton, ButtonWapper } = MainTabStyle
+const { Wapper, TabItem, TabButton, CloseButton, ButtonWapper } = MainTabStyle
 
 const MainTabComponent = () => {
     const navigate = useNavigate()
@@ -50,11 +50,11 @@ const MainTabComponent = () => {
     }, [tabList])
 
     return (
-        <MainUl>
+        <Wapper>
             {tabList &&
                 tabList.map((element, index) => {
                     return (
-                        <MainLi key={index}>
+                        <TabItem key={index}>
                             <ButtonWapper>
                                 <TabButton
                                     Active={element.active}
@@ -88,10 +88,10 @@ const MainTabComponent = () => {
                                     </CloseButton>
                                 )}
                             </ButtonWapper>
-                        </MainLi>
+                        </TabItem>
                     )
                 })}
-        </MainUl>
+        </Wapper>
     )
 }
 
