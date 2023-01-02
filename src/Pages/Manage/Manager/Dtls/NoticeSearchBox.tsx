@@ -39,7 +39,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`유형:`} />
+                        <VaryLabel LabelName={`유형`} />
                     </SearchLabel>
                     <SelectBox />
                 </SearchItemWapper>

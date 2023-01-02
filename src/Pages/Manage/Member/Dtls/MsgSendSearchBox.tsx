@@ -46,7 +46,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`소속:`} />
+                        <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
                     <PstinstSelector
                         HandleSelectValue={({ instNo }) =>
@@ -62,7 +62,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`검색어:`} />
+                        <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
                     <VaryInput
                         ContentsType={`search`}
@@ -88,7 +88,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`발송:`} />
+                            <VaryLabel LabelName={`발송`} />
                         </SearchLabel>
                     </LabelItem>
                     <LabelItem>
@@ -113,7 +113,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`기간:`} />
+                        <VaryLabel LabelName={`기간`} />
                     </SearchLabel>
                     <SearchItem>
                         <VaryDatepickerInput
@@ -159,7 +159,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`조회 기준:`} />
+                            <VaryLabel LabelName={`조회 기준`} />
                         </SearchLabel>
                     </LabelItem>
                     <LabelItem>

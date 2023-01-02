@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultSearchButton, VaryLabel, VaryInput } from '@Elements'
+import { DefaultSearchButton, VaryInput, VaryLabel } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { MagazineListState } from '@Recoil/ContentsPagesState'
 import { isNull } from 'lodash'
@@ -26,7 +26,7 @@ const MagazineListSearchBox = ({
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`매거진 :`} />
+                        <VaryLabel LabelName={`매거진`} />
                     </SearchLabel>
                     <SearchItem>
                         <VaryInput

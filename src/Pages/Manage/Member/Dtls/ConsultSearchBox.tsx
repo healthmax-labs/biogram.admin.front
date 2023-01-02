@@ -34,7 +34,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`소속:`} />
+                            <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
                         <PstinstSelector
                             HandleSelectValue={({ instNo, instNm }) =>
@@ -44,7 +44,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간:`} />
+                            <VaryLabel LabelName={`기간`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
@@ -94,7 +94,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`검색어:`} />
+                            <VaryLabel LabelName={`검색어`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryInput
@@ -111,7 +111,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemRow Second={true}>
                     <SearchItemWapper ColSpan={true}>
                         <SearchColSpanLabel>
-                            <VaryLabel LabelName={`요인:`} />
+                            <VaryLabel LabelName={`요인`} />
                         </SearchColSpanLabel>
                         <SearchItem>
                             {(() => {

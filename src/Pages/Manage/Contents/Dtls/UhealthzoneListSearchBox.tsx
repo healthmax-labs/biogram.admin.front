@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultSearchButton, VaryLabel, VaryInput } from '@Elements'
+import { DefaultSearchButton, VaryInput, VaryLabel } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { UhealthzoneListState } from '@Recoil/ContentsPagesState'
 import { isNull } from 'lodash'
@@ -26,7 +26,7 @@ const UhealthzoneListSearchBox = ({
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`설치장소 :`} />
+                        <VaryLabel LabelName={`설치장소`} />
                     </SearchLabel>
                     <SearchItem>
                         <VaryInput

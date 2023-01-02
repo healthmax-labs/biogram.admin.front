@@ -19,7 +19,7 @@ const InstListSearchBox = ({
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`소속:`} />
+                        <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
                     <PstinstSelector
                         HandleSelectValue={({ instNo }) =>

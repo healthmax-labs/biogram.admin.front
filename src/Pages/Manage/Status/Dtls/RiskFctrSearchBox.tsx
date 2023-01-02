@@ -47,7 +47,7 @@ const RiskFctrSearchBox = ({
             <SearchWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`소속:`} />
+                        <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
                     <PstinstSelector
                         HandleSelectValue={({ instNo }) =>
@@ -64,7 +64,7 @@ const RiskFctrSearchBox = ({
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`요인:`} />
+                            <VaryLabel LabelName={`요인`} />
                         </SearchLabel>
                     </LabelItem>
                     <SearchItem>
@@ -147,7 +147,7 @@ const RiskFctrSearchBox = ({
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`기간:`} />
+                        <VaryLabel LabelName={`기간`} />
                     </SearchLabel>
                     <SearchItem>
                         <VaryDatepickerInput
@@ -198,7 +198,7 @@ const RiskFctrSearchBox = ({
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`개수:`} />
+                            <VaryLabel LabelName={`개수`} />
                         </SearchLabel>
                     </LabelItem>
                     <SearchItem>
@@ -239,7 +239,7 @@ const RiskFctrSearchBox = ({
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
-                        <VaryLabel LabelName={`검색어:`} />
+                        <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
                     <VaryInput
                         ContentsType={`search`}
@@ -265,7 +265,7 @@ const RiskFctrSearchBox = ({
                 <SearchItemWapper>
                     <LabelItem>
                         <SearchLabel>
-                            <VaryLabel LabelName={`복약:`} />
+                            <VaryLabel LabelName={`복약`} />
                         </SearchLabel>
                     </LabelItem>
                     <SearchItem>
