@@ -35,7 +35,7 @@ const AnalyticsSearchBox = () => {
                         />
                     </SearchItemWapper>
                 </SearchItemRow>
-                <SearchItemRow Second={true}>
+                <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
@@ -114,7 +114,7 @@ const AnalyticsSearchBox = () => {
                         </SearchItemGap>
                     </SearchItemWapper>
                 </SearchItemRow>
-                <SearchItemRow Second={true}>
+                <SearchItemRow>
                     <SearchItemWapper ColSpan={true}>
                         <SearchLabel>
                             <VaryLabel LabelName={`연령`} />

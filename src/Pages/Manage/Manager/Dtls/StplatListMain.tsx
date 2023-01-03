@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import { MainStyle } from '@Style/Pages/MemberPageStyles'
+import { MainStyle } from '@Style/Pages/CommonStyle'
 import ListTable from './StplatListTable'
 import { getStplatList } from '@Service/ManagerService'
 import { useRecoilState } from 'recoil'

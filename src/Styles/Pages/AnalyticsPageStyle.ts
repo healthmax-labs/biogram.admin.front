@@ -2,12 +2,6 @@ import tw from 'twin.macro'
 // import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const MainStyle = {
-    SearchWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    TableWapper: tw.div`block w-full overflow-x-auto`,
-}
-
 export const ContentsStyle = {
     Container: tw.div`flex flex-col max-h-[75vh] overflow-y-scroll`,
     RowWapper: tw.div`w-full py-2`,
