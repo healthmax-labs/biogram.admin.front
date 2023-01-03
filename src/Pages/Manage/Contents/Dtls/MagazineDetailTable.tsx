@@ -660,7 +660,6 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 confirm: false,
                             },
                         }))
-                        console.log(detailState)
                         handleClickApplyButton()
                     }}
                 />

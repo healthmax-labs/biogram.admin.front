@@ -539,4 +539,46 @@ export default {
             ],
         },
     },
+    boardCode: {
+        name: '게시판 게시풀 종류',
+        list: [
+            {
+                name: '공지',
+                code: '1',
+            },
+            {
+                name: '보도자료',
+                code: '2',
+            },
+            {
+                name: '웹',
+                code: '3',
+            },
+            {
+                name: '안드로이드',
+                code: '4',
+            },
+            {
+                name: '아이폰',
+                code: '5',
+            },
+            {
+                name: '아이폰,안드로이드',
+                code: '6',
+            },
+        ],
+    },
+    boardSchCode: {
+        name: '게시판 종류',
+        list: [
+            {
+                name: '공지사항 게시판',
+                code: 'cpnoti',
+            },
+            {
+                name: '채용 게시판',
+                code: 'cpemp',
+            },
+        ],
+    },
 }

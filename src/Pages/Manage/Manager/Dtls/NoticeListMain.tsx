@@ -34,10 +34,10 @@ const NoticeListMain = () => {
             CUR_PAGE: !isNull(CUR_PAGE) ? CUR_PAGE : 1,
             ITEM_COUNT: !isNull(ITEM_COUNT) ? ITEM_COUNT : 30,
             REGIST_DT: !isNull(REGIST_DT) ? REGIST_DT : '',
-            TRGET_SVC_CODE: !isNull(TRGET_SVC_CODE) ? TRGET_SVC_CODE : 1,
+            TRGET_SVC_CODE: !isNull(TRGET_SVC_CODE) ? TRGET_SVC_CODE : 'A',
             TRGET_SVC_CODE_NM: !isNull(TRGET_SVC_CODE_NM)
                 ? TRGET_SVC_CODE_NM
-                : '미상',
+                : 'cpnoti',
             USE_AT: !isNull(USE_AT) ? USE_AT : `A`,
         })
 

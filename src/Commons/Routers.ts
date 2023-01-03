@@ -269,7 +269,16 @@ export default [
         name: `게시물 상세`,
         pathName: `/manage/manager/notice/:NOTICE_NO/detail`,
         Component: React.lazy(
-            () => import('@Page/Manage/Manager/NoticeListPage')
+            () => import('@Page/Manage/Manager/NoticeDetailPage')
+        ),
+    },
+    {
+        mainCode: `70000`,
+        menuCode: `70301`,
+        name: `게시판 신규 등록`,
+        pathName: `/manage/manager/notice/new`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Manager/NoticeDetailPage')
         ),
     },
 ]

@@ -1,47 +1,50 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultSearchButton, VaryLabel } from '@Elements'
+import { DefaultSearchButton /*, VarySelectBox, VaryLabel*/ } from '@Elements'
+// import Codes from '@Codes'
+// import { useRecoilState } from 'recoil'
+// import { NoticeListState } from '@Recoil/ManagerPagesState'
 
-const { Container, SearchWapper, SearchItemWapper, SearchLabel, SearchButton } =
-    SearchBoxStyle
+const {
+    Container,
+    SearchWapper,
+    SearchItemWapper,
+    /*SearchLabel,*/ SearchButton,
+} = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const SelectBox = () => {
-        //TRGET_SVC_CODE	A:전체, 1:공지, 2:보도자료, 3:웹, 4:안드로이드, 5:아이폰, 6:안드로이드&아이폰
-        return (
-            <select>
-                <option key="A" value="A">
-                    전체
-                </option>
-                <option key="1" value="1">
-                    공지
-                </option>
-                <option key="2" value="2">
-                    보도자료
-                </option>
-                <option key="3" value="3">
-                    웹
-                </option>
-                <option key="4" value="4">
-                    안드로이드
-                </option>
-                <option key="5" value="5">
-                    아이폰
-                </option>
-                <option key="6" value="6">
-                    아이폰,안드로이드
-                </option>
-            </select>
-        )
-    }
+    // const [noticeListState, setNoticeListState] =
+    //     useRecoilState(NoticeListState)
     return (
         <Container>
             <SearchWapper>
                 <SearchItemWapper>
-                    <SearchLabel>
+                    {/* <SearchLabel>
                         <VaryLabel LabelName={`유형:`} />
                     </SearchLabel>
-                    <SelectBox />
+                    <VarySelectBox
+                        Value={
+                            noticeListState.search.TRGET_SVC_CODE
+                                ? noticeListState.search.TRGET_SVC_CODE
+                                : 'A'
+                        }
+                        Elements={Codes.boardSchCode.list.map(e => {
+                            return {
+                                value: e.code,
+                                text: e.name,
+                            }
+                        })}
+                        HandleOnChange={e =>
+                            setNoticeListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    TRGET_SVC_CODE: e.value,
+                                    TRGET_SVC_CODE_NM: e.text,
+                                },
+                            }))
+                        }
+                    /> */}
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>

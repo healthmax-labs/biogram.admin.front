@@ -13,7 +13,7 @@ const initializeState = {
 
 const NoticeDetailMain = () => {
     const locationState = useLocation()
-    const params = useParams<{ misn_step: string | undefined }>()
+    const params = useParams<{ NOTICE_NO: string | undefined }>()
 
     const [pageState, setPageState] = useState<{
         pageMode: `new` | `modify` | null
@@ -23,12 +23,12 @@ const NoticeDetailMain = () => {
         const funcChceckPageMode = () => {
             const { pathname } = locationState
 
-            if (pathname === `/manage/contents/notice-list/new`) {
+            if (pathname === `/manage/manager/notice/new`) {
                 setPageState(prevState => ({
                     ...prevState,
                     pageMode: `new`,
                 }))
-            } else if (params.misn_step !== undefined && params.misn_step) {
+            } else if (params.NOTICE_NO !== undefined && params.NOTICE_NO) {
                 setPageState(prevState => ({
                     ...prevState,
                     pageMode: `modify`,
@@ -37,7 +37,7 @@ const NoticeDetailMain = () => {
         }
 
         funcChceckPageMode()
-    }, [locationState, params.misn_step])
+    }, [locationState, params.NOTICE_NO])
 
     return (
         <>

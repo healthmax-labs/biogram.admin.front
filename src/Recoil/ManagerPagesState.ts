@@ -86,7 +86,7 @@ interface NoticeSearchListInterface {
         CUR_PAGE: number | null
         ITEM_COUNT: number | null
         REGIST_DT: string | null
-        TRGET_SVC_CODE: number | null
+        TRGET_SVC_CODE: string | null
         TRGET_SVC_CODE_NM: string | null
         USE_AT: string | null
     }
