@@ -5,8 +5,7 @@ export const SearchBoxStyle = {
     Container: tw.div`flex flex-nowrap items-center`,
     RowContainer: tw.div`flex flex-nowrap`,
     SearchWapper: tw.div`mt-0 w-center-width grid grid-cols-4 gap-1`,
-    SearchRowWapper: tw.div`items-center`,
-    SearchItemWapper1: tw.div`flex flex-nowrap`,
+    SearchRowWapper: tw.div`items-center justify-end`,
     SearchItemWapper: styled.div(
         ({ ColSpan = false }: { ColSpan?: boolean }) => [
             tw`flex flex-nowrap`,
@@ -17,8 +16,7 @@ export const SearchBoxStyle = {
         tw`w-center-search-box mt-0 items-center grid grid-cols-4 gap-1 h-10`,
         Second ?? tw`pb-4`,
     ]),
-
-    SearchLabel: tw.div`flex object-center content-center w-[50px]`,
+    SearchLabel: tw.div`flex object-center content-center pr-2`,
     SearchColSpanLabel: tw.div`flex object-center content-center w-16`,
     SearchItem: tw.div`flex flex-nowrap`,
     SearchItemGap: tw.div`flex flex-nowrap gap-3`,

@@ -3,6 +3,7 @@ export type DefaultYesNo = 'Y' | 'N'
 export type InputWidthType =
     | 'w10'
     | 'w12'
+    | 'w16'
     | 'w20'
     | 'w24'
     | 'w28'

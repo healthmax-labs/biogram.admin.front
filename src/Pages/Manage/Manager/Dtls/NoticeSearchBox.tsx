@@ -1,6 +1,6 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultSearchButton /*, VarySelectBox, VaryLabel*/ } from '@Elements'
+import { DefaultSearchButton } from '@Elements'
 // import Codes from '@Codes'
 // import { useRecoilState } from 'recoil'
 // import { NoticeListState } from '@Recoil/ManagerPagesState'

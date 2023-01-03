@@ -37,7 +37,7 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
+                            <LabelText>소속</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
@@ -55,7 +55,7 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>가입일자 :</LabelText>
+                            <LabelText>가입일자</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
@@ -70,7 +70,7 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
+                            <LabelText>검색어</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
