@@ -5,12 +5,13 @@ import { useRecoilState } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 
 const {
-    Container,
-    SearchWapper,
     SearchItemWapper,
     SearchLabel,
+    RowContainer,
+    SearchRowWapper,
+    SearchItemRow,
+    RightSearchButton,
     SearchItem,
-    SearchButton,
 } = SearchBoxStyle
 
 const InstListSearchBox = ({
@@ -21,32 +22,35 @@ const InstListSearchBox = ({
     const [, setInstJoinListState] = useRecoilState(InstJoinListState)
 
     return (
-        <Container>
-            <SearchWapper>
-                <SearchItemWapper>
-                    <SearchLabel>
-                        <VaryLabel LabelName={`소속`} />
-                    </SearchLabel>
-                    <SearchItem>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo }) =>
-                                setInstJoinListState(prevState => ({
-                                    ...prevState,
-                                    search: {
-                                        ...prevState.search,
-                                        instNo: String(instNo),
-                                    },
-                                }))
-                            }
-                        />
-                    </SearchItem>
-                </SearchItemWapper>
-                <SearchItemWapper></SearchItemWapper>
-            </SearchWapper>
-            <SearchButton>
+        <RowContainer>
+            <SearchRowWapper>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`소속`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <PstinstSelector
+                                HandleSelectValue={({ instNo }) =>
+                                    setInstJoinListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            instNo: String(instNo),
+                                        },
+                                    }))
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper></SearchItemWapper>
+                </SearchItemRow>
+            </SearchRowWapper>
+
+            <RightSearchButton>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
-            </SearchButton>
-        </Container>
+            </RightSearchButton>
+        </RowContainer>
     )
 }
 export default InstListSearchBox

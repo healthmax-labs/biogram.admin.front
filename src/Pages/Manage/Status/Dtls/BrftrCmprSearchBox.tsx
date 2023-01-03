@@ -13,13 +13,14 @@ import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 
 const {
-    Container,
-    SearchWapper,
     SearchItemWapper,
     SearchLabel,
-    SearchItem,
+    RowContainer,
+    SearchRowWapper,
+    SearchItemRow,
+    RightSearchButton,
     DatepickerLine,
-    SearchButton,
+    SearchItem,
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
@@ -27,108 +28,110 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
         useRecoilState(BrftrCmprListState)
 
     return (
-        <Container>
-            <SearchWapper>
-                <SearchItemWapper>
-                    <SearchLabel>
-                        <VaryLabel LabelName={`소속`} />
-                    </SearchLabel>
-                    <SearchItem>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo }) =>
-                                setBrftrCmprListState(prevState => ({
-                                    ...prevState,
-                                    search: {
-                                        ...prevState.search,
-                                        instNo: String(instNo),
-                                    },
-                                }))
-                            }
-                        />
-                    </SearchItem>
-                </SearchItemWapper>
-                <SearchItemWapper>
-                    <SearchLabel>
-                        <VaryLabel LabelName={`기간`} />
-                    </SearchLabel>
-                    <SearchItem>
-                        <VaryDatepickerInput
-                            ContentsType={`search`}
-                            Value={
-                                brftrCmprListState.search.BGNDE
-                                    ? changeDatePickerDate(
-                                          brftrCmprListState.search.BGNDE
-                                      )
-                                    : new Date()
-                            }
-                            CallBackReturn={e => {
-                                const { year, monthPad, dayPad } =
-                                    gmtTimeToTimeObject(e)
-                                setBrftrCmprListState(prevState => ({
-                                    ...prevState,
-                                    search: {
-                                        ...prevState.search,
-                                        BGNDE: `${year}${monthPad}${dayPad}`,
-                                    },
-                                }))
-                            }}
-                        />
-                        <DatepickerLine>~</DatepickerLine>
-                        <VaryDatepickerInput
-                            ContentsType={`search`}
-                            Value={
-                                brftrCmprListState.search.ENDDE
-                                    ? changeDatePickerDate(
-                                          brftrCmprListState.search.ENDDE
-                                      )
-                                    : new Date()
-                            }
-                            CallBackReturn={e => {
-                                const { year, monthPad, dayPad } =
-                                    gmtTimeToTimeObject(e)
-                                setBrftrCmprListState(prevState => ({
-                                    ...prevState,
-                                    search: {
-                                        ...prevState.search,
-                                        ENDDE: `${year}${monthPad}${dayPad}`,
-                                    },
-                                }))
-                            }}
-                        />
-                    </SearchItem>
-                </SearchItemWapper>
-                <SearchItemWapper>
-                    <SearchLabel>
-                        <VaryLabel LabelName={`검색어`} />
-                    </SearchLabel>
-                    <SearchItem>
-                        <VaryInput
-                            ContentsType={`search`}
-                            Width={'w60'}
-                            HandleOnChange={e =>
-                                setBrftrCmprListState(prevState => ({
-                                    ...prevState,
-                                    search: {
-                                        ...prevState.search,
-                                        searchKey: e.target.value,
-                                    },
-                                }))
-                            }
-                            id={'id'}
-                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                            Value={
-                                isNull(brftrCmprListState.search.SEARCH_KEY)
-                                    ? ''
-                                    : brftrCmprListState.search.SEARCH_KEY
-                            }
-                        />
-                    </SearchItem>
-                </SearchItemWapper>
-            </SearchWapper>
-            <SearchButton>
+        <RowContainer>
+            <SearchRowWapper>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`소속`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <PstinstSelector
+                                HandleSelectValue={({ instNo }) =>
+                                    setBrftrCmprListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            instNo: String(instNo),
+                                        },
+                                    }))
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`기간`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    brftrCmprListState.search.BGNDE
+                                        ? changeDatePickerDate(
+                                              brftrCmprListState.search.BGNDE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setBrftrCmprListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            BGNDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                            <DatepickerLine>~</DatepickerLine>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    brftrCmprListState.search.ENDDE
+                                        ? changeDatePickerDate(
+                                              brftrCmprListState.search.ENDDE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setBrftrCmprListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            ENDDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w60'}
+                                HandleOnChange={e =>
+                                    setBrftrCmprListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            searchKey: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Value={
+                                    isNull(brftrCmprListState.search.SEARCH_KEY)
+                                        ? ''
+                                        : brftrCmprListState.search.SEARCH_KEY
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+            </SearchRowWapper>
+            <RightSearchButton>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
-            </SearchButton>
-        </Container>
+            </RightSearchButton>
+        </RowContainer>
     )
 }
 export default SearchBox
