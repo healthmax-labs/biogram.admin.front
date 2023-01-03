@@ -3,8 +3,8 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 
 export const MainStyle = {
-    SearchWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
+    SearchWapper: tw.div`px-6 mb-2 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left text-gray-500`,
+    ManageWapper: tw.div`px-6 mb-2 align-middle py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left text-gray-500`,
     TableWapper: tw.div`block w-full overflow-x-auto`,
 }
 
