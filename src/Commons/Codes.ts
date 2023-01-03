@@ -493,4 +493,17 @@ export default {
             },
         ],
     },
+    boardSchCode: {
+        name: '게시판 종류',
+        list: [
+            {
+                name: '공지사항 게시판',
+                code: 'cpnoti',
+            },
+            {
+                name: '채용 게시판',
+                code: 'cpemp',
+            },
+        ],
+    },
 }

@@ -36,11 +36,7 @@ const {
 } = DetailTableStyle
 
 const { DetailContainer } = DetailPageStyle
-// const changeOption = () => {
-//     console.log('1111111')
-// }
 const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
-    console.log(pageMode)
     const params = useParams<{ NOTICE_NO: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
     const navigate = useNavigate()
@@ -163,32 +159,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             })
         }
     }
-
-    // const SelectBox = () => {
-    //     //TRGET_SVC_CODE	A:전체, 1:공지, 2:보도자료, 3:웹, 4:안드로이드, 5:아이폰, 6:안드로이드&아이폰
-    //     return (
-    //         <select onChange={changeOption}>
-    //             <option key="1" value="1">
-    //                 공지
-    //             </option>
-    //             <option key="2" value="2">
-    //                 보도자료
-    //             </option>
-    //             <option key="3" value="3">
-    //                 웹
-    //             </option>
-    //             <option key="4" value="4">
-    //                 안드로이드
-    //             </option>
-    //             <option key="5" value="5">
-    //                 아이폰
-    //             </option>
-    //             <option key="6" value="6">
-    //                 아이폰,안드로이드
-    //             </option>
-    //         </select>
-    //     )
-    // }
 
     const handleClickApplyButton = () => {
         //제목이 입력되지 않음

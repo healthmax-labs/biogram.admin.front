@@ -16,7 +16,7 @@ export function getNoticeSendList({
     CUR_PAGE: number
     ITEM_COUNT: number
     REGIST_DT: string
-    TRGET_SVC_CODE: number
+    TRGET_SVC_CODE: string
     TRGET_SVC_CODE_NM: string
     USE_AT: string
 }): Promise<
@@ -27,8 +27,9 @@ export function getNoticeSendList({
     }>
 > {
     return _Axios_({
+        // method: 'post',
         method: 'get',
-        //url: '/hp/v1/cpnoti/',
+        // url: '/hp/v1/' + TRGET_SVC_CODE_NM,
         url: '/data/v1/notice/list/' + CUR_PAGE,
         payload: {
             CUR_PAGE,
