@@ -2,29 +2,6 @@ import tw from 'twin.macro'
 // import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const MainStyle = {
-    SearchWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    TableWapper: tw.div`block w-full overflow-x-auto`,
-}
-
-export const SearchBoxStyle = {
-    Container: tw.div`mt-0`,
-    Wapper: tw.div`grid grid-cols-2 gap-1`,
-    Item: tw.div`text-gray-700 flex items-center`,
-    LabelItem: tw.div`w-40`,
-    Label: tw.label`inline-block align-baseline text-xs uppercase whitespace-nowrap text-left text-gray-500`,
-    LabelText: tw.p`text-xs uppercase whitespace-nowrap text-left text-gray-500`,
-    LabelItemBox: tw.div`w-1/6`,
-    Select: tw.select`form-select block w-60 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-    Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-    DatepickerBox: tw.div`grid grid-rows-1 grid-flow-col gap-1`,
-    Datepicker: tw.div`flex flex-row`,
-    DatepickerLine: tw.p`px-5 inline-block align-baseline pt-2`,
-    Relative: tw.div`relative`,
-    SearchButtonBox: tw.div`absolute bottom-0 -right-2`,
-}
-
 export const ListTableStyle = {
     MbtlnumCell: styled.div(({ CRTFC }: { CRTFC: 'Y' | 'N' }) => [
         CRTFC === 'Y' ? tw`` : tw`text-red-700`,

@@ -160,7 +160,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>
-                <SearchItemRow Second={true}>
+                <SearchItemRow>
                     <SearchItemWapper ColSpan={true}>
                         <SearchLabel>
                             <VaryLabel LabelName={`조회 기준`} />
@@ -184,7 +184,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchItemWapper></SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton>
+            <RightSearchButton Item={'end'}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

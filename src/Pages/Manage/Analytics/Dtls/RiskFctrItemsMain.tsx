@@ -1,5 +1,5 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import { MainStyle } from '@Style/Pages/AnalyticsPageStyle'
+import { MainStyle } from '@Style/Pages/CommonStyle'
 import AnalyticsSearchBox from './AnalyticsSearchBox'
 import RiskFctrItemsTable from './RiskFctrItemsTable'
 
