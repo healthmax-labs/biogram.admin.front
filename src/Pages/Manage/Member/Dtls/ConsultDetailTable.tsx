@@ -42,9 +42,14 @@ const ConsultDetailTable = () => {
     const renderTabPageComponent = () => {
         const category = params.category
 
+        if (!category) {
+            return <></>
+        }
+
         const chIndex = Const.ConsultTabs.findIndex(
             el => el.category === category
         )
+
         const TabPageComponent = Const.ConsultTabs[chIndex].Component
         return <TabPageComponent />
     }

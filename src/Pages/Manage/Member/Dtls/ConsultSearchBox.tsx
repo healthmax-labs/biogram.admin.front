@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -28,9 +28,6 @@ const {
 const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [listState, setListState] = useRecoilState(ConsultListState)
 
-    useEffect(() => {
-        console.debug(listState.search)
-    }, [listState.search])
     return (
         <RowContainer>
             <SearchRowWapper>

@@ -1,12 +1,133 @@
-import { useCallback, useEffect, useState } from 'react'
-import { DefaultManageButton, VaryLabelCheckBox, VaryModal } from '@Elements'
+import React, { useCallback, useEffect, useState } from 'react'
+import {
+    ConfirmModal,
+    DefaultManageButton,
+    VaryLabelCheckBox,
+    VaryModal,
+} from '@Elements'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { useRecoilState } from 'recoil'
 import { ConsultSurveyState } from '@Recoil/MemberPagesState'
 import { useParams } from 'react-router-dom'
-import { getMngQustnrAnswer } from '@Service/MemberService'
+import {
+    getMngQustnrAnswer,
+    postDataQustnrAnswer,
+} from '@Service/MemberService'
+import Codes from '@Codes'
+import Messages from '@Messages'
+import _ from 'lodash'
+import { useMainLayouts } from '@Hook/index'
 
 const { Detail } = ConsultDetailStyle
+
+const initializeState = {
+    modal: {
+        survey: false,
+        surveyConfirm: false,
+    },
+    surveyData: [
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'CM00',
+            ANSWER: 'N',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB08',
+            ANSWER: 'NONE',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB13',
+            ANSWER: 'NONE',
+        },
+        {
+            QUSTNR_SE_CODE: 'LLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB17',
+            ANSWER: 'NONE',
+        },
+
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 5,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'LTTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'MLHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 6,
+            ANSWER_CODE: 'MB14',
+            ANSWER: 'AMNE',
+        },
+
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 1,
+            ANSWER_CODE: 'CM00',
+            ANSWER: 'N',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 2,
+            ANSWER_CODE: 'MB15',
+            ANSWER: 'LOTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 3,
+            ANSWER_CODE: 'MB15',
+            ANSWER: 'LOTW',
+        },
+        {
+            QUSTNR_SE_CODE: 'SPHB',
+            QUSTNR_SN: 1,
+            QESTN_SN: 4,
+            ANSWER_CODE: 'MB16',
+            ANSWER: 'LTT',
+        },
+    ],
+}
 
 const ConsultDetailSurvey = () => {
     const params = useParams<{
@@ -14,16 +135,21 @@ const ConsultDetailSurvey = () => {
         category: string | undefined
     }>()
     const [surveyState, setSurveyState] = useRecoilState(ConsultSurveyState)
+    const { handlMainAlert } = useMainLayouts()
 
     const [pageState, setPageState] = useState<{
         modal: {
             survey: boolean
+            surveyConfirm: boolean
         }
-    }>({
-        modal: {
-            survey: false,
-        },
-    })
+        surveyData: Array<{
+            QUSTNR_SE_CODE: string
+            QUSTNR_SN: number
+            QESTN_SN: number
+            ANSWER_CODE: string
+            ANSWER: string
+        }>
+    }>(initializeState)
 
     const handleGetData = useCallback(async () => {
         if (surveyState.memNo) {
@@ -51,6 +177,28 @@ const ConsultDetailSurvey = () => {
             }
         }
     }, [surveyState.memNo, setSurveyState])
+
+    const handlSaveSurveyData = useCallback(async () => {
+        const { memNo } = params
+        const { status } = await postDataQustnrAnswer({
+            MBER_NO: Number(memNo),
+            ANSWER_LIST: pageState.surveyData,
+        })
+
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+
+            handleGetData().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+    }, [handlMainAlert, handleGetData, pageState.surveyData, params])
 
     useEffect(() => {
         const pageStart = () => {
@@ -240,744 +388,103 @@ const ConsultDetailSurvey = () => {
                         <>
                             <Detail.Survey.Table.Table>
                                 <Detail.Survey.Table.Body>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell rowSpan={4}>
-                                            기초 생활습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            흡연
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="비흡연"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="흡연"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                4
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            음주
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="없음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="월 1회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="월 2~4회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="월 5회 이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2~3회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 4회 이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            복약(중복가능)
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="없음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="비만"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="고형압"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="당뇨"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="고지형"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="기타"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            위험요인(중복가능)
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="없음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="허리둘레"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="형압"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="공복혈당"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="중성지방"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="HDL-C"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                </Detail.Survey.Table.Body>
-                                <Detail.Survey.Table.Body>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell rowSpan={6}>
-                                            식습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            규칙적인 식사
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2일 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3~5일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의 매일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            1일 2끼이상 단백질 섭취
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2일 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3~5일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의 매일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            동물성지방 섭취
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의먹지 않음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 1~2회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3일 이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            짠음식 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의먹지 않음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 1~2회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3일 이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            채소/과일 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2일 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3~5일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의 매일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            유제품 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="거의 먹지 않음"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 1~2회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3일 이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                3
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                </Detail.Survey.Table.Body>
-                                <Detail.Survey.Table.Body>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell rowSpan={4}>
-                                            운동습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            운동 규칙성
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="아니요"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="예"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            활동량
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="1회 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2~3회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3~4회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 4~5회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 5~6회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="겨의 매일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            중강도 운동량
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="1회 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 2~3회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 3~4회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 4~5회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="주 5~6회"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="겨의 매일"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            고강도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="20분 이하"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="20~40분"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="40~60분"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="60~90분"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            <VaryLabelCheckBox
-                                                LabelName="90분이상"
-                                                Checked={false}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
-                                            />
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
+                                    {Codes.surveyCode.map((code, index) => {
+                                        return code.category.map(
+                                            (category, categoryIndex) => {
+                                                return (
+                                                    <Detail.Survey.Table.Row
+                                                        key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}`}>
+                                                        {categoryIndex ===
+                                                            0 && (
+                                                            <Detail.Survey.Table.Cell
+                                                                rowSpan={
+                                                                    code
+                                                                        .category
+                                                                        .length
+                                                                }>
+                                                                {code.name}
+                                                            </Detail.Survey.Table.Cell>
+                                                        )}
+                                                        <Detail.Survey.Table.Cell>
+                                                            {category.name}
+                                                        </Detail.Survey.Table.Cell>
+                                                        {category.question.map(
+                                                            (
+                                                                question,
+                                                                questionIndex
+                                                            ) => {
+                                                                return (
+                                                                    <Detail.Survey.Table.Cell
+                                                                        key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}-question-${questionIndex}`}>
+                                                                        <VaryLabelCheckBox
+                                                                            LabelName={
+                                                                                question.name
+                                                                            }
+                                                                            Checked={
+                                                                                _.findIndex(
+                                                                                    pageState.surveyData,
+                                                                                    {
+                                                                                        QUSTNR_SE_CODE:
+                                                                                            code.seCode,
+                                                                                        QESTN_SN:
+                                                                                            category.sn,
+                                                                                        ANSWER: question.code,
+                                                                                    }
+                                                                                ) >
+                                                                                -1
+                                                                            }
+                                                                            HandleOnChange={() => {
+                                                                                setPageState(
+                                                                                    prevState => ({
+                                                                                        ...prevState,
+                                                                                        surveyData:
+                                                                                            prevState.surveyData.map(
+                                                                                                surveyData => {
+                                                                                                    if (
+                                                                                                        surveyData.QUSTNR_SE_CODE ===
+                                                                                                            code.seCode &&
+                                                                                                        surveyData.QESTN_SN ===
+                                                                                                            category.sn
+                                                                                                    ) {
+                                                                                                        return {
+                                                                                                            ...surveyData,
+                                                                                                            ANSWER: question.code,
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        return surveyData
+                                                                                                    }
+                                                                                                }
+                                                                                            ),
+                                                                                    })
+                                                                                )
+                                                                            }}
+                                                                        />
+                                                                    </Detail.Survey.Table.Cell>
+                                                                )
+                                                            }
+                                                        )}
+                                                        {[
+                                                            ...new Array(
+                                                                6 -
+                                                                    category
+                                                                        .question
+                                                                        .length
+                                                            ),
+                                                        ].map(
+                                                            (_, emptyIndex) => {
+                                                                return (
+                                                                    <Detail.Survey.Table.Cell
+                                                                        key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}-question-empty-${emptyIndex}`}>
+                                                                        {_}
+                                                                    </Detail.Survey.Table.Cell>
+                                                                )
+                                                            }
+                                                        )}
+                                                    </Detail.Survey.Table.Row>
+                                                )
+                                            }
+                                        )
+                                    })}
                                 </Detail.Survey.Table.Body>
                             </Detail.Survey.Table.Table>
                         </>
@@ -989,6 +496,7 @@ const ConsultDetailSurvey = () => {
                                 ButtonClick={() =>
                                     setPageState(prevState => ({
                                         ...prevState,
+                                        surveyData: initializeState.surveyData,
                                         modal: {
                                             ...prevState.modal,
                                             survey: false,
@@ -998,10 +506,48 @@ const ConsultDetailSurvey = () => {
                             />
                             <DefaultManageButton
                                 ButtonName={'저장'}
-                                ButtonClick={() => console.debug('ButtonClick')}
+                                ButtonClick={() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            surveyConfirm: true,
+                                        },
+                                    }))
+                                }
                             />
                         </>
                     }></VaryModal>
+            )}
+            {pageState.modal.surveyConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.saveConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            surveyData: initializeState.surveyData,
+                            modal: {
+                                ...prevState.modal,
+                                surveyConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        handlSaveSurveyData().then(() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                surveyData: initializeState.surveyData,
+                                modal: {
+                                    ...prevState.modal,
+                                    survey: false,
+                                    surveyConfirm: false,
+                                },
+                            }))
+                        )
+                    }}
+                />
             )}
         </Detail.Container>
     )
