@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
+import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
@@ -20,7 +20,6 @@ const {
     SearchItem,
     DatepickerLine,
     SearchButton,
-    LabelItem,
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
@@ -34,42 +33,46 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchLabel>
                         <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
-                    <PstinstSelector
-                        HandleSelectValue={({ instNo }) =>
-                            setMsgSendListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    INST_NO: String(instNo),
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo }) =>
+                                setMsgSendListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        INST_NO: String(instNo),
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
                         <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
-                    <VaryInput
-                        ContentsType={`search`}
-                        Width={'w64'}
-                        HandleOnChange={e =>
-                            setMsgSendListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    SEARCH_KEY: e.target.value,
-                                },
-                            }))
-                        }
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            msgSendListState.search.SEARCH_KEY
-                                ? msgSendListState.search.SEARCH_KEY
-                                : ''
-                        }
-                    />
+                    <SearchItem>
+                        <VaryInput
+                            ContentsType={`search`}
+                            Width={'w64'}
+                            HandleOnChange={e =>
+                                setMsgSendListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        SEARCH_KEY: e.target.value,
+                                    },
+                                }))
+                            }
+                            id={'id'}
+                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                            Value={
+                                msgSendListState.search.SEARCH_KEY
+                                    ? msgSendListState.search.SEARCH_KEY
+                                    : ''
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -122,29 +125,23 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`조회 기준`} />
-                        </SearchLabel>
-                    </LabelItem>
-                    <LabelItem>
-                        <div className="flex flex-nowrap px-0">
-                            <div className="mr-2">
-                                <VaryLabelRadioButton
-                                    LabelName="발송일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                            <div className="mr-2">
-                                <VaryLabelRadioButton
-                                    LabelName="작성일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </div>
-                        </div>
-                    </LabelItem>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`조회 기준`} />
+                    </SearchLabel>
+                    <SearchItem>
+                        <WapperStyle.FlexNoWarapGap>
+                            <VaryLabelRadioButton
+                                LabelName="발송일시"
+                                Checked={false}
+                                HandleOnChange={() => console.log('111')}
+                            />
+                            <VaryLabelRadioButton
+                                LabelName="작성일시"
+                                Checked={false}
+                                HandleOnChange={() => console.log('111')}
+                            />
+                        </WapperStyle.FlexNoWarapGap>
+                    </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
+import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
@@ -22,7 +22,6 @@ const {
     RightSearchButton,
     DatepickerLine,
     SearchItem,
-    SearchColSpanLabel,
 } = SearchBoxStyle
 
 const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
@@ -36,11 +35,13 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchLabel>
                             <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                console.debug(instNo, instNm)
-                            }
-                        />
+                        <SearchItem>
+                            <PstinstSelector
+                                HandleSelectValue={({ instNo, instNm }) =>
+                                    console.debug(instNo, instNm)
+                                }
+                            />
+                        </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
@@ -110,32 +111,31 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 </SearchItemRow>
                 <SearchItemRow Second={true}>
                     <SearchItemWapper ColSpan={true}>
-                        <SearchColSpanLabel>
+                        <SearchLabel>
                             <VaryLabel LabelName={`요인`} />
-                        </SearchColSpanLabel>
+                        </SearchLabel>
                         <SearchItem>
-                            {(() => {
-                                const items = Codes.riksCode
-                                    .filter(e => e.key === 'riks')
-                                    .shift()
+                            <WapperStyle.FlexNoWarapGap>
+                                {(() => {
+                                    const items = Codes.riksCode
+                                        .filter(e => e.key === 'riks')
+                                        .shift()
 
-                                if (items && items.list) {
-                                    return items.list.map((el, i) => {
-                                        const riskFctrs = listState.search
-                                            .riskFctr
-                                            ? listState.search.riskFctr
-                                                  .split(',')
-                                                  .map(element =>
-                                                      element.trim()
-                                                  )
-                                            : []
+                                    if (items && items.list) {
+                                        return items.list.map((el, index) => {
+                                            const riskFctrs = listState.search
+                                                .riskFctr
+                                                ? listState.search.riskFctr
+                                                      .split(',')
+                                                      .map(element =>
+                                                          element.trim()
+                                                      )
+                                                : []
 
-                                        return (
-                                            <div
-                                                className="px-2"
-                                                key={`consult-searchbox-search-item-${i}`}>
+                                            return (
                                                 <VaryLabelCheckBox
                                                     LabelName={`${el.name}`}
+                                                    key={`consult-search-box-risk-checkbox-${index}`}
                                                     Checked={
                                                         riskFctrs.findIndex(
                                                             e => e === el.code
@@ -188,11 +188,11 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                                         }
                                                     }}
                                                 />
-                                            </div>
-                                        )
-                                    })
-                                }
-                            })()}
+                                            )
+                                        })
+                                    }
+                                })()}
+                            </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper></SearchItemWapper>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
+import { SearchBoxStyle, WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
@@ -23,7 +23,6 @@ const {
     SearchItem,
     DatepickerLine,
     SearchButton,
-    LabelItem,
 } = SearchBoxStyle
 
 const initializeState = {
@@ -49,44 +48,43 @@ const RiskFctrSearchBox = ({
                     <SearchLabel>
                         <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
-                    <PstinstSelector
-                        HandleSelectValue={({ instNo }) =>
-                            setRiskFctrListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    instNo: String(instNo),
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo }) =>
+                                setRiskFctrListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        instNo: String(instNo),
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`요인`} />
-                        </SearchLabel>
-                    </LabelItem>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`요인`} />
+                    </SearchLabel>
                     <SearchItem>
-                        {(() => {
-                            const items = Codes.riksCode
-                                .filter(e => e.key === 'riksDctr')
-                                .shift()
-                            if (items && items.list) {
-                                return items.list.map((el, i) => {
-                                    const riskFctrs = riskFctrListState.search
-                                        .RISK_FCTR
-                                        ? riskFctrListState.search.RISK_FCTR.split(
-                                              ','
-                                          ).map(element => element.trim())
-                                        : []
+                        <WS.FlexNoWarapGap>
+                            {(() => {
+                                const items = Codes.riksCode
+                                    .filter(e => e.key === 'riksDctr')
+                                    .shift()
+                                if (items && items.list) {
+                                    return items.list.map((el, index) => {
+                                        const riskFctrs = riskFctrListState
+                                            .search.RISK_FCTR
+                                            ? riskFctrListState.search.RISK_FCTR.split(
+                                                  ','
+                                              ).map(element => element.trim())
+                                            : []
 
-                                    return (
-                                        <div
-                                            className="pr-1"
-                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                        return (
                                             <VaryLabelCheckBox
                                                 LabelName={`${el.name}`}
+                                                key={`risk-fctr-search-box-risk-fctr-item-${index}`}
                                                 Checked={
                                                     riskFctrs.findIndex(
                                                         e => e === el.code
@@ -138,11 +136,11 @@ const RiskFctrSearchBox = ({
                                                     }
                                                 }}
                                             />
-                                        </div>
-                                    )
-                                })
-                            }
-                        })()}
+                                        )
+                                    })
+                                }
+                            })()}
+                        </WS.FlexNoWarapGap>
                     </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
@@ -196,98 +194,92 @@ const RiskFctrSearchBox = ({
                     </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`개수`} />
-                        </SearchLabel>
-                    </LabelItem>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`개수`} />
+                    </SearchLabel>
                     <SearchItem>
-                        <div className="flex flex-nowrap px-0">
-                            {pageState.riskFctrCnt.map((el, i) => {
+                        <WS.FlexNoWarapGap>
+                            {pageState.riskFctrCnt.map((el, index) => {
                                 return (
-                                    <div
-                                        className="mr-2"
-                                        key={`risk-fctr-search-box-risk-fctr-Cnt-item-${i}`}>
-                                        <VaryLabelRadioButton
-                                            LabelName={`${el}개`}
-                                            Checked={
-                                                Number(
-                                                    riskFctrListState.search
-                                                        .RISK_FCTR_CNT
-                                                ) === el
+                                    <VaryLabelRadioButton
+                                        key={`risk-fctr-search-box-risk-fctr-cnt-item-${index}`}
+                                        LabelName={`${el}개`}
+                                        Checked={
+                                            Number(
+                                                riskFctrListState.search
+                                                    .RISK_FCTR_CNT
+                                            ) === el
+                                        }
+                                        HandleOnChange={e => {
+                                            if (e.target.checked) {
+                                                setRiskFctrListState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        search: {
+                                                            ...prevState.search,
+                                                            RISK_FCTR_CNT:
+                                                                String(el),
+                                                        },
+                                                    })
+                                                )
                                             }
-                                            HandleOnChange={e => {
-                                                if (e.target.checked) {
-                                                    setRiskFctrListState(
-                                                        prevState => ({
-                                                            ...prevState,
-                                                            search: {
-                                                                ...prevState.search,
-                                                                RISK_FCTR_CNT:
-                                                                    String(el),
-                                                            },
-                                                        })
-                                                    )
-                                                }
-                                            }}
-                                        />
-                                    </div>
+                                        }}
+                                    />
                                 )
                             })}
-                        </div>
+                        </WS.FlexNoWarapGap>
                     </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
                         <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
-                    <VaryInput
-                        ContentsType={`search`}
-                        Width={'w64'}
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            isNull(riskFctrListState.search.SEARCH_KEY)
-                                ? ''
-                                : riskFctrListState.search.SEARCH_KEY
-                        }
-                        HandleOnChange={e =>
-                            setRiskFctrListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    SEARCH_KEY: e.target.value,
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <VaryInput
+                            ContentsType={`search`}
+                            Width={'w60'}
+                            id={'id'}
+                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                            Value={
+                                isNull(riskFctrListState.search.SEARCH_KEY)
+                                    ? ''
+                                    : riskFctrListState.search.SEARCH_KEY
+                            }
+                            HandleOnChange={e =>
+                                setRiskFctrListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        SEARCH_KEY: e.target.value,
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`복약`} />
-                        </SearchLabel>
-                    </LabelItem>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`복약`} />
+                    </SearchLabel>
                     <SearchItem>
-                        {(() => {
-                            const items = Codes.riksCode
-                                .filter(e => e.key === 'takngMdcin')
-                                .shift()
-                            if (items && items.list) {
-                                return items.list.map((el, i) => {
-                                    const takngMdcin = riskFctrListState.search
-                                        .TAKNG_MDCIN
-                                        ? riskFctrListState.search.TAKNG_MDCIN.split(
-                                              ','
-                                          ).map(element => element.trim())
-                                        : []
+                        <WS.FlexNoWarapGap>
+                            {(() => {
+                                const items = Codes.riksCode
+                                    .filter(e => e.key === 'takngMdcin')
+                                    .shift()
+                                if (items && items.list) {
+                                    return items.list.map((el, index) => {
+                                        const takngMdcin = riskFctrListState
+                                            .search.TAKNG_MDCIN
+                                            ? riskFctrListState.search.TAKNG_MDCIN.split(
+                                                  ','
+                                              ).map(element => element.trim())
+                                            : []
 
-                                    return (
-                                        <div
-                                            className="pr-1"
-                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                        return (
                                             <VaryLabelCheckBox
                                                 LabelName={`${el.name}`}
+                                                key={`risk-fctr-search-box-risks-takng-mdcin-item-${index}`}
                                                 Checked={
                                                     takngMdcin.findIndex(
                                                         e => e === el.code
@@ -339,11 +331,11 @@ const RiskFctrSearchBox = ({
                                                     }
                                                 }}
                                             />
-                                        </div>
-                                    )
-                                })
-                            }
-                        })()}
+                                        )
+                                    })
+                                }
+                            })()}
+                        </WS.FlexNoWarapGap>
                     </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>

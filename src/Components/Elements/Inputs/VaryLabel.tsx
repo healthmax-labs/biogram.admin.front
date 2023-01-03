@@ -16,7 +16,7 @@ const VaryLabel = ({
     return (
         <Wapper Reverse={false}>
             <InputLabel
-                Width={LabelWidth ? LabelWidth : 'w212'}
+                Width={LabelWidth ? LabelWidth : 'w16'}
                 TextColor={'gray'}>
                 {LabelName}
             </InputLabel>

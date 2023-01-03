@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
+import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
@@ -22,10 +22,13 @@ const {
     SearchItem,
     DatepickerLine,
     SearchButton,
-    LabelItem,
 } = SearchBoxStyle
 
-const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+const StatisticsSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
     const [statisticsListState, setStatisticsListState] =
         useRecoilState(StatisticsListState)
     return (
@@ -35,44 +38,43 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchLabel>
                         <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
-                    <PstinstSelector
-                        HandleSelectValue={({ instNo }) =>
-                            setStatisticsListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    instNo: String(instNo),
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo }) =>
+                                setStatisticsListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        instNo: String(instNo),
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
-                    <LabelItem>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`요인`} />
-                        </SearchLabel>
-                    </LabelItem>
+                    <SearchLabel>
+                        <VaryLabel LabelName={`요인`} />
+                    </SearchLabel>
                     <SearchItem>
-                        {(() => {
-                            const items = Codes.riksCode
-                                .filter(e => e.key === 'riksDctr')
-                                .shift()
-                            if (items && items.list) {
-                                return items.list.map((el, i) => {
-                                    const riskFctrs = statisticsListState.search
-                                        .RISK_FCTR
-                                        ? statisticsListState.search.RISK_FCTR.split(
-                                              ','
-                                          ).map(element => element.trim())
-                                        : []
+                        <WapperStyle.FlexNoWarapGap>
+                            {(() => {
+                                const items = Codes.riksCode
+                                    .filter(e => e.key === 'riksDctr')
+                                    .shift()
+                                if (items && items.list) {
+                                    return items.list.map((el, index) => {
+                                        const riskFctrs = statisticsListState
+                                            .search.RISK_FCTR
+                                            ? statisticsListState.search.RISK_FCTR.split(
+                                                  ','
+                                              ).map(element => element.trim())
+                                            : []
 
-                                    return (
-                                        <div
-                                            className="pr-1"
-                                            key={`risk-fctr-search-box-tisk-item-${i}`}>
+                                        return (
                                             <VaryLabelCheckBox
                                                 LabelName={`${el.name}`}
+                                                key={`statistics-search-box-riksdctr-item-${index}`}
                                                 Checked={
                                                     riskFctrs.findIndex(
                                                         e => e === el.code
@@ -124,11 +126,11 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                                     }
                                                 }}
                                             />
-                                        </div>
-                                    )
-                                })
-                            }
-                        })()}
+                                        )
+                                    })
+                                }
+                            })()}
+                        </WapperStyle.FlexNoWarapGap>
                     </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
@@ -185,26 +187,28 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchLabel>
                         <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
-                    <VaryInput
-                        ContentsType={`search`}
-                        Width={'w64'}
-                        HandleOnChange={e =>
-                            setStatisticsListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    searchKey: e.target.value,
-                                },
-                            }))
-                        }
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            isNull(statisticsListState.search.SEARCH_KEY)
-                                ? ''
-                                : statisticsListState.search.SEARCH_KEY
-                        }
-                    />
+                    <SearchItem>
+                        <VaryInput
+                            ContentsType={`search`}
+                            Width={'w60'}
+                            HandleOnChange={e =>
+                                setStatisticsListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        searchKey: e.target.value,
+                                    },
+                                }))
+                            }
+                            id={'id'}
+                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                            Value={
+                                isNull(statisticsListState.search.SEARCH_KEY)
+                                    ? ''
+                                    : statisticsListState.search.SEARCH_KEY
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>
@@ -213,4 +217,4 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
         </Container>
     )
 }
-export default SearchBox
+export default StatisticsSearchBox

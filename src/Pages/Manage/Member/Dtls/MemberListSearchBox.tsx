@@ -36,17 +36,19 @@ const MemberListSearchBox = ({
                     <SearchLabel>
                         <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
-                    <PstinstSelector
-                        HandleSelectValue={({ instNo }) =>
-                            setListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    instNo: String(instNo),
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo }) =>
+                                setListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        instNo: String(instNo),
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -102,26 +104,28 @@ const MemberListSearchBox = ({
                     <SearchLabel>
                         <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
-                    <VaryInput
-                        ContentsType={`search`}
-                        Width={'w64'}
-                        HandleOnChange={e =>
-                            setListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    searchKey: e.target.value,
-                                },
-                            }))
-                        }
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            isNull(listState.search.searchKey)
-                                ? ''
-                                : listState.search.searchKey
-                        }
-                    />
+                    <SearchItem>
+                        <VaryInput
+                            ContentsType={`search`}
+                            Width={'w60'}
+                            HandleOnChange={e =>
+                                setListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        searchKey: e.target.value,
+                                    },
+                                }))
+                            }
+                            id={'id'}
+                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                            Value={
+                                isNull(listState.search.searchKey)
+                                    ? ''
+                                    : listState.search.searchKey
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>

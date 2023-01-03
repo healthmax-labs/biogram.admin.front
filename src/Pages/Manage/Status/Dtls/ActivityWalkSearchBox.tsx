@@ -34,17 +34,19 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchLabel>
                         <VaryLabel LabelName={`소속`} />
                     </SearchLabel>
-                    <PstinstSelector
-                        HandleSelectValue={({ instNo }) =>
-                            setActivityWalkListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    instNo: String(instNo),
-                                },
-                            }))
-                        }
-                    />
+                    <SearchItem>
+                        <PstinstSelector
+                            HandleSelectValue={({ instNo }) =>
+                                setActivityWalkListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        instNo: String(instNo),
+                                    },
+                                }))
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
                 <SearchItemWapper>
                     <SearchLabel>
@@ -100,26 +102,28 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     <SearchLabel>
                         <VaryLabel LabelName={`검색어`} />
                     </SearchLabel>
-                    <VaryInput
-                        ContentsType={`search`}
-                        Width={'w64'}
-                        HandleOnChange={e =>
-                            setActivityWalkListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    SEARCH: e.target.value,
-                                },
-                            }))
-                        }
-                        id={'id'}
-                        Placeholder={'ID / 이름 / 연락처 / 전화번호'}
-                        Value={
-                            isNull(activityWalkListState.search.SEARCH)
-                                ? ''
-                                : activityWalkListState.search.SEARCH
-                        }
-                    />
+                    <SearchItem>
+                        <VaryInput
+                            ContentsType={`search`}
+                            Width={'w64'}
+                            HandleOnChange={e =>
+                                setActivityWalkListState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        SEARCH: e.target.value,
+                                    },
+                                }))
+                            }
+                            id={'id'}
+                            Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                            Value={
+                                isNull(activityWalkListState.search.SEARCH)
+                                    ? ''
+                                    : activityWalkListState.search.SEARCH
+                            }
+                        />
+                    </SearchItem>
                 </SearchItemWapper>
             </SearchWapper>
             <SearchButton>
