@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 
 export const MainStyle = {
-    SearchWapper: tw.div`align-middle py-3 text-xs border-l-0 border-r-0 whitespace-nowrap text-left text-gray-500`,
+    SearchWapper: tw.div`align-middle py-3 text-xs border-l-0 border-r-0 whitespace-nowrap text-left text-gray-500 bg-gray-100`,
     ManageWapper: tw.div`flex flex-nowrap align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-left text-gray-500 justify-end`,
     TableWapper: tw.div`block w-full overflow-x-auto`,
 }
