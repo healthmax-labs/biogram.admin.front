@@ -1,9 +1,9 @@
 import React from 'react'
 import { TableStyle } from '@Style/Elements/TableStyles'
-import { DefaultCheckBox } from '@Element/index'
+import { VaryCheckBox } from '@Element/index'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 
-const { HeaderRow, HeaderCell, HeaderCheckbox } = TableStyle
+const { HeaderRow, HeaderCell, HeaderCheckbox, HeaderCheckboxItem } = TableStyle
 
 const MainTableHeader = <E,>({
     Columns,
@@ -16,7 +16,12 @@ const MainTableHeader = <E,>({
         <HeaderRow>
             {Options.selectAll && (
                 <HeaderCheckbox>
-                    <DefaultCheckBox />
+                    <HeaderCheckboxItem>
+                        <VaryCheckBox
+                            Checked={false}
+                            HandleOnChange={() => console.debug(111)}
+                        />
+                    </HeaderCheckboxItem>
                 </HeaderCheckbox>
             )}
             {Columns.map((_, i) => {

@@ -7,6 +7,7 @@ export const TableStyle = {
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
     HeaderRow: tw.tr`w-full flex bg-steel items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
+    HeaderCheckboxItem: tw.div`flex w-full justify-center`,
     HeaderCell: tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full max-h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [

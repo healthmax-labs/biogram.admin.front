@@ -1,7 +1,7 @@
 import { TableStyle } from '@Style/Elements/TableStyles'
 import React from 'react'
 import { TablePropsInterface } from '@Type/TableTypes'
-import { DefaultCheckBox } from '@Element/index'
+import { VaryCheckBox } from '@Element/index'
 import { get } from 'lodash'
 
 const { TableBodyCell, TbodyTdCheckbox, TableBodyRow } = TableStyle
@@ -21,7 +21,10 @@ const MainTableBody = <P,>({
                         BgState={index % 2 === 0}>
                         {Options.selectAll && (
                             <TbodyTdCheckbox>
-                                <DefaultCheckBox />
+                                <VaryCheckBox
+                                    Checked={false}
+                                    HandleOnChange={() => console.debug(111)}
+                                />
                             </TbodyTdCheckbox>
                         )}
                         {Columns.map((_, i) => {
