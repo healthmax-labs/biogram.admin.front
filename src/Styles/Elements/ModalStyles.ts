@@ -24,7 +24,7 @@ export const ModalStyle = {
     },
     ButtonBox: tw.div`items-center gap-2 mt-3`,
     ButtonCenterBox: tw.div`w-full text-center items-center gap-2 mt-3`,
-    Button: tw.button`w-1/3 px-3 py-1.5 bg-m-b-blue hover:bg-m-blue text-white text-xs rounded-md mx-2`,
+    Button: tw.button`w-1/3 px-3 py-1.5 bg-eggplant hover:bg-blueberry text-white text-xs rounded-md mx-2`,
 }
 
 export const ConfirmModalStyle = {
@@ -37,7 +37,7 @@ export const AuthModalStyle = {
     AuthText: tw.p`mt-0 text-[15px] leading-relaxed text-gray-500`,
     InputBox: tw.div`relative w-full flex-wrap items-stretch mb-3`,
     AuthInput: tw.input`relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-96 pr-10 text-center`,
-    AuthSpan: tw.span`z-10 h-full leading-snug absolute text-center bg-transparent rounded text-xs inline-flex items-center justify-center w-8 right-12 text-m-blue`,
+    AuthSpan: tw.span`z-10 h-full leading-snug absolute text-center bg-transparent rounded text-xs inline-flex items-center justify-center w-8 right-12 text-blueberry`,
     AuthErrorText: tw.p`mt-0 h-8 text-[15px] text-red-700`,
 }
 

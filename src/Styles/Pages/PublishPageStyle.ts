@@ -30,7 +30,7 @@ export const ManageBoxStyle = {
 export const ListTableStyle = {
     Table: tw.table`w-full bg-transparent border-collapse items-center`,
     Thead: tw.thead`w-full flex text-white text-xs h-8`,
-    TheadTr: tw.tr`w-full flex bg-m-dip-blue items-center`,
+    TheadTr: tw.tr`w-full flex bg-steel items-center`,
     ThCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TheadTh: tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     Tbody: tw.tbody`w-full h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,

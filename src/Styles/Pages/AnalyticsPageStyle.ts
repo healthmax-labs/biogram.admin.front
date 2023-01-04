@@ -13,7 +13,7 @@ export const ContentsStyle = {
         Table: tw.table`text-center min-w-full table-fixed`,
         Thead: tw.thead`text-xs`,
         TheadRow: tw.tr``,
-        TheadCell: tw.th`border bg-m-dip-blue text-xs text-white max-w-xs`,
+        TheadCell: tw.th`border bg-steel text-xs text-white max-w-xs`,
         TheadCellItem: tw.div`flex w-full justify-center`,
         Body: tw.tbody``,
         Row: tw.tr`w-full`,
@@ -21,12 +21,12 @@ export const ContentsStyle = {
         Cell: tw.td`border text-xs text-gray-500 object-center w-1/12`,
         CellW: tw.td`border text-xs text-gray-500 object-center`,
         CellWW: tw.td`border text-xs text-gray-500 object-center w-2/12`,
-        CellBg: tw.td`border text-xs text-white bg-m-dip-blue items-center object-center`,
+        CellBg: tw.td`border text-xs text-white bg-steel items-center object-center`,
         TextCell: styled.td(({ Bg }: { Bg?: boolean }) => {
             const returnCss = [tw`border text-xs text-gray-500 object-center`]
 
             if (Bg) {
-                returnCss.push(tw`bg-m-dip-blue`)
+                returnCss.push(tw`bg-steel`)
             }
 
             return returnCss
@@ -50,6 +50,6 @@ export const ContentsStyle = {
         ),
         TFoot: tw.tfoot`text-xs border`,
         TFootRow: tw.tr``,
-        TFootCell: tw.th`border bg-m-dip-blue text-xs text-white`,
+        TFootCell: tw.th`border bg-steel text-xs text-white`,
     },
 }

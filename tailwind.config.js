@@ -28,15 +28,27 @@ module.exports = {
             },
             gridRow: {
                 'span-7': 'span 7 / span 7',
-               }
+            },
         },
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
-            'm-blue': `#214DD4`,
-            'm-b-blue': `#354785`,
-            'm-dip-blue': `#5d6787`,
+            // 'm-blue': `#214DD4`,
+            // 'm-b-blue': `#354785`,
+            // 'm-dip-blue': `#5d6787`,
+
+            blueberry: `#214DD4`,
+            eggplant: `#354785`,
+            steel: `#5d6787`,
+
+            mercury: `#F1F1F9`,
+            pearl: `#F7F7FB`,
+            daisy: `#FFFFFF`,
         },
     },
-    plugins: [require('@tailwindcss/forms'), require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('flowbite/plugin'),
+        require('tailwind-scrollbar-hide'),
+    ],
 }

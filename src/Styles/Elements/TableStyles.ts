@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 export const TableStyle = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
-    HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
+    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     HeaderCell: tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full max-h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
@@ -36,7 +36,7 @@ export const DetailTableStyle = {
 export const CommonListTableStyle = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center text-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
-    HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
+    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     HeaderCell: tw.th`flex p-4 w-2/4 px-3 align-middle py-1 items-center justify-center text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full h-[59vh] bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,

@@ -1532,7 +1532,7 @@ const UhealthzoneDetailTable = ({
             <DPS.ButtonBox>
                 <DPS.ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`취소`}
                         HandleClick={() => {
                             console.debug('HandleClick')
@@ -1541,7 +1541,7 @@ const UhealthzoneDetailTable = ({
                 </DPS.ButtonItem>
                 <DPS.ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`확인`}
                         HandleClick={() => {
                             const { instlPlaceCheck } = detailState.sub
@@ -1634,7 +1634,7 @@ const UhealthzoneDetailTable = ({
                 {pageMode === 'modify' && (
                     <DPS.ButtonItem>
                         <VaryButton
-                            BgColor={`mBBlue`}
+                            BgColor={`eggplant`}
                             Name={`삭제`}
                             HandleClick={() => {
                                 setPageState(prevState => ({
