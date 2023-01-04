@@ -9,8 +9,9 @@ export const ButtonStyle = {
         Item: tw.span`block w-2.5 h-0.5 bg-gray-100 animate-pulse`,
     },
     DefaultSearch: tw.button`text-center items-center px-3 py-1.5 bg-m-blue hover:bg-m-blue text-white text-xs font-medium rounded-md`,
-    Manage: tw.button`inline-flex items-center px-1.5 py-1.5 bg-m-b-blue hover:bg-m-blue text-white text-xs font-medium rounded-md`,
-    DatePickerButton: tw.button`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    // Manage: tw.button`inline-flex items-center px-1.5 py-1.5 bg-m-b-blue hover:bg-m-blue text-white text-xs font-medium rounded-md`,
+    Manage: tw.button`px-1.5 py-1.5 bg-transparent hover:bg-m-b-blue text-m-b-blue font-semibold hover:text-white border border-m-b-blue hover:border-transparent rounded`,
+    DatePickerButton: tw.button`block h-8 px-3 w-24 bg-white rounded-md border-m-b-blue shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     VaryButtonStyle: styled.button(({ bgColor }: { bgColor: BgColorType }) => [
         tw`inline-flex items-center px-3 py-1 hover:bg-m-blue text-white text-xs rounded-md`,
         ConstStyle.bgColor[bgColor],
