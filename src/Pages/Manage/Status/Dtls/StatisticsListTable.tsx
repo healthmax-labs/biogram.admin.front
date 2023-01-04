@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     StatisticsTableConfig,
     StatisticsTableListItemInterface,
-} from './StatusTableConfig'
+} from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { StatisticsListState } from '@Recoil/StatusPagesState'

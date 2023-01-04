@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     UhealthzoneTableConfig,
     UhealthzoneTableListItemInterface,
-} from './UhealthzoneTableConfig'
+} from './TableConfig'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import {

@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     ActivityWalkTableConfig,
     ActivityWalkTableListItemInterface,
-} from './StatusTableConfig'
+} from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
