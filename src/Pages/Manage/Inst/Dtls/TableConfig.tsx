@@ -33,6 +33,7 @@ export const JoinTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {
@@ -63,6 +64,7 @@ export const InitTableConfig = {
     Loading: true,
     Options: {
         selectAll: false,
+        indexKey: `INST_NO`,
     },
     Columns: [
         {

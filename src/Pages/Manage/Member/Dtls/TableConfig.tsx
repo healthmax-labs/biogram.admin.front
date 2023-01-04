@@ -17,6 +17,7 @@ export const TableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {
@@ -75,6 +76,7 @@ export const ConsultTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {

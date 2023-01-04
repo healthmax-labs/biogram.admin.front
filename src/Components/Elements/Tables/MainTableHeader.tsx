@@ -6,11 +6,15 @@ import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 const { HeaderRow, HeaderCell, HeaderCheckbox, HeaderCheckboxItem } = TableStyle
 
 const MainTableHeader = <E,>({
+    AllChecked,
     Columns,
     Options,
+    HandleClickAllCheckBox,
 }: {
+    AllChecked: boolean
     Columns: ColumnsInterface<E>[]
     Options: OptionsInterface
+    HandleClickAllCheckBox: (checked: boolean) => void
 }) => {
     return (
         <HeaderRow>
@@ -18,8 +22,10 @@ const MainTableHeader = <E,>({
                 <HeaderCheckbox>
                     <HeaderCheckboxItem>
                         <VaryCheckBox
-                            Checked={false}
-                            HandleOnChange={() => console.debug(111)}
+                            Checked={AllChecked}
+                            HandleOnChange={e => {
+                                HandleClickAllCheckBox(e.target.checked)
+                            }}
                         />
                     </HeaderCheckboxItem>
                 </HeaderCheckbox>

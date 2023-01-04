@@ -21,6 +21,7 @@ export const MsgSendTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `SNDNG_NO`,
     },
     Columns: [
         {
@@ -72,6 +73,7 @@ export const MsgBookTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: 'SNDNG_NO',
     },
     Columns: [
         {
