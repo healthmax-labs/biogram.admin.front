@@ -611,7 +611,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`돌아가기`}
                         HandleClick={() => {
                             navigate({
@@ -624,7 +624,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({

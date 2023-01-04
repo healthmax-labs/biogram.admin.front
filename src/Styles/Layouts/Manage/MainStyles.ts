@@ -66,7 +66,7 @@ export const SidebarStyle = {
     NavigationLi: tw.li`items-center h-6`,
     MenuLink: styled.div(({ Active }: { Active: boolean }) => [
         Active
-            ? tw`cursor-pointer pl-6 mb-2 block text-xs uppercase text-m-blue hover:text-m-blue`
+            ? tw`cursor-pointer pl-6 mb-2 block text-xs uppercase text-blueberry hover:text-blueberry`
             : tw`cursor-pointer pl-6 text-gray-700 hover:text-gray-500 mb-4 block text-xs uppercase`,
     ]),
 }
