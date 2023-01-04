@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     MagazineTableConfig,
     MagazineTableListItemInterface,
-} from './MagazineTableConfig'
+} from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { MagazineListState } from '@Recoil/ContentsPagesState'

@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     BrftrCmprTableConfig,
     BrftrCmprTableListItemInterface,
-} from './StatusTableConfig'
+} from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'

@@ -8,10 +8,11 @@ import {
 } from '@Type/MemberTypes'
 
 export type tableListItemInterface = MemberInfoListItemInterface
+
 // 상담회원 테이블 데이터
 export type ConsulttableListItemInterface = ConsultInfoListItemInterface
 
-// 테이블 설정.
+// 회원 테이블 설정.
 export const TableConfig = {
     Loading: true,
     Options: {

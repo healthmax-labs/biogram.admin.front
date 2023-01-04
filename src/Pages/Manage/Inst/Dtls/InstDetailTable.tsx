@@ -6,11 +6,11 @@ import {
     PstinstSelectBox,
     SiGunSelectBox,
     VaryButton,
+    VaryImageUpload,
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import VaryImageUpload from '@Element/Inputs/VaryImageUpload'
 import {
     getInstCheckInstNm,
     getInstInfo,

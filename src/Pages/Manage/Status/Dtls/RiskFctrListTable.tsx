@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     RiskFctrTableConfig,
     RiskFctrTableListItemInterface,
-} from './StatusTableConfig'
+} from './TableConfig'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
