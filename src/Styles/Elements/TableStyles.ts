@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 //
 
-export const TableStyle = {
+export const TableStyleBak = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
     HeaderRow: tw.tr`w-full flex bg-steel items-center`,
@@ -17,6 +17,47 @@ export const TableStyle = {
     ]),
     TableBodyCell: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
+}
+
+export const TableStyle = {
+    Container: tw.div`h-screen max-h-[69vh]`,
+    Wapper: tw.div`overflow-auto`,
+    Table: tw.table`relative w-full border`,
+    Thead: tw.thead``,
+    HeaderRow: tw.tr`bg-steel h-8`,
+    HeaderCheckbox: tw.th`sticky top-0 w-1/4 px-3 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCheckboxItem: tw.div`flex w-full justify-center`,
+    HeaderCell: tw.th`sticky top-0 w-1/4 px-3 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    Tbody: tw.tbody`divide-y`,
+    TbodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
+        BgState
+            ? tw`bg-mercury max-h-9 items-center cursor-pointer hover:bg-daisy`
+            : tw`bg-pearl h-9 items-center cursor-pointer hover:bg-daisy`,
+    ]),
+    TbodyCell: styled.td(
+        ({
+            textAlign,
+        }: {
+            textAlign?: string | 'left' | 'center' | 'right'
+        }) => {
+            const returnTw = [
+                tw`px-6 h-8 text-center text-xs whitespace-nowrap`,
+            ]
+
+            if (textAlign && textAlign === 'left') {
+                returnTw.push(tw`text-left`)
+            } else if (textAlign && textAlign === 'center') {
+                returnTw.push(tw`text-center`)
+            } else if (textAlign && textAlign === 'right') {
+                returnTw.push(tw`text-right`)
+            } else {
+                returnTw.push(tw`text-center`)
+            }
+
+            return returnTw
+        }
+    ),
+    TbodyCellCheckbox: tw.td`px-6 h-8 text-center`,
 }
 
 export const DetailTableStyle = {

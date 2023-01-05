@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     BrftrCmprTableConfig,
     BrftrCmprTableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Status'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
@@ -12,7 +12,7 @@ import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<BrftrCmprTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<BrftrCmprTableListItemInterface>[]>
     Lists: BrftrCmprTableListItemInterface[]
 }
 

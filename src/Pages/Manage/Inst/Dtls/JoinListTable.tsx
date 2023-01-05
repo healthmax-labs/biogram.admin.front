@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { JoinTableConfig, JoinTableListItemInterface } from './TableConfig'
+import {
+    JoinTableConfig,
+    JoinTableListItemInterface,
+} from '@Common/TableConfig/Manage/Inst'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { InstJoinListState } from '@Recoil/InstPagesState'
@@ -9,7 +12,7 @@ import { InstJoinListState } from '@Recoil/InstPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<JoinTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<JoinTableListItemInterface>[]>
     Lists: JoinTableListItemInterface[]
 }
 

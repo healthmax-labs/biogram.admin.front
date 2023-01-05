@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     MagazineTableConfig,
     MagazineTableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Contents'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { MagazineListState } from '@Recoil/ContentsPagesState'
@@ -12,7 +12,7 @@ import { MagazineListState } from '@Recoil/ContentsPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<MagazineTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<MagazineTableListItemInterface>[]>
     Lists: MagazineTableListItemInterface[]
 }
 

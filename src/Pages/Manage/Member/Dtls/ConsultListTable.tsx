@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     ConsultTableConfig,
     ConsulttableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Member'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
@@ -12,7 +12,7 @@ import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
 interface tableOptionInterface {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<ConsulttableListItemInterface>[]
+    Columns: Array<ColumnsInterface<ConsulttableListItemInterface>[]>
     Lists: ConsulttableListItemInterface[]
 }
 

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { StplatTableConfig, StplatTableListItemInterface } from './TableConfig'
+import {
+    StplatTableConfig,
+    StplatTableListItemInterface,
+} from '@Common/TableConfig/Manage/Manage'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { StplatDetailState, StplatListState } from '@Recoil/ManagerPagesState'
@@ -9,7 +12,7 @@ import { StplatDetailState, StplatListState } from '@Recoil/ManagerPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<StplatTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<StplatTableListItemInterface>[]>
     Lists: StplatTableListItemInterface[]
 }
 

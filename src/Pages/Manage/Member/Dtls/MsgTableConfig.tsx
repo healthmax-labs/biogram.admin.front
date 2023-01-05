@@ -24,30 +24,32 @@ export const MsgSendTableConfig = {
         indexKey: `SNDNG_NO`,
     },
     Columns: [
-        {
-            name: `발송결과`,
-            key: `SNDNG_SF`,
-        },
-        {
-            name: `송신일`,
-            key: `SNDNGDE`,
-        },
-        {
-            name: `수신자`,
-            key: `RCVER`,
-        },
-        {
-            name: `수신번호`,
-            key: `RCV_NO`,
-        },
-        {
-            name: `메시지`,
-            key: `SE`,
-        },
-        {
-            name: `등록일`,
-            key: `RGSDE`,
-        },
+        [
+            {
+                name: `발송결과`,
+                key: `SNDNG_SF`,
+            },
+            {
+                name: `송신일`,
+                key: `SNDNGDE`,
+            },
+            {
+                name: `수신자`,
+                key: `RCVER`,
+            },
+            {
+                name: `수신번호`,
+                key: `RCV_NO`,
+            },
+            {
+                name: `메시지`,
+                key: `SE`,
+            },
+            {
+                name: `등록일`,
+                key: `RGSDE`,
+            },
+        ],
     ],
     Lists: [],
 }
@@ -76,30 +78,32 @@ export const MsgBookTableConfig = {
         indexKey: 'SNDNG_NO',
     },
     Columns: [
-        {
-            name: `발송결과`,
-            key: `SNDNG_SF`,
-        },
-        {
-            name: `송신일`,
-            key: `SNDNGDE`,
-        },
-        {
-            name: `수신자`,
-            key: `RCVER`,
-        },
-        {
-            name: `수신번호`,
-            key: `RCV_NO`,
-        },
-        {
-            name: `메시지`,
-            key: `SE`,
-        },
-        {
-            name: `등록일`,
-            key: `RGSDE`,
-        },
+        [
+            {
+                name: `발송결과`,
+                key: `SNDNG_SF`,
+            },
+            {
+                name: `송신일`,
+                key: `SNDNGDE`,
+            },
+            {
+                name: `수신자`,
+                key: `RCVER`,
+            },
+            {
+                name: `수신번호`,
+                key: `RCV_NO`,
+            },
+            {
+                name: `메시지`,
+                key: `SE`,
+            },
+            {
+                name: `등록일`,
+                key: `RGSDE`,
+            },
+        ],
     ],
     Lists: [],
 }
