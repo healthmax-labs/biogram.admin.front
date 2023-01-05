@@ -9,6 +9,7 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
+    ManageCounselMsgBoxListInterface,
 } from '@Type/MemberTypes'
 
 export const getMemberList = ({
@@ -611,5 +612,46 @@ export const postDataQustnrAnswer = (
         method: 'post',
         url: `/data/v1/qustnr/answer`,
         payload: payload,
+    })
+}
+
+/**
+ * 메시지 발송함 리스트 조회.
+ * @param mber_no
+ * @param START_DT
+ * @param END_DT
+ * @param SNDNG_FAILR
+ * @param SNDNG_STDR
+ * @param SEARCH_KEY
+ * @param MSG_TYPE
+ */
+export const getMsgBoxList = ({
+    mber_no,
+    START_DT,
+    END_DT,
+    SNDNG_FAILR,
+    SNDNG_STDR,
+    MSG_TYPE,
+    SEARCH_KEY,
+}: {
+    mber_no: number
+    START_DT: string
+    END_DT: string
+    SNDNG_FAILR: string
+    MSG_TYPE: string
+    SNDNG_STDR: string
+    SEARCH_KEY: string
+}): Promise<ServicesDefaultResult<ManageCounselMsgBoxListInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/list/msg/${mber_no}`,
+        payload: {
+            START_DT: START_DT,
+            END_DT: END_DT,
+            SNDNG_FAILR: SNDNG_FAILR,
+            MSG_TYPE: MSG_TYPE,
+            SNDNG_STDR: SNDNG_STDR,
+            SEARCH_KEY: SEARCH_KEY,
+        },
     })
 }
