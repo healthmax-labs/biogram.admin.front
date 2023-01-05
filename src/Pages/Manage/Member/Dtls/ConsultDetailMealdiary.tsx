@@ -1,13 +1,14 @@
 import {
-    VaryDatepickerInput,
     DefaultManageButton,
+    VaryButton,
+    VaryDatepickerInput,
     VaryLabel,
     VaryLabelCheckBox,
-    VaryButton,
 } from '@Elements'
 import { gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import Slider from 'react-slick'
+
 const {
     Detail: D,
     Detail: {
@@ -1087,32 +1088,32 @@ const ConsultDetailMealdiary = () => {
                 <History.Wapper>
                     <History.ButtonBox>
                         <VaryButton
-                            BgColor="mBBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`아침`}
                         />
                         <VaryButton
-                            BgColor="mDipBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`오전간식`}
                         />
                         <VaryButton
-                            BgColor="mDipBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`점심`}
                         />
                         <VaryButton
-                            BgColor="mDipBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`오후간식`}
                         />
                         <VaryButton
-                            BgColor="mDipBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`저녁`}
                         />
                         <VaryButton
-                            BgColor="mDipBlue"
+                            BgColor="eggplant"
                             HandleClick={() => console.debug()}
                             Name={`야식`}
                         />
@@ -1134,27 +1135,42 @@ const ConsultDetailMealdiary = () => {
                                     <Slider {...settings}>
                                         <div>
                                             <h3>
-                                                <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" />
+                                                <img
+                                                    src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                                                    alt=""
+                                                />
                                             </h3>
                                         </div>
                                         <div>
                                             <h3>
-                                                <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" />
+                                                <img
+                                                    src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+                                                    alt=""
+                                                />
                                             </h3>
                                         </div>
                                         <div>
                                             <h3>
-                                                <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" />
+                                                <img
+                                                    src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+                                                    alt=""
+                                                />
                                             </h3>
                                         </div>
                                         <div>
                                             <h3>
-                                                <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" />
+                                                <img
+                                                    src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
+                                                    alt=""
+                                                />
                                             </h3>
                                         </div>
                                         <div>
                                             <h3>
-                                                <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" />
+                                                <img
+                                                    src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+                                                    alt=""
+                                                />
                                             </h3>
                                         </div>
                                     </Slider>

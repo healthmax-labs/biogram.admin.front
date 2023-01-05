@@ -6,11 +6,11 @@ import {
     PstinstSelectBox,
     SiGunSelectBox,
     VaryButton,
+    VaryImageUpload,
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import VaryImageUpload from '@Element/Inputs/VaryImageUpload'
 import {
     getInstCheckInstNm,
     getInstInfo,
@@ -652,7 +652,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`취소`}
                         HandleClick={() => {
                             navigate({
@@ -665,7 +665,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
@@ -681,7 +681,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 {pageMode === 'modify' && (
                     <ButtonItem>
                         <VaryButton
-                            BgColor={`mBBlue`}
+                            BgColor={`eggplant`}
                             Name={`삭제`}
                             HandleClick={() =>
                                 setDetailState(prevState => ({

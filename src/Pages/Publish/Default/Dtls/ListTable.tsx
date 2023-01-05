@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { InstdeptListInterface } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
-import { DefaultCheckBox, DefaultManageButton } from '@Elements'
+import { DefaultManageButton, VaryCheckBox } from '@Elements'
 
 const {
     Tbody,
@@ -39,7 +39,10 @@ export default function ListTable() {
             <Thead>
                 <TheadTr>
                     <ThCheckbox>
-                        <DefaultCheckBox />
+                        <VaryCheckBox
+                            Checked={false}
+                            HandleOnChange={() => console.debug(1111)}
+                        />
                     </ThCheckbox>
                     <TheadTh>회원번호</TheadTh>
                     <TheadTh>회원명</TheadTh>
@@ -57,7 +60,10 @@ export default function ListTable() {
                     return (
                         <TbodyTr key={index} BgState={index % 2 === 0}>
                             <TbodyTdCheckbox>
-                                <DefaultCheckBox />
+                                <VaryCheckBox
+                                    Checked={false}
+                                    HandleOnChange={() => console.debug(1111)}
+                                />
                             </TbodyTdCheckbox>
                             <TbodyTd>{el.MBER_NO}</TbodyTd>
                             <TbodyTd>{el.MEBER_NM}</TbodyTd>

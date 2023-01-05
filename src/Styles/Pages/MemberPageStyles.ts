@@ -2,29 +2,6 @@ import tw from 'twin.macro'
 // import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const MainStyle = {
-    SearchWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    ManageWapper: tw.div`px-6 mb-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left bg-gray-50 text-gray-500 border-gray-100`,
-    TableWapper: tw.div`block w-full overflow-x-auto`,
-}
-
-export const SearchBoxStyle = {
-    Container: tw.div`mt-0`,
-    Wapper: tw.div`grid grid-cols-2 gap-1`,
-    Item: tw.div`text-gray-700 flex items-center`,
-    LabelItem: tw.div`w-40`,
-    Label: tw.label`inline-block align-baseline text-xs uppercase whitespace-nowrap text-left text-gray-500`,
-    LabelText: tw.p`text-xs uppercase whitespace-nowrap text-left text-gray-500`,
-    LabelItemBox: tw.div`w-1/6`,
-    Select: tw.select`form-select block w-60 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-    Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-    DatepickerBox: tw.div`grid grid-rows-1 grid-flow-col gap-1`,
-    Datepicker: tw.div`flex flex-row`,
-    DatepickerLine: tw.p`px-5 inline-block align-baseline pt-2`,
-    Relative: tw.div`relative`,
-    SearchButtonBox: tw.div`absolute bottom-0 -right-2`,
-}
-
 export const ListTableStyle = {
     MbtlnumCell: styled.div(({ CRTFC }: { CRTFC: 'Y' | 'N' }) => [
         CRTFC === 'Y' ? tw`` : tw`text-red-700`,
@@ -61,7 +38,7 @@ export const ConsultDetailStyle = {
         Container: tw.div`flex flex-col max-h-[75vh] overflow-y-scroll`,
         MyData: {
             Wapper: tw.table`min-w-full text-center`,
-            Head: tw.thead`h-8 border text-xs bg-m-dip-blue font-medium`,
+            Head: tw.thead`h-8 border text-xs bg-steel font-medium`,
             HeadRow: tw.tr`h-8`,
             HeadCell: tw.th`h-8 text-xs font-medium text-white border-l border-l-gray-50`,
             Body: tw.tbody``,
@@ -99,20 +76,20 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`border bg-m-dip-blue text-xs text-white`,
+                TheadCell: tw.th`border bg-steel text-xs text-white`,
                 TheadCellItem: tw.div`flex w-full justify-center`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
                 BlankRow: tw.tr`h-5`,
                 Cell: tw.td`border text-xs text-gray-500 object-center`,
-                CellBg: tw.td`border text-xs text-white bg-m-dip-blue items-center object-center`,
+                CellBg: tw.td`border text-xs text-white bg-steel items-center object-center`,
                 TextCell: styled.td(({ Bg }: { Bg?: boolean }) => {
                     const returnCss = [
                         tw`border text-xs text-gray-500 object-center`,
                     ]
 
                     if (Bg) {
-                        returnCss.push(tw`bg-m-dip-blue`)
+                        returnCss.push(tw`bg-steel`)
                     }
 
                     return returnCss
@@ -150,7 +127,7 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-left min-w-full shadow-md rounded`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white w-1/12 h-8`,
+                CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8`,
                 Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8`,
             },
         },
@@ -165,15 +142,15 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-center min-w-full shadow-md rounded table-fixed`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`bg-m-dip-blue text-xs text-white h-8`,
+                TheadCell: tw.th`bg-steel text-xs text-white h-8`,
                 TheadYCell: tw.th`bg-yellow-300 text-xs text-white h-8`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white h-8`,
+                CellBg: tw.td`border bg-steel text-xs text-white h-8`,
                 Cell: tw.td`border text-xs text-gray-500 h-8`,
                 TFoot: tw.tfoot`text-xs border bg-gray-500`,
                 TFootRow: tw.tr``,
-                TFootCell: tw.th`bg-m-dip-blue text-xs text-white h-8`,
+                TFootCell: tw.th`bg-steel text-xs text-white h-8`,
             },
         },
         RawAge: {
@@ -182,15 +159,15 @@ export const ConsultDetailStyle = {
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`bg-m-dip-blue text-xs text-white`,
+                TheadCell: tw.th`bg-steel text-xs text-white`,
                 TheadYCell: tw.th`bg-yellow-300 text-xs text-white`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-m-dip-blue text-xs text-white `,
+                CellBg: tw.td`border bg-steel text-xs text-white `,
                 Cell: tw.td`border text-xs text-gray-500`,
                 TFoot: tw.tfoot`text-xs border bg-gray-500`,
                 TFootRow: tw.tr``,
-                TFootCell: tw.th`bg-m-dip-blue text-xs text-white`,
+                TFootCell: tw.th`bg-steel text-xs text-white`,
             },
         },
     },

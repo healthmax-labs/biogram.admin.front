@@ -1023,7 +1023,7 @@ const MemberDetailTable = ({
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`회원정보 저장하기`}
                         HandleClick={() => {
                             if (
@@ -1054,7 +1054,7 @@ const MemberDetailTable = ({
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`목록으로`}
                         HandleClick={() => {
                             navigate({

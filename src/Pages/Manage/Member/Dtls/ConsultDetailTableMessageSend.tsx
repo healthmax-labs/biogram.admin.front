@@ -271,7 +271,7 @@ const ConsultDetailTableMessageSend = () => {
                 <div className="flex pt-3">
                     <div className="px-2">
                         <VaryButton
-                            BgColor={`mBBlue`}
+                            BgColor={`eggplant`}
                             Name={`취소`}
                             HandleClick={() => {
                                 resetSmsSendState()
@@ -280,7 +280,7 @@ const ConsultDetailTableMessageSend = () => {
                     </div>
                     <div className="px-2">
                         <VaryButton
-                            BgColor={`mBBlue`}
+                            BgColor={`eggplant`}
                             Name={`보내기`}
                             HandleClick={() => {
                                 setPageState(prevState => ({

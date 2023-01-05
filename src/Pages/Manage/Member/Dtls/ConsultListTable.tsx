@@ -46,7 +46,13 @@ const ConsultListTable = () => {
         }))
     }, [listState.list.MBER_INFO_LIST, listState.status])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            CheckedRow={e => console.debug('checked', e)}
+        />
+    )
 }
 
 export default ConsultListTable

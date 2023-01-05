@@ -5,14 +5,15 @@ import styled from '@emotion/styled'
 export const TableStyle = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
-    HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
+    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
+    HeaderCheckboxItem: tw.div`flex w-full justify-center`,
     HeaderCell: tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full max-h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
-            ? tw`flex w-full bg-white max-h-9 items-center cursor-pointer hover:bg-green-200`
-            : tw`flex w-full h-9 items-center cursor-pointer hover:bg-green-200`,
+            ? tw`flex w-full bg-mercury max-h-9 items-center cursor-pointer hover:bg-daisy`
+            : tw`flex w-full bg-pearl h-9 items-center cursor-pointer hover:bg-daisy`,
     ]),
     TableBodyCell: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
@@ -36,15 +37,15 @@ export const DetailTableStyle = {
 export const CommonListTableStyle = {
     TableWapper: tw.table`w-full bg-transparent border-collapse items-center text-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
-    HeaderRow: tw.tr`w-full flex bg-m-dip-blue items-center`,
+    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
     HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     HeaderCell: tw.th`flex p-4 w-2/4 px-3 align-middle py-1 items-center justify-center text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
     TableBody: tw.tbody`w-full h-[59vh] bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
     TableBodyS: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
-            ? tw`flex w-full bg-white h-9 items-center cursor-pointer hover:bg-green-200 text-center`
-            : tw`flex w-full h-9 items-center cursor-pointer hover:bg-green-200 text-center`,
+            ? tw`flex w-full bg-mercury h-9 items-center cursor-pointer hover:bg-daisy text-center`
+            : tw`flex w-full bg-pearl h-9 items-center cursor-pointer hover:bg-daisy text-center`,
     ]),
     TableBodyCell: tw.td`flex items-center w-full justify-center h-9 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
 }

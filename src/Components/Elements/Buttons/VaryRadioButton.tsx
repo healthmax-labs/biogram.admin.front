@@ -1,30 +1,30 @@
 import React from 'react'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 
-const { Wapper, CheckBox } = VaryInputStyle
+const { Wapper, RadioButton } = VaryInputStyle
 
-const VaryCheckBox = ({
+const VaryRadioButton = ({
     Checked,
     HandleOnChange,
     Id,
     Name,
 }: {
-    Id?: string
-    Name?: string
     Checked: boolean
+    Id: string
+    Name: string
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
     return (
         <Wapper>
-            <CheckBox
+            <RadioButton
+                type="radio"
                 checked={Checked}
-                id={Id ? Id : `checked-checkbox`}
-                name={Name ? Name : `checked-checkbox`}
-                type="checkbox"
+                id={Id}
+                name={Name}
                 onChange={e => HandleOnChange(e)}
             />
         </Wapper>
     )
 }
 
-export default VaryCheckBox
+export default VaryRadioButton

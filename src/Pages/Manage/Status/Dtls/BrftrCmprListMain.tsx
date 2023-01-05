@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import { MainStyle } from '@Style/Pages/MemberPageStyles'
+import { MainStyle } from '@Style/Pages/CommonStyle'
 import SearchBox from './BrftrCmprSearchBox'
 import ManageBox from './BrftrCmprManageBox'
 import ListTable from './BrftrCmprListTable'

@@ -5,14 +5,15 @@ import { BgColorType } from '@CommonTypes'
 
 export const ButtonStyle = {
     Hamburger: {
-        Box: tw.div`cursor-pointer p-1.5 space-y-1 bg-m-blue rounded shadow`,
+        Box: tw.div`cursor-pointer p-1.5 space-y-1 bg-blueberry rounded shadow`,
         Item: tw.span`block w-2.5 h-0.5 bg-gray-100 animate-pulse`,
     },
-    DefaultSearch: tw.button`text-center h-8 items-center w-20 bg-m-blue hover:bg-m-blue text-white text-xs font-medium rounded-md`,
-    Manage: tw.button`inline-flex items-center px-3 py-1.5 bg-m-b-blue hover:bg-m-blue text-white text-xs font-medium rounded-md mx-2`,
-    DatePickerButton: tw.button`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    DefaultSearch: tw.button`text-center items-center px-3 py-1.5 bg-blueberry hover:bg-blueberry text-white text-xs font-medium rounded-md`,
+    // Manage: tw.button`inline-flex items-center px-1.5 py-1.5 bg-eggplant hover:bg-blueberry text-white text-xs font-medium rounded-md`,
+    Manage: tw.button`px-1.5 py-1.5 bg-transparent hover:bg-eggplant text-eggplant font-semibold hover:text-white border border-eggplant hover:border-transparent rounded`,
+    DatePickerButton: tw.button`block h-8 px-3 w-24 bg-white rounded-md border-eggplant shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     VaryButtonStyle: styled.button(({ bgColor }: { bgColor: BgColorType }) => [
-        tw`inline-flex items-center px-3 py-1 hover:bg-m-blue text-white text-xs rounded-md`,
+        tw`inline-flex items-center px-3 py-1 hover:bg-blueberry text-white text-xs rounded-md`,
         ConstStyle.bgColor[bgColor],
     ]),
     VaryRadioButtonStyle: {
@@ -37,11 +38,11 @@ export const ButtonStyle = {
                 } else if (ButtonType === 'button') {
                     if (Active) {
                         returnTw.push(
-                            tw`bg-transparent bg-m-blue text-xs text-white hover:bg-m-blue py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                            tw`bg-transparent bg-blueberry text-xs text-white hover:bg-blueberry py-1 px-4 border border-gray-300 hover:border-transparent rounded`
                         )
                     } else {
                         returnTw.push(
-                            tw`bg-transparent hover:bg-m-blue text-xs text-gray-500 hover:text-white py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                            tw`bg-transparent hover:bg-blueberry text-xs text-gray-500 hover:text-white py-1 px-4 border border-gray-300 hover:border-transparent rounded`
                         )
                     }
                 }

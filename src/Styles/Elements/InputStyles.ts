@@ -26,33 +26,10 @@ export const VaryLabelInputStyle = {
     ]),
 }
 
-// export const VaryInputStyle = {
-//     Wapper: tw.div`flex items-center`,
-//     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
-//     // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-//     Input: styled.input(
-//         ({
-//             ContentsType,
-//             Disabled,
-//             Width = `w60`,
-//         }: {
-//             ContentsType?: ContentType
-//             Disabled?: boolean
-//             Width?: InputWidthType
-//         }) => [
-//             Disabled
-//                 ? tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`
-//                 : tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
-//             tw`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
-//             ConstStyle.width[Width],
-//         ]
-//     ),
-// }
-
 export const VaryInputStyle = {
-    Wapper: tw.div`flex items-center`,
+    Wapper: tw.div`flex items-center gap-1`,
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
-    // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    RadioButton: tw.input`w-4 h-4 appearance-none rounded-full border border-gray-300 bg-gray-100 checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer`,
     Input: styled.input(
         ({
             ContentsType = 'default',
@@ -69,11 +46,11 @@ export const VaryInputStyle = {
 
             if (Disabled) {
                 returnTw = [
-                    tw`form-input block h-8 border-0 text-xs leading-none transition cursor-not-allowed pl-1`,
+                    tw`form-input block h-8 border-0 text-xs leading-none transition cursor-not-allowed`,
                 ]
             } else if (ContentsType === 'search') {
                 returnTw = [
-                    tw`block h-8 px-3 w-24 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+                    tw`form-input block h-8 rounded-md shadow-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
                 ]
             } else {
                 returnTw = [
@@ -88,7 +65,7 @@ export const VaryInputStyle = {
             } else if (Bg && Bg === 'gray2') {
                 returnTw.push(tw`border-gray-100 bg-gray-100`)
             } else {
-                returnTw.push(tw`border-gray-300 bg-gray-300`)
+                returnTw.push(tw`border-gray-300 bg-white`)
             }
 
             if (Width) {
@@ -104,13 +81,13 @@ export const VaryInputStyle = {
 
 export const VaryLabelStyle = {
     Wapper: styled.div(({ Reverse }: { Reverse: boolean }) => {
-        const returnTw = [tw`flex items-center object-center`]
+        const returnTw = [
+            tw`flex items-center object-center justify-center text-center gap-1`,
+        ]
 
         if (Reverse) {
             returnTw.push(tw`flex-row-reverse`)
         }
-
-        returnTw.push(tw`items-center object-center`)
 
         return returnTw
     }),
@@ -122,12 +99,11 @@ export const VaryLabelStyle = {
             Width?: InputWidthType
             TextColor: 'gray' | 'white'
         }) => [
-            tw`block text-xs`,
+            tw`block text-xs text-right`,
             Width ? ConstStyle.width[Width] : tw``,
             TextColor === 'gray' ? tw`text-gray-500` : tw``,
         ]
     ),
-    CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
 }
 
 export const VaryLabelTextAreaStyle = {

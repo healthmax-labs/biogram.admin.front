@@ -3,6 +3,7 @@ export type DefaultYesNo = 'Y' | 'N'
 export type InputWidthType =
     | 'w10'
     | 'w12'
+    | 'w16'
     | 'w20'
     | 'w24'
     | 'w28'
@@ -58,7 +59,7 @@ export type StplatSeCodeType =
 // 이용약관 knd code
 export type StplatKndCodeType = 'II' | 'MI' | 'MP' | 'SI' | 'US' | 'IT' | 'ST'
 
-export type BgColorType = `mBlue` | `mBBlue` | `mDipBlue`
+export type BgColorType = `blueberry` | `eggplant` | `steel`
 export type InputBgColorType = `white` | `gray1` | `gray2`
 
 export type PaddingStyleType = 'pl0' | 'pl1'

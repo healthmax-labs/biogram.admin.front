@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import { MainStyle } from '@Style/Pages/MemberPageStyles'
+import { MainStyle } from '@Style/Pages/CommonStyle'
 import { getMberCnsltlist } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'

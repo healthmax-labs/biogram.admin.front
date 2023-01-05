@@ -327,7 +327,7 @@ const StplatDetailTable = () => {
             <DPS.Stplat.ButtonBox>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`취소`}
                         HandleClick={() => {
                             console.debug('HandleClick')
@@ -336,7 +336,7 @@ const StplatDetailTable = () => {
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`수정`}
                         HandleClick={() => {
                             setPageState(prevState => ({
@@ -351,7 +351,7 @@ const StplatDetailTable = () => {
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`mBBlue`}
+                        BgColor={`eggplant`}
                         Name={`삭제`}
                         HandleClick={() =>
                             setPageState(prevState => ({
@@ -506,7 +506,7 @@ const StplatDetailTable = () => {
                     MaxWidth={'xl4'}
                     Buttons={
                         <VaryButton
-                            BgColor={`mBBlue`}
+                            BgColor={`eggplant`}
                             Name={`닫기`}
                             HandleClick={() =>
                                 setPageState(prevState => ({

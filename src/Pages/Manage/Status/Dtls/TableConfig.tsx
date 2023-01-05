@@ -45,6 +45,7 @@ export const RiskFctrTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {
@@ -131,8 +132,6 @@ export const RiskFctrTableConfig = {
     Lists: [],
 }
 
-// export type BrftrCmprTableListItemInterface = BrftrCmprListInterface
-
 // 전후비교 현황 테이블 데이터
 export interface BrftrCmprTableListItemInterface {
     MBER_NO: number
@@ -186,6 +185,7 @@ export const BrftrCmprTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {
@@ -411,6 +411,7 @@ export const StatisticsTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {
@@ -540,6 +541,7 @@ export const StatisticsTableConfig = {
     ],
     Lists: [],
 }
+
 // 기기측정 현황 테이블 데이터
 export interface ActivityWalkTableListItemInterface {
     CNSMP_CALORIE: null | string
@@ -561,6 +563,7 @@ export const ActivityWalkTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
+        indexKey: `MBER_NO`,
     },
     Columns: [
         {

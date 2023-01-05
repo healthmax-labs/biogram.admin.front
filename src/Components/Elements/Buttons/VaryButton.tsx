@@ -15,7 +15,7 @@ const VaryButton = ({
 }) => {
     return (
         <VaryButtonStyle
-            bgColor={BgColor ? BgColor : `mDipBlue`}
+            bgColor={BgColor ? BgColor : `eggplant`}
             onClick={() => HandleClick()}>
             {Name}
         </VaryButtonStyle>

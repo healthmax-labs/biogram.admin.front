@@ -2,9 +2,9 @@ import tw from 'twin.macro'
 
 export default {
     bgColor: {
-        mBlue: tw`bg-m-blue`,
-        mBBlue: tw`bg-m-b-blue`,
-        mDipBlue: tw`bg-m-dip-blue`,
+        blueberry: tw`bg-blueberry`,
+        eggplant: tw`bg-eggplant`,
+        steel: tw`bg-steel`,
     },
     maxWidth: {
         sm: tw`max-w-sm`,
@@ -23,6 +23,7 @@ export default {
     width: {
         w10: tw`w-10`,
         w12: tw`w-12`,
+        w16: tw`w-16`,
         w20: tw`w-20`,
         w24: tw`w-24`,
         w28: tw`w-28`,

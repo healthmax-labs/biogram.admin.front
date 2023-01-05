@@ -14,6 +14,6 @@ export const UnderConstruction = {
     TextBox: tw.div`text-center`,
     TextH2: tw.h2`text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl`,
     TextSpan: tw.span`text-indigo-600`,
-    TextP: tw.p`text-m-dip-blue md:text-xl mt-10`,
+    TextP: tw.p`text-steel md:text-xl mt-10`,
     TextLink: tw.a`hover:underline`,
 }
