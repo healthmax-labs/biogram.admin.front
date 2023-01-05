@@ -77,17 +77,20 @@
       "@Service/*": [
         "src/Services/*"
       ],
+      "@Common/*": [
+        "src/Common/*"
+      ],
       "@Const": [
-        "src/Commons/Const"
+        "src/Common/Const"
       ],
       "@Codes": [
-        "src/Commons/Codes"
+        "src/Common/Codes"
       ],
       "@Routers": [
-        "src/Commons/Routers"
+        "src/Common/Routers"
       ],
       "@Messages": [
-        "src/Commons/Messages"
+        "src/Common/Messages"
       ],
       "@CommonTypes": [
         "src/Types/CommonTypes"

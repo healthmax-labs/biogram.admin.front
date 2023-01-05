@@ -4,7 +4,7 @@ import { MainTableBodyPropsInterface } from '@Type/TableTypes'
 import { VaryCheckBox } from '@Element/index'
 import _ from 'lodash'
 
-const { TableBodyCell, TbodyTdCheckbox, TableBodyRow } = TableStyle
+const { TbodyCell, TbodyCellCheckbox, TbodyRow } = TableStyle
 
 const MainTableBody = <P,>({
     RowClick,
@@ -17,12 +17,13 @@ const MainTableBody = <P,>({
     return (
         <>
             {Lists.map((Row: P, index) => {
+                const listLastIndex = Columns.length - 1
                 return (
-                    <TableBodyRow
+                    <TbodyRow
                         key={`main-table-body-row-${index}`}
                         BgState={index % 2 === 0}>
                         {Options.selectAll && (
-                            <TbodyTdCheckbox>
+                            <TbodyCellCheckbox>
                                 <VaryCheckBox
                                     Checked={(() => {
                                         const indexKeyValue = _.get(
@@ -48,22 +49,31 @@ const MainTableBody = <P,>({
                                         })
                                     }
                                 />
-                            </TbodyTdCheckbox>
+                            </TbodyCellCheckbox>
                         )}
-                        {Columns.map((Column, i) => {
-                            const value = _.get(Row, Column.key)
 
-                            return (
-                                <TableBodyCell
-                                    onClick={() => RowClick(Row)}
-                                    key={`main-table-body-cell-${i}`}>
-                                    {Column.component
-                                        ? Column.component({ el: Row })
-                                        : value}
-                                </TableBodyCell>
-                            )
+                        {Columns[listLastIndex].map((Column, i) => {
+                            if (Column.key) {
+                                const value = _.get(Row, Column.key)
+                                return (
+                                    <TbodyCell
+                                        onClick={() => RowClick(Row)}
+                                        key={`main-table-body-cell-${i}`}
+                                        textAlign={
+                                            Column.textAlign
+                                                ? Column.textAlign
+                                                : ''
+                                        }>
+                                        {Column.component
+                                            ? Column.component({ el: Row })
+                                            : value}
+                                    </TbodyCell>
+                                )
+                            }
+
+                            return <></>
                         })}
-                    </TableBodyRow>
+                    </TbodyRow>
                 )
             })}
         </>

@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     RiskFctrTableConfig,
     RiskFctrTableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Status'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
@@ -12,11 +12,11 @@ import { RiskFctrListState } from '@Recoil/StatusPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<RiskFctrTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<RiskFctrTableListItemInterface>[]>
     Lists: RiskFctrTableListItemInterface[]
 }
 
-const ListTable = () => {
+const RiskFctrListTable = () => {
     const navigate = useNavigate()
     const listState = useRecoilValue(RiskFctrListState)
 
@@ -42,4 +42,4 @@ const ListTable = () => {
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
 
-export default ListTable
+export default RiskFctrListTable

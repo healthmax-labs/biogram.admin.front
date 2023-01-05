@@ -9,7 +9,10 @@ export interface OptionsInterface {
 
 export interface ColumnsInterface<T> {
     name: string
-    key: string
+    key?: string
+    colSpan?: number
+    rowSpan?: number
+    textAlign?: string | 'left' | 'center' | 'right'
     component?: React.FC<{ el: T }>
 }
 
@@ -17,7 +20,7 @@ export interface ColumnsInterface<T> {
 export interface MainTablePropsInterface<T> {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<T>[]
+    Columns: Array<ColumnsInterface<T>[]>
     RowClick: (element: T) => void
     CheckedRow?: (checked: string[]) => void
     Lists: T[]
@@ -27,7 +30,7 @@ export interface MainTablePropsInterface<T> {
 export interface MainTableBodyPropsInterface<T> {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<T>[]
+    Columns: Array<ColumnsInterface<T>[]>
     RowClick: (element: T) => void
     CheckedRows: string[]
     RowCheckBoxClick: ({

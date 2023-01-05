@@ -6,7 +6,7 @@ import MainTableBody from './MainTableBody'
 import { ElementLoading } from '@Elements'
 import _ from 'lodash'
 
-const { TableWapper, TableHeader, TableBody } = TableStyle
+const { Container, Wapper, Table, Tbody } = TableStyle
 
 const initializeState = {
     checkedRow: [],
@@ -60,75 +60,78 @@ const MainTable = <P,>({
     }, [CheckedRow, pageState.checkedRow])
 
     return (
-        <>
-            {Loading ? (
-                <div className="h-[calc(100vh-10rem)]">
-                    <ElementLoading FullScreen={false} />
-                </div>
-            ) : (
-                <TableWapper>
-                    <TableHeader>
-                        <MainTableHeader
-                            Columns={Columns}
-                            Options={Options}
-                            AllChecked={pageState.allChecked}
-                            HandleClickAllCheckBox={e => {
-                                if (e) {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkedRow: Lists.map(l => {
-                                            return String(
-                                                _.get(l, Options.indexKey)
-                                            )
-                                        }),
-                                    }))
-                                } else {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkedRow: [],
-                                    }))
-                                }
-                            }}
-                        />
-                    </TableHeader>
-                    <TableBody>
-                        <MainTableBody
-                            RowClick={RowClick}
-                            Loading={Loading}
-                            Columns={Columns}
-                            Options={Options}
-                            Lists={Lists}
-                            CheckedRows={pageState.checkedRow}
-                            RowCheckBoxClick={({ checked, Element }) => {
-                                const indexKeyValue = _.get(
-                                    Element,
-                                    Options.indexKey
-                                )
+        <Container>
+            <Wapper>
+                {Loading ? (
+                    <div className="h-[calc(100vh-10rem)]">
+                        <ElementLoading FullScreen={false} />
+                    </div>
+                ) : (
+                    <Table>
+                        <Tbody>
+                            <MainTableHeader
+                                Columns={Columns}
+                                Options={Options}
+                                AllChecked={pageState.allChecked}
+                                HandleClickAllCheckBox={e => {
+                                    if (e) {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkedRow: Lists.map(l => {
+                                                return String(
+                                                    _.get(l, Options.indexKey)
+                                                )
+                                            }),
+                                        }))
+                                    } else {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkedRow: [],
+                                        }))
+                                    }
+                                }}
+                            />
+                            <MainTableBody
+                                RowClick={RowClick}
+                                Loading={Loading}
+                                Columns={Columns}
+                                Options={Options}
+                                Lists={Lists}
+                                CheckedRows={pageState.checkedRow}
+                                RowCheckBoxClick={({ checked, Element }) => {
+                                    const indexKeyValue = _.get(
+                                        Element,
+                                        Options.indexKey
+                                    )
 
-                                if (!indexKeyValue) return
+                                    if (!indexKeyValue) return
 
-                                if (checked) {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkedRow: [
-                                            ...pageState.checkedRow,
-                                            String(indexKeyValue),
-                                        ],
-                                    }))
-                                } else {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkedRow: prevState.checkedRow.filter(
-                                            e => e !== String(indexKeyValue)
-                                        ),
-                                    }))
-                                }
-                            }}
-                        />
-                    </TableBody>
-                </TableWapper>
-            )}
-        </>
+                                    if (checked) {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkedRow: [
+                                                ...pageState.checkedRow,
+                                                String(indexKeyValue),
+                                            ],
+                                        }))
+                                    } else {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkedRow:
+                                                prevState.checkedRow.filter(
+                                                    e =>
+                                                        e !==
+                                                        String(indexKeyValue)
+                                                ),
+                                        }))
+                                    }
+                                }}
+                            />
+                        </Tbody>
+                    </Table>
+                )}
+            </Wapper>
+        </Container>
     )
 }
 

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { MainTable } from '@Elements'
-import { NoticeTableConfig, NoticeTableListItemInterface } from './TableConfig'
+import {
+    NoticeTableConfig,
+    NoticeTableListItemInterface,
+} from '@Common/TableConfig/Manage/Manage'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { NoticeListState } from '@Recoil/ManagerPagesState'
@@ -9,7 +12,7 @@ import { NoticeListState } from '@Recoil/ManagerPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<NoticeTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<NoticeTableListItemInterface>[]>
     Lists: NoticeTableListItemInterface[]
 }
 

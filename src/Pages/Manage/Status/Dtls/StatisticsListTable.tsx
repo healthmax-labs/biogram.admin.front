@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     StatisticsTableConfig,
     StatisticsTableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Status'
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
@@ -12,7 +12,7 @@ import { StatisticsListState } from '@Recoil/StatusPagesState'
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<StatisticsTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<StatisticsTableListItemInterface>[]>
     Lists: StatisticsTableListItemInterface[]
 }
 

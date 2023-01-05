@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     UhealthzoneTableConfig,
     UhealthzoneTableListItemInterface,
-} from './TableConfig'
+} from '@Common/TableConfig/Manage/Contents'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -15,7 +15,7 @@ import {
 interface tableOption {
     Loading: boolean
     Options: OptionsInterface
-    Columns: ColumnsInterface<UhealthzoneTableListItemInterface>[]
+    Columns: Array<ColumnsInterface<UhealthzoneTableListItemInterface>[]>
     Lists: UhealthzoneTableListItemInterface[]
 }
 
