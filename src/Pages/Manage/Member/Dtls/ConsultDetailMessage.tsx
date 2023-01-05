@@ -4,9 +4,14 @@ import {
     ElementLoading,
     VaryDatepickerInput,
 } from '@Elements'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Messages from '@Messages'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import { useParams } from 'react-router-dom'
+
+import { useRecoilState } from 'recoil'
+import { ConsultMsgBoxListState } from '@Recoil/MemberPagesState'
+import { getMsgBoxList } from '@Service/MemberService'
 
 const {
     HeaderRow,
@@ -19,51 +24,117 @@ const {
 } = CommonListTableStyle
 
 const ConsultDetailMessage = () => {
-    const [pageState] = useState<{
-        loading: boolean
-        list: Array<{
-            step1: string
-            step2: string
-            step3: string
-            step4: string
-            step5: string
-            step6: string
-            step7: string
-        }>
-    }>({
-        loading: false,
-        list: [],
-    })
+    const params = useParams<{
+        memNo: string | undefined
+    }>()
+
+    const [messageBoxListState, setMessageBoxListState] = useRecoilState(
+        ConsultMsgBoxListState
+    )
+
+    const handleGetData = useCallback(async () => {
+        if (messageBoxListState.search) {
+            setMessageBoxListState(prevState => ({
+                ...prevState,
+                status: 'loading',
+            }))
+            const { status, payload } = await getMsgBoxList({
+                mber_no: Number(params.memNo),
+                START_DT: messageBoxListState.search.START_DT,
+                END_DT: messageBoxListState.search.END_DT,
+                SNDNG_FAILR: '',
+                MSG_TYPE: '',
+                SNDNG_STDR: '',
+                SEARCH_KEY: '',
+            })
+            console.log(messageBoxListState.search)
+            console.log(payload)
+            //todo : api get=>post 수정후 체크 필요
+            if (status) {
+                setMessageBoxListState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                    data: payload,
+                }))
+            } else {
+                setMessageBoxListState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                    data: null,
+                }))
+            }
+        }
+    }, [messageBoxListState.search, setMessageBoxListState, params.memNo])
+
+    useEffect(() => {
+        const pageStart = () => {
+            const { memNo } = params
+
+            if (memNo) {
+                setMessageBoxListState(prevState => ({
+                    ...prevState,
+                    memNo: Number(memNo),
+                }))
+
+                handleGetData().then()
+            }
+        }
+
+        if (messageBoxListState.status === 'idle') {
+            pageStart()
+        }
+    }, [messageBoxListState, handleGetData, params, setMessageBoxListState])
+
     return (
         <div className="">
             <div className="flex flex-nowrap">
                 <div className="flex py-2 items-center w-1/3 justify-start">
                     <VaryDatepickerInput
+                        Value={changeDatePickerDate(
+                            messageBoxListState.search.START_DT
+                        )}
                         CallBackReturn={e => {
-                            const dateObj = gmtTimeToTimeObject(e)
-                            console.debug(dateObj)
+                            const { year, monthPad } = gmtTimeToTimeObject(e)
+                            console.log('select date : ' + year + monthPad)
+                            setMessageBoxListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    START_DT: `${year}${monthPad}01`,
+                                    END_DT: `${year}${monthPad}31`,
+                                },
+                            }))
+                            console.log(messageBoxListState)
                         }}
                     />
-                    ~
+                    {/* ~
                     <VaryDatepickerInput
+                        Value={changeDatePickerDate(
+                            messageBoxListState.search.END_DT
+                        )}
                         CallBackReturn={e => {
-                            const dateObj = gmtTimeToTimeObject(e)
-                            console.debug(dateObj)
+                            const { year, monthPad, dayPad } =
+                                gmtTimeToTimeObject(e)
+                            setMessageBoxListState(prevState => ({
+                                ...prevState,
+                                search: {
+                                    ...prevState.search,
+                                    END_DT: `${year}${monthPad}${dayPad}`,
+                                },
+                            }))
                         }}
-                    />
+                    /> */}
                 </div>
                 <div className="flex py-2 items-center w-full justify-end">
                     <div className="flex py-2">
                         <DefaultManageButton
                             ButtonName={'조회'}
-                            ButtonClick={() =>
-                                console.debug('DefaultManageButton')
-                            }
+                            ButtonClick={() => handleGetData().then()}
                         />
                     </div>
                 </div>
             </div>
-            {pageState.loading ? (
+            {messageBoxListState.status === 'loading' ? (
                 <div className="h-[calc(100vh-10rem)]">
                     <ElementLoading FullScreen={false} />
                 </div>
@@ -81,33 +152,42 @@ const ConsultDetailMessage = () => {
                         </HeaderRow>
                     </TableHeader>
                     <TableBody>
-                        {pageState.list.length > 0 ? (
-                            pageState.list.map((el, index) => {
-                                return (
-                                    <TableBodyRow
-                                        key={`main-table-body-row-${index}`}
-                                        BgState={index % 2 === 0}>
-                                        <TableBodyCell>
-                                            {el.step1}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step2}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step3}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step4}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step5}
-                                        </TableBodyCell>
-                                        <TableBodyCell>
-                                            {el.step6}
-                                        </TableBodyCell>
-                                    </TableBodyRow>
-                                )
-                            })
+                        {messageBoxListState.data &&
+                        messageBoxListState.data.SMS_INFO_LIST.length > 0 ? (
+                            messageBoxListState.data.SMS_INFO_LIST.map(
+                                (el, index) => {
+                                    return (
+                                        <TableBodyRow
+                                            key={`main-table-body-row-${index}`}
+                                            BgState={index % 2 === 0}>
+                                            <TableBodyCell>
+                                                {el.SNDNG_STATUS}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                {el.SNDNGDT}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                {el.RECVER}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                {el.MBTLNUM}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                {String(el.CN).length > 20
+                                                    ? el.CN?.substring(0, 20) +
+                                                      '...'
+                                                    : el.CN}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                {el.RGSDT}
+                                            </TableBodyCell>
+                                            <TableBodyCell>
+                                                비어있음
+                                            </TableBodyCell>
+                                        </TableBodyRow>
+                                    )
+                                }
+                            )
                         ) : (
                             <TableBodyRow BgState={false}>
                                 <TableBodyCell colSpan={8}>

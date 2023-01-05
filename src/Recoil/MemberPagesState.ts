@@ -8,6 +8,7 @@ import {
     ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
+    ManageCounselMsgBoxListInterface,
 } from '@Type/MemberTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 import Const from '@Const'
@@ -112,6 +113,20 @@ interface ConsultSurveyInterface {
     status: DefaultStatus
     memNo: number | null
     data: ManageCounselQustnrAnswerInterface | null
+}
+
+// 상담 회원 메시지 발송함 리스트
+interface ConsultMsgBoxListInterface {
+    status: DefaultStatus
+    search: {
+        START_DT: string
+        END_DT: string
+        SNDNG_FAILR: string
+        SNDNG_STDR: string
+        MSG_TYPE: string
+        SEARCH_KEY: string
+    }
+    data: ManageCounselMsgBoxListInterface | null
 }
 
 // 회원 현황 리스트 페이지
@@ -356,6 +371,23 @@ export const ConsultSurveyState = atom<ConsultSurveyInterface>({
     default: {
         status: 'idle',
         memNo: null,
+        data: null,
+    },
+})
+
+// 상담 회원 메시지 발송함 리스트
+export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
+    key: `memberPage/consult-messageBox`,
+    default: {
+        status: 'idle',
+        search: {
+            START_DT: '',
+            END_DT: '',
+            SNDNG_FAILR: '',
+            SNDNG_STDR: '',
+            MSG_TYPE: '',
+            SEARCH_KEY: '',
+        },
         data: null,
     },
 })
