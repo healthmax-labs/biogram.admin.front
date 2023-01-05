@@ -304,3 +304,30 @@ export interface ManageCounselQustnrAnswerDataInterface {
     MBER_NO: number
     ANSWER_LIST: ManageCounselQustnrAnswerDataItemInterface[]
 }
+
+export interface ManageCounselMsgBoxListInterface {
+    TOTAL_COUNT: number | null
+    SMS_INFO_LIST: ManageCounselMsgListInterface[]
+    MBER_NO: number | null
+    END_DT: string | null
+    START_DT: string | null
+}
+
+export interface ManageCounselMsgListInterface {
+    SNDNG_NO: string | null
+    CALL_STATUS: string | null
+    SNDNG_STATUS: string | null
+    RECVER: string | null
+    CN: string | null
+    RGSDT: string | null
+    MBER_NO: number | null
+    SNDNG_SF: string | null
+    MSG_TYPE_NM: string | null
+    MSG_TYPE: number | null
+    STATUS: number | null
+    SNDNGDT: string | null
+    UMID: string | null
+    REPORTDT: string | null
+    CMID: string | null
+    MBTLNUM: string | null
+}
