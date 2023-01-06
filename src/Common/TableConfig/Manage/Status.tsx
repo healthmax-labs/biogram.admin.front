@@ -238,7 +238,7 @@ export interface BrftrCmprTableListItemInterface {
 export const BrftrCmprTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `MBER_NO`,
     },
     Columns: [
