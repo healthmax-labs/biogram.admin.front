@@ -21,11 +21,13 @@ const ConsultDetailTableTab = () => {
         Tab: Array<{ name: string; category: string; active: boolean }>
     }>(initializeState)
 
+    // 텝 클릭
     const handleTabClick = (el: {
         name: string
         category: string
         active: boolean
     }) => {
+        // 메인 텝 상태도 변경 해준다.
         setUseTabState(
             tabState.map(tab => {
                 if (
@@ -48,6 +50,7 @@ const ConsultDetailTableTab = () => {
         })
     }
 
+    // 파라미터 변경 되었을때.
     useEffect(() => {
         setPageState(prevState => ({
             ...prevState,
