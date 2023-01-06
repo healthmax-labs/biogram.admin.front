@@ -20,14 +20,14 @@ export const TableStyleBak = {
 }
 
 export const TableStyle = {
-    Container: tw.div`h-screen max-h-[69vh]`,
-    Wapper: tw.div`overflow-auto`,
+    Container: tw.div`flex flex-col h-screen max-h-[69vh]`,
+    Wapper: tw.div`flex-grow overflow-auto`,
     Table: tw.table`relative w-full border`,
     Thead: tw.thead``,
-    HeaderRow: tw.tr`bg-steel h-8`,
-    HeaderCheckbox: tw.th`sticky top-0 w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
-    HeaderCheckboxItem: tw.div`flex w-full justify-center`,
-    HeaderCell: tw.th`sticky top-0 w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderRow: tw.tr`sticky top-0 bg-steel h-8`,
+    HeaderCheckbox: tw.th`z-[1100] sticky top-0 bg-steel w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCheckboxItem: tw.div`flex sticky top-0 bg-steel w-full justify-center`,
+    HeaderCell: tw.th`z-[1100] sticky bg-steel top-0 w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
     Tbody: tw.tbody`divide-y`,
     TbodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
