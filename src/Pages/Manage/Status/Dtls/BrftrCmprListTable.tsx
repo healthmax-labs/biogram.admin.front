@@ -16,7 +16,7 @@ interface tableOption {
     Lists: BrftrCmprTableListItemInterface[]
 }
 
-const ListTable = () => {
+const BrftrCmprListTable = () => {
     const navigate = useNavigate()
 
     const listState = useRecoilValue(BrftrCmprListState)
@@ -43,4 +43,4 @@ const ListTable = () => {
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
 
-export default ListTable
+export default BrftrCmprListTable
