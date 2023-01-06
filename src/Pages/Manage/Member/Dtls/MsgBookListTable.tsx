@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     MsgBookTableConfig,
     MsgBookTableListItemInterface,
-} from './MsgTableConfig'
+} from '@Common/TableConfig/Manage/Member'
 import { useRecoilValue } from 'recoil'
 import { MsgBookListState } from '@Recoil/MsgPagesState'
 

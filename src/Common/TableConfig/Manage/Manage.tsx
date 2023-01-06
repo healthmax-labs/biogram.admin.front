@@ -15,6 +15,7 @@ export const StplatTableConfig = {
     Options: {
         selectAll: true,
         indexKey: `STPLAT_SE_CODE`,
+        bgState: true,
     },
     Columns: [
         [
@@ -60,6 +61,7 @@ export const NoticeTableConfig = {
     Options: {
         selectAll: true,
         indexKey: `NOTICE_NO`,
+        bgState: true,
     },
     Columns: [
         [

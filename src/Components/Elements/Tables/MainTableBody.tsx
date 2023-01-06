@@ -21,7 +21,7 @@ const MainTableBody = <P,>({
                 return (
                     <TbodyRow
                         key={`main-table-body-row-${index}`}
-                        BgState={index % 2 === 0}>
+                        BgState={Options.bgState && index % 2 === 0}>
                         {Options.selectAll && (
                             <TbodyCellCheckbox>
                                 <VaryCheckBox

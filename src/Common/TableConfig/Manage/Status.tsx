@@ -55,6 +55,7 @@ export const RiskFctrTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MBER_NO`,
+        bgState: true,
     },
     Columns: [
         [
@@ -240,6 +241,7 @@ export const BrftrCmprTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MBER_NO`,
+        bgState: true,
     },
     Columns: [
         [
@@ -680,6 +682,7 @@ export const StatisticsTableConfig = {
                 )
             },
         },
+        bgState: false,
     },
     Columns: [
         [
@@ -876,6 +879,7 @@ export const ActivityWalkTableConfig = {
     Options: {
         selectAll: true,
         indexKey: `MBER_NO`,
+        bgState: true,
     },
     Columns: [
         [
