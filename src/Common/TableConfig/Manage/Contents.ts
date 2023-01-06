@@ -27,6 +27,7 @@ export const UhealthzoneTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `UHEALTH_ZONE_NO`,
+        bgState: true,
     },
     Columns: [
         [
@@ -73,6 +74,7 @@ export const MagazineTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MISN_STEP`,
+        bgState: true,
     },
     Columns: [
         [

@@ -9,6 +9,7 @@ export interface OptionsInterface<T> {
         option: string | 'row-null'
         component: React.FC<{ el: T }>
     }
+    bgState: boolean
 }
 
 export interface ColumnsInterface<T> {

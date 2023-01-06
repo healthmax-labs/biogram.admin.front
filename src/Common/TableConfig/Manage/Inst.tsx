@@ -34,6 +34,7 @@ export const JoinTableConfig = {
     Options: {
         selectAll: true,
         indexKey: `MBER_NO`,
+        bgState: true,
     },
     Columns: [
         [
@@ -67,6 +68,7 @@ export const InitTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `INST_NO`,
+        bgState: true,
     },
     Columns: [
         [

@@ -4,7 +4,7 @@ import { MainTable } from '@Elements'
 import {
     MsgSendTableConfig,
     MsgSendTableListItemInterface,
-} from './MsgTableConfig'
+} from '@Common/TableConfig/Manage/Member'
 import { useRecoilValue } from 'recoil'
 import { MsgSendListState } from '@Recoil/MsgPagesState'
 
