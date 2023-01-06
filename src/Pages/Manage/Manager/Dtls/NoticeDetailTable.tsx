@@ -12,6 +12,7 @@ import {
     VaryLabel,
     VaryLabelRadioButton,
     VarySelectBox,
+    ReactQuillEditor,
 } from '@Elements'
 import {
     getNoticeDetail,
@@ -33,9 +34,12 @@ const {
     InputCell,
     ButtonBox,
     ButtonItem,
+    QuilEditorLabelCell,
+    QuilEditorCell,
 } = DetailTableStyle
 
 const { DetailContainer } = DetailPageStyle
+
 const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ NOTICE_NO: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
@@ -196,7 +200,8 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             }
         }
         if (pageMode === `modify` && params.NOTICE_NO) {
-            funcSetDetail()
+            // funcSetDetail()
+            console.log(detailState)
         } else {
             setDetailState(prevState => ({
                 ...prevState,
@@ -216,7 +221,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             }))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageMode, params.NOTICE_NO])
+    }, [detailState])
 
     return (
         <DetailContainer>
@@ -312,37 +317,31 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         </InputCell>
                     </Row>
                     <Row>
-                        <LabelCell>
+                        <QuilEditorLabelCell>
                             <VaryLabel LabelName={`내용`} />
-                        </LabelCell>
-                        <InputCell>
+                        </QuilEditorLabelCell>
+                        <QuilEditorCell colSpan={3}>
                             <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryInput
-                                        Bg={`gray1`}
-                                        InputType={'text'}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    NOTICE_CN: e.target.value,
-                                                },
-                                            }))
-                                        }
-                                        id={'id'}
-                                        Placeholder={
-                                            '게시물 내용을 입력해 주세요'
-                                        }
+                                <div className="grow">
+                                    <ReactQuillEditor
                                         Value={
                                             detailState.info.NOTICE_CN
                                                 ? detailState.info.NOTICE_CN
                                                 : ''
                                         }
+                                        OnChange={e =>
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                detail: {
+                                                    ...prevState.info,
+                                                    NOTICE_CN: e.toString(),
+                                                },
+                                            }))
+                                        }
                                     />
                                 </div>
                             </div>
-                        </InputCell>
+                        </QuilEditorCell>
                     </Row>
                     <Row>
                         <LabelCell rowSpan={2}>

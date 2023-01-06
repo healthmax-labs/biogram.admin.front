@@ -643,7 +643,7 @@ export const getMsgBoxList = ({
     SEARCH_KEY: string
 }): Promise<ServicesDefaultResult<ManageCounselMsgBoxListInterface>> => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/list/msg/${mber_no}`,
         payload: {
             START_DT: START_DT,
