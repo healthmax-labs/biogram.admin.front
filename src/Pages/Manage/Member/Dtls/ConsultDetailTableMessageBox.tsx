@@ -52,7 +52,7 @@ const ConsultDetailTableMessageBox = () => {
     }
 
     useEffect(() => {
-        const funcSetCHartTab = () => {
+        const funcSetChartTab = () => {
             const { Tab } = pageState
             let nowTab
 
@@ -68,8 +68,11 @@ const ConsultDetailTableMessageBox = () => {
             }
         }
 
-        funcSetCHartTab()
-    }, [chartState, pageState])
+        funcSetChartTab()
+
+        // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chartState])
 
     return (
         <div className="px-2 pt-20">
