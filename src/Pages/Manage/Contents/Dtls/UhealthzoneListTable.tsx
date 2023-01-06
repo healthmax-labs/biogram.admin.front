@@ -14,7 +14,7 @@ import {
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<UhealthzoneTableListItemInterface>
     Columns: Array<ColumnsInterface<UhealthzoneTableListItemInterface>[]>
     Lists: UhealthzoneTableListItemInterface[]
 }

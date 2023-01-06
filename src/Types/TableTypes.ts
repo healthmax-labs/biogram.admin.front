@@ -2,9 +2,13 @@
 import React from 'react'
 
 // 공통 테이블 옵션
-export interface OptionsInterface {
+export interface OptionsInterface<T> {
     selectAll?: boolean
     indexKey: string
+    xcpt?: {
+        option: string | 'row-null'
+        component: React.FC<{ el: T }>
+    }
 }
 
 export interface ColumnsInterface<T> {
@@ -19,7 +23,7 @@ export interface ColumnsInterface<T> {
 // 공통 테이블 프롭스
 export interface MainTablePropsInterface<T> {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<T>
     Columns: Array<ColumnsInterface<T>[]>
     RowClick: (element: T) => void
     CheckedRow?: (checked: string[]) => void
@@ -29,7 +33,7 @@ export interface MainTablePropsInterface<T> {
 // 공통 테이블 바디 프롭스
 export interface MainTableBodyPropsInterface<T> {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<T>
     Columns: Array<ColumnsInterface<T>[]>
     RowClick: (element: T) => void
     CheckedRows: string[]

@@ -5,6 +5,7 @@ import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 
 const {
     Box: { Container, Wapper, Item },
+    XcptComponent,
 } = ListComponentStyle
 
 export interface RiskFctrTableListItemInterface {
@@ -671,6 +672,16 @@ export const StatisticsTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MBER_NO`,
+        xcpt: {
+            option: 'row-null',
+            component: ({ el }: { el: StatisticsTableListItemInterface }) => {
+                console.debug(el)
+
+                return (
+                    <XcptComponent>{`${el.MESURE_DE} / ${el.MBER_CNT}명`}</XcptComponent>
+                )
+            },
+        },
     },
     Columns: [
         [

@@ -14,7 +14,7 @@ const MainTableHeader = <E,>({
 }: {
     AllChecked: boolean
     Columns: Array<ColumnsInterface<E>[]>
-    Options: OptionsInterface
+    Options: OptionsInterface<E>
     HandleClickAllCheckBox: (checked: boolean) => void
 }) => {
     return (

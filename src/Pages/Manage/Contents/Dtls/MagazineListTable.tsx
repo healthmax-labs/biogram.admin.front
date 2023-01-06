@@ -11,7 +11,7 @@ import { MagazineListState } from '@Recoil/ContentsPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<MagazineTableListItemInterface>
     Columns: Array<ColumnsInterface<MagazineTableListItemInterface>[]>
     Lists: MagazineTableListItemInterface[]
 }
