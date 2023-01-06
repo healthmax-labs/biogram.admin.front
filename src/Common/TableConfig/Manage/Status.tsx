@@ -675,8 +675,6 @@ export const StatisticsTableConfig = {
         xcpt: {
             option: 'row-null',
             component: ({ el }: { el: StatisticsTableListItemInterface }) => {
-                console.debug(el)
-
                 return (
                     <XcptComponent>{`${el.MESURE_DE} / ${el.MBER_CNT}명`}</XcptComponent>
                 )
