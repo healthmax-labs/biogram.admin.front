@@ -2,32 +2,26 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 //
 
-export const TableStyleBak = {
-    TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
-    TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
-    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
-    HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
-    HeaderCheckboxItem: tw.div`flex w-full justify-center`,
-    HeaderCell: tw.th`p-4 w-1/4 px-3 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
-    TableBody: tw.tbody`w-full max-h-[69vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
-    TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
-        BgState
-            ? tw`flex w-full bg-mercury max-h-9 items-center cursor-pointer hover:bg-daisy`
-            : tw`flex w-full bg-pearl h-9 items-center cursor-pointer hover:bg-daisy`,
-    ]),
-    TableBodyCell: tw.td`flex items-center justify-center w-1/4 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
-    TbodyTdCheckbox: tw.td`flex items-center justify-center w-1/12 h-10 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
-}
-
 export const TableStyle = {
-    Container: tw.div`flex flex-col h-screen max-h-[69vh]`,
+    Container: tw.div`flex flex-col h-screen max-h-[77vh]`,
     Wapper: tw.div`flex-grow overflow-auto`,
     Table: tw.table`relative w-full border`,
     Thead: tw.thead``,
-    HeaderRow: tw.tr`sticky top-0 bg-steel h-8`,
-    HeaderCheckbox: tw.th`z-[1100] sticky top-0 bg-steel w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
-    HeaderCheckboxItem: tw.div`flex sticky top-0 bg-steel w-full justify-center`,
-    HeaderCell: tw.th`z-[1100] sticky bg-steel top-0 w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderRow1: tw.tr`sticky top-0 bg-steel h-8`,
+    HeaderRow: styled.tr(({ Step }: { Step: number }) => {
+        const returnTw = [tw`sticky bg-steel h-8`]
+
+        if (Step === 0) {
+            returnTw.push(tw`top-0`)
+        } else if (Step === 1) {
+            returnTw.push(tw`top-8`)
+        }
+
+        return returnTw
+    }),
+    HeaderCheckbox: tw.th`z-[1100] bg-steel w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCheckboxItem: tw.div`flex bg-steel w-full justify-center`,
+    HeaderCell: tw.th`z-[1100] bg-steel w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
     Tbody: tw.tbody`divide-y`,
     TbodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState

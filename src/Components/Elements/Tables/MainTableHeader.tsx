@@ -21,7 +21,9 @@ const MainTableHeader = <E,>({
         <>
             {Columns.map((Row, rowIndex, Rows) => {
                 return (
-                    <HeaderRow key={`main-table-head-row-${rowIndex}`}>
+                    <HeaderRow
+                        key={`main-table-head-row-${rowIndex}`}
+                        Step={rowIndex}>
                         {rowIndex === 0 && Options.selectAll && (
                             <TbodyCellCheckbox
                                 key={`main-table-head-checkbox-cell-${rowIndex}`}
