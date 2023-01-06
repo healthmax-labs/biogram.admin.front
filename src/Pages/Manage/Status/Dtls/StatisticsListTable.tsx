@@ -11,7 +11,7 @@ import { StatisticsListState } from '@Recoil/StatusPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<StatisticsTableListItemInterface>
     Columns: Array<ColumnsInterface<StatisticsTableListItemInterface>[]>
     Lists: StatisticsTableListItemInterface[]
 }

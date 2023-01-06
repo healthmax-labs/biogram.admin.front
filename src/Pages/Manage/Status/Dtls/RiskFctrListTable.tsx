@@ -11,7 +11,7 @@ import { RiskFctrListState } from '@Recoil/StatusPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<RiskFctrTableListItemInterface>
     Columns: Array<ColumnsInterface<RiskFctrTableListItemInterface>[]>
     Lists: RiskFctrTableListItemInterface[]
 }

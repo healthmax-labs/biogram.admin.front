@@ -10,7 +10,7 @@ import { MsgSendListState } from '@Recoil/MsgPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<MsgSendTableListItemInterface>
     Columns: Array<ColumnsInterface<MsgSendTableListItemInterface>[]>
     Lists: MsgSendTableListItemInterface[]
 }

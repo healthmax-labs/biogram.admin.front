@@ -11,7 +11,7 @@ import { StplatDetailState, StplatListState } from '@Recoil/ManagerPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<StplatTableListItemInterface>
     Columns: Array<ColumnsInterface<StplatTableListItemInterface>[]>
     Lists: StplatTableListItemInterface[]
 }

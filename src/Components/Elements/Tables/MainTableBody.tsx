@@ -52,27 +52,70 @@ const MainTableBody = <P,>({
                             </TbodyCellCheckbox>
                         )}
 
-                        {Columns[listLastIndex].map((Column, i) => {
-                            if (Column.key) {
-                                const value = _.get(Row, Column.key)
+                        {(() => {
+                            // 예외 옵션 치리.
+                            // 옵션 중에 Row 가 null 이면 xcpt component 실행.
+                            if (
+                                Options.xcpt &&
+                                Options.xcpt.option &&
+                                Options.xcpt.option === 'row-null' &&
+                                _.isEmpty(
+                                    Columns[listLastIndex]
+                                        .map(xcpt => {
+                                            if (xcpt.key) {
+                                                return _.get(Row, xcpt.key)
+                                            } else {
+                                                return ''
+                                            }
+                                        })
+                                        .filter(e => e)
+                                )
+                            ) {
                                 return (
                                     <TbodyCell
-                                        onClick={() => RowClick(Row)}
-                                        key={`main-table-body-cell-${i}`}
-                                        textAlign={
-                                            Column.textAlign
-                                                ? Column.textAlign
-                                                : ''
-                                        }>
-                                        {Column.component
-                                            ? Column.component({ el: Row })
-                                            : value}
+                                        colSpan={Columns[listLastIndex].length}>
+                                        {Options.xcpt.component
+                                            ? Options.xcpt.component({
+                                                  el: Row,
+                                              })
+                                            : ''}
                                     </TbodyCell>
                                 )
-                            }
+                            } else {
+                                {
+                                    return Columns[listLastIndex].map(
+                                        (Column, i) => {
+                                            if (Column.key) {
+                                                const value = _.get(
+                                                    Row,
+                                                    Column.key
+                                                )
+                                                return (
+                                                    <TbodyCell
+                                                        onClick={() =>
+                                                            RowClick(Row)
+                                                        }
+                                                        key={`main-table-body-cell-${i}`}
+                                                        textAlign={
+                                                            Column.textAlign
+                                                                ? Column.textAlign
+                                                                : ''
+                                                        }>
+                                                        {Column.component
+                                                            ? Column.component({
+                                                                  el: Row,
+                                                              })
+                                                            : value}
+                                                    </TbodyCell>
+                                                )
+                                            }
 
-                            return <></>
-                        })}
+                                            return <></>
+                                        }
+                                    )
+                                }
+                            }
+                        })()}
                     </TbodyRow>
                 )
             })}

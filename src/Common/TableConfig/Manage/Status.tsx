@@ -5,6 +5,7 @@ import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 
 const {
     Box: { Container, Wapper, Item },
+    XcptComponent,
 } = ListComponentStyle
 
 export interface RiskFctrTableListItemInterface {
@@ -627,234 +628,6 @@ export const BrftrCmprTableConfig = {
     Lists: [],
 }
 
-// 전후비교 현황 테이블 데이터 설정
-export const BrftrCmprTableConfigBak = {
-    Loading: true,
-    Options: {
-        selectAll: true,
-        indexKey: `MBER_NO`,
-    },
-    Columns: [
-        [
-            {
-                name: ``,
-                // rowSpan: 2,
-            },
-            {
-                name: ``,
-                // rowSpan: 2,
-            },
-            {
-                name: ``,
-                // rowSpan: 2,
-            },
-            {
-                name: ``,
-                // rowSpan: 2,
-            },
-            {
-                name: `허리둘레`,
-                colSpan: 2,
-            },
-            {
-                name: `혈압`,
-                colSpan: 2,
-            },
-            {
-                name: `신전혈당`,
-                colSpan: 2,
-            },
-            {
-                name: `중성지방`,
-                colSpan: 2,
-            },
-            {
-                name: `고밀도 콜레스트롤`,
-                colSpan: 2,
-            },
-        ],
-        [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
-            {
-                name: `회원명`,
-                key: `NM`,
-            },
-            {
-                name: `생년월일`,
-                key: `BRTHDY`,
-            },
-            {
-                name: `성별`,
-                key: `SEXDSTN`,
-            },
-            {
-                name: `허리둘레(최초)`,
-                key: `WAIST_0`,
-            },
-            {
-                name: `허리둘레(최근1)`,
-                key: `WAIST_1`,
-            },
-            {
-                name: `허리둘레(최근2)`,
-                key: `WAIST_2`,
-            },
-            {
-                name: `허리둘레(최근3)`,
-                key: `WAIST_3`,
-            },
-            {
-                name: `허리둘레DT(최초)`,
-                key: `WAIST_MESURE_DT_0`,
-            },
-            {
-                name: `허리둘레DT(최근1)`,
-                key: `WAIST_MESURE_DT_1`,
-            },
-            {
-                name: `허리둘레DT(최근2)`,
-                key: `WAIST_MESURE_DT_2`,
-            },
-            {
-                name: `허리둘레DT(최근3)`,
-                key: `WAIST_MESURE_DT_3`,
-            },
-            {
-                name: `혈압(최초)`,
-                key: `BP_0`,
-            },
-            {
-                name: `혈압(최근1)`,
-                key: `BP_1`,
-            },
-            {
-                name: `혈압(최근2)`,
-                key: `BP_2`,
-            },
-            {
-                name: `혈압(최근3)`,
-                key: `BP_3`,
-            },
-            {
-                name: `혈압DT(최초)`,
-                key: `BP_MESURE_DT_0`,
-            },
-            {
-                name: `혈압DT(최근1)`,
-                key: `BP_MESURE_DT_1`,
-            },
-            {
-                name: `혈압DT(최근2)`,
-                key: `BP_MESURE_DT_2`,
-            },
-            {
-                name: `혈압DT(최근3)`,
-                key: `BP_MESURE_DT_3`,
-            },
-            {
-                name: `식전혈당(최초)`,
-                key: `FBS_0`,
-            },
-            {
-                name: `식전혈당(최근1)`,
-                key: `FBS_1`,
-            },
-            {
-                name: `식전혈당(최근2)`,
-                key: `FBS_2`,
-            },
-            {
-                name: `식전혈당(최근3)`,
-                key: `FBS_3`,
-            },
-            {
-                name: `식전혈당DT(최초)`,
-                key: `FBS_MESURE_DT_0`,
-            },
-            {
-                name: `식전혈당DT(최근1)`,
-                key: `FBS_MESURE_DT_1`,
-            },
-            {
-                name: `식전혈당DT(최근2)`,
-                key: `FBS_MESURE_DT_MESURE_DT_2`,
-            },
-            {
-                name: `식전혈당DT(최근3)`,
-                key: `FBS_MESURE_DT_MESURE_DT_3`,
-            },
-            {
-                name: `중성지방(최초)`,
-                key: `TG_0`,
-            },
-            {
-                name: `중성지방(최근1)`,
-                key: `TG_1`,
-            },
-            {
-                name: `중성지방(최근2)`,
-                key: `TG_2`,
-            },
-            {
-                name: `중성지방(최근3)`,
-                key: `TG_3`,
-            },
-            {
-                name: `중성지방DT(최초)`,
-                key: `TG_MESURE_DT_0`,
-            },
-            {
-                name: `중성지방DT(최근1)`,
-                key: `TG_MESURE_DT_1`,
-            },
-            {
-                name: `중성지방DT(최근2)`,
-                key: `TG_MESURE_DT_2`,
-            },
-            {
-                name: `중성지방DT(최근3)`,
-                key: `TG_MESURE_DT_3`,
-            },
-            {
-                name: `HDLC(최초)`,
-                key: `HDLC_0`,
-            },
-            {
-                name: `HDLC(최근1)`,
-                key: `HDLC_1`,
-            },
-            {
-                name: `HDLC(최근2)`,
-                key: `HDLC_2`,
-            },
-            {
-                name: `HDLC(최근3)`,
-                key: `HDLC_3`,
-            },
-            {
-                name: `HDLCDT(최초)`,
-                key: `HDLC_MESURE_DT_0`,
-            },
-            {
-                name: `HDLCDT(최근1)`,
-                key: `HDLC_MESURE_DT_1`,
-            },
-            {
-                name: `HDLCDT(최근2)`,
-                key: `HDLC_MESURE_DT_2`,
-            },
-            {
-                name: `HDLCDT(최근3)`,
-                key: `HDLC_MESURE_DT_3`,
-            },
-        ],
-    ],
-    Lists: [],
-}
-
 // 기기측정 현황 테이블 데이터
 export interface StatisticsTableListItemInterface {
     MBER_NO: number
@@ -897,10 +670,62 @@ export interface StatisticsTableListItemInterface {
 export const StatisticsTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `MBER_NO`,
+        xcpt: {
+            option: 'row-null',
+            component: ({ el }: { el: StatisticsTableListItemInterface }) => {
+                console.debug(el)
+
+                return (
+                    <XcptComponent>{`${el.MESURE_DE} / ${el.MBER_CNT}명`}</XcptComponent>
+                )
+            },
+        },
     },
     Columns: [
+        [
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: `체성분계`,
+                colSpan: 7,
+            },
+            {
+                name: `혈압계`,
+                colSpan: 3,
+            },
+            {
+                name: `혈당계`,
+                colSpan: 2,
+            },
+            {
+                name: `콜레스트롤 측정계`,
+                colSpan: 4,
+            },
+            {
+                name: `스트레스 측정계`,
+                colSpan: 8,
+            },
+            {
+                name: `기타`,
+                colSpan: 8,
+            },
+        ],
         [
             {
                 name: `회원번호`,
@@ -919,111 +744,111 @@ export const StatisticsTableConfig = {
                 key: `SEXDSTN`,
             },
             {
-                name: `체중(kg)`,
+                name: `체중<br />(kg)`,
                 key: `WEIGHT`,
             },
             {
-                name: `BMI(kg/m²)`,
+                name: `BMI<br />(kg/m²)`,
                 key: `BMI`,
             },
             {
-                name: `체지방률(%)`,
+                name: `체지<br />방률<br />(%)`,
                 key: `FAT_MAS`,
             },
             {
-                name: `체지방량(kg)`,
+                name: `체지<br />방량<br />(kg)`,
                 key: `WAIST_3`,
             },
             {
-                name: `근육량(kg)`,
+                name: `근육량<br />(kg)`,
                 key: `WAIST_MESURE_DT_0`,
             },
             {
-                name: `추정골량(kg)`,
+                name: `추정<br />골량<br />(kg)`,
                 key: `WAIST_MESURE_DT_1`,
             },
             {
-                name: `내장지방(level)`,
+                name: `내장<br />지방<br />(level)`,
                 key: `WAIST_MESURE_DT_2`,
             },
             {
-                name: `수축기(mmHg)`,
+                name: `수축기<br />(mmHg)`,
                 key: `WAIST_MESURE_DT_3`,
             },
             {
-                name: `이완기(mmHg)`,
+                name: `이완기<br />(mmHg)`,
                 key: `BP_0`,
             },
             {
-                name: `맥박(bpm)`,
+                name: `맥박<br />(bpm)`,
                 key: `BP_1`,
             },
             {
-                name: `공복(mg/dl)`,
+                name: `공복<br />(mg/dl)`,
                 key: `BP_2`,
             },
             {
-                name: `식후(mg/dl)`,
+                name: `식후<br />(mg/dl)`,
                 key: `BP_3`,
             },
             {
-                name: `TC(mg/dl)`,
+                name: `TC<br />(mg/dl)`,
                 key: `BP_MESURE_DT_0`,
             },
             {
-                name: `TG(mg/dl)`,
+                name: `TG<br />(mg/dl)`,
                 key: `BP_MESURE_DT_1`,
             },
             {
-                name: `HDL-C(mg/dl)`,
+                name: `HDL-C<br />(mg/dl)`,
                 key: `BP_MESURE_DT_2`,
             },
             {
-                name: `LDL-C(mg/dl)`,
+                name: `LDL-C<br />(mg/dl)`,
                 key: `BP_MESURE_DT_3`,
             },
             {
-                name: `점수(점)`,
+                name: `점수<br />(점)`,
                 key: `FBS_0`,
             },
             {
-                name: `정신적(단계)`,
+                name: `정신적<br />(단계)`,
                 key: `FBS_1`,
             },
             {
-                name: `신체적(단계)`,
+                name: `신체적<br />(단계)`,
                 key: `FBS_2`,
             },
             {
-                name: `대처능력(단계)`,
+                name: `대처<br />능력<br />(단계)`,
                 key: `FBS_3`,
             },
             {
-                name: `혈관(단계)`,
+                name: `혈관<br />(단계)`,
                 key: `FBS_MESURE_DT_0`,
             },
             {
-                name: `박출강도(단계)`,
+                name: `박출<br />강도<br />(단계)`,
                 key: `FBS_MESURE_DT_1`,
             },
             {
-                name: `탄성도(단계)`,
+                name: `탄성도<br />(단계)`,
                 key: `FBS_MESURE_DT_MESURE_DT_2`,
             },
             {
-                name: `잔혈량(단계)`,
+                name: `잔혈량<br />(단계)`,
                 key: `FBS_MESURE_DT_MESURE_DT_3`,
             },
             {
-                name: `신장(cm)`,
+                name: `신장<br />(cm)`,
                 key: `TG_0`,
             },
             {
-                name: `체온(°c)`,
+                name: `체온<br />(°c)`,
                 key: `TG_1`,
             },
             {
-                name: `허리둘레(cm)`,
+                name: `허리<br />둘레<br />(cm)`,
                 key: `TG_2`,
             },
         ],

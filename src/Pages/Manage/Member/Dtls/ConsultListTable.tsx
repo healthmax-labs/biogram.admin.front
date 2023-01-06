@@ -11,7 +11,7 @@ import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
 
 interface tableOptionInterface {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<ConsulttableListItemInterface>
     Columns: Array<ColumnsInterface<ConsulttableListItemInterface>[]>
     Lists: ConsulttableListItemInterface[]
 }

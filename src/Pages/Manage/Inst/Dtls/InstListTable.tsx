@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<InitTableListItemInterface>
     Columns: Array<ColumnsInterface<InitTableListItemInterface>[]>
     Lists: InitTableListItemInterface[]
 }

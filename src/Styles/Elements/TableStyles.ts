@@ -25,9 +25,9 @@ export const TableStyle = {
     Table: tw.table`relative w-full border`,
     Thead: tw.thead``,
     HeaderRow: tw.tr`bg-steel h-8`,
-    HeaderCheckbox: tw.th`sticky top-0 w-1/4 px-3 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCheckbox: tw.th`sticky top-0 w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
     HeaderCheckboxItem: tw.div`flex w-full justify-center`,
-    HeaderCell: tw.th`sticky top-0 w-1/4 px-3 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCell: tw.th`sticky top-0 w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
     Tbody: tw.tbody`divide-y`,
     TbodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState

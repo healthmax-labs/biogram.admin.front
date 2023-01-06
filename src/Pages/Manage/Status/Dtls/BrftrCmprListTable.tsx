@@ -11,7 +11,7 @@ import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<BrftrCmprTableListItemInterface>
     Columns: Array<ColumnsInterface<BrftrCmprTableListItemInterface>[]>
     Lists: BrftrCmprTableListItemInterface[]
 }

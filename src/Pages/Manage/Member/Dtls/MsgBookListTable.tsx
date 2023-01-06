@@ -10,7 +10,7 @@ import { MsgBookListState } from '@Recoil/MsgPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<MsgBookTableListItemInterface>
     Columns: Array<ColumnsInterface<MsgBookTableListItemInterface>[]>
     Lists: MsgBookTableListItemInterface[]
 }

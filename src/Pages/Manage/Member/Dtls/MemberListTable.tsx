@@ -11,7 +11,7 @@ import { MemberDetailState, MemberListState } from '@Recoil/MemberPagesState'
 
 interface tableOptionInterface {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<tableListItemInterface>
     Columns: Array<ColumnsInterface<tableListItemInterface>[]>
     Lists: tableListItemInterface[]
 }

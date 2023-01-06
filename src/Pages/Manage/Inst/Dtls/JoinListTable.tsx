@@ -11,7 +11,7 @@ import { InstJoinListState } from '@Recoil/InstPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<JoinTableListItemInterface>
     Columns: Array<ColumnsInterface<JoinTableListItemInterface>[]>
     Lists: JoinTableListItemInterface[]
 }

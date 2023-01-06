@@ -7,4 +7,5 @@ export const ListComponentStyle = {
         Wapper: tw.div`grid grid-rows-2 grid-flow-col gap-0 w-full h-full`,
         Item: tw.div`border w-16 min-w-full`,
     },
+    XcptComponent: tw.div`w-full text-left pl-3`,
 }

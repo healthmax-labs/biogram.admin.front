@@ -11,7 +11,7 @@ import { NoticeListState } from '@Recoil/ManagerPagesState'
 
 interface tableOption {
     Loading: boolean
-    Options: OptionsInterface
+    Options: OptionsInterface<NoticeTableListItemInterface>
     Columns: Array<ColumnsInterface<NoticeTableListItemInterface>[]>
     Lists: NoticeTableListItemInterface[]
 }
