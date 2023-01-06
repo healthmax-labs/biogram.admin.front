@@ -1,4 +1,12 @@
 // 위험요인 현황 테이블 데이터
+import React from 'react'
+import { timeStringSmapDateParse } from '@Helper'
+import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
+
+const {
+    Box: { Container, Wapper, Item },
+} = ListComponentStyle
+
 export interface RiskFctrTableListItemInterface {
     SLM_JDGMNT: null | string
     TAKNG_MDCIN: null | string
@@ -227,6 +235,400 @@ export interface BrftrCmprTableListItemInterface {
 
 // 전후비교 현황 테이블 데이터 설정
 export const BrftrCmprTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: true,
+        indexKey: `MBER_NO`,
+    },
+    Columns: [
+        [
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: ``,
+                // rowSpan: 2,
+            },
+            {
+                name: `허리둘레`,
+                colSpan: 2,
+            },
+            {
+                name: `혈압`,
+                colSpan: 2,
+            },
+            {
+                name: `신전혈당`,
+                colSpan: 2,
+            },
+            {
+                name: `중성지방`,
+                colSpan: 2,
+            },
+            {
+                name: `고밀도 콜레스트롤`,
+                colSpan: 2,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `회원명`,
+                key: `NM`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+            },
+            {
+                name: `성별`,
+                key: `SEXDSTN`,
+            },
+            {
+                name: `최초`,
+                key: `WAIST_0`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Wapper>
+                            <Item>
+                                {el.WAIST_MESURE_DT_0
+                                    ? timeStringSmapDateParse(
+                                          el.WAIST_MESURE_DT_0
+                                      )
+                                    : ''}
+                            </Item>
+                            <Item>{el.WAIST_0}</Item>
+                        </Wapper>
+                    )
+                },
+            },
+            {
+                name: `최근3회`,
+                key: `WAIST_1`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Container>
+                            <Wapper>
+                                <Item>
+                                    {el.WAIST_MESURE_DT_1
+                                        ? timeStringSmapDateParse(
+                                              el.WAIST_MESURE_DT_1
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.WAIST_1}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.WAIST_MESURE_DT_2
+                                        ? timeStringSmapDateParse(
+                                              el.WAIST_MESURE_DT_2
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.WAIST_2}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.WAIST_MESURE_DT_3
+                                        ? timeStringSmapDateParse(
+                                              el.WAIST_MESURE_DT_3
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.WAIST_3}</Item>
+                            </Wapper>
+                        </Container>
+                    )
+                },
+            },
+            {
+                name: `혈압(최초)`,
+                key: `BP_0`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Wapper>
+                            <Item>
+                                {el.BP_MESURE_DT_0
+                                    ? timeStringSmapDateParse(el.BP_MESURE_DT_0)
+                                    : ''}
+                            </Item>
+                            <Item>{el.BP_0}</Item>
+                        </Wapper>
+                    )
+                },
+            },
+            {
+                name: `혈압(최근1)`,
+                key: `BP_1`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Container>
+                            <Wapper>
+                                <Item>
+                                    {el.BP_MESURE_DT_1
+                                        ? timeStringSmapDateParse(
+                                              el.BP_MESURE_DT_1
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.BP_1}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.BP_MESURE_DT_2
+                                        ? timeStringSmapDateParse(
+                                              el.BP_MESURE_DT_2
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.BP_2}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.BP_MESURE_DT_3
+                                        ? timeStringSmapDateParse(
+                                              el.BP_MESURE_DT_3
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.BP_3}</Item>
+                            </Wapper>
+                        </Container>
+                    )
+                },
+            },
+            {
+                name: `식전혈당(최초)`,
+                key: `FBS_0`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Wapper>
+                            <Item>
+                                {el.FBS_MESURE_DT_0
+                                    ? timeStringSmapDateParse(
+                                          el.FBS_MESURE_DT_0
+                                      )
+                                    : ''}
+                            </Item>
+                            <Item>{el.FBS_0}</Item>
+                        </Wapper>
+                    )
+                },
+            },
+            {
+                name: `식전혈당(최근1)`,
+                key: `FBS_1`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Container>
+                            <Wapper>
+                                <Item>
+                                    {el.FBS_MESURE_DT_1
+                                        ? timeStringSmapDateParse(
+                                              el.FBS_MESURE_DT_1
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.FBS_1}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.FBS_MESURE_DT_MESURE_DT_2
+                                        ? timeStringSmapDateParse(
+                                              el.FBS_MESURE_DT_MESURE_DT_2
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.FBS_2}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.FBS_MESURE_DT_MESURE_DT_3
+                                        ? timeStringSmapDateParse(
+                                              el.FBS_MESURE_DT_MESURE_DT_3
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.FBS_3}</Item>
+                            </Wapper>
+                        </Container>
+                    )
+                },
+            },
+            {
+                name: `중성지방(최초)`,
+                key: `TG_0`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Wapper>
+                            <Item>
+                                {el.TG_MESURE_DT_0
+                                    ? timeStringSmapDateParse(el.TG_MESURE_DT_0)
+                                    : ''}
+                            </Item>
+                            <Item>{el.TG_0}</Item>
+                        </Wapper>
+                    )
+                },
+            },
+            {
+                name: `중성지방(최근1)`,
+                key: `TG_1`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Container>
+                            <Wapper>
+                                <Item>
+                                    {el.TG_MESURE_DT_1
+                                        ? timeStringSmapDateParse(
+                                              el.TG_MESURE_DT_1
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.TG_1}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.TG_MESURE_DT_2
+                                        ? timeStringSmapDateParse(
+                                              el.TG_MESURE_DT_2
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.TG_2}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.TG_MESURE_DT_3
+                                        ? timeStringSmapDateParse(
+                                              el.TG_MESURE_DT_3
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.TG_3}</Item>
+                            </Wapper>
+                        </Container>
+                    )
+                },
+            },
+            {
+                name: `HDLC(최초)`,
+                key: `HDLC_0`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Wapper>
+                            <Item>
+                                {el.HDLC_MESURE_DT_0
+                                    ? timeStringSmapDateParse(
+                                          el.HDLC_MESURE_DT_0
+                                      )
+                                    : ''}
+                            </Item>
+                            <Item>{el.HDLC_0}</Item>
+                        </Wapper>
+                    )
+                },
+            },
+            {
+                name: `HDLC(최근1)`,
+                key: `HDLC_1`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return (
+                        <Container>
+                            <Wapper>
+                                <Item>
+                                    {el.HDLC_MESURE_DT_1
+                                        ? timeStringSmapDateParse(
+                                              el.HDLC_MESURE_DT_1
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.HDLC_1}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.HDLC_MESURE_DT_2
+                                        ? timeStringSmapDateParse(
+                                              el.HDLC_MESURE_DT_2
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.HDLC_2}</Item>
+                            </Wapper>
+                            <Wapper>
+                                <Item>
+                                    {el.HDLC_MESURE_DT_3
+                                        ? timeStringSmapDateParse(
+                                              el.HDLC_MESURE_DT_3
+                                          )
+                                        : '-'}
+                                </Item>
+                                <Item>{el.HDLC_3}</Item>
+                            </Wapper>
+                        </Container>
+                    )
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 전후비교 현황 테이블 데이터 설정
+export const BrftrCmprTableConfigBak = {
     Loading: true,
     Options: {
         selectAll: true,

@@ -40,9 +40,7 @@ export const TableStyle = {
         }: {
             textAlign?: string | 'left' | 'center' | 'right'
         }) => {
-            const returnTw = [
-                tw`px-6 h-8 text-center text-xs whitespace-nowrap`,
-            ]
+            const returnTw = [tw`h-8 text-center text-xs whitespace-nowrap`]
 
             if (textAlign && textAlign === 'left') {
                 returnTw.push(tw`text-left`)

@@ -399,13 +399,21 @@ export const timeStringParse = (str: string): string | boolean => {
 
 /**
  * 20221214112300 -> 2022-12-14
- * 20221214112300 -> { year: 2022, month: 12, monthPad: 14, day: 11, hour: 23, minute: 00, }
  * @param str
  */
 export const timeStringDateParse = (str: string): string | boolean => {
     if (str.length !== 14) return false
 
     return str.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, '$1-$2-$3')
+}
+
+export const timeStringSmapDateParse = (date: string): string | boolean => {
+    if (date.length !== 14) return false
+
+    return `${date.substring(2, 4)}-${date.substring(4, 6)}-${date.substring(
+        6,
+        8
+    )}`
 }
 
 /**
