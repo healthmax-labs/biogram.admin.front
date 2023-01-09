@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
-import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
+import { DetailPageStyle } from '@Style/Pages/ManagerPageStyle'
 import Codes from '@Codes'
 
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
