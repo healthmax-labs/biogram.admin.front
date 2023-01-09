@@ -15,6 +15,7 @@ import {
 } from '@Recoil/MemberPagesState'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
+import { WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     ConfirmModal,
     DefaultManageButton,
@@ -43,13 +44,21 @@ import {
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
-const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
-    DetailTableStyle
+const {
+    TableContainer,
+    TableWapper,
+    Row,
+    LabelCell,
+    InputCell,
+    InputCellFull,
+} = DetailTableStyle
 const {
     DetailContainer,
     PstinstInfoList: P,
     ButtonBox,
     ButtonItem,
+    PstinstLeaveModalContentBox,
+    PstinstLeaveModalContentMessage,
 } = DetailPageStyle
 
 const initializeState = {
@@ -588,7 +597,7 @@ const MemberDetailTable = ({
                                 Children={
                                     <>
                                         {pageState.UseStplatAgreAt.state && (
-                                            <div className="ml-1">
+                                            <WS.FlexRightButton>
                                                 <VaryButton
                                                     Name={`미동의 약관 (${pageState.UseStplatAgreAt.text})`}
                                                     HandleClick={() =>
@@ -604,7 +613,7 @@ const MemberDetailTable = ({
                                                         )
                                                     }
                                                 />
-                                            </div>
+                                            </WS.FlexRightButton>
                                         )}
                                     </>
                                 }
@@ -654,7 +663,7 @@ const MemberDetailTable = ({
                                 }
                                 Children={
                                     <>
-                                        <div className="ml-1">
+                                        <WS.FlexRightButton>
                                             <VaryButton
                                                 Name={
                                                     detailState.detail
@@ -669,9 +678,9 @@ const MemberDetailTable = ({
                                                     handleGetMbtlnum().then()
                                                 }
                                             />
-                                        </div>
+                                        </WS.FlexRightButton>
                                         {pageState.MbtlnumCheck && (
-                                            <div className="ml-1">
+                                            <WS.FlexRightButton>
                                                 <VaryButton
                                                     Name={`데이터통합`}
                                                     HandleClick={() =>
@@ -694,7 +703,7 @@ const MemberDetailTable = ({
                                                         )
                                                     }
                                                 />
-                                            </div>
+                                            </WS.FlexRightButton>
                                         )}
                                     </>
                                 }
@@ -754,53 +763,49 @@ const MemberDetailTable = ({
                             <VaryLabel LabelName={`성별`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap px-0">
-                                <div className="mr-2">
-                                    <VaryLabelRadioButton
-                                        LabelName={`남성`}
-                                        Checked={
-                                            !!(
-                                                detailState.detail.SEX &&
-                                                detailState.detail.SEX === 'M'
-                                            )
-                                        }
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                detail: {
-                                                    ...prevState.detail,
-                                                    SEX: e.target.checked
-                                                        ? 'M'
-                                                        : 'F',
-                                                },
-                                            }))
-                                        }
-                                    />
-                                </div>
+                            <WS.FlexNoWarapGap>
+                                <VaryLabelRadioButton
+                                    LabelName={`남성`}
+                                    Checked={
+                                        !!(
+                                            detailState.detail.SEX &&
+                                            detailState.detail.SEX === 'M'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                SEX: e.target.checked
+                                                    ? 'M'
+                                                    : 'F',
+                                            },
+                                        }))
+                                    }
+                                />
 
-                                <div className="mr-2">
-                                    <VaryLabelRadioButton
-                                        LabelName={`여성`}
-                                        Checked={
-                                            !!(
-                                                detailState.detail.SEX &&
-                                                detailState.detail.SEX === 'F'
-                                            )
-                                        }
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                detail: {
-                                                    ...prevState.detail,
-                                                    SEX: e.target.checked
-                                                        ? 'F'
-                                                        : 'M',
-                                                },
-                                            }))
-                                        }
-                                    />
-                                </div>
-                            </div>
+                                <VaryLabelRadioButton
+                                    LabelName={`여성`}
+                                    Checked={
+                                        !!(
+                                            detailState.detail.SEX &&
+                                            detailState.detail.SEX === 'F'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                SEX: e.target.checked
+                                                    ? 'F'
+                                                    : 'M',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WS.FlexNoWarapGap>
                         </InputCell>
                     </Row>
                     <Row>
@@ -898,40 +903,38 @@ const MemberDetailTable = ({
                             <VaryLabel LabelName={`비밀번호`} />
                         </LabelCell>
                         <InputCell colSpan={3}>
-                            <div className="px-1 py-1">
-                                <VaryButton
-                                    Name={`비밀번호 초기화`}
-                                    HandleClick={() => {
-                                        if (
-                                            !(
-                                                detailState.detail
-                                                    .MBTLNUM_CRTFC_AT &&
-                                                detailState.detail
-                                                    .MBTLNUM_CRTFC_AT === 'Y'
-                                            )
-                                        ) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.phoneAuth
-                                                        .authYet,
-                                            })
-                                            return
-                                        }
+                            <VaryButton
+                                Name={`비밀번호 초기화`}
+                                HandleClick={() => {
+                                    if (
+                                        !(
+                                            detailState.detail
+                                                .MBTLNUM_CRTFC_AT &&
+                                            detailState.detail
+                                                .MBTLNUM_CRTFC_AT === 'Y'
+                                        )
+                                    ) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.phoneAuth
+                                                    .authYet,
+                                        })
+                                        return
+                                    }
 
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            modal: {
-                                                ...prevState.modal,
-                                                changePassword: {
-                                                    title: `${Messages.Default.member.password.change}`,
-                                                    state: true,
-                                                },
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            changePassword: {
+                                                title: `${Messages.Default.member.password.change}`,
+                                                state: true,
                                             },
-                                        }))
-                                    }}
-                                />
-                            </div>
+                                        },
+                                    }))
+                                }}
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -939,26 +942,24 @@ const MemberDetailTable = ({
                             <VaryLabel
                                 LabelName={`소속정보`}
                                 Children={
-                                    <div className="ml-9">
-                                        <VaryButton
-                                            Name={`추가`}
-                                            HandleClick={() =>
-                                                setPageState(prevState => ({
-                                                    ...prevState,
-                                                    modal: {
-                                                        ...prevState.modal,
-                                                        pstinstSelector: {
-                                                            state: true,
-                                                        },
+                                    <VaryButton
+                                        Name={`추가`}
+                                        HandleClick={() =>
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                modal: {
+                                                    ...prevState.modal,
+                                                    pstinstSelector: {
+                                                        state: true,
                                                     },
-                                                }))
-                                            }
-                                        />
-                                    </div>
+                                                },
+                                            }))
+                                        }
+                                    />
                                 }
                             />
                         </LabelCell>
-                        <InputCell colSpan={3}>
+                        <InputCellFull colSpan={3}>
                             <P.Container>
                                 <P.Table>
                                     <P.Tbody>
@@ -967,7 +968,10 @@ const MemberDetailTable = ({
                                                 (el, index) => {
                                                     return (
                                                         <P.TableRow
-                                                            key={`member-detail-pstinst-table-row-item-${index}`}>
+                                                            key={`member-detail-pstinst-table-row-item-${index}`}
+                                                            BgState={
+                                                                index % 2 === 0
+                                                            }>
                                                             <P.TableCell>
                                                                 {el.INST_NO}
                                                             </P.TableCell>
@@ -1015,7 +1019,7 @@ const MemberDetailTable = ({
                                     </P.Tbody>
                                 </P.Table>
                             </P.Container>
-                        </InputCell>
+                        </InputCellFull>
                     </Row>
                 </TableWapper>
             </TableContainer>
@@ -1388,33 +1392,30 @@ const MemberDetailTable = ({
                         ModalLoading={false}
                         NeedMax={false}
                         Children={
-                            <>
-                                <div className="w-full justify-evenly">
-                                    <div
-                                        className="mt-0 text-[15px] leading-relaxed text-gray-500 text-xs pb-3"
-                                        dangerouslySetInnerHTML={{
-                                            __html: `${originInfo.NM} ${Messages.Default.member.pstinstLeave.confirm}`,
-                                        }}></div>
-                                    <VaryLabelTextArea
-                                        Rows={10}
-                                        Placeholder={`메모를 입력해 주세요`}
-                                        Value={
-                                            detailState.pstinstLeave.text
-                                                ? detailState.pstinstLeave.text
-                                                : ''
-                                        }
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                pstinstLeave: {
-                                                    ...prevState.pstinstLeave,
-                                                    text: e.target.value,
-                                                },
-                                            }))
-                                        }
-                                    />
-                                </div>
-                            </>
+                            <PstinstLeaveModalContentBox>
+                                <PstinstLeaveModalContentMessage
+                                    dangerouslySetInnerHTML={{
+                                        __html: `${originInfo.NM} ${Messages.Default.member.pstinstLeave.confirm}`,
+                                    }}></PstinstLeaveModalContentMessage>
+                                <VaryLabelTextArea
+                                    Rows={10}
+                                    Placeholder={`메모를 입력해 주세요`}
+                                    Value={
+                                        detailState.pstinstLeave.text
+                                            ? detailState.pstinstLeave.text
+                                            : ''
+                                    }
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            pstinstLeave: {
+                                                ...prevState.pstinstLeave,
+                                                text: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </PstinstLeaveModalContentBox>
                         }
                         Buttons={
                             <>
