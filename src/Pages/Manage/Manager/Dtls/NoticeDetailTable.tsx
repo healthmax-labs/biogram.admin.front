@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
 import Codes from '@Codes'
@@ -6,6 +6,7 @@ import Codes from '@Codes'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
     ConfirmModal,
+    ReactQuillEditor,
     VaryButton,
     VaryDatepickerInput,
     VaryInput,
@@ -33,63 +34,69 @@ const {
     InputCell,
     ButtonBox,
     ButtonItem,
+    QuilEditorLabelCell,
+    QuilEditorCell,
 } = DetailTableStyle
 
 const { DetailContainer } = DetailPageStyle
+
 const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ NOTICE_NO: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
     const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(NoticeDetailState)
-    const handleGetInfo = async (NOTICE_NO: string) => {
-        setDetailState(prevState => ({
-            ...prevState,
-            status: 'loading',
-        }))
-        const { status, payload } = await getNoticeDetail({
-            NOTICE_NO: NOTICE_NO,
-        })
-
-        if (status) {
-            const {
-                NOTICE_NO,
-                NOTICE_SJ,
-                REGIST_DT,
-                REGIST_ID,
-                NOTICE_CN,
-                PUSH_AT,
-                TRGET_SVC_CODE,
-                TRGET_SVC_CODE_NM,
-                USE_AT,
-            } = payload
-
+    const handleGetInfo = useCallback(
+        async (NOTICE_NO: string) => {
             setDetailState(prevState => ({
                 ...prevState,
-                status: 'success',
-                info: {
-                    ...prevState.info,
-                    NOTICE_NO: NOTICE_NO,
-                    NOTICE_SJ: NOTICE_SJ,
-                    REGIST_DT: REGIST_DT,
-                    REGIST_ID: REGIST_ID,
-                    NOTICE_CN: NOTICE_CN,
-                    PUSH_AT: PUSH_AT,
-                    TRGET_SVC_CODE: TRGET_SVC_CODE,
-                    TRGET_SVC_CODE_NM: TRGET_SVC_CODE_NM,
-                    USE_AT: USE_AT,
-                },
+                status: 'loading',
             }))
-        } else {
-            setDetailState(prevState => ({
-                ...prevState,
-                status: 'failure',
-            }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.pageError,
+            const { status, payload } = await getNoticeDetail({
+                NOTICE_NO: NOTICE_NO,
             })
-        }
-    }
+
+            if (status) {
+                const {
+                    NOTICE_NO,
+                    NOTICE_SJ,
+                    REGIST_DT,
+                    REGIST_ID,
+                    NOTICE_CN,
+                    PUSH_AT,
+                    TRGET_SVC_CODE,
+                    TRGET_SVC_CODE_NM,
+                    USE_AT,
+                } = payload
+
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                    info: {
+                        ...prevState.info,
+                        NOTICE_NO: NOTICE_NO,
+                        NOTICE_SJ: NOTICE_SJ,
+                        REGIST_DT: REGIST_DT,
+                        REGIST_ID: REGIST_ID,
+                        NOTICE_CN: NOTICE_CN,
+                        PUSH_AT: PUSH_AT,
+                        TRGET_SVC_CODE: TRGET_SVC_CODE,
+                        TRGET_SVC_CODE_NM: TRGET_SVC_CODE_NM,
+                        USE_AT: USE_AT,
+                    },
+                }))
+            } else {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                }))
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.pageError,
+                })
+            }
+        },
+        [handlMainAlert, setDetailState]
+    )
 
     const handleNotice = async () => {
         const {
@@ -195,7 +202,11 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 handleGetInfo(String(params.NOTICE_NO)).then()
             }
         }
-        if (pageMode === `modify` && params.NOTICE_NO) {
+        if (
+            pageMode === `modify` &&
+            params.NOTICE_NO &&
+            detailState.status === 'idle'
+        ) {
             funcSetDetail()
         } else {
             setDetailState(prevState => ({
@@ -215,8 +226,13 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 },
             }))
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageMode, params.NOTICE_NO])
+    }, [
+        detailState.status,
+        handleGetInfo,
+        pageMode,
+        params.NOTICE_NO,
+        setDetailState,
+    ])
 
     return (
         <DetailContainer>
@@ -312,37 +328,31 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         </InputCell>
                     </Row>
                     <Row>
-                        <LabelCell>
+                        <QuilEditorLabelCell>
                             <VaryLabel LabelName={`내용`} />
-                        </LabelCell>
-                        <InputCell>
+                        </QuilEditorLabelCell>
+                        <QuilEditorCell colSpan={3}>
                             <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryInput
-                                        Bg={`gray1`}
-                                        InputType={'text'}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    NOTICE_CN: e.target.value,
-                                                },
-                                            }))
-                                        }
-                                        id={'id'}
-                                        Placeholder={
-                                            '게시물 내용을 입력해 주세요'
-                                        }
+                                <div className="grow">
+                                    <ReactQuillEditor
                                         Value={
                                             detailState.info.NOTICE_CN
                                                 ? detailState.info.NOTICE_CN
                                                 : ''
                                         }
+                                        OnChange={e =>
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    NOTICE_CN: e.toString(),
+                                                },
+                                            }))
+                                        }
                                     />
                                 </div>
                             </div>
-                        </InputCell>
+                        </QuilEditorCell>
                     </Row>
                     <Row>
                         <LabelCell rowSpan={2}>

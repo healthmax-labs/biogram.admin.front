@@ -38,6 +38,7 @@ const ConsultDetailMessage = () => {
                 ...prevState,
                 status: 'loading',
             }))
+
             const { status, payload } = await getMsgBoxList({
                 mber_no: Number(params.memNo),
                 START_DT: messageBoxListState.search.START_DT,
@@ -47,9 +48,7 @@ const ConsultDetailMessage = () => {
                 SNDNG_STDR: '',
                 SEARCH_KEY: '',
             })
-            console.log(messageBoxListState.search)
-            console.log(payload)
-            //todo : api get=>post 수정후 체크 필요
+
             if (status) {
                 setMessageBoxListState(prevState => ({
                     ...prevState,
@@ -75,7 +74,6 @@ const ConsultDetailMessage = () => {
                     ...prevState,
                     memNo: Number(memNo),
                 }))
-
                 handleGetData().then()
             }
         }
@@ -95,7 +93,6 @@ const ConsultDetailMessage = () => {
                         )}
                         CallBackReturn={e => {
                             const { year, monthPad } = gmtTimeToTimeObject(e)
-                            console.log('select date : ' + year + monthPad)
                             setMessageBoxListState(prevState => ({
                                 ...prevState,
                                 search: {
@@ -104,10 +101,9 @@ const ConsultDetailMessage = () => {
                                     END_DT: `${year}${monthPad}31`,
                                 },
                             }))
-                            console.log(messageBoxListState)
                         }}
                     />
-                    {/* ~
+                    {/* ~ 기간으로 하지 않고 선택된 날자의 월로 체킹
                     <VaryDatepickerInput
                         Value={changeDatePickerDate(
                             messageBoxListState.search.END_DT
