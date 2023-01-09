@@ -151,7 +151,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -169,7 +169,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -188,7 +188,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -205,7 +205,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}

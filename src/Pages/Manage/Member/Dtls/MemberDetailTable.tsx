@@ -568,7 +568,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 HandleOnChange={e =>
                                     setDetailState(prevState => ({
                                         ...prevState,
@@ -615,7 +615,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 HandleOnChange={e =>
                                     console.debug(
                                         'HandleOnChange',
@@ -640,7 +640,7 @@ const MemberDetailTable = ({
                         <InputCell>
                             <VaryInput
                                 Ref={inputPhoneNumberRef}
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 HandleOnChange={(
                                     e: React.ChangeEvent<HTMLInputElement>
@@ -705,7 +705,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 HandleOnChange={e =>
                                     setDetailState(prevState => ({
@@ -809,7 +809,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -829,7 +829,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')

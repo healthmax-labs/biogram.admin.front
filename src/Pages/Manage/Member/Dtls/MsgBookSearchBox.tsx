@@ -56,7 +56,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w64'}
+                                Width={'w60'}
                                 HandleOnChange={e =>
                                     setMsgSendListState(prevState => ({
                                         ...prevState,
