@@ -24,12 +24,12 @@ const InitListMain = () => {
             status: 'loading',
         }))
         const {
-            search: { CUR_PAGE, search_Key },
+            search: { CUR_PAGE, SEARCH_KEY },
         } = magazineListState
 
         const { status, payload } = await getMagazineList({
             CUR_PAGE: !isNull(CUR_PAGE) ? String(CUR_PAGE) : '0',
-            SEARCH_KEY: !isNull(search_Key) ? String(search_Key) : '',
+            SEARCH_KEY: !isNull(SEARCH_KEY) ? String(SEARCH_KEY) : '',
         })
 
         if (status) {

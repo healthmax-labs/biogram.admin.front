@@ -16,7 +16,7 @@ interface MagazineSearchListInterface {
     status: DefaultStatus
     search: {
         CUR_PAGE: string | null
-        search_Key: string | null
+        SEARCH_KEY: string | null
     }
     magazineList: {
         MISN_MAGAZINE_LIST: MagazineListItemInterface[]
@@ -57,7 +57,7 @@ export const MagazineListState = atom<MagazineSearchListInterface>({
         status: 'idle',
         search: {
             CUR_PAGE: null,
-            search_Key: null,
+            SEARCH_KEY: null,
         },
         magazineList: {
             MISN_MAGAZINE_LIST: [],
