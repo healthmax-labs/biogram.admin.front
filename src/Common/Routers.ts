@@ -94,7 +94,7 @@ export default [
     },
     {
         mainCode: `30000`,
-        menuCode: ``,
+        menuCode: `30101`,
         name: `메거진 상세`,
         pathName: `/manage/contents/:misn_step/detail`,
         Component: React.lazy(
@@ -173,15 +173,15 @@ export default [
             () => import('@Page/Manage/Status/ActivityWalkListPage')
         ),
     },
-    {
-        mainCode: `40000`,
-        menuCode: `40501`,
-        name: `미측정 현황`,
-        pathName: ``,
-        Component: React.lazy(
-            () => import('@Page/Manage/Belong/BelongManagePage')
-        ),
-    },
+    // {
+    //     mainCode: `40000`,
+    //     menuCode: `40501`,
+    //     name: `미측정 현황`,
+    //     pathName: ``,
+    //     Component: React.lazy(
+    //         () => import('@Page/Manage/Belong/BelongManagePage')
+    //     ),
+    // },
     // {
     //     mainCode: `50000`,
     //     menuCode: `50101`,
@@ -300,8 +300,8 @@ export default [
         ),
     },
     {
-        mainCode: `70000`,
-        menuCode: `70101`,
+        mainCode: `60000`,
+        menuCode: `60301`,
         name: `게시판 관리`,
         pathName: `/manage/manager/notice-list`,
         Component: React.lazy(
@@ -309,8 +309,8 @@ export default [
         ),
     },
     {
-        mainCode: `70000`,
-        menuCode: `70201`,
+        mainCode: `60000`,
+        menuCode: `60301`,
         name: `게시물 상세`,
         pathName: `/manage/manager/notice/:NOTICE_NO/detail`,
         Component: React.lazy(
@@ -318,8 +318,8 @@ export default [
         ),
     },
     {
-        mainCode: `70000`,
-        menuCode: `70301`,
+        mainCode: `60000`,
+        menuCode: `60301`,
         name: `게시판 신규 등록`,
         pathName: `/manage/manager/notice/new`,
         Component: React.lazy(
