@@ -21,7 +21,8 @@ const MemberTable = () => {
             <RowWapper>
                 <ButtonBox>
                     <VaryButton
-                        Name="엑셀다운로드"
+                        ButtonType={`manage`}
+                        ButtonName="엑셀다운로드"
                         HandleClick={() => console.debug('HandleClick')}
                     />
                 </ButtonBox>
@@ -164,7 +165,8 @@ const MemberTable = () => {
             <RowWapper>
                 <ButtonBox>
                     <VaryButton
-                        Name="엑셀다운로드"
+                        ButtonType={`manage`}
+                        ButtonName="엑셀다운로드"
                         HandleClick={() => console.debug('HandleClick')}
                     />
                 </ButtonBox>

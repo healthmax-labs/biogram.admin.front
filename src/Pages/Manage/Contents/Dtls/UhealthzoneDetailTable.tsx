@@ -368,7 +368,8 @@ const UhealthzoneDetailTable = ({
                                 {!detailState.sub.instlPlaceCheck && (
                                     <InputItem>
                                         <VaryButton
-                                            Name={`지점 중복확인`}
+                                            ButtonType={`manage`}
+                                            ButtonName={`지점 중복확인`}
                                             HandleClick={() =>
                                                 handleInstlPlaceCheck()
                                             }
@@ -515,7 +516,8 @@ const UhealthzoneDetailTable = ({
                                 <WS.FlexNoWarapGap>
                                     <DPS.Address.Button>
                                         <VaryButton
-                                            Name={`주소 검색`}
+                                            ButtonType={`manage`}
+                                            ButtonName={`주소 검색`}
                                             HandleClick={() =>
                                                 setPageState(prevState => ({
                                                     ...prevState,
@@ -617,7 +619,8 @@ const UhealthzoneDetailTable = ({
                                         <DPS.MapURL>
                                             <WS.FlexNoWarapGap>
                                                 <VaryButton
-                                                    Name={`지도보기`}
+                                                    ButtonType={`manage`}
+                                                    ButtonName={`지도보기`}
                                                     HandleClick={() => {
                                                         if (
                                                             detailState.detail
@@ -643,7 +646,8 @@ const UhealthzoneDetailTable = ({
                                                 {detailState.detail.LO &&
                                                     detailState.detail.LA && (
                                                         <VaryButton
-                                                            Name={`지도 URL 생성`}
+                                                            ButtonType={`manage`}
+                                                            ButtonName={`지도 URL 생성`}
                                                             HandleClick={() => {
                                                                 setDetailState(
                                                                     prevState => ({
@@ -1287,7 +1291,8 @@ const UhealthzoneDetailTable = ({
                                                     </DPS.DeviceKeySelect>
                                                     <DPS.DeviceKeySelectButton>
                                                         <VaryButton
-                                                            Name={`추가`}
+                                                            ButtonType={`manage`}
+                                                            ButtonName={`추가`}
                                                             HandleClick={() => {
                                                                 if (
                                                                     _.isEmpty(
@@ -1421,7 +1426,8 @@ const UhealthzoneDetailTable = ({
                                                                         </CT.TableBodyCell>
                                                                         <CT.TableBodyCell>
                                                                             <VaryButton
-                                                                                Name={`삭제`}
+                                                                                ButtonType={`manage`}
+                                                                                ButtonName={`삭제`}
                                                                                 HandleClick={() =>
                                                                                     setDetailState(
                                                                                         prevState => ({
@@ -1532,8 +1538,9 @@ const UhealthzoneDetailTable = ({
             <DPS.ButtonBox>
                 <DPS.ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`취소`}
+                        ButtonName={`취소`}
                         HandleClick={() => {
                             console.debug('HandleClick')
                         }}
@@ -1541,8 +1548,9 @@ const UhealthzoneDetailTable = ({
                 </DPS.ButtonItem>
                 <DPS.ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`확인`}
+                        ButtonName={`확인`}
                         HandleClick={() => {
                             const { instlPlaceCheck } = detailState.sub
                             const {
@@ -1634,8 +1642,9 @@ const UhealthzoneDetailTable = ({
                 {pageMode === 'modify' && (
                     <DPS.ButtonItem>
                         <VaryButton
+                            ButtonType={`manage`}
                             BgColor={`eggplant`}
-                            Name={`삭제`}
+                            ButtonName={`삭제`}
                             HandleClick={() => {
                                 setPageState(prevState => ({
                                     ...prevState,

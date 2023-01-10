@@ -335,6 +335,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     }
                                 />
                                 <VaryButton
+                                    ButtonType={`manage`}
                                     HandleClick={async () => {
                                         if (
                                             detailState.info.INST_NM &&
@@ -418,7 +419,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             }))
                                         }
                                     }}
-                                    Name={`소속 중복 확인`}
+                                    ButtonName={`소속 중복 확인`}
                                 />
                             </WapperStyle.InputFlexNoWarpWapper>
                         </InputCell>
@@ -618,8 +619,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`취소`}
+                        ButtonName={`취소`}
                         HandleClick={() => {
                             navigate({
                                 pathname:
@@ -631,8 +633,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`확인`}
+                        ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
                                 ...prevState,
@@ -647,8 +650,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 {pageMode === 'modify' && (
                     <ButtonItem>
                         <VaryButton
+                            ButtonType={`manage`}
                             BgColor={`eggplant`}
-                            Name={`삭제`}
+                            ButtonName={`삭제`}
                             HandleClick={() =>
                                 setDetailState(prevState => ({
                                     ...prevState,

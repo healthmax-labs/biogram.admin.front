@@ -1,6 +1,6 @@
 import React from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultManageButton } from '@Elements'
+import { VaryButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -8,12 +8,14 @@ const ManageBox = () => {
     return (
         <Wapper>
             <Buttons>
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'승인'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'거절'}
                 />
             </Buttons>

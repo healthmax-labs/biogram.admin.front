@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
     ConfirmModal,
-    DefaultManageButton,
+    VaryButton,
     VaryLabelCheckBox,
     VaryModal,
 } from '@Elements'
@@ -223,9 +223,10 @@ const ConsultDetailSurvey = () => {
         <Detail.Container>
             <Detail.Survey.RowWapper>
                 <div className="w-full text-left items-center pt-2">
-                    <DefaultManageButton
+                    <VaryButton
+                        ButtonType={'manage'}
                         ButtonName={'수기입력'}
-                        ButtonClick={() =>
+                        HandleClick={() =>
                             setPageState(prevState => ({
                                 ...prevState,
                                 modal: {
@@ -491,9 +492,10 @@ const ConsultDetailSurvey = () => {
                     }
                     Buttons={
                         <>
-                            <DefaultManageButton
+                            <VaryButton
+                                ButtonType={'manage'}
                                 ButtonName={'취소'}
-                                ButtonClick={() =>
+                                HandleClick={() =>
                                     setPageState(prevState => ({
                                         ...prevState,
                                         surveyData: initializeState.surveyData,
@@ -504,9 +506,10 @@ const ConsultDetailSurvey = () => {
                                     }))
                                 }
                             />
-                            <DefaultManageButton
+                            <VaryButton
+                                ButtonType={'manage'}
                                 ButtonName={'저장'}
-                                ButtonClick={() =>
+                                HandleClick={() =>
                                     setPageState(prevState => ({
                                         ...prevState,
                                         modal: {

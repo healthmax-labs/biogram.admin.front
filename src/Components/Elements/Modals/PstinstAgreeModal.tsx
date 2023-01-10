@@ -1,8 +1,4 @@
-import {
-    DefaultManageButton,
-    VaryLabelCheckBox,
-    VaryModal,
-} from '@Element/index'
+import { VaryButton, VaryLabelCheckBox, VaryModal } from '@Element/index'
 import { StplatInfoItem } from '@CommonTypes'
 import React, { useEffect, useState } from 'react'
 import { PstinstAgreeModalStyle } from '@Style/Elements/ModalStyles'
@@ -173,12 +169,14 @@ const PstinstAgreeModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
-                            ButtonClick={() => HandleClickCancleButtion()}
+                        <VaryButton
+                            ButtonType={'manage'}
+                            HandleClick={() => HandleClickCancleButtion()}
                             ButtonName={'취소'}
                         />
-                        <DefaultManageButton
-                            ButtonClick={() =>
+                        <VaryButton
+                            ButtonType={'manage'}
+                            HandleClick={() =>
                                 HandleClickApplyButton(
                                     pageState.checkStplatInfo
                                 )

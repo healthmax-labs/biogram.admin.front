@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
     ConfirmModal,
-    DefaultManageButton,
     ElementLoading,
+    VaryButton,
     VaryDatepickerInput,
     VaryInput,
     VaryModal,
@@ -242,9 +242,10 @@ const MemberMyDataHistoryModal = ({
                                 />
                             </div>
                             <div className="flex py-2">
-                                <DefaultManageButton
+                                <VaryButton
+                                    ButtonType={'manage'}
                                     ButtonName={'조회'}
-                                    ButtonClick={() => handleGetList().then()}
+                                    HandleClick={() => handleGetList().then()}
                                 />
                             </div>
                         </div>
@@ -351,13 +352,15 @@ const MemberMyDataHistoryModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'닫기'}
-                            ButtonClick={() => CancleButtonClick()}
+                            HandleClick={() => CancleButtonClick()}
                         />
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'저장'}
-                            ButtonClick={() =>
+                            HandleClick={() =>
                                 setPageState(prevState => ({
                                     ...prevState,
                                     modal: {

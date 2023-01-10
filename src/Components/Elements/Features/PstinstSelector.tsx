@@ -5,12 +5,7 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import {
-    DefaultManageButton,
-    VaryInput,
-    VaryModal,
-    VarySelectBox,
-} from '@Elements'
+import { VaryButton, VaryInput, VaryModal, VarySelectBox } from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
 import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
@@ -464,14 +459,16 @@ const PstinstSelector = ({
                     }
                     Buttons={
                         <>
-                            <DefaultManageButton
-                                ButtonClick={() => handleCLickCancleButton()}
+                            <VaryButton
+                                ButtonType={'manage'}
+                                HandleClick={() => handleCLickCancleButton()}
                                 ButtonName={'취소'}
                             />
 
                             {SelectorType === 'OnlyModal' && (
-                                <DefaultManageButton
-                                    ButtonClick={() => handleCLickApplyButton()}
+                                <VaryButton
+                                    ButtonType={'manage'}
+                                    HandleClick={() => handleCLickApplyButton()}
                                     ButtonName={'확인'}
                                 />
                             )}

@@ -3,9 +3,9 @@ import { MemberMesureInfoInterface } from '@Type/MemberTypes'
 import Codes from '@Codes'
 import React, { useEffect, useState } from 'react'
 import {
-    DefaultManageButton,
     MemberMyDataInputModal,
     MemberMyDataModal,
+    VaryButton,
 } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailState } from '@Recoil/MemberPagesState'
@@ -209,9 +209,10 @@ const ConsultDetailTableMyData = () => {
                 </Detail.MyData.Wapper>
             </Detail.Container>
             <div className="w-full text-left items-center gap-2 mt-3">
-                <DefaultManageButton
+                <VaryButton
+                    ButtonType={`manage`}
                     ButtonName={'수기입력'}
-                    ButtonClick={() =>
+                    HandleClick={() =>
                         setPageState(prevState => ({
                             ...prevState,
                             modal: {

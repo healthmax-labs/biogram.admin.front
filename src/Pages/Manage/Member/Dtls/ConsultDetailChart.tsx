@@ -1,8 +1,8 @@
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import {
     ConfirmModal,
-    DefaultManageButton,
     ElementLoading,
+    VaryButton,
     VaryCheckBox,
     VaryDatepickerInput,
 } from '@Elements'
@@ -223,21 +223,24 @@ const ConsultDetailChart = () => {
                 </div>
                 <div className="flex py-2 items-center w-full justify-end">
                     <div className="flex py-2">
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'조회'}
-                            ButtonClick={() => handleGetList().then()}
+                            HandleClick={() => handleGetList().then()}
                         />
                     </div>
                     <div className="flex py-2">
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'신규'}
-                            ButtonClick={() => resetConsultChart()}
+                            HandleClick={() => resetConsultChart()}
                         />
                     </div>
                     <div className="flex py-2">
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'삭제'}
-                            ButtonClick={() => {
+                            HandleClick={() => {
                                 setPageState(prevState => ({
                                     ...prevState,
                                     modal: {

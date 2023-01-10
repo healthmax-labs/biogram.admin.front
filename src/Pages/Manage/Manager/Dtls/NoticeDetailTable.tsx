@@ -412,8 +412,9 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`돌아가기`}
+                        ButtonName={`돌아가기`}
                         HandleClick={() => {
                             navigate({
                                 pathname:
@@ -425,8 +426,9 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`확인`}
+                        ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
                                 ...prevState,

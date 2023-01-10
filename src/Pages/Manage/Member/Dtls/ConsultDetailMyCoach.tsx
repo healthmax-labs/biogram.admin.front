@@ -1,8 +1,4 @@
-import {
-    DefaultManageButton,
-    ElementLoading,
-    VaryDatepickerInput,
-} from '@Elements'
+import { ElementLoading, VaryButton, VaryDatepickerInput } from '@Elements'
 import {
     changeDatePickerDate,
     dateInsertHypen,
@@ -95,9 +91,10 @@ const ConsultDetailMyCoach = () => {
                         />
                     </Detail.MyCoach.SearchItem>
                     <Detail.MyCoach.SearchItem>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'조회'}
-                            ButtonClick={() => handleGetData().then()}
+                            HandleClick={() => handleGetData().then()}
                         />
                     </Detail.MyCoach.SearchItem>
                 </Detail.MyCoach.SearchBox>

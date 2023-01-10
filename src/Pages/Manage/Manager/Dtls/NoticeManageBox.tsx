@@ -1,6 +1,6 @@
 import React from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultManageButton } from '@Elements'
+import { VaryButton } from '@Elements'
 import { useNavigate } from 'react-router-dom'
 
 const { Wapper, Buttons } = ManageBoxStyle
@@ -10,8 +10,9 @@ const ManageBox = () => {
     return (
         <Wapper>
             <Buttons>
-                <DefaultManageButton
-                    ButtonClick={() => {
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => {
                         navigate({
                             pathname:
                                 process.env.PUBLIC_URL +

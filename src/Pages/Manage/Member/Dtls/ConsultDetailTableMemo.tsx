@@ -200,8 +200,9 @@ const ConsultDetailTableMemo = () => {
             <div className="flex justify-end">
                 <div className="flex pt-3 items-right justify-end">
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`저장`}
+                        ButtonName={`저장`}
                         HandleClick={() => {
                             if (_.isEmpty(chartState.REG_NM)) {
                                 handlMainAlert({

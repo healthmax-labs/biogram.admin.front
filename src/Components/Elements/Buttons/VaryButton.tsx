@@ -2,23 +2,31 @@ import React from 'react'
 import { ButtonStyle } from '@Style/Elements/ButtonStyle'
 import { BgColorType } from '@CommonTypes'
 
-const { VaryButtonStyle } = ButtonStyle
+const {
+    VaryButtonStyle: { Button },
+} = ButtonStyle
 
 const VaryButton = ({
-    Name,
+    ButtonName,
+    ButtonType,
     HandleClick,
     BgColor,
+    Active,
 }: {
-    Name: string
+    ButtonName: string
+    Active?: boolean
+    ButtonType: `button` | `info` | `manage`
     HandleClick: () => void
     BgColor?: BgColorType
 }) => {
     return (
-        <VaryButtonStyle
-            bgColor={BgColor ? BgColor : `eggplant`}
+        <Button
+            ButtonType={ButtonType}
+            Active={Active ? Active : null}
+            bgColor={BgColor ? BgColor : null}
             onClick={() => HandleClick()}>
-            {Name}
-        </VaryButtonStyle>
+            {ButtonName}
+        </Button>
     )
 }
 

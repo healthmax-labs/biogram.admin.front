@@ -1,6 +1,6 @@
 import React from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultManageButton } from '@Elements'
+import { VaryButton } from '@Elements'
 import { useNavigate } from 'react-router-dom'
 
 const { Wapper, Buttons } = ManageBoxStyle
@@ -11,8 +11,9 @@ const InstListManageBox = () => {
     return (
         <Wapper>
             <Buttons>
-                <DefaultManageButton
-                    ButtonClick={() => {
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => {
                         navigate({
                             pathname:
                                 process.env.PUBLIC_URL +
@@ -21,8 +22,9 @@ const InstListManageBox = () => {
                     }}
                     ButtonName={'소속 신규 등록'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'엑셀내려받기'}
                 />
             </Buttons>
