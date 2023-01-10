@@ -39,16 +39,16 @@ const MagazineListSearchBox = ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            search_Key: e.target.value,
+                                            SEARCH_KEY: e.target.value,
                                         },
                                     }))
                                 }
                                 id={'id'}
                                 Placeholder={'제목 / 내용'}
                                 Value={
-                                    isNull(listState.search.search_Key)
+                                    isNull(listState.search.SEARCH_KEY)
                                         ? ''
-                                        : listState.search.search_Key
+                                        : listState.search.SEARCH_KEY
                                 }
                             />
                         </SearchItem>

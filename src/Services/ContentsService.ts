@@ -26,7 +26,7 @@ export const getMagazineList = ({
     }>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/todo/v1/misn/magazine/list/${CUR_PAGE}`,
         payload: {
             SEARCH_KEY,
