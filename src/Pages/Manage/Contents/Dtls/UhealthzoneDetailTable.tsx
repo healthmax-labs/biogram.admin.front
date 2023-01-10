@@ -345,7 +345,7 @@ const UhealthzoneDetailTable = ({
                             <VaryLabel LabelName={`지점명`} />
                         </LabelCell>
                         <InputCell>
-                            <WS.InputWapper>
+                            <WS.InputFlexNoWarpWapper>
                                 <InputItem>
                                     <VaryInput
                                         InputType={'text'}
@@ -375,7 +375,7 @@ const UhealthzoneDetailTable = ({
                                         />
                                     </InputItem>
                                 )}
-                            </WS.InputWapper>
+                            </WS.InputFlexNoWarpWapper>
                         </InputCell>
                     </Row>
                     <Row>
@@ -383,7 +383,7 @@ const UhealthzoneDetailTable = ({
                             <VaryLabel LabelName={`소속 위치`} />
                         </LabelCell>
                         <InputCell>
-                            <WS.InputWapper>
+                            <WS.InputFlexNoWarpWapper>
                                 <PstinstSelectBox
                                     Value={{
                                         status: 'success',
@@ -475,7 +475,7 @@ const UhealthzoneDetailTable = ({
                                         }
                                     }}
                                 />
-                            </WS.InputWapper>
+                            </WS.InputFlexNoWarpWapper>
                         </InputCell>
                     </Row>
                     <Row>
@@ -483,7 +483,7 @@ const UhealthzoneDetailTable = ({
                             <VaryLabel LabelName={`전화번호`} />
                         </LabelCell>
                         <InputCell>
-                            <WS.InputWapper>
+                            <WS.InputFlexNoWarpWapper>
                                 <InputItem>
                                     <VaryInput
                                         InputType={'text'}
@@ -503,7 +503,7 @@ const UhealthzoneDetailTable = ({
                                         }
                                     />
                                 </InputItem>
-                            </WS.InputWapper>
+                            </WS.InputFlexNoWarpWapper>
                         </InputCell>
                     </Row>
                     <Row>

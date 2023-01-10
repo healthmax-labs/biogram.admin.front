@@ -1,6 +1,6 @@
 import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import React from 'react'
-import { ContentType } from '@CommonTypes'
+import { ContentType, InputWidthType } from '@CommonTypes'
 
 const { Wapper, Select } = VarySelectBoxStyle
 
@@ -12,6 +12,7 @@ const VarySelectBox = ({
     HandleOnnBlur,
     Elements,
     HandleOnChange,
+    Width,
 }: {
     Value: string
     Placeholder?: string
@@ -23,9 +24,10 @@ const VarySelectBox = ({
     HandleOnFocus?: () => void
     HandleOnnBlur?: () => void
     HandleOnChange: ({ value, text }: { value: string; text: string }) => void
+    Width?: InputWidthType | null
 }) => {
     return (
-        <Wapper>
+        <Wapper Width={Width ? Width : 'w60'}>
             <Select
                 name="select"
                 ContentsType={ContentsType ? ContentsType : 'default'}

@@ -48,7 +48,7 @@ export const ManageBoxStyle = {
 }
 
 export const WapperStyle = {
-    InputWapper: tw.div`flex flex-nowrap w-full items-center`,
+    InputFlexNoWarpWapper: tw.div`flex flex-nowrap w-full items-center`,
     FullWapper: tw.div`w-full`,
     FullWapperGap: tw.div`w-full gap-2 py-1`,
     FullNoWarap: tw.div`flex flex-nowrap w-full`,
