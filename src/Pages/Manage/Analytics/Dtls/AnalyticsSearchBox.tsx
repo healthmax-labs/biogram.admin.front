@@ -28,11 +28,13 @@ const AnalyticsSearchBox = () => {
                         <SearchLabel>
                             <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                console.debug(instNo, instNm)
-                            }
-                        />
+                        <SearchItem>
+                            <PstinstSelector
+                                HandleSelectValue={({ instNo, instNm }) =>
+                                    console.debug(instNo, instNm)
+                                }
+                            />
+                        </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>
                 <SearchItemRow>

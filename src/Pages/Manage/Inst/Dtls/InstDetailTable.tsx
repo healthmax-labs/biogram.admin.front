@@ -293,7 +293,6 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
-                                    Bg={`white`}
                                     ReadOnly={true}
                                     Width={`w60`}
                                     InputType={'text'}
@@ -488,7 +487,6 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Bg={`gray1`}
                                 Width={`w60`}
                                 InputType={'text'}
                                 HandleOnChange={e =>
@@ -516,7 +514,6 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Bg={`gray1`}
                                 Width={`w60`}
                                 InputType={'text'}
                                 HandleOnChange={e =>

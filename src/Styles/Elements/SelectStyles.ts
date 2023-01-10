@@ -8,7 +8,6 @@ export const SelectStyle = {
 }
 
 export const VarySelectBoxStyle = {
-    Wapper1: tw.div`flex items-center w-60`,
     Wapper: styled.div(({ Width }: { Width?: InputWidthType | null }) => {
         const returnTw = [tw`flex items-center`]
 
@@ -22,15 +21,17 @@ export const VarySelectBoxStyle = {
     }),
     Select: styled.select(
         ({ ContentsType = 'default' }: { ContentsType: ContentType }) => {
-            const returnTw = []
+            const returnTw = [
+                tw`form-select h-8 w-full  rounded-md shadow-sm text-xs`,
+            ]
 
             if (ContentsType === 'search') {
                 returnTw.push(
-                    tw`form-select block h-8 px-3 w-24 border rounded-md shadow-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`
+                    tw`px-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white`
                 )
             } else {
                 returnTw.push(
-                    tw`form-select h-8 border-0 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition border-gray-300 bg-gray-300 block w-full`
+                    tw`border-0 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 leading-none transition border-gray-300 bg-gray-300 block bg-mercury`
                 )
             }
 

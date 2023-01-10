@@ -327,9 +327,6 @@ const MemberMyDataInputModal = ({
                                                                 </td>
                                                                 <td className="border w-2/4 max-h-8">
                                                                     <VaryInput
-                                                                        Bg={
-                                                                            'gray2'
-                                                                        }
                                                                         Value={
                                                                             _.get(
                                                                                 pageState.input,

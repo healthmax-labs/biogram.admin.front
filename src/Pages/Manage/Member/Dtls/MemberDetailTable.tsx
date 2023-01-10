@@ -741,6 +741,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryDatepickerInput
+                                Width={`w60`}
                                 Value={
                                     detailState.detail.BRTHDY
                                         ? new Date(detailState.detail.BRTHDY)

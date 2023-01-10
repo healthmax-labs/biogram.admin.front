@@ -39,6 +39,7 @@ export default {
         w96: tw`w-96`,
         w1012: tw`w-10/12`,
         w212: tw`w-2/12`,
+        full: tw`w-full`,
     },
     marginLeft: {
         ml48: tw`ml-48`,

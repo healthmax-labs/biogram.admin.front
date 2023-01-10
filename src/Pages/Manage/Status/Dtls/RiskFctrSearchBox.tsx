@@ -244,7 +244,7 @@ const RiskFctrSearchBox = ({
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w60'}
+                                Width={'full'}
                                 id={'id'}
                                 Placeholder={'ID / 이름 / 연락처 / 전화번호'}
                                 Value={

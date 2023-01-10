@@ -246,7 +246,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <div className="flex flex-nowrap w-full items-center">
                                 <div className="w-2/4">
                                     <VaryInput
-                                        Bg={`gray1`}
                                         InputType={'text'}
                                         HandleOnChange={e =>
                                             setDetailState(prevState => ({

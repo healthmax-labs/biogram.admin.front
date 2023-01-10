@@ -18,6 +18,7 @@ export type InputWidthType =
     | 'w96'
     | 'w1012'
     | 'w212'
+    | 'full'
 
 export type MaxWidthType =
     | 'sm'
