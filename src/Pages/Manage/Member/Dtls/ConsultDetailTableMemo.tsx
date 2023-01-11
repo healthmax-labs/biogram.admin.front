@@ -3,7 +3,7 @@ import {
     VaryButton,
     VaryInput,
     VaryLabel,
-    VaryLabelTextArea,
+    VaryTextArea,
 } from '@Elements'
 import {
     ConsultDetailChartListState,
@@ -163,7 +163,7 @@ const ConsultDetailTableMemo = () => {
                 </div>
                 <div className="flex flex-nowrap whitespace-nowrap w-full">
                     <div className="flex w-full text-sm text-gray-500 ">
-                        <VaryLabelTextArea
+                        <VaryTextArea
                             HandleOnChange={e =>
                                 setChartState(prevState => ({
                                     ...prevState,
@@ -183,7 +183,7 @@ const ConsultDetailTableMemo = () => {
                 </div>
                 <div className="flex flex-nowrap whitespace-nowrap w-full">
                     <div className="flex w-full text-sm text-gray-500 border">
-                        <VaryLabelTextArea
+                        <VaryTextArea
                             HandleOnChange={e =>
                                 setChartState(prevState => ({
                                     ...prevState,

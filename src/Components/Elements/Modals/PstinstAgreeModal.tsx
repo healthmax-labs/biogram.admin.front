@@ -15,7 +15,7 @@ const {
     AgreeItemTitle,
     AgreeItemContent,
     AgreeItemCheckBox,
-    AllAgreeButton,
+    AllAgreeButtonBox,
 } = PstinstAgreeModalStyle
 
 const initializeState = {
@@ -142,10 +142,11 @@ const PstinstAgreeModal = ({
                                     }
                                 )}
                         </ItemGrid>
-                        <AllAgreeButton>
+                        <AllAgreeButtonBox>
                             <VaryLabelCheckBox
                                 LabelName={`모든 약관에 동의 합니다.`}
                                 Checked={pageState.allCheck}
+                                LabelWidth={`w32`}
                                 HandleOnChange={e => {
                                     const result = Object.keys(
                                         pageState.checkStplatInfo
@@ -163,7 +164,7 @@ const PstinstAgreeModal = ({
                                     }))
                                 }}
                             />
-                        </AllAgreeButton>
+                        </AllAgreeButtonBox>
                     </Container>
                 }
                 Buttons={

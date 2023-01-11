@@ -29,8 +29,8 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelRadioButton,
-    VaryLabelTextArea,
     VaryModal,
+    VaryTextArea,
 } from '@Elements'
 import { getOnlyNumber, gmtTimeToTimeObject } from '@Helper'
 import Messages from '@Messages'
@@ -1404,7 +1404,7 @@ const MemberDetailTable = ({
                                     dangerouslySetInnerHTML={{
                                         __html: `${originInfo.NM} ${Messages.Default.member.pstinstLeave.confirm}`,
                                     }}></PstinstLeaveModalContentMessage>
-                                <VaryLabelTextArea
+                                <VaryTextArea
                                     Rows={10}
                                     Placeholder={`메모를 입력해 주세요`}
                                     Value={

@@ -36,7 +36,8 @@ const VaryLabelRadioButton = ({
             />
             <InputLabel
                 Width={LabelWidth ?? LabelWidth}
-                TextColor={TextColor ? TextColor : 'gray'}>
+                TextColor={TextColor ? TextColor : 'gray'}
+                TextAlign={`left`}>
                 {LabelName}
             </InputLabel>
         </Wapper>

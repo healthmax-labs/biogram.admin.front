@@ -1,7 +1,12 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { InputWidthType, ContentType } from '@CommonTypes'
+import {
+    InputWidthType,
+    ContentType,
+    TextColorType,
+    TextAlignType,
+} from '@CommonTypes'
 
 export const InputStyle = {
     DatePickerWapper: styled.div(
@@ -30,7 +35,7 @@ export const InputStyle = {
 }
 
 export const VaryLabelInputStyle = {
-    Wapper: tw.div`flex items-center`,
+    Wapper: tw.div`flex items-center gap-2`,
     InputLabel: tw.label`block uppercase text-gray-600 text-xs w-2/12 font-bold`,
     Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
         tw`form-input block h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
@@ -109,14 +114,36 @@ export const VaryLabelStyle = {
         ({
             Width,
             TextColor,
+            TextAlign,
         }: {
-            Width?: InputWidthType
-            TextColor: 'gray' | 'white'
-        }) => [
-            tw`block text-xs text-right`,
-            Width ? ConstStyle.width[Width] : tw``,
-            TextColor === 'gray' ? tw`text-gray-500` : tw``,
-        ]
+            Width?: InputWidthType | null
+            TextColor: TextColorType
+            TextAlign: TextAlignType
+        }) => {
+            const returnTw = [tw`block text-xs`]
+
+            if (TextAlign == 'left') {
+                returnTw.push(tw`text-left`)
+            } else if (TextAlign == 'center') {
+                returnTw.push(tw`text-center`)
+            } else if (TextAlign == 'right') {
+                returnTw.push(tw`text-right`)
+            }
+
+            if (Width && Width) {
+                returnTw.push(ConstStyle.width[Width])
+            }
+
+            if (TextColor === 'gray') {
+                returnTw.push(tw`text-gray-500`)
+            }
+
+            if (!Width) {
+                console.debug(returnTw)
+            }
+
+            return returnTw
+        }
     ),
 }
 

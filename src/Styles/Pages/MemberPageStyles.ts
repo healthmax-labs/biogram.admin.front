@@ -130,11 +130,11 @@ export const ConsultDetailStyle = {
         Survey: {
             RowWapper: tw.div`w-full pb-1`,
             Table: {
-                Table: tw.table`text-left min-w-full shadow-md rounded`,
+                Table: tw.table`min-w-full shadow-md rounded`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8`,
-                Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8`,
+                CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8 content-center justify-center`,
+                Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center`,
             },
         },
         MyCoach: {

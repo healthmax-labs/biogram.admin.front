@@ -52,6 +52,7 @@ export const WapperStyle = {
     InputFlexNoWarpWapperGap: tw.div`flex flex-nowrap w-full items-center gap-2`,
     FullWapper: tw.div`w-full`,
     FullWapperGap: tw.div`w-full gap-2 py-1`,
+    FullNoWarapGap: tw.div`flex flex-nowrap w-full gap-2 py-1`,
     FullNoWarap: tw.div`flex flex-nowrap w-full`,
     FlexNoWarap: tw.div`flex flex-nowrap`,
     FlexNoWarapGap: tw.div`flex flex-nowrap gap-2 py-1`,

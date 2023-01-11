@@ -541,21 +541,25 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`승인여부`} />
                         </LabelCell>
                         <InputCell>
-                            <VaryLabelCheckBox
-                                Checked={detailState.info.INST_TY_CODE === 'M'}
-                                LabelName={`가입시 관리자의 승인이 필요합니다. (미 체크시 바로 가입 할수 있습니다)`}
-                                HandleOnChange={e =>
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        info: {
-                                            ...prevState.info,
-                                            INST_TY_CODE: e.target.checked
-                                                ? 'M'
-                                                : 'O',
-                                        },
-                                    }))
-                                }
-                            />
+                            <WapperStyle.InputFlexNoWarpWapper>
+                                <VaryLabelCheckBox
+                                    Checked={
+                                        detailState.info.INST_TY_CODE === 'M'
+                                    }
+                                    LabelName={`가입시 관리자의 승인이 필요합니다. (미 체크시 바로 가입 할수 있습니다)`}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                INST_TY_CODE: e.target.checked
+                                                    ? 'M'
+                                                    : 'O',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WapperStyle.InputFlexNoWarpWapper>
                         </InputCell>
                     </Row>
                     <Row>
@@ -563,29 +567,26 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`별도약관여부`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryLabelCheckBox
-                                        Checked={
-                                            detailState.info.SPUSE_STPLAT_AT ===
-                                            'Y'
-                                        }
-                                        LabelName={`별도의 약관이 존재하는 경우 체크합니다.`}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    SPUSE_STPLAT_AT: e.target
-                                                        .checked
-                                                        ? 'Y'
-                                                        : 'N',
-                                                },
-                                            }))
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            <WapperStyle.InputFlexNoWarpWapper>
+                                <VaryLabelCheckBox
+                                    Checked={
+                                        detailState.info.SPUSE_STPLAT_AT === 'Y'
+                                    }
+                                    LabelName={`별도의 약관이 존재하는 경우 체크합니다.`}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                SPUSE_STPLAT_AT: e.target
+                                                    .checked
+                                                    ? 'Y'
+                                                    : 'N',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WapperStyle.InputFlexNoWarpWapper>
                         </InputCell>
                     </Row>
                     <Row>

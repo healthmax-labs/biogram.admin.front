@@ -571,7 +571,7 @@ const UhealthzoneDetailTable = ({
                                     </WS.FlexNoWarapGap>
                                 </WS.FlexNoWarapGap>
                                 <WS.FlexNoWarapGap>
-                                    <WS.FullNoWarap>
+                                    <WS.FullNoWarapGap>
                                         <DPS.MapURL>
                                             <VaryInput
                                                 InputType={'text'}
@@ -646,7 +646,7 @@ const UhealthzoneDetailTable = ({
                                                     )}
                                             </WS.FlexNoWarapGap>
                                         </DPS.MapURL>
-                                    </WS.FullNoWarap>
+                                    </WS.FullNoWarapGap>
                                 </WS.FlexNoWarapGap>
                             </WS.FullWapper>
                         </InputCell>
@@ -669,6 +669,7 @@ const UhealthzoneDetailTable = ({
                                         return (
                                             <VaryLabelCheckBox
                                                 key={`uhealth-zone-detail-table-week1-item-${index}`}
+                                                LabelWidth={`w5`}
                                                 Checked={
                                                     ckFindIndex > -1 &&
                                                     Number(
@@ -839,6 +840,7 @@ const UhealthzoneDetailTable = ({
                                         return (
                                             <VaryLabelCheckBox
                                                 key={`uhealth-zone-detail-table-week2-item-${index}`}
+                                                LabelWidth={`w5`}
                                                 Checked={false}
                                                 LabelName={`${el.name2}`}
                                                 HandleOnChange={() =>
@@ -1142,12 +1144,12 @@ const UhealthzoneDetailTable = ({
                                             <VaryLabel LabelName={`설치기기`} />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
+                                            <WS.FlexNoWarapGap>
                                                 {Codes.deviceGubun.mhrls.list.map(
                                                     (el, index) => {
                                                         return (
                                                             <VaryLabelCheckBox
-                                                                key={`uhealth-zone-detail-table-deviceGubun-mhrls-item-${index}`}
+                                                                key={`uhealth-zone-detail-table-device-gubun-mhrls-item-${index}`}
                                                                 Checked={(() => {
                                                                     const ckFindIndex =
                                                                         detailState.detail.MHRLS_INFO.findIndex(
@@ -1160,6 +1162,7 @@ const UhealthzoneDetailTable = ({
                                                                         -1
                                                                     )
                                                                 })()}
+                                                                LabelWidth={`wMin`}
                                                                 LabelName={`${el.name}`}
                                                                 HandleOnChange={e => {
                                                                     if (
@@ -1205,146 +1208,136 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
                                         <InputCell colSpan={2}>
                                             <WS.FullWapperGap>
-                                                <WS.FlexNoWarapGap>
-                                                    <DPS.DeviceKeySelect>
-                                                        <VarySelectBox
-                                                            Elements={Codes.deviceGubun.measureCode.list.map(
-                                                                el => {
-                                                                    return {
-                                                                        value: el.code,
-                                                                        text: `${el.name}`,
-                                                                    }
+                                                <WS.FullNoWarapGap>
+                                                    <VarySelectBox
+                                                        Elements={Codes.deviceGubun.measureCode.list.map(
+                                                            el => {
+                                                                return {
+                                                                    value: el.code,
+                                                                    text: `${el.name}`,
                                                                 }
-                                                            )}
-                                                            Placeholder={`측정 코드를 선택해 주세요`}
-                                                            HandleOnChange={e =>
-                                                                setPageState(
-                                                                    prevState => ({
-                                                                        ...prevState,
-                                                                        selectMeasureCode:
-                                                                            {
-                                                                                ...prevState.selectMeasureCode,
-                                                                                code: e.value,
-                                                                            },
-                                                                    })
-                                                                )
                                                             }
-                                                            Value={
-                                                                pageState
-                                                                    .selectMeasureCode
-                                                                    .code
-                                                            }
-                                                        />
-                                                    </DPS.DeviceKeySelect>
-                                                    <DPS.DeviceKeySelect>
-                                                        <VaryInput
-                                                            InputType={'text'}
-                                                            id={'id'}
-                                                            Placeholder={
-                                                                '시리얼 번호를 입력해 주세요.'
-                                                            }
-                                                            Value={
-                                                                pageState
-                                                                    .selectMeasureCode
-                                                                    .key
-                                                            }
-                                                            HandleOnChange={(
-                                                                e: React.ChangeEvent<HTMLInputElement>
-                                                            ) =>
-                                                                setPageState(
-                                                                    prevState => ({
-                                                                        ...prevState,
-                                                                        selectMeasureCode:
-                                                                            {
-                                                                                ...prevState.selectMeasureCode,
-                                                                                key: e
-                                                                                    .target
-                                                                                    .value,
-                                                                            },
-                                                                    })
-                                                                )
-                                                            }
-                                                        />
-                                                    </DPS.DeviceKeySelect>
-                                                    <DPS.DeviceKeySelectButton>
-                                                        <VaryButton
-                                                            ButtonType={`default`}
-                                                            ButtonName={`추가`}
-                                                            HandleClick={() => {
-                                                                if (
-                                                                    _.isEmpty(
-                                                                        pageState
-                                                                            .selectMeasureCode
-                                                                            .code
-                                                                    )
-                                                                ) {
-                                                                    handlMainAlert(
+                                                        )}
+                                                        Placeholder={`측정 코드를 선택해 주세요`}
+                                                        HandleOnChange={e =>
+                                                            setPageState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    selectMeasureCode:
                                                                         {
-                                                                            state: true,
-                                                                            message:
-                                                                                Messages
-                                                                                    .Default
-                                                                                    .contents
-                                                                                    .selectMeasureCodeEmpty,
-                                                                        }
-                                                                    )
-                                                                    return
-                                                                }
-
-                                                                if (
-                                                                    _.isEmpty(
-                                                                        pageState
-                                                                            .selectMeasureCode
-                                                                            .key
-                                                                    )
-                                                                ) {
-                                                                    handlMainAlert(
-                                                                        {
-                                                                            state: true,
-                                                                            message:
-                                                                                Messages
-                                                                                    .Default
-                                                                                    .contents
-                                                                                    .selectMeasureCodeKeyEmpty,
-                                                                        }
-                                                                    )
-                                                                    return
-                                                                }
-
-                                                                setDetailState(
-                                                                    prevState => ({
-                                                                        ...prevState,
-                                                                        detail: {
-                                                                            ...prevState.detail,
-                                                                            VEIN_RCIVR:
-                                                                                [
-                                                                                    ...prevState
-                                                                                        .detail
-                                                                                        .VEIN_RCIVR,
-                                                                                    {
-                                                                                        MHRLS_CODE:
-                                                                                            pageState
-                                                                                                .selectMeasureCode
-                                                                                                .code,
-                                                                                        SERIAL_NO:
-                                                                                            pageState
-                                                                                                .selectMeasureCode
-                                                                                                .key,
-                                                                                    },
-                                                                                ],
+                                                                            ...prevState.selectMeasureCode,
+                                                                            code: e.value,
                                                                         },
-                                                                    })
+                                                                })
+                                                            )
+                                                        }
+                                                        Value={
+                                                            pageState
+                                                                .selectMeasureCode
+                                                                .code
+                                                        }
+                                                    />
+                                                    <VaryInput
+                                                        InputType={'text'}
+                                                        id={'id'}
+                                                        Placeholder={
+                                                            '시리얼 번호를 입력해 주세요.'
+                                                        }
+                                                        Value={
+                                                            pageState
+                                                                .selectMeasureCode
+                                                                .key
+                                                        }
+                                                        HandleOnChange={(
+                                                            e: React.ChangeEvent<HTMLInputElement>
+                                                        ) =>
+                                                            setPageState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    selectMeasureCode:
+                                                                        {
+                                                                            ...prevState.selectMeasureCode,
+                                                                            key: e
+                                                                                .target
+                                                                                .value,
+                                                                        },
+                                                                })
+                                                            )
+                                                        }
+                                                    />
+                                                    <VaryButton
+                                                        ButtonType={`default`}
+                                                        ButtonName={`추가`}
+                                                        HandleClick={() => {
+                                                            if (
+                                                                _.isEmpty(
+                                                                    pageState
+                                                                        .selectMeasureCode
+                                                                        .code
                                                                 )
-                                                            }}
-                                                        />
-                                                    </DPS.DeviceKeySelectButton>
-                                                </WS.FlexNoWarapGap>
+                                                            ) {
+                                                                handlMainAlert({
+                                                                    state: true,
+                                                                    message:
+                                                                        Messages
+                                                                            .Default
+                                                                            .contents
+                                                                            .selectMeasureCodeEmpty,
+                                                                })
+                                                                return
+                                                            }
+
+                                                            if (
+                                                                _.isEmpty(
+                                                                    pageState
+                                                                        .selectMeasureCode
+                                                                        .key
+                                                                )
+                                                            ) {
+                                                                handlMainAlert({
+                                                                    state: true,
+                                                                    message:
+                                                                        Messages
+                                                                            .Default
+                                                                            .contents
+                                                                            .selectMeasureCodeKeyEmpty,
+                                                                })
+                                                                return
+                                                            }
+
+                                                            setDetailState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    detail: {
+                                                                        ...prevState.detail,
+                                                                        VEIN_RCIVR:
+                                                                            [
+                                                                                ...prevState
+                                                                                    .detail
+                                                                                    .VEIN_RCIVR,
+                                                                                {
+                                                                                    MHRLS_CODE:
+                                                                                        pageState
+                                                                                            .selectMeasureCode
+                                                                                            .code,
+                                                                                    SERIAL_NO:
+                                                                                        pageState
+                                                                                            .selectMeasureCode
+                                                                                            .key,
+                                                                                },
+                                                                            ],
+                                                                    },
+                                                                })
+                                                            )
+                                                        }}
+                                                    />
+                                                </WS.FullNoWarapGap>
                                             </WS.FullWapperGap>
                                             <WS.FullWapperGap>
                                                 <CT.TableWapper>
