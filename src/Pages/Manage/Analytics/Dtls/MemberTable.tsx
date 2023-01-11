@@ -67,34 +67,19 @@ const MemberTable = () => {
     ) => {
         let cellHtml
         if (mberAnalyticsListState.status) {
-            if (area === 'AGE') {
-                const TOT_MBER_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .TOT_MBER_CNT
-                const TOT_MAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .TOT_MAN_CNT
-                const TOT_WOMAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .TOT_WOMAN_CNT
-                const NEW_MBER_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .NEW_MBER_CNT
-                const NEW_WOMAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .NEW_WOMAN_CNT
-                const NEW_MAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .NEW_MAN_CNT
-                const DEL_MBER_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .DEL_MBER_CNT
-                const DLE_WOMAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .DLE_WOMAN_CNT
-                const DEL_MAN_CNT =
-                    mberAnalyticsListState.list?.AGE_GROUP_STAT_LIST[lineNum]
-                        .DEL_MAN_CNT
+            if (area === 'AGE' && mberAnalyticsListState.list !== null) {
+                const getAgeData =
+                    mberAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
+                const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
+                const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
+                const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
+                const NEW_MBER_CNT = getAgeData.NEW_MBER_CNT
+                const NEW_WOMAN_CNT = getAgeData.NEW_WOMAN_CNT
+                const NEW_MAN_CNT = getAgeData.NEW_MAN_CNT
+                const DEL_MBER_CNT = getAgeData.DEL_MBER_CNT
+                const DLE_WOMAN_CNT = getAgeData.DLE_WOMAN_CNT
+                const DEL_MAN_CNT = getAgeData.DEL_MAN_CNT
+
                 if (mode === '') {
                     cellHtml = (
                         <>
@@ -125,53 +110,25 @@ const MemberTable = () => {
                         </>
                     )
                 }
-            } else {
-                const TOT_MBER_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .TOT_MBER_CNT
-                const TOT_MAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .TOT_MAN_CNT
-                const TOT_WOMAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .TOT_WOMAN_CNT
-                const NEW_MBER_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .NEW_MBER_CNT
-                const NEW_WOMAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .NEW_WOMAN_CNT
-                const NEW_MAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .NEW_MAN_CNT
-                const DEL_MBER_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .DEL_MBER_CNT
-                const DLE_WOMAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .DLE_WOMAN_CNT
-                const DEL_MAN_CNT =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .DEL_MAN_CNT
-                const PERIOD =
-                    mberAnalyticsListState.list?.PERIOD_STAT_LIST[lineNum]
-                        .PERIOD
-                if (mode === '') {
-                    cellHtml = (
-                        <>
-                            <T.Cell colSpan={colspan}>{PERIOD}</T.Cell>
-                            <T.Cell>{TOT_MBER_CNT}</T.Cell>
-                            <T.Cell>{TOT_MAN_CNT}</T.Cell>
-                            <T.Cell>{TOT_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{NEW_MBER_CNT}</T.Cell>
-                            <T.Cell>{NEW_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{NEW_MAN_CNT}</T.Cell>
-                            <T.Cell>{DEL_MBER_CNT}</T.Cell>
-                            <T.Cell>{DLE_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                        </>
-                    )
-                }
+            } else if (mberAnalyticsListState.list !== null) {
+                const data = mberAnalyticsListState.list.PERIOD_STAT_LIST
+
+                console.log(data)
+
+                return data.map(data => (
+                    <T.Row>
+                        <T.Cell colSpan={colspan}>{data.PERIOD}</T.Cell>
+                        <T.Cell>{data.TOT_MBER_CNT}</T.Cell>
+                        <T.Cell>{data.TOT_MAN_CNT}</T.Cell>
+                        <T.Cell>{data.TOT_WOMAN_CNT}</T.Cell>
+                        <T.Cell>{data.NEW_MBER_CNT}</T.Cell>
+                        <T.Cell>{data.NEW_WOMAN_CNT}</T.Cell>
+                        <T.Cell>{data.NEW_MAN_CNT}</T.Cell>
+                        <T.Cell>{data.DEL_MBER_CNT}</T.Cell>
+                        <T.Cell>{data.DLE_WOMAN_CNT}</T.Cell>
+                        <T.Cell>{data.DEL_MAN_CNT}</T.Cell>
+                    </T.Row>
+                ))
             }
         } else {
             if (area !== 'AGE') {
@@ -328,14 +285,7 @@ const MemberTable = () => {
                                 <T.TheadCell>남성</T.TheadCell>
                             </T.TheadRow>
                         </T.Thead>
-                        <T.Body>
-                            <T.Row>{cellMaker(0, 'PERIOD', '', 2)}</T.Row>
-                            <T.Row>{cellMaker(1, 'PERIOD', '', 2)}</T.Row>
-                            <T.Row>{cellMaker(2, 'PERIOD', '', 2)}</T.Row>
-                            <T.Row>{cellMaker(3, 'PERIOD', '', 2)}</T.Row>
-                            <T.Row>{cellMaker(4, 'PERIOD', '', 2)}</T.Row>
-                            <T.Row>{cellMaker(5, 'PERIOD', '', 2)}</T.Row>
-                        </T.Body>
+                        <T.Body>{cellMaker(0, 'PERIOD', '', 2)}</T.Body>
                         {/* <T.TFoot>
                             <T.TFootRow>
                                 <T.TFootCell colSpan={2}>
