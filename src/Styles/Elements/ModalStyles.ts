@@ -53,6 +53,8 @@ export const PstinstAgreeModalStyle = {
     AgreeItemCard: tw.div`px-2 py-2 bg-white border border-gray-200 rounded-lg shadow-md`,
     AgreeItemTitle: tw.div`mb-2 text-sm text-left font-bold tracking-tight text-gray-900`,
     AgreeItemContent: tw.div`h-[35rem] overflow-y-scroll text-left`,
-    AgreeItemCheckBox: tw.div`flex pt-3 items-end object-bottom place-items-end content-end`,
-    AllAgreeButton: tw.div`flex flex-row justify-center text-xs pt-3`,
+    AgreeItemCheckBox1: tw.div`flex pt-3 items-center object-center place-items-end content-end`,
+    AgreeItemCheckBox: tw.div`flex items-center`,
+    AllAgreeButtonBox: tw.div`flex flex-row justify-center text-xs pt-3`,
+    AllAgreeButton: tw.div`flex flex-nowrap gap-1`,
 }

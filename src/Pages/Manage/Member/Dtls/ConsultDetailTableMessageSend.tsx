@@ -6,7 +6,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
-    VaryLabelTextArea,
+    VaryTextArea,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailSmsSendState } from '@Recoil/MemberPagesState'
@@ -108,7 +108,7 @@ const ConsultDetailTableMessageSend = () => {
             <div className="flex flex-col break-words bg-white pt-3">
                 <div className="flex flex-nowrap whitespace-nowrap w-full">
                     <div className="flex w-full text-sm text-gray-500 ">
-                        <VaryLabelTextArea
+                        <VaryTextArea
                             HandleOnChange={e =>
                                 setSmsSendState(prevState => ({
                                     ...prevState,

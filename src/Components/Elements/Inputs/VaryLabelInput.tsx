@@ -1,9 +1,9 @@
 import React, { KeyboardEvent } from 'react'
 import { InputWidthType } from '@CommonTypes'
-import { VaryInput } from '@Elements'
+import { VaryInput, VaryLabel } from '@Elements'
 import { VaryLabelInputStyle } from '@Style/Elements/InputStyles'
 
-const { Wapper, InputLabel } = VaryLabelInputStyle
+const { Wapper } = VaryLabelInputStyle
 
 const VaryLabelInput = ({
     InputType,
@@ -32,7 +32,7 @@ const VaryLabelInput = ({
 
     return (
         <Wapper>
-            <InputLabel>{LabelName}</InputLabel>
+            <VaryLabel LabelName={LabelName} LabelWidth={`wMin`} />
             <VaryInput
                 Width={InputWidth ? InputWidth : null}
                 InputType={InputType ? InputType : `text`}

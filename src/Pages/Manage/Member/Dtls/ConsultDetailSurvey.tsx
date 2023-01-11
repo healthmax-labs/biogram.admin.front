@@ -417,49 +417,52 @@ const ConsultDetailSurvey = () => {
                                                                 return (
                                                                     <Detail.Survey.Table.Cell
                                                                         key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}-question-${questionIndex}`}>
-                                                                        <VaryLabelCheckBox
-                                                                            LabelName={
-                                                                                question.name
-                                                                            }
-                                                                            Checked={
-                                                                                _.findIndex(
-                                                                                    pageState.surveyData,
-                                                                                    {
-                                                                                        QUSTNR_SE_CODE:
-                                                                                            code.seCode,
-                                                                                        QESTN_SN:
-                                                                                            category.sn,
-                                                                                        ANSWER: question.code,
-                                                                                    }
-                                                                                ) >
-                                                                                -1
-                                                                            }
-                                                                            HandleOnChange={() => {
-                                                                                setPageState(
-                                                                                    prevState => ({
-                                                                                        ...prevState,
-                                                                                        surveyData:
-                                                                                            prevState.surveyData.map(
-                                                                                                surveyData => {
-                                                                                                    if (
-                                                                                                        surveyData.QUSTNR_SE_CODE ===
-                                                                                                            code.seCode &&
-                                                                                                        surveyData.QESTN_SN ===
-                                                                                                            category.sn
-                                                                                                    ) {
-                                                                                                        return {
-                                                                                                            ...surveyData,
-                                                                                                            ANSWER: question.code,
+                                                                        <div className="flex items-center">
+                                                                            <VaryLabelCheckBox
+                                                                                LabelName={
+                                                                                    question.name
+                                                                                }
+                                                                                LabelWidth={`w16`}
+                                                                                Checked={
+                                                                                    _.findIndex(
+                                                                                        pageState.surveyData,
+                                                                                        {
+                                                                                            QUSTNR_SE_CODE:
+                                                                                                code.seCode,
+                                                                                            QESTN_SN:
+                                                                                                category.sn,
+                                                                                            ANSWER: question.code,
+                                                                                        }
+                                                                                    ) >
+                                                                                    -1
+                                                                                }
+                                                                                HandleOnChange={() => {
+                                                                                    setPageState(
+                                                                                        prevState => ({
+                                                                                            ...prevState,
+                                                                                            surveyData:
+                                                                                                prevState.surveyData.map(
+                                                                                                    surveyData => {
+                                                                                                        if (
+                                                                                                            surveyData.QUSTNR_SE_CODE ===
+                                                                                                                code.seCode &&
+                                                                                                            surveyData.QESTN_SN ===
+                                                                                                                category.sn
+                                                                                                        ) {
+                                                                                                            return {
+                                                                                                                ...surveyData,
+                                                                                                                ANSWER: question.code,
+                                                                                                            }
+                                                                                                        } else {
+                                                                                                            return surveyData
                                                                                                         }
-                                                                                                    } else {
-                                                                                                        return surveyData
                                                                                                     }
-                                                                                                }
-                                                                                            ),
-                                                                                    })
-                                                                                )
-                                                                            }}
-                                                                        />
+                                                                                                ),
+                                                                                        })
+                                                                                    )
+                                                                                }}
+                                                                            />
+                                                                        </div>
                                                                     </Detail.Survey.Table.Cell>
                                                                 )
                                                             }

@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil'
 import { MemberDetailSelector } from '@Recoil/MemberPagesState'
 
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
-import { VaryLabelTextArea } from '@Elements'
+import { VaryTextArea } from '@Elements'
 import React from 'react'
 
 const { MemoContainer } = DetailPageStyle
@@ -11,7 +11,7 @@ const MemberDetailMemoBox = () => {
     const [detailState, setDetailState] = useRecoilState(MemberDetailSelector)
     return (
         <MemoContainer>
-            <VaryLabelTextArea
+            <VaryTextArea
                 Rows={22}
                 Placeholder={`메모를 입력해 주세요`}
                 Value={

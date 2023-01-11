@@ -3,7 +3,7 @@ import { VaryLabelTextAreaStyle } from '@Style/Elements/InputStyles'
 
 const { TextArea } = VaryLabelTextAreaStyle
 
-const VaryLabelTextArea = ({
+const VaryTextArea = ({
     Rows,
     Placeholder,
     Value,
@@ -26,4 +26,4 @@ const VaryLabelTextArea = ({
     )
 }
 
-export default VaryLabelTextArea
+export default VaryTextArea

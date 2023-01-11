@@ -135,6 +135,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                             return (
                                                 <VaryLabelCheckBox
                                                     LabelName={`${el.name}`}
+                                                    LabelWidth={`wMin`}
                                                     key={`consult-search-box-risk-checkbox-${index}`}
                                                     Checked={
                                                         riskFctrs.findIndex(

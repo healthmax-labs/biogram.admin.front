@@ -1,6 +1,16 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
 export type DefaultYesNo = 'Y' | 'N'
 export type InputWidthType =
+    | 'w0'
+    | 'w1'
+    | 'w2'
+    | 'w3'
+    | 'w4'
+    | 'w5'
+    | 'w6'
+    | 'w7'
+    | 'w8'
+    | 'w9'
     | 'w10'
     | 'w12'
     | 'w16'
@@ -19,6 +29,7 @@ export type InputWidthType =
     | 'w1012'
     | 'w212'
     | 'full'
+    | 'wMin'
 
 export type MaxWidthType =
     | 'sm'
@@ -62,6 +73,8 @@ export type StplatKndCodeType = 'II' | 'MI' | 'MP' | 'SI' | 'US' | 'IT' | 'ST'
 
 export type BgColorType = `blueberry` | `eggplant` | `steel`
 export type InputBgColorType = `white` | `gray1` | `gray2`
+export type TextColorType = `gray` | `white`
+export type TextAlignType = `left` | `center` | `right`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
 export type ContentType = 'default' | 'search' | 'time'
