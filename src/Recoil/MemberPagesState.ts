@@ -4,13 +4,13 @@ import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselItemInterface,
+    ManageCounselMsgBoxListInterface,
     ManageCounselMycoachInterface,
     ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
-    ManageCounselMsgBoxListInterface,
 } from '@Type/MemberTypes'
-import { getNowDate, getOneMonthAgo } from '@Helper'
+import { getNowDate, getOneMonthAgo, getOneYearAgo } from '@Helper'
 import Const from '@Const'
 
 // member 페이지.
@@ -138,7 +138,7 @@ export const MemberListState = atom<MemberListInterface>({
             curPage: null,
             instNo: null,
             searchKey: null,
-            registDtFrom: getOneMonthAgo(),
+            registDtFrom: getOneYearAgo(),
             registDtTo: getNowDate(),
         },
         list: {

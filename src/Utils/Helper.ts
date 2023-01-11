@@ -451,6 +451,25 @@ export const getOneMonthAgo = () => {
 
 /**
  * 20221210
+ * 1년전 날짜.
+ */
+export const getOneYearAgo = () => {
+    const date = new Date(
+        new Date().getFullYear() - 1,
+        new Date().getMonth(),
+        new Date().getDate()
+    )
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    return year + '' + month + '' + day
+}
+
+/**
+ * 20221210
  * 오늘 날짜.
  */
 export const getNowDate = () => {
