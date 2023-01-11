@@ -1,10 +1,8 @@
 export { default as HamburgerButton } from './Buttons/Hamburger'
-export { default as DefaultManageButton } from './Buttons/DefaultManage'
 export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'
 export { default as VaryButton } from './Buttons/VaryButton'
 export { default as VaryLabelRadioButton } from './Buttons/VaryLabelRadioButton'
-export { default as VaryInfoButton } from './Buttons/VaryInfoButton'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'

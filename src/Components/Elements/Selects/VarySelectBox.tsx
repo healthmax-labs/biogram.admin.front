@@ -1,6 +1,6 @@
 import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import React from 'react'
-import { ContentType } from '@CommonTypes'
+import { ContentType, InputWidthType } from '@CommonTypes'
 
 const { Wapper, Select } = VarySelectBoxStyle
 
@@ -12,8 +12,10 @@ const VarySelectBox = ({
     HandleOnnBlur,
     Elements,
     HandleOnChange,
+    Width,
+    AutoComplete,
 }: {
-    Value: string
+    Value?: string
     Placeholder?: string
     Elements: Array<{
         value: string | number
@@ -22,21 +24,25 @@ const VarySelectBox = ({
     ContentsType?: ContentType
     HandleOnFocus?: () => void
     HandleOnnBlur?: () => void
-    HandleOnChange: ({ value, text }: { value: string; text: string }) => void
+    HandleOnChange?: ({ value, text }: { value: string; text: string }) => void
+    Width?: InputWidthType | null
+    AutoComplete?: boolean
 }) => {
     return (
-        <Wapper>
+        <Wapper Width={Width ? Width : 'w60'}>
             <Select
                 name="select"
                 ContentsType={ContentsType ? ContentsType : 'default'}
                 value={Value}
+                autoComplete={AutoComplete ? 'autoComplete' : ``}
                 onBlur={() => (HandleOnnBlur ? HandleOnnBlur() : null)}
                 onFocus={() => (HandleOnFocus ? HandleOnFocus() : null)}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                    HandleOnChange({
-                        value: e.target.value,
-                        text: e.target.selectedOptions[0].text,
-                    })
+                    HandleOnChange &&
+                        HandleOnChange({
+                            value: e.target.value,
+                            text: e.target.selectedOptions[0].text,
+                        })
                 }}>
                 <option value={``} disabled hidden>
                     {Placeholder ? Placeholder : `선택해 주세요`}

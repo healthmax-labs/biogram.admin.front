@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { StplatInfoItem } from '@CommonTypes'
 import { StplatItemInterface } from '@Type/MemberTypes'
 import { getStplatInfo } from '@Service/CommonService'
-import { DefaultManageButton, VaryLabelCheckBox, VaryModal } from '@Elements'
+import { VaryButton, VaryLabelCheckBox, VaryModal } from '@Elements'
 import { StplatInfoAgreeModalStyle } from '@Style/Elements/FeaturesStyles'
 import { get } from 'lodash'
 import Codes from '@Codes'
@@ -203,12 +203,14 @@ const StplatInfoAgreeModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
-                            ButtonClick={() => CancleButtonClick()}
+                        <VaryButton
+                            ButtonType={'manage'}
+                            HandleClick={() => CancleButtonClick()}
                             ButtonName={'취소'}
                         />
-                        <DefaultManageButton
-                            ButtonClick={() => handleClickApplyButton()}
+                        <VaryButton
+                            ButtonType={'manage'}
+                            HandleClick={() => handleClickApplyButton()}
                             ButtonName={'동의하기'}
                         />
                     </>

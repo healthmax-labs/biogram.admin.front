@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
-import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
+import { DetailPageStyle } from '@Style/Pages/ManagerPageStyle'
 import Codes from '@Codes'
 
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
@@ -246,7 +246,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <div className="flex flex-nowrap w-full items-center">
                                 <div className="w-2/4">
                                     <VaryInput
-                                        Bg={`gray1`}
                                         InputType={'text'}
                                         HandleOnChange={e =>
                                             setDetailState(prevState => ({
@@ -413,8 +412,9 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`돌아가기`}
+                        ButtonName={`돌아가기`}
                         HandleClick={() => {
                             navigate({
                                 pathname:
@@ -426,8 +426,9 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
+                        ButtonType={`manage`}
                         BgColor={`eggplant`}
-                        Name={`확인`}
+                        ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
                                 ...prevState,

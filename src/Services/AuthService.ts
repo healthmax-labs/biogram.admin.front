@@ -42,7 +42,8 @@ export const logininfo = (): Promise<
 // 권한별 메뉴.
 export const getAuthorMenu = ({
     authCode,
-}: {
+}: // menuCode,
+{
     authCode: string
     menuCode?: string
 }): Promise<

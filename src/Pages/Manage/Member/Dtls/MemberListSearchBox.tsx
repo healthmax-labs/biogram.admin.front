@@ -39,17 +39,19 @@ const MemberListSearchBox = ({
                             <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
                         <SearchItem>
-                            <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            instNo: String(instNo),
-                                        },
-                                    }))
-                                }
-                            />
+                            <div className="flex w-full">
+                                <PstinstSelector
+                                    HandleSelectValue={({ instNo }) =>
+                                        setListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                instNo: String(instNo),
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
@@ -57,49 +59,59 @@ const MemberListSearchBox = ({
                             <VaryLabel LabelName={`가입일자`} />
                         </SearchLabel>
                         <SearchItem>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    listState.search.registDtFrom
-                                        ? changeDatePickerDate(
-                                              listState.search.registDtFrom
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            registDtFrom: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    listState.search.registDtTo
-                                        ? changeDatePickerDate(
-                                              listState.search.registDtTo
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            registDtTo: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
+                            <div className="flex w-3/5">
+                                <VaryDatepickerInput
+                                    ContentsType={`search`}
+                                    Width={`full`}
+                                    Value={
+                                        listState.search.registDtFrom
+                                            ? changeDatePickerDate(
+                                                  listState.search.registDtFrom
+                                              )
+                                            : new Date()
+                                    }
+                                    CallBackReturn={e => {
+                                        const { year, monthPad, dayPad } =
+                                            gmtTimeToTimeObject(e)
+                                        setListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                registDtFrom: `${year}${monthPad}${dayPad}`,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex w-1/12">
+                                <DatepickerLine>~</DatepickerLine>
+                            </div>
+
+                            <div className="flex w-3/5">
+                                <VaryDatepickerInput
+                                    Width={`full`}
+                                    ContentsType={`search`}
+                                    Value={
+                                        listState.search.registDtTo
+                                            ? changeDatePickerDate(
+                                                  listState.search.registDtTo
+                                              )
+                                            : new Date()
+                                    }
+                                    CallBackReturn={e => {
+                                        const { year, monthPad, dayPad } =
+                                            gmtTimeToTimeObject(e)
+                                        setListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                registDtTo: `${year}${monthPad}${dayPad}`,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </div>
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
@@ -109,7 +121,7 @@ const MemberListSearchBox = ({
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w60'}
+                                Width={'full'}
                                 HandleOnChange={e =>
                                     setListState(prevState => ({
                                         ...prevState,

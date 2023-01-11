@@ -87,7 +87,7 @@ const ConsultDetailTable = () => {
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
-                                    Width={'w64'}
+                                    Width={'w60'}
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'이름'}
@@ -100,7 +100,7 @@ const ConsultDetailTable = () => {
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
-                                    Width={'w64'}
+                                    Width={'w60'}
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'핸드폰번호'}
@@ -115,7 +115,7 @@ const ConsultDetailTable = () => {
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
-                                    Width={'w64'}
+                                    Width={'w60'}
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'성별'}
@@ -128,7 +128,7 @@ const ConsultDetailTable = () => {
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
-                                    Width={'w64'}
+                                    Width={'w60'}
                                     HandleOnChange={e => console.debug(e)}
                                     id={'id'}
                                     Placeholder={'생년월일'}

@@ -2,8 +2,8 @@ import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { gmtTimeToTimeObject } from '@Helper'
 import {
     PstinstSelector,
+    VaryButton,
     VaryDatepickerInput,
-    VaryInfoButton,
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
@@ -28,11 +28,13 @@ const AnalyticsSearchBox = () => {
                         <SearchLabel>
                             <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
-                        <PstinstSelector
-                            HandleSelectValue={({ instNo, instNm }) =>
-                                console.debug(instNo, instNm)
-                            }
-                        />
+                        <SearchItem>
+                            <PstinstSelector
+                                HandleSelectValue={({ instNo, instNm }) =>
+                                    console.debug(instNo, instNm)
+                                }
+                            />
+                        </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>
                 <SearchItemRow>
@@ -67,24 +69,24 @@ const AnalyticsSearchBox = () => {
                             <VaryLabel LabelName={`빠른설정`} />
                         </SearchLabel>
                         <SearchItemGap>
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="1개월"
                                 Active={true}
                                 HandleClick={() => console.debug('HandleClick')}
                             />
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="3개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="6개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="1년"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
@@ -95,19 +97,19 @@ const AnalyticsSearchBox = () => {
                             <VaryLabel LabelName={`주기`} />
                         </SearchLabel>
                         <SearchItemGap>
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="1일"
                                 Active={true}
                                 HandleClick={() => console.debug('HandleClick')}
                             />
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="1주"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
-                            <VaryInfoButton
-                                InfoType="button"
+                            <VaryButton
+                                ButtonType={`button`}
                                 ButtonName="1개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />

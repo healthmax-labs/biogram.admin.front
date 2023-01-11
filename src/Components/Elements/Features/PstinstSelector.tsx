@@ -5,12 +5,7 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import {
-    DefaultManageButton,
-    SearchSelect,
-    VaryInput,
-    VaryModal,
-} from '@Elements'
+import { VaryButton, VaryInput, VaryModal, VarySelectBox } from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
 import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
@@ -267,12 +262,12 @@ const PstinstSelector = ({
     return (
         <>
             {SelectorType && SelectorType === 'input' && (
-                <SearchSelect
-                    id={`id`}
-                    name={`name`}
-                    autoComplete={`autoComplete`}
-                    handleOnFocus={() => handleShowModal(true)}
-                    elements={
+                <VarySelectBox
+                    Width={`full`}
+                    ContentsType={`search`}
+                    AutoComplete={true}
+                    HandleOnFocus={() => handleShowModal(true)}
+                    Elements={
                         pageState.selectElements && pageState.selectElements
                     }
                 />
@@ -464,14 +459,16 @@ const PstinstSelector = ({
                     }
                     Buttons={
                         <>
-                            <DefaultManageButton
-                                ButtonClick={() => handleCLickCancleButton()}
+                            <VaryButton
+                                ButtonType={'default'}
+                                HandleClick={() => handleCLickCancleButton()}
                                 ButtonName={'취소'}
                             />
 
                             {SelectorType === 'OnlyModal' && (
-                                <DefaultManageButton
-                                    ButtonClick={() => handleCLickApplyButton()}
+                                <VaryButton
+                                    ButtonType={'default'}
+                                    HandleClick={() => handleCLickApplyButton()}
                                     ButtonName={'확인'}
                                 />
                             )}

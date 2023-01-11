@@ -18,6 +18,7 @@ export type InputWidthType =
     | 'w96'
     | 'w1012'
     | 'w212'
+    | 'full'
 
 export type MaxWidthType =
     | 'sm'
@@ -64,6 +65,8 @@ export type InputBgColorType = `white` | `gray1` | `gray2`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
 export type ContentType = 'default' | 'search' | 'time'
+
+export type ButtonType = `button` | `info` | `manage` | `default`
 
 // page tab
 export interface TabInterface {
