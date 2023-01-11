@@ -1,9 +1,5 @@
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
-import {
-    DefaultManageButton,
-    ElementLoading,
-    VaryDatepickerInput,
-} from '@Elements'
+import { ElementLoading, VaryButton, VaryDatepickerInput } from '@Elements'
 import React, { useCallback, useEffect } from 'react'
 import Messages from '@Messages'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
@@ -123,9 +119,10 @@ const ConsultDetailMessage = () => {
                 </div>
                 <div className="flex py-2 items-center w-full justify-end">
                     <div className="flex py-2">
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'default'}
                             ButtonName={'조회'}
-                            ButtonClick={() => handleGetData().then()}
+                            HandleClick={() => handleGetData().then()}
                         />
                     </div>
                 </div>

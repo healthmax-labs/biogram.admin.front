@@ -12,14 +12,20 @@ export const DetailPageStyle = {
     DetailContainer: tw.div`flex flex-nowrap flex-col`,
     MemoContainer: tw.div`flex flex-col break-words bg-white`,
     PstinstInfoList: {
-        Container: tw.div`px-1 py-0`,
+        Container: tw.div`w-full py-1`,
         Table: tw.table`w-full bg-transparent border-collapse items-center scrollbar-hide whitespace-nowrap overflow-auto`,
         Tbody: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center justify-between`,
-        TableRow: tw.tr`flex w-full bg-white h-8 items-center cursor-pointer hover:bg-green-200`,
+        TableRow: styled.tr(({ BgState }: { BgState: boolean }) => [
+            BgState
+                ? tw`flex w-full bg-mercury h-8 items-center cursor-pointer hover:bg-daisy`
+                : tw`flex w-full bg-pearl h-8 items-center cursor-pointer hover:bg-daisy`,
+        ]),
         TableCell: tw.td`flex items-center justify-center w-1/4 h-8 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
     },
     ButtonBox: tw.div`flex flex-nowrap py-2 justify-center`,
     ButtonItem: tw.div`pl-1`,
+    PstinstLeaveModalContentBox: tw.div`w-full justify-evenly`,
+    PstinstLeaveModalContentMessage: tw.div`mt-0 text-base leading-relaxed text-gray-500 pb-3`,
 }
 
 export const ConsultDetailStyle = {
@@ -134,8 +140,9 @@ export const ConsultDetailStyle = {
         MyCoach: {
             RowWapper: tw.div`w-full pb-1`,
             SearchWapper: tw.div`flex flex-nowrap w-full border`,
-            SearchBox: tw.div`flex py-2 items-center w-full justify-end`,
-            SearchItem: tw.div`flex py-2`,
+            SearchBox: tw.div`flex py-2 w-full justify-end`,
+            SearchItems: tw.div`flex gap-1 h-8 px-1`,
+            SearchItem: tw.div`flex items-center`,
             LoadingBox: tw.div`flex flex-col pt-32`,
             TableBox: tw.div`flex`,
             Table: {

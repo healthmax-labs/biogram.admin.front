@@ -106,7 +106,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w60'}
+                                Width={'full'}
                                 HandleOnChange={e =>
                                     setBrftrCmprListState(prevState => ({
                                         ...prevState,

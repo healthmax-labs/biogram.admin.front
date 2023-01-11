@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultManageButton, VaryModal } from '@Elements'
+import { VaryButton, VaryModal } from '@Elements'
 import DaumPostcode from 'react-daum-postcode'
 import {
     DaumPostCodeInterface,
@@ -82,9 +82,10 @@ const KaKaoPostCodeModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'닫기'}
-                            ButtonClick={() => Complete({ state: false })}
+                            HandleClick={() => Complete({ state: false })}
                         />
                     </>
                 }

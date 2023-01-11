@@ -21,7 +21,8 @@ const RiskFctrItemsTable = () => {
             <RowWapper>
                 <ButtonBox>
                     <VaryButton
-                        Name="엑셀다운로드"
+                        ButtonType={`default`}
+                        ButtonName="엑셀다운로드"
                         HandleClick={() => console.debug('HandleClick')}
                     />
                 </ButtonBox>
@@ -223,7 +224,8 @@ const RiskFctrItemsTable = () => {
             <RowWapper>
                 <ButtonBox>
                     <VaryButton
-                        Name="엑셀다운로드"
+                        ButtonType={`default`}
+                        ButtonName="엑셀다운로드"
                         HandleClick={() => console.debug('HandleClick')}
                     />
                 </ButtonBox>

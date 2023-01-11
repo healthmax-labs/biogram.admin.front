@@ -22,8 +22,8 @@ export const ModalStyle = {
         PhoneNumber: tw.p`mt-2 text-center`,
         AuthText: tw.p`mt-0 text-[15px] leading-relaxed text-gray-500`,
     },
-    ButtonBox: tw.div`items-center gap-2 mt-3`,
-    ButtonCenterBox: tw.div`w-full text-center items-center gap-2 mt-3`,
+    ButtonBox: tw.div`flex items-center justify-center gap-2 mt-3`,
+    ButtonCenterBox: tw.div`flex w-full text-center items-center justify-center gap-2 mt-3`,
     Button: tw.button`w-1/3 px-3 py-1.5 bg-eggplant hover:bg-blueberry text-white text-xs rounded-md mx-2`,
 }
 

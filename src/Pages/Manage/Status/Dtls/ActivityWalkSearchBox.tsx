@@ -109,7 +109,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w64'}
+                                Width={'full'}
                                 HandleOnChange={e =>
                                     setActivityWalkListState(prevState => ({
                                         ...prevState,

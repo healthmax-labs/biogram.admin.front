@@ -1,6 +1,6 @@
 import {
-    DefaultManageButton,
     ElementLoading,
+    VaryButton,
     VaryDatepickerInput,
     VaryModal,
 } from '@Element/index'
@@ -122,9 +122,10 @@ const TotalCashModal = ({
                                 />
                             </div>
                             <div className="flex py-2">
-                                <DefaultManageButton
+                                <VaryButton
+                                    ButtonType={'manage'}
                                     ButtonName={'조회'}
-                                    ButtonClick={() => handleGetData()}
+                                    HandleClick={() => handleGetData()}
                                 />
                             </div>
                         </div>
@@ -179,9 +180,10 @@ const TotalCashModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'닫기'}
-                            ButtonClick={() => CancleButtonClick()}
+                            HandleClick={() => CancleButtonClick()}
                         />
                     </>
                 }

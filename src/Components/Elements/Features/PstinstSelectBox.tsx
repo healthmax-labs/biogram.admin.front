@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { VarySelectBox } from '@Elements'
+import { PstinstSelectBoxStyle } from '@Style/Elements/FeaturesStyles'
 import { getInstLowInstCode, getInstTopInstCode } from '@Service/CommonService'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
 import { DefaultStatus } from '@CommonTypes'
+
+const { Wapper } = PstinstSelectBoxStyle
 
 interface StepItemInfoInterface {
     INST_NO: number | null
@@ -347,48 +350,38 @@ const PstinstSelectBox = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Value])
 
-    // useEffect(() => {
-    //     console.debug('status', pageState.status)
-    //     console.debug('InstList', pageState.InstList)
-    // }, [pageState.status, pageState.InstList])
-
     return (
-        <>
-            <div className="flex flex-nowrap w-full">
-                <div className="min-w-1/4 pr-2">
-                    {pageState.status.step1 === 'success' &&
-                        pageState.InstList.step1.length > 0 && (
-                            <VarySelectBox
-                                Placeholder={Messages.Default.instSelectStep1}
-                                Value={pageState.InstSelectList.step1.value}
-                                Elements={pageState.InstList.step1}
-                                HandleOnChange={e => handleStep1Change(e)}
-                            />
-                        )}
-                </div>
-                <div className="w-1/4 pr-2">
-                    {pageState.status.step2 === 'success' &&
-                        pageState.InstList.step2.length > 0 && (
-                            <VarySelectBox
-                                Placeholder={Messages.Default.instSelectStep2}
-                                Value={pageState.InstSelectList.step2.value}
-                                Elements={pageState.InstList.step2}
-                                HandleOnChange={e => handleStep2Change(e)}
-                            />
-                        )}
-                </div>
-                <div className="w-1/4 pr-2">
-                    {pageState.status.step3 === 'success' &&
-                        pageState.InstList.step3.length > 0 && (
-                            <VarySelectBox
-                                Value={pageState.InstSelectList.step3.value}
-                                Elements={pageState.InstList.step3}
-                                HandleOnChange={e => handleStep3Change(e)}
-                            />
-                        )}
-                </div>
-            </div>
-        </>
+        <Wapper>
+            {pageState.status.step1 === 'success' &&
+                pageState.InstList.step1.length > 0 && (
+                    <VarySelectBox
+                        Width={`w60`}
+                        Placeholder={Messages.Default.instSelectStep1}
+                        Value={pageState.InstSelectList.step1.value}
+                        Elements={pageState.InstList.step1}
+                        HandleOnChange={e => handleStep1Change(e)}
+                    />
+                )}
+            {pageState.status.step2 === 'success' &&
+                pageState.InstList.step2.length > 0 && (
+                    <VarySelectBox
+                        Width={`w60`}
+                        Placeholder={Messages.Default.instSelectStep2}
+                        Value={pageState.InstSelectList.step2.value}
+                        Elements={pageState.InstList.step2}
+                        HandleOnChange={e => handleStep2Change(e)}
+                    />
+                )}
+            {pageState.status.step3 === 'success' &&
+                pageState.InstList.step3.length > 0 && (
+                    <VarySelectBox
+                        Width={`w60`}
+                        Value={pageState.InstSelectList.step3.value}
+                        Elements={pageState.InstList.step3}
+                        HandleOnChange={e => handleStep3Change(e)}
+                    />
+                )}
+        </Wapper>
     )
 }
 

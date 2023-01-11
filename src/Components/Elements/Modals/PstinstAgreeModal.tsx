@@ -1,8 +1,4 @@
-import {
-    DefaultManageButton,
-    VaryLabelCheckBox,
-    VaryModal,
-} from '@Element/index'
+import { VaryButton, VaryLabelCheckBox, VaryModal } from '@Element/index'
 import { StplatInfoItem } from '@CommonTypes'
 import React, { useEffect, useState } from 'react'
 import { PstinstAgreeModalStyle } from '@Style/Elements/ModalStyles'
@@ -148,7 +144,6 @@ const PstinstAgreeModal = ({
                         </ItemGrid>
                         <AllAgreeButton>
                             <VaryLabelCheckBox
-                                LabelWidth={'w32'}
                                 LabelName={`모든 약관에 동의 합니다.`}
                                 Checked={pageState.allCheck}
                                 HandleOnChange={e => {
@@ -173,12 +168,14 @@ const PstinstAgreeModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
-                            ButtonClick={() => HandleClickCancleButtion()}
+                        <VaryButton
+                            ButtonType={'default'}
+                            HandleClick={() => HandleClickCancleButtion()}
                             ButtonName={'취소'}
                         />
-                        <DefaultManageButton
-                            ButtonClick={() =>
+                        <VaryButton
+                            ButtonType={'default'}
+                            HandleClick={() =>
                                 HandleClickApplyButton(
                                     pageState.checkStplatInfo
                                 )

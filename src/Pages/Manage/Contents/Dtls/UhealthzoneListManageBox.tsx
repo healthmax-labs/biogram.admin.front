@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultManageButton } from '@Elements'
+import { VaryButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -10,8 +10,9 @@ const UhealthzoneListManageBox = () => {
     return (
         <Wapper>
             <Buttons>
-                <DefaultManageButton
-                    ButtonClick={() => {
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => {
                         navigate({
                             pathname:
                                 process.env.PUBLIC_URL +

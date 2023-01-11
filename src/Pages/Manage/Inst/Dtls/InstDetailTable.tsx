@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { WapperStyle } from '@Style/Pages/CommonStyle'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
 import {
@@ -291,21 +292,17 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <VaryLabel LabelName={`소속코드`} />
                             </LabelCell>
                             <InputCell>
-                                <div className="flex flex-nowrap w-full items-center">
-                                    <div className="w-2/4">
-                                        <VaryInput
-                                            Bg={`white`}
-                                            ReadOnly={true}
-                                            InputType={'text'}
-                                            HandleOnChange={() =>
-                                                console.debug('HandleOnChange')
-                                            }
-                                            id={'id'}
-                                            Placeholder={'가입일자'}
-                                            Value={`${params.instNo}`}
-                                        />
-                                    </div>
-                                </div>
+                                <VaryInput
+                                    ReadOnly={true}
+                                    Width={`w60`}
+                                    InputType={'text'}
+                                    HandleOnChange={() =>
+                                        console.debug('HandleOnChange')
+                                    }
+                                    id={'id'}
+                                    Placeholder={'가입일자'}
+                                    Value={`${params.instNo}`}
+                                />
                             </InputCell>
                         </Row>
                     )}
@@ -314,91 +311,71 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`소속명`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryInput
-                                        InputType={'text'}
-                                        HandleOnChange={(
-                                            e: React.ChangeEvent<HTMLInputElement>
-                                        ) =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    INST_NM: e.target.value,
-                                                },
-                                            }))
-                                        }
-                                        id={'id'}
-                                        Placeholder={'소속명'}
-                                        Value={
-                                            detailState.info.INST_NM
-                                                ? detailState.info.INST_NM
-                                                : ``
-                                        }
-                                    />
-                                </div>
-                                <div className="w-2/4">
-                                    <VaryButton
-                                        HandleClick={async () => {
-                                            if (
-                                                detailState.info.INST_NM &&
-                                                detailState.info.INST_NM
-                                                    .length > 0
-                                            ) {
-                                                const { status, payload } =
-                                                    await getInstCheckInstNm({
-                                                        instNm: detailState.info
-                                                            .INST_NM,
-                                                    })
+                            <WapperStyle.InputFlexNoWarpWapperGap>
+                                <VaryInput
+                                    Width={`w60`}
+                                    InputType={'text'}
+                                    HandleOnChange={(
+                                        e: React.ChangeEvent<HTMLInputElement>
+                                    ) =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                INST_NM: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                    id={'id'}
+                                    Placeholder={'소속명'}
+                                    Value={
+                                        detailState.info.INST_NM
+                                            ? detailState.info.INST_NM
+                                            : ``
+                                    }
+                                />
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    HandleClick={async () => {
+                                        if (
+                                            detailState.info.INST_NM &&
+                                            detailState.info.INST_NM.length > 0
+                                        ) {
+                                            const { status, payload } =
+                                                await getInstCheckInstNm({
+                                                    instNm: detailState.info
+                                                        .INST_NM,
+                                                })
 
-                                                if (status) {
-                                                    if (
-                                                        payload.INST_NM_USE_AT ===
-                                                        'N'
-                                                    ) {
-                                                        handlMainAlert({
-                                                            state: true,
-                                                            message:
-                                                                Messages.Default
-                                                                    .inst
-                                                                    .instNmCheckSuccess,
+                                            if (status) {
+                                                if (
+                                                    payload.INST_NM_USE_AT ===
+                                                    'N'
+                                                ) {
+                                                    handlMainAlert({
+                                                        state: true,
+                                                        message:
+                                                            Messages.Default
+                                                                .inst
+                                                                .instNmCheckSuccess,
+                                                    })
+                                                    setDetailState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            info: {
+                                                                ...prevState.info,
+                                                                INST_NM_CHECK:
+                                                                    true,
+                                                            },
                                                         })
-                                                        setDetailState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                info: {
-                                                                    ...prevState.info,
-                                                                    INST_NM_CHECK:
-                                                                        true,
-                                                                },
-                                                            })
-                                                        )
-                                                    } else {
-                                                        handlMainAlert({
-                                                            state: true,
-                                                            message:
-                                                                Messages.Default
-                                                                    .inst
-                                                                    .instNmCheckFail,
-                                                        })
-                                                        setDetailState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                info: {
-                                                                    ...prevState.info,
-                                                                    INST_NM_CHECK:
-                                                                        false,
-                                                                },
-                                                            })
-                                                        )
-                                                    }
+                                                    )
                                                 } else {
                                                     handlMainAlert({
                                                         state: true,
                                                         message:
                                                             Messages.Default
-                                                                .pageError,
+                                                                .inst
+                                                                .instNmCheckFail,
                                                     })
                                                     setDetailState(
                                                         prevState => ({
@@ -415,8 +392,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 handlMainAlert({
                                                     state: true,
                                                     message:
-                                                        Messages.Default.inst
-                                                            .instNmEmpty,
+                                                        Messages.Default
+                                                            .pageError,
                                                 })
                                                 setDetailState(prevState => ({
                                                     ...prevState,
@@ -426,11 +403,25 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                     },
                                                 }))
                                             }
-                                        }}
-                                        Name={`소속 중복 확인`}
-                                    />
-                                </div>
-                            </div>
+                                        } else {
+                                            handlMainAlert({
+                                                state: true,
+                                                message:
+                                                    Messages.Default.inst
+                                                        .instNmEmpty,
+                                            })
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    INST_NM_CHECK: false,
+                                                },
+                                            }))
+                                        }
+                                    }}
+                                    ButtonName={`소속 중복 확인`}
+                                />
+                            </WapperStyle.InputFlexNoWarpWapperGap>
                         </InputCell>
                     </Row>
                     <Row>
@@ -438,39 +429,34 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`소속 위치`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="w-full items-center">
-                                <PstinstSelectBox
-                                    Value={{
-                                        status: detailState.status,
-                                        infoStep: detailState.infoStep
-                                            ? detailState.infoStep
-                                            : 'step1',
-                                        instNo: String(
-                                            detailState.info.INST_NO
-                                        ),
-                                        step1: detailState.info.TOP_INST_NO,
-                                        step2: detailState.info.MIDDLE_INST_NO,
-                                        step3: detailState.info.UPPER_INST_NO,
-                                    }}
-                                    ReturnCallback={e => {
-                                        setDetailState(prevState => ({
-                                            ...prevState,
-                                            info: {
-                                                ...prevState.info,
-                                                TOP_INST_NO: e.step1.value,
-                                                MIDDLE_INST_NO: e.step2.value,
-                                                UPPER_INST_NO: e.step3.value,
-                                                SIGUNGU_CD:
-                                                    e.selectinfo &&
-                                                    e.selectinfo.SIGUNGU_CD
-                                                        ? e.selectinfo
-                                                              .SIGUNGU_CD
-                                                        : '',
-                                            },
-                                        }))
-                                    }}
-                                />
-                            </div>
+                            <PstinstSelectBox
+                                Value={{
+                                    status: detailState.status,
+                                    infoStep: detailState.infoStep
+                                        ? detailState.infoStep
+                                        : 'step1',
+                                    instNo: String(detailState.info.INST_NO),
+                                    step1: detailState.info.TOP_INST_NO,
+                                    step2: detailState.info.MIDDLE_INST_NO,
+                                    step3: detailState.info.UPPER_INST_NO,
+                                }}
+                                ReturnCallback={e => {
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            TOP_INST_NO: e.step1.value,
+                                            MIDDLE_INST_NO: e.step2.value,
+                                            UPPER_INST_NO: e.step3.value,
+                                            SIGUNGU_CD:
+                                                e.selectinfo &&
+                                                e.selectinfo.SIGUNGU_CD
+                                                    ? e.selectinfo.SIGUNGU_CD
+                                                    : '',
+                                        },
+                                    }))
+                                }}
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -478,24 +464,22 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`시군구 코드`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="w-full items-center">
-                                <SiGunSelectBox
-                                    SigunguCd={
-                                        detailState.info.SIGUNGU_CD
-                                            ? detailState.info.SIGUNGU_CD
-                                            : ''
-                                    }
-                                    ReturnCallback={e =>
-                                        setDetailState(prevState => ({
-                                            ...prevState,
-                                            info: {
-                                                ...prevState.info,
-                                                SIGUNGU_CD: e.step2.value,
-                                            },
-                                        }))
-                                    }
-                                />
-                            </div>
+                            <SiGunSelectBox
+                                SigunguCd={
+                                    detailState.info.SIGUNGU_CD
+                                        ? detailState.info.SIGUNGU_CD
+                                        : ''
+                                }
+                                ReturnCallback={e =>
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            SIGUNGU_CD: e.step2.value,
+                                        },
+                                    }))
+                                }
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -503,30 +487,26 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`사업정보`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryInput
-                                        Bg={`gray1`}
-                                        InputType={'text'}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    BIZ_INFO: e.target.value,
-                                                },
-                                            }))
-                                        }
-                                        id={'id'}
-                                        Placeholder={'사업정보'}
-                                        Value={
-                                            detailState.info.BIZ_INFO
-                                                ? detailState.info.BIZ_INFO
-                                                : ''
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            <VaryInput
+                                Width={`w60`}
+                                InputType={'text'}
+                                HandleOnChange={e =>
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            BIZ_INFO: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'사업정보'}
+                                Value={
+                                    detailState.info.BIZ_INFO
+                                        ? detailState.info.BIZ_INFO
+                                        : ''
+                                }
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -534,31 +514,26 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`대표번호`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryInput
-                                        Bg={`gray1`}
-                                        InputType={'text'}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    REPRSNT_TELNO:
-                                                        e.target.value,
-                                                },
-                                            }))
-                                        }
-                                        id={'id'}
-                                        Placeholder={'대표번호'}
-                                        Value={
-                                            detailState.info.REPRSNT_TELNO
-                                                ? detailState.info.REPRSNT_TELNO
-                                                : ''
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            <VaryInput
+                                Width={`w60`}
+                                InputType={'text'}
+                                HandleOnChange={e =>
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            REPRSNT_TELNO: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'대표번호'}
+                                Value={
+                                    detailState.info.REPRSNT_TELNO
+                                        ? detailState.info.REPRSNT_TELNO
+                                        : ''
+                                }
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -566,29 +541,21 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`승인여부`} />
                         </LabelCell>
                         <InputCell>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="w-2/4">
-                                    <VaryLabelCheckBox
-                                        Checked={
-                                            detailState.info.INST_TY_CODE ===
-                                            'M'
-                                        }
-                                        LabelName={`가입시 관리자의 승인이 필요합니다. (미 체크시 바로 가입 할수 있습니다)`}
-                                        HandleOnChange={e =>
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                info: {
-                                                    ...prevState.info,
-                                                    INST_TY_CODE: e.target
-                                                        .checked
-                                                        ? 'M'
-                                                        : 'O',
-                                                },
-                                            }))
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            <VaryLabelCheckBox
+                                Checked={detailState.info.INST_TY_CODE === 'M'}
+                                LabelName={`가입시 관리자의 승인이 필요합니다. (미 체크시 바로 가입 할수 있습니다)`}
+                                HandleOnChange={e =>
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            INST_TY_CODE: e.target.checked
+                                                ? 'M'
+                                                : 'O',
+                                        },
+                                    }))
+                                }
+                            />
                         </InputCell>
                     </Row>
                     <Row>
@@ -652,8 +619,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`eggplant`}
-                        Name={`취소`}
+                        ButtonType={`default`}
+                        ButtonName={`취소`}
                         HandleClick={() => {
                             navigate({
                                 pathname:
@@ -665,8 +632,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        BgColor={`eggplant`}
-                        Name={`확인`}
+                        ButtonType={`default`}
+                        ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
                                 ...prevState,
@@ -681,8 +648,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 {pageMode === 'modify' && (
                     <ButtonItem>
                         <VaryButton
-                            BgColor={`eggplant`}
-                            Name={`삭제`}
+                            ButtonType={`default`}
+                            ButtonName={`삭제`}
                             HandleClick={() =>
                                 setDetailState(prevState => ({
                                     ...prevState,

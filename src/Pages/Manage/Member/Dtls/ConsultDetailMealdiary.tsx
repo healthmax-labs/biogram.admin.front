@@ -1,5 +1,4 @@
 import {
-    DefaultManageButton,
     VaryButton,
     VaryDatepickerInput,
     VaryLabel,
@@ -62,9 +61,10 @@ const ConsultDetailMealdiary = () => {
                         />
                     </Search.SearchItem>
                     <Search.SearchItem>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'조회'}
-                            ButtonClick={() =>
+                            HandleClick={() =>
                                 console.debug('DefaultManageButton')
                             }
                         />
@@ -1088,34 +1088,35 @@ const ConsultDetailMealdiary = () => {
                 <History.Wapper>
                     <History.ButtonBox>
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`아침`}
+                            ButtonName={`아침`}
+                            Active={true}
                         />
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`오전간식`}
+                            ButtonName={`오전간식`}
                         />
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`점심`}
+                            ButtonName={`점심`}
                         />
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`오후간식`}
+                            ButtonName={`오후간식`}
                         />
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`저녁`}
+                            ButtonName={`저녁`}
                         />
                         <VaryButton
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
-                            Name={`야식`}
+                            ButtonName={`야식`}
                         />
                     </History.ButtonBox>
                 </History.Wapper>

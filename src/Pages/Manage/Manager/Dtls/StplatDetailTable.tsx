@@ -151,7 +151,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -169,7 +169,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -188,7 +188,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -205,7 +205,7 @@ const StplatDetailTable = () => {
                         </LabelCell>
                         <InputCell>
                             <VaryInput
-                                Width={'w64'}
+                                Width={'w60'}
                                 InputType={'text'}
                                 id={'id'}
                                 Placeholder={'약관명'}
@@ -327,8 +327,8 @@ const StplatDetailTable = () => {
             <DPS.Stplat.ButtonBox>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`eggplant`}
-                        Name={`취소`}
+                        ButtonType={`default`}
+                        ButtonName={`취소`}
                         HandleClick={() => {
                             console.debug('HandleClick')
                         }}
@@ -336,8 +336,8 @@ const StplatDetailTable = () => {
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`eggplant`}
-                        Name={`수정`}
+                        ButtonType={`default`}
+                        ButtonName={`수정`}
                         HandleClick={() => {
                             setPageState(prevState => ({
                                 ...prevState,
@@ -351,8 +351,8 @@ const StplatDetailTable = () => {
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
-                        BgColor={`eggplant`}
-                        Name={`삭제`}
+                        ButtonType={`default`}
+                        ButtonName={`삭제`}
                         HandleClick={() =>
                             setPageState(prevState => ({
                                 ...prevState,
@@ -506,8 +506,8 @@ const StplatDetailTable = () => {
                     MaxWidth={'xl4'}
                     Buttons={
                         <VaryButton
-                            BgColor={`eggplant`}
-                            Name={`닫기`}
+                            ButtonType={`default`}
+                            ButtonName={`닫기`}
                             HandleClick={() =>
                                 setPageState(prevState => ({
                                     ...prevState,

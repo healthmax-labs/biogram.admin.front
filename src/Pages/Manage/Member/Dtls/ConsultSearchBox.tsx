@@ -100,7 +100,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w64'}
+                                Width={'full'}
                                 HandleOnChange={e => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'ID / 이름 / 연락처 / 전화번호'}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { AlertModelStyle, ModalStyle } from '@Style/Elements/ModalStyles'
+import { VaryButton } from '@Elements'
 
 const {
     Container,
@@ -9,7 +10,6 @@ const {
     MainBox,
     CenterBox,
     ButtonBox,
-    Button,
 } = ModalStyle
 
 const { TitleText } = AlertModelStyle
@@ -35,9 +35,11 @@ const AlertModal = ({
                         <CenterBox>
                             <TitleText>{`${modalTitle}`}</TitleText>
                             <ButtonBox>
-                                <Button onClick={() => okButtonClick()}>
-                                    확인
-                                </Button>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`확인`}
+                                    HandleClick={() => okButtonClick()}
+                                />
                             </ButtonBox>
                         </CenterBox>
                     </MainBox>

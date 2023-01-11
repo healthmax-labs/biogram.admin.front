@@ -1,5 +1,6 @@
 import React from 'react'
 import { ConfirmModalStyle, ModalStyle } from '@Style/Elements/ModalStyles'
+import { VaryButton } from '@Elements'
 
 const {
     Container,
@@ -9,7 +10,6 @@ const {
     MainBox,
     CenterBox,
     ButtonBox,
-    Button,
 } = ModalStyle
 
 const { CenterText } = ConfirmModalStyle
@@ -41,14 +41,26 @@ const ConfirmModal = ({
                                     }}></div>
                             </CenterText>
                             <ButtonBox>
-                                <Button onClick={() => CancleButtonClick()}>
-                                    {CancleButtonName
-                                        ? CancleButtonName
-                                        : `취소`}
-                                </Button>
-                                <Button onClick={() => ApplyButtonClick()}>
-                                    {ApplyButtonName ? ApplyButtonName : `확인`}
-                                </Button>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={
+                                        CancleButtonName
+                                            ? CancleButtonName
+                                            : `취소`
+                                    }
+                                    HandleClick={() =>
+                                        CancleButtonClick()
+                                    }></VaryButton>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={
+                                        ApplyButtonName
+                                            ? ApplyButtonName
+                                            : `확인`
+                                    }
+                                    HandleClick={() =>
+                                        ApplyButtonClick()
+                                    }></VaryButton>
                             </ButtonBox>
                         </CenterBox>
                     </MainBox>

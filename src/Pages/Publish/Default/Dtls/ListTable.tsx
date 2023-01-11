@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { InstdeptListInterface } from '@Type/CommonTypes'
 import { getList } from '@Service/InstdeptService'
-import { DefaultManageButton, VaryCheckBox } from '@Elements'
+import { VaryButton, VaryCheckBox } from '@Elements'
 
 const {
     Tbody,
@@ -73,8 +73,9 @@ export default function ListTable() {
                             <TbodyTd>{el.INST_NM}</TbodyTd>
                             <TbodyTd>{el.DEPT_NM}</TbodyTd>
                             <TbodyTd>
-                                <DefaultManageButton
-                                    ButtonClick={() =>
+                                <VaryButton
+                                    ButtonType={`manage`}
+                                    HandleClick={() =>
                                         console.debug('DefaultManageButton')
                                     }
                                     ButtonName={'소승승인4'}

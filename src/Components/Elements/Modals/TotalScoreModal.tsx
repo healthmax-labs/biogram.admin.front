@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
-    DefaultManageButton,
     ElementLoading,
+    VaryButton,
     VaryDatepickerInput,
     VaryModal,
 } from '@Elements'
@@ -127,9 +127,10 @@ const TotalScoreModal = ({
                                 />
                             </div>
                             <div className="flex py-2">
-                                <DefaultManageButton
+                                <VaryButton
+                                    ButtonType={'manage'}
                                     ButtonName={'조회'}
-                                    ButtonClick={() => handleGetData()}
+                                    HandleClick={() => handleGetData()}
                                 />
                             </div>
                         </div>
@@ -195,9 +196,10 @@ const TotalScoreModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'닫기'}
-                            ButtonClick={() => CancleButtonClick()}
+                            HandleClick={() => CancleButtonClick()}
                         />
                     </>
                 }

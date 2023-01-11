@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { ContentType } from '@CommonTypes'
+import { ContentType, InputWidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
-const { DatePicker: Input } = InputStyle
+const { DatePickerWapper } = InputStyle
 
 const DefaultInput = (
     {
@@ -41,15 +41,25 @@ const SearchInput = (
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
     ref: any
-) => <Input ref={ref} onFocus={onFocus} value={value} onChange={onChange} />
+) => (
+    <VaryInput
+        ContentsType={`search`}
+        Ref={ref}
+        HandleOnFocus={onFocus}
+        Value={value}
+        HandleOnChange={onChange}
+    />
+)
 
 const VaryDatepickerInput = ({
     ContentsType = 'default',
     DateFormat,
     Value,
     CallBackReturn,
+    Width,
 }: {
     ContentsType?: ContentType
+    Width?: InputWidthType
     DateFormat?: string
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
@@ -97,21 +107,23 @@ const VaryDatepickerInput = ({
     }, [ContentsType, DateFormat])
 
     return (
-        <DatePicker
-            selected={selectDate}
-            onChange={(date: Date) => setSelectDate(date)}
-            dateFormat={dateFormat}
-            locale={ko}
-            showTimeSelect={ContentsType === 'time'}
-            showTimeSelectOnly={ContentsType === 'time'}
-            timeIntervals={ContentsType === 'time' ? 1 : 15}
-            timeCaption={ContentsType === 'time' ? '시간' : ''}
-            customInput={
-                ContentsType === 'search'
-                    ? React.createElement(React.forwardRef(SearchInput))
-                    : React.createElement(React.forwardRef(DefaultInput))
-            }
-        />
+        <DatePickerWapper Width={Width ? Width : `full`}>
+            <DatePicker
+                selected={selectDate}
+                onChange={(date: Date) => setSelectDate(date)}
+                dateFormat={dateFormat}
+                locale={ko}
+                showTimeSelect={ContentsType === 'time'}
+                showTimeSelectOnly={ContentsType === 'time'}
+                timeIntervals={ContentsType === 'time' ? 1 : 15}
+                timeCaption={ContentsType === 'time' ? '시간' : ''}
+                customInput={
+                    ContentsType === 'search'
+                        ? React.createElement(React.forwardRef(SearchInput))
+                        : React.createElement(React.forwardRef(DefaultInput))
+                }
+            />
+        </DatePickerWapper>
     )
 }
 

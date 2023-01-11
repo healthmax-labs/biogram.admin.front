@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
     ConfirmModal,
-    DefaultManageButton,
+    VaryButton,
     VaryDatepickerInput,
     VaryInput,
     VaryModal,
@@ -327,9 +327,6 @@ const MemberMyDataInputModal = ({
                                                                 </td>
                                                                 <td className="border w-2/4 max-h-8">
                                                                     <VaryInput
-                                                                        Bg={
-                                                                            'gray2'
-                                                                        }
                                                                         Value={
                                                                             _.get(
                                                                                 pageState.input,
@@ -366,13 +363,15 @@ const MemberMyDataInputModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'취소'}
-                            ButtonClick={() => CancleButtonClick()}
+                            HandleClick={() => CancleButtonClick()}
                         />
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'저장'}
-                            ButtonClick={() =>
+                            HandleClick={() =>
                                 setPageState(prevState => ({
                                     ...prevState,
                                     modal: {

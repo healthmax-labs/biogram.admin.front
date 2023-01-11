@@ -47,3 +47,7 @@ export const StplatInfoAgreeModalStyle = {
     AgreeItemCheckBox: tw.div`flex pt-3 items-end object-bottom place-items-end content-end`,
     AllAgreeButton: tw.div`flex flex-row justify-center text-xs pt-3`,
 }
+
+export const PstinstSelectBoxStyle = {
+    Wapper: tw.div`flex flex-nowrap w-full gap-2`,
+}

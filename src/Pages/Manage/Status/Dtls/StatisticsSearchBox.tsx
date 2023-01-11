@@ -197,7 +197,7 @@ const StatisticsSearchBox = ({
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'w60'}
+                                Width={'full'}
                                 HandleOnChange={e =>
                                     setStatisticsListState(prevState => ({
                                         ...prevState,

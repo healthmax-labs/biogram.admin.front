@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/PublishPageStyle'
-import {
-    AlertModal,
-    ConfirmModal,
-    DefaultManageButton,
-    PhoneAuthModal,
-} from '@Elements'
+import { AlertModal, ConfirmModal, PhoneAuthModal, VaryButton } from '@Elements'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -37,28 +32,34 @@ export default function ManageBox() {
     return (
         <Wapper>
             <Buttons>
-                <DefaultManageButton
-                    ButtonClick={() => setShowStep1Modal(true)}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => setShowStep1Modal(true)}
                     ButtonName={'모달 - 일반 확인 1'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => setShowStep2Modal(true)}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => setShowStep2Modal(true)}
                     ButtonName={'모달 - 휴대폰 번호 인증'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => setShowStep3Modal(true)}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => setShowStep3Modal(true)}
                     ButtonName={'모달 - 일반 확인'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'모달4'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'모달5'}
                 />
-                <DefaultManageButton
-                    ButtonClick={() => console.debug('DefaultManageButton')}
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => console.debug('DefaultManageButton')}
                     ButtonName={'모달6'}
                 />
             </Buttons>

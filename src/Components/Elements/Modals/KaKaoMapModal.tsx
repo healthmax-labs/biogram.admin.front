@@ -1,6 +1,6 @@
 import React from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
-import { DefaultManageButton, VaryModal } from '@Elements'
+import { VaryButton, VaryModal } from '@Elements'
 
 const MarkerBox = ({ title }: { title: string }) => {
     return (
@@ -41,9 +41,10 @@ const KaKaoMapModal = ({
                 }
                 Buttons={
                     <>
-                        <DefaultManageButton
+                        <VaryButton
+                            ButtonType={'manage'}
                             ButtonName={'닫기'}
-                            ButtonClick={() => {
+                            HandleClick={() => {
                                 Complete({ state: false })
                             }}
                         />
