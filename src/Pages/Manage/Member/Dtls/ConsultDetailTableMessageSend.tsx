@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import {
     ConfirmModal,
     VaryButton,
@@ -10,7 +11,6 @@ import {
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailSmsSendState } from '@Recoil/MemberPagesState'
 import { useRecoilState, useResetRecoilState } from 'recoil'
-import React, { useEffect, useState } from 'react'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
@@ -267,35 +267,27 @@ const ConsultDetailTableMessageSend = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-center">
-                <div className="flex pt-3">
-                    <div className="px-2">
-                        <VaryButton
-                            ButtonType={`manage`}
-                            BgColor={`eggplant`}
-                            ButtonName={`취소`}
-                            HandleClick={() => {
-                                resetSmsSendState()
-                            }}
-                        />
-                    </div>
-                    <div className="px-2">
-                        <VaryButton
-                            ButtonType={`manage`}
-                            BgColor={`eggplant`}
-                            ButtonName={`보내기`}
-                            HandleClick={() => {
-                                setPageState(prevState => ({
-                                    ...prevState,
-                                    modal: {
-                                        ...prevState.modal,
-                                        confirm: true,
-                                    },
-                                }))
-                            }}
-                        />
-                    </div>
-                </div>
+            <div className="flex flex-nowrap whitespace-nowrap w-full justify-center pt-2 gap-1">
+                <VaryButton
+                    ButtonType={`default`}
+                    ButtonName={`취소`}
+                    HandleClick={() => {
+                        resetSmsSendState()
+                    }}
+                />
+                <VaryButton
+                    ButtonType={`default`}
+                    ButtonName={`보내기`}
+                    HandleClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                confirm: true,
+                            },
+                        }))
+                    }}
+                />
             </div>
             {pageState.modal.confirm && (
                 <ConfirmModal

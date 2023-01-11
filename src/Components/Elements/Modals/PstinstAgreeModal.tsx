@@ -144,7 +144,6 @@ const PstinstAgreeModal = ({
                         </ItemGrid>
                         <AllAgreeButton>
                             <VaryLabelCheckBox
-                                LabelWidth={'w32'}
                                 LabelName={`모든 약관에 동의 합니다.`}
                                 Checked={pageState.allCheck}
                                 HandleOnChange={e => {
@@ -170,12 +169,12 @@ const PstinstAgreeModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => HandleClickCancleButtion()}
                             ButtonName={'취소'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() =>
                                 HandleClickApplyButton(
                                     pageState.checkStplatInfo

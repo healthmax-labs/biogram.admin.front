@@ -460,14 +460,14 @@ const PstinstSelector = ({
                     Buttons={
                         <>
                             <VaryButton
-                                ButtonType={'manage'}
+                                ButtonType={'default'}
                                 HandleClick={() => handleCLickCancleButton()}
                                 ButtonName={'취소'}
                             />
 
                             {SelectorType === 'OnlyModal' && (
                                 <VaryButton
-                                    ButtonType={'manage'}
+                                    ButtonType={'default'}
                                     HandleClick={() => handleCLickApplyButton()}
                                     ButtonName={'확인'}
                                 />

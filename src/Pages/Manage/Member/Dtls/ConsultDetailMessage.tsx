@@ -120,7 +120,7 @@ const ConsultDetailMessage = () => {
                 <div className="flex py-2 items-center w-full justify-end">
                     <div className="flex py-2">
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'조회'}
                             HandleClick={() => handleGetData().then()}
                         />

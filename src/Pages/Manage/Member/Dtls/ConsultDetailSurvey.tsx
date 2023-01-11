@@ -224,7 +224,7 @@ const ConsultDetailSurvey = () => {
             <Detail.Survey.RowWapper>
                 <div className="w-full text-left items-center pt-2">
                     <VaryButton
-                        ButtonType={'manage'}
+                        ButtonType={'default'}
                         ButtonName={'수기입력'}
                         HandleClick={() =>
                             setPageState(prevState => ({
@@ -493,7 +493,7 @@ const ConsultDetailSurvey = () => {
                     Buttons={
                         <>
                             <VaryButton
-                                ButtonType={'manage'}
+                                ButtonType={'default'}
                                 ButtonName={'취소'}
                                 HandleClick={() =>
                                     setPageState(prevState => ({
@@ -507,7 +507,7 @@ const ConsultDetailSurvey = () => {
                                 }
                             />
                             <VaryButton
-                                ButtonType={'manage'}
+                                ButtonType={'default'}
                                 ButtonName={'저장'}
                                 HandleClick={() =>
                                     setPageState(prevState => ({

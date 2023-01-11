@@ -1,6 +1,6 @@
 import React from 'react'
 import { ButtonStyle } from '@Style/Elements/ButtonStyle'
-import { BgColorType } from '@CommonTypes'
+import { BgColorType, ButtonType } from '@CommonTypes'
 
 const {
     VaryButtonStyle: { Button },
@@ -15,7 +15,7 @@ const VaryButton = ({
 }: {
     ButtonName: string
     Active?: boolean
-    ButtonType: `button` | `info` | `manage`
+    ButtonType: ButtonType
     HandleClick: () => void
     BgColor?: BgColorType
 }) => {

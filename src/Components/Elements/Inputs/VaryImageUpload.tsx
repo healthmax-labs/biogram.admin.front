@@ -139,8 +139,7 @@ const VaryImageUpload = ({
                     10mb
                 </div>
                 <VaryButton
-                    ButtonType={`manage`}
-                    BgColor={`eggplant`}
+                    ButtonType={`default`}
                     ButtonName={`삭제`}
                     HandleClick={() => {
                         setPageState(initializeState)

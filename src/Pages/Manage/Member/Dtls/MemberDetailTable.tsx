@@ -597,7 +597,7 @@ const MemberDetailTable = ({
                                         {pageState.UseStplatAgreAt.state && (
                                             <WS.FlexRightButton>
                                                 <VaryButton
-                                                    ButtonType={`manage`}
+                                                    ButtonType={`default`}
                                                     ButtonName={`미동의 약관 (${pageState.UseStplatAgreAt.text})`}
                                                     HandleClick={() =>
                                                         setPageState(
@@ -664,7 +664,7 @@ const MemberDetailTable = ({
                                     <>
                                         <WS.FlexRightButton>
                                             <VaryButton
-                                                ButtonType={`manage`}
+                                                ButtonType={`default`}
                                                 ButtonName={
                                                     detailState.detail
                                                         .MBTLNUM_CRTFC_AT &&
@@ -682,7 +682,7 @@ const MemberDetailTable = ({
                                         {pageState.MbtlnumCheck && (
                                             <WS.FlexRightButton>
                                                 <VaryButton
-                                                    ButtonType={`manage`}
+                                                    ButtonType={`default`}
                                                     ButtonName={`데이터통합`}
                                                     HandleClick={() =>
                                                         setPageState(
@@ -858,7 +858,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryButton
-                                ButtonType={'manage'}
+                                ButtonType={`info`}
                                 ButtonName={`${
                                     detailState.detail.TOT_SCORE
                                         ? detailState.detail.TOT_SCORE
@@ -908,7 +908,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell colSpan={3}>
                             <VaryButton
-                                ButtonType={`manage`}
+                                ButtonType={`default`}
                                 ButtonName={`비밀번호 초기화`}
                                 HandleClick={() => {
                                     if (
@@ -948,7 +948,7 @@ const MemberDetailTable = ({
                                 LabelName={`소속정보`}
                                 Children={
                                     <VaryButton
-                                        ButtonType={`manage`}
+                                        ButtonType={`default`}
                                         ButtonName={`추가`}
                                         HandleClick={() =>
                                             setPageState(prevState => ({
@@ -989,7 +989,7 @@ const MemberDetailTable = ({
                                                             </P.TableCell>
                                                             <P.TableCell>
                                                                 <VaryButton
-                                                                    ButtonType={`manage`}
+                                                                    ButtonType={`default`}
                                                                     ButtonName={`소속 탈퇴`}
                                                                     HandleClick={() => {
                                                                         setDetailState(
@@ -1034,8 +1034,7 @@ const MemberDetailTable = ({
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`회원정보 저장하기`}
                         HandleClick={() => {
                             if (
@@ -1066,8 +1065,7 @@ const MemberDetailTable = ({
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`목록으로`}
                         HandleClick={() => {
                             navigate({
@@ -1429,7 +1427,7 @@ const MemberDetailTable = ({
                         Buttons={
                             <>
                                 <VaryButton
-                                    ButtonType={'manage'}
+                                    ButtonType={'default'}
                                     ButtonName={'취소'}
                                     HandleClick={() => {
                                         setPageState(prevState => ({
@@ -1452,7 +1450,7 @@ const MemberDetailTable = ({
                                     }}
                                 />
                                 <VaryButton
-                                    ButtonType={`manage`}
+                                    ButtonType={`default`}
                                     ButtonName={'확인'}
                                     HandleClick={async () => {
                                         if (

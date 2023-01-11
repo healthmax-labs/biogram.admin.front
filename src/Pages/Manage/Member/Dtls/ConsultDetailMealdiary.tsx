@@ -1088,38 +1088,33 @@ const ConsultDetailMealdiary = () => {
                 <History.Wapper>
                     <History.ButtonBox>
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`아침`}
+                            Active={true}
                         />
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`오전간식`}
                         />
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`점심`}
                         />
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`오후간식`}
                         />
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`저녁`}
                         />
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor="eggplant"
+                            ButtonType={`button`}
                             HandleClick={() => console.debug()}
                             ButtonName={`야식`}
                         />

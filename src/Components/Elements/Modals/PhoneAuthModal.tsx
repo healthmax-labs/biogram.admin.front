@@ -5,6 +5,7 @@ import { getCrtfcKey, postMbtlnumCrtfc } from '@Service/MemberService'
 import { getOnlyNumber } from '@Helper'
 import { isEmpty } from 'lodash'
 import Messages from '@Messages'
+import { VaryButton } from '@Elements'
 
 const {
     Container,
@@ -14,7 +15,6 @@ const {
     MainBox,
     CenterBox,
     ButtonBox,
-    Button,
 } = ModalStyle
 
 const { CenterText, AuthText, AuthInput, InputBox, AuthSpan, AuthErrorText } =
@@ -176,13 +176,17 @@ const PhoneAuthModal = ({
                             )}
 
                             <ButtonBox>
-                                <Button onClick={() => CancleButtonClick()}>
-                                    취소
-                                </Button>
-                                <Button
-                                    onClick={() => handleClickApplyButton()}>
-                                    인증하기
-                                </Button>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`취소`}
+                                    HandleClick={() => CancleButtonClick()}
+                                />
+
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`인증하기`}
+                                    HandleClick={() => handleClickApplyButton()}
+                                />
                             </ButtonBox>
                         </CenterBox>
                     </MainBox>

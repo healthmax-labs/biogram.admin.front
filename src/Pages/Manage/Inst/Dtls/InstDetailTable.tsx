@@ -311,7 +311,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <VaryLabel LabelName={`소속명`} />
                         </LabelCell>
                         <InputCell>
-                            <WapperStyle.InputFlexNoWarpWapper>
+                            <WapperStyle.InputFlexNoWarpWapperGap>
                                 <VaryInput
                                     Width={`w60`}
                                     InputType={'text'}
@@ -335,7 +335,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     }
                                 />
                                 <VaryButton
-                                    ButtonType={`manage`}
+                                    ButtonType={`default`}
                                     HandleClick={async () => {
                                         if (
                                             detailState.info.INST_NM &&
@@ -421,7 +421,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     }}
                                     ButtonName={`소속 중복 확인`}
                                 />
-                            </WapperStyle.InputFlexNoWarpWapper>
+                            </WapperStyle.InputFlexNoWarpWapperGap>
                         </InputCell>
                     </Row>
                     <Row>
@@ -619,8 +619,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`취소`}
                         HandleClick={() => {
                             navigate({
@@ -633,8 +632,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
@@ -650,8 +648,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 {pageMode === 'modify' && (
                     <ButtonItem>
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor={`eggplant`}
+                            ButtonType={`default`}
                             ButtonName={`삭제`}
                             HandleClick={() =>
                                 setDetailState(prevState => ({

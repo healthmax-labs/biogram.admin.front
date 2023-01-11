@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
-import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
+import { DetailPageStyle } from '@Style/Pages/ContentsPageStyle'
+import { WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     ConfirmModal,
     VaryButton,
@@ -33,7 +34,7 @@ const {
     ButtonItem,
 } = DetailTableStyle
 
-const { DetailContainer } = DetailPageStyle
+const { DetailContainer, DatePickerLine } = DetailPageStyle
 
 const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ misn_step: string | undefined }>()
@@ -549,55 +550,65 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     </Row>
                     <Row>
                         <InputCell>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    detailState.info.BEGIN_DT
-                                        ? changeDatePickerDate(
-                                              detailState.info.BEGIN_DT.replaceAll(
-                                                  '-',
-                                                  ''
-                                              )
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        info: {
-                                            ...prevState.info,
-                                            BEGIN_DT: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <div className="flex px-5 items-center">~</div>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    detailState.info.END_DT
-                                        ? changeDatePickerDate(
-                                              detailState.info.END_DT.replaceAll(
-                                                  '-',
-                                                  ''
-                                              )
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        info: {
-                                            ...prevState.info,
-                                            END_DT: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
+                            <WapperStyle.InputFlexNoWarpWapperGap>
+                                <div className="flex w-1/5">
+                                    <VaryDatepickerInput
+                                        ContentsType={`search`}
+                                        Value={
+                                            detailState.info.BEGIN_DT
+                                                ? changeDatePickerDate(
+                                                      detailState.info.BEGIN_DT.replaceAll(
+                                                          '-',
+                                                          ''
+                                                      )
+                                                  )
+                                                : new Date()
+                                        }
+                                        CallBackReturn={e => {
+                                            const { year, monthPad, dayPad } =
+                                                gmtTimeToTimeObject(e)
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    BEGIN_DT: `${year}${monthPad}${dayPad}`,
+                                                },
+                                            }))
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="flex w-4 items-center justify-center">
+                                    <DatePickerLine>~</DatePickerLine>
+                                </div>
+
+                                <div className="flex w-1/5">
+                                    <VaryDatepickerInput
+                                        ContentsType={`search`}
+                                        Value={
+                                            detailState.info.END_DT
+                                                ? changeDatePickerDate(
+                                                      detailState.info.END_DT.replaceAll(
+                                                          '-',
+                                                          ''
+                                                      )
+                                                  )
+                                                : new Date()
+                                        }
+                                        CallBackReturn={e => {
+                                            const { year, monthPad, dayPad } =
+                                                gmtTimeToTimeObject(e)
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    END_DT: `${year}${monthPad}${dayPad}`,
+                                                },
+                                            }))
+                                        }}
+                                    />
+                                </div>
+                            </WapperStyle.InputFlexNoWarpWapperGap>
                         </InputCell>
                     </Row>
                 </TableWapper>
@@ -606,8 +617,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`돌아가기`}
                         HandleClick={() => {
                             navigate({
@@ -620,8 +630,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({

@@ -210,7 +210,7 @@ const ConsultDetailTableMyData = () => {
             </Detail.Container>
             <div className="w-full text-left items-center gap-2 mt-3">
                 <VaryButton
-                    ButtonType={`manage`}
+                    ButtonType={`default`}
                     ButtonName={'수기입력'}
                     HandleClick={() =>
                         setPageState(prevState => ({

@@ -70,23 +70,23 @@ const AnalyticsSearchBox = () => {
                         </SearchLabel>
                         <SearchItemGap>
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="1개월"
                                 Active={true}
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="3개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="6개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="1년"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
@@ -98,18 +98,18 @@ const AnalyticsSearchBox = () => {
                         </SearchLabel>
                         <SearchItemGap>
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="1일"
                                 Active={true}
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="1주"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                             <VaryButton
-                                ButtonType={`info`}
+                                ButtonType={`button`}
                                 ButtonName="1개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />

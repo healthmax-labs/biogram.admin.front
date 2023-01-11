@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { BgColorType } from '@CommonTypes'
+import { BgColorType, ButtonType } from '@CommonTypes'
 
 export const ButtonStyle = {
     Hamburger: {
@@ -27,29 +27,40 @@ export const ButtonStyle = {
                 Active,
                 bgColor,
             }: {
-                ButtonType: `button` | `info` | `manage`
+                ButtonType: ButtonType
                 Active: boolean | null
                 bgColor: BgColorType | null
             }) => {
-                const returnTw = []
+                const returnTw = [tw`text-xs`]
 
                 if (ButtonType === 'info') {
                     returnTw.push(
-                        tw`inline-flex items-center bg-white text-black text-xs rounded-md mx-1 no-underline hover:underline`
+                        tw`inline-flex items-center bg-white text-black rounded-md mx-1 no-underline hover:underline`
+                    )
+                    return returnTw
+                }
+
+                returnTw.push(
+                    tw`py-1 px-4 border bg-transparent font-semibold rounded`
+                )
+
+                if (ButtonType === 'default') {
+                    returnTw.push(
+                        tw`bg-eggplant text-white border-gray-300 hover:border-transparent`
                     )
                 } else if (ButtonType === 'button') {
                     if (Active) {
                         returnTw.push(
-                            tw`bg-transparent bg-blueberry text-xs text-white hover:bg-blueberry py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                            tw`bg-blueberry text-white hover:bg-blueberry border-gray-300 hover:border-transparent`
                         )
                     } else {
                         returnTw.push(
-                            tw`bg-transparent hover:bg-blueberry text-xs text-gray-500 hover:text-white py-1 px-4 border border-gray-300 hover:border-transparent rounded`
+                            tw`hover:bg-blueberry text-xs text-gray-500 hover:text-white border-gray-300 hover:border-transparent`
                         )
                     }
                 } else if (ButtonType === `manage`) {
                     returnTw.push(
-                        tw`px-1.5 py-1.5 bg-transparent hover:bg-eggplant text-eggplant font-semibold hover:text-white border border-eggplant hover:border-transparent rounded`
+                        tw`hover:bg-eggplant text-eggplant hover:text-white border-eggplant hover:border-transparent`
                     )
                 }
 

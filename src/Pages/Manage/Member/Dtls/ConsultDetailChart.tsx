@@ -222,23 +222,19 @@ const ConsultDetailChart = () => {
                     />
                 </div>
                 <div className="flex py-2 items-center w-full justify-end">
-                    <div className="flex py-2">
+                    <div className="flex py-2 gap-1">
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'조회'}
                             HandleClick={() => handleGetList().then()}
                         />
-                    </div>
-                    <div className="flex py-2">
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'신규'}
                             HandleClick={() => resetConsultChart()}
                         />
-                    </div>
-                    <div className="flex py-2">
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'삭제'}
                             HandleClick={() => {
                                 setPageState(prevState => ({

@@ -140,8 +140,9 @@ export const ConsultDetailStyle = {
         MyCoach: {
             RowWapper: tw.div`w-full pb-1`,
             SearchWapper: tw.div`flex flex-nowrap w-full border`,
-            SearchBox: tw.div`flex py-2 items-center w-full justify-end`,
-            SearchItem: tw.div`flex py-2`,
+            SearchBox: tw.div`flex py-2 w-full justify-end`,
+            SearchItems: tw.div`flex gap-1 h-8 px-1`,
+            SearchItem: tw.div`flex items-center`,
             LoadingBox: tw.div`flex flex-col pt-32`,
             TableBox: tw.div`flex`,
             Table: {

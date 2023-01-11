@@ -348,6 +348,7 @@ const UhealthzoneDetailTable = ({
                             <WS.InputFlexNoWarpWapper>
                                 <InputItem>
                                     <VaryInput
+                                        Width={'w60'}
                                         InputType={'text'}
                                         HandleOnChange={(
                                             e: React.ChangeEvent<HTMLInputElement>
@@ -368,7 +369,7 @@ const UhealthzoneDetailTable = ({
                                 {!detailState.sub.instlPlaceCheck && (
                                     <InputItem>
                                         <VaryButton
-                                            ButtonType={`manage`}
+                                            ButtonType={`default`}
                                             ButtonName={`지점 중복확인`}
                                             HandleClick={() =>
                                                 handleInstlPlaceCheck()
@@ -487,6 +488,7 @@ const UhealthzoneDetailTable = ({
                             <WS.InputFlexNoWarpWapper>
                                 <InputItem>
                                     <VaryInput
+                                        Width={'w60'}
                                         InputType={'text'}
                                         id={'id'}
                                         Placeholder={'전화번호'}
@@ -514,78 +516,59 @@ const UhealthzoneDetailTable = ({
                         <InputCell>
                             <WS.FullWapper>
                                 <WS.FlexNoWarapGap>
-                                    <DPS.Address.Button>
-                                        <VaryButton
-                                            ButtonType={`manage`}
-                                            ButtonName={`주소 검색`}
-                                            HandleClick={() =>
-                                                setPageState(prevState => ({
+                                    <VaryButton
+                                        ButtonType={`default`}
+                                        ButtonName={`주소 검색`}
+                                        HandleClick={() =>
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                modal: {
+                                                    ...prevState.modal,
+                                                    postcode: true,
+                                                },
+                                            }))
+                                        }
+                                    />
+                                    <VaryInput
+                                        Width={'full'}
+                                        InputType={'text'}
+                                        HandleOnChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) => console.debug(e)}
+                                        id={'id'}
+                                        Placeholder={'주소를 입력해 주세요'}
+                                        Value={detailState.detail.INSTL_ADRES}
+                                    />
+                                </WS.FlexNoWarapGap>
+                                <WS.FlexNoWarapGap>
+                                    <WS.FlexNoWarapGap>
+                                        <VaryLabelInput
+                                            LabelName="위도"
+                                            HandleOnChange={e =>
+                                                setDetailState(prevState => ({
                                                     ...prevState,
-                                                    modal: {
-                                                        ...prevState.modal,
-                                                        postcode: true,
+                                                    detail: {
+                                                        ...prevState.detail,
+                                                        LA: e.target.value,
                                                     },
                                                 }))
                                             }
+                                            InputValue={detailState.detail.LA}
                                         />
-                                    </DPS.Address.Button>
-                                    <DPS.Address.Input>
-                                        <VaryInput
-                                            InputType={'text'}
-                                            HandleOnChange={(
-                                                e: React.ChangeEvent<HTMLInputElement>
-                                            ) => console.debug(e)}
-                                            id={'id'}
-                                            Placeholder={'주소를 입력해 주세요'}
-                                            Value={
-                                                detailState.detail.INSTL_ADRES
+                                        <VaryLabelInput
+                                            LabelName="경도"
+                                            HandleOnChange={e =>
+                                                setDetailState(prevState => ({
+                                                    ...prevState,
+                                                    detail: {
+                                                        ...prevState.detail,
+                                                        LO: e.target.value,
+                                                    },
+                                                }))
                                             }
+                                            InputValue={detailState.detail.LO}
                                         />
-                                    </DPS.Address.Input>
-                                </WS.FlexNoWarapGap>
-                                <WS.FlexNoWarapGap>
-                                    <WS.FullNoWarap>
-                                        <DPS.Geo>
-                                            <VaryLabelInput
-                                                LabelName="위도"
-                                                HandleOnChange={e =>
-                                                    setDetailState(
-                                                        prevState => ({
-                                                            ...prevState,
-                                                            detail: {
-                                                                ...prevState.detail,
-                                                                LA: e.target
-                                                                    .value,
-                                                            },
-                                                        })
-                                                    )
-                                                }
-                                                InputValue={
-                                                    detailState.detail.LA
-                                                }
-                                            />
-                                        </DPS.Geo>
-                                        <DPS.Geo>
-                                            <VaryLabelInput
-                                                LabelName="경도"
-                                                HandleOnChange={e =>
-                                                    setDetailState(
-                                                        prevState => ({
-                                                            ...prevState,
-                                                            detail: {
-                                                                ...prevState.detail,
-                                                                LO: e.target
-                                                                    .value,
-                                                            },
-                                                        })
-                                                    )
-                                                }
-                                                InputValue={
-                                                    detailState.detail.LO
-                                                }
-                                            />
-                                        </DPS.Geo>
-                                    </WS.FullNoWarap>
+                                    </WS.FlexNoWarapGap>
                                 </WS.FlexNoWarapGap>
                                 <WS.FlexNoWarapGap>
                                     <WS.FullNoWarap>
@@ -619,7 +602,7 @@ const UhealthzoneDetailTable = ({
                                         <DPS.MapURL>
                                             <WS.FlexNoWarapGap>
                                                 <VaryButton
-                                                    ButtonType={`manage`}
+                                                    ButtonType={`default`}
                                                     ButtonName={`지도보기`}
                                                     HandleClick={() => {
                                                         if (
@@ -646,7 +629,7 @@ const UhealthzoneDetailTable = ({
                                                 {detailState.detail.LO &&
                                                     detailState.detail.LA && (
                                                         <VaryButton
-                                                            ButtonType={`manage`}
+                                                            ButtonType={`default`}
                                                             ButtonName={`지도 URL 생성`}
                                                             HandleClick={() => {
                                                                 setDetailState(
@@ -1291,7 +1274,7 @@ const UhealthzoneDetailTable = ({
                                                     </DPS.DeviceKeySelect>
                                                     <DPS.DeviceKeySelectButton>
                                                         <VaryButton
-                                                            ButtonType={`manage`}
+                                                            ButtonType={`default`}
                                                             ButtonName={`추가`}
                                                             HandleClick={() => {
                                                                 if (
@@ -1426,7 +1409,7 @@ const UhealthzoneDetailTable = ({
                                                                         </CT.TableBodyCell>
                                                                         <CT.TableBodyCell>
                                                                             <VaryButton
-                                                                                ButtonType={`manage`}
+                                                                                ButtonType={`default`}
                                                                                 ButtonName={`삭제`}
                                                                                 HandleClick={() =>
                                                                                     setDetailState(
@@ -1538,8 +1521,7 @@ const UhealthzoneDetailTable = ({
             <DPS.ButtonBox>
                 <DPS.ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`취소`}
                         HandleClick={() => {
                             console.debug('HandleClick')
@@ -1548,8 +1530,7 @@ const UhealthzoneDetailTable = ({
                 </DPS.ButtonItem>
                 <DPS.ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`확인`}
                         HandleClick={() => {
                             const { instlPlaceCheck } = detailState.sub
@@ -1642,8 +1623,7 @@ const UhealthzoneDetailTable = ({
                 {pageMode === 'modify' && (
                     <DPS.ButtonItem>
                         <VaryButton
-                            ButtonType={`manage`}
-                            BgColor={`eggplant`}
+                            ButtonType={`default`}
                             ButtonName={`삭제`}
                             HandleClick={() => {
                                 setPageState(prevState => ({
