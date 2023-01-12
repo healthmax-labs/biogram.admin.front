@@ -62,7 +62,7 @@ const ConsultDetailMealdiary = () => {
                     </Search.SearchItem>
                     <Search.SearchItem>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'조회'}
                             HandleClick={() =>
                                 console.debug('DefaultManageButton')
@@ -1121,18 +1121,18 @@ const ConsultDetailMealdiary = () => {
                     </History.ButtonBox>
                 </History.Wapper>
                 <History.Wapper>
-                    <div className="flex flex-nowrap w-full">
-                        <div className="w-1/2">
-                            <div className="flex flex-nowrap w-full py-2">
-                                <div className="w-1/6"></div>
-                                <div className="w-4/6 text-xs">
+                    <History.ImageBox.Container>
+                        <History.ImageBox.ImageWapper>
+                            <History.ImageBox.ImageTitleCell>
+                                <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
+                                <History.ImageBox.TitleBox>
                                     메뉴명: 돈육 김치찌개, 밥, 콩나물
-                                </div>
-                                <div className="w-1/6"></div>
-                            </div>
-                            <div className="flex flex-nowrap w-full">
-                                <div className="w-1/6"></div>
-                                <div className="w-4/6 text-xs">
+                                </History.ImageBox.TitleBox>
+                                <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
+                            </History.ImageBox.ImageTitleCell>
+                            <History.ImageBox.ImageImageCell>
+                                <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
+                                <History.ImageBox.ImageBox>
                                     <Slider {...settings}>
                                         <div>
                                             <h3>
@@ -1175,12 +1175,12 @@ const ConsultDetailMealdiary = () => {
                                             </h3>
                                         </div>
                                     </Slider>
-                                </div>
-                                <div className="w-1/6"></div>
-                            </div>
-                        </div>
-                        <div className="w-1/2">
-                            <div className="w-1/2">
+                                </History.ImageBox.ImageBox>
+                                <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
+                            </History.ImageBox.ImageImageCell>
+                        </History.ImageBox.ImageWapper>
+                        <History.ImageBox.TableBox>
+                            <History.ImageBox.TableBox>
                                 <STable.Table>
                                     <STable.Body>
                                         <STable.Row>
@@ -1223,9 +1223,9 @@ const ConsultDetailMealdiary = () => {
                                         </STable.Row>
                                     </STable.Body>
                                 </STable.Table>
-                            </div>
-                        </div>
-                    </div>
+                            </History.ImageBox.TableBox>
+                        </History.ImageBox.TableBox>
+                    </History.ImageBox.Container>
                 </History.Wapper>
             </RowWapper>
         </D.Container>
