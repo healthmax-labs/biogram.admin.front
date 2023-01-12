@@ -1,5 +1,5 @@
-import { TableStyle } from '@Style/Elements/TableStyles'
 import React from 'react'
+import { TableStyle } from '@Style/Elements/TableStyles'
 import { MainTableBodyPropsInterface } from '@Type/TableTypes'
 import { VaryCheckBox } from '@Element/index'
 import _ from 'lodash'

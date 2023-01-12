@@ -3,25 +3,23 @@ import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
 import {
     ContentType,
-    InputWidthType,
     TextAlignType,
     TextColorType,
+    WidthType,
 } from '@CommonTypes'
 
 export const InputStyle = {
-    DatePickerWapper: styled.div(
-        ({ Width }: { Width?: InputWidthType | null }) => {
-            const returnTw = [tw`flex items-center gap-1`]
+    DatePickerWapper: styled.div(({ Width }: { Width?: WidthType | null }) => {
+        const returnTw = [tw`flex items-center gap-1`]
 
-            if (Width) {
-                returnTw.push(ConstStyle.width[Width])
-            } else {
-                returnTw.push(tw`w-full`)
-            }
-
-            return returnTw
+        if (Width) {
+            returnTw.push(ConstStyle.width[Width])
+        } else {
+            returnTw.push(tw`w-full`)
         }
-    ),
+
+        return returnTw
+    }),
     DatePicker: tw.input`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
     Search: {
@@ -37,7 +35,7 @@ export const InputStyle = {
 export const VaryLabelInputStyle = {
     Wapper: tw.div`flex items-center gap-2`,
     InputLabel: tw.label`block uppercase text-gray-600 text-xs w-2/12 font-bold`,
-    Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
+    Input: styled.input(({ Width = `w60` }: { Width?: WidthType }) => [
         tw`form-input block h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
         ConstStyle.width[Width],
     ]),
@@ -45,13 +43,7 @@ export const VaryLabelInputStyle = {
 
 export const VaryInputStyle = {
     Wapper: styled.div(
-        ({
-            Flex,
-            Width,
-        }: {
-            Flex?: boolean
-            Width?: InputWidthType | null
-        }) => {
+        ({ Flex, Width }: { Flex?: boolean; Width?: WidthType | null }) => {
             const returnTw = []
 
             if (Flex) {
@@ -116,7 +108,7 @@ export const VaryLabelStyle = {
             TextColor,
             TextAlign,
         }: {
-            Width?: InputWidthType | null
+            Width?: WidthType | null
             TextColor: TextColorType
             TextAlign: TextAlignType
         }) => {

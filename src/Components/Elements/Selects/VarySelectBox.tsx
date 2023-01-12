@@ -1,6 +1,6 @@
 import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import React from 'react'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType, WidthType } from '@CommonTypes'
 
 const { Wapper, Select } = VarySelectBoxStyle
 
@@ -25,7 +25,7 @@ const VarySelectBox = ({
     HandleOnFocus?: () => void
     HandleOnnBlur?: () => void
     HandleOnChange?: ({ value, text }: { value: string; text: string }) => void
-    Width?: InputWidthType | null
+    Width?: WidthType | null
     AutoComplete?: boolean
 }) => {
     return (

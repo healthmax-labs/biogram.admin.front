@@ -1,7 +1,7 @@
 import React from 'react'
 import { VaryLabelStyle } from '@Style/Elements/InputStyles'
 import VaryCheckBox from './VaryCheckBox'
-import { InputWidthType, TextColorType } from '@CommonTypes'
+import { TextColorType, WidthType } from '@CommonTypes'
 import { VaryLabel } from '@Elements'
 
 const { Wapper } = VaryLabelStyle
@@ -17,7 +17,7 @@ const VaryLabelCheckBox = ({
     LabelName: string
     Checked: boolean
     LabelReverse?: boolean
-    LabelWidth?: InputWidthType
+    LabelWidth?: WidthType
     TextColor?: TextColorType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {

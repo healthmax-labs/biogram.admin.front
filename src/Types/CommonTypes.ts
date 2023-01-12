@@ -1,6 +1,6 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
 export type DefaultYesNo = 'Y' | 'N'
-export type InputWidthType =
+export type WidthType =
     | 'w0'
     | 'w1'
     | 'w2'

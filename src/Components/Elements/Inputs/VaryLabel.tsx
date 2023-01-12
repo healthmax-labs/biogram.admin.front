@@ -1,6 +1,6 @@
 import React from 'react'
 import { VaryLabelStyle } from '@Style/Elements/InputStyles'
-import { InputWidthType, TextColorType, TextAlignType } from '@CommonTypes'
+import { TextAlignType, TextColorType, WidthType } from '@CommonTypes'
 
 const { Wapper, InputLabel } = VaryLabelStyle
 
@@ -11,7 +11,7 @@ const VaryLabel = ({
     TextColor,
     TextAlign,
 }: {
-    LabelWidth?: InputWidthType
+    LabelWidth?: WidthType
     LabelName: string
     Children?: React.ReactNode
     TextColor?: TextColorType

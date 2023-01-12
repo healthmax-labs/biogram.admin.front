@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from 'react'
-import { InputWidthType } from '@CommonTypes'
+import { WidthType } from '@CommonTypes'
 import { VaryInput, VaryLabel } from '@Elements'
 import { VaryLabelInputStyle } from '@Style/Elements/InputStyles'
 
@@ -19,7 +19,7 @@ const VaryLabelInput = ({
     LabelName: string
     Placeholder?: string
     InputValue: string
-    InputWidth?: InputWidthType
+    InputWidth?: WidthType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
     Required?: boolean

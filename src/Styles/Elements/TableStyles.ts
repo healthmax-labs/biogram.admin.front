@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 export const TableStyle = {
     Container: tw.div`flex flex-col h-screen max-h-[77vh]`,
-    Wapper: tw.div`flex-grow overflow-auto`,
+    Wapper: tw.div`overflow-auto`,
     Table: tw.table`relative w-full border`,
     Thead: tw.thead``,
     HeaderRow1: tw.tr`sticky top-0 bg-steel h-8`,

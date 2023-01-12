@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { InputWidthType } from '@CommonTypes'
+import { WidthType } from '@CommonTypes'
 
 const DefaultInput = (
     {
@@ -11,7 +11,7 @@ const DefaultInput = (
         onChange,
     }: {
         value: string
-        Width?: InputWidthType
+        Width?: WidthType
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     },
