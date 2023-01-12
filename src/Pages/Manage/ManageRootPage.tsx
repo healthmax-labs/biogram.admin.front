@@ -12,7 +12,7 @@ const ManageRootPage = () => {
     const [pageTitle, setPageTitle] = useState<string>(``)
     const tabState = useRecoilValue(AtomPageTabState)
 
-    // 템에 따른 메인 페이지 동적 로딩.
+    // 텝에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
         const chIndex = Routers.findIndex(
             el => el.pathName === activeRoutePathName
