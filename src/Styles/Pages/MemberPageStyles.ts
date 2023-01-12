@@ -125,6 +125,17 @@ export const ConsultDetailStyle = {
             History: {
                 Wapper: tw.div`w-full`,
                 ButtonBox: tw.div`flex flex-nowrap gap-2 pt-2`,
+                ImageBox: {
+                    Container: tw.div`flex flex-nowrap w-full`,
+                    ImageWapper: tw.div`w-1/2`,
+                    ImageTitleCell: tw.div`flex flex-nowrap w-full py-2`,
+                    ImageImageCell: tw.div`flex flex-nowrap w-full`,
+                    EmptyCellStep1: tw.div`w-1/6`,
+                    EmptyCellStep2: tw.div`w-4/6`,
+                    TitleBox: tw.div`w-4/6 text-xs`,
+                    ImageBox: tw.div`w-4/6 text-xs`,
+                    TableBox: tw.div`w-1/2`,
+                },
             },
         },
         Survey: {
