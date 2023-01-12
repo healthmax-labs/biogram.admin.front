@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil'
 import { ConsultDetailChartState } from '@Recoil/MemberPagesState'
 import _ from 'lodash'
 
-const { Tabs } = ConsultDetailStyle
+const { Tabs, Message } = ConsultDetailStyle
 
 const initializeState = {
     Tab: [
@@ -75,25 +75,24 @@ const ConsultDetailTableMessageBox = () => {
     }, [chartState])
 
     return (
-        <div className="px-2 pt-20">
-            <div className="flex flex-col break-words bg-white">
-                <Tabs.Container>
-                    <Tabs.Rows>
-                        <Tabs.Cells>
-                            {pageState.Tab.map((el, i) => {
-                                return (
-                                    <Tabs.Items
-                                        key={`consult-detail-table-message-box-tab-item-${i}`}
-                                        Active={el.active}
-                                        onClick={() => handleTabClick(el)}>
-                                        {el.name}
-                                    </Tabs.Items>
-                                )
-                            })}
-                        </Tabs.Cells>
-                    </Tabs.Rows>
-                </Tabs.Container>
-            </div>
+        <Message.Container>
+            <Tabs.Container>
+                <Tabs.Rows>
+                    <Tabs.Cells>
+                        {pageState.Tab.map((el, i) => {
+                            return (
+                                <Tabs.Items
+                                    key={`consult-detail-table-message-box-tab-item-${i}`}
+                                    Active={el.active}
+                                    onClick={() => handleTabClick(el)}>
+                                    {el.name}
+                                </Tabs.Items>
+                            )
+                        })}
+                    </Tabs.Cells>
+                </Tabs.Rows>
+            </Tabs.Container>
+
             {(() => {
                 if (pageState.activeTab === 'memo') {
                     return <ConsultDetailTableMemo />
@@ -101,7 +100,7 @@ const ConsultDetailTableMessageBox = () => {
                     return <ConsultDetailTableMessageSend />
                 }
             })()}
-        </div>
+        </Message.Container>
     )
 }
 

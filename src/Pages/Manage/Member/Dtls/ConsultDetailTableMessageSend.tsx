@@ -15,6 +15,24 @@ import Messages from '@Messages'
 import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
 import { mberSendSms } from '@Service/MemberService'
+import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+
+const {
+    Message: {
+        Memo: {
+            Container,
+            Row,
+            ButtonCenterBox,
+            LabelCell,
+            ItemCell,
+            SendBoxGrid,
+            SendBoxRow,
+            SendBoxDatePickerWapper,
+            SendBoxDatePickerDate,
+            SendBoxDatePickerTime,
+        },
+    },
+} = ConsultDetailStyle
 
 const initializeState = {
     modal: {
@@ -105,34 +123,32 @@ const ConsultDetailTableMessageSend = () => {
 
     return (
         <>
-            <div className="flex flex-col break-words bg-white pt-3">
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex w-full text-sm text-gray-500 ">
-                        <VaryTextArea
-                            HandleOnChange={e =>
-                                setSmsSendState(prevState => ({
-                                    ...prevState,
-                                    send: {
-                                        ...prevState.send,
-                                        SMS_CN: e.target.value,
-                                    },
-                                }))
-                            }
-                            Placeholder={`내용`}
-                            Value={
-                                smsSendState.send.SMS_CN
-                                    ? smsSendState.send.SMS_CN
-                                    : ''
-                            }
-                            Rows={20}
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full pt-2">
-                    <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
-                        <VaryLabel LabelName={`발신번호:`} />
-                    </div>
-                    <div className="flex w-full">
+            <Container>
+                <Row>
+                    <VaryTextArea
+                        HandleOnChange={e =>
+                            setSmsSendState(prevState => ({
+                                ...prevState,
+                                send: {
+                                    ...prevState.send,
+                                    SMS_CN: e.target.value,
+                                },
+                            }))
+                        }
+                        Placeholder={`메시지 내용`}
+                        Value={
+                            smsSendState.send.SMS_CN
+                                ? smsSendState.send.SMS_CN
+                                : ''
+                        }
+                        Rows={20}
+                    />
+                </Row>
+                <Row>
+                    <LabelCell>
+                        <VaryLabel LabelName={`발신번호`} TextAlign={`left`} />
+                    </LabelCell>
+                    <ItemCell>
                         <VaryInput
                             HandleOnChange={e =>
                                 setSmsSendState(prevState => ({
@@ -151,57 +167,53 @@ const ConsultDetailTableMessageSend = () => {
                                     : ''
                             }
                         />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full pt-2">
-                    <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
-                        <VaryLabel LabelName={`발신시간:`} />
-                    </div>
-                    <div className="w-full">
-                        <div className="grid grid-rows-2 grid-flow-col gap-1">
-                            <div className="flex flex-nowrap items-center">
-                                <div className="px-0">
-                                    <VaryLabelCheckBox
-                                        LabelName={`바로발송`}
-                                        Checked={
-                                            smsSendState.send.SNDNG_GBN === 'N'
-                                        }
-                                        HandleOnChange={e => {
-                                            setSmsSendState(prevState => ({
-                                                ...prevState,
-                                                send: {
-                                                    ...prevState.send,
-                                                    SNDNG_GBN: e.target.checked
-                                                        ? 'N'
-                                                        : 'Y',
-                                                },
-                                            }))
-                                        }}
-                                    />
-                                </div>
-                                <div className="px-2">
-                                    <VaryLabelCheckBox
-                                        LabelName={`예약발송`}
-                                        Checked={
-                                            smsSendState.send.SNDNG_GBN === 'Y'
-                                        }
-                                        HandleOnChange={e => {
-                                            setSmsSendState(prevState => ({
-                                                ...prevState,
-                                                send: {
-                                                    ...prevState.send,
-                                                    SNDNG_GBN: e.target.checked
-                                                        ? 'Y'
-                                                        : 'N',
-                                                },
-                                            }))
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex flex-nowrap">
-                                    <div className="w-2/8">
+                    </ItemCell>
+                </Row>
+                <Row>
+                    <LabelCell>
+                        <VaryLabel LabelName={`발신시간`} TextAlign={`left`} />
+                    </LabelCell>
+                    <ItemCell>
+                        <SendBoxGrid>
+                            <SendBoxRow>
+                                <VaryLabelCheckBox
+                                    LabelName={`바로발송`}
+                                    Checked={
+                                        smsSendState.send.SNDNG_GBN === 'N'
+                                    }
+                                    HandleOnChange={e => {
+                                        setSmsSendState(prevState => ({
+                                            ...prevState,
+                                            send: {
+                                                ...prevState.send,
+                                                SNDNG_GBN: e.target.checked
+                                                    ? 'N'
+                                                    : 'Y',
+                                            },
+                                        }))
+                                    }}
+                                />
+                                <VaryLabelCheckBox
+                                    LabelName={`예약발송`}
+                                    Checked={
+                                        smsSendState.send.SNDNG_GBN === 'Y'
+                                    }
+                                    HandleOnChange={e => {
+                                        setSmsSendState(prevState => ({
+                                            ...prevState,
+                                            send: {
+                                                ...prevState.send,
+                                                SNDNG_GBN: e.target.checked
+                                                    ? 'Y'
+                                                    : 'N',
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </SendBoxRow>
+                            <SendBoxRow>
+                                <SendBoxDatePickerWapper>
+                                    <SendBoxDatePickerDate>
                                         <VaryDatepickerInput
                                             Value={
                                                 smsSendState.send.SNDNG_DT
@@ -229,8 +241,8 @@ const ConsultDetailTableMessageSend = () => {
                                                 }))
                                             }}
                                         />
-                                    </div>
-                                    <div className="w-2/5">
+                                    </SendBoxDatePickerDate>
+                                    <SendBoxDatePickerTime>
                                         <VaryDatepickerInput
                                             ContentsType={`time`}
                                             DateFormat={'h:mm'}
@@ -260,35 +272,37 @@ const ConsultDetailTableMessageSend = () => {
                                                 }))
                                             }}
                                         />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="flex flex-nowrap whitespace-nowrap w-full justify-center pt-2 gap-1">
-                <VaryButton
-                    ButtonType={`default`}
-                    ButtonName={`취소`}
-                    HandleClick={() => {
-                        resetSmsSendState()
-                    }}
-                />
-                <VaryButton
-                    ButtonType={`default`}
-                    ButtonName={`보내기`}
-                    HandleClick={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                confirm: true,
-                            },
-                        }))
-                    }}
-                />
-            </div>
+                                    </SendBoxDatePickerTime>
+                                </SendBoxDatePickerWapper>
+                            </SendBoxRow>
+                        </SendBoxGrid>
+                    </ItemCell>
+                </Row>
+                <Row>
+                    <ButtonCenterBox>
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName={`취소`}
+                            HandleClick={() => {
+                                resetSmsSendState()
+                            }}
+                        />
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName={`보내기`}
+                            HandleClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        confirm: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    </ButtonCenterBox>
+                </Row>
+            </Container>
             {pageState.modal.confirm && (
                 <ConfirmModal
                     Title={Messages.Default.sms.sendConfirm}

@@ -1,3 +1,8 @@
+import React, { useCallback, useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
+import _ from 'lodash'
 import {
     ConfirmModal,
     VaryButton,
@@ -9,16 +14,18 @@ import {
     ConsultDetailChartListState,
     ConsultDetailChartState,
 } from '@Recoil/MemberPagesState'
-import { useRecoilState } from 'recoil'
-import React, { useCallback, useState } from 'react'
-import Messages from '@Messages'
-import _ from 'lodash'
-import { useMainLayouts } from '@Hook/index'
 import {
     postManageaddCounsel,
     postManageCounsel,
     postManageUpdateCounsel,
 } from '@Service/MemberService'
+import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+
+const {
+    Message: {
+        Memo: { Container, Row, ButtonBox, LabelCell, ItemCell },
+    },
+} = ConsultDetailStyle
 
 const initializeState = {
     modal: {
@@ -137,12 +144,12 @@ const ConsultDetailTableMemo = () => {
 
     return (
         <>
-            <div className="flex flex-col break-words bg-white pt-3 ">
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
-                        <VaryLabel LabelName={`작성자명:`} />
-                    </div>
-                    <div className="w-full">
+            <Container>
+                <Row>
+                    <LabelCell>
+                        <VaryLabel LabelName={`작성자명`} TextAlign={`left`} />
+                    </LabelCell>
+                    <ItemCell>
                         <VaryInput
                             HandleOnChange={e =>
                                 setChartState(prevState => ({
@@ -154,15 +161,15 @@ const ConsultDetailTableMemo = () => {
                             Placeholder={'작성자명'}
                             Value={chartState.REG_NM ? chartState.REG_NM : ``}
                         />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
-                        <VaryLabel LabelName={`상담내역: `} />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex w-full text-sm text-gray-500 ">
+                    </ItemCell>
+                </Row>
+                <Row>
+                    <LabelCell>
+                        <VaryLabel LabelName={`상담내역`} TextAlign={`left`} />
+                    </LabelCell>
+                </Row>
+                <Row>
+                    <ItemCell>
                         <VaryTextArea
                             HandleOnChange={e =>
                                 setChartState(prevState => ({
@@ -170,19 +177,19 @@ const ConsultDetailTableMemo = () => {
                                     CNST: e.target.value,
                                 }))
                             }
-                            Placeholder={`상담내역`}
+                            Placeholder={`상담내역을 입력해 주세요`}
                             Value={chartState.CNST ? chartState.CNST : ``}
                             Rows={15}
                         />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex px-2 w-1/4 text-sm text-gray-500 h-8">
-                        <VaryLabel LabelName={`추후계획: `} />
-                    </div>
-                </div>
-                <div className="flex flex-nowrap whitespace-nowrap w-full">
-                    <div className="flex w-full text-sm text-gray-500 border">
+                    </ItemCell>
+                </Row>
+                <Row>
+                    <LabelCell>
+                        <VaryLabel LabelName={`추후계획`} TextAlign={`left`} />
+                    </LabelCell>
+                </Row>
+                <Row>
+                    <ItemCell>
                         <VaryTextArea
                             HandleOnChange={e =>
                                 setChartState(prevState => ({
@@ -190,50 +197,52 @@ const ConsultDetailTableMemo = () => {
                                     PLN: e.target.value,
                                 }))
                             }
-                            Placeholder={`추후계획`}
+                            Placeholder={`추후계획을 입력해 주세요`}
                             Value={chartState.PLN ? chartState.PLN : ``}
                             Rows={15}
                         />
-                    </div>
-                </div>
-            </div>
-            <div className="flex justify-end">
-                <div className="flex pt-3 items-right justify-end">
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName={`저장`}
-                        HandleClick={() => {
-                            if (_.isEmpty(chartState.REG_NM)) {
-                                handlMainAlert({
-                                    state: true,
-                                    message:
-                                        Messages.Default.consult
-                                            .chartSaveEmptyRegNm,
-                                })
-                                return
-                            }
+                    </ItemCell>
+                </Row>
 
-                            if (_.isEmpty(chartState.CNST)) {
-                                handlMainAlert({
-                                    state: true,
-                                    message:
-                                        Messages.Default.consult
-                                            .chartSaveEmptyCnst,
-                                })
-                                return
-                            }
+                <Row>
+                    <ButtonBox>
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName={`저장`}
+                            HandleClick={() => {
+                                if (_.isEmpty(chartState.REG_NM)) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message:
+                                            Messages.Default.consult
+                                                .chartSaveEmptyRegNm,
+                                    })
+                                    return
+                                }
 
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    confirm: true,
-                                },
-                            }))
-                        }}
-                    />
-                </div>
-            </div>
+                                if (_.isEmpty(chartState.CNST)) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message:
+                                            Messages.Default.consult
+                                                .chartSaveEmptyCnst,
+                                    })
+                                    return
+                                }
+
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        confirm: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    </ButtonBox>
+                </Row>
+            </Container>
+
             {pageState.modal.confirm && (
                 <ConfirmModal
                     Title={Messages.Default.consult.chartSaveConfirm}
