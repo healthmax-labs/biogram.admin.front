@@ -2,10 +2,10 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
 import {
-    InputWidthType,
     ContentType,
-    TextColorType,
+    InputWidthType,
     TextAlignType,
+    TextColorType,
 } from '@CommonTypes'
 
 export const InputStyle = {
@@ -136,10 +136,6 @@ export const VaryLabelStyle = {
 
             if (TextColor === 'gray') {
                 returnTw.push(tw`text-gray-500`)
-            }
-
-            if (!Width) {
-                console.debug(returnTw)
             }
 
             return returnTw
