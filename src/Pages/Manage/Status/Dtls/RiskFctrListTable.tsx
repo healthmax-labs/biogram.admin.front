@@ -27,7 +27,7 @@ const RiskFctrListTable = () => {
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
-                `/manage/member/${element.MBER_NO}/detail`,
+                `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
         })
     }
 
