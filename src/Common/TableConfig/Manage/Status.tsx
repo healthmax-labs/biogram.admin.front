@@ -877,7 +877,7 @@ export interface ActivityWalkTableListItemInterface {
 export const ActivityWalkTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `MBER_NO`,
         bgState: true,
     },

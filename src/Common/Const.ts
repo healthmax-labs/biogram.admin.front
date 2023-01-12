@@ -77,4 +77,5 @@ export default {
         },
     ],
     reprsntTelno: `1644-2810`,
+    maxTabCount: 10,
 }
