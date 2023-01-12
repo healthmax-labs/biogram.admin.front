@@ -13,7 +13,7 @@ export interface StplatTableListItemInterface {
 export const StplatTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `STPLAT_SE_CODE`,
         bgState: true,
     },
@@ -59,7 +59,7 @@ export interface NoticeTableListItemInterface {
 export const NoticeTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `NOTICE_NO`,
         bgState: true,
     },
