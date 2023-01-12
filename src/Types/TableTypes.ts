@@ -1,3 +1,5 @@
+import { WidthType } from '@CommonTypes'
+
 // 공통 테이블 컬럼
 import React from 'react'
 
@@ -18,6 +20,7 @@ export interface ColumnsInterface<T> {
     colSpan?: number
     rowSpan?: number
     textAlign?: string | 'left' | 'center' | 'right'
+    cellWidth?: string | WidthType
     component?: React.FC<{ el: T }>
 }
 
