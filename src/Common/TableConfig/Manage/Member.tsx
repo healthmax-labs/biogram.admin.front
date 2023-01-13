@@ -6,6 +6,8 @@ import {
     ConsultInfoListItemInterface,
     MemberInfoListItemInterface,
 } from '@Type/MemberTypes'
+import { phoneFormat, timeStringParse } from '@Helper'
+import _ from 'lodash'
 
 export type tableListItemInterface = MemberInfoListItemInterface
 
@@ -37,6 +39,7 @@ export const MsgSendTableConfig = {
         selectAll: true,
         indexKey: `SNDNG_NO`,
         bgState: true,
+        tableType: 'fixed',
     },
     Columns: [
         [
@@ -47,6 +50,15 @@ export const MsgSendTableConfig = {
             {
                 name: `송신일`,
                 key: `SNDNGDE`,
+                component: ({ el }: { el: MsgSendTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.SNDNGDE)
+                                ? ''
+                                : timeStringParse(el.SNDNGDE)}
+                        </>
+                    )
+                },
             },
             {
                 name: `수신자`,
@@ -63,6 +75,15 @@ export const MsgSendTableConfig = {
             {
                 name: `등록일`,
                 key: `RGSDE`,
+                component: ({ el }: { el: MsgSendTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.RGSDE)
+                                ? ''
+                                : timeStringParse(el.RGSDE)}
+                        </>
+                    )
+                },
             },
         ],
     ],
@@ -98,16 +119,19 @@ export const MemberTableConfig = {
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
+                cellWidth: `w16`,
             },
             {
                 name: `이름`,
                 key: `NM`,
-                textAlign: `left`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
             },
             {
                 name: `아이디`,
                 key: `USID`,
                 textAlign: `left`,
+                cellWidth: `w0112`,
             },
             {
                 name: `휴대폰번호`,
@@ -123,6 +147,7 @@ export const MemberTableConfig = {
             {
                 name: `성별`,
                 key: `SEXDSTN_NM`,
+                cellWidth: `w16`,
             },
             {
                 name: `소속`,
@@ -131,6 +156,9 @@ export const MemberTableConfig = {
             {
                 name: `가입일`,
                 key: `REGIST_DT`,
+                component: ({ el }: { el: MemberInfoListItemInterface }) => {
+                    return <>{el.REGIST_DT}</>
+                },
             },
             {
                 name: `최근방문일`,
@@ -139,10 +167,12 @@ export const MemberTableConfig = {
             {
                 name: `보유캐시`,
                 key: `TOT_CASH`,
+                cellWidth: `w24`,
             },
             {
                 name: `당월미션포인트`,
                 key: `ACCML_POINT`,
+                cellWidth: `w24`,
             },
         ],
     ],
@@ -178,7 +208,7 @@ export const ConsultTableConfig = {
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
                     return (
                         <ListTableStyle.MbtlnumCell CRTFC={el.MBTLNUM_CRTFC_AT}>
-                            {el.MBTLNUM}
+                            {phoneFormat(el.MBTLNUM)}
                         </ListTableStyle.MbtlnumCell>
                     )
                 },
@@ -194,6 +224,15 @@ export const ConsultTableConfig = {
             {
                 name: `최근측정일`,
                 key: `MESURE_DT`,
+                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.MESURE_DT)
+                                ? ''
+                                : timeStringParse(el.MESURE_DT)}
+                        </>
+                    )
+                },
             },
             {
                 name: `휘험요인`,

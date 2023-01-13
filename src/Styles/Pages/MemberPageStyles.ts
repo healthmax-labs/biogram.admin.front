@@ -125,6 +125,17 @@ export const ConsultDetailStyle = {
             History: {
                 Wapper: tw.div`w-full`,
                 ButtonBox: tw.div`flex flex-nowrap gap-2 pt-2`,
+                ImageBox: {
+                    Container: tw.div`flex flex-nowrap w-full`,
+                    ImageWapper: tw.div`w-1/2`,
+                    ImageTitleCell: tw.div`flex flex-nowrap w-full py-2`,
+                    ImageImageCell: tw.div`flex flex-nowrap w-full`,
+                    EmptyCellStep1: tw.div`w-1/6`,
+                    EmptyCellStep2: tw.div`w-4/6`,
+                    TitleBox: tw.div`w-4/6 text-xs`,
+                    ImageBox: tw.div`w-4/6 text-xs`,
+                    TableBox: tw.div`w-1/2`,
+                },
             },
         },
         Survey: {
@@ -179,6 +190,20 @@ export const ConsultDetailStyle = {
         },
     },
     Message: {
-        Container: tw.div`flex flex-col break-words bg-white`,
+        Container: tw.div`flex flex-col break-words bg-white px-2 pt-20`,
+        Memo: {
+            Container: tw.div`flex flex-col break-words bg-white pt-3 gap-1`,
+            Row: tw.div`flex flex-nowrap whitespace-nowrap w-full`,
+            LabelCell: tw.div`flex px-0 w-1/4 h-8`,
+            ItemCell: tw.div`flex w-full`,
+            ButtonBox: tw.div`flex w-full pt-3 justify-end gap-1`,
+            ButtonCenterBox: tw.div`flex w-full pt-3 justify-center gap-1`,
+            Empty: tw.div``,
+            SendBoxGrid: tw.div`grid grid-rows-2 grid-flow-col gap-1`,
+            SendBoxRow: tw.div`flex flex-nowrap items-center`,
+            SendBoxDatePickerWapper: tw.div`flex flex-nowrap gap-1`,
+            SendBoxDatePickerDate: tw.div`w-3/5`,
+            SendBoxDatePickerTime: tw.div`w-2/5`,
+        },
     },
 }

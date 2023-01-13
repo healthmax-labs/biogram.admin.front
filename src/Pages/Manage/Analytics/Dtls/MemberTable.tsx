@@ -115,8 +115,8 @@ const MemberTable = () => {
             } else if (mberAnalyticsListState.list !== null) {
                 const data = mberAnalyticsListState.list.PERIOD_STAT_LIST
 
-                return data.map(data => (
-                    <T.Row key={data.PERIOD}>
+                return data.map((data, index) => (
+                    <T.Row key={`analytics-member-table-body-row-${index}`}>
                         <T.Cell colSpan={colspan}>{data.PERIOD}</T.Cell>
                         <T.Cell>{data.TOT_MBER_CNT}</T.Cell>
                         <T.Cell>{data.TOT_MAN_CNT}</T.Cell>

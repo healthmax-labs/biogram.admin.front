@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType, WidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { DatePickerWapper } = InputStyle
@@ -59,7 +59,7 @@ const VaryDatepickerInput = ({
     Width,
 }: {
     ContentsType?: ContentType
-    Width?: InputWidthType
+    Width?: WidthType
     DateFormat?: string
     Value?: Date | null
     CallBackReturn?: (e: Date) => void

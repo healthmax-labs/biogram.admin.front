@@ -1,6 +1,6 @@
 import React from 'react'
 import { VaryLabelStyle } from '@Style/Elements/InputStyles'
-import { InputWidthType } from '@CommonTypes'
+import { WidthType } from '@CommonTypes'
 import VaryRadioButton from './VaryRadioButton'
 
 const { Wapper, InputLabel } = VaryLabelStyle
@@ -21,8 +21,8 @@ const VaryLabelRadioButton = ({
     Checked: boolean
     LabelReverse?: boolean
     RedioName?: string
-    LabelWidth?: InputWidthType
-    InputWidth?: InputWidthType
+    LabelWidth?: WidthType
+    InputWidth?: WidthType
     TextColor?: 'gray' | 'white'
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {

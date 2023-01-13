@@ -1,14 +1,14 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType, WidthType } from '@CommonTypes'
 
 export const SelectStyle = {
     DefaultSearchSelect: tw.select`form-select block w-60 h-8 border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
 }
 
 export const VarySelectBoxStyle = {
-    Wapper: styled.div(({ Width }: { Width?: InputWidthType | null }) => {
+    Wapper: styled.div(({ Width }: { Width?: WidthType | null }) => {
         const returnTw = [tw`flex items-center`]
 
         if (Width) {

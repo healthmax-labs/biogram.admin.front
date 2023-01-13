@@ -5,12 +5,17 @@ import { useEffect } from 'react'
 import { TabInterface } from '@Type/CommonTypes'
 import Routers from '@Routers'
 import { getPathNameToMenuInfo } from '@Helper'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
+import Const from '@Const'
 
 export default function useTab() {
     const locationState = useLocation()
     const navigate = useNavigate()
 
     const [tabState, setUseTabState] = useRecoilState(AtomPageTabState)
+
+    const { handlMainAlert } = useMainLayouts()
 
     // 텝 삭제.
     const handleDeleteTab = (index: number) => {
@@ -71,7 +76,18 @@ export default function useTab() {
             }
 
             // 현재 없는 텝이면 추가.
+            // 현재 없는 텝일때 기존 텝이 10일 경우 알림 및 뒤로가기.
+            if (newTabList.length === Const.maxTabCount) {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.TabCountCheck,
+                })
+                navigate(-1)
+                return
+            }
+
             const menuName = getPathNameToMenuInfo(routerPathName)
+
             setUseTabState([
                 ...newTabList,
                 {
@@ -87,7 +103,9 @@ export default function useTab() {
         if (!routerMatchs) {
             return
         }
+
         const routerMatchResult = routerMatchs[0]
+
         if (
             tabState.findIndex(
                 el => el.active && el.pathname === locationState.pathname

@@ -1,6 +1,6 @@
 // 위험요인 현황 테이블 데이터
 import React from 'react'
-import { timeStringSmapDateParse } from '@Helper'
+import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 
 const {
@@ -113,6 +113,9 @@ export const RiskFctrTableConfig = {
             {
                 name: `생년월일`,
                 key: `BRTHDY`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
             },
             {
                 name: `위험요인`,
@@ -294,6 +297,13 @@ export const BrftrCmprTableConfig = {
             {
                 name: `생년월일`,
                 key: `BRTHDY`,
+                component: ({
+                    el,
+                }: {
+                    el: BrftrCmprTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
             },
             {
                 name: `성별`,
@@ -877,7 +887,7 @@ export interface ActivityWalkTableListItemInterface {
 export const ActivityWalkTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `MBER_NO`,
         bgState: true,
     },

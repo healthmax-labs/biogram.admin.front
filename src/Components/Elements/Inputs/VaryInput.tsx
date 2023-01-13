@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from 'react'
-import { ContentType, InputWidthType } from '@CommonTypes'
+import { ContentType, WidthType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
 
@@ -31,7 +31,7 @@ const VaryInput = ({
     Name?: string
     HandleOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
-    Width?: InputWidthType | null
+    Width?: WidthType | null
     Required?: boolean
     Children?: React.ReactNode
     HandleOnFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void

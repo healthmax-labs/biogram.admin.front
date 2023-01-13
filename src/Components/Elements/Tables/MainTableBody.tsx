@@ -1,10 +1,10 @@
-import { TableStyle } from '@Style/Elements/TableStyles'
 import React from 'react'
+import { TableStyle } from '@Style/Elements/TableStyles'
 import { MainTableBodyPropsInterface } from '@Type/TableTypes'
 import { VaryCheckBox } from '@Element/index'
 import _ from 'lodash'
 
-const { TbodyCell, TbodyCellCheckbox, TbodyRow } = TableStyle
+const { TbodyCell, TbodyRow } = TableStyle
 
 const MainTableBody = <P,>({
     RowClick,
@@ -23,8 +23,9 @@ const MainTableBody = <P,>({
                         key={`main-table-body-row-${index}`}
                         BgState={Options.bgState && index % 2 === 0}>
                         {Options.selectAll && (
-                            <TbodyCellCheckbox>
+                            <TbodyCell>
                                 <VaryCheckBox
+                                    Flex={false}
                                     Checked={(() => {
                                         const indexKeyValue = _.get(
                                             Row,
@@ -49,7 +50,7 @@ const MainTableBody = <P,>({
                                         })
                                     }
                                 />
-                            </TbodyCellCheckbox>
+                            </TbodyCell>
                         )}
 
                         {(() => {
