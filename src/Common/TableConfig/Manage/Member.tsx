@@ -6,6 +6,8 @@ import {
     ConsultInfoListItemInterface,
     MemberInfoListItemInterface,
 } from '@Type/MemberTypes'
+import { phoneFormat, timeStringParse } from '@Helper'
+import _ from 'lodash'
 
 export type tableListItemInterface = MemberInfoListItemInterface
 
@@ -48,6 +50,15 @@ export const MsgSendTableConfig = {
             {
                 name: `송신일`,
                 key: `SNDNGDE`,
+                component: ({ el }: { el: MsgSendTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.SNDNGDE)
+                                ? ''
+                                : timeStringParse(el.SNDNGDE)}
+                        </>
+                    )
+                },
             },
             {
                 name: `수신자`,
@@ -64,6 +75,15 @@ export const MsgSendTableConfig = {
             {
                 name: `등록일`,
                 key: `RGSDE`,
+                component: ({ el }: { el: MsgSendTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.RGSDE)
+                                ? ''
+                                : timeStringParse(el.RGSDE)}
+                        </>
+                    )
+                },
             },
         ],
     ],
@@ -137,7 +157,7 @@ export const MemberTableConfig = {
                 name: `가입일`,
                 key: `REGIST_DT`,
                 component: ({ el }: { el: MemberInfoListItemInterface }) => {
-                    return <>{el.MBTLNUM}</>
+                    return <>{el.REGIST_DT}</>
                 },
             },
             {
@@ -188,7 +208,7 @@ export const ConsultTableConfig = {
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
                     return (
                         <ListTableStyle.MbtlnumCell CRTFC={el.MBTLNUM_CRTFC_AT}>
-                            {el.MBTLNUM}
+                            {phoneFormat(el.MBTLNUM)}
                         </ListTableStyle.MbtlnumCell>
                     )
                 },
@@ -204,6 +224,15 @@ export const ConsultTableConfig = {
             {
                 name: `최근측정일`,
                 key: `MESURE_DT`,
+                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.MESURE_DT)
+                                ? ''
+                                : timeStringParse(el.MESURE_DT)}
+                        </>
+                    )
+                },
             },
             {
                 name: `휘험요인`,
