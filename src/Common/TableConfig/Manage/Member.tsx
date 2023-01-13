@@ -37,6 +37,7 @@ export const MsgSendTableConfig = {
         selectAll: true,
         indexKey: `SNDNG_NO`,
         bgState: true,
+        tableType: 'fixed',
     },
     Columns: [
         [
@@ -98,16 +99,19 @@ export const MemberTableConfig = {
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
+                cellWidth: `w16`,
             },
             {
                 name: `이름`,
                 key: `NM`,
-                textAlign: `left`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
             },
             {
                 name: `아이디`,
                 key: `USID`,
                 textAlign: `left`,
+                cellWidth: `w0112`,
             },
             {
                 name: `휴대폰번호`,
@@ -123,6 +127,7 @@ export const MemberTableConfig = {
             {
                 name: `성별`,
                 key: `SEXDSTN_NM`,
+                cellWidth: `w16`,
             },
             {
                 name: `소속`,
@@ -131,6 +136,9 @@ export const MemberTableConfig = {
             {
                 name: `가입일`,
                 key: `REGIST_DT`,
+                component: ({ el }: { el: MemberInfoListItemInterface }) => {
+                    return <>{el.MBTLNUM}</>
+                },
             },
             {
                 name: `최근방문일`,
@@ -139,10 +147,12 @@ export const MemberTableConfig = {
             {
                 name: `보유캐시`,
                 key: `TOT_CASH`,
+                cellWidth: `w24`,
             },
             {
                 name: `당월미션포인트`,
                 key: `ACCML_POINT`,
+                cellWidth: `w24`,
             },
         ],
     ],

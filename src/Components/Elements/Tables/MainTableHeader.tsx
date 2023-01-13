@@ -2,9 +2,9 @@ import React from 'react'
 import { TableStyle } from '@Style/Elements/TableStyles'
 import { VaryCheckBox } from '@Element/index'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
+import { WidthType } from '@Type/CommonTypes'
 
-const { HeaderRow, HeaderCell, TbodyCellCheckbox, HeaderCheckboxItem } =
-    TableStyle
+const { HeaderRow, HeaderCell } = TableStyle
 
 const MainTableHeader = <E,>({
     AllChecked,
@@ -25,20 +25,18 @@ const MainTableHeader = <E,>({
                         key={`main-table-head-row-${rowIndex}`}
                         Step={rowIndex}>
                         {rowIndex === 0 && Options.selectAll && (
-                            <TbodyCellCheckbox
+                            <HeaderCell
                                 key={`main-table-head-checkbox-cell-${rowIndex}`}
-                                rowSpan={Rows.length}>
-                                <HeaderCheckboxItem>
-                                    <VaryCheckBox
-                                        Checked={AllChecked}
-                                        HandleOnChange={e => {
-                                            HandleClickAllCheckBox(
-                                                e.target.checked
-                                            )
-                                        }}
-                                    />
-                                </HeaderCheckboxItem>
-                            </TbodyCellCheckbox>
+                                rowSpan={Rows.length}
+                                cellWidth={`w10`}>
+                                <VaryCheckBox
+                                    Flex={false}
+                                    Checked={AllChecked}
+                                    HandleOnChange={e => {
+                                        HandleClickAllCheckBox(e.target.checked)
+                                    }}
+                                />
+                            </HeaderCell>
                         )}
                         {Row.map((column, columnIndex) => {
                             return (
@@ -49,7 +47,8 @@ const MainTableHeader = <E,>({
                                     }
                                     colSpan={
                                         column.colSpan ? column.colSpan : 1
-                                    }>
+                                    }
+                                    cellWidth={column.cellWidth as WidthType}>
                                     <div
                                         dangerouslySetInnerHTML={{
                                             __html: column.name,

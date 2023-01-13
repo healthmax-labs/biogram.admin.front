@@ -7,6 +7,7 @@ import React from 'react'
 export interface OptionsInterface<T> {
     selectAll?: boolean
     indexKey: string
+    tableType?: string | 'auto' | 'fixed'
     xcpt?: {
         option: string | 'row-null'
         component: React.FC<{ el: T }>
