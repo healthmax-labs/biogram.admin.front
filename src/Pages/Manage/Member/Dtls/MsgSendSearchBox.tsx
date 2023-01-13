@@ -70,9 +70,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'full'}
+                                Width={'w40'}
                                 id={'id'}
-                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Placeholder={'검색어'}
                                 Value={
                                     msgSendListState.search.SEARCH_KEY
                                         ? msgSendListState.search.SEARCH_KEY

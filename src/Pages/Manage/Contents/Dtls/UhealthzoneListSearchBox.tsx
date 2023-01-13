@@ -33,7 +33,7 @@ const UhealthzoneListSearchBox = ({
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'full'}
+                                Width={'w40'}
                                 HandleOnChange={e =>
                                     setListState(prevState => ({
                                         ...prevState,

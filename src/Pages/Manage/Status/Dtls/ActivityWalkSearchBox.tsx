@@ -109,7 +109,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'full'}
+                                Width={'w40'}
                                 HandleOnChange={e =>
                                     setActivityWalkListState(prevState => ({
                                         ...prevState,
@@ -120,7 +120,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     }))
                                 }
                                 id={'id'}
-                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Placeholder={'검색어'}
                                 Value={
                                     isNull(activityWalkListState.search.SEARCH)
                                         ? ''

@@ -263,7 +263,7 @@ const PstinstSelector = ({
         <>
             {SelectorType && SelectorType === 'input' && (
                 <VarySelectBox
-                    Width={`full`}
+                    Width={`w40`}
                     ContentsType={`search`}
                     AutoComplete={true}
                     HandleOnFocus={() => handleShowModal(true)}

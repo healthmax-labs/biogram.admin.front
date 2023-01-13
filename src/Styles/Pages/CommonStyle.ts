@@ -22,7 +22,7 @@ export const SearchBoxStyle = {
     SearchLabel: tw.div`flex object-center content-center pr-2`,
     SearchColSpanLabel: tw.div`flex object-center content-center w-16`,
     SearchItem: tw.div`flex flex-nowrap w-full`,
-    SearchItemGap: tw.div`flex flex-nowrap gap-3`,
+    SearchItemGap: tw.div`flex flex-nowrap gap-1`,
     LabelItem: tw.div`w-20`,
     DatepickerLine: tw.div`flex px-2 items-center`,
     SearchButton: tw.div`flex object-top w-full`,

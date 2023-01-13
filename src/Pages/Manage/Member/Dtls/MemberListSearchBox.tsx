@@ -121,7 +121,7 @@ const MemberListSearchBox = ({
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'full'}
+                                Width={'w40'}
                                 HandleOnChange={e =>
                                     setListState(prevState => ({
                                         ...prevState,
@@ -132,7 +132,7 @@ const MemberListSearchBox = ({
                                     }))
                                 }
                                 id={'id'}
-                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Placeholder={'ID/이름/연락처/전화번호'}
                                 Value={
                                     isNull(listState.search.searchKey)
                                         ? ''

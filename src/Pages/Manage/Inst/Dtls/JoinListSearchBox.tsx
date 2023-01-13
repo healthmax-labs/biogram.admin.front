@@ -53,7 +53,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <VaryInput
                                 ContentsType={`search`}
-                                Width={'full'}
+                                Width={'w40'}
                                 HandleOnChange={e =>
                                     setInstJoinListState(prevState => ({
                                         ...prevState,
@@ -64,7 +64,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     }))
                                 }
                                 id={'id'}
-                                Placeholder={'ID / 이름 / 연락처 / 전화번호'}
+                                Placeholder={'검색어'}
                                 Value={
                                     isNull(instJoinListState.search.SEARCH_KEY)
                                         ? ''
