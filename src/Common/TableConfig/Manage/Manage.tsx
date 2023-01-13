@@ -1,3 +1,7 @@
+import { dateInsertHypen } from '@Helper'
+import _ from 'lodash'
+import React from 'react'
+
 // 이용약관 테이블 데이터
 export interface StplatTableListItemInterface {
     STPLAT_SE_CODE: string
@@ -34,6 +38,15 @@ export const StplatTableConfig = {
             {
                 name: `등록/변경일시`,
                 key: `STPLAT_CHANGE_DE`,
+                component: ({ el }: { el: StplatTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.STPLAT_CHANGE_DE)
+                                ? ''
+                                : dateInsertHypen(el.STPLAT_CHANGE_DE)}
+                        </>
+                    )
+                },
             },
             {
                 name: `변경 사유`,
