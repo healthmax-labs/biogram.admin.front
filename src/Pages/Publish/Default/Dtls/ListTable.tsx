@@ -40,6 +40,7 @@ export default function ListTable() {
                 <TheadTr>
                     <ThCheckbox>
                         <VaryCheckBox
+                            Flex={true}
                             Checked={false}
                             HandleOnChange={() => console.debug(1111)}
                         />
@@ -61,6 +62,7 @@ export default function ListTable() {
                         <TbodyTr key={index} BgState={index % 2 === 0}>
                             <TbodyTdCheckbox>
                                 <VaryCheckBox
+                                    Flex={true}
                                     Checked={false}
                                     HandleOnChange={() => console.debug(1111)}
                                 />

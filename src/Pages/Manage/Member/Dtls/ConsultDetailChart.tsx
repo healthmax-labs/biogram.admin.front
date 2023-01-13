@@ -259,6 +259,7 @@ const ConsultDetailChart = () => {
                         <HeaderRow>
                             <HeaderCell>
                                 <VaryCheckBox
+                                    Flex={true}
                                     Checked={
                                         chartState.list.length > 0 &&
                                         chartState.list.length ===
@@ -302,6 +303,7 @@ const ConsultDetailChart = () => {
                                         onClick={() => handleRowClick(el)}>
                                         <TableBodyCell>
                                             <VaryCheckBox
+                                                Flex={true}
                                                 Checked={
                                                     pageState.select.findIndex(
                                                         e =>
