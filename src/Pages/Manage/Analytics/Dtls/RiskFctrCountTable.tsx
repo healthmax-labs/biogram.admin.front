@@ -1,5 +1,12 @@
+import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
+
+import { useRecoilState } from 'recoil'
+import { RiskFctrCountAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+
+import { getRiskFctrCountAnalyticsList } from '@Service/AnalyticsService'
+import { isNull } from 'lodash'
 
 const {
     Container,
@@ -12,6 +19,218 @@ const {
 } = ContentsStyle
 
 const RiskFctrCountTable = () => {
+    const [
+        riskFctrCountAnalyticsListState,
+        setRiskFctrCountAnalyticsListState,
+    ] = useRecoilState(RiskFctrCountAnalyticsListState)
+
+    const getTableList = useCallback(async () => {
+        const {
+            search: {
+                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
+            },
+        } = riskFctrCountAnalyticsListState
+
+        const { status, payload } = await getRiskFctrCountAnalyticsList({
+            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
+            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
+            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
+            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
+            // END_DE: !isNull(END_DE) ? END_DE : ``,
+        })
+
+        if (status) {
+            setRiskFctrCountAnalyticsListState(prevState => ({
+                ...prevState,
+                status: 'success',
+                list: payload,
+            }))
+        } else {
+            setRiskFctrCountAnalyticsListState(prevState => ({
+                ...prevState,
+                status: 'failure',
+            }))
+        }
+    }, [riskFctrCountAnalyticsListState, setRiskFctrCountAnalyticsListState])
+
+    useEffect(() => {
+        const pageStart = () => {
+            if (riskFctrCountAnalyticsListState.status == 'idle') {
+                getTableList().then()
+            }
+        }
+        pageStart()
+    }, [getTableList, riskFctrCountAnalyticsListState.status])
+
+    const cellMaker = (
+        lineNum: number,
+        area: string,
+        mode: string,
+        colspan: number,
+        title: string
+    ) => {
+        let cellHtml
+        if (riskFctrCountAnalyticsListState.status) {
+            if (
+                area === 'AGE' &&
+                riskFctrCountAnalyticsListState.list !== null
+            ) {
+                const getAgeData =
+                    riskFctrCountAnalyticsListState.list.AGE_GROUP_STAT_LIST[
+                        lineNum
+                    ]
+
+                const RF_ALL_MBER_CNT = getAgeData.RF_ALL_MBER_CNT
+                const RF_ALL_WOMAN_CNT = getAgeData.RF_ALL_WOMAN_CNT
+                const RF_ALL_MAN_CNT = getAgeData.RF_ALL_MAN_CNT
+                const RF_1_MBER_CNT = getAgeData.RF_1_MBER_CNT
+                const RF_1_WOMAN_CNT = getAgeData.RF_1_WOMAN_CNT
+                const RF_1_MAN_CNT = getAgeData.RF_1_MAN_CNT
+                const RF_2_MBER_CNT = getAgeData.RF_2_MBER_CNT
+                const RF_2_WOMAN_CNT = getAgeData.RF_2_WOMAN_CNT
+                const RF_2_MAN_CNT = getAgeData.RF_2_MAN_CNT
+                const RF_3_MBER_CNT = getAgeData.RF_3_MBER_CNT
+                const RF_3_WOMAN_CNT = getAgeData.RF_3_WOMAN_CNT
+                const RF_3_MAN_CNT = getAgeData.RF_3_MAN_CNT
+                const RF_4_MBER_CNT = getAgeData.RF_4_MBER_CNT
+                const RF_4_WOMAN_CNT = getAgeData.RF_4_WOMAN_CNT
+                const RF_4_MAN_CNT = getAgeData.RF_4_MAN_CNT
+                const RF_5_MBER_CNT = getAgeData.RF_5_MBER_CNT
+                const RF_5_WOMAN_CNT = getAgeData.RF_5_WOMAN_CNT
+                const RF_5_MAN_CNT = getAgeData.RF_5_MAN_CNT
+
+                if (mode === '') {
+                    cellHtml = (
+                        <>
+                            <T.CellW colSpan={colspan}>{title}</T.CellW>
+                            <T.CellW>{RF_ALL_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_ALL_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_ALL_MAN_CNT}</T.CellW>
+                            <T.CellW>{RF_1_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_1_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_1_MAN_CNT}</T.CellW>
+                            <T.CellW>{RF_2_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_2_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_2_MAN_CNT}</T.CellW>
+                            <T.CellW>{RF_3_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_3_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_3_MAN_CNT}</T.CellW>
+                            <T.CellW>{RF_4_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_4_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_4_MAN_CNT}</T.CellW>
+                            <T.CellW>{RF_5_MBER_CNT}</T.CellW>
+                            <T.CellW>{RF_5_WOMAN_CNT}</T.CellW>
+                            <T.CellW>{RF_5_MAN_CNT}</T.CellW>
+                        </>
+                    )
+                } else {
+                    cellHtml = (
+                        <>
+                            <T.TFootCell colSpan={colspan}>합계</T.TFootCell>
+                            <T.TFootCell>{RF_ALL_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_ALL_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_ALL_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_1_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_1_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_1_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_2_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_2_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_2_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_3_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_3_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_3_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_4_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_4_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_4_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_5_MBER_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_5_WOMAN_CNT}</T.TFootCell>
+                            <T.TFootCell>{RF_5_MAN_CNT}</T.TFootCell>
+                        </>
+                    )
+                }
+            } else if (riskFctrCountAnalyticsListState.list !== null) {
+                const data =
+                    riskFctrCountAnalyticsListState.list.PERIOD_STAT_LIST
+
+                return data.map(data => (
+                    <T.Row key={data.RF_PERIOD}>
+                        <T.CellW colSpan={colspan}>{data.RF_PERIOD}</T.CellW>
+                        <T.CellW>{data.RF_ALL_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_ALL_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_ALL_MAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_1_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_1_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_1_MAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_2_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_2_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_2_MAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_3_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_3_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_3_MAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_4_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_4_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_4_MAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_5_MBER_CNT}</T.CellW>
+                        <T.CellW>{data.RF_5_WOMAN_CNT}</T.CellW>
+                        <T.CellW>{data.RF_5_MAN_CNT}</T.CellW>
+                    </T.Row>
+                ))
+            }
+        } else {
+            if (area !== 'AGE') {
+                cellHtml = (
+                    <>
+                        <T.CellW colSpan={colspan}>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                    </>
+                )
+            } else {
+                cellHtml = (
+                    <>
+                        <T.CellW colSpan={colspan}>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                        <T.CellW>-</T.CellW>
+                    </>
+                )
+            }
+        }
+        return cellHtml
+    }
+
     return (
         <Container>
             <RowWapper>
@@ -63,174 +282,20 @@ const RiskFctrCountTable = () => {
                         </T.Thead>
                         <T.Body>
                             <T.Row>
-                                <T.CellW colSpan={2}>10대 이하</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
+                                {cellMaker(0, 'AGE', '', 2, '10대 이하')}
                             </T.Row>
+                            <T.Row>{cellMaker(1, 'AGE', '', 2, '20대')}</T.Row>
+                            <T.Row>{cellMaker(2, 'AGE', '', 2, '30대')}</T.Row>
+                            <T.Row>{cellMaker(3, 'AGE', '', 2, '40대')}</T.Row>
+                            <T.Row>{cellMaker(4, 'AGE', '', 2, '50대')}</T.Row>
+                            <T.Row>{cellMaker(5, 'AGE', '', 2, '60대')}</T.Row>
                             <T.Row>
-                                <T.CellW colSpan={2}>20대</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellW colSpan={2}>30대</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellW colSpan={2}>40대</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellW colSpan={2}>50대</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellW colSpan={2}>60대</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellW colSpan={2}>70대 이상</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
+                                {cellMaker(6, 'AGE', '', 2, '70대 이상')}
                             </T.Row>
                         </T.Body>
                         <T.TFoot>
                             <T.TFootRow>
-                                <T.TFootCell colSpan={2}>합계</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
+                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
                             </T.TFootRow>
                         </T.TFoot>
                     </T.Table>
@@ -283,139 +348,8 @@ const RiskFctrCountTable = () => {
                                 <T.TheadCell>남성</T.TheadCell>
                             </T.TheadRow>
                         </T.Thead>
-                        <T.Body>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>2022-12-06</T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>2022-12-05</T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>2022-12-04</T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>2022-12-03</T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>
-                                    2022-12-04 ~ 2022-12-10
-                                </T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                            <T.Row>
-                                <T.CellWW colSpan={2}>
-                                    2022-12-01 ~ 2022-12-31
-                                </T.CellWW>
-                                <T.CellW>20</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>10</T.CellW>
-                                <T.CellW>2</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>0</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                                <T.CellW>1</T.CellW>
-                            </T.Row>
-                        </T.Body>
-                        <T.TFoot>
+                        <T.Body>{cellMaker(0, 'PERIOD', '', 2, '기간')}</T.Body>
+                        {/* <T.TFoot>
                             <T.TFootRow>
                                 <T.TFootCell colSpan={2}>합계</T.TFootCell>
                                 <T.TFootCell>1</T.TFootCell>
@@ -437,7 +371,7 @@ const RiskFctrCountTable = () => {
                                 <T.TFootCell>1</T.TFootCell>
                                 <T.TFootCell>1</T.TFootCell>
                             </T.TFootRow>
-                        </T.TFoot>
+                        </T.TFoot> */}
                     </T.Table>
                 </TableBox>
             </RowWapper>
