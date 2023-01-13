@@ -1,13 +1,25 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
+import { WidthType } from '@Type/CommonTypes'
+import ConstStyle from '@Style/ConstStyle'
 //
 
 export const TableStyle = {
     Container: tw.div`flex flex-col h-screen max-h-[77vh]`,
     Wapper: tw.div`overflow-auto`,
-    Table: tw.table`relative w-full border`,
+    Table1: tw.table`table-fixed w-full border`,
+    Table: styled.table(({ tableType }: { tableType: `auto` | `fixed` }) => {
+        const returnTw = [tw`w-full border`]
+
+        if (tableType === 'auto') {
+            returnTw.push(tw`table-auto`)
+        } else if (tableType === 'fixed') {
+            returnTw.push(tw`table-fixed`)
+        }
+
+        return returnTw
+    }),
     Thead: tw.thead``,
-    HeaderRow1: tw.tr`sticky top-0 bg-steel h-8`,
     HeaderRow: styled.tr(({ Step }: { Step: number }) => {
         const returnTw = [tw`sticky bg-steel h-8`]
 
@@ -19,9 +31,18 @@ export const TableStyle = {
 
         return returnTw
     }),
-    HeaderCheckbox: tw.th`z-[1100] bg-steel w-1/4 px-2 h-2 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
-    HeaderCheckboxItem: tw.div`flex bg-steel w-full justify-center`,
-    HeaderCell: tw.th`z-[1100] bg-steel w-1/4 px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCell1: tw.th`z-[1100] bg-steel px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+    HeaderCell: styled.th(({ cellWidth }: { cellWidth?: WidthType }) => {
+        const returnTw = [
+            tw`z-[1100] bg-steel px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
+        ]
+
+        if (cellWidth) {
+            returnTw.push(ConstStyle.width[cellWidth as WidthType])
+        }
+
+        return returnTw
+    }),
     Tbody: tw.tbody`divide-y`,
     TbodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
         BgState
@@ -34,7 +55,7 @@ export const TableStyle = {
         }: {
             textAlign?: string | 'left' | 'center' | 'right'
         }) => {
-            const returnTw = [tw`h-8 text-center text-xs whitespace-nowrap`]
+            const returnTw = [tw`h-8 text-center text-xs truncate`]
 
             if (textAlign && textAlign === 'left') {
                 returnTw.push(tw`text-left`)
@@ -49,7 +70,6 @@ export const TableStyle = {
             return returnTw
         }
     ),
-    TbodyCellCheckbox: tw.td`px-6 h-8 text-center`,
 }
 
 export const DetailTableStyle = {

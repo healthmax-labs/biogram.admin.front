@@ -25,6 +25,7 @@ const VaryLabelCheckBox = ({
         <>
             <Wapper Reverse={LabelReverse ? LabelReverse : false}>
                 <VaryCheckBox
+                    Flex={true}
                     Checked={Checked}
                     HandleOnChange={e => HandleOnChange(e)}
                 />

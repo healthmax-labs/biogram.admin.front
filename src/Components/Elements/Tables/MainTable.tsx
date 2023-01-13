@@ -67,7 +67,12 @@ const MainTable = <P,>({
                         <ElementLoading FullScreen={false} />
                     </div>
                 ) : (
-                    <Table>
+                    <Table
+                        tableType={
+                            Options.tableType && Options.tableType === `fixed`
+                                ? `fixed`
+                                : `auto`
+                        }>
                         <Tbody>
                             <MainTableHeader
                                 Columns={Columns}
