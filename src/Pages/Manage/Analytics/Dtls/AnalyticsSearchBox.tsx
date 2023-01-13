@@ -123,6 +123,7 @@ const AnalyticsSearchBox = () => {
                         </SearchLabel>
                         <SearchItemGap>
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -130,6 +131,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`전체`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -137,6 +139,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`10대이하`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -144,6 +147,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`20대`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -151,6 +155,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`30대`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -158,6 +163,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`40대`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -165,6 +171,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`50대`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
@@ -172,6 +179,7 @@ const AnalyticsSearchBox = () => {
                                 LabelName={`60대`}
                             />
                             <VaryLabelCheckBox
+                                LabelWidth={'wMin'}
                                 Checked={false}
                                 HandleOnChange={() =>
                                     console.debug('HandleOnChange')
