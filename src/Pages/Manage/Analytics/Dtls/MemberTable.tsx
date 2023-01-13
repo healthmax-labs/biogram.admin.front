@@ -63,7 +63,8 @@ const MemberTable = () => {
         lineNum: number,
         area: string,
         mode: string,
-        colspan: number
+        colspan: number,
+        title: string
     ) => {
         let cellHtml
         if (mberAnalyticsListState.status) {
@@ -83,7 +84,8 @@ const MemberTable = () => {
                 if (mode === '') {
                     cellHtml = (
                         <>
-                            <T.Cell colSpan={colspan}>{TOT_MBER_CNT}</T.Cell>
+                            <T.Cell colSpan={colspan}>{title}</T.Cell>
+                            <T.Cell>{TOT_MBER_CNT}</T.Cell>
                             <T.Cell>{TOT_MAN_CNT}</T.Cell>
                             <T.Cell>{TOT_WOMAN_CNT}</T.Cell>
                             <T.Cell>{NEW_MBER_CNT}</T.Cell>
@@ -113,10 +115,8 @@ const MemberTable = () => {
             } else if (mberAnalyticsListState.list !== null) {
                 const data = mberAnalyticsListState.list.PERIOD_STAT_LIST
 
-                console.log(data)
-
                 return data.map(data => (
-                    <T.Row>
+                    <T.Row key={data.PERIOD}>
                         <T.Cell colSpan={colspan}>{data.PERIOD}</T.Cell>
                         <T.Cell>{data.TOT_MBER_CNT}</T.Cell>
                         <T.Cell>{data.TOT_MAN_CNT}</T.Cell>
@@ -165,6 +165,7 @@ const MemberTable = () => {
 
         return cellHtml
     }
+
     return (
         <Container>
             <RowWapper>
@@ -210,37 +211,20 @@ const MemberTable = () => {
                         </T.Thead>
                         <T.Body>
                             <T.Row>
-                                <T.Cell colSpan={2}>10대 이하</T.Cell>
-                                {cellMaker(0, 'AGE', '', 0)}
+                                {cellMaker(0, 'AGE', '', 2, '10대 이하')}
                             </T.Row>
+                            <T.Row>{cellMaker(1, 'AGE', '', 2, '20대')}</T.Row>
+                            <T.Row>{cellMaker(2, 'AGE', '', 2, '30대')}</T.Row>
+                            <T.Row>{cellMaker(3, 'AGE', '', 2, '40대')}</T.Row>
+                            <T.Row>{cellMaker(4, 'AGE', '', 2, '50대')}</T.Row>
+                            <T.Row>{cellMaker(5, 'AGE', '', 2, '60대')}</T.Row>
                             <T.Row>
-                                <T.Cell colSpan={2}>20대</T.Cell>
-                                {cellMaker(1, 'AGE', '', 0)}
-                            </T.Row>
-                            <T.Row>
-                                <T.Cell colSpan={2}>30대</T.Cell>
-                                {cellMaker(2, 'AGE', '', 0)}
-                            </T.Row>
-                            <T.Row>
-                                <T.Cell colSpan={2}>40대</T.Cell>
-                                {cellMaker(3, 'AGE', '', 0)}
-                            </T.Row>
-                            <T.Row>
-                                <T.Cell colSpan={2}>50대</T.Cell>
-                                {cellMaker(4, 'AGE', '', 0)}
-                            </T.Row>
-                            <T.Row>
-                                <T.Cell colSpan={2}>60대</T.Cell>
-                                {cellMaker(5, 'AGE', '', 0)}
-                            </T.Row>
-                            <T.Row>
-                                <T.Cell colSpan={2}>70대 이상</T.Cell>
-                                {cellMaker(6, 'AGE', '', 0)}
+                                {cellMaker(6, 'AGE', '', 2, '70대 이상')}
                             </T.Row>
                         </T.Body>
                         <T.TFoot>
                             <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2)}
+                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
                             </T.TFootRow>
                         </T.TFoot>
                     </T.Table>
@@ -287,7 +271,7 @@ const MemberTable = () => {
                                 <T.TheadCell>남성</T.TheadCell>
                             </T.TheadRow>
                         </T.Thead>
-                        <T.Body>{cellMaker(0, 'PERIOD', '', 2)}</T.Body>
+                        <T.Body>{cellMaker(0, 'PERIOD', '', 2, '기간')}</T.Body>
                         {/* <T.TFoot>
                             <T.TFootRow>
                                 <T.TFootCell colSpan={2}>
