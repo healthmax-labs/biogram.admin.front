@@ -9,6 +9,7 @@ export const AtomMainLayoutState = atom<{
         state: boolean
         message: string
     }
+    SiteTitle: string
     Theme: MainLayoutThemeType
 }>({
     key: `layout/LayoutState`,
@@ -19,6 +20,7 @@ export const AtomMainLayoutState = atom<{
             state: false,
             message: ``,
         },
+        SiteTitle: `바이오그램 어드민`,
         Theme: ``,
     },
 })

@@ -47,6 +47,7 @@ module.exports = {
                         mercury: `#F1F1F9`,
                         pearl: `#F7F7FB`,
                         daisy: `#FFFFFF`,
+                        brescian: `#2F2F2F`
                     },
                 },
             },
@@ -63,6 +64,7 @@ module.exports = {
                             mercury: `#F1F1F9`,
                             pearl: `#F7F7FB`,
                             daisy: `#FFFFFF`,
+                            brescian: '#0381FE'
                         },
                     },
                 },

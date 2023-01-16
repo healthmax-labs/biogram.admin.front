@@ -43,10 +43,12 @@ export default function useMainLayouts() {
 
     const handleTheme = useCallback(
         (theme: MainLayoutThemeType) => {
-            console.debug(Theme, theme)
             if (Theme !== theme) {
                 setMainLayoutState(prevState => ({
                     ...prevState,
+                    SiteTitle: `${
+                        theme === 'GeonDaon' ? 'GeonDaon' : '바이오그램 어드민'
+                    }`,
                     Theme: theme,
                 }))
             }

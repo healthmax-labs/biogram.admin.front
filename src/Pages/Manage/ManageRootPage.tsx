@@ -39,7 +39,9 @@ const ManageRootPage = () => {
         <HelmetProvider>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>:: 바이오그램 어드민 :: {pageTitle}</title>
+                <title>
+                    :: {`${mainLayoutState.SiteTitle}`} :: {pageTitle}
+                </title>
                 <link rel="canonical" href={`${process.env.PUBLIC_URL}`} />
             </Helmet>
             <div className={`App ${mainLayoutState.Theme}`}>
