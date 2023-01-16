@@ -1,5 +1,5 @@
 @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
-@import url('https://fonts.cdnfonts.com/css/samsung-sharp-sans');
+/*@import url('https://fonts.cdnfonts.com/css/samsung-sharp-sans');*/
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -7,6 +7,27 @@
 
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
+
+@font-face {
+    font-family: 'Samsung Sharp Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Samsung Sharp Sans'), url('src/Assets/Fonts/samsungsharpsans.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Samsung Sharp Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Samsung Sharp Sans'), url('src/Assets/Fonts/samsungsharpsans-medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Samsung Sharp Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Samsung Sharp Sans'), url('src/Assets/Fonts/samsungsharpsans-bold.woff') format('woff');
+}
 
 /*.ql-editor {*/
 /*    height: 250px;*/
