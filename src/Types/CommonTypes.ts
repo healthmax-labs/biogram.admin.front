@@ -1,4 +1,5 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
+export type MainLayoutThemeType = '' | 'GeonDaon'
 export type DefaultYesNo = 'Y' | 'N'
 export type WidthType =
     | 'w0'

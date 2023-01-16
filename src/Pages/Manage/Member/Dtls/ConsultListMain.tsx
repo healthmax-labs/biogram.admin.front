@@ -23,7 +23,7 @@ const ConsultListMain = () => {
             status: 'loading',
         }))
         const { status, payload } = await getMberCnsltlist({
-            curPage: 1,
+            curPage: 0,
             instNo: !isNull(listState.search.instNo)
                 ? listState.search.instNo
                 : ``,

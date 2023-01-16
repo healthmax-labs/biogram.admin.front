@@ -1,10 +1,15 @@
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { storageManager, storageMaster } from '@Helper'
-import { LoginBackgroundImage, LogoImage } from '@Assets'
+import { LoginBackgroundImage, LogoImage, SamsungLogoImage } from '@Assets'
 import { LoginPageStyle } from '@Style/Pages/LoginPageStyles'
 import { isEmpty } from 'lodash'
-import { useAuth } from '@Hooks'
+import { useAuth, useMainLayouts } from '@Hooks'
+import { VarySelectBox } from '@Elements'
+import { MainLayoutThemeType } from '@CommonTypes'
+import { useRecoilValue } from 'recoil'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import Const from '@Const'
 
 const {
     Container,
@@ -23,10 +28,12 @@ const {
     RememberID,
     RememberIdInput,
     RememberIdLabel,
+    GeonDaon,
 } = LoginPageStyle
 
 const LoginForm = () => {
     const navigate = useNavigate()
+    const { handleTheme } = useMainLayouts()
     const inputPasswordRef = useRef<HTMLInputElement | null>(null)
     const { handleAttemptLogin } = useAuth()
     const [pageState, setPageState] = useState<{
@@ -46,6 +53,7 @@ const LoginForm = () => {
         loginerrorMessage: ``,
         rememberme: false,
     })
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (pageState.loginerror) {
@@ -163,65 +171,132 @@ const LoginForm = () => {
     }, [])
 
     return (
-        <Container bgImage={`${LoginBackgroundImage}`}>
-            <Wapper>
-                <LogoBox>
-                    <LoginLogoImage src={LogoImage} alt="BioGram" />
-                </LogoBox>
-                <FormBox>
-                    <FormRow>
-                        <Label htmlFor="email">아이디</Label>
-                        <InputId
-                            type="email"
-                            name="usid"
-                            value={pageState.loginInfo.usid}
-                            onChange={e => handleInputChange(e)}
-                            onKeyUp={e => onEnter(e)}
+        <div className={`App ${mainLayoutState.Theme} font-sans`}>
+            <Container
+                bgImage={
+                    mainLayoutState.Theme === 'GeonDaon'
+                        ? ''
+                        : `${LoginBackgroundImage}`
+                }>
+                {process.env.REACT_APP_ENV === 'development' && (
+                    <div className={`flex px-3 pt-2`}>
+                        <VarySelectBox
+                            Placeholder="테마를 선택해 주세요"
+                            HandleOnChange={e =>
+                                handleTheme(e.value as MainLayoutThemeType)
+                            }
+                            Value={mainLayoutState.Theme}
+                            Elements={Const.mainLayoutTheme.map(e => {
+                                return {
+                                    text: e.name,
+                                    value: e.code,
+                                }
+                            })}
                         />
-                    </FormRow>
-                    <FormRow>
-                        <InputRow>
-                            <Label htmlFor="password">비밀번호</Label>
-                            <InputPassword
-                                ref={inputPasswordRef}
-                                type="password"
-                                name="pass"
-                                value={pageState.loginInfo.pass}
+                    </div>
+                )}
+                <Wapper>
+                    <LogoBox>
+                        {(() => {
+                            if (mainLayoutState.Theme === 'GeonDaon') {
+                                return (
+                                    <GeonDaon.Logo.Wapper>
+                                        <GeonDaon.Logo.Row>
+                                            <GeonDaon.Logo.TitleBold>
+                                                건
+                                            </GeonDaon.Logo.TitleBold>
+                                            <GeonDaon.Logo.TitleNormal>
+                                                다온
+                                            </GeonDaon.Logo.TitleNormal>
+                                        </GeonDaon.Logo.Row>
+                                        <GeonDaon.Logo.Row>
+                                            <GeonDaon.Logo.TitleLine></GeonDaon.Logo.TitleLine>
+                                        </GeonDaon.Logo.Row>
+                                        <GeonDaon.Logo.Row>
+                                            <GeonDaon.Logo.TitleBold>
+                                                건강
+                                            </GeonDaon.Logo.TitleBold>
+                                            <GeonDaon.Logo.TitleNormal>
+                                                이 내게 다 오는
+                                            </GeonDaon.Logo.TitleNormal>
+                                        </GeonDaon.Logo.Row>
+                                        <GeonDaon.Logo.Row>
+                                            <GeonDaon.Logo.TitleBold>
+                                                헬스케어 서비스
+                                            </GeonDaon.Logo.TitleBold>
+                                        </GeonDaon.Logo.Row>
+                                    </GeonDaon.Logo.Wapper>
+                                )
+                            } else {
+                                return <LoginLogoImage src={LogoImage} alt="" />
+                            }
+                        })()}
+                    </LogoBox>
+                    <FormBox>
+                        <FormRow>
+                            <Label htmlFor="email">아이디</Label>
+                            <InputId
+                                type="email"
+                                name="usid"
+                                value={pageState.loginInfo.usid}
                                 onChange={e => handleInputChange(e)}
                                 onKeyUp={e => onEnter(e)}
                             />
-                        </InputRow>
-                        {pageState.loginerror && (
-                            <ErrorRow>
-                                <ErrorMessage>
-                                    {pageState.loginerrorMessage}
-                                </ErrorMessage>
-                            </ErrorRow>
-                        )}
-                        <InputRow className="mt-6">
-                            <LoginButton
-                                onClick={() => handleClickLoginButton()}>
-                                로그인
-                            </LoginButton>
-                        </InputRow>
-                        <InputRow>
-                            <RememberID>
-                                <RememberIdInput
-                                    checked={pageState.rememberme}
-                                    id="checked-checkbox"
-                                    type="checkbox"
-                                    value=""
-                                    onChange={e => handleRememberMeOnchange(e)}
+                        </FormRow>
+                        <FormRow>
+                            <InputRow>
+                                <Label htmlFor="password">비밀번호</Label>
+                                <InputPassword
+                                    ref={inputPasswordRef}
+                                    type="password"
+                                    name="pass"
+                                    value={pageState.loginInfo.pass}
+                                    onChange={e => handleInputChange(e)}
+                                    onKeyUp={e => onEnter(e)}
                                 />
-                                <RememberIdLabel htmlFor="checked-checkbox">
-                                    아이디 기억
-                                </RememberIdLabel>
-                            </RememberID>
-                        </InputRow>
-                    </FormRow>
-                </FormBox>
-            </Wapper>
-        </Container>
+                            </InputRow>
+                            {pageState.loginerror && (
+                                <ErrorRow>
+                                    <ErrorMessage>
+                                        {pageState.loginerrorMessage}
+                                    </ErrorMessage>
+                                </ErrorRow>
+                            )}
+                            <InputRow className="mt-6">
+                                <LoginButton
+                                    onClick={() => handleClickLoginButton()}>
+                                    로그인
+                                </LoginButton>
+                            </InputRow>
+                            <InputRow>
+                                <RememberID>
+                                    <RememberIdInput
+                                        checked={pageState.rememberme}
+                                        id="checked-checkbox"
+                                        type="checkbox"
+                                        value=""
+                                        onChange={e =>
+                                            handleRememberMeOnchange(e)
+                                        }
+                                    />
+                                    <RememberIdLabel htmlFor="checked-checkbox">
+                                        아이디 기억
+                                    </RememberIdLabel>
+                                </RememberID>
+                            </InputRow>
+                        </FormRow>
+                    </FormBox>
+                </Wapper>
+                {mainLayoutState.Theme === 'GeonDaon' && (
+                    <GeonDaon.BottomBox.Wapper>
+                        <GeonDaon.BottomBox.LogoBox>
+                            <img src={SamsungLogoImage} alt="logo" />
+                        </GeonDaon.BottomBox.LogoBox>
+                        <GeonDaon.BottomBox.TelBox>{`문의 : 1644-2810`}</GeonDaon.BottomBox.TelBox>
+                    </GeonDaon.BottomBox.Wapper>
+                )}
+            </Container>
+        </div>
     )
 }
 

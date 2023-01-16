@@ -1,6 +1,6 @@
 import { TopbarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
-import { HamburgerButton } from '@Component/Elements'
+import { HamburgerButton, VarySelectBox } from '@Component/Elements'
 import { useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -8,6 +8,9 @@ import { checkRemainingTime, getRemainingTime } from '@Helper'
 import { useAuth, useMainLayouts } from '@Hooks'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
+import Const from '@Const'
+import { MainLayoutThemeType } from '@CommonTypes'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     Container,
@@ -24,8 +27,9 @@ const {
 const Topbar = () => {
     const navigate = useNavigate()
     const { handleAttemptLogout } = useAuth()
-    const { handleLeftMenuShow } = useMainLayouts()
+    const { handleLeftMenuShow, handleTheme } = useMainLayouts()
     const atomRootState = useRecoilValue(AtomRootState)
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [remainingTime, setRemainingTime] = useState<string>(`00:00`)
     const [pageState, setPageState] = useState<{
         user: {
@@ -109,6 +113,24 @@ const Topbar = () => {
                         <HamburgerButton
                             ButtonClick={() => handleShowLeftMenu()}
                         />
+                        {process.env.REACT_APP_ENV === 'development' && (
+                            <div className={`flex px-3`}>
+                                <VarySelectBox
+                                    HandleOnChange={e =>
+                                        handleTheme(
+                                            e.value as MainLayoutThemeType
+                                        )
+                                    }
+                                    Value={mainLayoutState.Theme}
+                                    Elements={Const.mainLayoutTheme.map(e => {
+                                        return {
+                                            text: e.name,
+                                            value: e.code,
+                                        }
+                                    })}
+                                />
+                            </div>
+                        )}
                     </Left>
                     <Right>
                         <Belong>{`${

@@ -208,7 +208,7 @@ export const ConsultTableConfig = {
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
                     return (
                         <ListTableStyle.MbtlnumCell CRTFC={el.MBTLNUM_CRTFC_AT}>
-                            {phoneFormat(el.MBTLNUM)}
+                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
                         </ListTableStyle.MbtlnumCell>
                     )
                 },
