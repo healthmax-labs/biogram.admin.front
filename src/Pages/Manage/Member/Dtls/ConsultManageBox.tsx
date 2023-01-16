@@ -11,32 +11,17 @@ const ConsultListMain = () => {
                 <VaryButton
                     ButtonType={'manage'}
                     HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인1'}
+                    ButtonName={'메세지 보내기'}
                 />
                 <VaryButton
                     ButtonType={'manage'}
                     HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인2'}
+                    ButtonName={'앱 푸시 보내기'}
                 />
                 <VaryButton
                     ButtonType={'manage'}
                     HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인3'}
-                />
-                <VaryButton
-                    ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인4'}
-                />
-                <VaryButton
-                    ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인5'}
-                />
-                <VaryButton
-                    ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'소승승인6'}
+                    ButtonName={'엑셀 내려받기'}
                 />
             </Buttons>
         </Wapper>
