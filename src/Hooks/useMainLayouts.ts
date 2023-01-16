@@ -1,9 +1,10 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { useCallback } from 'react'
+import { MainLayoutThemeType } from '@CommonTypes'
 
 export default function useMainLayouts() {
-    const { leftMenuShow, alertModel, OutletLoading } =
+    const { leftMenuShow, alertModel, OutletLoading, Theme } =
         useRecoilValue(AtomMainLayoutState)
     const setMainLayoutState = useSetRecoilState(AtomMainLayoutState)
 
@@ -40,6 +41,19 @@ export default function useMainLayouts() {
         [setMainLayoutState]
     )
 
+    const handleTheme = useCallback(
+        (theme: MainLayoutThemeType) => {
+            console.debug(Theme, theme)
+            if (Theme !== theme) {
+                setMainLayoutState(prevState => ({
+                    ...prevState,
+                    Theme: theme,
+                }))
+            }
+        },
+        [Theme, setMainLayoutState]
+    )
+
     return {
         leftMenuShow,
         alertModel,
@@ -47,5 +61,6 @@ export default function useMainLayouts() {
         handlMainAlert,
         handleLeftMenuShow,
         handleOutletLoading,
+        handleTheme,
     }
 }

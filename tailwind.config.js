@@ -57,9 +57,9 @@ module.exports = {
                         colors: {
                             transparent: 'transparent',
                             current: 'currentColor',
-                            blueberry: `#214DD4`,
-                            eggplant: `#354785`,
-                            steel: `#5d6787`,
+                            blueberry: `#005FC6`,
+                            eggplant: `#005FC6`,
+                            steel: `#005FC6`,
                             mercury: `#F1F1F9`,
                             pearl: `#F7F7FB`,
                             daisy: `#FFFFFF`,
