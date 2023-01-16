@@ -171,7 +171,7 @@ const LoginForm = () => {
     }, [])
 
     return (
-        <div className={`App ${mainLayoutState.Theme}`}>
+        <div className={`App ${mainLayoutState.Theme} font-sans`}>
             <Container
                 bgImage={
                     mainLayoutState.Theme === 'GeonDaon'
