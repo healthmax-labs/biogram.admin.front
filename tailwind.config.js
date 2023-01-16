@@ -30,20 +30,45 @@ module.exports = {
                 'span-7': 'span 7 / span 7',
             },
         },
-        colors: {
-            transparent: 'transparent',
-            current: 'currentColor',
-            blueberry: `#214DD4`,
-            eggplant: `#354785`,
-            steel: `#5d6787`,
-            mercury: `#F1F1F9`,
-            pearl: `#F7F7FB`,
-            daisy: `#FFFFFF`,
-        },
     },
     plugins: [
         require('@tailwindcss/forms'),
         require('flowbite/plugin'),
         require('tailwind-scrollbar-hide'),
+        require('tailwindcss-themer')({
+            defaultTheme: {
+                extend: {
+                    colors: {
+                        transparent: 'transparent',
+                        current: 'currentColor',
+                        blueberry: `#214DD4`,
+                        eggplant: `#354785`,
+                        steel: `#5d6787`,
+                        mercury: `#F1F1F9`,
+                        pearl: `#F7F7FB`,
+                        daisy: `#FFFFFF`,
+                        brescian: `#2F2F2F`
+                    },
+                },
+            },
+            themes: [
+                {
+                    name: 'GeonDaon',
+                    extend: {
+                        colors: {
+                            transparent: 'transparent',
+                            current: 'currentColor',
+                            blueberry: `#005FC6`,
+                            eggplant: `#005FC6`,
+                            steel: `#005FC6`,
+                            mercury: `#F1F1F9`,
+                            pearl: `#F7F7FB`,
+                            daisy: `#FFFFFF`,
+                            brescian: '#0381FE'
+                        },
+                    },
+                },
+            ],
+        }),
     ],
 }

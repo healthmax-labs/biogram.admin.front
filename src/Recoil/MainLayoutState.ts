@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil'
+import { MainLayoutThemeType } from '@CommonTypes'
 
 // atop post current
 export const AtomMainLayoutState = atom<{
@@ -8,6 +9,8 @@ export const AtomMainLayoutState = atom<{
         state: boolean
         message: string
     }
+    SiteTitle: string
+    Theme: MainLayoutThemeType
 }>({
     key: `layout/LayoutState`,
     default: {
@@ -17,6 +20,8 @@ export const AtomMainLayoutState = atom<{
             state: false,
             message: ``,
         },
+        SiteTitle: `바이오그램 어드민`,
+        Theme: ``,
     },
 })
 

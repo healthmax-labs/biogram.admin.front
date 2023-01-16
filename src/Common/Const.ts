@@ -78,4 +78,14 @@ export default {
     ],
     reprsntTelno: `1644-2810`,
     maxTabCount: 10,
+    mainLayoutTheme: [
+        {
+            name: `default`,
+            code: ``,
+        },
+        {
+            name: `건다온`,
+            code: `GeonDaon`,
+        },
+    ],
 }

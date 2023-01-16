@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MenuLogo } from '@Assets'
+import { MenuLogo, SamsungLogoImage } from '@Assets'
 import { SidebarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { useRecoilValue } from 'recoil'
 import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { MenuItemInterface } from '@CommonTypes'
 import { isEmpty } from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     Nav,
@@ -24,6 +25,7 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const {
         menuInfo: { AUTHOR_MENU_INFO_LIST },
     } = useRecoilValue(AtomRootState)
@@ -62,7 +64,14 @@ const Sidebar = () => {
                 <Container>
                     {/* Toggler */}
                     {/* Brand */}
-                    <Logo src={MenuLogo} alt="BioGram" />
+                    <Logo
+                        src={
+                            mainLayoutState.Theme === 'GeonDaon'
+                                ? SamsungLogoImage
+                                : MenuLogo
+                        }
+                        alt="BioGram"
+                    />
                     {/* Collapse */}
                     <Collapse.Container>
                         {pageState.Menus.main.map(
