@@ -44,7 +44,7 @@ const ManageRootPage = () => {
                 </title>
                 <link rel="canonical" href={`${process.env.PUBLIC_URL}`} />
             </Helmet>
-            <div className={`App ${mainLayoutState.Theme}`}>
+            <div className={`App ${mainLayoutState.Theme} font-sans`}>
                 <Suspense fallback={<PageLoading />}>
                     {renderTabPageComponent()}
                 </Suspense>

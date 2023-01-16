@@ -47,7 +47,10 @@ module.exports = {
                         mercury: `#F1F1F9`,
                         pearl: `#F7F7FB`,
                         daisy: `#FFFFFF`,
-                        brescian: `#2F2F2F`
+                        brescian: `#2F2F2F`,
+                    },
+                    fontFamily: {
+                        sans: ['NanumSquare', 'sans-serif'],
                     },
                 },
             },
@@ -58,13 +61,16 @@ module.exports = {
                         colors: {
                             transparent: 'transparent',
                             current: 'currentColor',
-                            blueberry: `#005FC6`,
-                            eggplant: `#005FC6`,
-                            steel: `#005FC6`,
-                            mercury: `#F1F1F9`,
-                            pearl: `#F7F7FB`,
-                            daisy: `#FFFFFF`,
-                            brescian: '#0381FE'
+                            blueberry: '#005FC6',
+                            eggplant: '#005FC6',
+                            steel: '#005FC6',
+                            mercury: '#F1F1F9',
+                            pearl: '#F7F7FB',
+                            daisy: '#FFFFFF',
+                            brescian: '#0381FE',
+                        },
+                        fontFamily: {
+                            sans: ['Samsung Sharp Sans', 'sans-serif'],
                         },
                     },
                 },
