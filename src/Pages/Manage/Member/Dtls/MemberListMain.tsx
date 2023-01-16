@@ -31,7 +31,7 @@ const MemberListMain = () => {
         const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getMemberList({
-            curPage: !isNull(curPage) ? curPage : 1,
+            curPage: !isNull(curPage) ? curPage : 0,
             instNo: !isNull(instNo) ? instNo : '',
             searchKey: !isNull(searchKey) ? searchKey : '',
             registDtFrom: !isNull(registDtFrom)
