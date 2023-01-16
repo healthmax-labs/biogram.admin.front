@@ -173,60 +173,33 @@ export default [
             () => import('@Page/Manage/Status/ActivityWalkListPage')
         ),
     },
-    // {
-    //     mainCode: `40000`,
-    //     menuCode: `40501`,
-    //     name: `미측정 현황`,
-    //     pathName: ``,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Belong/BelongManagePage')
-    //     ),
-    // },
-    // {
-    //     mainCode: `50000`,
-    //     menuCode: `50101`,
-    //     name: `회원 통계`,
-    //     pathName: `/manage/analytics/member`,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Analytics/MemberPage')
-    //     ),
-    // },
-    // {
-    //     mainCode: `50000`,
-    //     menuCode: `50201`,
-    //     name: `측정 이용자 통계`,
-    //     pathName: `/manage/analytics/measure-user`,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Analytics/MeasureUserPage')
-    //     ),
-    // },
-    // {
-    //     mainCode: `50000`,
-    //     menuCode: `50301`,
-    //     name: `위험요인 항목별 통계`,
-    //     pathName: `/manage/analytics/risk-fctr-items`,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Analytics/RiskFctrItemsPage')
-    //     ),
-    // },
-    // {
-    //     mainCode: `50000`,
-    //     menuCode: `50401`,
-    //     name: `위험요인 개수별 통계`,
-    //     pathName: `/manage/analytics/risk-fctr-count`,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Analytics/RiskFctrCountPage')
-    //     ),
-    // },
-    // {
-    //     mainCode: `50000`,
-    //     menuCode: `50501`,
-    //     name: `기기사용 통계`,
-    //     pathName: `/manage/analytics/device-use`,
-    //     Component: React.lazy(
-    //         () => import('@Page/Manage/Analytics/DeviceUsePage')
-    //     ),
-    // },
+    {
+        mainCode: `40000`,
+        menuCode: `40501`,
+        name: `미측정 현황`,
+        pathName: `/manage/status/nonMeasure`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Status/NonMeasureListPage')
+        ),
+    },
+    {
+        mainCode: `40000`,
+        menuCode: `40601`,
+        name: `건강지표개선 현황`,
+        pathName: `/manage/status/healthIndicators`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Status/HealthIndicatorsListPage')
+        ),
+    },
+    {
+        mainCode: `40000`,
+        menuCode: `40701`,
+        name: `보행수 랭킹`,
+        pathName: `/manage/status/walkRanking`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Status/WalkRankingListPage')
+        ),
+    },
     {
         mainCode: `50000`,
         menuCode: `50601`,
@@ -270,6 +243,15 @@ export default [
         pathName: `/manage/analytics/device-use`,
         Component: React.lazy(
             () => import('@Page/Manage/Analytics/DeviceUsePage')
+        ),
+    },
+    {
+        mainCode: `50000`,
+        menuCode: `51101`,
+        name: `건강지표 개선통계`,
+        pathName: `/manage/analytics/health-indicators`,
+        Component: React.lazy(
+            () => import('@Page/Manage/Analytics/HealthIndicatorsPage')
         ),
     },
     {
