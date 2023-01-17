@@ -14,6 +14,7 @@ export default {
         saveConfirm: `저장 하시겠습니까?`,
         updateConfirm: `수정 하시겠습니까?`,
         deleteConfirm: `삭제 하시겠습니까?`,
+        loginExtension: `후에 자동 로그아웃 됩니다. 로그인 연장 하시겠습니까?`,
         duplicate: {
             uhealthzoneNameDup: '이미 사용중인 설치 장소명 입니다.',
             uhealthzoneNamePoss: '사용가능한 설치 장소명 입니다.',
