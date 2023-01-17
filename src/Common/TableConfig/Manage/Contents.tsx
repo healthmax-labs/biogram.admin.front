@@ -1,3 +1,5 @@
+import React from 'react'
+
 // 바이오그램존
 export interface UhealthzoneTableListItemInterface {
     UHEALTH_ZONE_NO: null | string
@@ -50,10 +52,28 @@ export const UhealthzoneTableConfig = {
             {
                 name: `외부인 이용`,
                 key: `EXTRL_PERSON_USE_AT`,
+                component: ({
+                    el,
+                }: {
+                    el: UhealthzoneTableListItemInterface
+                }) => {
+                    return (
+                        <>{el.EXTRL_PERSON_USE_AT == 'Y' ? '가능' : '불가능'}</>
+                    )
+                },
             },
             {
                 name: `로그인 방식`,
                 key: `LOGIN_AT`,
+                component: ({
+                    el,
+                }: {
+                    el: UhealthzoneTableListItemInterface
+                }) => {
+                    if (el.LOGIN_AT == 'R') return <>{'RFID'}</>
+                    else if (el.LOGIN_AT == 'A') return <>{'복합'}</>
+                    else return <>{'지정맥'}</>
+                },
             },
             {
                 name: `등록일시`,
