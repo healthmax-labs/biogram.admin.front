@@ -56,6 +56,88 @@ const StatisticsSearchBox = ({
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e =>
+                                    setStatisticsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            searchKey: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={
+                                    isNull(
+                                        statisticsListState.search.SEARCH_KEY
+                                    )
+                                        ? ''
+                                        : statisticsListState.search.SEARCH_KEY
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`기간`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    statisticsListState.search.BEGIN_DE
+                                        ? changeDatePickerDate(
+                                              statisticsListState.search
+                                                  .BEGIN_DE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setStatisticsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            BEGIN_DE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                            <DatepickerLine>~</DatepickerLine>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    statisticsListState.search.END_DE
+                                        ? changeDatePickerDate(
+                                              statisticsListState.search.END_DE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setStatisticsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            END_DE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`요인`} />
                         </SearchLabel>
                         <SearchItem>
@@ -137,86 +219,6 @@ const StatisticsSearchBox = ({
                                     }
                                 })()}
                             </WapperStyle.FlexNoWarapGap>
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    statisticsListState.search.BEGIN_DE
-                                        ? changeDatePickerDate(
-                                              statisticsListState.search
-                                                  .BEGIN_DE
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setStatisticsListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            BEGIN_DE: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    statisticsListState.search.END_DE
-                                        ? changeDatePickerDate(
-                                              statisticsListState.search.END_DE
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setStatisticsListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            END_DE: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e =>
-                                    setStatisticsListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            searchKey: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    isNull(
-                                        statisticsListState.search.SEARCH_KEY
-                                    )
-                                        ? ''
-                                        : statisticsListState.search.SEARCH_KEY
-                                }
-                            />
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>

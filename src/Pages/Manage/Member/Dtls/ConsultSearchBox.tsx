@@ -45,7 +45,22 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e => console.debug(e)}
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={``}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`측정일자`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
@@ -90,21 +105,6 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         },
                                     }))
                                 }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e => console.debug(e)}
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={``}
                             />
                         </SearchItem>
                     </SearchItemWapper>

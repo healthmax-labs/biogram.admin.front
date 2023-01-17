@@ -66,6 +66,86 @@ const RiskFctrSearchBox = ({
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={
+                                    isNull(riskFctrListState.search.SEARCH_KEY)
+                                        ? ''
+                                        : riskFctrListState.search.SEARCH_KEY
+                                }
+                                HandleOnChange={e =>
+                                    setRiskFctrListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            SEARCH_KEY: e.target.value,
+                                        },
+                                    }))
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`기간`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    riskFctrListState.search.BGNDE
+                                        ? changeDatePickerDate(
+                                              riskFctrListState.search.BGNDE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setRiskFctrListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            BGNDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                            <DatepickerLine>~</DatepickerLine>
+                            <VaryDatepickerInput
+                                ContentsType={`search`}
+                                Value={
+                                    riskFctrListState.search.ENDDE
+                                        ? changeDatePickerDate(
+                                              riskFctrListState.search.ENDDE
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setRiskFctrListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            ENDDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`요인`} />
                         </SearchLabel>
                         <SearchItem>
@@ -151,56 +231,6 @@ const RiskFctrSearchBox = ({
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    riskFctrListState.search.BGNDE
-                                        ? changeDatePickerDate(
-                                              riskFctrListState.search.BGNDE
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setRiskFctrListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            BGNDE: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={
-                                    riskFctrListState.search.ENDDE
-                                        ? changeDatePickerDate(
-                                              riskFctrListState.search.ENDDE
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setRiskFctrListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            ENDDE: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
                             <VaryLabel LabelName={`개수`} />
                         </SearchLabel>
                         <SearchItem>
@@ -234,35 +264,6 @@ const RiskFctrSearchBox = ({
                                     )
                                 })}
                             </WS.FlexNoWarapGap>
-                        </SearchItem>
-                    </SearchItemWapper>
-                </SearchItemRow>
-                <SearchItemRow>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    isNull(riskFctrListState.search.SEARCH_KEY)
-                                        ? ''
-                                        : riskFctrListState.search.SEARCH_KEY
-                                }
-                                HandleOnChange={e =>
-                                    setRiskFctrListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            SEARCH_KEY: e.target.value,
-                                        },
-                                    }))
-                                }
-                            />
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>

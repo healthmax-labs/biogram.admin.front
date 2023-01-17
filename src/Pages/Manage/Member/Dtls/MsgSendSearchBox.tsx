@@ -90,30 +90,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             />
                         </SearchItem>
                     </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`발송`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryLabelCheckBox
-                                LabelName={`실패만`}
-                                Checked={
-                                    msgSendListState.search.SNDNG_FAILR === 'F'
-                                }
-                                HandleOnChange={e => {
-                                    setMsgSendListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            SNDNG_FAILR: e.target.checked
-                                                ? 'F'
-                                                : null,
-                                        },
-                                    }))
-                                }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
+
                     <SearchItemWapper>
                         <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
@@ -161,7 +138,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                 </SearchItemRow>
                 <SearchItemRow>
-                    <SearchItemWapper ColSpan={true}>
+                    <SearchItemWapper>
                         <SearchLabel>
                             <VaryLabel LabelName={`조회 기준`} />
                         </SearchLabel>
@@ -180,8 +157,30 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
-                    <SearchItemWapper></SearchItemWapper>
-                    <SearchItemWapper></SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`발송`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryLabelCheckBox
+                                LabelName={`실패만`}
+                                Checked={
+                                    msgSendListState.search.SNDNG_FAILR === 'F'
+                                }
+                                HandleOnChange={e => {
+                                    setMsgSendListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            SNDNG_FAILR: e.target.checked
+                                                ? 'F'
+                                                : null,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
             <RightSearchButton Item={'end'}>
