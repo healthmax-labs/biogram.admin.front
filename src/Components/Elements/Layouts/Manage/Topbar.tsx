@@ -1,14 +1,20 @@
+import React, { useCallback, useEffect, useState } from 'react'
 import { TopbarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { IconBtLogout } from '@Assets'
-import { HamburgerButton, VarySelectBox } from '@Component/Elements'
+import {
+    HamburgerButton,
+    VaryButton,
+    VaryModal,
+    VarySelectBox,
+} from '@Component/Elements'
 import { useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
-import React, { useCallback, useEffect, useState } from 'react'
 import { checkRemainingTime, getRemainingTime } from '@Helper'
 import { useAuth, useMainLayouts } from '@Hooks'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import Const from '@Const'
+import Messages from '@Messages'
 import { MainLayoutThemeType } from '@CommonTypes'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
@@ -24,24 +30,41 @@ const {
     Belong,
 } = TopbarStyle
 
+const initializeState = {
+    user: {
+        inst_nm: '',
+        nm: '',
+    },
+    remainingTime: `00:00`,
+    modal: {
+        loginExtension: {
+            status: false,
+            loading: false,
+            text: ``,
+        },
+    },
+}
 const Topbar = () => {
     const navigate = useNavigate()
-    const { handleAttemptLogout } = useAuth()
+    const { handleAttemptLogout, handleTokenValidate } = useAuth()
     const { handleLeftMenuShow, handleTheme } = useMainLayouts()
     const atomRootState = useRecoilValue(AtomRootState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
-    const [remainingTime, setRemainingTime] = useState<string>(`00:00`)
+    const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         user: {
             inst_nm: string | null
             nm: string | null
         }
-    }>({
-        user: {
-            inst_nm: '',
-            nm: '',
-        },
-    })
+        remainingTime: string
+        modal: {
+            loginExtension: {
+                status: boolean
+                loading: boolean
+                text: string
+            }
+        }
+    }>(initializeState)
 
     const handleShowLeftMenu = () => {
         handleLeftMenuShow()
@@ -58,6 +81,28 @@ const Topbar = () => {
     const handleLogoutButtonClick = async () => {
         handleLogout().then()
     }
+
+    const handleClickLoginExtensionButton = useCallback(async () => {
+        const { status } = await handleTokenValidate()
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                loginExtension: {
+                    ...prevState.modal.loginExtension,
+                    status: false,
+                    loading: false,
+                },
+            },
+        }))
+        if (!status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+            handleLogout().then()
+        }
+    }, [handlMainAlert, handleLogout, handleTokenValidate])
 
     useEffect(() => {
         const funcSetUserName = () => {
@@ -87,7 +132,7 @@ const Topbar = () => {
 
         const timer = setTimeout(() => {
             const time = getRemainingTime()
-            console.debug(time)
+
             if (!time) {
                 navigate({
                     pathname: process.env.PUBLIC_URL + `/auth/login`,
@@ -97,7 +142,27 @@ const Topbar = () => {
             const min = time && String(time.min).padStart(2, '0')
             const sec = time && String(time.sec).padStart(2, '0')
 
-            setRemainingTime(`${min}:${sec}`)
+            const showLogoutTime = `${min}:${sec}`
+
+            if (time && time.min <= Const.autoLogoutMinTime) {
+                setPageState(prevState => ({
+                    ...prevState,
+                    remainingTime: showLogoutTime,
+                    modal: {
+                        ...prevState,
+                        loginExtension: {
+                            ...prevState.modal.loginExtension,
+                            status: true,
+                            text: `${showLogoutTime} ${Messages.Default.loginExtension}`,
+                        },
+                    },
+                }))
+            } else {
+                setPageState(prevState => ({
+                    ...prevState,
+                    remainingTime: showLogoutTime,
+                }))
+            }
         }, 1000)
 
         return () => {
@@ -141,7 +206,9 @@ const Topbar = () => {
                         <Name>
                             {`${pageState.user.nm ? pageState.user.nm : ''}`}님
                         </Name>
-                        <Status>{`${remainingTime}`} 후 자동 로그아웃</Status>
+                        <Status>
+                            {`${pageState.remainingTime}`} 후 자동 로그아웃
+                        </Status>
                         <Logout>
                             <LogoutIcon
                                 src={IconBtLogout}
@@ -151,6 +218,66 @@ const Topbar = () => {
                     </Right>
                 </Wapper>
             </Container>
+            {pageState.modal.loginExtension.status && (
+                <VaryModal
+                    ModalLoading={pageState.modal.loginExtension.loading}
+                    Children={
+                        <div className="text-xs text-rose-600 animate-bounce">
+                            {pageState.modal.loginExtension.text}
+                        </div>
+                    }
+                    MaxWidth={`sm`}
+                    Buttons={
+                        <>
+                            {!pageState.modal.loginExtension.loading && (
+                                <>
+                                    <VaryButton
+                                        ButtonType={'default'}
+                                        ButtonName={'로그아웃'}
+                                        HandleClick={() => {
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                modal: {
+                                                    ...prevState.modal,
+                                                    loginExtension: {
+                                                        ...prevState.modal
+                                                            .loginExtension,
+                                                        status: false,
+                                                        text: ``,
+                                                    },
+                                                },
+                                            }))
+
+                                            handleLogout().then()
+                                        }}
+                                    />
+                                    <VaryButton
+                                        ButtonType={'default'}
+                                        ButtonName={'로그인 연장'}
+                                        HandleClick={() => {
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                modal: {
+                                                    ...prevState.modal,
+                                                    loginExtension: {
+                                                        ...prevState.modal
+                                                            .loginExtension,
+
+                                                        loading: true,
+                                                    },
+                                                },
+                                            }))
+
+                                            handleClickLoginExtensionButton().then()
+                                        }}
+                                    />
+                                </>
+                            )}
+                        </>
+                    }
+                />
+            )}
+
             {/* End Navbar */}
         </>
     )

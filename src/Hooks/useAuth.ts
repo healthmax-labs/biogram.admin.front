@@ -1,13 +1,16 @@
 import { getAuthorMenu, login, logininfo } from '@Service/AuthService'
+import { postTokenValidate } from '@Service/EtcService'
 import { useRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import {
     add60Minutes,
     checkRemainingTime,
     getAccessToken,
+    getVtokenInfoToken,
     removeLoginExpirein,
     removeLoginToken,
     saveLoginToken,
+    saveRefreshToken,
     storageMaster,
 } from '@Helper'
 import { isEmpty, isNull } from 'lodash'
@@ -26,6 +29,7 @@ export default function useAuth() {
         )
     }
 
+    // 로그인 정보 ( 토큰 사용자 정보 )
     const handleGetLoginInfo = useCallback(async (): Promise<
         LoginInfoInterface | false
     > => {
@@ -193,11 +197,48 @@ export default function useAuth() {
         }
     }
 
+    // 로그인 연장 토큰 리프래쉬?
+    const handleTokenValidate = async (): Promise<{ status: boolean }> => {
+        // Vtoken 체크
+        const vtoken = getVtokenInfoToken()
+
+        if (isEmpty(vtoken)) {
+            return {
+                status: false,
+            }
+        }
+
+        const { status, payload } = await postTokenValidate()
+        if (status) {
+            const { TOKEN_LIMIT_TIME, AUTHORIZE_CODE, TOKEN_INFO } = payload
+
+            await saveRefreshToken({
+                TOKEN_INFO: TOKEN_INFO,
+                TOKEN_LIMIT_TIME: TOKEN_LIMIT_TIME,
+                AUTHORIZE_CODE: AUTHORIZE_CODE,
+            })
+
+            storageMaster.set(
+                'LOGIN_EXPIREIN',
+                add60Minutes(Number(process.env.REACT_APP_LOGIN_EXPIRE_IN))
+            )
+
+            return {
+                status: true,
+            }
+        } else {
+            return {
+                status: false,
+            }
+        }
+    }
+
     return {
         handleAttemptLogin,
         handleAttemptLogout,
         handleLoginCheck,
         handleGetLoginInfo,
         handleGetAuthorMenu,
+        handleTokenValidate,
     }
 }
