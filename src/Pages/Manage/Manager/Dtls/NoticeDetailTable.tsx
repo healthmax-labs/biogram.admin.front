@@ -299,6 +299,15 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         }))
                                     }
                                 />
+                            </div>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`공개 일자`} />
+                        </LabelCell>
+                        <InputCell>
+                            <div className="flex flex-nowrap gap-1">
                                 <VaryDatepickerInput
                                     ContentsType={`search`}
                                     Value={
@@ -355,7 +364,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     </Row>
                     <Row>
                         <LabelCell rowSpan={2}>
-                            <VaryLabel LabelName={`매거진 노출`} />
+                            <VaryLabel LabelName={`게시물 노출`} />
                         </LabelCell>
                         <InputCell>
                             <div className="flex flex-nowrap px-0">
@@ -412,8 +421,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             <ButtonBox>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`돌아가기`}
                         HandleClick={() => {
                             navigate({
@@ -426,8 +434,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 </ButtonItem>
                 <ButtonItem>
                     <VaryButton
-                        ButtonType={`manage`}
-                        BgColor={`eggplant`}
+                        ButtonType={`default`}
                         ButtonName={`확인`}
                         HandleClick={() =>
                             setDetailState(prevState => ({
@@ -443,7 +450,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             </ButtonBox>
             {detailState.modal.confirm && (
                 <ConfirmModal
-                    Title={Messages.Default.contents.magazine.update}
+                    Title={Messages.Default.contents.notice.update}
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {

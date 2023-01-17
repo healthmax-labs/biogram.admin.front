@@ -96,6 +96,10 @@ export default {
                     subNameEmpty: `설명이 입력되지 않았습니다.(100자)`,
                 },
             },
+            notice: {
+                update: `게시물을 저장하시겠습니까?`,
+                updateSuccess: `게시물이 저장되었습니다.`,
+            },
             instlPlaceEmpty: `지점명을 입력해 주세요.`,
             instlPlaceDuplicate: `지점 중복확인 해주세요.`,
             pstinstEmpty: `소속을 선택해 주세요.`,
