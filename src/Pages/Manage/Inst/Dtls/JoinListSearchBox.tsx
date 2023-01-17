@@ -1,14 +1,8 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import {
-    DefaultSearchButton,
-    PstinstSelector,
-    VaryInput,
-    VaryLabel,
-} from '@Elements'
+import { DefaultSearchButton, PstinstSelector, VaryLabel } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
-import { isNull } from 'lodash'
 
 const {
     SearchItemWapper,
