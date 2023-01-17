@@ -21,9 +21,7 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const [instJoinListState, setInstJoinListState] =
-        useRecoilState(InstJoinListState)
-
+    const [, setInstJoinListState] = useRecoilState(InstJoinListState)
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -39,36 +37,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            instNo: String(instNo),
+                                            INST_NO: String(instNo),
                                         },
                                     }))
-                                }
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e =>
-                                    setInstJoinListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            searchKey: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    isNull(instJoinListState.search.SEARCH_KEY)
-                                        ? ''
-                                        : instJoinListState.search.SEARCH_KEY
                                 }
                             />
                         </SearchItem>
