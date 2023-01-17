@@ -87,6 +87,7 @@ const Topbar = () => {
 
         const timer = setTimeout(() => {
             const time = getRemainingTime()
+            console.debug(time)
             if (!time) {
                 navigate({
                     pathname: process.env.PUBLIC_URL + `/auth/login`,
@@ -116,6 +117,7 @@ const Topbar = () => {
                         {process.env.REACT_APP_ENV === 'development' && (
                             <div className={`flex px-3`}>
                                 <VarySelectBox
+                                    Placeholder={`테마를 선택해 주세요`}
                                     HandleOnChange={e =>
                                         handleTheme(
                                             e.value as MainLayoutThemeType
