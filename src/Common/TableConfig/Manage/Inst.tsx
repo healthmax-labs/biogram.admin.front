@@ -55,8 +55,12 @@ export const JoinTableConfig = {
                 key: `SEXDSTN`,
             },
             {
-                name: `성별`,
+                name: `휴대폰번호`,
                 key: `MBTLNUM`,
+            },
+            {
+                name: `신청소속`,
+                key: `INST_NM`,
             },
         ],
     ],
