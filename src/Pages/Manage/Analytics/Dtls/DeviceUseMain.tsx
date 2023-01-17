@@ -1,6 +1,6 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import AnalyticsSearchBox from './AnalyticsSearchBox'
+import DeviceUseSearchBox from './DeviceUseSearchBox'
 import DeviceUseTable from './DeviceUseTable'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -12,7 +12,7 @@ const DeviceUseMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <AnalyticsSearchBox />
+                <DeviceUseSearchBox />
             </SearchWapper>
             <TableWapper>
                 <DeviceUseTable />
