@@ -66,8 +66,6 @@ const NonMeasureTable = () => {
             const NEW_WOMAN_CNT = getAgeData.NEW_WOMAN_CNT
             const NEW_MAN_CNT = getAgeData.NEW_MAN_CNT
             const DEL_MBER_CNT = getAgeData.DEL_MBER_CNT
-            const DLE_WOMAN_CNT = getAgeData.DLE_WOMAN_CNT
-            const DEL_MAN_CNT = getAgeData.DEL_MAN_CNT
 
             cellHtml = (
                 <>
@@ -79,9 +77,8 @@ const NonMeasureTable = () => {
                     <T.Cell>{NEW_WOMAN_CNT}</T.Cell>
                     <T.Cell>{NEW_MAN_CNT}</T.Cell>
                     <T.Cell>{DEL_MBER_CNT}</T.Cell>
-                    <T.Cell>{DLE_WOMAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MAN_CNT}</T.Cell>
+                    <T.Cell>{DEL_MBER_CNT}</T.Cell>
+                    <T.Cell>{DEL_MBER_CNT}</T.Cell>
                 </>
             )
         } else {
@@ -119,11 +116,14 @@ const NonMeasureTable = () => {
                     <T.Table>
                         <T.Thead>
                             <T.TheadRow>
+                                <T.TheadCell rowSpan={2}>연령</T.TheadCell>
+                                <T.TheadCell colSpan={3}>개인 정보</T.TheadCell>
+                                <T.TheadCell colSpan={6}>측정 수치</T.TheadCell>
+                            </T.TheadRow>
+                            <T.TheadRow>
                                 <T.TheadCell>이름</T.TheadCell>
                                 <T.TheadCell>성별</T.TheadCell>
                                 <T.TheadCell>생년월일</T.TheadCell>
-                                <T.TheadCell>휴대폰번호</T.TheadCell>
-                                <T.TheadCell>아이디</T.TheadCell>
                                 <T.TheadCell>개선성공률</T.TheadCell>
                                 <T.TheadCell>혈압</T.TheadCell>
                                 <T.TheadCell>공복혈당</T.TheadCell>

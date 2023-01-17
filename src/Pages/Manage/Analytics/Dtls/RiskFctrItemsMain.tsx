@@ -1,6 +1,6 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import AnalyticsSearchBox from './AnalyticsSearchBox'
+import RiskFctrItemsSearchBox from './RiskFctrItemsSearchBox'
 import RiskFctrItemsTable from './RiskFctrItemsTable'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -12,7 +12,7 @@ const RiskFctrItemsMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <AnalyticsSearchBox />
+                <RiskFctrItemsSearchBox />
             </SearchWapper>
             <TableWapper>
                 <RiskFctrItemsTable />

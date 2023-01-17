@@ -6,6 +6,7 @@ import {
     VaryDatepickerInput,
     VaryLabel,
     VaryLabelCheckBox,
+    DefaultSearchButton,
 } from '@Elements'
 
 const {
@@ -17,9 +18,10 @@ const {
     DatepickerLine,
     SearchItem,
     SearchItemGap,
+    RightSearchButton,
 } = SearchBoxStyle
 
-const AnalyticsSearchBox = () => {
+const MemberSearchBox = () => {
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -190,8 +192,11 @@ const AnalyticsSearchBox = () => {
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
+            <RightSearchButton Item={'end'}>
+                <DefaultSearchButton ButtonClick={() => console.log('1234')} />
+            </RightSearchButton>
         </RowContainer>
     )
 }
 
-export default AnalyticsSearchBox
+export default MemberSearchBox

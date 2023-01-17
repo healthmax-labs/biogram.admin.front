@@ -120,25 +120,25 @@ const HealthIndicatorsTable = () => {
                 } else {
                     cellHtml = (
                         <>
-                            <T.TFootCell colSpan={colspan}>합계</T.TFootCell>
-                            <T.TFootCell>{TOT_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_MAN_CNT}</T.TFootCell>
+                            <T.TFootCell colSpan={colspan}>{title}</T.TFootCell>
+                            <T.TFootCell>{TOT_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{TOT_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{TOT_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{IS_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{IS_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{IS_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BP_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BP_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BP_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BS_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BS_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BS_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BC_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BC_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{BC_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{ST_MBER_CNT}%</T.TFootCell>
+                            <T.TFootCell>{ST_WOMAN_CNT}%</T.TFootCell>
+                            <T.TFootCell>{ST_MAN_CNT}%</T.TFootCell>
                         </>
                     )
                 }
@@ -236,7 +236,7 @@ const HealthIndicatorsTable = () => {
                         </T.Body>
                         <T.TFoot>
                             <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
+                                {cellMaker(7, 'AGE', 'footer', 2, '평균')}
                             </T.TFootRow>
                         </T.TFoot>
                     </T.Table>
