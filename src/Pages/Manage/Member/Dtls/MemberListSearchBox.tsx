@@ -56,6 +56,33 @@ const MemberListSearchBox = ({
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e =>
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            searchKey: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'ID/이름/연락처/전화번호'}
+                                Value={
+                                    isNull(listState.search.searchKey)
+                                        ? ''
+                                        : listState.search.searchKey
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`가입일자`} />
                         </SearchLabel>
                         <SearchItem>
@@ -112,33 +139,6 @@ const MemberListSearchBox = ({
                                     }}
                                 />
                             </div>
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e =>
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            searchKey: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'ID/이름/연락처/전화번호'}
-                                Value={
-                                    isNull(listState.search.searchKey)
-                                        ? ''
-                                        : listState.search.searchKey
-                                }
-                            />
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>

@@ -50,7 +50,7 @@ module.exports = {
                         brescian: `#2F2F2F`,
                     },
                     fontFamily: {
-                        sans: ['NanumSquare', 'sans-serif'],
+                        sans: ['NanumSquare'],
                     },
                 },
             },
@@ -70,7 +70,7 @@ module.exports = {
                             brescian: '#0381FE',
                         },
                         fontFamily: {
-                            sans: ['Samsung Sharp Sans', 'sans-serif'],
+                            sans: ['"Samsung Sharp Sans"'],
                         },
                     },
                 },

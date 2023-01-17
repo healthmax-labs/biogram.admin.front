@@ -51,6 +51,33 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e =>
+                                    setBrftrCmprListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            searchKey: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={
+                                    isNull(brftrCmprListState.search.SEARCH_KEY)
+                                        ? ''
+                                        : brftrCmprListState.search.SEARCH_KEY
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
                         </SearchLabel>
                         <SearchItem>
@@ -96,33 +123,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         },
                                     }))
                                 }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e =>
-                                    setBrftrCmprListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            searchKey: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    isNull(brftrCmprListState.search.SEARCH_KEY)
-                                        ? ''
-                                        : brftrCmprListState.search.SEARCH_KEY
-                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>

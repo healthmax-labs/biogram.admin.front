@@ -52,6 +52,33 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e =>
+                                    setActivityWalkListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            SEARCH: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={
+                                    isNull(activityWalkListState.search.SEARCH)
+                                        ? ''
+                                        : activityWalkListState.search.SEARCH
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
                         </SearchLabel>
                         <SearchItem>
@@ -99,33 +126,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         },
                                     }))
                                 }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e =>
-                                    setActivityWalkListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            SEARCH: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    isNull(activityWalkListState.search.SEARCH)
-                                        ? ''
-                                        : activityWalkListState.search.SEARCH
-                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>

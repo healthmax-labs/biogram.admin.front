@@ -39,6 +39,26 @@ const NonMeasureSearchBox = () => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
+                            <VaryLabel LabelName={`검색어`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e => console.debug(e)}
+                                id={'id'}
+                                Placeholder={'검색어'}
+                                Value={
+                                    'sch api연결'
+                                    // isNull(instJoinListState.search.SEARCH_KEY)
+                                    //     ? ''
+                                    //     : instJoinListState.search.SEARCH_KEY
+                                }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
                         </SearchLabel>
                         <SearchItem>
@@ -60,26 +80,6 @@ const NonMeasureSearchBox = () => {
                                         gmtTimeToTimeObject(e)
                                     console.debug(year, monthPad, dayPad)
                                 }}
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryInput
-                                ContentsType={`search`}
-                                Width={'w40'}
-                                HandleOnChange={e => console.debug(e)}
-                                id={'id'}
-                                Placeholder={'검색어'}
-                                Value={
-                                    'sch api연결'
-                                    // isNull(instJoinListState.search.SEARCH_KEY)
-                                    //     ? ''
-                                    //     : instJoinListState.search.SEARCH_KEY
-                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>
