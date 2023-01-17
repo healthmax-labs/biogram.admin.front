@@ -20,16 +20,13 @@ const apiBaseURLL: string | undefined = _.isUndefined(
     ? 'http://localhost'
     : process.env.REACT_APP_API_SERVER_URL
 
-const setRefreshTokenData = ({
-    TOKEN_INFO,
-    TOKEN_LIMIT_TIME,
-    AUTHORIZE_CODE,
-}: LoginTokenInterface): void => {
-    Helper.saveRefreshToken({
-        TOKEN_INFO,
-        TOKEN_LIMIT_TIME,
-        AUTHORIZE_CODE,
-    })
+const setRefreshTokenData = ({}: LoginTokenInterface): void => {
+    // TODO : 토큰 리프래시는 어떻게 할것인가?
+    // Helper.saveRefreshToken({
+    //     TOKEN_INFO,
+    //     TOKEN_LIMIT_TIME,
+    //     AUTHORIZE_CODE,
+    // })
 }
 
 /**

@@ -1,5 +1,5 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
-export type MainLayoutThemeType = '' | 'GeonDaon'
+export type MainLayoutThemeType = '' | 'GeonDaon' // 테마 타입 테마 추가시 추가 팔요함
 export type DefaultYesNo = 'Y' | 'N'
 export type WidthType =
     | 'w0'
@@ -32,6 +32,7 @@ export type WidthType =
     | 'full'
     | 'wMin'
 
+// css 타입
 export type MaxWidthType =
     | 'sm'
     | 'lg'
@@ -46,6 +47,7 @@ export type MaxWidthType =
     | 'xl7'
     | 'full'
 
+// css 타입
 export type MaxHeightType =
     | 'sm'
     | 'lg'
@@ -427,4 +429,11 @@ export interface KaKaoAddressSearchInterface {
         pageable_count: number
         total_count: number
     }
+}
+
+// 토큰 리프레시
+export interface TokenValidateInterface {
+    TOKEN_INFO: string
+    TOKEN_LIMIT_TIME: number
+    AUTHORIZE_CODE: string
 }

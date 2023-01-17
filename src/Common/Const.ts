@@ -88,4 +88,5 @@ export default {
             code: `GeonDaon`,
         },
     ],
+    autoLogoutMinTime: 1,
 }
