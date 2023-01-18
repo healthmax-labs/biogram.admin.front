@@ -57,7 +57,7 @@ const RiskFctrSearchBox = ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            instNo: String(instNo),
+                                            INST_NO: String(instNo),
                                         },
                                     }))
                                 }
@@ -192,7 +192,7 @@ const RiskFctrSearchBox = ({
                                                                         ...prevState.search,
                                                                         RISK_FCTR:
                                                                             newRiskFctrs.join(
-                                                                                ', '
+                                                                                ','
                                                                             ),
                                                                     },
                                                                 })

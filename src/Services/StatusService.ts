@@ -89,12 +89,14 @@ export function getStatisticsList({
     CUR_PAGE,
     INST_NO,
     SEARCH_KEY,
+    MESURE_CODE,
     BEGIN_DE,
     END_DE,
 }: {
     CUR_PAGE: number
     INST_NO: string
     SEARCH_KEY: string
+    MESURE_CODE: string
     BEGIN_DE: string
     END_DE: string
 }): Promise<
@@ -110,6 +112,7 @@ export function getStatisticsList({
         payload: {
             INST_NO,
             SEARCH_KEY,
+            MESURE_CODE,
             BEGIN_DE,
             END_DE,
         },

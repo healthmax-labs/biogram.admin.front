@@ -764,110 +764,110 @@ export const StatisticsTableConfig = {
             },
             {
                 name: `체지<br />방률<br />(%)`,
-                key: `FAT_MAS`,
+                key: `PBF`,
             },
             {
                 name: `체지<br />방량<br />(kg)`,
-                key: `WAIST_3`,
+                key: `FAT_MAS`,
             },
             {
                 name: `근육량<br />(kg)`,
-                key: `WAIST_MESURE_DT_0`,
+                key: `SLM`,
             },
             {
                 name: `추정<br />골량<br />(kg)`,
-                key: `WAIST_MESURE_DT_1`,
+                key: `EST_BN_MAS`,
             },
             {
                 name: `내장<br />지방<br />(level)`,
-                key: `WAIST_MESURE_DT_2`,
+                key: `VFL`,
             },
             {
                 name: `수축기<br />(mmHg)`,
-                key: `WAIST_MESURE_DT_3`,
+                key: `SYSTOLIC`,
             },
             {
                 name: `이완기<br />(mmHg)`,
-                key: `BP_0`,
+                key: `DIASTOLIC`,
             },
             {
                 name: `맥박<br />(bpm)`,
-                key: `BP_1`,
+                key: `PULS`,
             },
             {
                 name: `공복<br />(mg/dl)`,
-                key: `BP_2`,
+                key: `FBS`,
             },
             {
                 name: `식후<br />(mg/dl)`,
-                key: `BP_3`,
+                key: `PP2`,
             },
             {
                 name: `TC<br />(mg/dl)`,
-                key: `BP_MESURE_DT_0`,
+                key: `T_CHOL`,
             },
             {
                 name: `TG<br />(mg/dl)`,
-                key: `BP_MESURE_DT_1`,
+                key: `TG`,
             },
             {
                 name: `HDL-C<br />(mg/dl)`,
-                key: `BP_MESURE_DT_2`,
+                key: `HDLC`,
             },
             {
                 name: `LDL-C<br />(mg/dl)`,
-                key: `BP_MESURE_DT_3`,
+                key: `LDLC`,
             },
             {
                 name: `점수<br />(점)`,
-                key: `FBS_0`,
+                key: `STRS_SCORE`,
             },
             {
                 name: `정신적<br />(단계)`,
-                key: `FBS_1`,
+                key: `MNTL_STRS`,
             },
             {
                 name: `신체적<br />(단계)`,
-                key: `FBS_2`,
+                key: `PHYSIC_STRS`,
             },
             {
                 name: `대처<br />능력<br />(단계)`,
-                key: `FBS_3`,
+                key: `STRS_CNTRMSR_ABLTY`,
             },
             {
                 name: `혈관<br />(단계)`,
-                key: `FBS_MESURE_DT_0`,
+                key: `BLDVSS_STEP`,
             },
             {
                 name: `박출<br />강도<br />(단계)`,
-                key: `FBS_MESURE_DT_1`,
+                key: `CAD_OUTPUT_IN`,
             },
             {
                 name: `탄성도<br />(단계)`,
-                key: `FBS_MESURE_DT_MESURE_DT_2`,
+                key: `ELSTC_DGREE`,
             },
             {
                 name: `잔혈량<br />(단계)`,
-                key: `FBS_MESURE_DT_MESURE_DT_3`,
+                key: `RBV_QY`,
             },
             {
                 name: `신장<br />(cm)`,
-                key: `TG_0`,
+                key: `HEIGHT`,
             },
             {
                 name: `체온<br />(°c)`,
-                key: `TG_1`,
+                key: `BDHEAT`,
             },
             {
                 name: `허리<br />둘레<br />(cm)`,
-                key: `TG_2`,
+                key: `WAIST_CRCMFRNC`,
             },
         ],
     ],
     Lists: [],
 }
 
-// 기기측정 현황 테이블 데이터
+// 활동량 현황 테이블 데이터
 export interface ActivityWalkTableListItemInterface {
     CNSMP_CALORIE: null | string
     BRTHDY: null | string
@@ -889,6 +889,16 @@ export const ActivityWalkTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MBER_NO`,
+        xcpt: {
+            option: 'row-null',
+            component: ({ el }: { el: ActivityWalkTableListItemInterface }) => {
+                return (
+                    <XcptComponent>{`${dateInsertHypen(
+                        String(el.MESURE_DE)
+                    )} / ${el.MBER_CNT}명`}</XcptComponent>
+                )
+            },
+        },
         bgState: true,
     },
     Columns: [
@@ -904,30 +914,44 @@ export const ActivityWalkTableConfig = {
             {
                 name: `생년월일`,
                 key: `BRTHDY`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
             },
             {
                 name: `성별`,
                 key: `SEXDSTN`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return <>{el.SEXDSTN == 'M' ? '남' : '여'}</>
+                },
             },
             {
                 name: `총보행수(걸음)`,
-                key: `WEIGHT`,
+                key: `SPORTS_TOT_STEPS`,
             },
             {
                 name: `활동 거리(m)`,
-                key: `BMI`,
+                key: `SPORTS_DSTNC`,
             },
             {
                 name: `소비칼로리(kcal)`,
-                key: `FAT_MAS`,
+                key: `CNSMP_CALORIE`,
             },
             {
                 name: `최대심박수(bpm)`,
-                key: `WAIST_3`,
+                key: `MAX_HR`,
             },
             {
                 name: `평균심박수(bpm)`,
-                key: `WAIST_MESURE_DT_0`,
+                key: `AVG_HR`,
             },
         ],
     ],
