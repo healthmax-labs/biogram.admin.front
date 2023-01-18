@@ -4,7 +4,7 @@ import { MainTableBodyPropsInterface } from '@Type/TableTypes'
 import { VaryCheckBox } from '@Element/index'
 import _ from 'lodash'
 
-const { TbodyCell, TbodyRow } = TableStyle
+const { TbodyCell, TbodyRow, CellText, CellTextBox } = TableStyle
 
 const MainTableBody = <P,>({
     RowClick,
@@ -129,7 +129,9 @@ const MainTableBody = <P,>({
             ) : (
                 <TbodyRow BgState={true}>
                     <TbodyCell colSpan={Columns[Columns.length - 1].length + 1}>
-                        데이터가 존재 하지 않습니다
+                        <CellTextBox>
+                            <CellText className="text-xs">{`데이터가 존재 하지 않습니다`}</CellText>
+                        </CellTextBox>
                     </TbodyCell>
                 </TbodyRow>
             )}

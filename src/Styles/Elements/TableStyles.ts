@@ -70,6 +70,8 @@ export const TableStyle = {
             return returnTw
         }
     ),
+    CellTextBox: tw.div`flex w-full text-center items-center justify-center`,
+    CellText: tw.span`flex w-full text-center items-center justify-center`,
 }
 
 export const DetailTableStyle = {
