@@ -107,7 +107,7 @@ export const getUhealthzoneList = ({
     }>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/data/v1/uhealth_zone/list/${CUR_PAGE}`,
         payload: {
             SEARCH_KEY,
