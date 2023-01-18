@@ -376,7 +376,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `혈압(최초)`,
+                name: `최초`,
                 key: `BP_0`,
                 component: ({
                     el,
@@ -396,7 +396,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `혈압(최근1)`,
+                name: `최근3회`,
                 key: `BP_1`,
                 component: ({
                     el,
@@ -440,7 +440,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `식전혈당(최초)`,
+                name: `최초`,
                 key: `FBS_0`,
                 component: ({
                     el,
@@ -462,7 +462,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `식전혈당(최근1)`,
+                name: `최근3회`,
                 key: `FBS_1`,
                 component: ({
                     el,
@@ -506,7 +506,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `중성지방(최초)`,
+                name: `최초`,
                 key: `TG_0`,
                 component: ({
                     el,
@@ -526,7 +526,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `중성지방(최근1)`,
+                name: `최근3회`,
                 key: `TG_1`,
                 component: ({
                     el,
@@ -570,7 +570,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `HDLC(최초)`,
+                name: `최초`,
                 key: `HDLC_0`,
                 component: ({
                     el,
@@ -592,7 +592,7 @@ export const BrftrCmprTableConfig = {
                 },
             },
             {
-                name: `HDLC(최근1)`,
+                name: `최근3회`,
                 key: `HDLC_1`,
                 component: ({
                     el,
