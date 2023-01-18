@@ -47,6 +47,9 @@ const UhealthzoneListMain = () => {
             setUhealthzoneListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                uhealthzoneList: {
+                    UHEALTH_ZONE_LIST: [],
+                },
             }))
         }
     }, [uhealthzoneListState, setUhealthzoneListState])

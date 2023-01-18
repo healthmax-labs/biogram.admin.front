@@ -55,6 +55,10 @@ const MsgBookListMain = () => {
             setMsgBookListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    SMS_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [

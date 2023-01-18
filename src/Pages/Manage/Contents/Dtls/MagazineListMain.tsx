@@ -44,6 +44,9 @@ const InitListMain = () => {
             setMagazineListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                magazineList: {
+                    MISN_MAGAZINE_LIST: [],
+                },
             }))
         }
     }, [magazineListState, setMagazineListState])

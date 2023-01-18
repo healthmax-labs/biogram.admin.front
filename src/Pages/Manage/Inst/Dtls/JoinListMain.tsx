@@ -38,6 +38,10 @@ const JoinListMain = () => {
             setInstJoinListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                memberList: {
+                    PSTINST_REQUEST_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [instJoinListState, setInstJoinListState])

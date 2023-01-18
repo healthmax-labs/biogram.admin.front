@@ -52,6 +52,10 @@ const MemberListMain = () => {
             setListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    MBER_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [listState, setListState])

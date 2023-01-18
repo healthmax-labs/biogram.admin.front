@@ -57,6 +57,10 @@ const MsgSendListMain = () => {
             setMsgSendListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    SMS_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [msgSendListState, setMsgSendListState])

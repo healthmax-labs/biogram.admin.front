@@ -50,6 +50,10 @@ const StatisticsListMain = () => {
             setStatisticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    DEVICE_MESURE_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [statisticsListState, setStatisticsListState])

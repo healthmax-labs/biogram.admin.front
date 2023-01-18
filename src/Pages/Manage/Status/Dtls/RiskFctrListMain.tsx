@@ -54,6 +54,10 @@ const RiskFctrListMain = () => {
             setRiskFctrListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    RISK_FCTR_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [riskFctrListState, setRiskFctrListState])
