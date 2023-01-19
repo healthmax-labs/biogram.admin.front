@@ -294,7 +294,7 @@ export const MsgBookTableConfig = {
             },
             {
                 name: `메시지`,
-                key: `SE`,
+                key: `CN`,
             },
             {
                 name: `등록일시`,
