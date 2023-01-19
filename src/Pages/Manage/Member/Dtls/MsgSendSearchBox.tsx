@@ -93,7 +93,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
 
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`등록일시`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
@@ -140,30 +140,11 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                 <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`조회 기준`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <WapperStyle.FlexNoWarapGap>
-                                <VaryLabelRadioButton
-                                    LabelName="발송일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                                <VaryLabelRadioButton
-                                    LabelName="작성일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </WapperStyle.FlexNoWarapGap>
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`발송`} />
+                            <VaryLabel LabelName={`발송결과`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryLabelCheckBox
-                                LabelName={`실패만`}
+                                LabelName={`실패포함`}
                                 Checked={
                                     msgSendListState.search.SNDNG_FAILR === 'F'
                                 }

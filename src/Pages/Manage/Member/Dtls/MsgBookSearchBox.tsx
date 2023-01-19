@@ -78,7 +78,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`등록일시`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
@@ -124,27 +124,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     }))
                                 }}
                             />
-                        </SearchItem>
-                    </SearchItemWapper>
-                </SearchItemRow>
-                <SearchItemRow>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`조회 기준`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <WapperStyle.FlexNoWarapGap>
-                                <VaryLabelRadioButton
-                                    LabelName="발송일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                                <VaryLabelRadioButton
-                                    LabelName="작성일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
-                                />
-                            </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>

@@ -72,7 +72,7 @@ const MemberListSearchBox = ({
                                     }))
                                 }
                                 id={'id'}
-                                Placeholder={'ID/이름/연락처/전화번호'}
+                                Placeholder={'이름/아이디/휴대폰번호'}
                                 Value={
                                     isNull(listState.search.searchKey)
                                         ? ''

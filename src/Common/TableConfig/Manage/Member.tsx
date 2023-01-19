@@ -24,31 +24,35 @@ export interface MsgSendTableListItemInterface {
     CN: null | string
     MBER_NO: null | string
     SNDNG_SF: null | string
-    RCVER: null | string
+    RECVER: null | string
     SE: null | string
     STATUS: null | string
     CMID: null | string
     MBTLNUM: null | string
     RGSDE: null | string
+    MSG_TYPE_NM: null | string
 }
 
 //메세지 발송 현황 테이블 설정.
 export const MsgSendTableConfig = {
     Loading: true,
     Options: {
-        selectAll: true,
+        selectAll: false,
         indexKey: `SNDNG_NO`,
         bgState: true,
-        tableType: 'fixed',
     },
     Columns: [
         [
             {
                 name: `발송결과`,
-                key: `SNDNG_SF`,
+                key: `SNDNG_STATUS`,
             },
             {
-                name: `송신일`,
+                name: `발송구분`,
+                key: `MSG_TYPE_NM`,
+            },
+            {
+                name: `발송일시`,
                 key: `SNDNGDE`,
                 component: ({ el }: { el: MsgSendTableListItemInterface }) => {
                     return (
@@ -62,18 +66,25 @@ export const MsgSendTableConfig = {
             },
             {
                 name: `수신자`,
-                key: `RCVER`,
+                key: `RECVER`,
             },
             {
                 name: `수신번호`,
-                key: `RCV_NO`,
+                key: `MBTLNUM`,
+                component: ({ el }: { el: MsgSendTableListItemInterface }) => {
+                    return (
+                        <ListTableStyle.MbtlnumCell CRTFC={`Y`}>
+                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
+                        </ListTableStyle.MbtlnumCell>
+                    )
+                },
             },
             {
                 name: `메시지`,
-                key: `SE`,
+                key: `CN`,
             },
             {
-                name: `등록일`,
+                name: `등록일시`,
                 key: `RGSDE`,
                 component: ({ el }: { el: MsgSendTableListItemInterface }) => {
                     return (
@@ -88,22 +99,6 @@ export const MsgSendTableConfig = {
         ],
     ],
     Lists: [],
-}
-
-// 메세지 발송 현황 테이블 데이터
-export interface MsgBookTableListItemInterface {
-    SNDNG_NO: null | string
-    SNDNGDE: null | string
-    SENDER: null | string
-    CN: null | string
-    MBER_NO: null | string
-    SNDNG_SF: null | string
-    RCVER: null | string
-    SE: null | string
-    STATUS: null | string
-    CMID: null | string
-    MBTLNUM: null | string
-    RGSDE: null | string
 }
 
 // 회원 테이블 설정.
@@ -235,7 +230,7 @@ export const ConsultTableConfig = {
                 },
             },
             {
-                name: `휘험요인`,
+                name: `위험요인`,
                 key: `RISK_FCTR`,
             },
         ],
@@ -243,7 +238,23 @@ export const ConsultTableConfig = {
     Lists: [],
 }
 
-//메세지 발송 현황 테이블 설정.
+// 메세지 예약 현황 테이블 데이터
+export interface MsgBookTableListItemInterface {
+    SNDNG_NO: null | string
+    SNDNGDE: null | string
+    SENDER: null | string
+    CN: null | string
+    MBER_NO: null | string
+    SNDNG_SF: null | string
+    RECVER: null | string
+    SE: null | string
+    STATUS: null | string
+    CMID: null | string
+    MBTLNUM: null | string
+    RGSDE: null | string
+}
+
+//메세지 예약 현황 테이블 설정.
 export const MsgBookTableConfig = {
     Loading: true,
     Options: {
@@ -254,12 +265,17 @@ export const MsgBookTableConfig = {
     Columns: [
         [
             {
-                name: `발송결과`,
-                key: `SNDNG_SF`,
-            },
-            {
-                name: `송신일`,
+                name: `예약발송일시`,
                 key: `SNDNGDE`,
+                component: ({ el }: { el: MsgBookTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.SNDNGDE)
+                                ? ''
+                                : timeStringParse(el.SNDNGDE)}
+                        </>
+                    )
+                },
             },
             {
                 name: `수신자`,
@@ -267,15 +283,31 @@ export const MsgBookTableConfig = {
             },
             {
                 name: `수신번호`,
-                key: `RCV_NO`,
+                key: `MBTLNUM`,
+                component: ({ el }: { el: MsgBookTableListItemInterface }) => {
+                    return (
+                        <ListTableStyle.MbtlnumCell CRTFC={`Y`}>
+                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
+                        </ListTableStyle.MbtlnumCell>
+                    )
+                },
             },
             {
                 name: `메시지`,
                 key: `SE`,
             },
             {
-                name: `등록일`,
+                name: `등록일시`,
                 key: `RGSDE`,
+                component: ({ el }: { el: MsgBookTableListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isNull(el.RGSDE)
+                                ? ''
+                                : timeStringParse(el.RGSDE)}
+                        </>
+                    )
+                },
             },
         ],
     ],

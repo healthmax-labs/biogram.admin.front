@@ -8,12 +8,13 @@ export interface MsgSendListItemInterface {
     CN: null | string
     MBER_NO: null | string
     SNDNG_SF: null | string
-    RCVER: null | string
+    RECVER: null | string
     SE: null | string
     STATUS: null | string
     CMID: null | string
     MBTLNUM: null | string
     RGSDE: null | string
+    MSG_TYPE_NM: null | string
 }
 
 //메세지 현황

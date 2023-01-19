@@ -31,7 +31,7 @@ export default [
     {
         mainCode: `10000`,
         menuCode: `10301`,
-        name: `예약 메세지 발송현황`,
+        name: `메세지 예약현황`,
         pathName: `/manage/member/msgbook-list`,
         Component: React.lazy(
             () => import('@Page/Manage/Member/MsgBookListPage')
@@ -122,7 +122,7 @@ export default [
     {
         mainCode: `30000`,
         menuCode: `30201`,
-        name: `바이오그램 상세`,
+        name: `바이오그램 존 상세`,
         pathName: `/manage/contents/uhealthzone/:UhealthZoneNo/detail`,
         Component: React.lazy(
             () => import('@Page/Manage/Contents/UhealthzoneDetailPage')
