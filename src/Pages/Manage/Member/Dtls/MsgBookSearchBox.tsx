@@ -1,11 +1,12 @@
 import React from 'react'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
+import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
     VaryDatepickerInput,
     VaryInput,
     VaryLabel,
+    VaryLabelRadioButton,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
@@ -123,6 +124,57 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     }))
                                 }}
                             />
+                        </SearchItem>
+                    </SearchItemWapper>
+                </SearchItemRow>
+                <SearchItemRow>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`조회 기준`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <WapperStyle.FlexNoWarapGap>
+                                <VaryLabelRadioButton
+                                    LabelName="발송일시"
+                                    Checked={
+                                        !!(
+                                            msgSendListState.search
+                                                .SNDNG_STDR === 'S'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setMsgSendListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                SNDNG_STDR: e.target.checked
+                                                    ? 'S'
+                                                    : '',
+                                            },
+                                        }))
+                                    }
+                                />
+                                <VaryLabelRadioButton
+                                    LabelName="작성일시"
+                                    Checked={
+                                        !!(
+                                            msgSendListState.search
+                                                .SNDNG_STDR === ''
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setMsgSendListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                SNDNG_STDR: e.target.checked
+                                                    ? ''
+                                                    : 'S',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>
