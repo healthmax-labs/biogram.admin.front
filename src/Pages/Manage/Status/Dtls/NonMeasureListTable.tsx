@@ -188,9 +188,6 @@ const NonMeasureListTable = () => {
                             },
                         }))
                     }}
-                    ResetButtonClick={() => {
-                        console.log('reset')
-                    }}
                     CallBackResturn={e => {
                         console.log(e)
                     }}

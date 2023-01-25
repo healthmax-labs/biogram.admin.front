@@ -32,11 +32,9 @@ const initializeState = {
 
 const AutoAlertModal = ({
     CancleButtonClick,
-    ResetButtonClick,
 }: //CallBackResturn,
 {
     CancleButtonClick: () => void
-    ResetButtonClick: () => void
     MemberStplatList?: StplatItemInterface
     CallBackResturn: (e: StplatItemInterface) => void
 }) => {
