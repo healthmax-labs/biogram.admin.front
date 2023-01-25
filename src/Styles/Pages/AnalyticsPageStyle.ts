@@ -9,6 +9,7 @@ export const ContentsStyle = {
     ChartBox: tw.div`flex w-full items-center justify-center text-xs font-medium text-gray-600 border border-gray-300`,
     ButtonBox: tw.div`flex py-1 justify-end`,
     TableBox: tw.div`flex w-full items-center justify-center text-xs font-medium text-gray-600 border-gray-300`,
+    VaryDatepickerInput: tw.div`flex px-2 items-center`,
     Table: {
         Table: tw.table`text-center min-w-full table-fixed`,
         Thead: tw.thead`text-xs`,
