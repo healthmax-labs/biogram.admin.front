@@ -15,7 +15,7 @@ export const SearchBoxStyle = {
     SearchItemWapper: styled.div(
         ({ ColSpan = false }: { ColSpan?: boolean }) => [
             tw`flex flex-nowrap`,
-            ColSpan ? tw`col-span-3` : ``,
+            ColSpan ? tw`col-span-2` : ``,
         ]
     ),
     SearchItemRow: tw.div`w-center-search-box items-center grid grid-cols-4 h-10`,

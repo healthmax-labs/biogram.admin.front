@@ -38,8 +38,6 @@ const MemberSearchBox = () => {
                             />
                         </SearchItem>
                     </SearchItemWapper>
-                </SearchItemRow>
-                <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
                             <VaryLabel LabelName={`기간`} />
@@ -90,29 +88,6 @@ const MemberSearchBox = () => {
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="1년"
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                        </SearchItemGap>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`주기`} />
-                        </SearchLabel>
-                        <SearchItemGap>
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="1일"
-                                Active={true}
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="1주"
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="1개월"
                                 HandleClick={() => console.debug('HandleClick')}
                             />
                         </SearchItemGap>
@@ -187,6 +162,29 @@ const MemberSearchBox = () => {
                                     console.debug('HandleOnChange')
                                 }
                                 LabelName={`70대 이상`}
+                            />
+                        </SearchItemGap>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`주기`} />
+                        </SearchLabel>
+                        <SearchItemGap>
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="1일"
+                                Active={true}
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="1주"
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="1개월"
+                                HandleClick={() => console.debug('HandleClick')}
                             />
                         </SearchItemGap>
                     </SearchItemWapper>

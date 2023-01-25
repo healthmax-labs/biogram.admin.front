@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { getMemberAnalyticsList } from '@Service/AnalyticsService'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
-const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
+const { Container, RowWapper, TableBox, Table: T } = ContentsStyle
 
 const NonMeasureTable = () => {
     const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
@@ -105,13 +104,6 @@ const NonMeasureTable = () => {
     return (
         <Container>
             <RowWapper>
-                <ButtonBox>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName="자동알림"
-                        HandleClick={() => console.debug('HandleClick')}
-                    />
-                </ButtonBox>
                 <TableBox>
                     <T.Table>
                         <T.Thead>
