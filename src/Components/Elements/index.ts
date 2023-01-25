@@ -7,6 +7,7 @@ export { default as VaryLabelRadioButton } from './Buttons/VaryLabelRadioButton'
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'
 export { default as StplatInfoAgreeModal } from './Features/StplatInfoAgreeModal'
+export { default as AutoAlertModal } from './Features/AutoAlertModal'
 export { default as SiGunSelectBox } from './Features/SiGunSelectBox'
 export { default as ReactQuillEditor } from './Features/ReactQuillEditor'
 

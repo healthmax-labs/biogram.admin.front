@@ -64,6 +64,34 @@ const DeviceUseSearchBox = () => {
                             />
                         </SearchItem>
                     </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`빠른설정`} />
+                        </SearchLabel>
+                        <SearchItemGap>
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="1개월"
+                                Active={true}
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="3개월"
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="6개월"
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                            <VaryButton
+                                ButtonType={`button`}
+                                ButtonName="1년"
+                                HandleClick={() => console.debug('HandleClick')}
+                            />
+                        </SearchItemGap>
+                    </SearchItemWapper>
                 </SearchItemRow>
                 <SearchItemRow>
                     <SearchItemWapper ColSpan={true}>
@@ -137,8 +165,6 @@ const DeviceUseSearchBox = () => {
                             />
                         </SearchItemGap>
                     </SearchItemWapper>
-                </SearchItemRow>
-                <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
                             <VaryLabel LabelName={`주기`} />
@@ -162,38 +188,12 @@ const DeviceUseSearchBox = () => {
                             />
                         </SearchItemGap>
                     </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`빠른설정`} />
-                        </SearchLabel>
-                        <SearchItemGap>
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="1개월"
-                                Active={true}
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="3개월"
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="6개월"
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                            <VaryButton
-                                ButtonType={`button`}
-                                ButtonName="1년"
-                                HandleClick={() => console.debug('HandleClick')}
-                            />
-                        </SearchItemGap>
-                    </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
             <RightSearchButton Item={'end'}>
-                <DefaultSearchButton ButtonClick={() => console.log('1234')} />
+                <DefaultSearchButton
+                    ButtonClick={() => console.log('api 연동 필요')}
+                />
             </RightSearchButton>
         </RowContainer>
     )

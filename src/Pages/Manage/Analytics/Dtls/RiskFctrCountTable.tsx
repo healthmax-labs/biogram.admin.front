@@ -154,7 +154,7 @@ const RiskFctrCountTable = () => {
 
                 return data.map(data => (
                     <T.Row key={data.RF_PERIOD}>
-                        <T.CellW colSpan={colspan}>{data.RF_PERIOD}</T.CellW>
+                        <T.CellWW>{data.RF_PERIOD}</T.CellWW>
                         <T.CellW>{data.RF_ALL_MBER_CNT}</T.CellW>
                         <T.CellW>{data.RF_ALL_WOMAN_CNT}</T.CellW>
                         <T.CellW>{data.RF_ALL_MAN_CNT}</T.CellW>
@@ -317,9 +317,7 @@ const RiskFctrCountTable = () => {
                     <T.Table>
                         <T.Thead>
                             <T.TheadRow>
-                                <T.TheadCell rowSpan={2} colSpan={2}>
-                                    기간
-                                </T.TheadCell>
+                                <T.TheadCell rowSpan={2}>기간</T.TheadCell>
                                 <T.TheadCell colSpan={3}>전체</T.TheadCell>
                                 <T.TheadCell colSpan={3}>1개</T.TheadCell>
                                 <T.TheadCell colSpan={3}>2개</T.TheadCell>
@@ -348,7 +346,7 @@ const RiskFctrCountTable = () => {
                                 <T.TheadCell>남성</T.TheadCell>
                             </T.TheadRow>
                         </T.Thead>
-                        <T.Body>{cellMaker(0, 'PERIOD', '', 2, '기간')}</T.Body>
+                        <T.Body>{cellMaker(0, 'PERIOD', '', 1, '기간')}</T.Body>
                         {/* <T.TFoot>
                             <T.TFootRow>
                                 <T.TFootCell colSpan={2}>합계</T.TFootCell>

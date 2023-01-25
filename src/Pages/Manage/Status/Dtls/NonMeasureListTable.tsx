@@ -1,17 +1,33 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton } from '@Elements'
+import { VaryButton, AutoAlertModal } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { getMemberAnalyticsList } from '@Service/AnalyticsService'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
 const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
+const initializeState = {
+    modal: {
+        autoAlert: {
+            title: ``,
+            state: false,
+        },
+    },
+}
 
 const NonMeasureListTable = () => {
     const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
         MberAnalyticsListState
     )
+    const [pageState, setPageState] = useState<{
+        modal: {
+            autoAlert: {
+                title: string
+                state: boolean
+            }
+        }
+    }>(initializeState)
 
     const getTableList = useCallback(async () => {
         const {
@@ -114,7 +130,17 @@ const NonMeasureListTable = () => {
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName="자동알림"
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    autoAlert: {
+                                        title: '12334',
+                                        state: true,
+                                    },
+                                },
+                            }))
+                        }
                     />
                 </ButtonBox>
                 <TableBox>
@@ -144,14 +170,31 @@ const NonMeasureListTable = () => {
                             <T.Row>{cellMaker(5, '60대')}</T.Row>
                             <T.Row>{cellMaker(6, '70대 이상')}</T.Row>
                         </T.Body>
-                        {/* <T.TFoot>
-                            <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
-                            </T.TFootRow>
-                        </T.TFoot> */}
                     </T.Table>
                 </TableBox>
             </RowWapper>
+            {pageState.modal.autoAlert.state && (
+                <AutoAlertModal
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                autoAlert: {
+                                    title: '',
+                                    state: false,
+                                },
+                            },
+                        }))
+                    }}
+                    ResetButtonClick={() => {
+                        console.log('reset')
+                    }}
+                    CallBackResturn={e => {
+                        console.log(e)
+                    }}
+                />
+            )}
         </Container>
     )
 }
