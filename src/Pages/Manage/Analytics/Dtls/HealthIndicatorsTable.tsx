@@ -47,6 +47,7 @@ const HealthIndicatorsTable = () => {
             setDeviceAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [deviceAnalyticsListState, setDeviceAnalyticsListState])

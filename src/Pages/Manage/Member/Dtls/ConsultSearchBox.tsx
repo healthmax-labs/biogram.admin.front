@@ -12,6 +12,7 @@ import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import Codes from '@Codes'
+import { isNull } from 'lodash'
 
 const {
     SearchItemWapper,
@@ -37,8 +38,14 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
-                                    console.debug(instNo, instNm)
+                                HandleSelectValue={({ instNo }) =>
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            instNo: String(instNo),
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
@@ -51,10 +58,22 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryInput
                                 ContentsType={`search`}
                                 Width={'w40'}
-                                HandleOnChange={e => console.debug(e)}
+                                HandleOnChange={e =>
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            searchKey: e.target.value,
+                                        },
+                                    }))
+                                }
                                 id={'id'}
-                                Placeholder={'검색어'}
-                                Value={``}
+                                Placeholder={'이름/아이디/휴대폰번호'}
+                                Value={
+                                    isNull(listState.search.searchKey)
+                                        ? ''
+                                        : listState.search.searchKey
+                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>

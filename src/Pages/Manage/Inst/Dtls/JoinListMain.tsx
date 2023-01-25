@@ -24,9 +24,8 @@ const JoinListMain = () => {
 
         const { status, payload } = await getInstJoinList({
             CUR_PAGE: !isNull(CUR_PAGE) ? String(CUR_PAGE) : '0',
-            INST_NO: !isNull(INST_NO) ? String(INST_NO) : '1254',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? String(SEARCH_KEY) : '',
-            // INST_NO: !isNull(INST_NO) ? String(INST_NO) : '0',
+            INST_NO: !isNull(INST_NO) ? String(INST_NO) : '',
         })
 
         if (status) {
@@ -39,6 +38,10 @@ const JoinListMain = () => {
             setInstJoinListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                memberList: {
+                    PSTINST_REQUEST_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [instJoinListState, setInstJoinListState])

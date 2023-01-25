@@ -78,7 +78,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`등록일시`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
@@ -136,13 +136,43 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <WapperStyle.FlexNoWarapGap>
                                 <VaryLabelRadioButton
                                     LabelName="발송일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
+                                    Checked={
+                                        !!(
+                                            msgSendListState.search
+                                                .SNDNG_STDR === 'S'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setMsgSendListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                SNDNG_STDR: e.target.checked
+                                                    ? 'S'
+                                                    : '',
+                                            },
+                                        }))
+                                    }
                                 />
                                 <VaryLabelRadioButton
                                     LabelName="작성일시"
-                                    Checked={false}
-                                    HandleOnChange={() => console.log('111')}
+                                    Checked={
+                                        !!(
+                                            msgSendListState.search
+                                                .SNDNG_STDR === ''
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setMsgSendListState(prevState => ({
+                                            ...prevState,
+                                            search: {
+                                                ...prevState.search,
+                                                SNDNG_STDR: e.target.checked
+                                                    ? ''
+                                                    : 'S',
+                                            },
+                                        }))
+                                    }
                                 />
                             </WapperStyle.FlexNoWarapGap>
                         </SearchItem>

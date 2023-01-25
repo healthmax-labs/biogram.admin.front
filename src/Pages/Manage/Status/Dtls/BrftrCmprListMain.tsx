@@ -42,6 +42,10 @@ const BrftrCmprListMain = () => {
             setBrftrCmprListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    MESURE_BRFTR_CMPR_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [brftrCmprListState, setBrftrCmprListState])

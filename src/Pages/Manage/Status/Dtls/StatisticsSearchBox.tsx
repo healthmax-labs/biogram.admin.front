@@ -47,7 +47,7 @@ const StatisticsSearchBox = ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            instNo: String(instNo),
+                                            INST_NO: String(instNo),
                                         },
                                     }))
                                 }
@@ -67,7 +67,7 @@ const StatisticsSearchBox = ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            searchKey: e.target.value,
+                                            SEARCH_KEY: e.target.value,
                                         },
                                     }))
                                 }
@@ -138,20 +138,21 @@ const StatisticsSearchBox = ({
                 <SearchItemRow>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`요인`} />
+                            <VaryLabel LabelName={`측정기기`} />
                         </SearchLabel>
                         <SearchItem>
                             <WapperStyle.FlexNoWarapGap>
                                 {(() => {
-                                    const items = Codes.riksCode
-                                        .filter(e => e.key === 'riksDctr')
-                                        .shift()
+                                    const items =
+                                        Codes.StatisticsDeviceCode.filter(
+                                            e => e.key === 'devices'
+                                        ).shift()
                                     if (items && items.list) {
                                         return items.list.map((el, index) => {
-                                            const riskFctrs =
+                                            const mesureCode =
                                                 statisticsListState.search
-                                                    .RISK_FCTR
-                                                    ? statisticsListState.search.RISK_FCTR.split(
+                                                    .MESURE_CODE
+                                                    ? statisticsListState.search.MESURE_CODE.split(
                                                           ','
                                                       ).map(element =>
                                                           element.trim()
@@ -163,18 +164,18 @@ const StatisticsSearchBox = ({
                                                     LabelName={`${el.name}`}
                                                     key={`statistics-search-box-riksdctr-item-${index}`}
                                                     Checked={
-                                                        riskFctrs.findIndex(
+                                                        mesureCode.findIndex(
                                                             e => e === el.code
                                                         ) > -1
                                                     }
                                                     HandleOnChange={e => {
                                                         if (
-                                                            riskFctrs &&
+                                                            mesureCode &&
                                                             e.target.checked
                                                         ) {
-                                                            const newRiskFctrs =
+                                                            const newMesureCode =
                                                                 [
-                                                                    ...riskFctrs,
+                                                                    ...mesureCode,
                                                                     el.code,
                                                                 ]
                                                             setStatisticsListState(
@@ -182,19 +183,19 @@ const StatisticsSearchBox = ({
                                                                     ...prevState,
                                                                     search: {
                                                                         ...prevState.search,
-                                                                        RISK_FCTR:
-                                                                            newRiskFctrs.join(
-                                                                                ', '
+                                                                        MESURE_CODE:
+                                                                            newMesureCode.join(
+                                                                                ','
                                                                             ),
                                                                     },
                                                                 })
                                                             )
                                                         } else if (
-                                                            riskFctrs &&
+                                                            mesureCode &&
                                                             !e.target.checked
                                                         ) {
-                                                            const newRiskFctrs =
-                                                                riskFctrs.filter(
+                                                            const newMesureCode =
+                                                                mesureCode.filter(
                                                                     e =>
                                                                         e !==
                                                                         el.code
@@ -204,8 +205,8 @@ const StatisticsSearchBox = ({
                                                                     ...prevState,
                                                                     search: {
                                                                         ...prevState.search,
-                                                                        RISK_FCTR:
-                                                                            newRiskFctrs.join(
+                                                                        MESURE_CODE:
+                                                                            newMesureCode.join(
                                                                                 ','
                                                                             ),
                                                                     },

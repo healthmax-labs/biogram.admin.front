@@ -43,6 +43,7 @@ const WalkRankingTable = () => {
             setMberAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [mberAnalyticsListState, setMberAnalyticsListState])

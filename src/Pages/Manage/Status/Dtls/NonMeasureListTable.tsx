@@ -54,6 +54,7 @@ const NonMeasureListTable = () => {
             setMberAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [mberAnalyticsListState, setMberAnalyticsListState])

@@ -11,7 +11,7 @@ const ManageBox = () => {
                 <VaryButton
                     ButtonType={'manage'}
                     HandleClick={() => console.debug('DefaultManageButton')}
-                    ButtonName={'메세지 발송'}
+                    ButtonName={'예약 발송 취소'}
                 />
             </Buttons>
         </Wapper>

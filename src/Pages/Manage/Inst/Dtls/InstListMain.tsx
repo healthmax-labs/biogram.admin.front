@@ -33,6 +33,10 @@ const InstListMain = () => {
             setListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    TOTAL_COUNT: 0,
+                    INST_INFO_LIST: [],
+                },
             }))
         }
     }, [setListState])

@@ -43,7 +43,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            instNo: String(instNo),
+                                            INST_NO: String(instNo),
                                         },
                                     }))
                                 }

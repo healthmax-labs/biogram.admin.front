@@ -32,7 +32,7 @@ export function getMsgSendList({
 > {
     return _Axios_({
         method: 'post',
-        url: '/mber/v1/list/sms/' + CUR_PAGE,
+        url: '/mber/v1/list/msg/' + CUR_PAGE,
         payload: {
             INST_NO,
             SEARCH_KEY,

@@ -47,6 +47,7 @@ const MeasureUserTable = () => {
             setMeasureAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [measureAnalyticsListState, setMeasureAnalyticsListState])

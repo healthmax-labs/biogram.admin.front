@@ -8,6 +8,7 @@ import { isNull } from 'lodash'
 import SearchBox from './ConsultSearchBox'
 import ManageBox from './ConsultManageBox'
 import ListTable from './ConsultListTable'
+import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -22,6 +23,9 @@ const ConsultListMain = () => {
             ...prevState,
             status: 'loading',
         }))
+
+        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+
         const { status, payload } = await getMberCnsltlist({
             curPage: 0,
             instNo: !isNull(listState.search.instNo)
@@ -33,6 +37,12 @@ const ConsultListMain = () => {
             riskFctr: !isNull(listState.search.riskFctr)
                 ? listState.search.riskFctr
                 : ``,
+            startDt: !isNull(listState.search.startDt)
+                ? listState.search.startDt
+                : `${year}${monthPad}${dayPad}`,
+            endDt: !isNull(listState.search.endDt)
+                ? listState.search.endDt
+                : `${year}${monthPad}${dayPad}`,
         })
         if (status) {
             setListState(prevState => ({
@@ -44,12 +54,18 @@ const ConsultListMain = () => {
             setListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    MBER_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [
         listState.search.instNo,
         listState.search.riskFctr,
         listState.search.searchKey,
+        listState.search.startDt,
+        listState.search.endDt,
         setListState,
     ])
 

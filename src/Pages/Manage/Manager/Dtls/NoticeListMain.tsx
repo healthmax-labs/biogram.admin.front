@@ -51,6 +51,10 @@ const NoticeListMain = () => {
             setNoticeListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                contentsList: {
+                    NOTICE_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [noticeListState, setNoticeListState])

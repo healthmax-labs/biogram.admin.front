@@ -240,11 +240,15 @@ export const getMberCnsltlist = ({
     instNo,
     searchKey,
     riskFctr,
+    endDt,
+    startDt,
 }: {
     curPage: number
     instNo: string
     searchKey: string
     riskFctr: string
+    endDt: string
+    startDt: string
 }): Promise<ServicesDefaultResult<ConsultInfoListInterface>> => {
     return _Axios_({
         method: 'post',
@@ -253,6 +257,8 @@ export const getMberCnsltlist = ({
             INST_NO: instNo,
             SEARCH_KEY: searchKey,
             RISK_FCTR: riskFctr,
+            ENDDT: endDt,
+            STARTDT: startDt,
         },
     })
 }

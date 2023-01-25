@@ -43,6 +43,10 @@ const ActivityWalkListMain = () => {
             setActivityWalkListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    ACTIVITY_STATE_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [activityWalkListState, setActivityWalkListState])

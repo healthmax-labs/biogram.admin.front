@@ -37,6 +37,10 @@ const StplatListMain = () => {
             setStplatListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    STPLAT_MANAGE_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [stplatListState, setStplatListState])

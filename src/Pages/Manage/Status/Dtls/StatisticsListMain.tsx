@@ -20,7 +20,14 @@ const StatisticsListMain = () => {
 
     const getTableList = useCallback(async () => {
         const {
-            search: { SEARCH_KEY, BEGIN_DE, END_DE, INST_NO, curPage },
+            search: {
+                SEARCH_KEY,
+                BEGIN_DE,
+                END_DE,
+                INST_NO,
+                curPage,
+                MESURE_CODE,
+            },
         } = statisticsListState
 
         const { status, payload } = await getStatisticsList({
@@ -28,6 +35,7 @@ const StatisticsListMain = () => {
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
+            MESURE_CODE: !isNull(MESURE_CODE) ? MESURE_CODE : ``,
             BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
             END_DE: !isNull(END_DE) ? END_DE : ``,
         })
@@ -42,6 +50,10 @@ const StatisticsListMain = () => {
             setStatisticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: {
+                    DEVICE_MESURE_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
             }))
         }
     }, [statisticsListState, setStatisticsListState])

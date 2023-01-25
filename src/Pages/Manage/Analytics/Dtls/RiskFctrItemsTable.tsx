@@ -49,6 +49,7 @@ const RiskFctrItemsTable = () => {
             setRiskFctrItemsAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [riskFctrItemsAnalyticsListState, setRiskFctrItemsAnalyticsListState])

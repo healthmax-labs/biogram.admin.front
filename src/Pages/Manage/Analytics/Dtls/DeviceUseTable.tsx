@@ -47,6 +47,7 @@ const DeviceUseTable = () => {
             setDeviceAnalyticsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
+                list: null,
             }))
         }
     }, [deviceAnalyticsListState, setDeviceAnalyticsListState])

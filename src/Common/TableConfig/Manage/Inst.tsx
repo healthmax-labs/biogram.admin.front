@@ -20,7 +20,7 @@ export interface InitTableListItemInterface {
     INST_NM_1: string
     INST_NM_2: string
     INST_NO_3: null
-    BUDGET_ASIGN_AT: 'N'
+    BUDGET_ASIGN_AT: string
     INST_NO_1: number | null
     INST_NM_3: string
     INST_NO_2: null
@@ -55,8 +55,12 @@ export const JoinTableConfig = {
                 key: `SEXDSTN`,
             },
             {
-                name: `성별`,
+                name: `휴대폰번호`,
                 key: `MBTLNUM`,
+            },
+            {
+                name: `신청소속`,
+                key: `INST_NM`,
             },
         ],
     ],
@@ -105,24 +109,23 @@ export const InitTableConfig = {
                 },
             },
             {
-                name: `가입형태`,
-                key: `MBTLNUM`,
-            },
-            {
                 name: `회원수`,
-                key: `REQ_MBER_CNT`,
+                key: `MBER_CNT`,
             },
             {
                 name: `가입승인대기`,
-                key: `MBTLNUM`,
+                key: `REQ_MBER_CNT`,
             },
             {
                 name: `리워드 현황`,
-                key: `BUDGET_ASIGN_AMOUNT`,
+                key: `BUDGET_ASIGN_AT`,
+                component: ({ el }: { el: InitTableListItemInterface }) => {
+                    return <>{el.BUDGET_ASIGN_AT == 'Y' ? '진행중' : ''}</>
+                },
             },
             {
                 name: `리워드 예산`,
-                key: `INST_TY_CODE`,
+                key: `BUDGET_ASIGN_AMOUNT`,
             },
         ],
     ],

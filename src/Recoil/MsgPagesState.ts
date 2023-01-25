@@ -70,7 +70,7 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             SEARCH_KEY: null,
             FROM_DAY: getOneMonthAgo(),
             TO_DAY: getNowDate(),
-            SNDNG_STDR: null,
+            SNDNG_STDR: ``,
         },
         list: {
             SMS_INFO_LIST: [],
