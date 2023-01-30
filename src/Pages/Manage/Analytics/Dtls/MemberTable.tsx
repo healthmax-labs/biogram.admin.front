@@ -35,6 +35,7 @@ const {
 } = ContentsStyle
 
 const MemberTable = () => {
+    // eslint-disable-next-line
     const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
         MberAnalyticsListState
     )
@@ -168,7 +169,7 @@ const MemberTable = () => {
                 Lists: listState.list ? listState.list.PERIOD_STAT_LIST : [],
             }))
         }
-    }, [listState.list])
+    }, [listState.list, listState.status])
 
     const laterFnc = () => {
         console.log('later fnc')
