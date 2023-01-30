@@ -19,15 +19,15 @@ import {
 export function getMemberAnalyticsList({
     // CUR_PAGE,
     // SEARCH_KEY,
-    // BGNDE,
-    // ENDDE,
+    BGNDE,
+    ENDDE,
     INST_NO,
 }: {
     // CUR_PAGE: number
     INST_NO: string
     // SEARCH_KEY: string
-    // BGNDE: string
-    // ENDDE: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: MemberAnalyticsAgeListItemInterface[]
@@ -40,8 +40,8 @@ export function getMemberAnalyticsList({
         payload: {
             INST_NO,
             // SEARCH_KEY,
-            // BGNDE,
-            // ENDDE,
+            BGNDE,
+            ENDDE,
         },
     })
 }

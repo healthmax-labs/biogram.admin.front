@@ -12,7 +12,7 @@ import {
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
 } from '@Type/AnalyticsTypes'
-// import { getNowDate, getOneMonthAgo } from '@Helper'
+import { getNowDate, getOneMonthAgo } from '@Helper'
 
 /**
  * Analytics 페이지.
@@ -23,8 +23,8 @@ interface MberAnalyticsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string | null
-        // BGNDE: string
-        // ENDDE: string
+        BGNDE: string
+        ENDDE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: MemberAnalyticsAgeListItemInterface[]
@@ -38,8 +38,8 @@ export const MberAnalyticsListState = atom<MberAnalyticsListInterface>({
         status: 'idle',
         search: {
             INST_NO: null,
-            // BGNDE: getOneMonthAgo(),
-            // ENDDE: getNowDate(),
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
         },
         list: null,
     },
@@ -50,8 +50,8 @@ interface MesureAnalyticsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string | null
-        // BGNDE: string
-        // ENDDE: string
+        BGNDE: string
+        ENDDE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: MesureAgeListItemInterface[]
@@ -65,8 +65,8 @@ export const MesureAnalyticsListState = atom<MesureAnalyticsListInterface>({
         status: 'idle',
         search: {
             INST_NO: null,
-            // BGNDE: getOneMonthAgo(),
-            // ENDDE: getNowDate(),
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
         },
         list: null,
     },

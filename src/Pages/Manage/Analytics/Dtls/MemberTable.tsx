@@ -1,10 +1,28 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton } from '@Elements'
-import { useRecoilState } from 'recoil'
-import { getMemberAnalyticsList } from '@Service/AnalyticsService'
+import { VaryButton, MainTable } from '@Elements'
+import {
+    MemberAgeTableConfig,
+    MemberAgeTableListItemInterface,
+    MemberPeriodTableConfig,
+    MemberPeriodTableListItemInterface,
+} from '@Common/TableConfig/Manage/Analytics'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
+
+interface tableAgeOption {
+    Loading: boolean
+    Options: OptionsInterface<MemberAgeTableListItemInterface>
+    Columns: Array<ColumnsInterface<MemberAgeTableListItemInterface>[]>
+    Lists: MemberAgeTableListItemInterface[]
+}
+interface tablePeriodOption {
+    Loading: boolean
+    Options: OptionsInterface<MemberPeriodTableListItemInterface>
+    Columns: Array<ColumnsInterface<MemberPeriodTableListItemInterface>[]>
+    Lists: MemberPeriodTableListItemInterface[]
+}
 
 const {
     Container,
@@ -20,45 +38,6 @@ const MemberTable = () => {
     const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
         MberAnalyticsListState
     )
-
-    const getTableList = useCallback(async () => {
-        const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
-        } = mberAnalyticsListState
-
-        const { status, payload } = await getMemberAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
-        })
-
-        if (status) {
-            setMberAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setMberAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [mberAnalyticsListState, setMberAnalyticsListState])
-
-    useEffect(() => {
-        const pageStart = () => {
-            if (mberAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-        pageStart()
-    }, [getTableList, mberAnalyticsListState.status])
 
     const cellMaker = (
         lineNum: number,
@@ -167,6 +146,33 @@ const MemberTable = () => {
         return cellHtml
     }
 
+    const listState = useRecoilValue(MberAnalyticsListState)
+
+    const [tableAgeOptions, setTableAgeOptions] =
+        useState<tableAgeOption>(MemberAgeTableConfig)
+
+    const [tablePeriodOptions, setTablePeriodOptions] =
+        useState<tablePeriodOption>(MemberPeriodTableConfig)
+
+    useEffect(() => {
+        if (listState.list !== null) {
+            setTableAgeOptions(prevState => ({
+                ...prevState,
+                Loading: listState.status === 'loading',
+                Lists: listState.list ? listState.list.AGE_GROUP_STAT_LIST : [],
+            }))
+
+            setTablePeriodOptions(prevState => ({
+                ...prevState,
+                Loading: listState.status === 'loading',
+                Lists: listState.list ? listState.list.PERIOD_STAT_LIST : [],
+            }))
+        }
+    }, [listState.list])
+
+    const laterFnc = () => {
+        console.log('later fnc')
+    }
     return (
         <Container>
             <RowWapper>
@@ -230,6 +236,7 @@ const MemberTable = () => {
                         </T.TFoot>
                     </T.Table>
                 </TableBox>
+                <MainTable {...tableAgeOptions} RowClick={laterFnc} />
             </RowWapper>
             <RowWapper>
                 <TitleBox>기간별 통계</TitleBox>
@@ -291,6 +298,7 @@ const MemberTable = () => {
                         </T.TFoot> */}
                     </T.Table>
                 </TableBox>
+                <MainTable {...tablePeriodOptions} RowClick={laterFnc} />
             </RowWapper>
         </Container>
     )
