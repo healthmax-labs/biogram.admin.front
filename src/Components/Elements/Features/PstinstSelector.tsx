@@ -5,7 +5,7 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import { VaryButton, VaryInput, VaryModal, VarySelectBox } from '@Elements'
+import { VaryButton, VaryInput, VaryModal } from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
 import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
@@ -262,14 +262,17 @@ const PstinstSelector = ({
     return (
         <>
             {SelectorType && SelectorType === 'input' && (
-                <VarySelectBox
-                    Width={`w40`}
+                <VaryInput
                     ContentsType={`search`}
-                    AutoComplete={true}
-                    HandleOnFocus={() => handleShowModal(true)}
-                    Elements={
-                        pageState.selectElements && pageState.selectElements
+                    Width={`w40`}
+                    ReadOnly={true}
+                    Placeholder={`소속을 선택해 주세요.`}
+                    Value={
+                        pageState.selectElement.text
+                            ? pageState.selectElement.text
+                            : ''
                     }
+                    HandleOnFocus={() => handleShowModal(true)}
                 />
             )}
             {showModal && (
