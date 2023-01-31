@@ -1,10 +1,7 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
-import {
-    // NoticeListInterface,
-    // NoticeItemInterface,
-    NoticeListItemInterface,
-} from '@Type/NoticeTypes'
+import { NoticeListItemInterface } from '@Type/NoticeTypes'
+
 // 게시판 리스트 조회
 interface NoticeSearchListInterface {
     status: DefaultStatus
@@ -18,7 +15,7 @@ interface NoticeSearchListInterface {
 }
 
 export const NoticeListState = atom<NoticeSearchListInterface>({
-    key: `managerPage/noticeList`,
+    key: `managerPage/notice-list`,
     default: {
         status: 'idle',
         search: {
@@ -53,7 +50,7 @@ export interface NoticeDetailStateInterface {
 }
 
 export const NoticeDetailState = atom<NoticeDetailStateInterface>({
-    key: `managerPage/noticeDetail`,
+    key: `managerPage/notice-detail`,
     default: {
         status: 'idle',
         info: {

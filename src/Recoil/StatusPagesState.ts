@@ -127,7 +127,7 @@ interface ActivityWalkInterface {
 }
 
 export const ActivityWalkListState = atom<ActivityWalkInterface>({
-    key: `statusPage/activityWalkList`,
+    key: `statusPage/activity-walk-list`,
     default: {
         status: 'idle',
         search: {

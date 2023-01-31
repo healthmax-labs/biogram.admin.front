@@ -52,7 +52,7 @@ interface UhealthzoneDetailInterface {
 }
 
 export const MagazineListState = atom<MagazineSearchListInterface>({
-    key: `contentsPage/magazineList`,
+    key: `contentsPage/magazine-list`,
     default: {
         status: 'idle',
         search: {
@@ -98,7 +98,7 @@ export interface MagazineDetailStateInterface {
 }
 
 export const MagazineDetailState = atom<MagazineDetailStateInterface>({
-    key: `contentsPage/magazineDetail`,
+    key: `contentsPage/magazine-detail`,
     default: {
         status: 'idle',
         info: {

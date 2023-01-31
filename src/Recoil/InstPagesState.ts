@@ -68,7 +68,7 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
 
 // 소속 현황 스테이트
 export const InstListState = atom<InstListStateInterface>({
-    key: `instPage/instList`,
+    key: `instPage/inst-list`,
     default: {
         status: 'idle',
         search: {
@@ -82,7 +82,7 @@ export const InstListState = atom<InstListStateInterface>({
 })
 
 export const InstDetailState = atom<InstDetailStateInterface>({
-    key: `instPage/instDetail`,
+    key: `instPage/inst-detail`,
     default: {
         status: 'idle',
         info: {

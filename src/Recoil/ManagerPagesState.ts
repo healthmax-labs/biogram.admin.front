@@ -62,7 +62,7 @@ interface StplatDetailInterface {
 }
 
 export const StplatListState = atom<StplatSearchListInterface>({
-    key: `managerPage/stplatList`,
+    key: `managerPage/stplat-list`,
     default: {
         status: 'idle',
         search: {
@@ -94,7 +94,7 @@ interface NoticeSearchListInterface {
 }
 
 export const NoticeListState = atom<NoticeSearchListInterface>({
-    key: `statusPage/NoticeList`,
+    key: `statusPage/notice-list`,
     default: {
         status: 'idle',
         search: {
@@ -113,7 +113,7 @@ export const NoticeListState = atom<NoticeSearchListInterface>({
 })
 
 export const StplatDetailState = atom<StplatDetailInterface>({
-    key: `managerPage/stplatDetail`,
+    key: `managerPage/stplat-detail`,
     default: {
         status: 'idle',
         sub: {
