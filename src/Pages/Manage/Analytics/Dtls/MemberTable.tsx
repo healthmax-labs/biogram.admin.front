@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
+// import React, { useEffect, useState } from 'react'
+// import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, MainTable } from '@Elements'
-import {
-    MemberAgeTableConfig,
-    MemberAgeTableListItemInterface,
-    MemberPeriodTableConfig,
-    MemberPeriodTableListItemInterface,
-} from '@Common/TableConfig/Manage/Analytics'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { VaryButton /*, MainTable */ } from '@Elements'
+// import {
+//     MemberAgeTableConfig,
+//     MemberAgeTableListItemInterface,
+//     MemberPeriodTableConfig,
+//     MemberPeriodTableListItemInterface,
+// } from '@Common/TableConfig/Manage/Analytics'
+import { useRecoilState /*, useRecoilValue */ } from 'recoil'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
-interface tableAgeOption {
-    Loading: boolean
-    Options: OptionsInterface<MemberAgeTableListItemInterface>
-    Columns: Array<ColumnsInterface<MemberAgeTableListItemInterface>[]>
-    Lists: MemberAgeTableListItemInterface[]
-}
-interface tablePeriodOption {
-    Loading: boolean
-    Options: OptionsInterface<MemberPeriodTableListItemInterface>
-    Columns: Array<ColumnsInterface<MemberPeriodTableListItemInterface>[]>
-    Lists: MemberPeriodTableListItemInterface[]
-}
+// interface tableAgeOption {
+//     Loading: boolean
+//     Options: OptionsInterface<MemberAgeTableListItemInterface>
+//     Columns: Array<ColumnsInterface<MemberAgeTableListItemInterface>[]>
+//     Lists: MemberAgeTableListItemInterface[]
+// }
+// interface tablePeriodOption {
+//     Loading: boolean
+//     Options: OptionsInterface<MemberPeriodTableListItemInterface>
+//     Columns: Array<ColumnsInterface<MemberPeriodTableListItemInterface>[]>
+//     Lists: MemberPeriodTableListItemInterface[]
+// }
 
 const {
     Container,
@@ -147,33 +147,33 @@ const MemberTable = () => {
         return cellHtml
     }
 
-    const listState = useRecoilValue(MberAnalyticsListState)
+    // const listState = useRecoilValue(MberAnalyticsListState)
 
-    const [tableAgeOptions, setTableAgeOptions] =
-        useState<tableAgeOption>(MemberAgeTableConfig)
+    // const [tableAgeOptions, setTableAgeOptions] =
+    //     useState<tableAgeOption>(MemberAgeTableConfig)
 
-    const [tablePeriodOptions, setTablePeriodOptions] =
-        useState<tablePeriodOption>(MemberPeriodTableConfig)
+    // const [tablePeriodOptions, setTablePeriodOptions] =
+    //     useState<tablePeriodOption>(MemberPeriodTableConfig)
 
-    useEffect(() => {
-        if (listState.list !== null) {
-            setTableAgeOptions(prevState => ({
-                ...prevState,
-                Loading: listState.status === 'loading',
-                Lists: listState.list ? listState.list.AGE_GROUP_STAT_LIST : [],
-            }))
+    // useEffect(() => {
+    //     if (listState.list !== null) {
+    //         setTableAgeOptions(prevState => ({
+    //             ...prevState,
+    //             Loading: listState.status === 'loading',
+    //             Lists: listState.list ? listState.list.AGE_GROUP_STAT_LIST : [],
+    //         }))
 
-            setTablePeriodOptions(prevState => ({
-                ...prevState,
-                Loading: listState.status === 'loading',
-                Lists: listState.list ? listState.list.PERIOD_STAT_LIST : [],
-            }))
-        }
-    }, [listState.list, listState.status])
+    //         setTablePeriodOptions(prevState => ({
+    //             ...prevState,
+    //             Loading: listState.status === 'loading',
+    //             Lists: listState.list ? listState.list.PERIOD_STAT_LIST : [],
+    //         }))
+    //     }
+    // }, [listState.list, listState.status])
 
-    const laterFnc = () => {
-        console.log('later fnc')
-    }
+    // const laterFnc = () => {
+    //     console.log('later fnc')
+    // }
     return (
         <Container>
             <RowWapper>
@@ -237,7 +237,7 @@ const MemberTable = () => {
                         </T.TFoot>
                     </T.Table>
                 </TableBox>
-                <MainTable {...tableAgeOptions} RowClick={laterFnc} />
+                {/* <MainTable {...tableAgeOptions} RowClick={laterFnc} /> */}
             </RowWapper>
             <RowWapper>
                 <TitleBox>기간별 통계</TitleBox>
@@ -299,7 +299,7 @@ const MemberTable = () => {
                         </T.TFoot> */}
                     </T.Table>
                 </TableBox>
-                <MainTable {...tablePeriodOptions} RowClick={laterFnc} />
+                {/* <MainTable {...tablePeriodOptions} RowClick={laterFnc} /> */}
             </RowWapper>
         </Container>
     )

@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilState } from 'recoil'
-import { DeviceAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-
-import { getDeviceAnalyticsList } from '@Service/AnalyticsService'
-import { isNull } from 'lodash'
+import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -19,127 +15,91 @@ const {
 } = ContentsStyle
 
 const HealthIndicatorsTable = () => {
-    const [deviceAnalyticsListState, setDeviceAnalyticsListState] =
-        useRecoilState(DeviceAnalyticsListState)
-
-    const getTableList = useCallback(async () => {
-        const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
-        } = deviceAnalyticsListState
-
-        const { status, payload } = await getDeviceAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
-        })
-
-        if (status) {
-            setDeviceAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setDeviceAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [deviceAnalyticsListState, setDeviceAnalyticsListState])
-
-    useEffect(() => {
-        const pageStart = () => {
-            if (deviceAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-
-        pageStart()
-    }, [getTableList, deviceAnalyticsListState.status])
+    // eslint-disable-next-line
+    const [imprvmAnalyticsListState, setImprvmAnalyticsListState] =
+        useRecoilState(ImprvmAnalyticsListState)
 
     const cellMaker = (
         lineNum: number,
         area: string,
         mode: string,
-        colspan: number,
-        title: string
+        colspan: number
     ) => {
         let cellHtml
-        if (deviceAnalyticsListState.status) {
-            if (area === 'AGE' && deviceAnalyticsListState.list !== null) {
+        if (imprvmAnalyticsListState.status) {
+            if (area === 'AGE' && imprvmAnalyticsListState.list !== null) {
                 const getAgeData =
-                    deviceAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
-
-                const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
-                const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
-                const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
-                const IS_MBER_CNT = getAgeData.IS_MBER_CNT
-                const IS_WOMAN_CNT = getAgeData.IS_WOMAN_CNT
-                const IS_MAN_CNT = getAgeData.IS_MAN_CNT
-                const BP_MBER_CNT = getAgeData.BP_MBER_CNT
-                const BP_WOMAN_CNT = getAgeData.BP_WOMAN_CNT
-                const BP_MAN_CNT = getAgeData.BP_MAN_CNT
-                const BS_MBER_CNT = getAgeData.BS_MBER_CNT
-                const BS_WOMAN_CNT = getAgeData.BS_WOMAN_CNT
-                const BS_MAN_CNT = getAgeData.BS_MAN_CNT
-                const BC_MBER_CNT = getAgeData.BC_MBER_CNT
-                const BC_WOMAN_CNT = getAgeData.BC_WOMAN_CNT
-                const BC_MAN_CNT = getAgeData.BC_MAN_CNT
-                const ST_MBER_CNT = getAgeData.ST_MBER_CNT
-                const ST_WOMAN_CNT = getAgeData.ST_WOMAN_CNT
-                const ST_MAN_CNT = getAgeData.ST_MAN_CNT
+                    imprvmAnalyticsListState.list.MYBODY_SCORE_IMPRVM_STAT_LIST[
+                        lineNum
+                    ]
+                const AGES_GROUP = getAgeData.AGES_GROUP
+                const TT_TOT_SCORE = getAgeData.TT_TOT_SCORE
+                const IW_TOT_SCORE = getAgeData.IW_TOT_SCORE
+                const OW_TOT_SCORE = getAgeData.OW_TOT_SCORE
+                const TT_BP_SCORE = getAgeData.TT_BP_SCORE
+                const IW_BP_SCORE = getAgeData.IW_BP_SCORE
+                const OW_BP_SCORE = getAgeData.OW_BP_SCORE
+                const TT_FBS_SCORE = getAgeData.TT_FBS_SCORE
+                const IW_FBS_SCORE = getAgeData.IW_FBS_SCORE
+                const OW_FBS_SCORE = getAgeData.OW_FBS_SCORE
+                const TT_TG_SCORE = getAgeData.TT_TG_SCORE
+                const IW_TG_SCORE = getAgeData.IW_TG_SCORE
+                const OW_TG_SCORE = getAgeData.OW_TG_SCORE
+                const TT_HDLC_SCORE = getAgeData.TT_HDLC_SCORE
+                const IW_HDLC_SCORE = getAgeData.IW_HDLC_SCORE
+                const OW_HDLC_SCORE = getAgeData.OW_HDLC_SCORE
+                const TT_WAIST_SCORE = getAgeData.TT_WAIST_SCORE
+                const IW_WAIST_SCORE = getAgeData.IW_WAIST_SCORE
+                const OW_WAIST_SCORE = getAgeData.OW_WAIST_SCORE
 
                 if (mode === '') {
                     cellHtml = (
                         <>
-                            <T.CellW colSpan={colspan}>{title}</T.CellW>
-                            <T.CellW>{TOT_MBER_CNT}</T.CellW>
-                            <T.CellW>{TOT_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{TOT_MAN_CNT}</T.CellW>
-                            <T.CellW>{IS_MBER_CNT}</T.CellW>
-                            <T.CellW>{IS_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{IS_MAN_CNT}</T.CellW>
-                            <T.CellW>{BP_MBER_CNT}</T.CellW>
-                            <T.CellW>{BP_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BP_MAN_CNT}</T.CellW>
-                            <T.CellW>{BS_MBER_CNT}</T.CellW>
-                            <T.CellW>{BS_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BS_MAN_CNT}</T.CellW>
-                            <T.CellW>{BC_MBER_CNT}</T.CellW>
-                            <T.CellW>{BC_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BC_MAN_CNT}</T.CellW>
-                            <T.CellW>{ST_MBER_CNT}</T.CellW>
-                            <T.CellW>{ST_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{ST_MAN_CNT}</T.CellW>
+                            <T.CellW colSpan={colspan}>{AGES_GROUP}</T.CellW>
+                            <T.CellW>{TT_TOT_SCORE}</T.CellW>
+                            <T.CellW>{IW_TOT_SCORE}</T.CellW>
+                            <T.CellW>{OW_TOT_SCORE}</T.CellW>
+                            <T.CellW>{TT_BP_SCORE}</T.CellW>
+                            <T.CellW>{IW_BP_SCORE}</T.CellW>
+                            <T.CellW>{OW_BP_SCORE}</T.CellW>
+                            <T.CellW>{TT_FBS_SCORE}</T.CellW>
+                            <T.CellW>{IW_FBS_SCORE}</T.CellW>
+                            <T.CellW>{OW_FBS_SCORE}</T.CellW>
+                            <T.CellW>{TT_TG_SCORE}</T.CellW>
+                            <T.CellW>{IW_TG_SCORE}</T.CellW>
+                            <T.CellW>{OW_TG_SCORE}</T.CellW>
+                            <T.CellW>{TT_HDLC_SCORE}</T.CellW>
+                            <T.CellW>{IW_HDLC_SCORE}</T.CellW>
+                            <T.CellW>{OW_HDLC_SCORE}</T.CellW>
+                            <T.CellW>{TT_WAIST_SCORE}</T.CellW>
+                            <T.CellW>{IW_WAIST_SCORE}</T.CellW>
+                            <T.CellW>{OW_WAIST_SCORE}</T.CellW>
                         </>
                     )
                 } else {
                     cellHtml = (
                         <>
-                            <T.TFootCell colSpan={colspan}>{title}</T.TFootCell>
-                            <T.TFootCell>{TOT_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{TOT_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{TOT_MAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{IS_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{IS_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{IS_MAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BP_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BP_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BP_MAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BS_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BS_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BS_MAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BC_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BC_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{BC_MAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{ST_MBER_CNT}%</T.TFootCell>
-                            <T.TFootCell>{ST_WOMAN_CNT}%</T.TFootCell>
-                            <T.TFootCell>{ST_MAN_CNT}%</T.TFootCell>
+                            <T.TFootCell colSpan={colspan}>
+                                {AGES_GROUP}
+                            </T.TFootCell>
+                            <T.TFootCell>{TT_TOT_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_TOT_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_TOT_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{TT_BP_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_BP_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_BP_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{TT_FBS_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_FBS_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_FBS_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{TT_TG_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_TG_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_TG_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{TT_HDLC_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_HDLC_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_HDLC_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{TT_WAIST_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{IW_WAIST_SCORE}%</T.TFootCell>
+                            <T.TFootCell>{OW_WAIST_SCORE}%</T.TFootCell>
                         </>
                     )
                 }
@@ -223,21 +183,17 @@ const HealthIndicatorsTable = () => {
                             </T.TheadRow>
                         </T.Thead>
                         <T.Body>
-                            <T.Row>
-                                {cellMaker(0, 'AGE', '', 2, '10대 이하')}
-                            </T.Row>
-                            <T.Row>{cellMaker(1, 'AGE', '', 2, '20대')}</T.Row>
-                            <T.Row>{cellMaker(2, 'AGE', '', 2, '30대')}</T.Row>
-                            <T.Row>{cellMaker(3, 'AGE', '', 2, '40대')}</T.Row>
-                            <T.Row>{cellMaker(4, 'AGE', '', 2, '50대')}</T.Row>
-                            <T.Row>{cellMaker(5, 'AGE', '', 2, '60대')}</T.Row>
-                            <T.Row>
-                                {cellMaker(6, 'AGE', '', 2, '70대 이상')}
-                            </T.Row>
+                            <T.Row>{cellMaker(0, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(1, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(2, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(3, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(4, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(5, 'AGE', '', 2)}</T.Row>
+                            <T.Row>{cellMaker(6, 'AGE', '', 2)}</T.Row>
                         </T.Body>
                         <T.TFoot>
                             <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2, '평균')}
+                                {cellMaker(7, 'AGE', 'footer', 2)}
                             </T.TFootRow>
                         </T.TFoot>
                     </T.Table>

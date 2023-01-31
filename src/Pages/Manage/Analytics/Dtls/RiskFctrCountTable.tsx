@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilState } from 'recoil'
 import { RiskFctrCountAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-
-import { getRiskFctrCountAnalyticsList } from '@Service/AnalyticsService'
-import { isNull } from 'lodash'
 
 const {
     Container,
@@ -21,47 +17,9 @@ const {
 const RiskFctrCountTable = () => {
     const [
         riskFctrCountAnalyticsListState,
+        // eslint-disable-next-line
         setRiskFctrCountAnalyticsListState,
     ] = useRecoilState(RiskFctrCountAnalyticsListState)
-
-    const getTableList = useCallback(async () => {
-        const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
-        } = riskFctrCountAnalyticsListState
-
-        const { status, payload } = await getRiskFctrCountAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
-        })
-
-        if (status) {
-            setRiskFctrCountAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setRiskFctrCountAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [riskFctrCountAnalyticsListState, setRiskFctrCountAnalyticsListState])
-
-    useEffect(() => {
-        const pageStart = () => {
-            if (riskFctrCountAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-        pageStart()
-    }, [getTableList, riskFctrCountAnalyticsListState.status])
 
     const cellMaker = (
         lineNum: number,

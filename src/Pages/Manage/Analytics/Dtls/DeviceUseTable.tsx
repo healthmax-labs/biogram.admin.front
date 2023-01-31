@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilState } from 'recoil'
 import { DeviceAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-
-import { getDeviceAnalyticsList } from '@Service/AnalyticsService'
-import { isNull } from 'lodash'
 
 const {
     Container,
@@ -19,48 +15,9 @@ const {
 } = ContentsStyle
 
 const DeviceUseTable = () => {
+    // eslint-disable-next-line
     const [deviceAnalyticsListState, setDeviceAnalyticsListState] =
         useRecoilState(DeviceAnalyticsListState)
-
-    const getTableList = useCallback(async () => {
-        const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
-        } = deviceAnalyticsListState
-
-        const { status, payload } = await getDeviceAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
-        })
-
-        if (status) {
-            setDeviceAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setDeviceAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [deviceAnalyticsListState, setDeviceAnalyticsListState])
-
-    useEffect(() => {
-        const pageStart = () => {
-            if (deviceAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-
-        pageStart()
-    }, [getTableList, deviceAnalyticsListState.status])
 
     const cellMaker = (
         lineNum: number,

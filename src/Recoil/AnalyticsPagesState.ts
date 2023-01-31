@@ -11,6 +11,7 @@ import {
     RiskFctrItemsPeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
+    ImprvmAgeListItemInterface,
 } from '@Type/AnalyticsTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -77,8 +78,8 @@ interface DeviceAnalyticsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string | null
-        // BGNDE: string
-        // ENDDE: string
+        BGNDE: string
+        ENDDE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: DeviceAgeListItemInterface[]
@@ -92,8 +93,8 @@ export const DeviceAnalyticsListState = atom<DeviceAnalyticsListInterface>({
         status: 'idle',
         search: {
             INST_NO: null,
-            // BGNDE: getOneMonthAgo(),
-            // ENDDE: getNowDate(),
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
         },
         list: null,
     },
@@ -104,8 +105,8 @@ interface RiskFctrItemsAnalyticsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string | null
-        // BGNDE: string
-        // ENDDE: string
+        BGNDE: string
+        ENDDE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: RiskFctrItemsAgeListItemInterface[]
@@ -120,8 +121,8 @@ export const RiskFctrItemsAnalyticsListState =
             status: 'idle',
             search: {
                 INST_NO: null,
-                // BGNDE: getOneMonthAgo(),
-                // ENDDE: getNowDate(),
+                BGNDE: getOneMonthAgo(),
+                ENDDE: getNowDate(),
             },
             list: null,
         },
@@ -132,8 +133,8 @@ interface RiskFctrCountAnalyticsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string | null
-        // BGNDE: string
-        // ENDDE: string
+        BGNDE: string
+        ENDDE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: RiskFctrCountAgeListItemInterface[]
@@ -148,9 +149,35 @@ export const RiskFctrCountAnalyticsListState =
             status: 'idle',
             search: {
                 INST_NO: null,
-                // BGNDE: getOneMonthAgo(),
-                // ENDDE: getNowDate(),
+                BGNDE: getOneMonthAgo(),
+                ENDDE: getNowDate(),
             },
             list: null,
         },
     })
+
+//건강지표 개선통계
+interface ImprvmAnalyticsListInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string | null
+        // BGNDE: string
+        // ENDDE: string
+    }
+    list: {
+        MYBODY_SCORE_IMPRVM_STAT_LIST: ImprvmAgeListItemInterface[]
+    } | null
+}
+
+export const ImprvmAnalyticsListState = atom<ImprvmAnalyticsListInterface>({
+    key: `analyticsPage/imprvm-list`,
+    default: {
+        status: 'idle',
+        search: {
+            INST_NO: null,
+            // BGNDE: getOneMonthAgo(),
+            // ENDDE: getNowDate(),
+        },
+        list: null,
+    },
+})

@@ -11,6 +11,7 @@ import {
     RiskFctrItemsPeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
+    ImprvmAgeListItemInterface,
 } from '@Type/AnalyticsTypes'
 
 /**
@@ -19,9 +20,9 @@ import {
 export function getMemberAnalyticsList({
     // CUR_PAGE,
     // SEARCH_KEY,
+    INST_NO,
     BGNDE,
     ENDDE,
-    INST_NO,
 }: {
     // CUR_PAGE: number
     INST_NO: string
@@ -52,15 +53,15 @@ export function getMemberAnalyticsList({
 export function getMesureAnalyticsList({
     // CUR_PAGE,
     // SEARCH_KEY,
-    // BGNDE,
-    // ENDDE,
+    BGNDE,
+    ENDDE,
     INST_NO,
 }: {
     // CUR_PAGE: number
     INST_NO: string | null
     // SEARCH_KEY: string
-    // BGNDE: string
-    // ENDDE: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: MesureAgeListItemInterface[]
@@ -73,8 +74,8 @@ export function getMesureAnalyticsList({
         payload: {
             INST_NO,
             // SEARCH_KEY,
-            // BGNDE,
-            // ENDDE,
+            BGNDE,
+            ENDDE,
         },
     })
 }
@@ -84,16 +85,16 @@ export function getMesureAnalyticsList({
  */
 export function getDeviceAnalyticsList({
     // CUR_PAGE,
-    // SEARCH_KEY,
-    // BGNDE,
-    // ENDDE,
     INST_NO,
+    // SEARCH_KEY,
+    BGNDE,
+    ENDDE,
 }: {
     // CUR_PAGE: number
     INST_NO: string | null
     // SEARCH_KEY: string
-    // BGNDE: string
-    // ENDDE: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: DeviceAgeListItemInterface[]
@@ -106,8 +107,8 @@ export function getDeviceAnalyticsList({
         payload: {
             INST_NO,
             // SEARCH_KEY,
-            // BGNDE,
-            // ENDDE,
+            BGNDE,
+            ENDDE,
         },
     })
 }
@@ -118,15 +119,15 @@ export function getDeviceAnalyticsList({
 export function getRiskFctrItemsAnalyticsList({
     // CUR_PAGE,
     // SEARCH_KEY,
-    // BGNDE,
-    // ENDDE,
+    BGNDE,
+    ENDDE,
     INST_NO,
 }: {
     // CUR_PAGE: number
     INST_NO: string | null
     // SEARCH_KEY: string
-    // BGNDE: string
-    // ENDDE: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: RiskFctrItemsAgeListItemInterface[]
@@ -139,8 +140,8 @@ export function getRiskFctrItemsAnalyticsList({
         payload: {
             INST_NO,
             // SEARCH_KEY,
-            // BGNDE,
-            // ENDDE,
+            BGNDE,
+            ENDDE,
         },
     })
 }
@@ -149,6 +150,39 @@ export function getRiskFctrItemsAnalyticsList({
  * 위험요인 갯수별 통계
  */
 export function getRiskFctrCountAnalyticsList({
+    // CUR_PAGE,
+    // SEARCH_KEY,
+    BGNDE,
+    ENDDE,
+    INST_NO,
+}: {
+    // CUR_PAGE: number
+    INST_NO: string | null
+    // SEARCH_KEY: string
+    BGNDE: string
+    ENDDE: string
+}): Promise<
+    ServicesDefaultResult<{
+        AGE_GROUP_STAT_LIST: RiskFctrCountAgeListItemInterface[]
+        PERIOD_STAT_LIST: RiskFctrCountPeriodListItemInterface[]
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/mng/stat/v1/risk_fctr/cnt',
+        payload: {
+            INST_NO,
+            // SEARCH_KEY,
+            BGNDE,
+            ENDDE,
+        },
+    })
+}
+
+/**
+ * 건강지표 개선통계
+ */
+export function getImprvmCountAnalyticsList({
     // CUR_PAGE,
     // SEARCH_KEY,
     // BGNDE,
@@ -162,13 +196,12 @@ export function getRiskFctrCountAnalyticsList({
     // ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
-        AGE_GROUP_STAT_LIST: RiskFctrCountAgeListItemInterface[]
-        PERIOD_STAT_LIST: RiskFctrCountPeriodListItemInterface[]
+        MYBODY_SCORE_IMPRVM_STAT_LIST: ImprvmAgeListItemInterface[]
     }>
 > {
     return _Axios_({
         method: 'post',
-        url: '/mng/stat/v1/risk_fctr/cnt',
+        url: '/mng/gndn/stat/v1/mybody_score/imprvm',
         payload: {
             INST_NO,
             // SEARCH_KEY,
