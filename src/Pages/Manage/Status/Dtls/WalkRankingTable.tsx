@@ -20,17 +20,15 @@ const WalkRankingTable = () => {
 
     const getTableList = useCallback(async () => {
         const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
+            search: { /*SEARCH_KEY, */ BGNDE, ENDDE, INST_NO /*, curPage */ },
         } = mberAnalyticsListState
 
         const { status, payload } = await getMemberAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
             // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
+            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
+            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
+            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
         })
 
         if (status) {
