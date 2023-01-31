@@ -376,7 +376,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
 })
 
 export const MsgSendListState = atom<MsgSendSearchListInterface>({
-    key: `statusPage/msg-send-list`,
+    key: `memberPage/msg-send-list`,
     default: {
         status: 'idle',
         search: {
@@ -397,7 +397,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
 })
 
 export const MsgBookListState = atom<MsgBookListInterface>({
-    key: `statusPage/msg-book-list`,
+    key: `memberPage/msg-book-list`,
     default: {
         status: 'idle',
         search: {
