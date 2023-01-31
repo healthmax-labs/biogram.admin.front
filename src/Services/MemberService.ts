@@ -3,13 +3,13 @@ import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
     ManageCounselInterface,
+    ManageCounselMsgBoxListInterface,
     ManageCounselMycoachInterface,
     ManageCounselQustnrAnswerDataInterface,
     ManageCounselQustnrAnswerInterface,
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
-    ManageCounselMsgBoxListInterface,
 } from '@Type/MemberTypes'
 
 export const getMemberList = ({
@@ -234,6 +234,8 @@ export const postMemberInfoUpdate = (payload: {
  * @param instNo
  * @param searchKey
  * @param riskFctr
+ * @param endDt
+ * @param startDt
  */
 export const getMberCnsltlist = ({
     curPage,
@@ -658,6 +660,32 @@ export const getMsgBoxList = ({
             MSG_TYPE: MSG_TYPE,
             SNDNG_STDR: SNDNG_STDR,
             SEARCH_KEY: SEARCH_KEY,
+        },
+    })
+}
+
+/**
+ * 회원 탈퇴 처리
+ * @param memNo
+ * @param secsnResnCode
+ * @param secsnResnEtc
+ */
+export const postMberInfoDelete = ({
+    memNo,
+    secsnResnCode,
+    secsnResnEtc,
+}: {
+    memNo: string
+    secsnResnCode: string
+    secsnResnEtc: string
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/info/delete`,
+        payload: {
+            MBER_NO: memNo,
+            SECSN_RESN_CODE: secsnResnCode,
+            SECSN_RESN_ETC: secsnResnEtc,
         },
     })
 }
