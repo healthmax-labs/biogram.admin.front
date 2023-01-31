@@ -6,7 +6,7 @@ import {
     tableListItemInterface,
 } from '@Common/TableConfig/Manage/Member'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { MemberDetailState, MemberListState } from '@Recoil/MemberPagesState'
 
 interface tableOptionInterface {
@@ -19,7 +19,7 @@ interface tableOptionInterface {
 const MemberListTable = () => {
     const navigate = useNavigate()
 
-    const listState = useRecoilValue(MemberListState)
+    const [listState, setListState] = useRecoilState(MemberListState)
     const detailState = useRecoilValue(MemberDetailState)
     const detailReset = useResetRecoilState(MemberDetailState)
 
@@ -38,6 +38,17 @@ const MemberListTable = () => {
         })
     }
 
+    // 리시트 체크박스 클릭
+    const handleCheckRow = (e: string[]) => {
+        setListState(prevState => ({
+            ...prevState,
+            manage: {
+                ...prevState.manage,
+                checkRow: e,
+            },
+        }))
+    }
+
     useEffect(() => {
         setTableOptions(prevState => ({
             ...prevState,
@@ -46,7 +57,13 @@ const MemberListTable = () => {
         }))
     }, [listState.list.MBER_INFO_LIST, listState.status])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={e => handleRowClick(e)}
+            CheckedRow={e => handleCheckRow(e)}
+        />
+    )
 }
 
 export default MemberListTable

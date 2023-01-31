@@ -88,5 +88,6 @@ export default {
             code: `GeonDaon`,
         },
     ],
-    autoLogoutMinTime: 1,
+    autoLogoutMinTime: 1, // 자동 로그아웃 알럿 타임.
+    memberDeleteResnCode: '9999',
 }

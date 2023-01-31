@@ -74,7 +74,7 @@ const MemberListMain = () => {
                 <MemberListSearchBox HandleGetList={() => getList()} />
             </SearchWapper>
             <ManageWapper>
-                <MemberListManageBox />
+                <MemberListManageBox HandleGetList={() => getList()} />
             </ManageWapper>
             <TableWapper>
                 <MemberListTable />

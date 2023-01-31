@@ -1,6 +1,6 @@
+import React, { useEffect, useRef, useState } from 'react'
 import { TableStyle } from '@Style/Elements/TableStyles'
 import { MainTablePropsInterface } from '@Type/TableTypes'
-import React, { useEffect, useState } from 'react'
 import MainTableHeader from './MainTableHeader'
 import MainTableBody from './MainTableBody'
 import { ElementLoading } from '@Elements'
@@ -25,6 +25,8 @@ const MainTable = <P,>({
         checkedRow: string[]
         allChecked: boolean
     }>(initializeState)
+
+    const checkRowRef = useRef<string[]>([])
 
     useEffect(() => {
         if (
@@ -54,7 +56,11 @@ const MainTable = <P,>({
     }, [Lists.length, pageState.allChecked, pageState.checkedRow])
 
     useEffect(() => {
-        if (CheckedRow) {
+        if (
+            CheckedRow &&
+            !_.isEqual(checkRowRef.current, pageState.checkedRow)
+        ) {
+            checkRowRef.current = pageState.checkedRow
             CheckedRow(pageState.checkedRow)
         }
     }, [CheckedRow, pageState.checkedRow])
