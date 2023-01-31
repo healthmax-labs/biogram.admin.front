@@ -24,6 +24,11 @@ interface MemberListInterface {
         registDtTo: string | null
     }
     list: MemberInfoListInterface
+    manage: {
+        checkRow: string[]
+        checkRowName: string
+        memDeleteMemo: string
+    }
 }
 
 // 회원 상담 현황
@@ -144,6 +149,11 @@ export const MemberListState = atom<MemberListInterface>({
         list: {
             MBER_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+        manage: {
+            checkRow: [],
+            checkRowName: '',
+            memDeleteMemo: '',
         },
     },
 })

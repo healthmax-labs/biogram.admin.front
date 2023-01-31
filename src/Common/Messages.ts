@@ -15,6 +15,10 @@ export default {
         updateConfirm: `수정 하시겠습니까?`,
         deleteConfirm: `삭제 하시겠습니까?`,
         loginExtension: `후에 자동 로그아웃 됩니다. 로그인 연장 하시겠습니까?`,
+        dataGetFail: `데이터를 불러 올수 없습니다.`,
+        memberDeleteTitle: `"_NAME_"님 회원 탈퇴를 진행하시겠습니까? <br />탈퇴사유를 작성해주세요.`,
+        memberDeleteMemoEmpty: `사유를 입력해 주세요.`,
+        memberDeleteSuccess: `회원 탈퇴 처리가 완료 되었습니다.`,
         duplicate: {
             uhealthzoneNameDup: '이미 사용중인 설치 장소명 입니다.',
             uhealthzoneNamePoss: '사용가능한 설치 장소명 입니다.',
@@ -64,6 +68,10 @@ export default {
             contentEmpty: `내용을 입력해 주세요`,
             infoUpdate: `회원정보를 수정 하시겠습니까?`,
             infoUpdateSuccess: `회원정보를 수정 했습니다.`,
+            leave: {
+                empty: `탈퇴할 회원을 선택해 주세요.`,
+                over: `탈퇴는 한번에 한명만 가능합니다.`,
+            },
         },
         instSelectStep1: `1차 소속을 입력해 주세요`,
         instSelectStep2: `2차 소속을 입력해 주세요`,
