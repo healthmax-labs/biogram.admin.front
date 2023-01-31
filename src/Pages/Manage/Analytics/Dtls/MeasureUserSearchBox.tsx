@@ -1,5 +1,5 @@
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { gmtTimeToTimeObject } from '@Helper'
+import { gmtTimeToTimeObject, changeDatePickerDate } from '@Helper'
 import {
     PstinstSelector,
     VaryButton,
@@ -8,6 +8,9 @@ import {
     VaryLabelCheckBox,
     DefaultSearchButton,
 } from '@Elements'
+
+import { useRecoilState } from 'recoil'
+import { MesureAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     SearchItemWapper,
@@ -21,7 +24,13 @@ const {
     RightSearchButton,
 } = SearchBoxStyle
 
-const MemberSearchBox = () => {
+const MeasureUserSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [listState, setListState] = useRecoilState(MesureAnalyticsListState)
+
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -32,8 +41,14 @@ const MemberSearchBox = () => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
-                                    console.debug(instNo, instNm)
+                                HandleSelectValue={({ instNo }) =>
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            INST_NO: String(instNo),
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
@@ -45,21 +60,45 @@ const MemberSearchBox = () => {
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.BGNDE
+                                        ? changeDatePickerDate(
+                                              listState.search.BGNDE
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            BGNDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    listState.search.ENDDE
+                                        ? changeDatePickerDate(
+                                              listState.search.ENDDE
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            ENDDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>
@@ -191,10 +230,10 @@ const MemberSearchBox = () => {
                 </SearchItemRow>
             </SearchRowWapper>
             <RightSearchButton Item={'end'}>
-                <DefaultSearchButton ButtonClick={() => console.log('1234')} />
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>
     )
 }
 
-export default MemberSearchBox
+export default MeasureUserSearchBox
