@@ -1,14 +1,14 @@
 // import React, { useEffect, useState } from 'react'
 // import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton /*, MainTable */ } from '@Elements'
+import { VaryButton } from '@Elements'
 // import {
 //     MemberAgeTableConfig,
 //     MemberAgeTableListItemInterface,
 //     MemberPeriodTableConfig,
 //     MemberPeriodTableListItemInterface,
 // } from '@Common/TableConfig/Manage/Analytics'
-import { useRecoilState /*, useRecoilValue */ } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 // interface tableAgeOption {
@@ -35,10 +35,7 @@ const {
 } = ContentsStyle
 
 const MemberTable = () => {
-    // eslint-disable-next-line
-    const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
-        MberAnalyticsListState
-    )
+    const mberAnalyticsListState = useRecoilValue(MberAnalyticsListState)
 
     const cellMaker = (
         lineNum: number,

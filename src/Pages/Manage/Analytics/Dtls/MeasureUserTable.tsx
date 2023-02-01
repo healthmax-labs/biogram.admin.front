@@ -1,7 +1,7 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { MesureAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
@@ -15,9 +15,7 @@ const {
 } = ContentsStyle
 
 const MeasureUserTable = () => {
-    // eslint-disable-next-line
-    const [measureAnalyticsListState, setMeasureAnalyticsListState] =
-        useRecoilState(MesureAnalyticsListState)
+    const measureAnalyticsListState = useRecoilValue(MesureAnalyticsListState)
 
     const cellMaker = (
         lineNum: number,
