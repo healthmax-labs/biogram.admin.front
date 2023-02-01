@@ -39,50 +39,57 @@ import {
 } from '@Recoil/ManagerPagesState'
 
 export default function useRecoilReset() {
-    const MemberDetailStateReset = useResetRecoilState(MemberDetailState)
-    const MemberListStateReset = useResetRecoilState(MemberListState)
-    const MsgSendListStateReset = useResetRecoilState(MsgSendListState)
-    const MsgBookListStateReset = useResetRecoilState(MsgBookListState)
-    const ConsultListStateReset = useResetRecoilState(ConsultListState)
-    const ConsultDetailStateReset = useResetRecoilState(ConsultDetailState)
+    const MemberDetailStateReset = useResetRecoilState(MemberDetailState) // 회원상세
+    const MemberListStateReset = useResetRecoilState(MemberListState) // 회원현황
+    const MsgSendListStateReset = useResetRecoilState(MsgSendListState) // 메세지 발송이력
+    const MsgBookListStateReset = useResetRecoilState(MsgBookListState) // 메세지 예약현황
+    const ConsultListStateReset = useResetRecoilState(ConsultListState) // 상담회원 현황
+    const ConsultDetailStateReset = useResetRecoilState(ConsultDetailState) // 상담회원 상세
 
-    const InstListStateReset = useResetRecoilState(InstListState)
-    const InstDetailStateReset = useResetRecoilState(InstDetailState)
-    const InstJoinListStateReset = useResetRecoilState(InstJoinListState)
+    const InstListStateReset = useResetRecoilState(InstListState) // 소속현황
+    const InstDetailStateReset = useResetRecoilState(InstDetailState) // 소속상세
+    const InstJoinListStateReset = useResetRecoilState(InstJoinListState) // 소속 가입신청
 
-    const MagazineListStateReset = useResetRecoilState(MagazineListState)
-    const MagazineDetailStateReset = useResetRecoilState(MagazineDetailState)
-    const UhealthzoneListStateReset = useResetRecoilState(UhealthzoneListState)
+    const MagazineListStateReset = useResetRecoilState(MagazineListState) // 매거진
+    const MagazineDetailStateReset = useResetRecoilState(MagazineDetailState) // 메거진 상세
+    const UhealthzoneListStateReset = useResetRecoilState(UhealthzoneListState) // 바이오그램 존
     const UhealthzoneDetailStateReset = useResetRecoilState(
+        // 바이오그램 존 상세
         UhealthzoneDetailState
     )
 
-    const RiskFctrListStateReset = useResetRecoilState(RiskFctrListState)
-    const BrftrCmprListStateReset = useResetRecoilState(BrftrCmprListState)
-    const StatisticsListStateReset = useResetRecoilState(StatisticsListState)
+    const RiskFctrListStateReset = useResetRecoilState(RiskFctrListState) // 위험요인 현황
+    const BrftrCmprListStateReset = useResetRecoilState(BrftrCmprListState) // 전후비교 현황
+    const StatisticsListStateReset = useResetRecoilState(StatisticsListState) // 기기측정 현황
     const ActivityWalkListStateReset = useResetRecoilState(
+        // 활동량 현황
         ActivityWalkListState
     )
 
     const MberAnalyticsListStateReset = useResetRecoilState(
+        // FIXME : 구분X
         MberAnalyticsListState
     )
     const MesureAnalyticsListStateReset = useResetRecoilState(
+        // FIXME : 구분X
         MesureAnalyticsListState
     )
     const RiskFctrItemsAnalyticsListStateReset = useResetRecoilState(
+        // FIXME : 구분X
         RiskFctrItemsAnalyticsListState
     )
     const RiskFctrCountAnalyticsListStateReset = useResetRecoilState(
+        // FIXME : 구분X
         RiskFctrCountAnalyticsListState
     )
     const DeviceAnalyticsListStateReset = useResetRecoilState(
+        // FIXME : 구분X
         DeviceAnalyticsListState
     )
 
-    const StplatListStateReset = useResetRecoilState(StplatListState)
-    const StplatDetailStateReset = useResetRecoilState(StplatDetailState)
-    const NoticeListStateReset = useResetRecoilState(NoticeListState)
+    const StplatListStateReset = useResetRecoilState(StplatListState) // 이용 약관 관리
+    const StplatDetailStateReset = useResetRecoilState(StplatDetailState) // 이용 약관 관리 상세
+    const NoticeListStateReset = useResetRecoilState(NoticeListState) // 게시판 관리
 
     const resetTask = (recoilKey: RecoilStateKeyNameType): void => {
         const recoilState: {
