@@ -8,6 +8,8 @@ import {
     // VaryLabelCheckBox,
     DefaultSearchButton,
 } from '@Elements'
+import { useRecoilState } from 'recoil'
+import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     SearchItemWapper,
@@ -21,7 +23,14 @@ const {
     // SearchItemGap,
 } = SearchBoxStyle
 
-const AnalyticsSearchBox = () => {
+const HealthIndicatorsSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [listState, setListState] = useRecoilState(ImprvmAnalyticsListState)
+
+    console.log(listState)
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -32,8 +41,14 @@ const AnalyticsSearchBox = () => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
-                                    console.debug(instNo, instNm)
+                                HandleSelectValue={({ instNo }) =>
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            INST_NO: String(instNo),
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
@@ -41,12 +56,10 @@ const AnalyticsSearchBox = () => {
                 </SearchItemRow>
             </SearchRowWapper>
             <RightSearchButton Item={'end'}>
-                <DefaultSearchButton
-                    ButtonClick={() => console.log('api 연결')}
-                />
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>
     )
 }
 
-export default AnalyticsSearchBox
+export default HealthIndicatorsSearchBox

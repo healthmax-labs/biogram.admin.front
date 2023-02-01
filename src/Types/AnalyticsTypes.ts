@@ -229,3 +229,26 @@ export interface RiskFctrCountPeriodListItemInterface {
     RF_5_WOMAN_CNT: string //5개 여성 건수
     RF_5_MAN_CNT: string //5개 남성 건수
 }
+
+//건강지표 개선 연령별 통계
+export interface ImprvmAgeListItemInterface {
+    AGES_GROUP: string
+    TT_WAIST_SCORE: string
+    IW_WAIST_SCORE: string
+    OW_WAIST_SCORE: string
+    TT_BP_SCORE: string
+    IW_BP_SCORE: string
+    OW_BP_SCORE: string
+    TT_FBS_SCORE: string
+    IW_FBS_SCORE: string
+    OW_FBS_SCORE: string
+    TT_TG_SCORE: string
+    IW_TG_SCORE: string
+    OW_TG_SCORE: string
+    TT_HDLC_SCORE: string
+    IW_HDLC_SCORE: string
+    OW_HDLC_SCORE: string
+    TT_TOT_SCORE: string
+    IW_TOT_SCORE: string
+    OW_TOT_SCORE: string
+}

@@ -27,7 +27,10 @@ const RiskFctrItemsTable = () => {
     const getTableList = useCallback(async () => {
         const {
             search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
+                /*SEARCH_KEY, */
+                BGNDE,
+                ENDDE,
+                INST_NO /*, curPage */,
             },
         } = riskFctrItemsAnalyticsListState
 
@@ -35,8 +38,8 @@ const RiskFctrItemsTable = () => {
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
             // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
+            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
+            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
         })
 
         if (status) {

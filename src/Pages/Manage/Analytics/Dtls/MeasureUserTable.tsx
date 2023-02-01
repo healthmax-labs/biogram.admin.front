@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilState } from 'recoil'
 import { MesureAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-
-import { getMesureAnalyticsList } from '@Service/AnalyticsService'
-import { isNull } from 'lodash'
 
 const {
     Container,
@@ -19,47 +15,9 @@ const {
 } = ContentsStyle
 
 const MeasureUserTable = () => {
+    // eslint-disable-next-line
     const [measureAnalyticsListState, setMeasureAnalyticsListState] =
         useRecoilState(MesureAnalyticsListState)
-
-    const getTableList = useCallback(async () => {
-        const {
-            search: {
-                /*SEARCH_KEY, BEGIN_DE, END_DE, */ INST_NO /*, curPage */,
-            },
-        } = measureAnalyticsListState
-
-        const { status, payload } = await getMesureAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            // END_DE: !isNull(END_DE) ? END_DE : ``,
-        })
-
-        if (status) {
-            setMeasureAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setMeasureAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [measureAnalyticsListState, setMeasureAnalyticsListState])
-
-    useEffect(() => {
-        const pageStart = () => {
-            if (measureAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-        pageStart()
-    }, [getTableList, measureAnalyticsListState.status])
 
     const cellMaker = (
         lineNum: number,
