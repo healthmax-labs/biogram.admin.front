@@ -11,7 +11,7 @@ import {
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
-import { MsgSendListState } from '@Recoil/MsgPagesState'
+import { MsgSendListState } from '@Recoil/MemberPagesState'
 
 const {
     SearchItemWapper,

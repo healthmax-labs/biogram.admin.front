@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { TabInterface } from '@Type/CommonTypes'
+import { RecoilStateKeyNameType, TabItemInterface } from '@Type/CommonTypes'
 import { MainTabStyle } from '@Style/Layouts/TabStyles'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
-import { useTab } from '@Hooks'
+import { useRecoilReset, useTab } from '@Hooks'
+import _ from 'lodash'
 
 const { Wapper, TabItem, TabButton, CloseButton, ButtonWapper } = MainTabStyle
 
 const MainTabComponent = () => {
     const navigate = useNavigate()
-    const tabState = useRecoilValue(AtomPageTabState)
+    const [tabState, setTabState] = useRecoilState(AtomPageTabState)
     const { handleDeleteTab } = useTab()
     const [showCloseButton, setShowCloseButton] = useState<boolean>(true)
-    const [tabList, setTabList] = useState<TabInterface[]>([])
+    const [tabList, setTabList] = useState<TabItemInterface[]>([])
+    const { recoilReset } = useRecoilReset()
 
     // 텝 클릭 처리.
     const handleTabClick = (pathName: string) => {
@@ -30,7 +32,7 @@ const MainTabComponent = () => {
     // recoil 텝 상태 변경 되었을때.
     useEffect(() => {
         const funcTabListSet = () => {
-            setTabList(tabState)
+            setTabList(tabState.list)
         }
 
         funcTabListSet()
@@ -48,6 +50,25 @@ const MainTabComponent = () => {
 
         funcSetShowCloseButton()
     }, [tabList])
+
+    useEffect(() => {
+        const funcTabClose = (recoilKey: RecoilStateKeyNameType) => {
+            recoilReset(recoilKey)
+        }
+
+        const { closeIndex, recoilKey } = tabState.close
+        if (!_.isNull(closeIndex) && !_.isNull(recoilKey)) {
+            funcTabClose(recoilKey as RecoilStateKeyNameType)
+
+            setTabState(prevState => ({
+                ...prevState,
+                close: {
+                    closeIndex: null,
+                    recoilKey: null,
+                },
+            }))
+        }
+    }, [recoilReset, setTabState, tabState.close])
 
     return (
         <Wapper>

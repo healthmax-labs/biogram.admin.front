@@ -6,7 +6,7 @@ import ManageBox from './MsgSendManageBox'
 import ListTable from './MsgSendListTable'
 import { getMsgSendList } from '@Service/MsgService'
 import { useRecoilState } from 'recoil'
-import { MsgSendListState } from '@Recoil/MsgPagesState'
+import { MsgSendListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
 import { gmtTimeToTimeObject } from '@Helper'
 

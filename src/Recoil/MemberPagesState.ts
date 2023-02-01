@@ -1,4 +1,4 @@
-import { atom, DefaultValue, selector } from 'recoil'
+import { atom } from 'recoil'
 import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
@@ -10,8 +10,16 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
-import { getNowDate, getOneMonthAgo, getOneYearAgo } from '@Helper'
+import {
+    getNowDate,
+    getOneMonthAgo,
+    getOneYearAgo,
+    getSearchDateObject,
+} from '@Helper'
 import Const from '@Const'
+import { MsgSendListInterface } from '@Type/MsgTypes'
+
+const searchDateObject = getSearchDateObject()
 
 // member 페이지.
 interface MemberListInterface {
@@ -134,6 +142,36 @@ interface ConsultMsgBoxListInterface {
     data: ManageCounselMsgBoxListInterface | null
 }
 
+//메세지 발송 현황
+interface MsgSendSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH_KEY: string | null
+        FROM_MONTH: string
+        FROM_DAY: string
+        TO_DAY: string
+        SNDNG_FAILR: 'F' | null
+        SNDNG_STDR: string | null
+    }
+    list: MsgSendListInterface
+}
+
+//메세지 예약 현황
+interface MsgBookListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH_KEY: string | null
+        FROM_DAY: string | null
+        TO_DAY: string | null
+        SNDNG_STDR: string | null
+    }
+    list: MsgSendListInterface
+}
+
 // 회원 현황 리스트 페이지
 export const MemberListState = atom<MemberListInterface>({
     key: `memberPage/member-list`,
@@ -215,71 +253,6 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             text: null,
         },
         phoneAuth: false,
-    },
-})
-
-// 상세 정보 데이터
-export const detailStatus = selector<{
-    status: DefaultStatus
-    MBER_NO: number | null
-}>({
-    key: `memberPage/member-detailStatus`,
-    get: ({ get }) => {
-        const { status, MBER_NO } = get(MemberDetailState)
-        return {
-            status,
-            MBER_NO,
-        }
-    },
-})
-
-// 회원 origin 데이터
-export const MemberOriginSelector = selector<MemberDetailInfoInterface>({
-    key: `memberPage/member-originInfo`,
-    get: ({ get }) => {
-        const { origin } = get(MemberDetailState)
-        return origin
-    },
-})
-
-// 회원 상세
-export const MemberDetailSelector = selector<MemberDetailInfoInterface>({
-    key: `memberPage/member-detailInfo`,
-    get: ({ get }) => {
-        const { detail } = get(MemberDetailState)
-        return detail
-    },
-    set: ({ set }, newValue) => {
-        if (!(newValue instanceof DefaultValue)) {
-            set(MemberDetailState, currentState => ({
-                ...currentState,
-                detail: {
-                    NM: newValue.NM,
-                    MBER_NO: newValue.MBER_NO,
-                    MBTLNUM: newValue.MBTLNUM,
-                    EMAIL_ADRES: newValue.EMAIL_ADRES,
-                    BRTHDY: newValue.BRTHDY,
-                    SEX: newValue.SEX,
-                    REGIST_DT: newValue.REGIST_DT,
-                    USID: newValue.USID,
-                    MEMO: newValue.MEMO,
-                    MBTLNUM_CRTFC_AT: newValue.MBTLNUM_CRTFC_AT,
-                    PSTINST_INFO_LIST: newValue.PSTINST_INFO_LIST,
-                    MBTLNUM_CNT: newValue.MBTLNUM_CNT,
-                    TOT_CASH: newValue.TOT_CASH,
-                    TOT_SCORE: newValue.TOT_SCORE,
-                    USE_STPLAT_AGRE_AT: newValue.USE_STPLAT_AGRE_AT,
-                    INDVDLINFO_AGRE_AT: newValue.INDVDLINFO_AGRE_AT,
-                    SNSTIIVEINFO_AGRE_AT: newValue.SNSTIIVEINFO_AGRE_AT,
-                    INDVDLINFO_THIRD_AGRE_AT: newValue.INDVDLINFO_THIRD_AGRE_AT,
-                    SNSTIIVEINFO_THIRD_AGRE_AT:
-                        newValue.SNSTIIVEINFO_THIRD_AGRE_AT,
-                    MARKTINFO_AGRE_AT: newValue.MARKTINFO_AGRE_AT,
-                    MARKTINFO_PURPOSE_AGRE_AT:
-                        newValue.MARKTINFO_PURPOSE_AGRE_AT,
-                },
-            }))
-        }
     },
 })
 
@@ -399,5 +372,45 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
             SEARCH_KEY: '',
         },
         data: null,
+    },
+})
+
+export const MsgSendListState = atom<MsgSendSearchListInterface>({
+    key: `memberPage/msg-send-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            SEARCH_KEY: null,
+            SNDNG_FAILR: null,
+            SNDNG_STDR: null,
+            FROM_MONTH: `${searchDateObject.start.year}${searchDateObject.start.month}`,
+            FROM_DAY: `01`,
+            TO_DAY: `19`,
+        },
+        list: {
+            SMS_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+export const MsgBookListState = atom<MsgBookListInterface>({
+    key: `memberPage/msg-book-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            SEARCH_KEY: null,
+            FROM_DAY: getOneMonthAgo(),
+            TO_DAY: getNowDate(),
+            SNDNG_STDR: ``,
+        },
+        list: {
+            SMS_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
     },
 })

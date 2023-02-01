@@ -1,16 +1,16 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import {
+    DeviceAgeListItemInterface,
+    DevicePeriodListItemInterface,
     MemberAnalyticsAgeListItemInterface,
     MemberAnalyticsPeriodListItemInterface,
     MesureAgeListItemInterface,
     MesurePeriodListItemInterface,
-    DeviceAgeListItemInterface,
-    DevicePeriodListItemInterface,
-    RiskFctrItemsAgeListItemInterface,
-    RiskFctrItemsPeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
+    RiskFctrItemsAgeListItemInterface,
+    RiskFctrItemsPeriodListItemInterface,
 } from '@Type/AnalyticsTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -115,7 +115,7 @@ interface RiskFctrItemsAnalyticsListInterface {
 
 export const RiskFctrItemsAnalyticsListState =
     atom<RiskFctrItemsAnalyticsListInterface>({
-        key: `analyticsPage/mesure-riskFctrItems-list`,
+        key: `analyticsPage/mesure-risk-fctr-items-list`,
         default: {
             status: 'idle',
             search: {
@@ -143,7 +143,7 @@ interface RiskFctrCountAnalyticsListInterface {
 
 export const RiskFctrCountAnalyticsListState =
     atom<RiskFctrCountAnalyticsListInterface>({
-        key: `analyticsPage/mesure-riskFctrCount-list`,
+        key: `analyticsPage/mesure-risk-fctr-count-list`,
         default: {
             status: 'idle',
             search: {

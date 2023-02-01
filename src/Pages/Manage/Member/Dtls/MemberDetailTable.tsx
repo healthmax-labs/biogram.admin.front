@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import {
     getMbtlnum,
     mberUnityUpdate,
@@ -9,10 +9,7 @@ import {
     postMemberPstinstLeave,
     postPasswordReset,
 } from '@Service/MemberService'
-import {
-    MemberDetailState,
-    MemberOriginSelector,
-} from '@Recoil/MemberPagesState'
+import { MemberDetailState } from '@Recoil/MemberPagesState'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { WapperStyle as WS } from '@Style/Pages/CommonStyle'
@@ -126,7 +123,6 @@ const MemberDetailTable = ({
 }) => {
     const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(MemberDetailState)
-    const originInfo = useRecoilValue(MemberOriginSelector)
     const { handlMainAlert, handleOutletLoading } = useMainLayouts()
 
     const inputPhoneNumberRef = useRef<HTMLInputElement>()
@@ -191,9 +187,9 @@ const MemberDetailTable = ({
     }>(initializeState)
 
     const hadleMemberStplatInfoUpdate = async (e: StplatItemInterface) => {
-        if (originInfo.MBER_NO) {
+        if (detailState.origin.MBER_NO) {
             const { status } = await postMberStplatInfoUpdate({
-                MBER_NO: originInfo.MBER_NO,
+                MBER_NO: detailState.origin.MBER_NO,
                 USE_STPLAT_AGRE_AT:
                     e.USE_STPLAT_AGRE_AT == 'Y' ? e.USE_STPLAT_AGRE_AT : 'N',
                 INDVDLINFO_AGRE_AT:
@@ -219,8 +215,8 @@ const MemberDetailTable = ({
             })
 
             if (status) {
-                if (originInfo.MBER_NO) {
-                    HandleGetInfo(originInfo.MBER_NO)
+                if (detailState.origin.MBER_NO) {
+                    HandleGetInfo(detailState.origin.MBER_NO)
                 }
                 handlMainAlert({
                     state: true,
@@ -317,10 +313,10 @@ const MemberDetailTable = ({
             },
         }))
 
-        if (originInfo.MBTLNUM && originInfo.MBER_NO) {
+        if (detailState.origin.MBTLNUM && detailState.origin.MBER_NO) {
             const { status } = await mberUnityUpdate({
-                mbtlnum: getOnlyNumber(originInfo.MBTLNUM),
-                mbrno: String(originInfo.MBER_NO),
+                mbtlnum: getOnlyNumber(detailState.origin.MBTLNUM),
+                mbrno: String(detailState.origin.MBER_NO),
             })
 
             if (status) {
@@ -329,7 +325,7 @@ const MemberDetailTable = ({
                     message:
                         Messages.Default.member.unityChange.unityUpdateSuccess,
                 })
-                HandleGetInfo(originInfo.MBER_NO)
+                HandleGetInfo(detailState.origin.MBER_NO)
             } else {
                 handlMainAlert({
                     state: true,
@@ -361,8 +357,8 @@ const MemberDetailTable = ({
                 text: null,
             },
         }))
-        if (originInfo.MBER_NO) {
-            HandleGetInfo(originInfo.MBER_NO)
+        if (detailState.origin.MBER_NO) {
+            HandleGetInfo(detailState.origin.MBER_NO)
         }
     }
 
@@ -441,7 +437,7 @@ const MemberDetailTable = ({
     useEffect(() => {
         // 휴대폰 번호 변경 되었는지 체크
         const funcCheckMbtlnum = () => {
-            if (detailState.detail.MBTLNUM !== originInfo.MBTLNUM) {
+            if (detailState.detail.MBTLNUM !== detailState.origin.MBTLNUM) {
                 setDetailState(prevState => ({
                     ...prevState,
                     detail: {
@@ -454,7 +450,7 @@ const MemberDetailTable = ({
                     ...prevState,
                     detail: {
                         ...prevState.detail,
-                        MBTLNUM_CRTFC_AT: originInfo.MBTLNUM_CRTFC_AT,
+                        MBTLNUM_CRTFC_AT: detailState.origin.MBTLNUM_CRTFC_AT,
                     },
                 }))
             }
@@ -463,8 +459,8 @@ const MemberDetailTable = ({
         funcCheckMbtlnum()
     }, [
         detailState.detail.MBTLNUM,
-        originInfo.MBTLNUM,
-        originInfo.MBTLNUM_CRTFC_AT,
+        detailState.origin.MBTLNUM,
+        detailState.origin.MBTLNUM_CRTFC_AT,
         setDetailState,
     ])
 
@@ -492,13 +488,13 @@ const MemberDetailTable = ({
         // 약관 동의 체크.
         const funcUseStplatAgreAt = () => {
             if (
-                originInfo.USE_STPLAT_AGRE_AT === 'Y' &&
-                originInfo.INDVDLINFO_AGRE_AT === 'Y' &&
-                originInfo.SNSTIIVEINFO_AGRE_AT === 'Y' &&
-                originInfo.INDVDLINFO_THIRD_AGRE_AT === 'Y' &&
-                originInfo.SNSTIIVEINFO_THIRD_AGRE_AT === 'Y' &&
-                originInfo.MARKTINFO_AGRE_AT === 'Y' &&
-                originInfo.MARKTINFO_PURPOSE_AGRE_AT === 'Y'
+                detailState.origin.USE_STPLAT_AGRE_AT === 'Y' &&
+                detailState.origin.INDVDLINFO_AGRE_AT === 'Y' &&
+                detailState.origin.SNSTIIVEINFO_AGRE_AT === 'Y' &&
+                detailState.origin.INDVDLINFO_THIRD_AGRE_AT === 'Y' &&
+                detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT === 'Y' &&
+                detailState.origin.MARKTINFO_AGRE_AT === 'Y' &&
+                detailState.origin.MARKTINFO_PURPOSE_AGRE_AT === 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -511,11 +507,11 @@ const MemberDetailTable = ({
             }
 
             if (
-                originInfo.USE_STPLAT_AGRE_AT !== 'Y' ||
-                originInfo.INDVDLINFO_AGRE_AT !== 'Y' ||
-                originInfo.SNSTIIVEINFO_AGRE_AT !== 'Y' ||
-                originInfo.INDVDLINFO_THIRD_AGRE_AT !== 'Y' ||
-                originInfo.SNSTIIVEINFO_THIRD_AGRE_AT !== 'Y'
+                detailState.origin.USE_STPLAT_AGRE_AT !== 'Y' ||
+                detailState.origin.INDVDLINFO_AGRE_AT !== 'Y' ||
+                detailState.origin.SNSTIIVEINFO_AGRE_AT !== 'Y' ||
+                detailState.origin.INDVDLINFO_THIRD_AGRE_AT !== 'Y' ||
+                detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT !== 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -528,8 +524,8 @@ const MemberDetailTable = ({
             }
 
             if (
-                originInfo.MARKTINFO_AGRE_AT !== 'Y' ||
-                originInfo.MARKTINFO_PURPOSE_AGRE_AT !== 'Y'
+                detailState.origin.MARKTINFO_AGRE_AT !== 'Y' ||
+                detailState.origin.MARKTINFO_PURPOSE_AGRE_AT !== 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -555,14 +551,14 @@ const MemberDetailTable = ({
         funcCheckMbtlnumCnt()
     }, [
         detailState,
-        originInfo.INDVDLINFO_AGRE_AT,
-        originInfo.INDVDLINFO_THIRD_AGRE_AT,
-        originInfo.MARKTINFO_AGRE_AT,
-        originInfo.MARKTINFO_PURPOSE_AGRE_AT,
-        originInfo.MBTLNUM,
-        originInfo.SNSTIIVEINFO_AGRE_AT,
-        originInfo.SNSTIIVEINFO_THIRD_AGRE_AT,
-        originInfo.USE_STPLAT_AGRE_AT,
+        detailState.origin.INDVDLINFO_AGRE_AT,
+        detailState.origin.INDVDLINFO_THIRD_AGRE_AT,
+        detailState.origin.MARKTINFO_AGRE_AT,
+        detailState.origin.MARKTINFO_PURPOSE_AGRE_AT,
+        detailState.origin.MBTLNUM,
+        detailState.origin.SNSTIIVEINFO_AGRE_AT,
+        detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT,
+        detailState.origin.USE_STPLAT_AGRE_AT,
     ])
 
     return (
@@ -1039,7 +1035,7 @@ const MemberDetailTable = ({
                         HandleClick={() => {
                             if (
                                 detailState.detail.MBTLNUM !==
-                                    originInfo.MBTLNUM &&
+                                    detailState.origin.MBTLNUM &&
                                 !detailState.phoneAuth
                             ) {
                                 setPageState(prevState => ({
@@ -1145,7 +1141,7 @@ const MemberDetailTable = ({
                 {/*캐쉬 모달*/}
                 {pageState.modal.totCash.state && (
                     <TotalCashModal
-                        MemberNo={Number(originInfo.MBER_NO)}
+                        MemberNo={Number(detailState.origin.MBER_NO)}
                         CancleButtonClick={() =>
                             setPageState(prevState => ({
                                 ...prevState,
@@ -1163,7 +1159,7 @@ const MemberDetailTable = ({
                 {/*내몸관리 지수 모달*/}
                 {pageState.modal.totalScore.state && (
                     <TotalScoreModal
-                        MemberNo={Number(originInfo.MBER_NO)}
+                        MemberNo={Number(detailState.origin.MBER_NO)}
                         CancleButtonClick={() =>
                             setPageState(prevState => ({
                                 ...prevState,
@@ -1201,7 +1197,7 @@ const MemberDetailTable = ({
                             if (pageState.addSelectPstinst.instNo !== null) {
                                 const { status } = await postInstPstinst({
                                     instNo: pageState.addSelectPstinst.instNo,
-                                    mberNo: Number(originInfo.MBER_NO),
+                                    mberNo: Number(detailState.origin.MBER_NO),
                                 })
                                 if (status) {
                                     handlMainAlert({
@@ -1210,8 +1206,10 @@ const MemberDetailTable = ({
                                             Messages.Default.member.pstinstAdd
                                                 .addSuccess,
                                     })
-                                    if (originInfo.MBER_NO) {
-                                        HandleGetInfo(originInfo.MBER_NO)
+                                    if (detailState.origin.MBER_NO) {
+                                        HandleGetInfo(
+                                            detailState.origin.MBER_NO
+                                        )
                                     }
                                 } else {
                                     handlMainAlert({
@@ -1362,7 +1360,9 @@ const MemberDetailTable = ({
                             ) {
                                 const { status } = await postMemberPstinstLeave(
                                     {
-                                        mbrNo: Number(originInfo.MBER_NO),
+                                        mbrNo: Number(
+                                            detailState.origin.MBER_NO
+                                        ),
                                         instNo: detailState.pstinstLeave
                                             .selectNo,
                                         leaveText:
@@ -1402,7 +1402,7 @@ const MemberDetailTable = ({
                             <PstinstLeaveModalContentBox>
                                 <PstinstLeaveModalContentMessage
                                     dangerouslySetInnerHTML={{
-                                        __html: `${originInfo.NM} ${Messages.Default.member.pstinstLeave.confirm}`,
+                                        __html: `${detailState.origin.NM} ${Messages.Default.member.pstinstLeave.confirm}`,
                                     }}></PstinstLeaveModalContentMessage>
                                 <VaryTextArea
                                     Rows={10}
@@ -1518,7 +1518,7 @@ const MemberDetailTable = ({
                         }}
                         ApplyButtonClick={async () => {
                             const { status } = await postPasswordReset({
-                                mbrno: Number(originInfo.MBER_NO),
+                                mbrno: Number(detailState.origin.MBER_NO),
                             })
                             if (status) {
                                 handlMainAlert({
@@ -1632,33 +1632,36 @@ const MemberDetailTable = ({
                 {pageState.modal.useStplatAgreAt && (
                     <StplatInfoAgreeModal
                         MemberStplatList={{
-                            USE_STPLAT_AGRE_AT: originInfo.USE_STPLAT_AGRE_AT
-                                ? originInfo.USE_STPLAT_AGRE_AT
+                            USE_STPLAT_AGRE_AT: detailState.origin
+                                .USE_STPLAT_AGRE_AT
+                                ? detailState.origin.USE_STPLAT_AGRE_AT
                                 : 'N',
 
-                            INDVDLINFO_AGRE_AT: originInfo.INDVDLINFO_AGRE_AT
-                                ? originInfo.INDVDLINFO_AGRE_AT
+                            INDVDLINFO_AGRE_AT: detailState.origin
+                                .INDVDLINFO_AGRE_AT
+                                ? detailState.origin.INDVDLINFO_AGRE_AT
                                 : 'N',
 
-                            SNSTIIVEINFO_AGRE_AT:
-                                originInfo.SNSTIIVEINFO_AGRE_AT
-                                    ? originInfo.SNSTIIVEINFO_AGRE_AT
-                                    : 'N',
-                            INDVDLINFO_THIRD_AGRE_AT:
-                                originInfo.INDVDLINFO_THIRD_AGRE_AT
-                                    ? originInfo.INDVDLINFO_THIRD_AGRE_AT
-                                    : 'N',
-                            SNSTIIVEINFO_THIRD_AGRE_AT:
-                                originInfo.SNSTIIVEINFO_THIRD_AGRE_AT
-                                    ? originInfo.SNSTIIVEINFO_THIRD_AGRE_AT
-                                    : 'N',
-                            MARKTINFO_AGRE_AT: originInfo.MARKTINFO_AGRE_AT
-                                ? originInfo.MARKTINFO_AGRE_AT
+                            SNSTIIVEINFO_AGRE_AT: detailState.origin
+                                .SNSTIIVEINFO_AGRE_AT
+                                ? detailState.origin.SNSTIIVEINFO_AGRE_AT
                                 : 'N',
-                            MARKTINFO_PURPOSE_AGRE_AT:
-                                originInfo.MARKTINFO_PURPOSE_AGRE_AT
-                                    ? originInfo.MARKTINFO_PURPOSE_AGRE_AT
-                                    : 'N',
+                            INDVDLINFO_THIRD_AGRE_AT: detailState.origin
+                                .INDVDLINFO_THIRD_AGRE_AT
+                                ? detailState.origin.INDVDLINFO_THIRD_AGRE_AT
+                                : 'N',
+                            SNSTIIVEINFO_THIRD_AGRE_AT: detailState.origin
+                                .SNSTIIVEINFO_THIRD_AGRE_AT
+                                ? detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT
+                                : 'N',
+                            MARKTINFO_AGRE_AT: detailState.origin
+                                .MARKTINFO_AGRE_AT
+                                ? detailState.origin.MARKTINFO_AGRE_AT
+                                : 'N',
+                            MARKTINFO_PURPOSE_AGRE_AT: detailState.origin
+                                .MARKTINFO_PURPOSE_AGRE_AT
+                                ? detailState.origin.MARKTINFO_PURPOSE_AGRE_AT
+                                : 'N',
                         }}
                         CancleButtonClick={() => {
                             setPageState(prevState => ({

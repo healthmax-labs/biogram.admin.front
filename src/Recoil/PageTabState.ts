@@ -1,16 +1,14 @@
-import { atom, selector } from 'recoil'
+import { atom } from 'recoil'
 import { TabInterface } from '@Type/CommonTypes'
 
 // atom page tab current
-export const AtomPageTabState = atom<TabInterface[]>({
+export const AtomPageTabState = atom<TabInterface>({
     key: `tab/TabState`,
-    default: [],
-})
-
-// select page tab
-export const SelectPageTabState = selector({
-    key: `tab/SelectTabState`,
-    get: ({ get }) => {
-        return get(AtomPageTabState)
+    default: {
+        list: [],
+        close: {
+            closeIndex: null,
+            recoilKey: null,
+        },
     },
 })

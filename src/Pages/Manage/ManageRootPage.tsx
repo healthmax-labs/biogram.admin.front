@@ -26,7 +26,7 @@ const ManageRootPage = () => {
     // recoil 텝 스테이트 변경 되었을때
     useEffect(() => {
         const funcSetActivePathName = () => {
-            const avticeTab = tabState.filter(el => el.active).shift()
+            const avticeTab = tabState.list.filter(el => el.active).shift()
             if (avticeTab) {
                 setActiveRoutePathName(avticeTab.routePath)
                 setPageTitle(avticeTab.name)
