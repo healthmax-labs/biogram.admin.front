@@ -74,6 +74,8 @@ export type StplatSeCodeType =
 // 이용약관 knd code
 export type StplatKndCodeType = 'II' | 'MI' | 'MP' | 'SI' | 'US' | 'IT' | 'ST'
 
+export type RecoilStateKeyNameType = 'memberPage/member-detail'
+
 export type BgColorType = `blueberry` | `eggplant` | `steel`
 export type InputBgColorType = `white` | `gray1` | `gray2`
 export type TextColorType = `gray` | `white`
@@ -85,12 +87,20 @@ export type ContentType = 'default' | 'search' | 'time'
 export type ButtonType = `button` | `info` | `manage` | `default`
 
 // page tab
-export interface TabInterface {
+export interface TabItemInterface {
     active: boolean
     name: string
     pathname: string
     component: string
     routePath: string
+}
+
+export interface TabInterface {
+    list: TabItemInterface[]
+    close: {
+        closeIndex: null | number
+        recoilKey: null | string
+    }
 }
 
 // router match

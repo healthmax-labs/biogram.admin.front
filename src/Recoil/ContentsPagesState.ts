@@ -9,7 +9,6 @@ import {
 import { gmtTimeToTimeObject } from '@Helper'
 
 const timeObject = gmtTimeToTimeObject(new Date())
-// console.debug(timeObject)
 
 // 매거진 리스트 조회
 interface MagazineSearchListInterface {
@@ -51,19 +50,17 @@ interface UhealthzoneDetailInterface {
     getInfo: UhealthZoneChargerInfoInterface | null
 }
 
-export const MagazineListState = atom<MagazineSearchListInterface>({
-    key: `contentsPage/magazine-list`,
-    default: {
-        status: 'idle',
-        search: {
-            CUR_PAGE: null,
-            SEARCH_KEY: null,
-        },
-        magazineList: {
-            MISN_MAGAZINE_LIST: [],
-        },
-    },
-})
+// 바이오그램 존 리스트 조회
+interface UhealthzoneSearchListInterface {
+    status: DefaultStatus
+    search: {
+        CUR_PAGE: string | null
+        search_Key: string | null
+    }
+    uhealthzoneList: {
+        UHEALTH_ZONE_LIST: UhealthZoneListItemInterface[]
+    }
+}
 
 // 매거진 상세
 export interface MagazineDetailStateInterface {
@@ -96,6 +93,20 @@ export interface MagazineDetailStateInterface {
         delete: boolean
     }
 }
+
+export const MagazineListState = atom<MagazineSearchListInterface>({
+    key: `contentsPage/magazine-list`,
+    default: {
+        status: 'idle',
+        search: {
+            CUR_PAGE: null,
+            SEARCH_KEY: null,
+        },
+        magazineList: {
+            MISN_MAGAZINE_LIST: [],
+        },
+    },
+})
 
 export const MagazineDetailState = atom<MagazineDetailStateInterface>({
     key: `contentsPage/magazine-detail`,
@@ -130,18 +141,6 @@ export const MagazineDetailState = atom<MagazineDetailStateInterface>({
         },
     },
 })
-
-// 바이오그램 존 리스트 조회
-interface UhealthzoneSearchListInterface {
-    status: DefaultStatus
-    search: {
-        CUR_PAGE: string | null
-        search_Key: string | null
-    }
-    uhealthzoneList: {
-        UHEALTH_ZONE_LIST: UhealthZoneListItemInterface[]
-    }
-}
 
 export const UhealthzoneListState = atom<UhealthzoneSearchListInterface>({
     key: `contentsPage/uhealthzone-list`,

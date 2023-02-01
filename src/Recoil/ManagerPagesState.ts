@@ -1,16 +1,16 @@
 import { atom } from 'recoil'
-import { NoticeListInterface } from '@Type/NoticeTypes'
+import {
+    NoticeListInterface,
+    StplatInfoHistListItemInterface,
+    StplatInfoInterface,
+    StplatListInterface,
+} from '@Type/MangerTypes'
 import {
     DefaultStatus,
     DefaultYesNo,
     StplatKndCodeType,
     StplatSeCodeType,
 } from '@CommonTypes'
-import {
-    StplatInfoHistListItemInterface,
-    StplatInfoInterface,
-    StplatListInterface,
-} from '@Type/MangerTypes'
 
 /**
  * manager 페이지.
@@ -94,7 +94,7 @@ interface NoticeSearchListInterface {
 }
 
 export const NoticeListState = atom<NoticeSearchListInterface>({
-    key: `statusPage/notice-list`,
+    key: `managerPage/notice-list`,
     default: {
         status: 'idle',
         search: {
@@ -148,5 +148,49 @@ export const StplatDetailState = atom<StplatDetailInterface>({
             history: null,
         },
         info: null,
+    },
+})
+
+//공지사항 상세
+export interface NoticeDetailStateInterface {
+    status: DefaultStatus
+    info: {
+        NOTICE_NO: null | string
+        NOTICE_SJ: null | string
+        REGIST_DT: null | string
+        REGIST_ID: null | string
+        NOTI_DT: null | string
+        NOTICE_CN: null | string
+        PUSH_AT: null | string
+        TRGET_SVC_CODE: null | string
+        TRGET_SVC_CODE_NM: null | string
+        USE_AT: null | string
+    }
+    modal: {
+        confirm: boolean
+        delete: boolean
+    }
+}
+
+export const NoticeDetailState = atom<NoticeDetailStateInterface>({
+    key: `managerPage/notice-detail`,
+    default: {
+        status: 'idle',
+        info: {
+            NOTICE_NO: null,
+            NOTICE_SJ: null,
+            REGIST_DT: null,
+            REGIST_ID: null,
+            NOTI_DT: null,
+            NOTICE_CN: null,
+            PUSH_AT: null,
+            TRGET_SVC_CODE: null,
+            TRGET_SVC_CODE_NM: null,
+            USE_AT: null,
+        },
+        modal: {
+            confirm: false,
+            delete: false,
+        },
     },
 })

@@ -25,24 +25,6 @@ interface BrftrCmprSearchListInterface {
     list: BrftrCmprListInterface
 }
 
-export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
-    key: `statusPage/brftr-cmpr-list`,
-    default: {
-        status: 'idle',
-        search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
-            BGNDE: getOneMonthAgo(),
-            ENDDE: getNowDate(),
-        },
-        list: {
-            MESURE_BRFTR_CMPR_INFO_LIST: [],
-            TOTAL_COUNT: 0,
-        },
-    },
-})
-
 //위험요인 현황
 interface RiskFctrSearchListInterface {
     status: DefaultStatus
@@ -57,6 +39,33 @@ interface RiskFctrSearchListInterface {
         TAKNG_MDCIN: string | null
     }
     list: RiskFctrListInterface
+}
+
+//기기측정 현황
+interface StatisticsSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH_KEY: string | null
+        BEGIN_DE: string
+        END_DE: string
+        MESURE_CODE: string | null
+    }
+    list: StatisticsListInterface
+}
+
+//활동량 현황
+interface ActivityWalkInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH: string | null
+        BEGIN_DE: string | null
+        END_DE: string | null
+    }
+    list: ActivityWalkListInterface
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
@@ -80,19 +89,23 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
     },
 })
 
-//기기측정 현황
-interface StatisticsSearchListInterface {
-    status: DefaultStatus
-    search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
-        BEGIN_DE: string
-        END_DE: string
-        MESURE_CODE: string | null
-    }
-    list: StatisticsListInterface
-}
+export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
+    key: `statusPage/brftr-cmpr-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            SEARCH_KEY: null,
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
+        },
+        list: {
+            MESURE_BRFTR_CMPR_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
 
 export const StatisticsListState = atom<StatisticsSearchListInterface>({
     key: `statusPage/statistics-list`,
@@ -112,19 +125,6 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
         },
     },
 })
-
-//활동량 현황
-interface ActivityWalkInterface {
-    status: DefaultStatus
-    search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH: string | null
-        BEGIN_DE: string | null
-        END_DE: string | null
-    }
-    list: ActivityWalkListInterface
-}
 
 export const ActivityWalkListState = atom<ActivityWalkInterface>({
     key: `statusPage/activity-walk-list`,

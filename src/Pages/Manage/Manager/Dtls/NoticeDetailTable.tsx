@@ -23,8 +23,8 @@ import { useMainLayouts } from '@Hooks'
 import Messages from '@Messages'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
-import { NoticeDetailState } from '@Recoil/NoticePagesState'
-import { NoticeItemInterface } from '@Type/NoticeTypes'
+import { NoticeDetailState } from '@Recoil/ManagerPagesState'
+import { NoticeItemInterface } from '@Type/MangerTypes'
 
 const {
     TableContainer,

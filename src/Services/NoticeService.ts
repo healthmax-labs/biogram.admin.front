@@ -1,6 +1,6 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { NoticeItemInterface, NoticeListItemInterface } from '@Type/NoticeTypes'
+import { NoticeItemInterface, NoticeListItemInterface } from '@Type/MangerTypes'
 
 /**
  * 게시판 리스트

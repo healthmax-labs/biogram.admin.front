@@ -51,7 +51,7 @@ interface InstDetailStateInterface {
 }
 
 export const InstJoinListState = atom<InstJoinSearchListInterface>({
-    key: `instPage/instJoinList`,
+    key: `instPage/inst-join-list`,
     default: {
         status: 'idle',
         search: {
