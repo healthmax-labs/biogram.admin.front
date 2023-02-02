@@ -1,12 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
+import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { VaryButton, AutoAlertModal } from '@Elements'
-import { useRecoilState } from 'recoil'
-import { getMemberAnalyticsList } from '@Service/AnalyticsService'
-import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
+import {
+    NonMeasureTableConfig,
+    NonMeasureTableListItemInterface,
+} from '@Common/TableConfig/Manage/Status'
+import { useRecoilValue } from 'recoil'
+import { NonMeasureListState } from '@Recoil/StatusPagesState'
+import { MainTable } from '@Elements'
+import { useNavigate } from 'react-router-dom'
 
-const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
+const { Container, RowWapper, ButtonBox } = ContentsStyle
 const initializeState = {
     modal: {
         autoAlert: {
@@ -16,10 +21,14 @@ const initializeState = {
     },
 }
 
+interface tableOption {
+    Loading: boolean
+    Options: OptionsInterface<NonMeasureTableListItemInterface>
+    Columns: Array<ColumnsInterface<NonMeasureTableListItemInterface>[]>
+    Lists: NonMeasureTableListItemInterface[]
+}
+
 const NonMeasureListTable = () => {
-    const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
-        MberAnalyticsListState
-    )
     const [pageState, setPageState] = useState<{
         modal: {
             autoAlert: {
@@ -29,98 +38,28 @@ const NonMeasureListTable = () => {
         }
     }>(initializeState)
 
-    const getTableList = useCallback(async () => {
-        const {
-            search: { /*SEARCH_KEY,*/ BGNDE, ENDDE, INST_NO /*, curPage */ },
-        } = mberAnalyticsListState
+    const navigate = useNavigate()
+    const listState = useRecoilValue(NonMeasureListState)
 
-        const { status, payload } = await getMemberAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+    const [tableOptions, setTableOptions] = useState<tableOption>(
+        NonMeasureTableConfig
+    )
+
+    const handleRowClick = (element: NonMeasureTableListItemInterface) => {
+        navigate({
+            pathname:
+                process.env.PUBLIC_URL +
+                `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
         })
-
-        if (status) {
-            setMberAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'success',
-                list: payload,
-            }))
-        } else {
-            setMberAnalyticsListState(prevState => ({
-                ...prevState,
-                status: 'failure',
-                list: null,
-            }))
-        }
-    }, [mberAnalyticsListState, setMberAnalyticsListState])
+    }
 
     useEffect(() => {
-        const pageStart = () => {
-            if (mberAnalyticsListState.status == 'idle') {
-                getTableList().then()
-            }
-        }
-        pageStart()
-    }, [getTableList, mberAnalyticsListState.status])
-
-    const cellMaker = (lineNum: number, title: string) => {
-        let cellHtml
-        if (
-            mberAnalyticsListState.status &&
-            mberAnalyticsListState.list !== null
-        ) {
-            const getAgeData =
-                mberAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
-            const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
-            const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
-            const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
-            const NEW_MBER_CNT = getAgeData.NEW_MBER_CNT
-            const NEW_WOMAN_CNT = getAgeData.NEW_WOMAN_CNT
-            const NEW_MAN_CNT = getAgeData.NEW_MAN_CNT
-            const DEL_MBER_CNT = getAgeData.DEL_MBER_CNT
-            const DLE_WOMAN_CNT = getAgeData.DLE_WOMAN_CNT
-            const DEL_MAN_CNT = getAgeData.DEL_MAN_CNT
-
-            cellHtml = (
-                <>
-                    <T.Cell>{title}</T.Cell>
-                    <T.Cell>{TOT_MBER_CNT}</T.Cell>
-                    <T.Cell>{TOT_MAN_CNT}</T.Cell>
-                    <T.Cell>{TOT_WOMAN_CNT}</T.Cell>
-                    <T.Cell>{NEW_MBER_CNT}</T.Cell>
-                    <T.Cell>{NEW_WOMAN_CNT}</T.Cell>
-                    <T.Cell>{NEW_MAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MBER_CNT}</T.Cell>
-                    <T.Cell>{DLE_WOMAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                    <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                </>
-            )
-        } else {
-            cellHtml = (
-                <>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                    <T.Cell>-</T.Cell>
-                </>
-            )
-        }
-
-        return cellHtml
-    }
+        setTableOptions(prevState => ({
+            ...prevState,
+            Loading: listState.status === 'loading',
+            Lists: listState.list.NOT_MESURE_NTCN_INFO_LIST,
+        }))
+    }, [listState.list.NOT_MESURE_NTCN_INFO_LIST, listState.status])
 
     return (
         <Container>
@@ -142,35 +81,7 @@ const NonMeasureListTable = () => {
                         }
                     />
                 </ButtonBox>
-                <TableBox>
-                    <T.Table>
-                        <T.Thead>
-                            <T.TheadRow>
-                                <T.TheadCell>이름</T.TheadCell>
-                                <T.TheadCell>성별</T.TheadCell>
-                                <T.TheadCell>생년월일</T.TheadCell>
-                                <T.TheadCell>휴대폰번호</T.TheadCell>
-                                <T.TheadCell>아이디</T.TheadCell>
-                                <T.TheadCell>혈압</T.TheadCell>
-                                <T.TheadCell>혈당</T.TheadCell>
-                                <T.TheadCell>콜레스테롤</T.TheadCell>
-                                <T.TheadCell>당화혈색소</T.TheadCell>
-                                <T.TheadCell>체성분</T.TheadCell>
-                                <T.TheadCell>스트레스</T.TheadCell>
-                                <T.TheadCell>뇌기능검사</T.TheadCell>
-                            </T.TheadRow>
-                        </T.Thead>
-                        <T.Body>
-                            <T.Row>{cellMaker(0, '10대 이하')}</T.Row>
-                            <T.Row>{cellMaker(1, '20대')}</T.Row>
-                            <T.Row>{cellMaker(2, '30대')}</T.Row>
-                            <T.Row>{cellMaker(3, '40대')}</T.Row>
-                            <T.Row>{cellMaker(4, '50대')}</T.Row>
-                            <T.Row>{cellMaker(5, '60대')}</T.Row>
-                            <T.Row>{cellMaker(6, '70대 이상')}</T.Row>
-                        </T.Body>
-                    </T.Table>
-                </TableBox>
+                <MainTable {...tableOptions} RowClick={handleRowClick} />
             </RowWapper>
             {pageState.modal.autoAlert.state && (
                 <AutoAlertModal

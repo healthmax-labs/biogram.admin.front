@@ -1,5 +1,5 @@
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { gmtTimeToTimeObject } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
     PstinstSelector,
     // VaryButton,
@@ -9,18 +9,28 @@ import {
     DefaultSearchButton,
 } from '@Elements'
 
+import { useRecoilState } from 'recoil'
+import { NonMeasureListState } from '@Recoil/StatusPagesState'
+import { isNull } from 'lodash'
+
 const {
     SearchItemWapper,
     SearchLabel,
     RowContainer,
     SearchRowWapper,
     SearchItemRow,
-    DatepickerLine,
     SearchItem,
     RightSearchButton,
 } = SearchBoxStyle
 
-const NonMeasureSearchBox = () => {
+const NonMeasureSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [nonMeasureListState, setNonMeasureListState] =
+        useRecoilState(NonMeasureListState)
+
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -31,15 +41,21 @@ const NonMeasureSearchBox = () => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
-                                    console.debug(instNo, instNm)
+                                HandleSelectValue={({ instNo }) =>
+                                    setNonMeasureListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            INST_NO: String(instNo),
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`검색어`} />
+                            <VaryLabel LabelName={`검색어 `} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryInput
@@ -47,38 +63,42 @@ const NonMeasureSearchBox = () => {
                                 Width={'w40'}
                                 HandleOnChange={e => console.debug(e)}
                                 id={'id'}
-                                Placeholder={'검색어'}
+                                Placeholder={'검색어 입력'}
                                 Value={
-                                    'sch api연결'
-                                    // isNull(instJoinListState.search.SEARCH_KEY)
-                                    //     ? ''
-                                    //     : instJoinListState.search.SEARCH_KEY
+                                    isNull(
+                                        nonMeasureListState.search.SEARCH_KEY
+                                    )
+                                        ? ''
+                                        : nonMeasureListState.search.SEARCH_KEY
                                 }
                             />
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`측정일자`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    nonMeasureListState.search.MESURE_DT
+                                        ? changeDatePickerDate(
+                                              nonMeasureListState.search
+                                                  .MESURE_DT
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={new Date()}
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setNonMeasureListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            MESURE_DT: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>
@@ -86,9 +106,7 @@ const NonMeasureSearchBox = () => {
                 </SearchItemRow>
             </SearchRowWapper>
             <RightSearchButton Item={'end'}>
-                <DefaultSearchButton
-                    ButtonClick={() => console.log('api 연결')}
-                />
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>
     )

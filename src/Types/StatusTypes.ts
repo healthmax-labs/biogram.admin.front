@@ -40,7 +40,7 @@ export interface RiskFctrListItemInterface {
     NM: string
 }
 
-//위험요인 현황
+//위험요인 현황 리스트
 export interface RiskFctrListInterface {
     RISK_FCTR_INFO_LIST: RiskFctrListItemInterface[]
     TOTAL_COUNT: number
@@ -94,7 +94,7 @@ export interface BrftrCmprListItemInterface {
     HDLC_MESURE_DT_3: null | string
 }
 
-//전후비교 현황
+//전후비교 현황 리스트
 export interface BrftrCmprListInterface {
     MESURE_BRFTR_CMPR_INFO_LIST: BrftrCmprListItemInterface[]
     TOTAL_COUNT: number
@@ -137,7 +137,7 @@ export interface StatisticsListItemInterface {
     BDHEAT: null | string
     ODR: number
 }
-//기기측정 현황
+//기기측정 현황 리스트
 export interface StatisticsListInterface {
     DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
     TOTAL_COUNT: number
@@ -159,8 +159,30 @@ export interface ActivityWalkListItemInterface {
     AVG_HR: null | string
 }
 
-//전후비교 현황
+//활동량 현황 리스트
 export interface ActivityWalkListInterface {
     ACTIVITY_STATE_LIST: ActivityWalkListItemInterface[]
     TOTAL_COUNT: number
+}
+
+//미측정 현황
+export interface NonMeasureListItemInterface {
+    MBER_NO: string
+    NM: string
+    BRTHDY: string
+    SEXDSTN: string
+    MBTLNUM: string
+    USID: string
+    BP_N_MESURE: string
+    BS_N_MESURE: string
+    BC_N_MESURE: string
+    HA_N_MESURE: string
+    IS_N_MESURE: string
+    SR_N_MESURE: string
+    SB_N_MESURE: string
+}
+
+//미측정 현황 리스트
+export interface NonMeasureListInterface {
+    NOT_MESURE_NTCN_INFO_LIST: NonMeasureListItemInterface[]
 }

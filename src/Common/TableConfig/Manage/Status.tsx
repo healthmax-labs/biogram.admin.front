@@ -957,3 +957,99 @@ export const ActivityWalkTableConfig = {
     ],
     Lists: [],
 }
+
+// 미측정 현황 테이블 데이터
+export interface NonMeasureTableListItemInterface {
+    MBER_NO: string
+    NM: string
+    BRTHDY: string
+    SEXDSTN: string
+    MBTLNUM: string
+    USID: string
+    BP_N_MESURE: string
+    BS_N_MESURE: string
+    BC_N_MESURE: string
+    HA_N_MESURE: string
+    IS_N_MESURE: string
+    SR_N_MESURE: string
+    SB_N_MESURE: string
+}
+
+//미측정 현황 테이블 설정.
+export const NonMeasureTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `회원정보`,
+                rowSpan: 1,
+                colSpan: 6,
+            },
+            {
+                name: `측정정보`,
+                rowSpan: 1,
+                colSpan: 7,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `회원명`,
+                key: `NM`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+            },
+            {
+                name: `성별`,
+                key: `SEXDSTN`,
+            },
+            {
+                name: `전화번호`,
+                key: `MBTLNUM`,
+            },
+            {
+                name: `아이디`,
+                key: `USID`,
+            },
+            {
+                name: `혈압`,
+                key: `BP_N_MESURE`,
+            },
+            {
+                name: `혈당`,
+                key: `BS_N_MESURE`,
+            },
+            {
+                name: `콜레스테롤`,
+                key: `BC_N_MESURE`,
+            },
+            {
+                name: `당화혈색소`,
+                key: `HA_N_MESURE`,
+            },
+            {
+                name: `체성분`,
+                key: `IS_N_MESURE`,
+            },
+            {
+                name: `스트레스`,
+                key: `SR_N_MESURE`,
+            },
+            {
+                name: `뇌기능검사`,
+                key: `SB_N_MESURE`,
+            },
+        ],
+    ],
+    Lists: [],
+}
