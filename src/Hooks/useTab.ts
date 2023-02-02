@@ -21,7 +21,7 @@ export default function useTab() {
     // 텝 삭제.
     const handleDeleteTab = (index: number) => {
         const indexInfo = tabState.list[index]
-        const findInfo = _.find(Routers, { pathName: indexInfo.routePath })
+        const findInfo = _.find(Routers.Main, { pathName: indexInfo.routePath })
 
         const newList = tabState.list.filter((el, i) => i !== index)
         const lastElement = newList.slice(-1).pop()
@@ -49,7 +49,7 @@ export default function useTab() {
     // 라우터 변경시 텝 세팅
     useEffect(() => {
         const routerMatchs = matchRoutes(
-            Routers.map(el => {
+            Routers.Main.map(el => {
                 return {
                     path: el.pathName,
                 }

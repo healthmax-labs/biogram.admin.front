@@ -3,7 +3,7 @@ import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { VaryInput, VaryLabel } from '@Elements'
 import ConsultDetailTableTab from './ConsultDetailTableTab'
 import { useParams } from 'react-router-dom'
-import Const from '@Const'
+import Routers from '@Routers'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailState } from '@Recoil/MemberPagesState'
 import { useEffect, useState } from 'react'
@@ -46,11 +46,11 @@ const ConsultDetailTable = () => {
             return <></>
         }
 
-        const chIndex = Const.ConsultTabs.findIndex(
+        const chIndex = Routers.ConsultTabs.findIndex(
             el => el.category === category
         )
 
-        const TabPageComponent = Const.ConsultTabs[chIndex].Component
+        const TabPageComponent = Routers.ConsultTabs[chIndex].Component
         return <TabPageComponent />
     }
 

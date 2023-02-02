@@ -16,10 +16,10 @@ const ManageRootPage = () => {
 
     // 텝에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
-        const chIndex = Routers.findIndex(
+        const chIndex = Routers.Main.findIndex(
             el => el.pathName === activeRoutePathName
         )
-        const TabPageComponent = Routers[chIndex].Component
+        const TabPageComponent = Routers.Main[chIndex].Component
         return <TabPageComponent />
     }
 

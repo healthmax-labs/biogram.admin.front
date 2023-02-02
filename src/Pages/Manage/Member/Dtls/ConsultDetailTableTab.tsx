@@ -1,13 +1,13 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Const from '@Const'
+import Routers from '@Routers'
 import { useTab } from '@Hook/index'
 
 const { Tabs } = ConsultDetailStyle
 
 const initializeState = {
-    Tab: Const.ConsultTabs,
+    Tab: Routers.ConsultTabs,
 }
 
 const ConsultDetailTableTab = () => {

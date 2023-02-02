@@ -63,14 +63,16 @@ export default function useAuth() {
                 menuInfo: {
                     CHARGER_MENU_INFO: CHARGER_MENU_INFO,
                     AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
-                        const ckIndex = Routers.findIndex(
+                        const ckIndex = Routers.Main.findIndex(
                             rt => rt.menuCode === el.MENU_CODE
                         )
 
                         return {
                             ...el,
                             pathName:
-                                ckIndex > -1 ? Routers[ckIndex].pathName : '',
+                                ckIndex > -1
+                                    ? Routers.Main[ckIndex].pathName
+                                    : '',
                             MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
                         }
                     }),
