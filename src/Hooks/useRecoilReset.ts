@@ -157,8 +157,9 @@ export default function useRecoilReset() {
             'managerPage/stplat-list': () => StplatListStateReset(),
             'managerPage/stplat-detail': () => StplatDetailStateReset(),
             'statusPage/notice-list': () => NoticeListStateReset(),
-            'managerPage/notice-detail': () =>
-                console.debug('managerPage/notice-detail'), // FIXME: 공지사항 recoil 개발 필요.
+            'managerPage/notice-detail': () => {
+                //
+            }, // FIXME: 공지사항 recoil 개발 필요.
             default: () => {
                 //
             },
