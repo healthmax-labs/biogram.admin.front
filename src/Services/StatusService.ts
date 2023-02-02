@@ -4,6 +4,7 @@ import { BrftrCmprListItemInterface } from '@Type/StatusTypes'
 import { RiskFctrListItemInterface } from '@Type/StatusTypes'
 import { StatisticsListItemInterface } from '@Type/StatusTypes'
 import { ActivityWalkListItemInterface } from '@Type/StatusTypes'
+import { NonMeasureListItemInterface } from '@Type/StatusTypes'
 
 /**
  * 전후비교 현황 리스트
@@ -149,6 +150,62 @@ export function getActivityWalkList({
             SEARCH,
             BEGIN_DE,
             END_DE,
+        },
+    })
+}
+
+/**
+ * 미측정 현황 리스트
+ */
+export function getNonMeasureList({
+    INST_NO,
+    MESURE_DT,
+    BP_NTCN_AT,
+    BS_NTCN_AT,
+    BC_NTCN_AT,
+    HA_NTCN_AT,
+    IS_NTCN_AT,
+    SR_NTCN_AT,
+    SB_NTCN_AT,
+    AND_AT,
+    cur_page,
+    SEARCH_KEY,
+}: {
+    INST_NO: string | null
+    MESURE_DT: string
+    BP_NTCN_AT: string
+    BS_NTCN_AT: string
+    BC_NTCN_AT: string
+    HA_NTCN_AT: string
+    IS_NTCN_AT: string
+    SR_NTCN_AT: string
+    SB_NTCN_AT: string
+    AND_AT: string
+    cur_page: number
+    SEARCH_KEY: string | null
+}): Promise<
+    ServicesDefaultResult<{
+        CUR_PAGE: number
+        NOT_MESURE_NTCN_INFO_LIST: NonMeasureListItemInterface[]
+        TOTAL_COUNT: number
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/mng/gndn/v1/not_mesure/ntcn/' + cur_page,
+        payload: {
+            INST_NO,
+            MESURE_DT,
+            BP_NTCN_AT,
+            BS_NTCN_AT,
+            BC_NTCN_AT,
+            HA_NTCN_AT,
+            IS_NTCN_AT,
+            SR_NTCN_AT,
+            SB_NTCN_AT,
+            AND_AT,
+            SEARCH_KEY,
+            NOT_MESURE_NTCN_INFO_LIST: [],
         },
     })
 }

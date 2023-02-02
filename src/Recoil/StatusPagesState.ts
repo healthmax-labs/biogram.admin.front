@@ -5,6 +5,7 @@ import {
     BrftrCmprListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
+    NonMeasureListInterface,
 } from '@Type/StatusTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -140,6 +141,50 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
         list: {
             ACTIVITY_STATE_LIST: [],
             TOTAL_COUNT: 0,
+        },
+    },
+})
+
+//미측정 현황
+interface NonMeasureSearchListInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string | null
+        MESURE_DT: string
+        BP_NTCN_AT: string //(Y: 미측정 조회, N: 미측정 조회 않함)
+        BS_NTCN_AT: string
+        BC_NTCN_AT: string
+        HA_NTCN_AT: string
+        IS_NTCN_AT: string
+        SR_NTCN_AT: string
+        SB_NTCN_AT: string
+        AND_AT: string //(Y: AND 조회, N: OR 조회)
+        cur_page: number
+        SEARCH_KEY: string | null
+    }
+    list: NonMeasureListInterface
+}
+
+export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
+    key: `statusPage/non-measure-list`,
+    default: {
+        status: 'idle',
+        search: {
+            INST_NO: null,
+            MESURE_DT: getNowDate(),
+            BP_NTCN_AT: 'Y', //(Y: 미측정 조회, N: 미측정 조회 않함)
+            BS_NTCN_AT: 'Y',
+            BC_NTCN_AT: 'Y',
+            HA_NTCN_AT: 'Y',
+            IS_NTCN_AT: 'Y',
+            SR_NTCN_AT: 'Y',
+            SB_NTCN_AT: 'Y',
+            AND_AT: 'Y', //(Y: AND 조회, N: OR 조회)
+            cur_page: 0,
+            SEARCH_KEY: '',
+        },
+        list: {
+            NOT_MESURE_NTCN_INFO_LIST: [],
         },
     },
 })
