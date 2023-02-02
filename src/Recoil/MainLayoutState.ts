@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil'
+import { atom } from 'recoil'
 import { MainLayoutThemeType } from '@CommonTypes'
 
 // atop post current
@@ -22,20 +22,5 @@ export const AtomMainLayoutState = atom<{
         },
         SiteTitle: `바이오그램 어드민`,
         Theme: ``,
-    },
-})
-
-// select post
-export const SelectMainLayoutState = selector({
-    key: `layout/SelectLayoutState`,
-    get: ({ get }) => {
-        const { leftMenuShow, alertModel, OutletLoading } =
-            get(AtomMainLayoutState)
-
-        return {
-            leftMenuShow,
-            alertModel,
-            OutletLoading,
-        }
     },
 })

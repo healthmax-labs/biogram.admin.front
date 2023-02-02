@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil'
+import { atom } from 'recoil'
 import { AppRootStateInterface } from '@CommonTypes'
 // atom app root state current
 export const AtomRootState = atom<AppRootStateInterface>({
@@ -7,6 +7,7 @@ export const AtomRootState = atom<AppRootStateInterface>({
         init: false,
         uuid: ``,
         login: false,
+        attemptLogout: false,
         Geolocation: {
             IPv4: ``,
             city: ``,
@@ -43,20 +44,5 @@ export const AtomRootState = atom<AppRootStateInterface>({
             },
             AUTHOR_MENU_INFO_LIST: [],
         },
-    },
-})
-
-// select app root state
-export const SelectRootState = selector({
-    key: `app/SelectRootState`,
-    get: ({ get }) => {
-        const { uuid, Geolocation, ConHistory, userinfo } = get(AtomRootState)
-
-        return {
-            uuid,
-            Geolocation,
-            ConHistory,
-            userinfo,
-        }
     },
 })

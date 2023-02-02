@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { MenuLogo, SamsungLogoImage } from '@Assets'
 import { SidebarStyle } from '@Style/Layouts/Manage/MainStyles'
 import { useRecoilValue } from 'recoil'
-import { SelectMainLayoutState } from '@Recoil/MainLayoutState'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { MenuItemInterface } from '@CommonTypes'
@@ -24,7 +23,6 @@ const {
 const Sidebar = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    const leftMenuShowStatus = useRecoilValue(SelectMainLayoutState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const {
         menuInfo: { AUTHOR_MENU_INFO_LIST },
@@ -60,7 +58,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <Nav MenuState={leftMenuShowStatus.leftMenuShow}>
+            <Nav MenuState={mainLayoutState.leftMenuShow}>
                 <Container>
                     {/* Toggler */}
                     {/* Brand */}

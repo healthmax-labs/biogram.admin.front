@@ -232,11 +232,11 @@ const LoginForm = () => {
                             }
                         })()}
                     </LogoBox>
-                    <FormBox>
+                    <FormBox onSubmit={e => e.preventDefault()}>
                         <FormRow>
                             <Label htmlFor="email">아이디</Label>
                             <InputId
-                                type="email"
+                                type="text"
                                 name="usid"
                                 value={pageState.loginInfo.usid}
                                 onChange={e => handleInputChange(e)}
@@ -250,6 +250,7 @@ const LoginForm = () => {
                                     ref={inputPasswordRef}
                                     type="password"
                                     name="pass"
+                                    autoComplete="off"
                                     value={pageState.loginInfo.pass}
                                     onChange={e => handleInputChange(e)}
                                     onKeyUp={e => onEnter(e)}

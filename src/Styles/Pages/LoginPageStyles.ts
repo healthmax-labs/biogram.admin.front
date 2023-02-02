@@ -10,7 +10,7 @@ export const LoginPageStyle = {
     ]),
     Wapper: tw.section`m-auto w-full rounded bg-white p-6 shadow-lg max-w-md`,
     LogoBox: tw.div`grid place-items-center`,
-    FormBox: tw.div`mt-6`,
+    FormBox: tw.form`mt-6`,
     FormRow: tw.div`mt-4`,
     InputRow: tw.div`mt-6`,
     ErrorRow: tw.div`mt-0 text-center`,

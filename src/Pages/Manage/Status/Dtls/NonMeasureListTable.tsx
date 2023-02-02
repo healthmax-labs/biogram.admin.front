@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
+import { AutoAlertModal, MainTable, VaryButton } from '@Elements'
+import { useRecoilValue } from 'recoil'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
-import { VaryButton, AutoAlertModal } from '@Elements'
 import {
     NonMeasureTableConfig,
     NonMeasureTableListItemInterface,
 } from '@Common/TableConfig/Manage/Status'
-import { useRecoilValue } from 'recoil'
 import { NonMeasureListState } from '@Recoil/StatusPagesState'
-import { MainTable } from '@Elements'
 import { useNavigate } from 'react-router-dom'
 
 const { Container, RowWapper, ButtonBox } = ContentsStyle
@@ -97,8 +96,8 @@ const NonMeasureListTable = () => {
                             },
                         }))
                     }}
-                    CallBackResturn={e => {
-                        console.log(e)
+                    CallBackResturn={() => {
+                        //
                     }}
                 />
             )}

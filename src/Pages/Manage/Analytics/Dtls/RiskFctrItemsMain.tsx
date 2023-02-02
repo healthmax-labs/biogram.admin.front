@@ -44,7 +44,6 @@ const RiskFctrItemsMain = () => {
                 list: null,
             }))
         }
-        console.log(riskFctrItemsAnalyticsListState)
     }, [riskFctrItemsAnalyticsListState, setRiskFctrItemsAnalyticsListState])
 
     useEffect(() => {
