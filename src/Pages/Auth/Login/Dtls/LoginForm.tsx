@@ -74,6 +74,7 @@ const LoginForm = () => {
     }
 
     const handleLogin = async () => {
+        console.debug('handleLogin')
         if (isEmpty(pageState.loginInfo.usid)) {
             setPageState(prevState => ({
                 ...prevState,
@@ -119,7 +120,8 @@ const LoginForm = () => {
 
     // 로그인 버튼 클릭.
     const handleClickLoginButton = () => {
-        handleLogin().then()
+        console.debug('handleClickLoginButton')
+        // handleLogin().then()
     }
 
     // 엔터 이벤트 처리.
@@ -245,7 +247,7 @@ const LoginForm = () => {
                         </FormRow>
                         <FormRow>
                             <InputRow>
-                                <Label htmlFor="password">비밀번호</Label>
+                                <Label htmlFor="pass">비밀번호</Label>
                                 <InputPassword
                                     ref={inputPasswordRef}
                                     type="password"
@@ -263,7 +265,7 @@ const LoginForm = () => {
                                     </ErrorMessage>
                                 </ErrorRow>
                             )}
-                            <InputRow className="mt-6">
+                            <InputRow>
                                 <LoginButton
                                     onClick={() => handleClickLoginButton()}>
                                     로그인
