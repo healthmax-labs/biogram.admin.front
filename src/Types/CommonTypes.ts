@@ -228,6 +228,7 @@ export interface AppRootStateInterface {
     init: boolean
     uuid: string
     login: boolean
+    attemptLogout: boolean
     Geolocation: GeolocationDbInterface
     ConHistory: ConHistoryInterface[]
     logininfo: LoginTokenInterface

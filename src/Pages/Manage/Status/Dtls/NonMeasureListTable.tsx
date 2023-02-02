@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, AutoAlertModal } from '@Elements'
+import { AutoAlertModal, VaryButton } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { getMemberAnalyticsList } from '@Service/AnalyticsService'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
@@ -186,8 +186,8 @@ const NonMeasureListTable = () => {
                             },
                         }))
                     }}
-                    CallBackResturn={e => {
-                        console.log(e)
+                    CallBackResturn={() => {
+                        //
                     }}
                 />
             )}

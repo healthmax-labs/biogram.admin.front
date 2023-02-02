@@ -44,7 +44,6 @@ const MemberMain = () => {
                 list: null,
             }))
         }
-        console.log(mberAnalyticsListState)
     }, [mberAnalyticsListState, setMberAnalyticsListState])
 
     useEffect(() => {

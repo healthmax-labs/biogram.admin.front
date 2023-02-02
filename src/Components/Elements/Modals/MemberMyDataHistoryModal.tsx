@@ -22,7 +22,7 @@ import {
     postDataMesureInfoManualUpdate,
 } from '@Service/MemberService'
 import { useRecoilValue } from 'recoil'
-import { SelectRootState } from '@Recoil/AppRootState'
+import { AtomRootState } from '@Recoil/AppRootState'
 import { useMainLayouts } from '@Hook/index'
 
 const {
@@ -63,7 +63,7 @@ const MemberMyDataHistoryModal = ({
 }) => {
     const { handlMainAlert } = useMainLayouts()
 
-    const { userinfo } = useRecoilValue(SelectRootState)
+    const { userinfo } = useRecoilValue(AtomRootState)
     const [pageState, setPageState] = useState<{
         loading: boolean
         search: {

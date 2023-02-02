@@ -20,7 +20,6 @@ import Routers from '@Routers'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
-
     const handleLoginCheck = (): boolean => {
         return (
             appRootState.login &&
@@ -128,6 +127,7 @@ export default function useAuth() {
 
             setAppRootState(prevState => ({
                 ...prevState,
+                attemptLogout: false,
                 logininfo: {
                     TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
                     VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
@@ -170,13 +170,18 @@ export default function useAuth() {
     }
 
     // 로그아웃 처리.
-    const handleAttemptLogout = async (): Promise<{ status: boolean }> => {
+    const handleAttemptLogout = async ({
+        attemptLogout,
+    }: {
+        attemptLogout: boolean
+    }): Promise<{ status: boolean }> => {
         await removeLoginToken()
         await removeLoginExpirein()
 
         setAppRootState(prevState => ({
             ...prevState,
             login: false,
+            attemptLogout: attemptLogout,
             logininfo: {
                 TOKEN_INFO: null,
                 VTOKEN_INFO: null,

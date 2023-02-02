@@ -15,7 +15,7 @@ import Codes from '@Codes'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { useRecoilValue } from 'recoil'
-import { SelectRootState } from '@Recoil/AppRootState'
+import { AtomRootState } from '@Recoil/AppRootState'
 import { useMainLayouts } from '@Hook/index'
 import { postDataMesureInfoManual } from '@Service/MemberService'
 
@@ -56,7 +56,7 @@ const MemberMyDataInputModal = ({
     CancleButtonClick: () => void
 }) => {
     const { handlMainAlert } = useMainLayouts()
-    const { userinfo } = useRecoilValue(SelectRootState)
+    const { userinfo } = useRecoilValue(AtomRootState)
     const [pageState, setPageState] = useState<{
         loading: boolean
         input: {

@@ -1,5 +1,7 @@
 import { RecoilStateKeyNameType } from '@CommonTypes'
 import { useResetRecoilState } from 'recoil'
+import Const from '@Const'
+import _ from 'lodash'
 import {
     ConsultDetailState,
     ConsultListState,
@@ -37,6 +39,7 @@ import {
     StplatDetailState,
     StplatListState,
 } from '@Recoil/ManagerPagesState'
+import { AtomPageTabState } from '@Recoil/PageTabState'
 
 export default function useRecoilReset() {
     const MemberDetailStateReset = useResetRecoilState(MemberDetailState) // 회원상세
@@ -90,6 +93,8 @@ export default function useRecoilReset() {
     const StplatListStateReset = useResetRecoilState(StplatListState) // 이용 약관 관리
     const StplatDetailStateReset = useResetRecoilState(StplatDetailState) // 이용 약관 관리 상세
     const NoticeListStateReset = useResetRecoilState(NoticeListState) // 게시판 관리
+
+    const AtomPageTabStateREset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
     const resetTask = (recoilKey: RecoilStateKeyNameType): void => {
         const recoilState: {
@@ -153,7 +158,7 @@ export default function useRecoilReset() {
             'managerPage/stplat-detail': () => StplatDetailStateReset(),
             'statusPage/notice-list': () => NoticeListStateReset(),
             'managerPage/notice-detail': () =>
-                console.debug('managerPage/notice-detail'),
+                console.debug('managerPage/notice-detail'), // FIXME: 공지사항 recoil 개발 필요.
             default: () => {
                 //
             },
@@ -165,7 +170,16 @@ export default function useRecoilReset() {
         resetTask(recoilKey)
     }
 
+    const fullRecoilReset = () => {
+        _.forEach(Const.pageUseRecoilKeyName, e => {
+            resetTask(e as RecoilStateKeyNameType)
+        })
+
+        AtomPageTabStateREset()
+    }
+
     return {
+        fullRecoilReset,
         recoilReset,
     }
 }
