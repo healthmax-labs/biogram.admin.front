@@ -6,7 +6,7 @@ import {
     MsgBookTableListItemInterface,
 } from '@Common/TableConfig/Manage/Member'
 import { useRecoilValue } from 'recoil'
-import { MsgBookListState } from '@Recoil/MsgPagesState'
+import { MsgBookListState } from '@Recoil/MemberPagesState'
 
 interface tableOption {
     Loading: boolean

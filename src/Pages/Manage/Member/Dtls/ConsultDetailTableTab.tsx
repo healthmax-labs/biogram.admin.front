@@ -28,8 +28,9 @@ const ConsultDetailTableTab = () => {
         active: boolean
     }) => {
         // 메인 텝 상태도 변경 해준다.
-        setUseTabState(
-            tabState.map(tab => {
+        setUseTabState(prevState => ({
+            ...prevState,
+            list: tabState.list.map(tab => {
                 if (
                     tab.routePath ===
                     '/manage/member/consult-detail/:memNo/:category'
@@ -41,8 +42,8 @@ const ConsultDetailTableTab = () => {
                 }
 
                 return tab
-            })
-        )
+            }),
+        }))
         navigate({
             pathname:
                 process.env.PUBLIC_URL +

@@ -10,7 +10,7 @@ import {
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
-import { MsgBookListState } from '@Recoil/MsgPagesState'
+import { MsgBookListState } from '@Recoil/MemberPagesState'
 
 const {
     SearchItemWapper,
@@ -137,10 +137,8 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 <VaryLabelRadioButton
                                     LabelName="발송일시"
                                     Checked={
-                                        !!(
-                                            msgSendListState.search
-                                                .SNDNG_STDR === 'S'
-                                        )
+                                        msgSendListState.search.SNDNG_STDR ===
+                                        'S'
                                     }
                                     HandleOnChange={e =>
                                         setMsgSendListState(prevState => ({
@@ -157,10 +155,8 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 <VaryLabelRadioButton
                                     LabelName="작성일시"
                                     Checked={
-                                        !!(
-                                            msgSendListState.search
-                                                .SNDNG_STDR === ''
-                                        )
+                                        msgSendListState.search.SNDNG_STDR ===
+                                        ''
                                     }
                                     HandleOnChange={e =>
                                         setMsgSendListState(prevState => ({

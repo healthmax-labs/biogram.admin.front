@@ -2,12 +2,13 @@ import { useRecoilState } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { matchRoutes, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { TabInterface } from '@Type/CommonTypes'
+import { TabItemInterface } from '@Type/CommonTypes'
 import Routers from '@Routers'
 import { getPathNameToMenuInfo } from '@Helper'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
 import Const from '@Const'
+import _ from 'lodash'
 
 export default function useTab() {
     const locationState = useLocation()
@@ -19,15 +20,30 @@ export default function useTab() {
 
     // 텝 삭제.
     const handleDeleteTab = (index: number) => {
-        const newList = tabState.filter((el, i) => i !== index)
+        const indexInfo = tabState.list[index]
+        const findInfo = _.find(Routers, { pathName: indexInfo.routePath })
+
+        const newList = tabState.list.filter((el, i) => i !== index)
         const lastElement = newList.slice(-1).pop()
-        setUseTabState(newList)
+        setUseTabState(prevState => ({
+            ...prevState,
+            list: newList,
+            close: {
+                closeIndex: index,
+                recoilKey: findInfo?.recooilKey ? findInfo.recooilKey : null,
+            },
+        }))
 
         if (lastElement) {
             navigate({
                 pathname: process.env.PUBLIC_URL + lastElement.pathname,
             })
+            return
         }
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
+        })
     }
 
     // 라우터 변경시 텝 세팅
@@ -46,11 +62,11 @@ export default function useTab() {
             routerPathName: string
         ) => {
             // 현재 있는 텝인지 체크.
-            const chIdex = tabState.findIndex(
+            const chIdex = tabState.list.findIndex(
                 el => el.routePath === routerPathName
             )
 
-            const newTabList: TabInterface[] = tabState.map(el => {
+            const newTabList: TabItemInterface[] = tabState.list.map(el => {
                 return {
                     ...el,
                     active: false,
@@ -59,8 +75,9 @@ export default function useTab() {
 
             // 현재 있는 텝이면 활성화.
             if (chIdex > -1) {
-                setUseTabState(
-                    newTabList.map((el, index) => {
+                setUseTabState(prevState => ({
+                    ...prevState,
+                    list: newTabList.map((el, index) => {
                         if (index === chIdex) {
                             return {
                                 ...el,
@@ -69,8 +86,8 @@ export default function useTab() {
                         }
 
                         return el
-                    })
-                )
+                    }),
+                }))
 
                 return false
             }
@@ -88,16 +105,19 @@ export default function useTab() {
 
             const menuName = getPathNameToMenuInfo(routerPathName)
 
-            setUseTabState([
-                ...newTabList,
-                {
-                    active: true,
-                    name: !menuName ? '존재 하지 않는 메뉴' : menuName,
-                    pathname: thisLocationPathName,
-                    routePath: routerPathName,
-                    component: 'component',
-                },
-            ])
+            setUseTabState(prevState => ({
+                ...prevState,
+                list: [
+                    ...newTabList,
+                    {
+                        active: true,
+                        name: !menuName ? '존재 하지 않는 메뉴' : menuName,
+                        pathname: thisLocationPathName,
+                        routePath: routerPathName,
+                        component: 'component',
+                    },
+                ],
+            }))
         }
 
         if (!routerMatchs) {
@@ -107,7 +127,7 @@ export default function useTab() {
         const routerMatchResult = routerMatchs[0]
 
         if (
-            tabState.findIndex(
+            tabState.list.findIndex(
                 el => el.active && el.pathname === locationState.pathname
             ) > -1
         ) {

@@ -6,7 +6,7 @@ import {
     MsgSendTableListItemInterface,
 } from '@Common/TableConfig/Manage/Member'
 import { useRecoilValue } from 'recoil'
-import { MsgSendListState } from '@Recoil/MsgPagesState'
+import { MsgSendListState } from '@Recoil/MemberPagesState'
 
 interface tableOption {
     Loading: boolean

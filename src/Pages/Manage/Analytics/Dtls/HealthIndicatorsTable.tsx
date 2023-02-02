@@ -1,7 +1,7 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
@@ -15,9 +15,7 @@ const {
 } = ContentsStyle
 
 const HealthIndicatorsTable = () => {
-    // eslint-disable-next-line
-    const [imprvmAnalyticsListState, setImprvmAnalyticsListState] =
-        useRecoilState(ImprvmAnalyticsListState)
+    const imprvmAnalyticsListState = useRecoilValue(ImprvmAnalyticsListState)
 
     const cellMaker = (
         lineNum: number,

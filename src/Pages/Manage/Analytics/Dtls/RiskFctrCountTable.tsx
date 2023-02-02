@@ -1,7 +1,7 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { RiskFctrCountAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
@@ -15,11 +15,9 @@ const {
 } = ContentsStyle
 
 const RiskFctrCountTable = () => {
-    const [
-        riskFctrCountAnalyticsListState,
-        // eslint-disable-next-line
-        setRiskFctrCountAnalyticsListState,
-    ] = useRecoilState(RiskFctrCountAnalyticsListState)
+    const riskFctrCountAnalyticsListState = useRecoilValue(
+        RiskFctrCountAnalyticsListState
+    )
 
     const cellMaker = (
         lineNum: number,

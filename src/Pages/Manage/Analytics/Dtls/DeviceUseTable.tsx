@@ -1,7 +1,6 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
-
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { DeviceAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
 const {
@@ -15,9 +14,7 @@ const {
 } = ContentsStyle
 
 const DeviceUseTable = () => {
-    // eslint-disable-next-line
-    const [deviceAnalyticsListState, setDeviceAnalyticsListState] =
-        useRecoilState(DeviceAnalyticsListState)
+    const deviceAnalyticsListState = useRecoilValue(DeviceAnalyticsListState)
 
     const cellMaker = (
         lineNum: number,
