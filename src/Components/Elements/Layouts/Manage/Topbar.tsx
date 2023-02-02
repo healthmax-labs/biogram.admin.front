@@ -86,9 +86,7 @@ const Topbar = () => {
 
     // 로그아웃 버튼 클릭 처리.
     const handleLogoutButtonClick = useCallback(async () => {
-        console.debug('logout button click')
         handleLogout({ attemptLogout: true }).then(() => {
-            console.debug('logout then...')
             navigate({
                 pathname: process.env.PUBLIC_URL + `/auth/login`,
             })
@@ -152,7 +150,6 @@ const Topbar = () => {
             const time = getRemainingTime()
 
             if (!time) {
-                console.debug('!time')
                 handleLogout({ attemptLogout: true }).then(() => {
                     navigate({
                         pathname: process.env.PUBLIC_URL + `/auth/login`,

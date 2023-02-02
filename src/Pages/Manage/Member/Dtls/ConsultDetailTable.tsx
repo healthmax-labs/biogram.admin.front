@@ -88,7 +88,9 @@ const ConsultDetailTable = () => {
                             <InputCell>
                                 <VaryInput
                                     Width={'w60'}
-                                    HandleOnChange={e => console.debug(e)}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                     id={'id'}
                                     Placeholder={'이름'}
                                     Value={pageState.info.NM}
@@ -101,7 +103,9 @@ const ConsultDetailTable = () => {
                             <InputCell>
                                 <VaryInput
                                     Width={'w60'}
-                                    HandleOnChange={e => console.debug(e)}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                     id={'id'}
                                     Placeholder={'핸드폰번호'}
                                     Value={pageState.info.MBTLNUM}
@@ -116,7 +120,9 @@ const ConsultDetailTable = () => {
                             <InputCell>
                                 <VaryInput
                                     Width={'w60'}
-                                    HandleOnChange={e => console.debug(e)}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                     id={'id'}
                                     Placeholder={'성별'}
                                     Value={pageState.info.SEXDSTN}
@@ -129,7 +135,9 @@ const ConsultDetailTable = () => {
                             <InputCell>
                                 <VaryInput
                                     Width={'w60'}
-                                    HandleOnChange={e => console.debug(e)}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                     id={'id'}
                                     Placeholder={'생년월일'}
                                     Value={pageState.info.BRTHDY}

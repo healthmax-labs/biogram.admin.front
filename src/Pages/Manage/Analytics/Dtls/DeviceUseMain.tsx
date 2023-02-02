@@ -42,7 +42,6 @@ const DeviceUseMain = () => {
                 list: null,
             }))
         }
-        console.log(deviceAnalyticsListState)
     }, [deviceAnalyticsListState, setDeviceAnalyticsListState])
 
     useEffect(() => {

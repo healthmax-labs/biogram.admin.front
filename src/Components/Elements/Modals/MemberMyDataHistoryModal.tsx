@@ -189,14 +189,6 @@ const MemberMyDataHistoryModal = ({
         funcSetState()
     }, [DataCode, MemberNo, handleGetList])
 
-    // useEffect(() => {
-    //     console.debug(pageState)
-    // }, [pageState])
-    //
-    // useEffect(() => {
-    //     console.debug(chageItem)
-    // }, [chageItem])
-
     return (
         <>
             <VaryModal

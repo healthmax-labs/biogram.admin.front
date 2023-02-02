@@ -1,12 +1,11 @@
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
-    PstinstSelector,
-    // VaryButton,
-    VaryInput,
-    VaryDatepickerInput,
-    VaryLabel,
     DefaultSearchButton,
+    PstinstSelector,
+    VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
 } from '@Elements'
 
 import { useRecoilState } from 'recoil'
@@ -61,7 +60,9 @@ const NonMeasureSearchBox = ({
                             <VaryInput
                                 ContentsType={`search`}
                                 Width={'w40'}
-                                HandleOnChange={e => console.debug(e)}
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 id={'id'}
                                 Placeholder={'검색어 입력'}
                                 Value={

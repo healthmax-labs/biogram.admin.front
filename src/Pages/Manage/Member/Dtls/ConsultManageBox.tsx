@@ -10,17 +10,23 @@ const ConsultListMain = () => {
             <Buttons>
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'메세지 보내기'}
                 />
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'앱 푸시 보내기'}
                 />
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'엑셀 내려받기'}
                 />
             </Buttons>

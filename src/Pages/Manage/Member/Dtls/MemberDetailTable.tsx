@@ -620,12 +620,9 @@ const MemberDetailTable = ({
                         <InputCell>
                             <VaryInput
                                 Width={'w60'}
-                                HandleOnChange={e =>
-                                    console.debug(
-                                        'HandleOnChange',
-                                        e.target.value
-                                    )
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 id={'id'}
                                 Placeholder={'회원번호'}
                                 Value={
@@ -814,9 +811,9 @@ const MemberDetailTable = ({
                             <VaryInput
                                 Width={'w60'}
                                 InputType={'text'}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 id={'id'}
                                 Placeholder={'가입일자'}
                                 Value={
@@ -834,9 +831,9 @@ const MemberDetailTable = ({
                             <VaryInput
                                 Width={'w60'}
                                 InputType={'text'}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 id={'id'}
                                 Placeholder={'아이디'}
                                 Value={
