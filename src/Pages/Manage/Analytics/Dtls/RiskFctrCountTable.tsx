@@ -199,7 +199,9 @@ const RiskFctrCountTable = () => {
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName="엑셀다운로드"
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() => {
+                            //
+                        }}
                     />
                 </ButtonBox>
                 <TableBox>
@@ -267,7 +269,9 @@ const RiskFctrCountTable = () => {
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName="엑셀다운로드"
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() => {
+                            //
+                        }}
                     />
                 </ButtonBox>
                 <TableBox>

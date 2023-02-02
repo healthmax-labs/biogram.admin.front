@@ -224,18 +224,6 @@ const MemberMyDataInputModal = ({
         }
     }
 
-    // useEffect(() => {
-    //     const funcSetState = () => {
-    //         // console.debug(Codes.myData, MemberNo)
-    //     }
-    //
-    //     funcSetState()
-    // }, [MemberNo])
-
-    // useEffect(() => {
-    //     console.debug(pageState.input)
-    // }, [pageState])
-
     return (
         <>
             <VaryModal

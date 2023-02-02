@@ -138,8 +138,6 @@ const SiGunSelectBox = ({
                         },
                     }))
                 )
-            } else {
-                // console.debug('null!!!!')
             }
         }
 

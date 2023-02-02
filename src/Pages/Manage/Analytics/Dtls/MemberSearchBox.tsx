@@ -1,11 +1,11 @@
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
+    DefaultSearchButton,
     PstinstSelector,
     VaryButton,
     VaryDatepickerInput,
     VaryLabel,
     VaryLabelCheckBox,
-    DefaultSearchButton,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
@@ -107,30 +107,30 @@ const MemberSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ButtonType={`button`}
                                 ButtonName="1개월"
                                 Active={true}
-                                HandleClick={() =>
-                                    console.debug('HandleClick 1개월')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="3개월"
-                                HandleClick={() =>
-                                    console.debug('HandleClick 3개월')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="6개월"
-                                HandleClick={() =>
-                                    console.debug('HandleClick 6개월')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="1년"
-                                HandleClick={() =>
-                                    console.debug('HandleClick 1년')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                         </SearchItemGap>
                     </SearchItemWapper>
@@ -144,65 +144,65 @@ const MemberSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 전체')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`전체`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 10대이하')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`10대이하`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 20대')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`20대`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 30대')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`30대`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 40대')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`40대`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 50대')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`50대`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 60대')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`60대`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={() =>
-                                    console.debug('HandleOnChange 70대 이상')
-                                }
+                                HandleOnChange={() => {
+                                    //
+                                }}
                                 LabelName={`70대 이상`}
                             />
                         </SearchItemGap>
@@ -216,23 +216,23 @@ const MemberSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 ButtonType={`button`}
                                 ButtonName="1일"
                                 Active={true}
-                                HandleClick={() =>
-                                    console.debug('HandleClick 1일')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="1주"
-                                HandleClick={() =>
-                                    console.debug('HandleClick 1주')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                             <VaryButton
                                 ButtonType={`button`}
                                 ButtonName="1개월"
-                                HandleClick={() =>
-                                    console.debug('HandleClick 1개월')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                             />
                         </SearchItemGap>
                     </SearchItemWapper>

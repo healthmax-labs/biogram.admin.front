@@ -24,7 +24,9 @@ const InstListManageBox = () => {
                 />
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'엑셀내려받기'}
                 />
             </Buttons>

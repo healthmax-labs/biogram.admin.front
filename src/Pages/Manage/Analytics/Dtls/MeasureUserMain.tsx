@@ -42,7 +42,6 @@ const MeasureUserMain = () => {
                 list: null,
             }))
         }
-        console.log(mesureAnalyticsListState)
     }, [mesureAnalyticsListState, setMesureAnalyticsListState])
 
     useEffect(() => {

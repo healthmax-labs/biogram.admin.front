@@ -10,7 +10,9 @@ const ManageBox = () => {
             <Buttons>
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'메세지 발송'}
                 />
             </Buttons>

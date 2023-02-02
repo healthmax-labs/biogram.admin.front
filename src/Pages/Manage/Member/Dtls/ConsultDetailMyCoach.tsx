@@ -94,9 +94,9 @@ const ConsultDetailMyCoach = () => {
                         <Detail.MyCoach.SearchItem>
                             <VaryButton
                                 ButtonType={'default'}
-                                HandleClick={() =>
-                                    console.debug('DefaultManageButton')
-                                }
+                                HandleClick={() => {
+                                    //
+                                }}
                                 ButtonName={'조회'}
                             />
                         </Detail.MyCoach.SearchItem>

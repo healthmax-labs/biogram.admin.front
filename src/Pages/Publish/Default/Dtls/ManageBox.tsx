@@ -49,17 +49,23 @@ export default function ManageBox() {
                 />
                 <VaryButton
                     ButtonType={`manage`}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'모달4'}
                 />
                 <VaryButton
                     ButtonType={`manage`}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'모달5'}
                 />
                 <VaryButton
                     ButtonType={`manage`}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'모달6'}
                 />
             </Buttons>
@@ -72,7 +78,9 @@ export default function ManageBox() {
             )}
             {showStep2Modal && (
                 <PhoneAuthModal
-                    HandleSuccess={() => console.debug('HandleSuccess')}
+                    HandleSuccess={() => {
+                        //
+                    }}
                     PhoneNumber={`010-1234-1234`}
                     CancleButtonClick={() => handleStep2ModalCancle()}
                 />
