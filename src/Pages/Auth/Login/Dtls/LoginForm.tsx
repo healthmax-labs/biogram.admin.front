@@ -74,7 +74,6 @@ const LoginForm = () => {
     }
 
     const handleLogin = async () => {
-        console.debug('handleLogin')
         if (isEmpty(pageState.loginInfo.usid)) {
             setPageState(prevState => ({
                 ...prevState,
@@ -120,8 +119,7 @@ const LoginForm = () => {
 
     // 로그인 버튼 클릭.
     const handleClickLoginButton = () => {
-        console.debug('handleClickLoginButton')
-        // handleLogin().then()
+        handleLogin().then()
     }
 
     // 엔터 이벤트 처리.
