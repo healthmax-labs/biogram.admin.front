@@ -103,6 +103,7 @@ export function getDeviceAnalyticsList({
 > {
     return _Axios_({
         method: 'post',
+        // url: '/stat/v1/device_use', //cros에러
         url: '/mng/stat/v1/device_use',
         payload: {
             INST_NO,

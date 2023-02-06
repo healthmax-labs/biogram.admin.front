@@ -1053,3 +1053,98 @@ export const NonMeasureTableConfig = {
     ],
     Lists: [],
 }
+
+export interface HealthIndicatorsTableListItemInterface {
+    CNT: number | null
+    MBER_NO: number
+    BP_SCORE: number | null
+    TG_SCORE: number | null
+    WAIST_SCORE: number | null
+    CALC_DE: string | null
+    BRTHDY: string | null
+    SEXDSTN: string | null
+    MBTLNUM: string | null
+    HDLC_SCORE: number | null
+    FBS_SCORE: number | null
+    USID: string | null
+    NM: string | null
+}
+
+//건강지표 현황 테이블 설정.
+export const HealthIndicatorsTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `회원정보`,
+                rowSpan: 1,
+                colSpan: 6,
+            },
+            {
+                name: `측정정보`,
+                rowSpan: 1,
+                colSpan: 7,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `회원명`,
+                key: `NM`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+            },
+            {
+                name: `아이디`,
+                key: `USID`,
+            },
+            {
+                name: `전화번호`,
+                key: `MBTLNUM`,
+            },
+            {
+                name: `성별`,
+                key: `SEXDSTN`,
+            },
+            {
+                name: `계산일자`,
+                key: `CALC_DE`,
+            },
+            {
+                name: `전체건수`,
+                key: `CNT`,
+            },
+            {
+                name: `허리둘레`,
+                key: `WAIST_SCORE`,
+            },
+            {
+                name: `혈압`,
+                key: `BP_SCORE`,
+            },
+            {
+                name: `식전혈당`,
+                key: `FBS_SCORE`,
+            },
+            {
+                name: `중성지방`,
+                key: `TG_SCORE`,
+            },
+            {
+                name: `HDLC`,
+                key: `HDLC_SCORE`,
+            },
+        ],
+    ],
+    Lists: [],
+}

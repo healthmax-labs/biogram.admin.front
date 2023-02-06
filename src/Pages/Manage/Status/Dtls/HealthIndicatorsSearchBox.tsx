@@ -9,6 +9,11 @@ import {
     DefaultSearchButton,
 } from '@Elements'
 
+import { useRecoilState } from 'recoil'
+import { HealthIndicatorsListState } from '@Recoil/StatusPagesState'
+import { isNull } from 'lodash'
+import { changeDatePickerDate } from '@Helper'
+
 const {
     SearchItemWapper,
     SearchLabel,
@@ -20,7 +25,14 @@ const {
     RightSearchButton,
 } = SearchBoxStyle
 
-const NonMeasureSearchBox = () => {
+const HealthIndicatorsSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [healthIndicatorsListState, setHealthIndicatorsListState] =
+        useRecoilState(HealthIndicatorsListState)
+
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -31,8 +43,14 @@ const NonMeasureSearchBox = () => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
-                                    console.debug(instNo, instNm)
+                                HandleSelectValue={({ instNo }) =>
+                                    setHealthIndicatorsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            INST_NO: String(instNo),
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
@@ -45,14 +63,25 @@ const NonMeasureSearchBox = () => {
                             <VaryInput
                                 ContentsType={`search`}
                                 Width={'w40'}
-                                HandleOnChange={e => console.debug(e)}
                                 id={'id'}
                                 Placeholder={'검색어'}
                                 Value={
-                                    'sch api연결'
-                                    // isNull(instJoinListState.search.SEARCH_KEY)
-                                    //     ? ''
-                                    //     : instJoinListState.search.SEARCH_KEY
+                                    isNull(
+                                        healthIndicatorsListState.search
+                                            .SEARCH_KEY
+                                    )
+                                        ? ''
+                                        : healthIndicatorsListState.search
+                                              .SEARCH_KEY
+                                }
+                                HandleOnChange={e =>
+                                    setHealthIndicatorsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            SEARCH_KEY: e.target.value,
+                                        },
+                                    }))
                                 }
                             />
                         </SearchItem>
@@ -64,21 +93,47 @@ const NonMeasureSearchBox = () => {
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    healthIndicatorsListState.search.BGNDE
+                                        ? changeDatePickerDate(
+                                              healthIndicatorsListState.search
+                                                  .BGNDE
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setHealthIndicatorsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            BGNDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
+                                Value={
+                                    healthIndicatorsListState.search.ENDDE
+                                        ? changeDatePickerDate(
+                                              healthIndicatorsListState.search
+                                                  .ENDDE
+                                          )
+                                        : new Date()
+                                }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    console.debug(year, monthPad, dayPad)
+                                    setHealthIndicatorsListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            ENDDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>
@@ -86,7 +141,7 @@ const NonMeasureSearchBox = () => {
 
                     <RightSearchButton Item={'end'}>
                         <DefaultSearchButton
-                            ButtonClick={() => console.log('api 연결')}
+                            ButtonClick={() => HandleGetList()}
                         />
                     </RightSearchButton>
                 </SearchItemRow>
@@ -95,4 +150,4 @@ const NonMeasureSearchBox = () => {
     )
 }
 
-export default NonMeasureSearchBox
+export default HealthIndicatorsSearchBox
