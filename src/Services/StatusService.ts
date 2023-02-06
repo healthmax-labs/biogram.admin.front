@@ -5,6 +5,7 @@ import { RiskFctrListItemInterface } from '@Type/StatusTypes'
 import { StatisticsListItemInterface } from '@Type/StatusTypes'
 import { ActivityWalkListItemInterface } from '@Type/StatusTypes'
 import { NonMeasureListItemInterface } from '@Type/StatusTypes'
+import { HealthIndicatorsListItemInterface } from '@Type/StatusTypes'
 
 /**
  * 전후비교 현황 리스트
@@ -206,6 +207,40 @@ export function getNonMeasureList({
             AND_AT,
             SEARCH_KEY,
             NOT_MESURE_NTCN_INFO_LIST: [],
+        },
+    })
+}
+
+/**
+ * 건강개선지표 현황 리스트
+ */
+export function getHealthIndicatorsList({
+    CUR_PAGE,
+    INST_NO,
+    SEARCH_KEY,
+    BGNDE,
+    ENDDE,
+}: {
+    CUR_PAGE: number
+    INST_NO: string
+    SEARCH_KEY: string
+    BGNDE: string
+    ENDDE: string
+}): Promise<
+    ServicesDefaultResult<{
+        CUR_PAGE: number
+        MYBODY_SCORE_IMPRVM_INFO_LIST: HealthIndicatorsListItemInterface[]
+        TOTAL_COUNT: number
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/mng/gndn/v1/mybody_score/imprvm/' + CUR_PAGE,
+        payload: {
+            INST_NO,
+            SEARCH_KEY,
+            BGNDE,
+            ENDDE,
         },
     })
 }

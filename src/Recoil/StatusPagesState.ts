@@ -6,6 +6,7 @@ import {
     RiskFctrListInterface,
     StatisticsListInterface,
     NonMeasureListInterface,
+    HealthIndicatorsListInterface,
 } from '@Type/StatusTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -188,3 +189,35 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
         },
     },
 })
+
+//건강지표개선 현황
+interface HealthIndicatorsSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        SEARCH_KEY: string | null
+        BGNDE: string | null
+        ENDDE: string | null
+    }
+    list: HealthIndicatorsListInterface
+}
+
+export const HealthIndicatorsListState =
+    atom<HealthIndicatorsSearchListInterface>({
+        key: `statusPage/healthIndicators-list`,
+        default: {
+            status: 'idle',
+            search: {
+                curPage: null,
+                INST_NO: null,
+                SEARCH_KEY: null,
+                BGNDE: getOneMonthAgo(),
+                ENDDE: getNowDate(),
+            },
+            list: {
+                MYBODY_SCORE_IMPRVM_INFO_LIST: [],
+                TOTAL_COUNT: 0,
+            },
+        },
+    })

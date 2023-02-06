@@ -186,3 +186,26 @@ export interface NonMeasureListItemInterface {
 export interface NonMeasureListInterface {
     NOT_MESURE_NTCN_INFO_LIST: NonMeasureListItemInterface[]
 }
+
+//건강지표개선 현황
+export interface HealthIndicatorsListItemInterface {
+    CNT: number | null
+    MBER_NO: number
+    BP_SCORE: number | null
+    TG_SCORE: number | null
+    WAIST_SCORE: number | null
+    CALC_DE: string | null
+    BRTHDY: string | null
+    SEXDSTN: string | null
+    MBTLNUM: string | null
+    HDLC_SCORE: number | null
+    FBS_SCORE: number | null
+    USID: string | null
+    NM: string | null
+}
+
+//건강지표개선 현황 리스트
+export interface HealthIndicatorsListInterface {
+    MYBODY_SCORE_IMPRVM_INFO_LIST: HealthIndicatorsListItemInterface[]
+    TOTAL_COUNT: number
+}
