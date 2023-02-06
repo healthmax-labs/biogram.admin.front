@@ -10,7 +10,7 @@ import {
 import { useRecoilState } from 'recoil'
 import { HealthIndicatorsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
-import { changeDatePickerDate } from '@Helper'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 
 const {
     SearchItemWapper,
