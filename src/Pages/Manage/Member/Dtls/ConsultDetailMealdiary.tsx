@@ -4,7 +4,6 @@ import {
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import { gmtTimeToTimeObject } from '@Helper'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import Slider from 'react-slick'
 
@@ -54,9 +53,8 @@ const ConsultDetailMealdiary = () => {
                     <Search.SearchItem>
                         <VaryLabel LabelName={`날짜`} LabelWidth={'w10'} />
                         <VaryDatepickerInput
-                            CallBackReturn={e => {
-                                const dateObj = gmtTimeToTimeObject(e)
-                                console.debug(dateObj)
+                            CallBackReturn={() => {
+                                //
                             }}
                         />
                     </Search.SearchItem>
@@ -64,9 +62,9 @@ const ConsultDetailMealdiary = () => {
                         <VaryButton
                             ButtonType={'default'}
                             ButtonName={'조회'}
-                            HandleClick={() =>
-                                console.debug('DefaultManageButton')
-                            }
+                            HandleClick={() => {
+                                //
+                            }}
                         />
                     </Search.SearchItem>
                 </Search.SearchBox>
@@ -138,7 +136,9 @@ const ConsultDetailMealdiary = () => {
                                         Checked={false}
                                         TextColor={`white`}
                                         LabelReverse={true}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/05 (토)'}
                                     />
                                 </STable.TheadCellItem>
@@ -149,7 +149,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/06 (일)'}
                                     />
                                 </STable.TheadCellItem>
@@ -160,7 +162,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/07 (월)'}
                                     />
                                 </STable.TheadCellItem>
@@ -171,7 +175,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/08 (화)'}
                                     />
                                 </STable.TheadCellItem>
@@ -182,7 +188,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/09 (수)'}
                                     />
                                 </STable.TheadCellItem>
@@ -193,7 +201,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/10 (목)'}
                                     />
                                 </STable.TheadCellItem>
@@ -204,7 +214,9 @@ const ConsultDetailMealdiary = () => {
                                         LabelReverse={true}
                                         TextColor={`white`}
                                         Checked={false}
-                                        HandleOnChange={() => console.debug(1)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         LabelName={'11/11 (금)'}
                                     />
                                 </STable.TheadCellItem>
@@ -1089,33 +1101,45 @@ const ConsultDetailMealdiary = () => {
                     <History.ButtonBox>
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`아침`}
                             Active={true}
                         />
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`오전간식`}
                         />
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`점심`}
                         />
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`오후간식`}
                         />
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`저녁`}
                         />
                         <VaryButton
                             ButtonType={`button`}
-                            HandleClick={() => console.debug()}
+                            HandleClick={() => {
+                                //
+                            }}
                             ButtonName={`야식`}
                         />
                     </History.ButtonBox>

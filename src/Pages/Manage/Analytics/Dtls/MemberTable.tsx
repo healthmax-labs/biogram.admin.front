@@ -2,27 +2,8 @@
 // import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
-// import {
-//     MemberAgeTableConfig,
-//     MemberAgeTableListItemInterface,
-//     MemberPeriodTableConfig,
-//     MemberPeriodTableListItemInterface,
-// } from '@Common/TableConfig/Manage/Analytics'
 import { useRecoilValue } from 'recoil'
 import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-
-// interface tableAgeOption {
-//     Loading: boolean
-//     Options: OptionsInterface<MemberAgeTableListItemInterface>
-//     Columns: Array<ColumnsInterface<MemberAgeTableListItemInterface>[]>
-//     Lists: MemberAgeTableListItemInterface[]
-// }
-// interface tablePeriodOption {
-//     Loading: boolean
-//     Options: OptionsInterface<MemberPeriodTableListItemInterface>
-//     Columns: Array<ColumnsInterface<MemberPeriodTableListItemInterface>[]>
-//     Lists: MemberPeriodTableListItemInterface[]
-// }
 
 const {
     Container,
@@ -144,33 +125,6 @@ const MemberTable = () => {
         return cellHtml
     }
 
-    // const listState = useRecoilValue(MberAnalyticsListState)
-
-    // const [tableAgeOptions, setTableAgeOptions] =
-    //     useState<tableAgeOption>(MemberAgeTableConfig)
-
-    // const [tablePeriodOptions, setTablePeriodOptions] =
-    //     useState<tablePeriodOption>(MemberPeriodTableConfig)
-
-    // useEffect(() => {
-    //     if (listState.list !== null) {
-    //         setTableAgeOptions(prevState => ({
-    //             ...prevState,
-    //             Loading: listState.status === 'loading',
-    //             Lists: listState.list ? listState.list.AGE_GROUP_STAT_LIST : [],
-    //         }))
-
-    //         setTablePeriodOptions(prevState => ({
-    //             ...prevState,
-    //             Loading: listState.status === 'loading',
-    //             Lists: listState.list ? listState.list.PERIOD_STAT_LIST : [],
-    //         }))
-    //     }
-    // }, [listState.list, listState.status])
-
-    // const laterFnc = () => {
-    //     console.log('later fnc')
-    // }
     return (
         <Container>
             <RowWapper>
@@ -182,7 +136,9 @@ const MemberTable = () => {
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName="엑셀다운로드"
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() => {
+                            //
+                        }}
                     />
                 </ButtonBox>
                 <TableBox>
@@ -245,7 +201,9 @@ const MemberTable = () => {
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName="엑셀다운로드"
-                        HandleClick={() => console.debug('HandleClick')}
+                        HandleClick={() => {
+                            //
+                        }}
                     />
                 </ButtonBox>
                 <TableBox>
@@ -278,25 +236,8 @@ const MemberTable = () => {
                             </T.TheadRow>
                         </T.Thead>
                         <T.Body>{cellMaker(0, 'PERIOD', '', 2, '기간')}</T.Body>
-                        {/* <T.TFoot>
-                            <T.TFootRow>
-                                <T.TFootCell colSpan={2}>
-                                    합계
-                                </T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                            </T.TFootRow>   //불요영역 주석처리
-                        </T.TFoot> */}
                     </T.Table>
                 </TableBox>
-                {/* <MainTable {...tablePeriodOptions} RowClick={laterFnc} /> */}
             </RowWapper>
         </Container>
     )

@@ -18,7 +18,7 @@ const RootRoutes = () => {
                         path="/publish/default/default-list"
                         element={<DefaultListPage />}
                     />
-                    {Routers.map((el, index) => {
+                    {Routers.Main.map((el, index) => {
                         return (
                             <Route
                                 key={index}

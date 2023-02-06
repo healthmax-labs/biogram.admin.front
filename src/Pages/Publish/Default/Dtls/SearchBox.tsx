@@ -21,14 +21,7 @@ const {
 } = SearchBoxStyle
 
 export default function SearchBox() {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
+    const handlePstinstSelect = ({}: { instNo: number; instNm: string }) => {
         //
     }
     return (
@@ -86,7 +79,9 @@ export default function SearchBox() {
             <Relative>
                 <SearchButtonBox>
                     <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
+                        ButtonClick={() => {
+                            //
+                        }}
                     />
                 </SearchButtonBox>
             </Relative>

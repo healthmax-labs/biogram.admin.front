@@ -131,10 +131,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             payload.REGIST_ID = null
             payload.TRGET_SVC_CODE = TRGET_SVC_CODE
         }
-        // else if (pageMode === 'modify') {
-        //     console.log('modi!!')
-        // }
-
         let serviceStatus: boolean
 
         if (pageMode === 'modify' && params.NOTICE_NO) {
@@ -470,7 +466,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 confirm: false,
                             },
                         }))
-                        console.log(detailState)
                         handleClickApplyButton()
                     }}
                 />

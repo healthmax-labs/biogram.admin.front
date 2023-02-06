@@ -10,7 +10,9 @@ const ManageBox = () => {
             <Buttons>
                 <VaryButton
                     ButtonType={`manage`}
-                    HandleClick={() => console.debug('DefaultManageButton')}
+                    HandleClick={() => {
+                        //
+                    }}
                     ButtonName={'엑셀 다운로드'}
                 />
             </Buttons>

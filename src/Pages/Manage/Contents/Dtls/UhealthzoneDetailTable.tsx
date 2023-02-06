@@ -532,9 +532,9 @@ const UhealthzoneDetailTable = ({
                                     <VaryInput
                                         Width={'full'}
                                         InputType={'text'}
-                                        HandleOnChange={(
-                                            e: React.ChangeEvent<HTMLInputElement>
-                                        ) => console.debug(e)}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
                                         id={'id'}
                                         Placeholder={'주소를 입력해 주세요'}
                                         Value={detailState.detail.INSTL_ADRES}
@@ -843,11 +843,9 @@ const UhealthzoneDetailTable = ({
                                                 LabelWidth={`w5`}
                                                 Checked={false}
                                                 LabelName={`${el.name2}`}
-                                                HandleOnChange={() =>
-                                                    console.debug(
-                                                        'HandleOnChange'
-                                                    )
-                                                }
+                                                HandleOnChange={() => {
+                                                    //
+                                                }}
                                             />
                                         )
                                     })}
@@ -1517,7 +1515,7 @@ const UhealthzoneDetailTable = ({
                         ButtonType={`default`}
                         ButtonName={`취소`}
                         HandleClick={() => {
-                            console.debug('HandleClick')
+                            //
                         }}
                     />
                 </DPS.ButtonItem>

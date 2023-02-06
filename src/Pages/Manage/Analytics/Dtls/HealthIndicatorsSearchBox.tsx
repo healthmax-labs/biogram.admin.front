@@ -1,13 +1,6 @@
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 // import { gmtTimeToTimeObject } from '@Helper'
-import {
-    PstinstSelector,
-    // VaryButton,
-    // VaryDatepickerInput,
-    VaryLabel,
-    // VaryLabelCheckBox,
-    DefaultSearchButton,
-} from '@Elements'
+import { DefaultSearchButton, PstinstSelector, VaryLabel } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
 
@@ -28,9 +21,8 @@ const HealthIndicatorsSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
-    const [listState, setListState] = useRecoilState(ImprvmAnalyticsListState)
+    const [, setListState] = useRecoilState(ImprvmAnalyticsListState)
 
-    console.log(listState)
     return (
         <RowContainer>
             <SearchRowWapper>

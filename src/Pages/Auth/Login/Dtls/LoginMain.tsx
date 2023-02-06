@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import LoginForm from './LoginForm'
-import { useAuth } from '@Hook/index'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@Hooks'
 
 const LoginMain = () => {
     const navigate = useNavigate()
@@ -20,6 +20,7 @@ const LoginMain = () => {
 
         funcCheckLogin().then()
     }, [handleLoginCheck, navigate])
+
     return <LoginForm />
 }
 

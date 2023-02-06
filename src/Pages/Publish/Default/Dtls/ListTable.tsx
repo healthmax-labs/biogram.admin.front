@@ -42,7 +42,9 @@ export default function ListTable() {
                         <VaryCheckBox
                             Flex={true}
                             Checked={false}
-                            HandleOnChange={() => console.debug(1111)}
+                            HandleOnChange={() => {
+                                //
+                            }}
                         />
                     </ThCheckbox>
                     <TheadTh>회원번호</TheadTh>
@@ -64,7 +66,9 @@ export default function ListTable() {
                                 <VaryCheckBox
                                     Flex={true}
                                     Checked={false}
-                                    HandleOnChange={() => console.debug(1111)}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                 />
                             </TbodyTdCheckbox>
                             <TbodyTd>{el.MBER_NO}</TbodyTd>
@@ -77,9 +81,9 @@ export default function ListTable() {
                             <TbodyTd>
                                 <VaryButton
                                     ButtonType={`manage`}
-                                    HandleClick={() =>
-                                        console.debug('DefaultManageButton')
-                                    }
+                                    HandleClick={() => {
+                                        //
+                                    }}
                                     ButtonName={'소승승인4'}
                                 />
                             </TbodyTd>

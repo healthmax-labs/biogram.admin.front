@@ -168,9 +168,6 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             payload.MISN_NAME = '건강 매거진 평가'
             payload.MISN_STEP = null
         }
-        // else if (pageMode === 'modify') {
-        //     console.log('modi!!')
-        // }
 
         let serviceStatus: boolean
 

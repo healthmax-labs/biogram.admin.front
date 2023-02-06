@@ -47,10 +47,9 @@ const initializeState = {
 const Topbar = () => {
     const navigate = useNavigate()
     const { handleAttemptLogout, handleTokenValidate } = useAuth()
-    const { handleLeftMenuShow, handleTheme } = useMainLayouts()
-    const atomRootState = useRecoilValue(AtomRootState)
+    const { handleLeftMenuShow, handleTheme, handlMainAlert } = useMainLayouts()
+    const appRootState = useRecoilValue(AtomRootState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
-    const { handlMainAlert } = useMainLayouts()
 
     const [pageState, setPageState] = useState<{
         user: {
@@ -71,17 +70,28 @@ const Topbar = () => {
         handleLeftMenuShow()
     }
 
-    const handleLogout = useCallback(async () => {
-        const task = await handleAttemptLogout()
-        if (task.status) {
-        } else {
-            //
-        }
-    }, [handleAttemptLogout])
+    // 로그아웃 처리.
+    const handleLogout = useCallback(
+        async ({ attemptLogout }: { attemptLogout: boolean }) => {
+            const task = await handleAttemptLogout({
+                attemptLogout: attemptLogout,
+            })
+            if (task.status) {
+            } else {
+                //
+            }
+        },
+        [handleAttemptLogout]
+    )
 
-    const handleLogoutButtonClick = async () => {
-        handleLogout().then()
-    }
+    // 로그아웃 버튼 클릭 처리.
+    const handleLogoutButtonClick = useCallback(async () => {
+        handleLogout({ attemptLogout: true }).then(() => {
+            navigate({
+                pathname: process.env.PUBLIC_URL + `/auth/login`,
+            })
+        })
+    }, [handleLogout, navigate])
 
     const handleClickLoginExtensionButton = useCallback(async () => {
         const { status } = await handleTokenValidate()
@@ -101,7 +111,7 @@ const Topbar = () => {
                 state: true,
                 message: Messages.Default.processFail,
             })
-            handleLogout().then()
+            handleLogout({ attemptLogout: false }).then()
         }
     }, [handlMainAlert, handleLogout, handleTokenValidate])
 
@@ -111,23 +121,28 @@ const Topbar = () => {
                 ...prevState,
                 user: {
                     ...prevState.user,
-                    inst_nm: isEmpty(atomRootState.userinfo.INST_NM)
+                    inst_nm: isEmpty(appRootState.userinfo.INST_NM)
                         ? null
-                        : atomRootState.userinfo.INST_NM,
-                    nm: isEmpty(atomRootState.userinfo.NM)
+                        : appRootState.userinfo.INST_NM,
+                    nm: isEmpty(appRootState.userinfo.NM)
                         ? null
-                        : atomRootState.userinfo.NM,
+                        : appRootState.userinfo.NM,
                 },
             }))
         }
 
         funcSetUserName()
-    }, [atomRootState])
+    }, [appRootState])
 
     useEffect(() => {
+        // 로그아웃 버튼 눌렀을때는 체크없이 리턴.
+        if (appRootState.attemptLogout) {
+            return
+        }
+
         // 시간이 남아 있는지 체크.
         if (!checkRemainingTime()) {
-            handleLogout().then()
+            handleLogout({ attemptLogout: false }).then()
             return
         }
 
@@ -135,8 +150,10 @@ const Topbar = () => {
             const time = getRemainingTime()
 
             if (!time) {
-                navigate({
-                    pathname: process.env.PUBLIC_URL + `/auth/login`,
+                handleLogout({ attemptLogout: true }).then(() => {
+                    navigate({
+                        pathname: process.env.PUBLIC_URL + `/auth/login`,
+                    })
                 })
             }
 
@@ -150,7 +167,7 @@ const Topbar = () => {
                     ...prevState,
                     remainingTime: showLogoutTime,
                     modal: {
-                        ...prevState,
+                        ...prevState.modal,
                         loginExtension: {
                             ...prevState.modal.loginExtension,
                             status: true,
@@ -169,7 +186,7 @@ const Topbar = () => {
         return () => {
             clearTimeout(timer)
         }
-    }, [handleLogout, navigate])
+    }, [appRootState.attemptLogout, handleLogout, navigate])
 
     return (
         <>
@@ -249,7 +266,9 @@ const Topbar = () => {
                                                 },
                                             }))
 
-                                            handleLogout().then()
+                                            handleLogout({
+                                                attemptLogout: true,
+                                            }).then()
                                         }}
                                     />
                                     <VaryButton

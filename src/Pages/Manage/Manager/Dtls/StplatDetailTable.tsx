@@ -330,7 +330,7 @@ const StplatDetailTable = () => {
                         ButtonType={`default`}
                         ButtonName={`취소`}
                         HandleClick={() => {
-                            console.debug('HandleClick')
+                            //
                         }}
                     />
                 </DPS.Stplat.ButtonItem>

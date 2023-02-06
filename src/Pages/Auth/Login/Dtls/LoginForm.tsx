@@ -232,11 +232,11 @@ const LoginForm = () => {
                             }
                         })()}
                     </LogoBox>
-                    <FormBox>
+                    <FormBox onSubmit={e => e.preventDefault()}>
                         <FormRow>
                             <Label htmlFor="email">아이디</Label>
                             <InputId
-                                type="email"
+                                type="text"
                                 name="usid"
                                 value={pageState.loginInfo.usid}
                                 onChange={e => handleInputChange(e)}
@@ -245,11 +245,12 @@ const LoginForm = () => {
                         </FormRow>
                         <FormRow>
                             <InputRow>
-                                <Label htmlFor="password">비밀번호</Label>
+                                <Label htmlFor="pass">비밀번호</Label>
                                 <InputPassword
                                     ref={inputPasswordRef}
                                     type="password"
                                     name="pass"
+                                    autoComplete="off"
                                     value={pageState.loginInfo.pass}
                                     onChange={e => handleInputChange(e)}
                                     onKeyUp={e => onEnter(e)}
@@ -262,7 +263,7 @@ const LoginForm = () => {
                                     </ErrorMessage>
                                 </ErrorRow>
                             )}
-                            <InputRow className="mt-6">
+                            <InputRow>
                                 <LoginButton
                                     onClick={() => handleClickLoginButton()}>
                                     로그인

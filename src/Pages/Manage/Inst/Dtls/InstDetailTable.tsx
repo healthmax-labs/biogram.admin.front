@@ -296,9 +296,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     ReadOnly={true}
                                     Width={`w60`}
                                     InputType={'text'}
-                                    HandleOnChange={() =>
-                                        console.debug('HandleOnChange')
-                                    }
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
                                     id={'id'}
                                     Placeholder={'가입일자'}
                                     Value={`${params.instNo}`}

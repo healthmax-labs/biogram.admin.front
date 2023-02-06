@@ -233,11 +233,11 @@ export const removeLoginExpirein = (): void => {
  * @param pathName
  */
 export const getPathNameToMenuInfo = (pathName: string): string => {
-    const chIdex = Routers.findIndex(el => el.pathName === pathName)
+    const chIdex = Routers.Main.findIndex(el => el.pathName === pathName)
     if (chIdex === -1) {
         return ''
     }
-    const findRouter = Routers[chIdex]
+    const findRouter = Routers.Main[chIdex]
     return findRouter.name
 }
 
@@ -280,7 +280,6 @@ export const getRemainingTime = ():
     if (distance < 0) {
         return false
     }
-    // console.debug(distance)
     const days = Math.floor(distance / _day)
     const hours = Math.floor((distance % _day) / _hour)
     const minutes = Math.floor((distance % _hour) / _minute)

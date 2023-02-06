@@ -22,7 +22,7 @@ const ListTable = () => {
         useState<tableOption>(MsgSendTableConfig)
 
     const handleRowClick = () => {
-        // console.log('1111111111111')
+        //
     }
 
     useEffect(() => {
