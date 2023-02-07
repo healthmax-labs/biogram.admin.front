@@ -48,4 +48,5 @@ export default {
         'statusPage/notice-list',
         'managerPage/notice-detail',
     ],
+    GeonDaonThemeSiteURL: 'geondaon.com',
 }
