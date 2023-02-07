@@ -47,9 +47,13 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
+    "start:dev": "cp config/env.development .env && react-app-rewired start",
+    "start:prod": "cp config/env.production .env && react-app-rewired start",
     "lint": "eslint --ext js,ts,tsx src --fix",
-    "deploy:dev": "yarn build && ssh dev-server \"rm -rf /var/www/html/mybiogram.com/dev-admin/*\" && scp -r ./build/* dev-server:/var/www/html/mybiogram.com/dev-admin"
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
+    "build:dev": "cp config/env.development .env && GENERATE_SOURCEMAP=false react-app-rewired build",
+    "build:prod": "cp config/env.production .env && GENERATE_SOURCEMAP=false react-app-rewired build",
+    "deploy:dev": "cp config/env.development .env && yarn build && ssh dev-server \"rm -rf /var/www/html/mybiogram.com/dev-admin/*\" && scp -r ./build/* dev-server:/var/www/html/mybiogram.com/dev-admin"
   },
   "eslintConfig": {
     "extends": [
