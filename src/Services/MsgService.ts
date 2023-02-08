@@ -1,6 +1,7 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import { MsgSendListItemInterface } from '@Type/MsgTypes'
+import _ from 'lodash'
 
 /**
  * 메세지 발송 현황 리스트
@@ -30,18 +31,40 @@ export function getMsgSendList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        FROM_MONTH: string
+        FROM_DAY: string
+        TO_DAY: string
+        SNDNG_FAILR: string
+        SNDNG_STDR: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        FROM_MONTH: FROM_MONTH,
+        FROM_DAY: FROM_DAY,
+        TO_DAY: TO_DAY,
+        SNDNG_FAILR: SNDNG_FAILR,
+        SNDNG_STDR: SNDNG_STDR,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(
+            payload,
+            'SEARCH_KEY',
+            'FROM_MONTH',
+            'FROM_DAY',
+            'TO_DAY',
+            'SNDNG_FAILR',
+            'SNDNG_STDR'
+        )
+    }
+
     return _Axios_({
         method: 'post',
-        url: '/mber/v1/list/msg/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            FROM_MONTH,
-            FROM_DAY,
-            TO_DAY,
-            SNDNG_FAILR,
-            SNDNG_STDR,
-        },
+        url: `/mber/v1/list/msg/${CUR_PAGE}`,
+        payload: payload,
     })
 }
 
@@ -69,15 +92,33 @@ export function getMsgBookList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        FROM_DAY: string
+        TO_DAY: string
+        SNDNG_STDR: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        FROM_DAY: FROM_DAY,
+        TO_DAY: TO_DAY,
+        SNDNG_STDR: SNDNG_STDR,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(
+            payload,
+            'SEARCH_KEY',
+            'FROM_DAY',
+            'TO_DAY',
+            'SNDNG_STDR'
+        )
+    }
+
     return _Axios_({
         method: 'post',
         url: '/mber/v1/list/smsresve/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            FROM_DAY,
-            TO_DAY,
-            SNDNG_STDR,
-        },
+        payload: payload,
     })
 }

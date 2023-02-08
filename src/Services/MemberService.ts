@@ -11,6 +11,7 @@ import {
     MemberInfoListInterface,
     MesureInfoListInterface,
 } from '@Type/MemberTypes'
+import _ from 'lodash'
 
 export const getMemberList = ({
     curPage,
@@ -25,15 +26,31 @@ export const getMemberList = ({
     registDtFrom: string
     registDtTo: string
 }): Promise<ServicesDefaultResult<MemberInfoListInterface>> => {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        REGIST_DT_FROM: string
+        REGIST_DT_TO: string
+    } = {
+        INST_NO: instNo,
+        SEARCH_KEY: searchKey,
+        REGIST_DT_FROM: registDtFrom,
+        REGIST_DT_TO: registDtTo,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(
+            payload,
+            'SEARCH_KEY',
+            'REGIST_DT_FROM',
+            'REGIST_DT_TO'
+        )
+    }
+
     return _Axios_({
         method: 'post',
         url: `/mng/v1/mber/list/${curPage}`,
-        payload: {
-            INST_NO: instNo,
-            SEARCH_KEY: searchKey,
-            REGIST_DT_FROM: registDtFrom,
-            REGIST_DT_TO: registDtTo,
-        },
+        payload: payload,
     })
 }
 

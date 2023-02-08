@@ -5,6 +5,7 @@ import {
     InstJoinListItemInterface,
     InstListInterface,
 } from '@Type/InstTypes'
+import _ from 'lodash'
 
 /**
  * 소속관리 리스트
@@ -40,13 +41,22 @@ export const getInstJoinList = ({
         TOTAL_COUNT: number
     }>
 > => {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(payload, 'SEARCH_KEY')
+    }
+
     return _Axios_({
         method: 'post',
         url: '/inst/v1/request/list/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-        },
+        payload: payload,
     })
 }
 
