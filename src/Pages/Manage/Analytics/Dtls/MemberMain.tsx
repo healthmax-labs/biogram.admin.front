@@ -20,14 +20,12 @@ const MemberMain = () => {
 
     const getTableList = useCallback(async () => {
         const {
-            search: { /*SEARCH_KEY,*/ BGNDE, ENDDE, INST_NO /*, curPage */ },
+            search: { BGNDE, ENDDE, INST_NO },
         } = mberAnalyticsListState
 
         const { status, payload } = await getMemberAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
             ENDDE: !isNull(ENDDE) ? ENDDE : ``,
         })
 
