@@ -17,7 +17,7 @@ interface tableOption {
     Lists: HealthIndicatorsTableListItemInterface[]
 }
 
-const NonMeasureTable = () => {
+const HealthIndicatorsTable = () => {
     const navigate = useNavigate()
     const listState = useRecoilValue(HealthIndicatorsListState)
 
@@ -46,4 +46,4 @@ const NonMeasureTable = () => {
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
 
-export default NonMeasureTable
+export default HealthIndicatorsTable
