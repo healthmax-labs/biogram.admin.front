@@ -38,6 +38,7 @@ import {
 } from '@Type/MemberTypes'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
+import Const from '@Const'
 
 const {
     TableContainer,
@@ -1062,9 +1063,7 @@ const MemberDetailTable = ({
                         ButtonName={`목록으로`}
                         HandleClick={() => {
                             navigate({
-                                pathname:
-                                    process.env.PUBLIC_URL +
-                                    `/manage/member/member-list`,
+                                pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
                             })
                         }}
                     />

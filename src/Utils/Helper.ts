@@ -232,13 +232,18 @@ export const removeLoginExpirein = (): void => {
  * router pathname 으로 메뉴 이름 리턴
  * @param pathName
  */
-export const getPathNameToMenuInfo = (pathName: string): string => {
+export const getPathNameToMenuInfo = (
+    pathName: string
+): { name: string; reloadButton: boolean } | null => {
     const chIdex = Routers.Main.findIndex(el => el.pathName === pathName)
     if (chIdex === -1) {
-        return ''
+        return null
     }
     const findRouter = Routers.Main[chIdex]
-    return findRouter.name
+    return {
+        name: findRouter.name,
+        reloadButton: findRouter.reloadButton,
+    }
 }
 
 /**

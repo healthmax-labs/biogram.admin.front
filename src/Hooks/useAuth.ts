@@ -69,6 +69,7 @@ export default function useAuth() {
 
                         return {
                             ...el,
+                            reloadButton: false,
                             pathName:
                                 ckIndex > -1
                                     ? Routers.Main[ckIndex].pathName

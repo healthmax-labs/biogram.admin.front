@@ -5,10 +5,11 @@ import Routers from '@Routers'
 import { useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import Const from '@Const'
 
 const ManageRootPage = () => {
     const [activeRoutePathName, setActiveRoutePathName] = useState(
-        '/manage/member/member-list'
+        `${Const.DefaultStartRouter}`
     )
     const [pageTitle, setPageTitle] = useState<string>(``)
     const tabState = useRecoilValue(AtomPageTabState)

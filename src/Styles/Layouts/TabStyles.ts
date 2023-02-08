@@ -11,4 +11,5 @@ export const MainTabStyle = {
             : tw`flex items-center object-center text-[14px] font-bold rounded-t-lg hover:text-gray-600 hover:bg-gray-50 px-2`,
     ]),
     CloseButton: tw.button`ml-1 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500`,
+    RotateButton: tw.button`ml-1 rounded-md inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset`,
 }

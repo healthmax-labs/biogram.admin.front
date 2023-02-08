@@ -8,6 +8,11 @@ import { MenuItemInterface } from '@CommonTypes'
 import { isEmpty } from 'lodash'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
+interface MenusItemInterface extends MenuItemInterface {
+    pathName?: string
+    reloadButton?: boolean
+}
+
 const {
     Nav,
     Container,
@@ -30,8 +35,8 @@ const Sidebar = () => {
 
     const [pageState, setPageState] = useState<{
         Menus: {
-            main: MenuItemInterface[]
-            sub: MenuItemInterface[]
+            main: MenusItemInterface[]
+            sub: MenusItemInterface[]
         }
     }>({
         Menus: {
@@ -56,12 +61,14 @@ const Sidebar = () => {
         }
     }, [AUTHOR_MENU_INFO_LIST])
 
+    useEffect(() => {
+        console.debug(pageState)
+    }, [pageState])
+
     return (
         <>
             <Nav MenuState={mainLayoutState.leftMenuShow}>
                 <Container>
-                    {/* Toggler */}
-                    {/* Brand */}
                     <Logo
                         src={
                             mainLayoutState.Theme === 'GeonDaon'
