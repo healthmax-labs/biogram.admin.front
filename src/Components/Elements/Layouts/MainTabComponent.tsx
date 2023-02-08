@@ -75,7 +75,6 @@ const MainTabComponent = () => {
         <Wapper>
             {tabList &&
                 tabList.map((element, index) => {
-                    console.debug(element)
                     return (
                         <TabItem key={index}>
                             <ButtonWapper>

@@ -61,10 +61,6 @@ const Sidebar = () => {
         }
     }, [AUTHOR_MENU_INFO_LIST])
 
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
-
     return (
         <>
             <Nav MenuState={mainLayoutState.leftMenuShow}>

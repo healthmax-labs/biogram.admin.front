@@ -37,13 +37,15 @@ const GeonDaonContentCard = ({
                         <Body>
                             {Items &&
                                 Items.length > 0 &&
-                                Items.map(el => {
+                                Items.map((el, elIndex) => {
                                     return (
-                                        <Row>
+                                        <Row
+                                            key={`geondaon-content-card-item-row-${elIndex}`}>
                                             {el.length > 0 &&
-                                                el.map(e => {
+                                                el.map((e, eIndex) => {
                                                     return (
                                                         <Cell
+                                                            key={`geondaon-content-card-item-cell-${eIndex}`}
                                                             textColor={
                                                                 e.color
                                                                     ? e.color
