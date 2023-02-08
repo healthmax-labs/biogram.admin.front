@@ -10,12 +10,7 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
-import {
-    getNowDate,
-    getOneMonthAgo,
-    getOneYearAgo,
-    getSearchDateObject,
-} from '@Helper'
+import { getNowDate, getOneMonthAgo, getSearchDateObject } from '@Helper'
 import Const from '@Const'
 import { MsgSendListInterface } from '@Type/MsgTypes'
 
@@ -181,7 +176,7 @@ export const MemberListState = atom<MemberListInterface>({
             curPage: null,
             instNo: null,
             searchKey: null,
-            registDtFrom: getOneYearAgo(),
+            registDtFrom: getOneMonthAgo(),
             registDtTo: getNowDate(),
         },
         list: {
