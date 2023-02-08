@@ -1076,7 +1076,19 @@ export const HealthIndicatorsTableConfig = {
     Options: {
         selectAll: false,
         indexKey: `MBER_NO`,
-        bgState: true,
+        xcpt: {
+            option: 'row-null',
+            component: ({
+                el,
+            }: {
+                el: HealthIndicatorsTableListItemInterface
+            }) => {
+                return (
+                    <XcptComponent>{`${el.CALC_DE} / ${el.CNT}명`}</XcptComponent>
+                )
+            },
+        },
+        bgState: false,
     },
     Columns: [
         [
