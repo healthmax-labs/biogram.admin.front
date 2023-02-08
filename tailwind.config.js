@@ -6,6 +6,11 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontSize: {
+                xs: ['12px', '16px'],
+                little: ['6px', '8px'],
+                tiny: ['3px', '4px'],
+            },
             spacing: {
                 'menu-width': `12rem`,
                 'center-width': `108rem`,

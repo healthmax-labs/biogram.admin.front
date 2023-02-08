@@ -1,4 +1,5 @@
 export default {
+    DefaultStartRouter: '/manage/dashboard',
     Layout: {
         Width: {
             LeftMenuWidth: `w48`, // 192px

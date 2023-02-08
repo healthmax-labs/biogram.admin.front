@@ -100,7 +100,7 @@ const LoginForm = () => {
 
         if (status) {
             navigate({
-                pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
+                pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
             })
             return
         }

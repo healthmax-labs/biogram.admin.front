@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil'
 import { MemberDetailState } from '@Recoil/MemberPagesState'
 import { getMemberInfo } from '@Service/MemberService'
 import { MemberDetailInfoInterface } from '@Type/PageStateType'
+import Const from '@Const'
 
 const {
     DetailPage: { Container, LeftWapper, RightWapper },
@@ -95,7 +96,7 @@ const MemberDetailMain = () => {
             message: Messages.Default.pageError,
         })
         navigate({
-            pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
+            pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
         })
     }, [
         MEMBER_NO,

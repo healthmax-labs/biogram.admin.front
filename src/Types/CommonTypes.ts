@@ -1,5 +1,5 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
-export type MainLayoutThemeType = '' | 'GeonDaon' // 테마 타입 테마 추가시 추가 팔요함
+export type MainLayoutThemeType = string | '' | 'GeonDaon' // 테마 타입 테마 추가시 추가 팔요함
 export type DefaultYesNo = 'Y' | 'N'
 export type WidthType =
     | 'w0'
@@ -78,7 +78,14 @@ export type RecoilStateKeyNameType = 'memberPage/member-detail'
 
 export type BgColorType = `blueberry` | `eggplant` | `steel`
 export type InputBgColorType = `white` | `gray1` | `gray2`
-export type TextColorType = `gray` | `white`
+export type TextColorType =
+    | string
+    | `gray`
+    | `white`
+    | `green`
+    | `orange`
+    | `blue`
+    | `pink`
 export type TextAlignType = `left` | `center` | `right`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
@@ -93,6 +100,7 @@ export interface TabItemInterface {
     pathname: string
     component: string
     routePath: string
+    reloadButton: boolean
 }
 
 export interface TabInterface {
@@ -220,7 +228,6 @@ export interface MenuItemInterface {
     MENU_NM: string
     MENU_CODE: string
     MENU_ORDR_GUBUN: number
-    pathName: string
 }
 
 // 공통 스테이트 인터페이스.

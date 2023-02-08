@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import LoginForm from './LoginForm'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@Hooks'
+import Const from '@Const'
 
 const LoginMain = () => {
     const navigate = useNavigate()
@@ -12,8 +13,7 @@ const LoginMain = () => {
             const task = handleLoginCheck()
             if (task) {
                 navigate({
-                    pathname:
-                        process.env.PUBLIC_URL + `/manage/member/member-list`,
+                    pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
                 })
             }
         }
