@@ -1,11 +1,14 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
-import { BrftrCmprListItemInterface } from '@Type/StatusTypes'
-import { RiskFctrListItemInterface } from '@Type/StatusTypes'
-import { StatisticsListItemInterface } from '@Type/StatusTypes'
-import { ActivityWalkListItemInterface } from '@Type/StatusTypes'
-import { NonMeasureListItemInterface } from '@Type/StatusTypes'
-import { HealthIndicatorsListItemInterface } from '@Type/StatusTypes'
+import {
+    BrftrCmprListItemInterface,
+    WalkRankingListItemInterface,
+    RiskFctrListItemInterface,
+    StatisticsListItemInterface,
+    ActivityWalkListItemInterface,
+    NonMeasureListItemInterface,
+    HealthIndicatorsListItemInterface,
+} from '@Type/StatusTypes'
 
 /**
  * 전후비교 현황 리스트
@@ -241,6 +244,40 @@ export function getHealthIndicatorsList({
             SEARCH_KEY,
             BGNDE,
             ENDDE,
+        },
+    })
+}
+
+/**
+ * 보행수 랭킹 현황 리스트
+ */
+export function getWalkRankingList({
+    CUR_PAGE,
+    INST_NO,
+    // SEARCH_KEY,
+    // BGNDE,
+    MESURE_MT,
+}: {
+    CUR_PAGE: number
+    INST_NO: string
+    // SEARCH_KEY: string
+    // BGNDE: string
+    MESURE_MT: string
+}): Promise<
+    ServicesDefaultResult<{
+        CUR_PAGE: number
+        STEP_RANK_INFO_LIST: WalkRankingListItemInterface[]
+        TOTAL_COUNT: number
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/mng/gndn/v1/step_rank/' + CUR_PAGE,
+        payload: {
+            INST_NO,
+            // SEARCH_KEY,
+            // BGNDE,
+            MESURE_MT,
         },
     })
 }

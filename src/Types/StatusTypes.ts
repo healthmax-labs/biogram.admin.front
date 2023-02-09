@@ -209,3 +209,21 @@ export interface HealthIndicatorsListInterface {
     MYBODY_SCORE_IMPRVM_INFO_LIST: HealthIndicatorsListItemInterface[]
     TOTAL_COUNT: number
 }
+
+//보행수 랭킹 현황
+export interface WalkRankingListItemInterface {
+    MBER_NO: number
+    NM: string | null
+    BRTHDY: string
+    SEXDSTN: string
+    USID: string | null
+    MBTLNUM: string | null
+    INST_RANK: number | null
+    TOT_STEPS: number | null
+}
+
+//보행수 랭킹 현황 리스트
+export interface WalkRankingListInterface {
+    STEP_RANK_INFO_LIST: WalkRankingListItemInterface[]
+    TOTAL_COUNT: number
+}
