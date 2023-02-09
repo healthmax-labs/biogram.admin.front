@@ -25,6 +25,7 @@ export { default as VaryImageUpload } from './Inputs/VaryImageUpload'
 
 export { default as PageLoading } from './Loading/PageLoading'
 export { default as ElementLoading } from './Loading/ElementLoading'
+export { default as Spinner } from './Loading/Spinner'
 
 export { default as AlertModal } from './Modals/AlertModal'
 export { default as ConfirmModal } from './Modals/ConfirmModal'

@@ -11,7 +11,7 @@ const PageLoading = () => {
                 <Wapper bgImage={`${LoadingImage}`}>
                     <svg
                         aria-hidden="true"
-                        className="w-35 h-35 text-gray-200 animate-spin text-gray-600 fill-blue-50"
+                        className="w-35 h-35 animate-spin text-gray-600 fill-blue-50"
                         viewBox="0 0 102 102"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg">
