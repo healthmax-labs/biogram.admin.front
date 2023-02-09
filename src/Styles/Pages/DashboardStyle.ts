@@ -10,6 +10,9 @@ export const DashboardStyle = {
         Card: {
             Container: tw.div`flex w-full p-3`,
             Wapper: tw.div`flex flex-col w-full`,
+            SpinnerWapper: tw.div`flex w-full h-20 items-center object-center justify-center`,
+            TitleWapper: tw.div`flex w-full justify-between px-2 pb-1`,
+            TitleBox: tw.div`flex flex-nowrap items-center`,
             TableWapper: tw.div`border-b border-gray-200 w-full`,
             Table: tw.table`divide-y divide-green-400 w-full`,
             Body: tw.tbody`bg-white divide-y divide-gray-100`,

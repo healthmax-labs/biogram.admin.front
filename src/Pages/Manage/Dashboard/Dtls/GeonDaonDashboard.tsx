@@ -20,6 +20,7 @@ const GeonDaonDashboard = () => {
                     <div className="flex flex-col w-full">
                         <div className="flex w-full">
                             <GeonDaonContentCard
+                                Loading={false}
                                 LeftTitle={
                                     <>
                                         <p className="flex text-xs">회원현황</p>
@@ -48,10 +49,11 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
-                                                            회원현황
+                                                            성별 회원현황
                                                         </p>
                                                         <p className="flex text-little object-bottom pl-1">
                                                             (단위: 명)
@@ -82,6 +84,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -113,6 +116,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -134,6 +138,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -165,6 +170,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -196,6 +202,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -231,6 +238,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -262,6 +270,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -293,6 +302,7 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={false}
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -333,6 +343,7 @@ const GeonDaonDashboard = () => {
                     <div className="flex flex-col w-full">
                         <div className="flex w-full">
                             <GeonDaonContentCard
+                                Loading={false}
                                 LeftTitle={
                                     <>
                                         <p className="flex text-xs">회원현황</p>
@@ -360,6 +371,7 @@ const GeonDaonDashboard = () => {
                                 <div className="flex flex-col w-full">
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -379,6 +391,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -408,6 +421,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -441,6 +455,7 @@ const GeonDaonDashboard = () => {
                                 <div className="flex flex-col w-full">
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -460,6 +475,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -489,6 +505,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -518,6 +535,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -547,6 +565,7 @@ const GeonDaonDashboard = () => {
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={false}
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
