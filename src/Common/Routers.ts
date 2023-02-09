@@ -3,11 +3,25 @@ import React from 'react'
 export default {
     Main: [
         {
+            mainCode: `00000`,
+            menuCode: `00000`,
+            name: `대시보드`,
+            pathName: `/manage/dashboard`,
+            recooilKey: ``,
+            showFlag: 'Y',
+            reloadButton: true,
+            Component: React.lazy(
+                () => import('@Page/Manage/Dashboard/DashboardPage')
+            ),
+        },
+        {
             mainCode: `10000`,
             menuCode: `10101`,
             name: `회원현황`,
             pathName: `/manage/member/member-list`,
             recooilKey: `memberPage/member-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/MemberListPage')
             ),
@@ -18,6 +32,8 @@ export default {
             name: `회원상세`,
             pathName: `/manage/member/:MEMBER_NO/detail`,
             recooilKey: `memberPage/member-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/MemberDetailPage')
             ),
@@ -28,6 +44,8 @@ export default {
             name: `메세지 발송이력`,
             pathName: `/manage/member/msgsend-list`,
             recooilKey: `memberPage/msg-send-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/MsgSendListPage')
             ),
@@ -38,6 +56,8 @@ export default {
             name: `메세지 예약현황`,
             pathName: `/manage/member/msgbook-list`,
             recooilKey: `memberPage/msg-book-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/MsgBookListPage')
             ),
@@ -48,6 +68,8 @@ export default {
             name: `상담회원 현황`,
             pathName: `/manage/member/consult-list`,
             recooilKey: `memberPage/consult-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/ConsultListPage')
             ),
@@ -58,6 +80,8 @@ export default {
             name: `상담회원 상세`,
             pathName: `/manage/member/consult-detail/:memNo/:category`,
             recooilKey: `memberPage/consult-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Member/ConsultDetailPage')
             ),
@@ -68,6 +92,8 @@ export default {
             name: `소속현황`,
             pathName: `/manage/inst/inst-list`,
             recooilKey: `instPage/inst-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Inst/InstListPage')
             ),
@@ -78,6 +104,8 @@ export default {
             name: `소속등록`,
             pathName: `/manage/inst/inst-list/new`,
             recooilKey: `instPage/inst-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Inst/InstNewPage')
             ),
@@ -88,6 +116,8 @@ export default {
             name: `소속상세`,
             pathName: `/manage/inst/inst-list/:instNo/detail`,
             recooilKey: `instPage/inst-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Inst/InstDetailPage')
             ),
@@ -98,6 +128,8 @@ export default {
             name: `소속 가입신청`,
             pathName: `/manage/inst/join-list`,
             recooilKey: `instPage/inst-join-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Inst/JoinListPage')
             ),
@@ -108,6 +140,8 @@ export default {
             name: `매거진`,
             pathName: `/manage/contents/magazine-list`,
             recooilKey: `contentsPage/magazine-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/MagazineListPage')
             ),
@@ -118,6 +152,8 @@ export default {
             name: `메거진 상세`,
             pathName: `/manage/contents/:misn_step/detail`,
             recooilKey: `contentsPage/magazine-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/MagazineDetailPage')
             ),
@@ -128,6 +164,8 @@ export default {
             name: `매거진 신규 등록`,
             pathName: `/manage/contents/magazine-list/new`,
             recooilKey: `contentsPage/magazine-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/MagazineDetailPage')
             ),
@@ -138,6 +176,8 @@ export default {
             name: `바이오그램 존`,
             pathName: `/manage/contents/uhealthzone-list`,
             recooilKey: `contentsPage/uhealthzone-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/UhealthzoneListPage')
             ),
@@ -148,6 +188,8 @@ export default {
             name: `바이오그램 존 상세`,
             pathName: `/manage/contents/uhealthzone/:UhealthZoneNo/detail`,
             recooilKey: `contentsPage/uhealthzone-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/UhealthzoneDetailPage')
             ),
@@ -158,6 +200,8 @@ export default {
             name: `바이오그램 등록`,
             pathName: `/manage/contents/uhealthzone/new`,
             recooilKey: `contentsPage/uhealthzone-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Contents/UhealthzoneDetailPage')
             ),
@@ -168,6 +212,8 @@ export default {
             name: `위험요인 현황`,
             pathName: `/manage/status/risk-fctr`,
             recooilKey: `statusPage/risk-fctr-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/RiskFctrListPage')
             ),
@@ -178,6 +224,8 @@ export default {
             name: `전후비교 현황`,
             pathName: `/manage/status/brftt-cmpr`,
             recooilKey: `statusPage/brftr-cmpr-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/BrftrCmprListPage')
             ),
@@ -188,6 +236,8 @@ export default {
             name: `기기측정 현황`,
             pathName: `/manage/status/statistics`,
             recooilKey: `statusPage/statistics-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/StatisticsListPage')
             ),
@@ -198,6 +248,8 @@ export default {
             name: `활동량 현황`,
             pathName: `/manage/status/activity-walk`,
             recooilKey: `statusPage/activity-walk-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/ActivityWalkListPage')
             ),
@@ -208,6 +260,8 @@ export default {
             name: `미측정 현황`,
             pathName: `/manage/status/non-measure`,
             recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/NonMeasureListPage')
             ),
@@ -218,6 +272,8 @@ export default {
             name: `건강지표개선 현황`,
             pathName: `/manage/status/health-Indicators`,
             recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/HealthIndicatorsListPage')
             ),
@@ -228,6 +284,8 @@ export default {
             name: `보행수 랭킹`,
             pathName: `/manage/status/walk-ranking`,
             recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Status/WalkRankingListPage')
             ),
@@ -238,6 +296,8 @@ export default {
             name: `회원 통계`,
             pathName: `/manage/analytics/member`,
             recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/MemberPage')
             ),
@@ -248,6 +308,8 @@ export default {
             name: `측정 이용자 통계`,
             pathName: `/manage/analytics/measure-user`,
             recooilKey: `analyticsPage/mesure-analytics-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/MeasureUserPage')
             ),
@@ -258,6 +320,8 @@ export default {
             name: `위험요인 항목별 통계`,
             pathName: `/manage/analytics/risk-fctr-items`,
             recooilKey: `analyticsPage/mesure-risk-fctr-items-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/RiskFctrItemsPage')
             ),
@@ -268,6 +332,8 @@ export default {
             name: `위험요인 개수별 통계`,
             pathName: `/manage/analytics/risk-fctr-count`,
             recooilKey: `analyticsPage/mesure-risk-fctr-count-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/RiskFctrCountPage')
             ),
@@ -278,6 +344,8 @@ export default {
             name: `기기사용 통계`,
             pathName: `/manage/analytics/device-use`,
             recooilKey: `analyticsPage/mesure-device-list`, // FIXME : recoil 곂침.
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/DeviceUsePage')
             ),
@@ -288,6 +356,8 @@ export default {
             name: `건강지표 개선통계`,
             pathName: `/manage/analytics/health-indicators`,
             recooilKey: `analyticsPage/mesure-device-list`, // FIXME : recoil 곂침.
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/HealthIndicatorsPage')
             ),
@@ -298,6 +368,8 @@ export default {
             name: `태블릿 시리얼키 관리`,
             pathName: ``,
             recooilKey: ``,
+            showFlag: 'N',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Belong/BelongManagePage')
             ),
@@ -308,6 +380,8 @@ export default {
             name: `이용 약관 관리`,
             pathName: `/manage/manager/stplat`,
             recooilKey: `managerPage/stplat-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Manager/StplatListPage')
             ),
@@ -318,6 +392,8 @@ export default {
             name: `이용 약관 관리 상세`,
             pathName: `/manage/manager/stplat/:seCode/:kndCode/:SN/detail`,
             recooilKey: `managerPage/stplat-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Manager/StplatDetailPage')
             ),
@@ -328,6 +404,8 @@ export default {
             name: `게시판 관리`,
             pathName: `/manage/manager/notice-list`,
             recooilKey: `statusPage/notice-list`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Manager/NoticeListPage')
             ),
@@ -338,6 +416,8 @@ export default {
             name: `게시물 상세`,
             pathName: `/manage/manager/notice/:NOTICE_NO/detail`,
             recooilKey: `managerPage/notice-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Manager/NoticeDetailPage')
             ),
@@ -348,6 +428,8 @@ export default {
             name: `게시판 신규 등록`,
             pathName: `/manage/manager/notice/new`,
             recooilKey: `managerPage/notice-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Manager/NoticeDetailPage')
             ),

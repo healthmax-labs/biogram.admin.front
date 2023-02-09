@@ -89,6 +89,7 @@ export const PageContainerStyle = {
     },
     DetailPage: {
         Container: tw.div`flex flex-nowrap`,
+        FullWapper: tw.div`flex w-center-width`,
         LeftWapper: tw.div`w-left-box`,
         RightWapper: tw.div`w-right-box`,
         ChartLeftWapper: tw.div`w-chart-left-box`,

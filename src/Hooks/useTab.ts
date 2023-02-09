@@ -36,13 +36,13 @@ export default function useTab() {
 
         if (lastElement) {
             navigate({
-                pathname: process.env.PUBLIC_URL + lastElement.pathname,
+                pathname: `${process.env.PUBLIC_URL}${lastElement.pathname}`,
             })
             return
         }
 
         navigate({
-            pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
+            pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
         })
     }
 
@@ -103,7 +103,7 @@ export default function useTab() {
                 return
             }
 
-            const menuName = getPathNameToMenuInfo(routerPathName)
+            const menuInfo = getPathNameToMenuInfo(routerPathName)
 
             setUseTabState(prevState => ({
                 ...prevState,
@@ -111,10 +111,11 @@ export default function useTab() {
                     ...newTabList,
                     {
                         active: true,
-                        name: !menuName ? '존재 하지 않는 메뉴' : menuName,
+                        name: !menuInfo ? '존재 하지 않는 메뉴' : menuInfo.name,
                         pathname: thisLocationPathName,
                         routePath: routerPathName,
                         component: 'component',
+                        reloadButton: !menuInfo ? false : menuInfo.reloadButton,
                     },
                 ],
             }))

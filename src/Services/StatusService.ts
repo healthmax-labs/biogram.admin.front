@@ -32,15 +32,26 @@ export function getBrftrCmprList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        BGNDE: string
+        ENDDE: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(payload, 'SEARCH_KEY', 'BGNDE', 'ENDDE')
+    }
+
     return _Axios_({
         method: 'post',
-        url: '/stats/v1/mesure/brftr_cmpr/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            BGNDE,
-            ENDDE,
-        },
+        url: `/stats/v1/mesure/brftr_cmpr/${CUR_PAGE}`,
+        payload: payload,
     })
 }
 
@@ -72,18 +83,40 @@ export function getRiskFctrList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        BGNDE: string
+        ENDDE: string
+        RISK_FCTR_CNT: string
+        RISK_FCTR: string
+        TAKNG_MDCIN: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+        RISK_FCTR_CNT: RISK_FCTR_CNT,
+        RISK_FCTR: RISK_FCTR,
+        TAKNG_MDCIN: TAKNG_MDCIN,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(
+            payload,
+            'SEARCH_KEY',
+            'BGNDE',
+            'ENDDE',
+            'RISK_FCTR_CNT',
+            'RISK_FCTR',
+            'TAKNG_MDCIN'
+        )
+    }
+
     return _Axios_({
         method: 'post',
         url: '/stats/v1/risk_fctr/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            BGNDE,
-            ENDDE,
-            RISK_FCTR_CNT,
-            RISK_FCTR,
-            TAKNG_MDCIN,
-        },
+        payload: payload,
     })
 }
 
@@ -111,16 +144,34 @@ export function getStatisticsList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        MESURE_CODE: string
+        BEGIN_DE: string
+        END_DE: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        MESURE_CODE: MESURE_CODE,
+        BEGIN_DE: BEGIN_DE,
+        END_DE: END_DE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(
+            payload,
+            'SEARCH_KEY',
+            'MESURE_CODE',
+            'BEGIN_DE',
+            'END_DE'
+        )
+    }
+
     return _Axios_({
         method: 'post',
         url: '/stats/v1/device_mesure/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            MESURE_CODE,
-            BEGIN_DE,
-            END_DE,
-        },
+        payload: payload,
     })
 }
 
@@ -146,15 +197,26 @@ export function getActivityWalkList({
         TOTAL_COUNT: number
     }>
 > {
+    let payload: {
+        INST_NO?: string
+        SEARCH: string
+        BEGIN_DE: string
+        END_DE: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH: SEARCH,
+        BEGIN_DE: BEGIN_DE,
+        END_DE: END_DE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        payload = _.pick(payload, 'SEARCH', 'BEGIN_DE', 'END_DE')
+    }
+
     return _Axios_({
         method: 'post',
         url: '/stats/v1/activity_walk/' + curPage,
-        payload: {
-            INST_NO,
-            SEARCH,
-            BEGIN_DE,
-            END_DE,
-        },
+        payload: payload,
     })
 }
 
