@@ -5,6 +5,9 @@ import {
     VaryDatepickerInput,
     VaryLabel,
 } from '@Elements'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import { useRecoilState } from 'recoil'
+import { WalkRankingListState } from '@Recoil/StatusPagesState'
 
 const {
     SearchItemWapper,
@@ -12,12 +15,17 @@ const {
     RowContainer,
     SearchRowWapper,
     SearchItemRow,
-    DatepickerLine,
     SearchItem,
     RightSearchButton,
 } = SearchBoxStyle
 
-const WalkRankingSearchBox = () => {
+const WalkRankingSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
+    const [walkRankingListState, setWalkRankingState] =
+        useRecoilState(WalkRankingListState)
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -28,30 +36,43 @@ const WalkRankingSearchBox = () => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={() => {
-                                    //
-                                }}
+                                HandleSelectValue={({ instNo }) =>
+                                    setWalkRankingState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            INST_NO: String(instNo),
+                                        },
+                                    }))
+                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`기간`} />
+                            <VaryLabel LabelName={`측정 월`} />
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
                                 ContentsType={`search`}
-                                Value={new Date()}
-                                CallBackReturn={() => {
-                                    //
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ContentsType={`search`}
-                                Value={new Date()}
-                                CallBackReturn={() => {
-                                    //
+                                Value={
+                                    walkRankingListState.search.MESURE_MT
+                                        ? changeDatePickerDate(
+                                              walkRankingListState.search
+                                                  .MESURE_MT
+                                          )
+                                        : new Date()
+                                }
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
+                                    setWalkRankingState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            MESURE_MT: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>
@@ -61,7 +82,7 @@ const WalkRankingSearchBox = () => {
             <RightSearchButton Item={'end'}>
                 <DefaultSearchButton
                     ButtonClick={() => {
-                        //
+                        HandleGetList()
                     }}
                 />
             </RightSearchButton>
