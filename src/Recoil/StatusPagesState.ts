@@ -7,6 +7,7 @@ import {
     StatisticsListInterface,
     NonMeasureListInterface,
     HealthIndicatorsListInterface,
+    WalkRankingListInterface,
 } from '@Type/StatusTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -221,3 +222,34 @@ export const HealthIndicatorsListState =
             },
         },
     })
+
+//보행수 랭킹 현황
+interface WalkRankingSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number | null
+        INST_NO: string | null
+        // SEARCH_KEY: string | null
+        // BGNDE: string | null
+        MESURE_MT: string | null
+    }
+    list: WalkRankingListInterface
+}
+
+export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
+    key: `statusPage/walkRanking-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: null,
+            INST_NO: null,
+            // SEARCH_KEY: null,
+            // BGNDE: getOneMonthAgo(),
+            MESURE_MT: getNowDate(),
+        },
+        list: {
+            STEP_RANK_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})

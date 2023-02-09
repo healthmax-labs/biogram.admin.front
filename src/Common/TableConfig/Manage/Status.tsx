@@ -1160,3 +1160,74 @@ export const HealthIndicatorsTableConfig = {
     ],
     Lists: [],
 }
+
+//보행수 랭킹 현황 테이블 설정
+export interface WalkRankingTableListItemInterface {
+    MBER_NO: number
+    NM: string | null
+    BRTHDY: string
+    SEXDSTN: string
+    USID: string | null
+    MBTLNUM: string | null
+    INST_RANK: number | null
+    TOT_STEPS: number | null
+}
+
+//보행수 랭킹  현황 테이블 설정.
+export const WalkRankingTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        // [
+        //     {
+        //         name: `회원정보`,
+        //         rowSpan: 1,
+        //         colSpan: 6,
+        //     },
+        //     {
+        //         name: `정보`,
+        //         rowSpan: 1,
+        //         colSpan: 7,
+        //     },
+        // ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `회원명`,
+                key: `NM`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+            },
+            {
+                name: `아이디`,
+                key: `USID`,
+            },
+            {
+                name: `전화번호`,
+                key: `MBTLNUM`,
+            },
+            {
+                name: `성별`,
+                key: `SEXDSTN`,
+            },
+            {
+                name: `순위`,
+                key: `INST_RANK`,
+            },
+            {
+                name: `보행수`,
+                key: `TOT_STEPS`,
+            },
+        ],
+    ],
+    Lists: [],
+}
