@@ -9,6 +9,7 @@ import {
     NonMeasureListItemInterface,
     HealthIndicatorsListItemInterface,
 } from '@Type/StatusTypes'
+import _ from 'lodash'
 
 /**
  * 전후비교 현황 리스트
