@@ -4,7 +4,7 @@ import { MainLayoutThemeType } from '@CommonTypes'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 
-const GeonDaonDashboard = lazy(() => import('./GeonDaonDashboard'))
+const GeonDaonDashboardMain = lazy(() => import('./GeonDaonDashboardMain'))
 
 const {
     DetailPage: { Container },
@@ -39,9 +39,9 @@ const DashboardMain = () => {
                 <Suspense>
                     {(() => {
                         if (pageState.theme === 'GeonDaon') {
-                            return <GeonDaonDashboard />
+                            return <GeonDaonDashboardMain />
                         } else {
-                            return <GeonDaonDashboard />
+                            return <GeonDaonDashboardMain />
                         }
                     })()}
                 </Suspense>

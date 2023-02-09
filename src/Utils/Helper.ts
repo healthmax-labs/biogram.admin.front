@@ -604,3 +604,12 @@ export const getTextLength = (str: string) => {
     }
     return len
 }
+
+/**
+ * 숫자에 , 붙이기
+ * @param num
+ */
+export const addComma = (num: number): string => {
+    const regexp = /\B(?=(\d{3})+(?!\d))/g
+    return num.toString().replace(regexp, ',')
+}
