@@ -1,13 +1,13 @@
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
+    ActivityWalkListItemInterface,
     BrftrCmprListItemInterface,
-    WalkRankingListItemInterface,
+    HealthIndicatorsListItemInterface,
+    NonMeasureListItemInterface,
     RiskFctrListItemInterface,
     StatisticsListItemInterface,
-    ActivityWalkListItemInterface,
-    NonMeasureListItemInterface,
-    HealthIndicatorsListItemInterface,
+    WalkRankingListItemInterface,
 } from '@Type/StatusTypes'
 import _ from 'lodash'
 
@@ -84,12 +84,12 @@ export function getRiskFctrList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         BGNDE: string
         ENDDE: string
-        RISK_FCTR_CNT: string
+        RISK_FCTR_CNT?: string
         RISK_FCTR: string
         TAKNG_MDCIN: string
     } = {
@@ -102,16 +102,14 @@ export function getRiskFctrList({
         TAKNG_MDCIN: TAKNG_MDCIN,
     }
 
+    // 없는 경우 삭제.
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(
-            payload,
-            'SEARCH_KEY',
-            'BGNDE',
-            'ENDDE',
-            'RISK_FCTR_CNT',
-            'RISK_FCTR',
-            'TAKNG_MDCIN'
-        )
+        delete payload.INST_NO
+    }
+
+    // 없는 경우 삭제.
+    if (_.isEmpty(payload.RISK_FCTR_CNT)) {
+        delete payload.RISK_FCTR_CNT
     }
 
     return _Axios_({

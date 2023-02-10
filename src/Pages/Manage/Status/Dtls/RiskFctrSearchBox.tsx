@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+
 import { SearchBoxStyle, WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -26,19 +27,11 @@ const {
     SearchItem,
 } = SearchBoxStyle
 
-const initializeState = {
-    riskFctrCnt: [...Array(6).keys()],
-}
-
 const RiskFctrSearchBox = ({
     HandleGetList,
 }: {
     HandleGetList: () => void
 }) => {
-    const [pageState] = useState<{
-        riskFctrCnt: number[]
-    }>(initializeState)
-
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
 
@@ -190,6 +183,8 @@ const RiskFctrSearchBox = ({
                                                                     ...prevState,
                                                                     search: {
                                                                         ...prevState.search,
+                                                                        RISK_FCTR_CNT:
+                                                                            '',
                                                                         RISK_FCTR:
                                                                             newRiskFctrs.join(
                                                                                 ','
@@ -212,6 +207,8 @@ const RiskFctrSearchBox = ({
                                                                     ...prevState,
                                                                     search: {
                                                                         ...prevState.search,
+                                                                        RISK_FCTR_CNT:
+                                                                            '',
                                                                         RISK_FCTR:
                                                                             newRiskFctrs.join(
                                                                                 ','
@@ -231,38 +228,48 @@ const RiskFctrSearchBox = ({
                     </SearchItemWapper>
                     <SearchItemWapper>
                         <SearchLabel>
-                            <VaryLabel LabelName={`개수`} />
+                            <VaryLabel LabelName={`위험군별`} />
                         </SearchLabel>
                         <SearchItem>
                             <WS.FlexNoWarapGap>
-                                {pageState.riskFctrCnt.map((el, index) => {
-                                    return (
-                                        <VaryLabelRadioButton
-                                            key={`risk-fctr-search-box-risk-fctr-cnt-item-${index}`}
-                                            LabelName={`${el}개`}
-                                            Checked={
-                                                Number(
-                                                    riskFctrListState.search
-                                                        .RISK_FCTR_CNT
-                                                ) === el
-                                            }
-                                            HandleOnChange={e => {
-                                                if (e.target.checked) {
-                                                    setRiskFctrListState(
-                                                        prevState => ({
-                                                            ...prevState,
-                                                            search: {
-                                                                ...prevState.search,
-                                                                RISK_FCTR_CNT:
-                                                                    String(el),
-                                                            },
-                                                        })
-                                                    )
-                                                }
-                                            }}
-                                        />
-                                    )
-                                })}
+                                {(() => {
+                                    const items = Codes.riksCode
+                                        .filter(e => e.key === 'riskFctrCnt')
+                                        .shift()
+                                    if (items && items.list) {
+                                        return items.list.map((el, elIndex) => {
+                                            return (
+                                                <VaryLabelRadioButton
+                                                    key={`risk-fctr-search-box-risk-fctr-cnt-item-${elIndex}`}
+                                                    LabelName={`${el.name}`}
+                                                    Checked={
+                                                        riskFctrListState.search
+                                                            .RISK_FCTR_CNT ===
+                                                        el.code
+                                                    }
+                                                    HandleOnChange={e => {
+                                                        if (e.target.checked) {
+                                                            setRiskFctrListState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    search: {
+                                                                        ...prevState.search,
+                                                                        RISK_FCTR:
+                                                                            'WS,BP,BS,TG,HD',
+                                                                        RISK_FCTR_CNT:
+                                                                            el.code,
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    }}
+                                                />
+                                            )
+                                        })
+                                    }
+
+                                    return <></>
+                                })()}
                             </WS.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
