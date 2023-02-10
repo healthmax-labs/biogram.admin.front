@@ -8,6 +8,7 @@ import {
     ActivityWalkListItemInterface,
     NonMeasureListItemInterface,
     HealthIndicatorsListItemInterface,
+    NonMeasureAlertItemInterface,
 } from '@Type/StatusTypes'
 import _ from 'lodash'
 
@@ -273,6 +274,24 @@ export function getNonMeasureList({
             AND_AT,
             SEARCH_KEY,
             NOT_MESURE_NTCN_INFO_LIST: [],
+        },
+    })
+}
+
+/**
+ * 미측정 자동 알림 설정
+ */
+export function getNonMeasureAlert({ INST_NO }: { INST_NO: string }): Promise<
+    ServicesDefaultResult<{
+        NOT_MESURE_NTCN_SET_INFO: NonMeasureAlertItemInterface
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: '/mng/gndn/v1/not_mesure/ntcn_set/info',
+        payload: {
+            INST_NO,
+            NOT_MESURE_NTCN_SET_INFO: {},
         },
     })
 }

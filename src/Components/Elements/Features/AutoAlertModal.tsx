@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { StplatItemInterface } from '@Type/MemberTypes'
 import {
     VaryButton,
@@ -11,6 +11,14 @@ import {
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { gmtTimeToTimeObject } from '@Helper'
+
+import { useRecoilState } from 'recoil'
+import {
+    NonMeasureListState,
+    NonMeasureAlertState,
+} from '@Recoil/StatusPagesState'
+import { getNonMeasureAlert } from '@Service/StatusService'
+import { isNull } from 'lodash'
 
 const { Container, RowWapper, TableBox, Table: T } = ContentsStyle
 const { SearchItemWapper, SearchLabel, SearchItem } = SearchBoxStyle
@@ -53,6 +61,39 @@ const AutoAlertModal = ({
         msg: string
     }>(initializeState)
 
+    const [nonMeasureAlertState, setNonMeasureAlertState] =
+        useRecoilState(NonMeasureAlertState)
+    const nonMeasureListState = useRecoilState(NonMeasureListState)
+    const getAlertSetting = useCallback(async () => {
+        const instNo = nonMeasureListState[0].search.INST_NO
+
+        const {
+            search: {
+                /*INST_NO*/
+            },
+        } = nonMeasureAlertState
+
+        const { status, payload } = await getNonMeasureAlert({
+            INST_NO: !isNull(instNo) ? instNo : '1000',
+        })
+
+        console.log(payload)
+        if (status) {
+            setNonMeasureAlertState(prevState => ({
+                ...prevState,
+                status: 'success',
+                data: payload,
+            }))
+        } else {
+            setNonMeasureAlertState(prevState => ({
+                ...prevState,
+                status: 'failure',
+                data: null,
+            }))
+        }
+        // eslint-disable-next-line
+    }, [nonMeasureAlertState.status, setNonMeasureAlertState])
+
     // 저장
     const handleClickSaveButton = () => {
         //저장 api 태우기
@@ -62,6 +103,16 @@ const AutoAlertModal = ({
     const handleClickResetButton = () => {
         setPageState(initializeState)
     }
+
+    // const getSettingVal = useCallback(async () => {})
+
+    useEffect(() => {
+        const pageStart = () => {
+            getAlertSetting().then()
+        }
+
+        pageStart()
+    }, [getAlertSetting, nonMeasureAlertState.status])
 
     return (
         <>
@@ -124,8 +175,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .bp
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .BP_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .BP_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .bp
                                                     }
                                                 />
                                             </T.Cell>
@@ -147,8 +207,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .bs
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .BS_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .BS_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .bs
                                                     }
                                                 />
                                             </T.Cell>
@@ -170,8 +239,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .bc
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .BC_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .BC_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .bc
                                                     }
                                                 />
                                             </T.Cell>
@@ -193,8 +271,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .hba1c
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .HA_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .HA_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .hba1c
                                                     }
                                                 />
                                             </T.Cell>
@@ -216,8 +303,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .bmi
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .IS_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .IS_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .bmi
                                                     }
                                                 />
                                             </T.Cell>
@@ -239,8 +335,17 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        pageState.checkAutoInfo
-                                                            .st
+                                                        nonMeasureAlertState
+                                                            .data
+                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .SR_N_MESURE_DAY
+                                                            ? nonMeasureAlertState
+                                                                  .data
+                                                                  .NOT_MESURE_NTCN_SET_INFO
+                                                                  .SR_N_MESURE_DAY
+                                                            : pageState
+                                                                  .checkAutoInfo
+                                                                  .st
                                                     }
                                                 />
                                             </T.Cell>

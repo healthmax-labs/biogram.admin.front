@@ -8,6 +8,7 @@ import {
     NonMeasureListInterface,
     HealthIndicatorsListInterface,
     WalkRankingListInterface,
+    NonMeasureAlertInterface,
 } from '@Type/StatusTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -188,6 +189,26 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
         list: {
             NOT_MESURE_NTCN_INFO_LIST: [],
         },
+    },
+})
+
+//미측정 알림 셋팅 내역
+interface NonMeasureSearchAlertInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string | null
+    }
+    data: NonMeasureAlertInterface | null
+}
+
+export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
+    key: `statusPage/non-measure-alert`,
+    default: {
+        status: 'idle',
+        search: {
+            INST_NO: null,
+        },
+        data: null,
     },
 })
 

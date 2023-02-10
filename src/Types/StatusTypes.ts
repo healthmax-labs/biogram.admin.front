@@ -187,6 +187,38 @@ export interface NonMeasureListInterface {
     NOT_MESURE_NTCN_INFO_LIST: NonMeasureListItemInterface[]
 }
 
+//미측정 자동알림 셋팅
+export interface NonMeasureAlertItemInterface {
+    INST_NO: number
+    NTCN_STTUS_AT: string
+    BP_NTCN_AT: string
+    BC_N_MESURE_DAY: number
+    SB_NTCN_AT: string
+    HA_N_MESURE_DAY: number
+    IS_N_MESURE_DAY: number
+    N_MESURE_NTCN_DAY: number
+    NTCN_TY_CODE: string
+    NTCN_CN: string | null
+    BP_N_MESURE_DAY: number
+    IS_NTCN_AT: string
+    BS_N_MESURE_DAY: number
+    HA_NTCN_AT: string
+    BS_NTCN_AT: string
+    AL_SELECT_AT: string
+    SR_N_MESURE_DAY: number
+    BC_NTCN_AT: string
+    SB_N_MESURE_DAY: number
+    REGIST_DT: number
+    SR_NTCN_AT: string
+    N_MESURE_PD_ETC: string
+    N_MESURE_PD_CODE: string
+}
+
+//미측정 알림 셋팅
+export interface NonMeasureAlertInterface {
+    NOT_MESURE_NTCN_SET_INFO: NonMeasureAlertItemInterface
+}
+
 //건강지표개선 현황
 export interface HealthIndicatorsListItemInterface {
     CNT: number | null
