@@ -81,7 +81,7 @@ const NonMeasureSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     nonMeasureListState.search.MESURE_DT
                                         ? changeDatePickerDate(

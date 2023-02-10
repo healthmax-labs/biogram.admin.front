@@ -90,7 +90,7 @@ const HealthIndicatorsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     healthIndicatorsListState.search.BGNDE
                                         ? changeDatePickerDate(
@@ -113,7 +113,7 @@ const HealthIndicatorsSearchBox = ({
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     healthIndicatorsListState.search.ENDDE
                                         ? changeDatePickerDate(

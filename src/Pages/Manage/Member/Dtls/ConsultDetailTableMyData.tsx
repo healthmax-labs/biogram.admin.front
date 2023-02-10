@@ -248,9 +248,9 @@ const ConsultDetailTableMyData = () => {
                     />
                 )}
 
-            {pageState.modal.myDataInput.state && (
+            {pageState.modal.myDataInput.state && detailState.memNo && (
                 <MemberMyDataInputModal
-                    MemberNo={87335}
+                    MemberNo={detailState.memNo}
                     CancleButtonClick={() =>
                         setPageState(prevState => ({
                             ...prevState,

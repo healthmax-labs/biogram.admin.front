@@ -305,7 +305,7 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         <InputCell>
                             <div className="flex flex-nowrap gap-1">
                                 <VaryDatepickerInput
-                                    ContentsType={`search`}
+                                    InputeType={`search`}
                                     Value={
                                         detailState.info.NOTI_DT
                                             ? changeDatePickerDate(

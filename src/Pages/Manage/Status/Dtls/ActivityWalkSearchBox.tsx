@@ -83,7 +83,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     activityWalkListState.search.BEGIN_DE
                                         ? changeDatePickerDate(
@@ -106,7 +106,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     activityWalkListState.search.END_DE
                                         ? changeDatePickerDate(

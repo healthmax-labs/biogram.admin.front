@@ -54,7 +54,7 @@ const WalkRankingSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     walkRankingListState.search.MESURE_MT
                                         ? changeDatePickerDate(

@@ -215,6 +215,7 @@ const ConsultDetailTableMessageSend = () => {
                                 <SendBoxDatePickerWapper>
                                     <SendBoxDatePickerDate>
                                         <VaryDatepickerInput
+                                            InputeType={`default`}
                                             Value={
                                                 smsSendState.send.SNDNG_DT
                                                     ? changeDatePickerDate(
@@ -244,7 +245,8 @@ const ConsultDetailTableMessageSend = () => {
                                     </SendBoxDatePickerDate>
                                     <SendBoxDatePickerTime>
                                         <VaryDatepickerInput
-                                            ContentsType={`time`}
+                                            ShowType={`time`}
+                                            InputeType={`default`}
                                             DateFormat={'h:mm'}
                                             Value={
                                                 smsSendState.send.SNDNG_DT

@@ -736,6 +736,7 @@ const MemberDetailTable = ({
                         </LabelCell>
                         <InputCell>
                             <VaryDatepickerInput
+                                InputeType={'default'}
                                 Width={`w60`}
                                 Value={
                                     detailState.detail.BRTHDY

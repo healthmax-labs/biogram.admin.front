@@ -191,6 +191,15 @@ export default {
                 { code: 'DP', name: '고지혈' },
             ],
         },
+        {
+            name: `위험군별`,
+            key: 'riskFctrCnt',
+            list: [
+                { code: '0', name: '정상군' },
+                { code: '3', name: '건강주의군' },
+                { code: '5', name: '건강위험군' },
+            ],
+        },
     ],
     week: [
         {

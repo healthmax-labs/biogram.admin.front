@@ -54,7 +54,7 @@ const MemberSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.BGNDE
                                         ? changeDatePickerDate(
@@ -76,7 +76,7 @@ const MemberSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.ENDDE
                                         ? changeDatePickerDate(

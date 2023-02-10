@@ -53,6 +53,7 @@ const ConsultDetailMealdiary = () => {
                     <Search.SearchItem>
                         <VaryLabel LabelName={`날짜`} LabelWidth={'w10'} />
                         <VaryDatepickerInput
+                            InputeType={`default`}
                             CallBackReturn={() => {
                                 //
                             }}

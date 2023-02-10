@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { StplatItemInterface } from '@Type/MemberTypes'
 import {
     VaryButton,
-    VaryModal,
-    VaryInput,
-    VaryTextArea,
-    VaryLabel,
     VaryDatepickerInput,
+    VaryInput,
+    VaryLabel,
+    VaryModal,
+    VaryTextArea,
 } from '@Elements'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
@@ -310,7 +310,7 @@ const AutoAlertModal = ({
                             <SearchItem>
                                 <div className={`flex px-3`}>
                                     <VaryDatepickerInput
-                                        ContentsType={`search`}
+                                        InputeType={`search`}
                                         Value={
                                             pageState.endDT
                                                 ? new Date(pageState.endDT)

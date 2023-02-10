@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
-import { ContentType, WidthType } from '@CommonTypes'
+import { ContentType, DatePickerShowType, WidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
 
 const { DatePickerWapper } = InputStyle
@@ -52,20 +52,22 @@ const SearchInput = (
 )
 
 const VaryDatepickerInput = ({
-    ContentsType = 'default',
+    ShowType,
+    InputeType = 'default',
     DateFormat,
     Value,
     CallBackReturn,
     Width,
 }: {
-    ContentsType?: ContentType
+    ShowType?: DatePickerShowType
+    InputeType: ContentType
     Width?: WidthType
     DateFormat?: string
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
-    const [dateFormat, setDateFormat] = useState(`yyyy/MM/dd`)
+    const [dateFormat, setDateFormat] = useState(`yyyy년 MM월 dd일`)
 
     useEffect(() => {
         if (Value && selectDate.getTime() !== Value?.getTime()) {
@@ -85,26 +87,10 @@ const VaryDatepickerInput = ({
     }, [selectDate])
 
     useEffect(() => {
-        if (ContentsType === 'search') {
-            return
+        if (DateFormat) {
+            setDateFormat(DateFormat)
         }
-
-        if (ContentsType === 'default') {
-            if (DateFormat) {
-                setDateFormat(DateFormat)
-            } else {
-                setDateFormat(`yyyy년 MM월 dd일`)
-            }
-        }
-
-        if (ContentsType === 'time') {
-            if (DateFormat) {
-                setDateFormat(DateFormat)
-            } else {
-                setDateFormat(`h:mm`)
-            }
-        }
-    }, [ContentsType, DateFormat])
+    }, [DateFormat])
 
     return (
         <DatePickerWapper Width={Width ? Width : `full`}>
@@ -113,12 +99,14 @@ const VaryDatepickerInput = ({
                 onChange={(date: Date) => setSelectDate(date)}
                 dateFormat={dateFormat}
                 locale={ko}
-                showTimeSelect={ContentsType === 'time'}
-                showTimeSelectOnly={ContentsType === 'time'}
-                timeIntervals={ContentsType === 'time' ? 1 : 15}
-                timeCaption={ContentsType === 'time' ? '시간' : ''}
+                todayButton={true}
+                showMonthYearPicker={ShowType === 'year, month'}
+                showTimeSelect={ShowType === 'time'}
+                showTimeSelectOnly={ShowType === 'time'}
+                timeIntervals={ShowType === 'time' ? 1 : 15}
+                timeCaption={ShowType === 'time' ? '시간' : ''}
                 customInput={
-                    ContentsType === 'search'
+                    InputeType === 'search'
                         ? React.createElement(React.forwardRef(SearchInput))
                         : React.createElement(React.forwardRef(DefaultInput))
                 }
