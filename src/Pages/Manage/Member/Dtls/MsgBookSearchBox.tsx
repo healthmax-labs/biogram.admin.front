@@ -82,7 +82,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     msgSendListState.search.FROM_DAY
                                         ? changeDatePickerDate(
@@ -104,7 +104,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     msgSendListState.search.TO_DAY
                                         ? changeDatePickerDate(

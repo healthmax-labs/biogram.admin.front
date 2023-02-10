@@ -182,6 +182,7 @@ const ConsultDetailChart = () => {
             <div className="flex flex-nowrap">
                 <div className="flex py-2 items-center w-1/3 justify-start">
                     <VaryDatepickerInput
+                        InputeType={`default`}
                         Value={
                             chartState.status === 'success' &&
                             chartState.search.startDt
@@ -203,6 +204,7 @@ const ConsultDetailChart = () => {
                     />
                     ~
                     <VaryDatepickerInput
+                        InputeType={`default`}
                         Value={
                             chartState.status === 'success' &&
                             chartState.search.endDt

@@ -237,6 +237,7 @@ const MemberMyDataInputModal = ({
                         <div className="flex flex-nowrap">
                             <div className="flex py-2 items-center gap-2">
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     Value={changeDatePickerDate(
                                         pageState.input.MESURE_DE
                                     )}
@@ -256,7 +257,8 @@ const MemberMyDataInputModal = ({
                                     Value={changeDatePickerDate(
                                         pageState.input.MESURE_TIME
                                     )}
-                                    ContentsType={`time`}
+                                    ShowType={`time`}
+                                    InputeType={`default`}
                                     DateFormat={'h:mm'}
                                     CallBackReturn={e => {
                                         const dateObj = gmtTimeToTimeObject(e)

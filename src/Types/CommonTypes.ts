@@ -89,7 +89,8 @@ export type TextColorType =
 export type TextAlignType = `left` | `center` | `right`
 
 export type PaddingStyleType = 'pl0' | 'pl1'
-export type ContentType = 'default' | 'search' | 'time'
+export type ContentType = 'default' | 'search'
+export type DatePickerShowType = `default` | `time` | `year, month` | `date`
 
 export type ButtonType = `button` | `info` | `manage` | `default`
 

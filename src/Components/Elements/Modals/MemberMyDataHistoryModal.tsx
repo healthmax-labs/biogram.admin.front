@@ -200,6 +200,7 @@ const MemberMyDataHistoryModal = ({
                         <div className="flex flex-nowrap">
                             <div className="flex py-2">
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     Value={changeDatePickerDate(
                                         pageState.search.startDate
                                     )}
@@ -216,6 +217,7 @@ const MemberMyDataHistoryModal = ({
                                 />
                                 ~
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     Value={changeDatePickerDate(
                                         pageState.search.endDate
                                     )}

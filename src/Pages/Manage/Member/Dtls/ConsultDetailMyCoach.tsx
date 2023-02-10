@@ -75,6 +75,7 @@ const ConsultDetailMyCoach = () => {
                     <Detail.MyCoach.SearchItems>
                         <Detail.MyCoach.SearchItem>
                             <VaryDatepickerInput
+                                InputeType={`default`}
                                 Value={changeDatePickerDate(
                                     coachState.search.searchDate
                                 )}

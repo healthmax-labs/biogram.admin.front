@@ -61,7 +61,7 @@ const RiskFctrItemsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.BGNDE
                                         ? changeDatePickerDate(
@@ -83,7 +83,7 @@ const RiskFctrItemsSearchBox = ({
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.ENDDE
                                         ? changeDatePickerDate(

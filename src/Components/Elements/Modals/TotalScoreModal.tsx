@@ -101,6 +101,7 @@ const TotalScoreModal = ({
                         <div className="flex flex-nowrap">
                             <div className="flex py-2">
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     CallBackReturn={e => {
                                         const dateObj = gmtTimeToTimeObject(e)
                                         setPageState(prevState => ({
@@ -114,6 +115,7 @@ const TotalScoreModal = ({
                                 />
                                 ~
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     CallBackReturn={e => {
                                         const dateObj = gmtTimeToTimeObject(e)
                                         setPageState(prevState => ({
