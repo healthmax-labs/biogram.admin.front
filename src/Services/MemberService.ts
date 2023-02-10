@@ -269,16 +269,28 @@ export const getMberCnsltlist = ({
     endDt: string
     startDt: string
 }): Promise<ServicesDefaultResult<ConsultInfoListInterface>> => {
+    const payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        RISK_FCTR: string
+        ENDDT: string
+        STARTDT: string
+    } = {
+        INST_NO: instNo,
+        SEARCH_KEY: searchKey,
+        RISK_FCTR: riskFctr,
+        ENDDT: endDt,
+        STARTDT: startDt,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
         url: `/mng/v1/mber/cnsltlist/${curPage}`,
-        payload: {
-            INST_NO: instNo,
-            SEARCH_KEY: searchKey,
-            RISK_FCTR: riskFctr,
-            ENDDT: endDt,
-            STARTDT: startDt,
-        },
+        payload: payload,
     })
 }
 
