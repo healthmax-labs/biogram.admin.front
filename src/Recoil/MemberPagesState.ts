@@ -382,7 +382,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
             SNDNG_STDR: null,
             FROM_MONTH: `${searchDateObject.start.year}${searchDateObject.start.month}`,
             FROM_DAY: `01`,
-            TO_DAY: `19`,
+            TO_DAY: `31`,
         },
         list: {
             SMS_INFO_LIST: [],

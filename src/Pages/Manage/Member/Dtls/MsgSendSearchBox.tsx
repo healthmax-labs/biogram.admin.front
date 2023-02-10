@@ -19,7 +19,6 @@ const {
     SearchRowWapper,
     SearchItemRow,
     RightSearchButton,
-    DatepickerLine,
     SearchItem,
 } = SearchBoxStyle
 
@@ -83,6 +82,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                Width={'w40'}
                                 ShowType={`year, month`}
                                 InputeType={`search`}
                                 DateFormat={'yyyy년 MM월'}
@@ -103,30 +103,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                             ...prevState.search,
                                             FROM_MONTH: `${year}${monthPad}`,
                                             FROM_DAY: `${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                ShowType={`date`}
-                                InputeType={`search`}
-                                DateFormat={'dd일'}
-                                Value={
-                                    msgSendListState.search.FROM_MONTH &&
-                                    msgSendListState.search.FROM_DAY
-                                        ? changeDatePickerDate(
-                                              `${msgSendListState.search.FROM_MONTH}${msgSendListState.search.TO_DAY}`
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { dayPad } = gmtTimeToTimeObject(e)
-                                    setMsgSendListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            TO_DAY: `${dayPad}`,
                                         },
                                     }))
                                 }}
