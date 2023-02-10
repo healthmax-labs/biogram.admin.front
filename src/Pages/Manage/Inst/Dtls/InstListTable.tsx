@@ -8,6 +8,7 @@ import {
 import { useRecoilValue } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
 import { useNavigate } from 'react-router-dom'
+import { useTab } from '@Hooks'
 
 interface tableOption {
     Loading: boolean
@@ -18,12 +19,16 @@ interface tableOption {
 
 const ListTable = () => {
     const navigate = useNavigate()
+    const { handleDeleteTabbyMatchRouter } = useTab()
     const listState = useRecoilValue(InstListState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(InitTableConfig)
 
     const handleRowClick = (element: InitTableListItemInterface) => {
+        // 등록 tab 리셋처리
+        handleDeleteTabbyMatchRouter('/manage/inst/inst-list/new')
+
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
