@@ -59,7 +59,7 @@ const DeviceUseSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.BGNDE
                                         ? changeDatePickerDate(
@@ -81,7 +81,7 @@ const DeviceUseSearchBox = ({
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.ENDDE
                                         ? changeDatePickerDate(

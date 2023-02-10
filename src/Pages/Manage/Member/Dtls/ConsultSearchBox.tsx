@@ -83,7 +83,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.startDt
                                         ? changeDatePickerDate(
@@ -105,7 +105,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     listState.search.endDt
                                         ? changeDatePickerDate(

@@ -746,7 +746,8 @@ const UhealthzoneDetailTable = ({
                                 <WS.FlexNoWarap>
                                     <DPS.DatePicker>
                                         <VaryDatepickerInput
-                                            ContentsType={`time`}
+                                            ShowType={`time`}
+                                            InputeType={`default`}
                                             DateFormat={`aa h:mm`}
                                             Value={(() => {
                                                 const time = getOperTime(
@@ -787,7 +788,8 @@ const UhealthzoneDetailTable = ({
                                     <DPS.DatePickerLine>~</DPS.DatePickerLine>
                                     <DPS.DatePicker>
                                         <VaryDatepickerInput
-                                            ContentsType={`time`}
+                                            ShowType={`time`}
+                                            InputeType={`default`}
                                             DateFormat={`aa h:mm`}
                                             Value={(() => {
                                                 const time = getOperTime(
@@ -853,7 +855,8 @@ const UhealthzoneDetailTable = ({
                                 <WS.FlexNoWarap>
                                     <DPS.DatePicker>
                                         <VaryDatepickerInput
-                                            ContentsType={`time`}
+                                            ShowType={`time`}
+                                            InputeType={`default`}
                                             DateFormat={`aa h:mm`}
                                             Value={(() => {
                                                 const time = getOperTime(
@@ -894,7 +897,8 @@ const UhealthzoneDetailTable = ({
                                     <DPS.DatePickerLine>~</DPS.DatePickerLine>
                                     <DPS.DatePicker>
                                         <VaryDatepickerInput
-                                            ContentsType={`time`}
+                                            ShowType={`time`}
+                                            InputeType={`default`}
                                             DateFormat={`aa h:mm`}
                                             Value={(() => {
                                                 const time = getOperTime(

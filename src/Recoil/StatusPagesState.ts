@@ -3,10 +3,10 @@ import { DefaultStatus } from '@CommonTypes'
 import {
     ActivityWalkListInterface,
     BrftrCmprListInterface,
+    HealthIndicatorsListInterface,
+    NonMeasureListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
-    NonMeasureListInterface,
-    HealthIndicatorsListInterface,
     WalkRankingListInterface,
     NonMeasureAlertInterface,
 } from '@Type/StatusTypes'
@@ -82,7 +82,7 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
             SEARCH_KEY: null,
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
-            RISK_FCTR_CNT: '2',
+            RISK_FCTR_CNT: '',
             RISK_FCTR: 'WS,BP,BS,TG,HD',
             TAKNG_MDCIN: null,
         },

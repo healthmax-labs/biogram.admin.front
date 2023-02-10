@@ -89,7 +89,7 @@ const StatisticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     statisticsListState.search.BEGIN_DE
                                         ? changeDatePickerDate(
@@ -112,7 +112,7 @@ const StatisticsSearchBox = ({
                             />
                             <DatepickerLine>~</DatepickerLine>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                InputeType={`search`}
                                 Value={
                                     statisticsListState.search.END_DE
                                         ? changeDatePickerDate(

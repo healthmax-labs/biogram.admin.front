@@ -231,12 +231,13 @@ const MemberMyDataInputModal = ({
                 NeedMax={true}
                 Children={
                     <>
-                        <div className="py-2 text-left text-2xl">
+                        <div className="py-2 text-left text-xl">
                             마이데이터 수기입력
                         </div>
                         <div className="flex flex-nowrap">
                             <div className="flex py-2 items-center gap-2">
                                 <VaryDatepickerInput
+                                    InputeType={`default`}
                                     Value={changeDatePickerDate(
                                         pageState.input.MESURE_DE
                                     )}
@@ -256,7 +257,8 @@ const MemberMyDataInputModal = ({
                                     Value={changeDatePickerDate(
                                         pageState.input.MESURE_TIME
                                     )}
-                                    ContentsType={`time`}
+                                    ShowType={`time`}
+                                    InputeType={`default`}
                                     DateFormat={'h:mm'}
                                     CallBackReturn={e => {
                                         const dateObj = gmtTimeToTimeObject(e)
@@ -352,12 +354,12 @@ const MemberMyDataInputModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'취소'}
                             HandleClick={() => CancleButtonClick()}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'저장'}
                             HandleClick={() =>
                                 setPageState(prevState => ({

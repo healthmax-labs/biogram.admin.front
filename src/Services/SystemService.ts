@@ -6,8 +6,8 @@ export function systemHealthCheck(): Promise<
     ServicesDefaultResult<{ CON_HISTORY: ConHistoryInterface[] }>
 > {
     return _Axios_({
-        method: 'post',
-        url: '/assist/v1/conhist',
+        method: 'get',
+        url: '/common/v1/alive',
         payload: {},
     })
 }

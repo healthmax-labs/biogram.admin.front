@@ -46,6 +46,16 @@ export default function useTab() {
         })
     }
 
+    const handleDeleteTabbyMatchRouter = (routerPathName: string) => {
+        const findIndex = _.findIndex(tabState.list, e => {
+            return e.routePath === routerPathName
+        })
+
+        if (findIndex > -1) {
+            handleDeleteTab(findIndex)
+        }
+    }
+
     // 라우터 변경시 텝 세팅
     useEffect(() => {
         const routerMatchs = matchRoutes(
@@ -145,5 +155,6 @@ export default function useTab() {
         tabState,
         setUseTabState,
         handleDeleteTab,
+        handleDeleteTabbyMatchRouter,
     }
 }

@@ -1,25 +1,59 @@
 import GeonDaonContentCard from './GeonDaonContentCard'
-import TempData from './TempData'
-import { TextColorType } from '@CommonTypes'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
-
-interface ItemInterface {
-    name: string
-    color?: TextColorType
-}
+import {
+    FctrFctrGroupListState,
+    MemberAgeGroupListState,
+    MemberGenderListState,
+    MemberListState,
+    MesureInfoState,
+    MesureInfoZoneDeviceState,
+    MesureInfoZoneState,
+    MybodyScoreImprvmState,
+    RiskFctrListState,
+    RiskGroupDormantMemberListState,
+} from '@Recoil/DashboardPagesState'
+import { useRecoilValue } from 'recoil'
+import { addComma } from '@Helper'
+import Codes from '@Codes'
+import _ from 'lodash'
 
 const {
-    GeonDaonStyle: { Container },
+    GeonDaonStyle: {
+        Container,
+        Wapper,
+        LeftWapper,
+        RightWapper,
+        WapperCol,
+        FlexFull,
+        FlexNowrapFull,
+        FlexHelf,
+    },
 } = DashboardStyle
 
 const GeonDaonDashboard = () => {
+    const memberListState = useRecoilValue(MemberListState)
+    const memberGenderListState = useRecoilValue(MemberGenderListState)
+    const memberAgeGroupListState = useRecoilValue(MemberAgeGroupListState)
+    const riskFctrListState = useRecoilValue(RiskFctrListState)
+    const fctrFctrGroupListState = useRecoilValue(FctrFctrGroupListState)
+    const riskGroupDormantMemberListState = useRecoilValue(
+        RiskGroupDormantMemberListState
+    )
+    const mesureInfoState = useRecoilValue(MesureInfoState)
+    const mesureInfoZoneState = useRecoilValue(MesureInfoZoneState)
+    const mesureInfoZoneDeviceState = useRecoilValue(MesureInfoZoneDeviceState)
+    const mybodyScoreImprvmState = useRecoilValue(MybodyScoreImprvmState)
+    const myData = Codes.myData.flatMap(i => i.list)
+    const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
+
     return (
         <Container>
-            <div className="flex w-full gap-4">
-                <div className="flex w-1/2 rounded-xl bg-gray-50">
-                    <div className="flex flex-col w-full">
-                        <div className="flex w-full">
+            <Wapper>
+                <LeftWapper>
+                    <WapperCol>
+                        <FlexFull>
                             <GeonDaonContentCard
+                                Loading={memberListState.status === 'loading'}
                                 LeftTitle={
                                     <>
                                         <p className="flex text-xs">회원현황</p>
@@ -31,27 +65,41 @@ const GeonDaonDashboard = () => {
                                 RightTitle={
                                     <>
                                         <p className="flex text-xs pl-1 text-teal-600">
-                                            오늘 15,312
+                                            ∎ 오늘
                                         </p>
-                                        <p className="flex text-xs pl-1">/</p>
                                         <p className="flex text-xs pl-1">
-                                            전체 1,122,584
+                                            ∎ 전체
                                         </p>
                                     </>
                                 }
-                                Items={TempData.step1 as Array<ItemInterface[]>}
+                                Items={memberListState.list.slice(-3).map(e => {
+                                    return [
+                                        { name: e.SEARCH_DE },
+                                        {
+                                            name: String(e.TD_CNT),
+                                            color: 'green',
+                                        },
+                                        {
+                                            name: String(e.TT_CNT),
+                                        },
+                                    ]
+                                })}
                             />
-                        </div>
-                        <div className="flex flex-nowrap w-full">
-                            <div className="flex w-1/2">
-                                <div className="flex flex-col w-full">
+                        </FlexFull>
+                        <FlexNowrapFull>
+                            <FlexHelf>
+                                <WapperCol>
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={
+                                                    memberGenderListState.status ===
+                                                    'loading'
+                                                }
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
-                                                            회원현황
+                                                            성별 회원현황
                                                         </p>
                                                         <p className="flex text-little object-bottom pl-1">
                                                             (단위: 명)
@@ -61,27 +109,57 @@ const GeonDaonDashboard = () => {
                                                 RightTitle={
                                                     <>
                                                         <p className="flex text-xs pl-1 text-teal-600">
-                                                            오늘 15,312
+                                                            {`오늘 ${addComma(
+                                                                memberGenderListState
+                                                                    .count.today
+                                                            )}`}
                                                         </p>
                                                         <p className="flex text-xs pl-1">
                                                             /
                                                         </p>
                                                         <p className="flex text-xs pl-1">
-                                                            전체 1,122,584
+                                                            {`전체 ${addComma(
+                                                                memberGenderListState
+                                                                    .count.total
+                                                            )}`}
                                                         </p>
                                                     </>
                                                 }
-                                                Items={
-                                                    TempData.step2 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
+                                                Items={memberGenderListState.list.map(
+                                                    e => {
+                                                        return [
+                                                            {
+                                                                name: e.SEXDSTN,
+                                                            },
+                                                            {
+                                                                name: `${addComma(
+                                                                    e.TT_TOT_RATE
+                                                                )}%`,
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TD_TOT_CNT
+                                                                ),
+                                                                color: 'green',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TT_TOT_CNT
+                                                                ),
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
                                             />
                                         }
                                     </div>
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={
+                                                    memberAgeGroupListState.status ===
+                                                    'loading'
+                                                }
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -102,17 +180,40 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={
-                                                    TempData.step3 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
+                                                Items={memberAgeGroupListState.list.map(
+                                                    e => {
+                                                        return [
+                                                            {
+                                                                name: `${e.AGES_GROUP}대`,
+                                                            },
+                                                            {
+                                                                name: `${addComma(
+                                                                    e.TT_TOT_RATE
+                                                                )}%`,
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TD_TOT_CNT
+                                                                ),
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TT_TOT_RATE
+                                                                ),
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
                                             />
                                         }
                                     </div>
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={
+                                                    riskFctrListState.status ===
+                                                    'loading'
+                                                }
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -123,17 +224,34 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={
-                                                    TempData.step5 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
+                                                Items={riskFctrListState.list.map(
+                                                    e => {
+                                                        let name: string | ''
+                                                        if (e.CNT_TY === 'TT') {
+                                                            name = `오늘`
+                                                        } else {
+                                                            name = `합계`
+                                                        }
+                                                        return [
+                                                            { name: name },
+                                                            {
+                                                                name: addComma(
+                                                                    e.RISK_CNT
+                                                                ),
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
                                             />
                                         }
                                     </div>
                                     <div>
                                         {
                                             <GeonDaonContentCard
+                                                Loading={
+                                                    fctrFctrGroupListState.status ===
+                                                    'loading'
+                                                }
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -154,114 +272,48 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={
-                                                    TempData.step6 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
+                                                Items={fctrFctrGroupListState.list.map(
+                                                    e => {
+                                                        const findCode = _.find(
+                                                            myData,
+                                                            {
+                                                                code: e.MESURE_CODE,
+                                                            }
+                                                        )
+                                                        return [
+                                                            {
+                                                                name: findCode
+                                                                    ? findCode.name
+                                                                    : '',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TD_CNT
+                                                                ),
+                                                                color: 'orange',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TT_CNT
+                                                                ),
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
                                             />
                                         }
                                     </div>
+                                </WapperCol>
+                            </FlexHelf>
+                            <FlexHelf>
+                                <WapperCol>
                                     <div>
                                         {
                                             <GeonDaonContentCard
-                                                LeftTitle={
-                                                    <>
-                                                        <p className="flex text-xs">
-                                                            위험군 현황
-                                                        </p>
-                                                        <p className="flex text-little object-bottom pl-1">
-                                                            (단위: 명)
-                                                        </p>
-                                                    </>
+                                                Loading={
+                                                    riskGroupDormantMemberListState.status ===
+                                                    'loading'
                                                 }
-                                                RightTitle={
-                                                    <>
-                                                        <p className="flex text-xs pl-1 text-orange-600">
-                                                            ∎ 오늘
-                                                        </p>
-                                                        <p className="flex text-xs pl-1">
-                                                            ∎ 월 누적
-                                                        </p>
-                                                    </>
-                                                }
-                                                Items={
-                                                    TempData.step7 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
-                                            />
-                                        }
-                                    </div>
-                                    <div>
-                                        {
-                                            <GeonDaonContentCard
-                                                LeftTitle={
-                                                    <>
-                                                        <p className="flex text-xs">
-                                                            설문 이상군 현황
-                                                        </p>
-                                                        <p className="flex text-little object-bottom pl-1">
-                                                            (단위: 명)
-                                                        </p>
-                                                    </>
-                                                }
-                                                RightTitle={
-                                                    <>
-                                                        <p className="flex text-xs pl-1 text-orange-600">
-                                                            ∎ 오늘
-                                                        </p>
-                                                        <p className="flex text-xs pl-1">
-                                                            ∎ 월 누적
-                                                        </p>
-                                                    </>
-                                                }
-                                                Items={
-                                                    TempData.step8 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
-                                            />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex w-1/2">
-                                <div className="flex flex-col w-full">
-                                    <div>
-                                        {
-                                            <GeonDaonContentCard
-                                                LeftTitle={
-                                                    <>
-                                                        <p className="flex text-xs">
-                                                            소속별 가입자 현황
-                                                        </p>
-                                                        <p className="flex text-little object-bottom pl-1">
-                                                            (단위: 명)
-                                                        </p>
-                                                    </>
-                                                }
-                                                RightTitle={
-                                                    <>
-                                                        <p className="flex text-xs pl-1 text-teal-600">
-                                                            ∎ 신규
-                                                        </p>
-                                                        <p className="flex text-xs pl-1">
-                                                            ∎ 전체
-                                                        </p>
-                                                    </>
-                                                }
-                                                Items={
-                                                    TempData.step4 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
-                                            />
-                                        }
-                                    </div>
-                                    <div>
-                                        {
-                                            <GeonDaonContentCard
                                                 LeftTitle={
                                                     <>
                                                         <p className="flex text-xs">
@@ -282,60 +334,44 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={
-                                                    TempData.step9 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
+                                                Items={riskGroupDormantMemberListState.list.map(
+                                                    e => {
+                                                        const findCode = _.find(
+                                                            myData,
+                                                            {
+                                                                code: e.MESURE_CODE,
+                                                            }
+                                                        )
+                                                        return [
+                                                            {
+                                                                name: findCode
+                                                                    ? findCode.name
+                                                                    : '',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TT_CNT
+                                                                ),
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
                                             />
                                         }
                                     </div>
-                                    <div>
-                                        {
-                                            <GeonDaonContentCard
-                                                LeftTitle={
-                                                    <>
-                                                        <p className="flex text-xs">
-                                                            위험 요인 증감 현황
-                                                        </p>
-                                                        <p className="flex text-little object-bottom pl-1">
-                                                            (단위: 명)
-                                                        </p>
-                                                    </>
-                                                }
-                                                RightTitle={
-                                                    <>
-                                                        <div className="flex text-xs text-orange-600">
-                                                            ▲ 증가
-                                                        </div>
-                                                        <p className="flex text-xs pl-1 text-blue-600">
-                                                            ▼ 감소
-                                                        </p>
-                                                        <p className="flex text-xs pl-1">
-                                                            ∎ 전체
-                                                        </p>
-                                                    </>
-                                                }
-                                                Items={
-                                                    TempData.step10 as Array<
-                                                        ItemInterface[]
-                                                    >
-                                                }
-                                            />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="flex w-1/2 rounded-xl bg-gray-50">
-                    <div className="flex flex-col w-full">
-                        <div className="flex w-full">
+                                </WapperCol>
+                            </FlexHelf>
+                        </FlexNowrapFull>
+                    </WapperCol>
+                </LeftWapper>
+                <RightWapper>
+                    <WapperCol>
+                        <FlexFull>
                             <GeonDaonContentCard
+                                Loading={mesureInfoState.status === 'loading'}
                                 LeftTitle={
                                     <>
-                                        <p className="flex text-xs">회원현황</p>
+                                        <p className="flex text-xs">측정현황</p>
                                         <p className="flex text-little object-bottom pl-1">
                                             (단위: 명)
                                         </p>
@@ -352,14 +388,24 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={TempData.step1 as Array<ItemInterface[]>}
+                                Items={mesureInfoState.list.slice(-3).map(e => {
+                                    return [
+                                        { name: e.MESURE_DE },
+                                        { name: addComma(e.TD_CNT) },
+                                        { name: addComma(e.TT_CNT) },
+                                    ]
+                                })}
                             />
-                        </div>
-                        <div className="flex flex-nowrap w-full">
-                            <div className="flex w-1/2">
-                                <div className="flex flex-col w-full">
+                        </FlexFull>
+                        <FlexNowrapFull>
+                            <FlexHelf>
+                                <WapperCol>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={
+                                                mesureInfoZoneState.status ===
+                                                'loading'
+                                            }
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -370,15 +416,26 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={
-                                                TempData.step11 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
+                                            Items={mesureInfoZoneState.list.map(
+                                                e => {
+                                                    return [
+                                                        { name: e.CNT_TY },
+                                                        {
+                                                            name: addComma(
+                                                                e.MESURE_CNT
+                                                            ),
+                                                        },
+                                                    ]
+                                                }
+                                            )}
                                         />
                                     </div>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={
+                                                mesureInfoZoneDeviceState.status ===
+                                                'loading'
+                                            }
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
@@ -399,187 +456,108 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={
-                                                TempData.step12 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
+                                            Items={mesureInfoZoneDeviceState.list.map(
+                                                e => {
+                                                    const findCode = _.find(
+                                                        DeviceCode,
+                                                        {
+                                                            code: e.MESURE_TY,
+                                                        }
+                                                    )
+
+                                                    return [
+                                                        {
+                                                            name: findCode
+                                                                ? findCode.name
+                                                                : '없는 device',
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.TD_CNT
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.MT_CNT
+                                                            ),
+                                                        },
+                                                    ]
+                                                }
+                                            )}
                                         />
                                     </div>
+                                </WapperCol>
+                            </FlexHelf>
+                            <FlexHelf>
+                                <WapperCol>
                                     <div>
                                         <GeonDaonContentCard
+                                            Loading={
+                                                mybodyScoreImprvmState.status ===
+                                                'loading'
+                                            }
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
-                                                        부스 지점별 측정현황
+                                                        건강 개선률
                                                     </p>
                                                     <p className="flex text-little object-bottom pl-1">
                                                         (단위: 명)
                                                     </p>
                                                 </>
                                             }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-blue-600">
-                                                        ∎ 오늘
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step13 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
+                                            Items={mybodyScoreImprvmState.list.map(
+                                                e => {
+                                                    return [
+                                                        {
+                                                            name: `${e.AGES_GROUP}`,
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.IW_CNT
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.IW_SCORE
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.NW_CNT
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.OW_CNT
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.IW_SCORE
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.NW_SCORE
+                                                            ),
+                                                        },
+                                                        {
+                                                            name: addComma(
+                                                                e.OW_SCORE
+                                                            ),
+                                                        },
+                                                    ]
+                                                }
+                                            )}
                                         />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="flex w-1/2">
-                                <div className="flex flex-col w-full">
-                                    <div>
-                                        <GeonDaonContentCard
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        홈 측정 현황
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 명)
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step14 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <GeonDaonContentCard
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        홈 기기별 측정현황
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 명)
-                                                    </p>
-                                                </>
-                                            }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-pink-600">
-                                                        ∎ 오늘
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step15 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <GeonDaonContentCard
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        홈 OS별 사용현황
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 보)
-                                                    </p>
-                                                </>
-                                            }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-pink-600">
-                                                        ∎ 오늘
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step16 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <GeonDaonContentCard
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        미션 포인트 TOP 100
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 포인트)
-                                                    </p>
-                                                </>
-                                            }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-pink-600">
-                                                        ∎ 오늘
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step17 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <GeonDaonContentCard
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        라이프로그 미측정 현황
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 명)
-                                                    </p>
-                                                </>
-                                            }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-pink-600">
-                                                        ∎ 오늘
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={
-                                                TempData.step18 as Array<
-                                                    ItemInterface[]
-                                                >
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                </WapperCol>
+                            </FlexHelf>
+                        </FlexNowrapFull>
+                    </WapperCol>
+                </RightWapper>
+            </Wapper>
         </Container>
     )
 }

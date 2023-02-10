@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -7,7 +7,6 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
-    VarySelectBox,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
@@ -20,25 +19,12 @@ const {
     SearchRowWapper,
     SearchItemRow,
     RightSearchButton,
-    DatepickerLine,
     SearchItem,
 } = SearchBoxStyle
-
-const initializeState = {
-    searchDays: Array.from({ length: 31 }, (_, i) => i + 1).map(e => {
-        return {
-            value: String(e).padStart(2, '0'),
-            text: String(e).padStart(2, '0'),
-        }
-    }),
-}
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [msgSendListState, setMsgSendListState] =
         useRecoilState(MsgSendListState)
-    const [pageState] = useState<{
-        searchDays: Array<{ value: string; text: string }>
-    }>(initializeState)
 
     return (
         <RowContainer>
@@ -96,7 +82,10 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
-                                ContentsType={`search`}
+                                Width={'w40'}
+                                ShowType={`year, month`}
+                                InputeType={`search`}
+                                DateFormat={'yyyy년 MM월'}
                                 Value={
                                     msgSendListState.search.FROM_MONTH &&
                                     msgSendListState.search.FROM_DAY
@@ -117,21 +106,6 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         },
                                     }))
                                 }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VarySelectBox
-                                ContentsType={`search`}
-                                Elements={pageState.searchDays}
-                                Value={msgSendListState.search.TO_DAY}
-                                HandleOnChange={e =>
-                                    setMsgSendListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            TO_DAY: e.value,
-                                        },
-                                    }))
-                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>

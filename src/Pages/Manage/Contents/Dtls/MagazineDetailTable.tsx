@@ -550,7 +550,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             <WapperStyle.InputFlexNoWarpWapperGap>
                                 <div className="flex w-1/5">
                                     <VaryDatepickerInput
-                                        ContentsType={`search`}
+                                        InputeType={`search`}
                                         Value={
                                             detailState.info.BEGIN_DT
                                                 ? changeDatePickerDate(
@@ -581,7 +581,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
 
                                 <div className="flex w-1/5">
                                     <VaryDatepickerInput
-                                        ContentsType={`search`}
+                                        InputeType={`search`}
                                         Value={
                                             detailState.info.END_DT
                                                 ? changeDatePickerDate(

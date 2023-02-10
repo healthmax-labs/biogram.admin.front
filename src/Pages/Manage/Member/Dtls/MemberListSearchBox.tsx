@@ -88,7 +88,7 @@ const MemberListSearchBox = ({
                         <SearchItem>
                             <div className="flex w-3/5">
                                 <VaryDatepickerInput
-                                    ContentsType={`search`}
+                                    InputeType={`search`}
                                     Width={`full`}
                                     Value={
                                         listState.search.registDtFrom
@@ -118,7 +118,7 @@ const MemberListSearchBox = ({
                             <div className="flex w-3/5">
                                 <VaryDatepickerInput
                                     Width={`full`}
-                                    ContentsType={`search`}
+                                    InputeType={`search`}
                                     Value={
                                         listState.search.registDtTo
                                             ? changeDatePickerDate(

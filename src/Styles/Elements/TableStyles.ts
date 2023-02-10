@@ -102,5 +102,5 @@ export const CommonListTableStyle = {
             ? tw`flex w-full bg-mercury h-9 items-center cursor-pointer hover:bg-daisy text-center`
             : tw`flex w-full bg-pearl h-9 items-center cursor-pointer hover:bg-daisy text-center`,
     ]),
-    TableBodyCell: tw.td`flex items-center w-full justify-center h-9 align-middle text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-gray-500 border-gray-100`,
+    TableBodyCell: tw.td`flex items-center w-full justify-center h-9 align-middle text-xs border-l-0 border-r-0 text-center truncate text-gray-500 border-gray-100`,
 }

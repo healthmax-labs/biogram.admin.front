@@ -84,6 +84,7 @@ const ConsultDetailMessage = () => {
             <div className="flex flex-nowrap">
                 <div className="flex py-2 items-center w-1/3 justify-start">
                     <VaryDatepickerInput
+                        InputeType={'default'}
                         Value={changeDatePickerDate(
                             messageBoxListState.search.START_DT
                         )}
