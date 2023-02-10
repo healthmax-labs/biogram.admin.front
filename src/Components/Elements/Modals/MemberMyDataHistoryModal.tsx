@@ -196,9 +196,7 @@ const MemberMyDataHistoryModal = ({
                 NeedMax={false}
                 Children={
                     <>
-                        <div className="py-2 text-left text-2xl">
-                            {DataName}
-                        </div>
+                        <div className="py-2 text-left text-xl">{DataName}</div>
                         <div className="flex flex-nowrap">
                             <div className="flex py-2">
                                 <VaryDatepickerInput
@@ -345,12 +343,12 @@ const MemberMyDataHistoryModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'닫기'}
                             HandleClick={() => CancleButtonClick()}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'저장'}
                             HandleClick={() =>
                                 setPageState(prevState => ({

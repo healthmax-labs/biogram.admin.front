@@ -231,7 +231,7 @@ const MemberMyDataInputModal = ({
                 NeedMax={true}
                 Children={
                     <>
-                        <div className="py-2 text-left text-2xl">
+                        <div className="py-2 text-left text-xl">
                             마이데이터 수기입력
                         </div>
                         <div className="flex flex-nowrap">
@@ -352,12 +352,12 @@ const MemberMyDataInputModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'취소'}
                             HandleClick={() => CancleButtonClick()}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             ButtonName={'저장'}
                             HandleClick={() =>
                                 setPageState(prevState => ({
