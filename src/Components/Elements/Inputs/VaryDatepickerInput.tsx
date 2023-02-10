@@ -100,7 +100,6 @@ const VaryDatepickerInput = ({
                 dateFormat={dateFormat}
                 locale={ko}
                 todayButton={true}
-                // showTwoColumnMonthYearPicker={true}
                 showMonthYearPicker={ShowType === 'year, month'}
                 showTimeSelect={ShowType === 'time'}
                 showTimeSelectOnly={ShowType === 'time'}
