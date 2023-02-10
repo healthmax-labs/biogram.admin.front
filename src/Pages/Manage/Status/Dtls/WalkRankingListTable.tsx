@@ -17,7 +17,7 @@ interface tableOption {
     Lists: WalkRankingTableListItemInterface[]
 }
 
-const WalkRankingTable = () => {
+const WalkRankingListTable = () => {
     const navigate = useNavigate()
     const listState = useRecoilValue(WalkRankingListState)
 
@@ -44,4 +44,4 @@ const WalkRankingTable = () => {
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
 
-export default WalkRankingTable
+export default WalkRankingListTable

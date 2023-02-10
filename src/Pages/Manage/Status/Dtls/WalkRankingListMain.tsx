@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
 import WalkRankingSearchBox from './WalkRankingSearchBox'
-import WalkRankingTable from './WalkRankingTable'
+import WalkRankingTable from './WalkRankingListTable'
 
 import { useRecoilState } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
@@ -14,7 +14,7 @@ const {
     ListPage: { Container },
 } = PageContainerStyle
 
-const WalkRankingMain = () => {
+const WalkRankingListMain = () => {
     const [walkRankingListState, setWalkRankingState] =
         useRecoilState(WalkRankingListState)
 
@@ -71,4 +71,4 @@ const WalkRankingMain = () => {
     )
 }
 
-export default WalkRankingMain
+export default WalkRankingListMain

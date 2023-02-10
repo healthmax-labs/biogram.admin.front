@@ -1,5 +1,5 @@
 import React from 'react'
-import ListMain from './Dtls/WalkRankingMain'
+import ListMain from './Dtls/WalkRankingListMain'
 
 const WalkRankingListPage = () => {
     return <ListMain />
