@@ -38,7 +38,7 @@ const NonMeasureListMain = () => {
 
         const { status, payload } = await getNonMeasureList({
             cur_page: !isNull(cur_page) ? cur_page : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
+            INST_NO: !isNull(INST_NO) ? INST_NO : 1000,
             MESURE_DT: !isNull(MESURE_DT) ? MESURE_DT : '',
             BP_NTCN_AT: !isNull(BP_NTCN_AT) ? BP_NTCN_AT : '',
             BS_NTCN_AT: !isNull(BS_NTCN_AT) ? BS_NTCN_AT : '',

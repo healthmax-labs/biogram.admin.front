@@ -45,7 +45,7 @@ const NonMeasureSearchBox = ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            INST_NO: String(instNo),
+                                            INST_NO: instNo,
                                         },
                                     }))
                                 }
