@@ -551,7 +551,8 @@ const MemberDetailTable = ({
         funcUseStplatAgreAt()
         funcCheckMbtlnumCnt()
     }, [
-        detailState,
+        detailState.detail.MBTLNUM_CNT,
+        detailState.detail.MBTLNUM_CRTFC_AT,
         detailState.origin.INDVDLINFO_AGRE_AT,
         detailState.origin.INDVDLINFO_THIRD_AGRE_AT,
         detailState.origin.MARKTINFO_AGRE_AT,

@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil'
 import { MemberDetailState } from '@Recoil/MemberPagesState'
-
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { VaryTextArea } from '@Elements'
 import React from 'react'
@@ -15,14 +14,17 @@ const MemberDetailMemoBox = () => {
                 Rows={22}
                 Placeholder={`메모를 입력해 주세요`}
                 Value={
-                    detailState.origin.MEMO && detailState.origin.MEMO
-                        ? detailState.origin.MEMO
+                    detailState.detail.MEMO && detailState.detail.MEMO
+                        ? detailState.detail.MEMO
                         : ``
                 }
                 HandleOnChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                     setDetailState(prevState => ({
                         ...prevState,
-                        MEMO: e.target.value,
+                        detail: {
+                            ...prevState.detail,
+                            MEMO: e.target.value,
+                        },
                     }))
                 }}
             />
