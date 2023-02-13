@@ -1,11 +1,13 @@
+import React from 'react'
 import { useRecoilState } from 'recoil'
 import { MemberDetailState } from '@Recoil/MemberPagesState'
-
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { VaryTextArea } from '@Elements'
-import React from 'react'
+import _ from 'lodash'
 
-const { MemoContainer } = DetailPageStyle
+const { MemoContainer, MemoTextLength } = DetailPageStyle
+
+const memoMaxLength = 250
 
 const MemberDetailMemoBox = () => {
     const [detailState, setDetailState] = useRecoilState(MemberDetailState)
@@ -15,17 +17,26 @@ const MemberDetailMemoBox = () => {
                 Rows={22}
                 Placeholder={`메모를 입력해 주세요`}
                 Value={
-                    detailState.origin.MEMO && detailState.origin.MEMO
-                        ? detailState.origin.MEMO
+                    detailState.detail.MEMO && detailState.detail.MEMO
+                        ? detailState.detail.MEMO
                         : ``
                 }
                 HandleOnChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    if (_.size(e.target.value) > memoMaxLength) {
+                        return
+                    }
                     setDetailState(prevState => ({
                         ...prevState,
-                        MEMO: e.target.value,
+                        detail: {
+                            ...prevState.detail,
+                            MEMO: e.target.value,
+                        },
                     }))
                 }}
             />
+            <MemoTextLength>{`${_.size(
+                detailState.detail.MEMO
+            )} / ${memoMaxLength}`}</MemoTextLength>
         </MemoContainer>
     )
 }
