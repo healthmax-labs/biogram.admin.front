@@ -11,6 +11,7 @@ export const ListTableStyle = {
 export const DetailPageStyle = {
     DetailContainer: tw.div`flex flex-nowrap flex-col`,
     MemoContainer: tw.div`flex flex-col break-words bg-white`,
+    MemoTextLength: tw.div`flex w-full justify-end text-xs`,
     PstinstInfoList: {
         Container: tw.div`w-full py-1`,
         Table: tw.table`w-full bg-transparent border-collapse items-center scrollbar-hide whitespace-nowrap overflow-auto`,
