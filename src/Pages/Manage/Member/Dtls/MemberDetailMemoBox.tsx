@@ -1,10 +1,13 @@
+import React from 'react'
 import { useRecoilState } from 'recoil'
 import { MemberDetailState } from '@Recoil/MemberPagesState'
 import { DetailPageStyle } from '@Style/Pages/MemberPageStyles'
 import { VaryTextArea } from '@Elements'
-import React from 'react'
+import _ from 'lodash'
 
-const { MemoContainer } = DetailPageStyle
+const { MemoContainer, MemoTextLength } = DetailPageStyle
+
+const memoMaxLength = 250
 
 const MemberDetailMemoBox = () => {
     const [detailState, setDetailState] = useRecoilState(MemberDetailState)
@@ -19,6 +22,9 @@ const MemberDetailMemoBox = () => {
                         : ``
                 }
                 HandleOnChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    if (_.size(e.target.value) > memoMaxLength) {
+                        return
+                    }
                     setDetailState(prevState => ({
                         ...prevState,
                         detail: {
@@ -28,6 +34,9 @@ const MemberDetailMemoBox = () => {
                     }))
                 }}
             />
+            <MemoTextLength>{`${_.size(
+                detailState.detail.MEMO
+            )} / ${memoMaxLength}`}</MemoTextLength>
         </MemoContainer>
     )
 }
