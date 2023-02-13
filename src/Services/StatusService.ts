@@ -237,7 +237,7 @@ export function getNonMeasureList({
     cur_page,
     SEARCH_KEY,
 }: {
-    INST_NO: string | null
+    INST_NO: number | null
     MESURE_DT: string
     BP_NTCN_AT: string
     BS_NTCN_AT: string
@@ -279,7 +279,7 @@ export function getNonMeasureList({
 /**
  * 미측정 자동 알림 설정
  */
-export function getNonMeasureAlert({ INST_NO }: { INST_NO: string }): Promise<
+export function getNonMeasureAlert({ INST_NO }: { INST_NO: number }): Promise<
     ServicesDefaultResult<{
         NOT_MESURE_NTCN_SET_INFO: NonMeasureAlertItemInterface
     }>
