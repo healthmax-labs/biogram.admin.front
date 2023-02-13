@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { commonFileImg } from '@Service/CommonService'
 import Messages from '@Messages'
-import { useMainLayouts } from '@Hook/index'
-import { VaryButton } from '@Element/index'
+import { useMainLayouts } from '@Hooks'
+import { VaryButton, VaryModal } from '@Elements'
 import { isEmpty } from 'lodash'
 
 const initializeState = {
@@ -11,6 +11,7 @@ const initializeState = {
     SelectImagePrev: null,
     ATCHMNFL_NO: null,
     Category: '',
+    PrevModal: false,
 }
 
 const VaryImageUpload = ({
@@ -32,6 +33,7 @@ const VaryImageUpload = ({
         SelectImagePrev: string | null
         ATCHMNFL_NO: number | null
         Category: string
+        PrevModal: boolean
     }>(initializeState)
 
     const handleChangeSelectImage = (
@@ -111,19 +113,29 @@ const VaryImageUpload = ({
     }, [Image])
 
     return (
-        <div className="grid grid-rows-3 grid-flow-col gap-4">
-            <div className="row-span-3">
-                <div className="bg-gray-50 min-h-fit">
+        <div className="flex w-full">
+            <div className="w-1/3">
+                <div className="flex bg-gray-50">
                     {pageState.SelectImagePrev && (
-                        <img
-                            className="object-contain w-full"
-                            alt=""
-                            src={pageState.SelectImagePrev}
-                        />
+                        <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                            {pageState.SelectImagePrev && (
+                                <img
+                                    className="mx-auto"
+                                    alt="prev-image"
+                                    src={pageState.SelectImagePrev}
+                                    onClick={() => {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            PrevModal: true,
+                                        }))
+                                    }}
+                                />
+                            )}
+                        </section>
                     )}
                 </div>
             </div>
-            <div className="row-span-3">
+            <div className="w-2/3">
                 <input
                     className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="small_size"
@@ -142,7 +154,14 @@ const VaryImageUpload = ({
                     ButtonType={`default`}
                     ButtonName={`삭제`}
                     HandleClick={() => {
-                        setPageState(initializeState)
+                        setPageState(prevState => ({
+                            ...prevState,
+                            SelectFile: null,
+                            SelectFileName: '',
+                            SelectImagePrev: null,
+                            ATCHMNFL_NO: null,
+                            PrevModal: false,
+                        }))
 
                         if (inputRef.current != null) {
                             inputRef.current.value = ''
@@ -150,6 +169,39 @@ const VaryImageUpload = ({
                     }}
                 />
             </div>
+            {pageState.PrevModal && (
+                <VaryModal
+                    ModalLoading={false}
+                    MaxWidth={'lg'}
+                    Children={
+                        <>
+                            <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                                {pageState.SelectImagePrev && (
+                                    <img
+                                        className="mx-auto"
+                                        alt="prev-image"
+                                        src={pageState.SelectImagePrev}
+                                    />
+                                )}
+                            </section>
+                        </>
+                    }
+                    Buttons={
+                        <>
+                            <VaryButton
+                                ButtonType={'default'}
+                                HandleClick={() => {
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        PrevModal: false,
+                                    }))
+                                }}
+                                ButtonName={'닫기'}
+                            />
+                        </>
+                    }
+                />
+            )}
         </div>
     )
 }

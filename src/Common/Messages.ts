@@ -95,6 +95,13 @@ export default {
         },
         contents: {
             magazine: {
+                empty: {
+                    subname: `메거진 제목을 입력해 주세요`,
+                    misnSubname: `메거진 설명을 입력해 주세요`,
+                    misnComptRewardPoint: `메거진 포인트를 입력해 주세요.`,
+                    atchmnflNo: `메인 이미지를 등록해 주세요`,
+                    cnAtchmnflNo: `내용 이미지를 등록해 주세요`,
+                },
                 update: `매거진을 저장하시겠습니까?`,
                 updateSuccess: `매거진이 저장되었습니다.`,
                 error: {
