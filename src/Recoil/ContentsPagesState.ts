@@ -131,9 +131,9 @@ export const MagazineDetailState = atom<MagazineDetailStateInterface>({
             MISN_SUBNAME2_d: '',
             MULTI_FILE_SN: null,
             MULTI_FILE_LIST: [],
-            BEGIN_DT: '',
-            END_DT: '',
-            USE_AT: '',
+            BEGIN_DT: `${timeObject.year}-${timeObject.monthPad}-${timeObject.dayPad}`,
+            END_DT: `${timeObject.year}-${timeObject.monthPad}-${timeObject.dayPad}`,
+            USE_AT: 'N',
         },
         modal: {
             confirm: false,

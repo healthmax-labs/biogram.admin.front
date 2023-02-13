@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/ContentsPageStyle'
 import { WapperStyle } from '@Style/Pages/CommonStyle'
@@ -20,9 +20,13 @@ import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useMainLayouts } from '@Hooks'
 import Messages from '@Messages'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { MagazineDetailState } from '@Recoil/ContentsPagesState'
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
+import {
+    MagazineDetailState,
+    MagazineListState,
+} from '@Recoil/ContentsPagesState'
 import { MagazineItemInterface } from '@Type/ContentsTypes'
+import _ from 'lodash'
 
 const {
     TableContainer,
@@ -36,85 +40,95 @@ const {
 
 const { DetailContainer, DatePickerLine } = DetailPageStyle
 
+const textMaxLength: { title: number; subTitle: number } = {
+    title: 25,
+    subTitle: 35,
+}
+
 const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ misn_step: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
     const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(MagazineDetailState)
+    const resetMagazineDetailState = useResetRecoilState(MagazineDetailState)
+    const setMagazineListState = useSetRecoilState(MagazineListState)
 
-    const handleGetInfo = async (misn_step: string) => {
-        setDetailState(prevState => ({
-            ...prevState,
-            status: 'loading',
-        }))
-        const { status, payload } = await getMagazineDetail({
-            misn_step: misn_step,
-        })
-
-        if (status) {
-            const {
-                MISN_MAGAZINE_INFO: {
-                    MISN_CD,
-                    MISN_DC,
-                    MISN_COMPT_REWARD_POINT,
-                    MISN_STEP,
-                    ATCHMNFL_NM,
-                    ATCHMNFL_NO,
-                    ATCHMNFL_PATH,
-                    CN_ATCHMNFL_NO,
-                    CN_ATCHMNFL_PATH,
-                    CN_ATCHMNFL_NM,
-                    BEGIN_DT,
-                    END_DT,
-                    MISN_SUBNAME1,
-                    MISN_SUBNAME2,
-                    MULTI_FILE_SN,
-                    MULTI_FILE_LIST,
-                    USE_AT,
-                },
-            } = payload
-            const MGZ_nm = MISN_SUBNAME1.split('\n')
-            const MGZ_subNm = MISN_SUBNAME2.split('\n')
-
+    const handleGetInfo = useCallback(
+        async (misn_step: string) => {
             setDetailState(prevState => ({
                 ...prevState,
-                status: 'success',
-                info: {
-                    ...prevState.info,
-                    MISN_CD: MISN_CD,
-                    MISN_DC: MISN_DC,
-                    MISN_STEP: MISN_STEP,
-                    ATCHMNFL_NO: ATCHMNFL_NO,
-                    ATCHMNFL_NM: ATCHMNFL_NM,
-                    ATCHMNFL_PATH: ATCHMNFL_PATH,
-                    CN_ATCHMNFL_NO: CN_ATCHMNFL_NO,
-                    CN_ATCHMNFL_NM: CN_ATCHMNFL_NM,
-                    CN_ATCHMNFL_PATH: CN_ATCHMNFL_PATH,
-                    MISN_COMPT_REWARD_POINT: MISN_COMPT_REWARD_POINT,
-                    MULTI_FILE_SN: MULTI_FILE_SN,
-                    MISN_SUBNAME1: MISN_SUBNAME1,
-                    MISN_SUBNAME1_u: MGZ_nm[0],
-                    MISN_SUBNAME1_d: MGZ_nm[1],
-                    MISN_SUBNAME2: MISN_SUBNAME2,
-                    MISN_SUBNAME2_u: MGZ_subNm[0],
-                    MISN_SUBNAME2_d: MGZ_subNm[1],
-                    MULTI_FILE_LIST: MULTI_FILE_LIST,
-                    BEGIN_DT: BEGIN_DT,
-                    END_DT: END_DT,
-                    USE_AT: USE_AT,
-                },
+                status: 'loading',
             }))
-        } else {
-            setDetailState(prevState => ({
-                ...prevState,
-                status: 'failure',
-            }))
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.pageError,
+            const { status, payload } = await getMagazineDetail({
+                misn_step: misn_step,
             })
-        }
-    }
+
+            if (status) {
+                const {
+                    MISN_MAGAZINE_INFO: {
+                        MISN_CD,
+                        MISN_DC,
+                        MISN_COMPT_REWARD_POINT,
+                        MISN_STEP,
+                        ATCHMNFL_NM,
+                        ATCHMNFL_NO,
+                        ATCHMNFL_PATH,
+                        CN_ATCHMNFL_NO,
+                        CN_ATCHMNFL_PATH,
+                        CN_ATCHMNFL_NM,
+                        BEGIN_DT,
+                        END_DT,
+                        MISN_SUBNAME1,
+                        MISN_SUBNAME2,
+                        MULTI_FILE_SN,
+                        MULTI_FILE_LIST,
+                        USE_AT,
+                    },
+                } = payload
+                const MGZ_nm = MISN_SUBNAME1.split('\n')
+                const MGZ_subNm = MISN_SUBNAME2.split('\n')
+
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                    info: {
+                        ...prevState.info,
+                        MISN_CD: MISN_CD,
+                        MISN_DC: MISN_DC,
+                        MISN_STEP: MISN_STEP,
+                        ATCHMNFL_NO: ATCHMNFL_NO,
+                        ATCHMNFL_NM: ATCHMNFL_NM,
+                        ATCHMNFL_PATH: ATCHMNFL_PATH,
+                        CN_ATCHMNFL_NO: CN_ATCHMNFL_NO,
+                        CN_ATCHMNFL_NM: CN_ATCHMNFL_NM,
+                        CN_ATCHMNFL_PATH: CN_ATCHMNFL_PATH,
+                        MISN_COMPT_REWARD_POINT: MISN_COMPT_REWARD_POINT,
+                        MULTI_FILE_SN: MULTI_FILE_SN,
+                        MISN_SUBNAME1: MISN_SUBNAME1,
+                        MISN_SUBNAME1_u: MGZ_nm[0],
+                        MISN_SUBNAME1_d: MGZ_nm[1],
+                        MISN_SUBNAME2: MISN_SUBNAME2,
+                        MISN_SUBNAME2_u: MGZ_subNm[0],
+                        MISN_SUBNAME2_d: MGZ_subNm[1],
+                        MULTI_FILE_LIST: MULTI_FILE_LIST,
+                        BEGIN_DT: BEGIN_DT,
+                        END_DT: END_DT,
+                        USE_AT: USE_AT,
+                    },
+                }))
+            } else {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                }))
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.pageError,
+                })
+            }
+        },
+        [handlMainAlert, setDetailState]
+    )
 
     const handleMagazine = async () => {
         const {
@@ -183,6 +197,11 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         }
 
         if (serviceStatus) {
+            // 리스트로 가기전에 상태 변경.
+            setMagazineListState(prevState => ({
+                ...prevState,
+                status: 'idle',
+            }))
             handlMainAlert({
                 state: true,
                 message: Messages.Default.processSuccess,
@@ -201,27 +220,50 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     }
 
     const handleClickApplyButton = () => {
-        //제목이 입력되지 않음
-        if (!detailState.info.MISN_SUBNAME1_u) {
+        if (detailState.info.MISN_COMPT_REWARD_POINT === 0) {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.contents.magazine.error.nameEmpty,
+                message:
+                    Messages.Default.contents.magazine.empty
+                        .misnComptRewardPoint,
             })
             return
         }
-        //서브제목이 입력되지 않음
-        // if (!detailState.info.MISN_SUBNAME2_u) {
-        //     handlMainAlert({
-        //         state: true,
-        //         message: Messages.Default.inst.instNmCheckYet,
-        //     })
-        //     return
-        // }
-        //메인 제목 길이가 25자를 넘음
-        if (detailState.info.MISN_SUBNAME1.length > 25) {
+
+        if (
+            _.isEmpty(detailState.info.MISN_SUBNAME1_u) ||
+            _.isEmpty(detailState.info.MISN_SUBNAME1_d)
+        ) {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.contents.magazine.error.nameLong,
+                message: Messages.Default.contents.magazine.empty.subname,
+            })
+            return
+        }
+
+        if (
+            _.isEmpty(detailState.info.MISN_SUBNAME2_u) ||
+            _.isEmpty(detailState.info.MISN_SUBNAME2_d)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.contents.magazine.empty.misnSubname,
+            })
+            return
+        }
+
+        if (_.isNull(detailState.info.ATCHMNFL_NO)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.contents.magazine.empty.atchmnflNo,
+            })
+            return
+        }
+
+        if (!detailState.info.CN_ATCHMNFL_NO) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.contents.magazine.empty.cnAtchmnflNo,
             })
             return
         }
@@ -238,36 +280,15 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         if (pageMode === `modify` && params.misn_step) {
             funcSetDetail()
         } else {
-            setDetailState(prevState => ({
-                ...prevState,
-                status: 'success',
-                info: {
-                    MISN_CD: '',
-                    MISN_COMPT_REWARD_POINT: 0,
-                    ATCHMNFL_NO: 0,
-                    ATCHMNFL_NM: '',
-                    ATCHMNFL_PATH: '',
-                    CN_ATCHMNFL_NO: 0,
-                    CN_ATCHMNFL_NM: '',
-                    CN_ATCHMNFL_PATH: '',
-                    MISN_DC: '',
-                    BEGIN_DT: '',
-                    END_DT: '',
-                    MULTI_FILE_SN: null,
-                    MULTI_FILE_LIST: [],
-                    MISN_SUBNAME1: '',
-                    MISN_SUBNAME1_u: '',
-                    MISN_SUBNAME1_d: '',
-                    MISN_SUBNAME2: '',
-                    MISN_SUBNAME2_u: '',
-                    MISN_SUBNAME2_d: '',
-                    MISN_STEP: 0,
-                    USE_AT: 'N',
-                },
-            }))
+            resetMagazineDetailState()
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageMode, params.misn_step])
+    }, [
+        handleGetInfo,
+        pageMode,
+        params.misn_step,
+        resetMagazineDetailState,
+        setDetailState,
+    ])
 
     return (
         <DetailContainer>
@@ -299,7 +320,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 .MISN_COMPT_REWARD_POINT
                                                 ? detailState.info
                                                       .MISN_COMPT_REWARD_POINT
-                                                : '0'
+                                                : 0
                                         }
                                     />
                                 </div>
@@ -308,14 +329,20 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     </Row>
                     <Row>
                         <LabelCell rowSpan={2}>
-                            <VaryLabel LabelName={`매거진 제목(23자)`} />
+                            <VaryLabel LabelName={`매거진 제목`} />
                         </LabelCell>
                         <InputCell>
                             <div className="flex flex-nowrap w-full items-center">
                                 <div className="w-2/4">
                                     <VaryInput
                                         InputType={'text'}
-                                        HandleOnChange={e =>
+                                        HandleOnChange={e => {
+                                            if (
+                                                e.target.value.length >
+                                                textMaxLength.title
+                                            ) {
+                                                return
+                                            }
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
@@ -324,7 +351,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                         e.target.value,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         id={'id'}
                                         Placeholder={
                                             '매거진 제목 1번째 줄 내용'
@@ -337,6 +364,10 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         }
                                     />
                                 </div>
+                                <div className="flex items-end text-xs h-8 pl-1">
+                                    ({detailState.info.MISN_SUBNAME1_u?.length}/
+                                    {textMaxLength.title})
+                                </div>
                             </div>
                         </InputCell>
                     </Row>
@@ -346,7 +377,14 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <div className="w-2/4">
                                     <VaryInput
                                         InputType={'text'}
-                                        HandleOnChange={e =>
+                                        HandleOnChange={e => {
+                                            if (
+                                                e.target.value.length >
+                                                textMaxLength.title
+                                            ) {
+                                                return
+                                            }
+
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
@@ -355,7 +393,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                         e.target.value,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         id={'id'}
                                         Placeholder={
                                             '매거진 제목 2번째 줄 내용'
@@ -367,6 +405,10 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 : ''
                                         }
                                     />
+                                </div>
+                                <div className="flex items-end text-xs h-8 pl-1">
+                                    ({detailState.info.MISN_SUBNAME1_d?.length}/
+                                    {textMaxLength.title})
                                 </div>
                             </div>
                         </InputCell>
@@ -380,7 +422,13 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <div className="w-2/4">
                                     <VaryInput
                                         InputType={'text'}
-                                        HandleOnChange={e =>
+                                        HandleOnChange={e => {
+                                            if (
+                                                e.target.value.length >
+                                                textMaxLength.subTitle
+                                            ) {
+                                                return
+                                            }
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
@@ -389,7 +437,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                         e.target.value,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         id={'id'}
                                         Placeholder={
                                             '매거진 설명 1번째 줄 내용'
@@ -402,6 +450,10 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         }
                                     />
                                 </div>
+                                <div className="flex items-end text-xs h-8 pl-1">
+                                    ({detailState.info.MISN_SUBNAME2_u?.length}/
+                                    {textMaxLength.subTitle})
+                                </div>
                             </div>
                         </InputCell>
                     </Row>
@@ -411,7 +463,13 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                 <div className="w-2/4">
                                     <VaryInput
                                         InputType={'text'}
-                                        HandleOnChange={e =>
+                                        HandleOnChange={e => {
+                                            if (
+                                                e.target.value.length >
+                                                textMaxLength.subTitle
+                                            ) {
+                                                return
+                                            }
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 info: {
@@ -420,7 +478,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                         e.target.value,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         id={'id'}
                                         Placeholder={
                                             '매거진 설명 2번째 줄 내용'
@@ -432,6 +490,10 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 : ''
                                         }
                                     />
+                                </div>
+                                <div className="flex items-end text-xs h-8 pl-1">
+                                    ({detailState.info.MISN_SUBNAME2_d?.length}/
+                                    {textMaxLength.subTitle})
                                 </div>
                             </div>
                         </InputCell>
@@ -457,6 +519,8 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         info: {
                                             ...prevState.info,
                                             ATCHMNFL_NO: e.ATCHMNFL_NO,
+                                            ATCHMNFL_NM: '',
+                                            ATCHMNFL_PATH: '',
                                         },
                                     }))
                                 }
@@ -483,8 +547,9 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                         ...prevState,
                                         info: {
                                             ...prevState.info,
-                                            //CN_ATCHMNFL_NO: e.CN_ATCHMNFL_NO,
                                             CN_ATCHMNFL_NO: e.ATCHMNFL_NO,
+                                            CN_ATCHMNFL_NM: '',
+                                            CN_ATCHMNFL_PATH: '',
                                         },
                                     }))
                                 }
@@ -568,7 +633,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
-                                                    BEGIN_DT: `${year}${monthPad}${dayPad}`,
+                                                    BEGIN_DT: `${year}-${monthPad}-${dayPad}`,
                                                 },
                                             }))
                                         }}
@@ -599,7 +664,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 ...prevState,
                                                 info: {
                                                     ...prevState.info,
-                                                    END_DT: `${year}${monthPad}${dayPad}`,
+                                                    END_DT: `${year}-${monthPad}-${dayPad}`,
                                                 },
                                             }))
                                         }}

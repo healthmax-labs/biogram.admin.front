@@ -33,14 +33,13 @@ const MsgSendListMain = () => {
             },
         } = msgSendListState
 
-        const { /*year, monthPad,*/ dayPad } = gmtTimeToTimeObject(new Date())
+        const { dayPad } = gmtTimeToTimeObject(new Date())
 
         const { status, payload } = await getMsgSendList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             FROM_MONTH: !isNull(FROM_MONTH) ? FROM_MONTH : `202211`,
-            // FROM_MONTH: !isNull(FROM_MONTH) ? FROM_MONTH : `${year}${monthPad}`,
             FROM_DAY: !isNull(FROM_DAY) ? FROM_DAY : `01`,
             TO_DAY: !isNull(TO_DAY) ? TO_DAY : `${dayPad}`,
             SNDNG_FAILR: !isNull(SNDNG_FAILR) ? SNDNG_FAILR : '',
