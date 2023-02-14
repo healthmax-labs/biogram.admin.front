@@ -50,9 +50,9 @@ const ConsultDetailMyCoach = () => {
     }, [coachState.memNo, coachState.search.searchDate, setCoachState])
 
     useEffect(() => {
-        const pageStart = () => {
-            const { memNo } = params
+        const { memNo } = params
 
+        const pageStart = () => {
             if (memNo) {
                 setCoachState(prevState => ({
                     ...prevState,
@@ -63,10 +63,16 @@ const ConsultDetailMyCoach = () => {
             }
         }
 
-        if (coachState.status === 'idle') {
+        if (memNo && Number(memNo) !== coachState.memNo) {
             pageStart()
         }
-    }, [coachState.status, handleGetData, params, setCoachState])
+    }, [
+        coachState.memNo,
+        coachState.status,
+        handleGetData,
+        params,
+        setCoachState,
+    ])
 
     return (
         <Detail.Container>

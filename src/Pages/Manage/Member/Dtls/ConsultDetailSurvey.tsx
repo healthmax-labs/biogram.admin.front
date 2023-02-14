@@ -151,15 +151,16 @@ const ConsultDetailSurvey = () => {
         }>
     }>(initializeState)
 
-    const handleGetData = useCallback(async () => {
-        if (surveyState.memNo) {
+    const handleGetData = useCallback(
+        async (memNo: number) => {
             setSurveyState(prevState => ({
                 ...prevState,
                 status: 'loading',
+                memNo: memNo,
             }))
 
             const { status, payload } = await getMngQustnrAnswer({
-                memNo: surveyState.memNo,
+                memNo: memNo,
             })
 
             if (status) {
@@ -175,8 +176,9 @@ const ConsultDetailSurvey = () => {
                     data: null,
                 }))
             }
-        }
-    }, [surveyState.memNo, setSurveyState])
+        },
+        [setSurveyState]
+    )
 
     const handlSaveSurveyData = useCallback(async () => {
         const { memNo } = params
@@ -191,7 +193,7 @@ const ConsultDetailSurvey = () => {
                 message: Messages.Default.processSuccess,
             })
 
-            handleGetData().then()
+            handleGetData(Number(memNo)).then()
         } else {
             handlMainAlert({
                 state: true,
@@ -201,23 +203,22 @@ const ConsultDetailSurvey = () => {
     }, [handlMainAlert, handleGetData, pageState.surveyData, params])
 
     useEffect(() => {
+        const { memNo } = params
+
         const pageStart = () => {
-            const { memNo } = params
-
-            if (memNo) {
-                setSurveyState(prevState => ({
-                    ...prevState,
-                    memNo: Number(memNo),
-                }))
-
-                handleGetData().then()
-            }
+            handleGetData(Number(memNo)).then()
         }
 
-        if (surveyState.status === 'idle') {
+        if (memNo && Number(memNo) !== Number(surveyState.memNo)) {
             pageStart()
         }
-    }, [surveyState.status, handleGetData, params, setSurveyState])
+    }, [
+        surveyState.status,
+        handleGetData,
+        params,
+        setSurveyState,
+        surveyState.memNo,
+    ])
 
     return (
         <Detail.Container>

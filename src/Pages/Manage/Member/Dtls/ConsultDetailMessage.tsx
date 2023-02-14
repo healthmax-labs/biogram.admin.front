@@ -62,9 +62,9 @@ const ConsultDetailMessage = () => {
     }, [messageBoxListState.search, setMessageBoxListState, params.memNo])
 
     useEffect(() => {
-        const pageStart = () => {
-            const { memNo } = params
+        const { memNo } = params
 
+        const pageStart = () => {
             if (memNo) {
                 setMessageBoxListState(prevState => ({
                     ...prevState,
@@ -74,7 +74,7 @@ const ConsultDetailMessage = () => {
             }
         }
 
-        if (messageBoxListState.status === 'idle') {
+        if (memNo && Number(memNo) !== messageBoxListState.memNo) {
             pageStart()
         }
     }, [messageBoxListState, handleGetData, params, setMessageBoxListState])

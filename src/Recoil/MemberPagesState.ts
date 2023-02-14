@@ -53,10 +53,10 @@ interface ConsultChartListInterface {
     status: DefaultStatus
     listStatus: DefaultStatus
     search: {
-        endDt: string | null
-        mberNo: string | null
-        startDt: string | null
+        endDt: string
+        startDt: string
     }
+    memNo: number | null
     list: ManageCounselItemInterface[]
 }
 
@@ -134,6 +134,7 @@ interface ConsultMsgBoxListInterface {
         MSG_TYPE: string
         SEARCH_KEY: string
     }
+    memNo: number | null
     data: ManageCounselMsgBoxListInterface | null
 }
 
@@ -288,10 +289,10 @@ export const ConsultDetailChartListState = atom<ConsultChartListInterface>({
         status: 'idle',
         listStatus: 'idle',
         search: {
-            endDt: null,
-            mberNo: null,
-            startDt: null,
+            endDt: getNowDate(),
+            startDt: getOneMonthAgo(),
         },
+        memNo: null,
         list: [],
     },
 })
@@ -366,6 +367,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
             MSG_TYPE: '',
             SEARCH_KEY: '',
         },
+        memNo: null,
         data: null,
     },
 })

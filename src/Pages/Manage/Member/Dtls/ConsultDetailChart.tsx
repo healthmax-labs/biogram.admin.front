@@ -8,8 +8,6 @@ import {
 } from '@Elements'
 import {
     changeDatePickerDate,
-    getNowDate,
-    getOneMonthAgo,
     gmtTimeToTimeObject,
     timeStringParse,
 } from '@Helper'
@@ -59,19 +57,15 @@ const ConsultDetailChart = () => {
         }
     }>(initializeState)
 
-    const handleGetList = useCallback(async () => {
-        if (
-            chartState.status === 'success' &&
-            chartState.search.mberNo &&
-            chartState.search.endDt &&
-            chartState.search.startDt
-        ) {
+    const handleGetList = useCallback(
+        async (memNo: number) => {
             setChartState(prevState => ({
                 ...prevState,
                 listStatus: 'loading',
+                memNo: memNo,
             }))
             const { status, payload } = await postManageCounsel({
-                MBER_NO: chartState.search.mberNo,
+                MBER_NO: String(memNo),
                 END_DT: chartState.search.endDt,
                 START_DT: chartState.search.startDt,
             })
@@ -91,14 +85,9 @@ const ConsultDetailChart = () => {
                     list: [],
                 }))
             }
-        }
-    }, [
-        chartState.search.endDt,
-        chartState.search.mberNo,
-        chartState.search.startDt,
-        chartState.status,
-        setChartState,
-    ])
+        },
+        [chartState.search.endDt, chartState.search.startDt, setChartState]
+    )
 
     const handleRowClick = (element: ManageCounselItemInterface) => {
         setConsultChart(prevState => ({
@@ -115,7 +104,7 @@ const ConsultDetailChart = () => {
         }))
     }
 
-    const handleChartItemRemove = async () => {
+    const handleChartItemRemove = useCallback(async () => {
         if (pageState.select.length === 0) {
             handlMainAlert({
                 state: true,
@@ -137,45 +126,24 @@ const ConsultDetailChart = () => {
                 state: true,
                 message: Messages.Default.processSuccess,
             })
-            handleGetList().then()
+            handleGetList(Number(memNo)).then()
         } else {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.processFail,
             })
         }
-    }
+    }, [handlMainAlert, handleGetList, memNo, pageState.select])
 
     useEffect(() => {
         const pageStart = () => {
-            if (memNo && chartState.status === 'idle') {
-                setChartState(prevState => ({
-                    ...prevState,
-                    status: 'success',
-                    search: {
-                        endDt: getNowDate(),
-                        startDt: getOneMonthAgo(),
-                        mberNo: memNo,
-                    },
-                }))
-            }
+            handleGetList(Number(memNo)).then()
         }
 
-        pageStart()
-    }, [chartState.status, setChartState, memNo])
-
-    useEffect(() => {
-        const funcGetList = () => {
-            handleGetList().then()
+        if (memNo && Number(memNo) !== chartState.memNo) {
+            pageStart()
         }
-
-        if (
-            chartState.status === 'success' &&
-            chartState.listStatus === 'idle'
-        ) {
-            funcGetList()
-        }
-    }, [chartState, handleGetList])
+    }, [chartState, handleGetList, memNo])
 
     return (
         <>
@@ -184,7 +152,6 @@ const ConsultDetailChart = () => {
                     <VaryDatepickerInput
                         InputeType={`default`}
                         Value={
-                            chartState.status === 'success' &&
                             chartState.search.startDt
                                 ? changeDatePickerDate(
                                       chartState.search.startDt
@@ -197,7 +164,7 @@ const ConsultDetailChart = () => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    startDt: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                    startDt: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                 },
                             }))
                         }}
@@ -206,7 +173,6 @@ const ConsultDetailChart = () => {
                     <VaryDatepickerInput
                         InputeType={`default`}
                         Value={
-                            chartState.status === 'success' &&
                             chartState.search.endDt
                                 ? changeDatePickerDate(chartState.search.endDt)
                                 : new Date()
@@ -217,7 +183,7 @@ const ConsultDetailChart = () => {
                                 ...prevState,
                                 search: {
                                     ...prevState.search,
-                                    endDt: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                    endDt: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                 },
                             }))
                         }}
@@ -228,7 +194,9 @@ const ConsultDetailChart = () => {
                         <VaryButton
                             ButtonType={'default'}
                             ButtonName={'조회'}
-                            HandleClick={() => handleGetList().then()}
+                            HandleClick={() => {
+                                handleGetList(Number(memNo)).then()
+                            }}
                         />
                         <VaryButton
                             ButtonType={'default'}

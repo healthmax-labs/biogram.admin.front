@@ -49,7 +49,6 @@ const ConsultDetailTableMemo = () => {
     const handleGetList = useCallback(async () => {
         if (
             chartListState.status === 'success' &&
-            chartListState.search.mberNo &&
             chartListState.search.endDt &&
             chartListState.search.startDt
         ) {
@@ -58,7 +57,7 @@ const ConsultDetailTableMemo = () => {
                 listStatus: 'loading',
             }))
             const { status, payload } = await postManageCounsel({
-                MBER_NO: chartListState.search.mberNo,
+                MBER_NO: String(chartListState.memNo),
                 END_DT: chartListState.search.endDt,
                 START_DT: chartListState.search.startDt,
             })
@@ -79,8 +78,8 @@ const ConsultDetailTableMemo = () => {
             }
         }
     }, [
+        chartListState.memNo,
         chartListState.search.endDt,
-        chartListState.search.mberNo,
         chartListState.search.startDt,
         chartListState.status,
         setChartListState,
