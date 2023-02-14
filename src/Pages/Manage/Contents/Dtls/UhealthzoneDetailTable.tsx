@@ -336,10 +336,6 @@ const UhealthzoneDetailTable = ({
         setDetailState,
     ])
 
-    useEffect(() => {
-        console.debug(detailState.detail.INSTL_TY_CD)
-    }, [detailState.detail.INSTL_TY_CD])
-
     return (
         <DPS.DetailContainer>
             <TableContainer>
@@ -970,10 +966,7 @@ const UhealthzoneDetailTable = ({
                                                                     el.code
                                                                 }
                                                                 LabelName={`${el.name}`}
-                                                                HandleOnChange={e => {
-                                                                    console.debug(
-                                                                        e
-                                                                    )
+                                                                HandleOnChange={() => {
                                                                     setDetailState(
                                                                         prevState => ({
                                                                             ...prevState,
@@ -1174,16 +1167,10 @@ const UhealthzoneDetailTable = ({
                                                                 LabelWidth={`wMin`}
                                                                 LabelName={`${el.name}`}
                                                                 HandleOnChange={e => {
-                                                                    console.debug(
-                                                                        e
-                                                                    )
                                                                     if (
                                                                         e.target
                                                                             .checked
                                                                     ) {
-                                                                        console.debug(
-                                                                            1
-                                                                        )
                                                                         setDetailState(
                                                                             prevState => ({
                                                                                 ...prevState,
@@ -1203,9 +1190,6 @@ const UhealthzoneDetailTable = ({
                                                                             })
                                                                         )
                                                                     } else {
-                                                                        console.debug(
-                                                                            2
-                                                                        )
                                                                         setDetailState(
                                                                             prevState => ({
                                                                                 ...prevState,
