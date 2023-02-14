@@ -13,10 +13,7 @@ import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { gmtTimeToTimeObject } from '@Helper'
 
 import { useRecoilState } from 'recoil'
-import {
-    NonMeasureListState,
-    NonMeasureAlertState,
-} from '@Recoil/StatusPagesState'
+import { NonMeasureAlertState } from '@Recoil/StatusPagesState'
 import { getNonMeasureAlert } from '@Service/StatusService'
 import { isNull } from 'lodash'
 
@@ -58,7 +55,7 @@ const AutoAlertModal = ({
     CallBackResturn: (e: StplatItemInterface) => void
 }) => {
     const [nonMeasureListState, setNonMeasureListState] =
-        useRecoilState(NonMeasureListState)
+        useRecoilState(NonMeasureAlertState)
 
     const [nonMeasureAlertSettingState, setNonMeasureAlertSettingState] =
         useRecoilState(NonMeasureAlertState)
@@ -67,7 +64,7 @@ const AutoAlertModal = ({
         const instNo = nonMeasureListState.search.INST_NO
 
         const { status, payload } = await getNonMeasureAlert({
-            INST_NO: !isNull(instNo) ? instNo : 1000,
+            INST_NO: !isNull(instNo) ? Number(instNo) : 1000,
         })
 
         if (status) {
@@ -80,13 +77,9 @@ const AutoAlertModal = ({
             setNonMeasureAlertSettingState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                data: null,
             }))
         }
-
-        console.log(nonMeasureAlertSettingState)
-        // eslint-disable-next-line
-    }, [nonMeasureAlertSettingState.status, setNonMeasureAlertSettingState])
+    }, [nonMeasureListState.search.INST_NO, setNonMeasureAlertSettingState])
 
     // 저장
     const handleClickSaveButton = () => {
@@ -158,28 +151,28 @@ const AutoAlertModal = ({
                                                         setNonMeasureAlertSettingState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    BP_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            BP_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
-                                                            .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                        nonMeasureListState.data
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .BP_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .BP_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -190,28 +183,28 @@ const AutoAlertModal = ({
                                                         setNonMeasureListState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    BS_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            BS_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
-                                                            .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                        nonMeasureListState.data
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .BS_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .BS_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>

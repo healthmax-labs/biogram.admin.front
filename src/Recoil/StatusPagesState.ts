@@ -4,11 +4,11 @@ import {
     ActivityWalkListInterface,
     BrftrCmprListInterface,
     HealthIndicatorsListInterface,
+    NonMeasureAlertInterface,
     NonMeasureListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
     WalkRankingListInterface,
-    NonMeasureAlertInterface,
 } from '@Type/StatusTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -198,7 +198,7 @@ interface NonMeasureSearchAlertInterface {
     search: {
         INST_NO: string | null
     }
-    data: NonMeasureAlertInterface | null
+    data: NonMeasureAlertInterface
 }
 
 export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
@@ -208,7 +208,33 @@ export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
         search: {
             INST_NO: null,
         },
-        data: null,
+        data: {
+            NOT_MESURE_NTCN_SET_INFO: {
+                INST_NO: 0,
+                NTCN_STTUS_AT: '',
+                BP_NTCN_AT: '',
+                BC_N_MESURE_DAY: 0,
+                SB_NTCN_AT: '',
+                HA_N_MESURE_DAY: 0,
+                IS_N_MESURE_DAY: 0,
+                N_MESURE_NTCN_DAY: 0,
+                NTCN_TY_CODE: '',
+                NTCN_CN: null,
+                BP_N_MESURE_DAY: 0,
+                IS_NTCN_AT: '',
+                BS_N_MESURE_DAY: 0,
+                HA_NTCN_AT: '',
+                BS_NTCN_AT: '',
+                AL_SELECT_AT: '',
+                SR_N_MESURE_DAY: 0,
+                BC_NTCN_AT: '',
+                SB_N_MESURE_DAY: 0,
+                REGIST_DT: 0,
+                SR_NTCN_AT: '',
+                N_MESURE_PD_ETC: '',
+                N_MESURE_PD_CODE: '',
+            },
+        },
     },
 })
 
