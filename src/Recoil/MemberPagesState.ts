@@ -360,8 +360,8 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
     default: {
         status: 'idle',
         search: {
-            START_DT: '',
-            END_DT: '',
+            START_DT: getOneMonthAgo(),
+            END_DT: getNowDate(),
             SNDNG_FAILR: '',
             SNDNG_STDR: '',
             MSG_TYPE: '',
@@ -401,9 +401,9 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            FROM_DAY: getOneMonthAgo(),
+            FROM_DAY: getNowDate(),
             TO_DAY: getNowDate(),
-            SNDNG_STDR: ``,
+            SNDNG_STDR: `S`,
         },
         list: {
             SMS_INFO_LIST: [],
