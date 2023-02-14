@@ -966,7 +966,7 @@ const UhealthzoneDetailTable = ({
                                                                     el.code
                                                                 }
                                                                 LabelName={`${el.name}`}
-                                                                HandleOnChange={e => {
+                                                                HandleOnChange={() => {
                                                                     setDetailState(
                                                                         prevState => ({
                                                                             ...prevState,
