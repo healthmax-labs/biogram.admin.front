@@ -252,7 +252,7 @@ export default {
         },
     ],
     deviceGubun: {
-        modal: {
+        model: {
             name: `모델`,
             list: [
                 {

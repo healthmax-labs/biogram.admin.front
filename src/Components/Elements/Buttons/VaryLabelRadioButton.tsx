@@ -12,12 +12,8 @@ const VaryLabelRadioButton = ({
     HandleOnChange,
     LabelWidth,
     TextColor,
-    Id,
-    Name,
 }: {
     LabelName: string
-    Id?: string
-    Name?: string
     Checked: boolean
     LabelReverse?: boolean
     RedioName?: string
@@ -30,8 +26,6 @@ const VaryLabelRadioButton = ({
         <Wapper Reverse={LabelReverse ? LabelReverse : false}>
             <VaryRadioButton
                 HandleOnChange={e => HandleOnChange(e)}
-                Id={Id ? Id : 'vary-radio-button'}
-                Name={Name ? Name : 'vary-radio-button'}
                 Checked={Checked}
             />
             <InputLabel

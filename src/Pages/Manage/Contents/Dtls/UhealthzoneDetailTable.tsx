@@ -336,6 +336,10 @@ const UhealthzoneDetailTable = ({
         setDetailState,
     ])
 
+    useEffect(() => {
+        console.debug(detailState.detail.INSTL_TY_CD)
+    }, [detailState.detail.INSTL_TY_CD])
+
     return (
         <DPS.DetailContainer>
             <TableContainer>
@@ -952,8 +956,8 @@ const UhealthzoneDetailTable = ({
                                             <VaryLabel LabelName={`모델`} />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
-                                                {Codes.deviceGubun.modal.list.map(
+                                            <WS.FlexNoWarapGap>
+                                                {Codes.deviceGubun.model.list.map(
                                                     (el, index) => {
                                                         return (
                                                             <VaryLabelRadioButton
@@ -966,7 +970,10 @@ const UhealthzoneDetailTable = ({
                                                                     el.code
                                                                 }
                                                                 LabelName={`${el.name}`}
-                                                                HandleOnChange={() => {
+                                                                HandleOnChange={e => {
+                                                                    console.debug(
+                                                                        e
+                                                                    )
                                                                     setDetailState(
                                                                         prevState => ({
                                                                             ...prevState,
@@ -982,7 +989,7 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
@@ -992,7 +999,7 @@ const UhealthzoneDetailTable = ({
                                             />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
+                                            <WS.FlexNoWarapGap>
                                                 {Codes.deviceGubun.loginType.list.map(
                                                     (el, index) => {
                                                         return (
@@ -1022,7 +1029,7 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
@@ -1032,7 +1039,7 @@ const UhealthzoneDetailTable = ({
                                             />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
+                                            <WS.FlexNoWarapGap>
                                                 {Codes.deviceGubun.outSiderUse.list.map(
                                                     (el, index) => {
                                                         return (
@@ -1062,7 +1069,7 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
@@ -1070,7 +1077,7 @@ const UhealthzoneDetailTable = ({
                                             <VaryLabel LabelName={`오픈`} />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
+                                            <WS.FlexNoWarapGap>
                                                 {Codes.deviceGubun.deviceOpen.list.map(
                                                     (el, index) => {
                                                         return (
@@ -1100,7 +1107,7 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
@@ -1108,7 +1115,7 @@ const UhealthzoneDetailTable = ({
                                             <VaryLabel LabelName={`프린트`} />
                                         </LabelCell>
                                         <InputCell>
-                                            <WS.FlexNoWarap>
+                                            <WS.FlexNoWarapGap>
                                                 {Codes.deviceGubun.printUse.list.map(
                                                     (el, index) => {
                                                         return (
@@ -1138,7 +1145,7 @@ const UhealthzoneDetailTable = ({
                                                         )
                                                     }
                                                 )}
-                                            </WS.FlexNoWarap>
+                                            </WS.FlexNoWarapGap>
                                         </InputCell>
                                     </Row>
                                     <Row>
@@ -1167,10 +1174,16 @@ const UhealthzoneDetailTable = ({
                                                                 LabelWidth={`wMin`}
                                                                 LabelName={`${el.name}`}
                                                                 HandleOnChange={e => {
+                                                                    console.debug(
+                                                                        e
+                                                                    )
                                                                     if (
                                                                         e.target
                                                                             .checked
                                                                     ) {
+                                                                        console.debug(
+                                                                            1
+                                                                        )
                                                                         setDetailState(
                                                                             prevState => ({
                                                                                 ...prevState,
@@ -1190,6 +1203,9 @@ const UhealthzoneDetailTable = ({
                                                                             })
                                                                         )
                                                                     } else {
+                                                                        console.debug(
+                                                                            2
+                                                                        )
                                                                         setDetailState(
                                                                             prevState => ({
                                                                                 ...prevState,
