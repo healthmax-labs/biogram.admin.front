@@ -193,3 +193,33 @@ export const postInstInfoDelete = ({
         },
     })
 }
+
+/**
+ * 소속 승인 // 거부
+ * @param flag
+ * @param INST_NO
+ * @param MBER_LIST
+ * @param REJECT_RESN
+ */
+export const postInstPstinstConfmUpdate = ({
+    flag,
+    INST_NO,
+    MBER_LIST,
+    REJECT_RESN,
+}: {
+    flag: 'Y' | 'N'
+    INST_NO: number
+    MBER_LIST: Array<{ MBER_NO: string }>
+    REJECT_RESN: string
+}): Promise<ServicesDefaultResult<{ test: boolean }>> => {
+    const payload = {
+        INST_NO: INST_NO,
+        MBER_LIST: MBER_LIST,
+        REJECT_RESN: REJECT_RESN,
+    }
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/pstinst/confm/${flag}/update`,
+        payload: payload,
+    })
+}
