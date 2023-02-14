@@ -152,7 +152,7 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
 interface NonMeasureSearchListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: number | null
         MESURE_DT: string
         BP_NTCN_AT: string //(Y: 미측정 조회, N: 미측정 조회 않함)
         BS_NTCN_AT: string
@@ -192,7 +192,7 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
     },
 })
 
-//미측정 알림 셋팅 내역
+//미측정 자동알림 조회 설정
 interface NonMeasureSearchAlertInterface {
     status: DefaultStatus
     search: {
