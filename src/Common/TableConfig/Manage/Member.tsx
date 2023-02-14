@@ -259,7 +259,7 @@ export const MsgBookTableConfig = {
     Loading: true,
     Options: {
         selectAll: true,
-        indexKey: 'SNDNG_NO',
+        indexKey: 'CMID',
         bgState: true,
     },
     Columns: [

@@ -83,7 +83,7 @@ const MsgBookListMain = () => {
                 <SearchBox HandleGetList={() => getTableList()} />
             </SearchWapper>
             <ManageWapper>
-                <ManageBox />
+                <ManageBox HandleGetList={() => getTableList()} />
             </ManageWapper>
             <TableWapper>
                 <ListTable />

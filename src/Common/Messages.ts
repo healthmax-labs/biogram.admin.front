@@ -72,6 +72,11 @@ export default {
                 empty: `탈퇴할 회원을 선택해 주세요.`,
                 over: `탈퇴는 한번에 한명만 가능합니다.`,
             },
+            msgCancleSend: {
+                empty: `발송 취소할 메세지를 선택해 주세요.`,
+                over: `발송 취소는 한번에 한건만 가능합니다.`,
+                success: `발송 취소가 완료 되었습니다.`,
+            },
         },
         instSelectStep1: `1차 소속을 입력해 주세요`,
         instSelectStep2: `2차 소속을 입력해 주세요`,
