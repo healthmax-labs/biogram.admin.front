@@ -4,6 +4,7 @@ import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
 import { ContentType, DatePickerShowType, WidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
+import { changeDatePickerDate, getOnlyNumber } from '@Helper'
 
 const { DatePickerWapper } = InputStyle
 
@@ -35,10 +36,14 @@ const SearchInput = (
         value,
         onFocus,
         onChange,
+        onKeyDown,
+        onBlur,
     }: {
         value: string
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+        onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
+        onBlur: (event: React.FocusEvent<HTMLInputElement, Element>) => void
     },
     ref: any
 ) => (
@@ -48,6 +53,8 @@ const SearchInput = (
         HandleOnFocus={onFocus}
         Value={value}
         HandleOnChange={onChange}
+        HandleOnKeyDown={onKeyDown}
+        HandleOnBlur={onBlur}
     />
 )
 
@@ -96,7 +103,17 @@ const VaryDatepickerInput = ({
         <DatePickerWapper Width={Width ? Width : `full`}>
             <DatePicker
                 selected={selectDate}
-                onChange={(date: Date) => setSelectDate(date)}
+                onSelect={(date: Date) => setSelectDate(date)}
+                onChange={() => {
+                    //
+                }}
+                onBlur={e => {
+                    setSelectDate(
+                        changeDatePickerDate(
+                            getOnlyNumber(e.target.value)
+                        ) as Date
+                    )
+                }}
                 dateFormat={dateFormat}
                 locale={ko}
                 todayButton={true}

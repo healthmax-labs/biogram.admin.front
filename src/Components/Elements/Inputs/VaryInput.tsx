@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react'
+import React from 'react'
 import { ContentType, WidthType } from '@CommonTypes'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
 import { isEmpty } from 'lodash'
@@ -21,6 +21,7 @@ const VaryInput = ({
     Required,
     Children,
     HandleOnFocus,
+    HandleOnBlur,
 }: {
     ContentsType?: ContentType
     Ref?: any
@@ -30,15 +31,16 @@ const VaryInput = ({
     id?: string
     Name?: string
     HandleOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-    HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
+    HandleOnKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
     Width?: WidthType | null
     Required?: boolean
     Children?: React.ReactNode
     HandleOnFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
     Disabled?: boolean
     ReadOnly?: boolean
+    HandleOnBlur?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
 }) => {
-    const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    const handleOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
             HandleOnKeyDown(event)
         }
@@ -60,11 +62,12 @@ const VaryInput = ({
                     HandleOnChange ? HandleOnChange(e) : ''
                 }
                 value={Value}
-                onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                     handleOnKeyDown(e)
                 }
                 required={Required ? Required : false}
                 onFocus={HandleOnFocus}
+                onBlur={HandleOnBlur}
             />
             {Children ?? <div className="flex flex-1 px-1">{Children}</div>}
         </Wapper>
