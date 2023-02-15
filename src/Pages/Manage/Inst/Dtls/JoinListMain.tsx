@@ -17,7 +17,12 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const JoinListMain = () => {
     const [instJoinListState, setInstJoinListState] =
         useRecoilState(InstJoinListState)
+
     const getTableList = useCallback(async () => {
+        setInstJoinListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: { INST_NO, CUR_PAGE, SEARCH_KEY },
         } = instJoinListState
@@ -32,13 +37,16 @@ const JoinListMain = () => {
             setInstJoinListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                memberList: payload,
+                list: payload,
+                manage: {
+                    checkRow: [],
+                },
             }))
         } else {
             setInstJoinListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                memberList: {
+                list: {
                     PSTINST_REQUEST_INFO_LIST: [],
                     TOTAL_COUNT: 0,
                 },
@@ -61,7 +69,7 @@ const JoinListMain = () => {
                 <SearchBox HandleGetList={() => getTableList()} />
             </SearchWapper>
             <ManageWapper>
-                <ManageBox />
+                <ManageBox HandleGetList={() => getTableList()} />
             </ManageWapper>
             <TableWapper>
                 <ListTable />

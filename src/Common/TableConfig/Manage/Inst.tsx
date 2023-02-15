@@ -14,7 +14,7 @@ export interface JoinTableListItemInterface {
 export interface InitTableListItemInterface {
     INST_NO: number | null
     UPPER_INST_NO: number | null
-    INST_TY_CODE: 'M' | 'F'
+    INST_TY_CODE: string | 'M' | 'F'
     BUDGET_ASIGN_AMOUNT: number | null
     MBER_CNT: number | null
     INST_NM_1: string

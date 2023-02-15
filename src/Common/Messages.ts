@@ -16,6 +16,7 @@ export default {
         deleteConfirm: `삭제 하시겠습니까?`,
         loginExtension: `후에 자동 로그아웃 됩니다. 로그인 연장 하시겠습니까?`,
         dataGetFail: `데이터를 불러 올수 없습니다.`,
+        infoGetFail: `정보를 불러 올수 없습니다.`,
         memberDeleteTitle: `"_NAME_"님 회원 탈퇴를 진행하시겠습니까? <br />탈퇴사유를 작성해주세요.`,
         memberDeleteMemoEmpty: `사유를 입력해 주세요.`,
         memberDeleteSuccess: `회원 탈퇴 처리가 완료 되었습니다.`,
@@ -72,6 +73,11 @@ export default {
                 empty: `탈퇴할 회원을 선택해 주세요.`,
                 over: `탈퇴는 한번에 한명만 가능합니다.`,
             },
+            msgCancleSend: {
+                empty: `발송 취소할 메세지를 선택해 주세요.`,
+                over: `발송 취소는 한번에 한건만 가능합니다.`,
+                success: `발송 취소가 완료 되었습니다.`,
+            },
         },
         instSelectStep1: `1차 소속을 입력해 주세요`,
         instSelectStep2: `2차 소속을 입력해 주세요`,
@@ -85,6 +91,13 @@ export default {
             instNmCheckFail: `이미 사용중인 소속명 입니다`,
             newConfirm: `소속 정보를 저장 하시겠습니까?`,
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
+            approval: {
+                appEmpty: `승인 처리할 회원을 선택해 주세요`,
+                appOver: `발송 취소는 한번에 한건만 가능합니다.`,
+                rejextEmpty: ` 거절 처리할 회원을 선택해 주세요`,
+                appSuccess: `승인 처리가 완료 되었습니다.`,
+                rejectSuccess: `거절 처리가 완료 되었습니다.`,
+            },
         },
         consult: {
             mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,

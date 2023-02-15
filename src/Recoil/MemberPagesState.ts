@@ -10,11 +10,11 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
 } from '@Type/MemberTypes'
-import { getNowDate, getOneMonthAgo, getSearchDateObject } from '@Helper'
+import { getNowDate, getOneMonthAgo, gmtTimeToTimeObject } from '@Helper'
 import Const from '@Const'
 import { MsgSendListInterface } from '@Type/MsgTypes'
 
-const searchDateObject = getSearchDateObject()
+const gmtTimeToTime = gmtTimeToTimeObject(new Date())
 
 // member 페이지.
 interface MemberListInterface {
@@ -166,6 +166,9 @@ interface MsgBookListInterface {
         SNDNG_STDR: string | null
     }
     list: MsgSendListInterface
+    manage: {
+        checkRow: string[]
+    }
 }
 
 // 회원 현황 리스트 페이지
@@ -322,8 +325,7 @@ export const ConsultDetailSmsSendState = atom<ConsultSmsSendInterface>({
             SMS_SJ: null,
             SMS_CN: null,
             SNDNG_NO: Const.reprsntTelno,
-
-            SNDNG_DT: null,
+            SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
             SEND_ALL_MBER: 'N',
             SNDNG_GBN: 'N',
             SEND_MBER_INFO_LIST: [],
@@ -360,8 +362,8 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
     default: {
         status: 'idle',
         search: {
-            START_DT: '',
-            END_DT: '',
+            START_DT: getOneMonthAgo(),
+            END_DT: getNowDate(),
             SNDNG_FAILR: '',
             SNDNG_STDR: '',
             MSG_TYPE: '',
@@ -382,7 +384,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
             SEARCH_KEY: null,
             SNDNG_FAILR: null,
             SNDNG_STDR: null,
-            FROM_MONTH: `${searchDateObject.start.year}${searchDateObject.start.month}`,
+            FROM_MONTH: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}`,
             FROM_DAY: `01`,
             TO_DAY: `31`,
         },
@@ -401,13 +403,16 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             curPage: null,
             INST_NO: null,
             SEARCH_KEY: null,
-            FROM_DAY: getOneMonthAgo(),
+            FROM_DAY: getNowDate(),
             TO_DAY: getNowDate(),
-            SNDNG_STDR: ``,
+            SNDNG_STDR: `S`,
         },
         list: {
             SMS_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+        manage: {
+            checkRow: [],
         },
     },
 })

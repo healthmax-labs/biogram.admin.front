@@ -5,7 +5,7 @@ import {
     JoinTableConfig,
     JoinTableListItemInterface,
 } from '@Common/TableConfig/Manage/Inst'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 
@@ -18,7 +18,7 @@ interface tableOption {
 
 const ListTable = () => {
     const navigate = useNavigate()
-    const listState = useRecoilValue(InstJoinListState)
+    const [listState, setListState] = useRecoilState(InstJoinListState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(JoinTableConfig)
@@ -31,15 +31,32 @@ const ListTable = () => {
         })
     }
 
+    // 리스트 체크박스 클릭
+    const handleCheckRow = (e: string[]) => {
+        setListState(prevState => ({
+            ...prevState,
+            manage: {
+                ...prevState.manage,
+                checkRow: e,
+            },
+        }))
+    }
+
     useEffect(() => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.memberList.PSTINST_REQUEST_INFO_LIST,
+            Lists: listState.list.PSTINST_REQUEST_INFO_LIST,
         }))
-    }, [listState.memberList.PSTINST_REQUEST_INFO_LIST, listState.status])
+    }, [listState.list.PSTINST_REQUEST_INFO_LIST, listState.status])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            CheckedRow={e => handleCheckRow(e)}
+        />
+    )
 }
 
 export default ListTable
