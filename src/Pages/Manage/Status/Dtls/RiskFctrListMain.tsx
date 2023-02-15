@@ -32,7 +32,7 @@ const RiskFctrListMain = () => {
         } = riskFctrListState
 
         const { status, payload } = await getRiskFctrList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
+            CUR_PAGE: !isNull(curPage) ? curPage : 0,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
             SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
             BGNDE: !isNull(BGNDE) ? BGNDE : ``,

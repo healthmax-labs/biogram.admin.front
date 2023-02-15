@@ -65,6 +65,13 @@ const MainTable = <P,>({
         }
     }, [CheckedRow, pageState.checkedRow])
 
+    useEffect(() => {
+        // 로딩시 스테이트 초기화
+        if (Loading) {
+            setPageState(initializeState)
+        }
+    }, [Loading])
+
     return (
         <Container>
             <Wapper>

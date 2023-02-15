@@ -92,7 +92,7 @@ export function getMsgBookList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         FROM_DAY: string
@@ -107,18 +107,12 @@ export function getMsgBookList({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(
-            payload,
-            'SEARCH_KEY',
-            'FROM_DAY',
-            'TO_DAY',
-            'SNDNG_STDR'
-        )
+        delete payload.INST_NO
     }
 
     return _Axios_({
         method: 'post',
-        url: '/mber/v1/list/smsresve/' + CUR_PAGE,
+        url: `/mber/v1/list/smsresve/${CUR_PAGE}`,
         payload: payload,
     })
 }

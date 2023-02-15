@@ -14,7 +14,10 @@ interface InstJoinSearchListInterface {
         INST_NO: string | null
         SEARCH_KEY: string | null
     }
-    memberList: InstJoinListInterface
+    list: InstJoinListInterface
+    manage: {
+        checkRow: string[]
+    }
 }
 
 interface InstListStateInterface {
@@ -59,9 +62,12 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
             INST_NO: null,
             SEARCH_KEY: null,
         },
-        memberList: {
+        list: {
             PSTINST_REQUEST_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+        manage: {
+            checkRow: [],
         },
     },
 })

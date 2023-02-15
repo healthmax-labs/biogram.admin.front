@@ -103,9 +103,13 @@ const VaryDatepickerInput = ({
         <DatePickerWapper Width={Width ? Width : `full`}>
             <DatePicker
                 selected={selectDate}
-                onSelect={(date: Date) => setSelectDate(date)}
-                onChange={() => {
-                    //
+                onSelect={(date: Date) => {
+                    setSelectDate(date)
+                }}
+                onChange={e => {
+                    if (ShowType === 'time') {
+                        setSelectDate(e as Date)
+                    }
                 }}
                 onBlur={e => {
                     setSelectDate(

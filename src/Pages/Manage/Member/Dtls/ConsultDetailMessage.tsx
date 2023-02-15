@@ -100,23 +100,6 @@ const ConsultDetailMessage = () => {
                             }))
                         }}
                     />
-                    {/* ~ 기간으로 하지 않고 선택된 날자의 월로 체킹
-                    <VaryDatepickerInput
-                        Value={changeDatePickerDate(
-                            messageBoxListState.search.END_DT
-                        )}
-                        CallBackReturn={e => {
-                            const { year, monthPad, dayPad } =
-                                gmtTimeToTimeObject(e)
-                            setMessageBoxListState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    END_DT: `${year}${monthPad}${dayPad}`,
-                                },
-                            }))
-                        }}
-                    /> */}
                 </div>
                 <div className="flex py-2 items-center w-full justify-end">
                     <div className="flex py-2">

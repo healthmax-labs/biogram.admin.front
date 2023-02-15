@@ -718,3 +718,21 @@ export const postMberInfoDelete = ({
         },
     })
 }
+
+/**
+ * 예약 메시지 발송 취소.
+ * @param CMIDS
+ */
+export const postMberCanclSmsresve = ({
+    CMIDS,
+}: {
+    CMIDS: string
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/cancl/smsresve`,
+        payload: {
+            CMIDS: CMIDS,
+        },
+    })
+}
