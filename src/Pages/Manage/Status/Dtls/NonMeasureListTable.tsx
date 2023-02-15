@@ -96,9 +96,6 @@ const NonMeasureListTable = () => {
                             },
                         }))
                     }}
-                    CallBackResturn={() => {
-                        //
-                    }}
                 />
             )}
         </Container>

@@ -277,7 +277,7 @@ export function getNonMeasureList({
 }
 
 /**
- * 미측정 자동 알림 설정
+ * 미측정 자동 알림 설정 로드
  */
 export function getNonMeasureAlert({ INST_NO }: { INST_NO: number }): Promise<
     ServicesDefaultResult<{
@@ -291,6 +291,24 @@ export function getNonMeasureAlert({ INST_NO }: { INST_NO: number }): Promise<
             INST_NO,
             NOT_MESURE_NTCN_SET_INFO: {},
         },
+    })
+}
+
+/**
+ * 미측정 자동 알림 설정 저장
+ * @param payload
+ */
+export function postNonMeasureAlert(
+    payload: NonMeasureAlertItemInterface
+): Promise<
+    ServicesDefaultResult<{
+        test: boolean
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/gndn/v1/not_mesure/ntcn_set`,
+        payload: payload,
     })
 }
 
