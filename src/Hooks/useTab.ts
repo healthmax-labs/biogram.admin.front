@@ -56,6 +56,18 @@ export default function useTab() {
         }
     }
 
+    // 새로고침 버튼 클릭
+    const handleReloadButton = (tab: TabItemInterface) => {
+        setUseTabState(prevState => ({
+            ...prevState,
+            reloadTask: {
+                ...prevState.reloadTask,
+                name: tab.pathname,
+                action: true,
+            },
+        }))
+    }
+
     // 라우터 변경시 텝 세팅
     useEffect(() => {
         const routerMatchs = matchRoutes(
@@ -156,5 +168,6 @@ export default function useTab() {
         setUseTabState,
         handleDeleteTab,
         handleDeleteTabbyMatchRouter,
+        handleReloadButton,
     }
 }

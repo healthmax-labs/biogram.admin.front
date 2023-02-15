@@ -1,17 +1,6 @@
 import GeonDaonContentCard from './GeonDaonContentCard'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
-import {
-    FctrFctrGroupListState,
-    MemberAgeGroupListState,
-    MemberGenderListState,
-    MemberListState,
-    MesureInfoState,
-    MesureInfoZoneDeviceState,
-    MesureInfoZoneState,
-    MybodyScoreImprvmState,
-    RiskFctrListState,
-    RiskGroupDormantMemberListState,
-} from '@Recoil/DashboardPagesState'
+import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 import { useRecoilValue } from 'recoil'
 import { addComma } from '@Helper'
 import Codes from '@Codes'
@@ -31,18 +20,8 @@ const {
 } = DashboardStyle
 
 const GeonDaonDashboard = () => {
-    const memberListState = useRecoilValue(MemberListState)
-    const memberGenderListState = useRecoilValue(MemberGenderListState)
-    const memberAgeGroupListState = useRecoilValue(MemberAgeGroupListState)
-    const riskFctrListState = useRecoilValue(RiskFctrListState)
-    const fctrFctrGroupListState = useRecoilValue(FctrFctrGroupListState)
-    const riskGroupDormantMemberListState = useRecoilValue(
-        RiskGroupDormantMemberListState
-    )
-    const mesureInfoState = useRecoilValue(MesureInfoState)
-    const mesureInfoZoneState = useRecoilValue(MesureInfoZoneState)
-    const mesureInfoZoneDeviceState = useRecoilValue(MesureInfoZoneDeviceState)
-    const mybodyScoreImprvmState = useRecoilValue(MybodyScoreImprvmState)
+    const dashBoardPageState = useRecoilValue(DashBoardPageState)
+
     const myData = Codes.myData.flatMap(i => i.list)
     const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
 
@@ -53,7 +32,10 @@ const GeonDaonDashboard = () => {
                     <WapperCol>
                         <FlexFull>
                             <GeonDaonContentCard
-                                Loading={memberListState.status === 'loading'}
+                                Loading={
+                                    dashBoardPageState.member.status ===
+                                    'loading'
+                                }
                                 LeftTitle={
                                     <>
                                         <p className="flex text-xs">회원현황</p>
@@ -72,18 +54,20 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={memberListState.list.slice(-3).map(e => {
-                                    return [
-                                        { name: e.SEARCH_DE },
-                                        {
-                                            name: String(e.TD_CNT),
-                                            color: 'green',
-                                        },
-                                        {
-                                            name: String(e.TT_CNT),
-                                        },
-                                    ]
-                                })}
+                                Items={dashBoardPageState.member.list
+                                    .slice(-3)
+                                    .map(e => {
+                                        return [
+                                            { name: e.SEARCH_DE },
+                                            {
+                                                name: String(e.TD_CNT),
+                                                color: 'green',
+                                            },
+                                            {
+                                                name: String(e.TT_CNT),
+                                            },
+                                        ]
+                                    })}
                             />
                         </FlexFull>
                         <FlexNowrapFull>
@@ -93,8 +77,8 @@ const GeonDaonDashboard = () => {
                                         {
                                             <GeonDaonContentCard
                                                 Loading={
-                                                    memberGenderListState.status ===
-                                                    'loading'
+                                                    dashBoardPageState.gender
+                                                        .status === 'loading'
                                                 }
                                                 LeftTitle={
                                                     <>
@@ -110,7 +94,8 @@ const GeonDaonDashboard = () => {
                                                     <>
                                                         <p className="flex text-xs pl-1 text-teal-600">
                                                             {`오늘 ${addComma(
-                                                                memberGenderListState
+                                                                dashBoardPageState
+                                                                    .gender
                                                                     .count.today
                                                             )}`}
                                                         </p>
@@ -119,13 +104,14 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                         <p className="flex text-xs pl-1">
                                                             {`전체 ${addComma(
-                                                                memberGenderListState
+                                                                dashBoardPageState
+                                                                    .gender
                                                                     .count.total
                                                             )}`}
                                                         </p>
                                                     </>
                                                 }
-                                                Items={memberGenderListState.list.map(
+                                                Items={dashBoardPageState.gender.list.map(
                                                     e => {
                                                         return [
                                                             {
@@ -157,8 +143,8 @@ const GeonDaonDashboard = () => {
                                         {
                                             <GeonDaonContentCard
                                                 Loading={
-                                                    memberAgeGroupListState.status ===
-                                                    'loading'
+                                                    dashBoardPageState.ageGroup
+                                                        .status === 'loading'
                                                 }
                                                 LeftTitle={
                                                     <>
@@ -180,7 +166,7 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={memberAgeGroupListState.list.map(
+                                                Items={dashBoardPageState.ageGroup.list.map(
                                                     e => {
                                                         return [
                                                             {
@@ -211,8 +197,8 @@ const GeonDaonDashboard = () => {
                                         {
                                             <GeonDaonContentCard
                                                 Loading={
-                                                    riskFctrListState.status ===
-                                                    'loading'
+                                                    dashBoardPageState.riskFctr
+                                                        .status === 'loading'
                                                 }
                                                 LeftTitle={
                                                     <>
@@ -224,7 +210,7 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={riskFctrListState.list.map(
+                                                Items={dashBoardPageState.riskFctr.list.map(
                                                     e => {
                                                         let name: string | ''
                                                         if (e.CNT_TY === 'TT') {
@@ -249,8 +235,9 @@ const GeonDaonDashboard = () => {
                                         {
                                             <GeonDaonContentCard
                                                 Loading={
-                                                    fctrFctrGroupListState.status ===
-                                                    'loading'
+                                                    dashBoardPageState
+                                                        .fctrFctrGroup
+                                                        .status === 'loading'
                                                 }
                                                 LeftTitle={
                                                     <>
@@ -272,7 +259,7 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={fctrFctrGroupListState.list.map(
+                                                Items={dashBoardPageState.fctrFctrGroup.list.map(
                                                     e => {
                                                         const findCode = _.find(
                                                             myData,
@@ -311,8 +298,9 @@ const GeonDaonDashboard = () => {
                                         {
                                             <GeonDaonContentCard
                                                 Loading={
-                                                    riskGroupDormantMemberListState.status ===
-                                                    'loading'
+                                                    dashBoardPageState
+                                                        .riskGroupDormant
+                                                        .status === 'loading'
                                                 }
                                                 LeftTitle={
                                                     <>
@@ -334,7 +322,7 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={riskGroupDormantMemberListState.list.map(
+                                                Items={dashBoardPageState.riskGroupDormant.list.map(
                                                     e => {
                                                         const findCode = _.find(
                                                             myData,
@@ -368,7 +356,10 @@ const GeonDaonDashboard = () => {
                     <WapperCol>
                         <FlexFull>
                             <GeonDaonContentCard
-                                Loading={mesureInfoState.status === 'loading'}
+                                Loading={
+                                    dashBoardPageState.mesureInfo.status ===
+                                    'loading'
+                                }
                                 LeftTitle={
                                     <>
                                         <p className="flex text-xs">측정현황</p>
@@ -388,13 +379,15 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={mesureInfoState.list.slice(-3).map(e => {
-                                    return [
-                                        { name: e.MESURE_DE },
-                                        { name: addComma(e.TD_CNT) },
-                                        { name: addComma(e.TT_CNT) },
-                                    ]
-                                })}
+                                Items={dashBoardPageState.mesureInfo.list
+                                    .slice(-3)
+                                    .map(e => {
+                                        return [
+                                            { name: e.MESURE_DE },
+                                            { name: addComma(e.TD_CNT) },
+                                            { name: addComma(e.TT_CNT) },
+                                        ]
+                                    })}
                             />
                         </FlexFull>
                         <FlexNowrapFull>
@@ -403,7 +396,8 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         <GeonDaonContentCard
                                             Loading={
-                                                mesureInfoZoneState.status ===
+                                                dashBoardPageState
+                                                    .mesureInfoZone.status ===
                                                 'loading'
                                             }
                                             LeftTitle={
@@ -416,7 +410,7 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={mesureInfoZoneState.list.map(
+                                            Items={dashBoardPageState.mesureInfoZone.list.map(
                                                 e => {
                                                     return [
                                                         { name: e.CNT_TY },
@@ -433,8 +427,9 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         <GeonDaonContentCard
                                             Loading={
-                                                mesureInfoZoneDeviceState.status ===
-                                                'loading'
+                                                dashBoardPageState
+                                                    .mesureInfoZoneDevice
+                                                    .status === 'loading'
                                             }
                                             LeftTitle={
                                                 <>
@@ -456,7 +451,7 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={mesureInfoZoneDeviceState.list.map(
+                                            Items={dashBoardPageState.mesureInfoZoneDevice.list.map(
                                                 e => {
                                                     const findCode = _.find(
                                                         DeviceCode,
@@ -493,8 +488,9 @@ const GeonDaonDashboard = () => {
                                     <div>
                                         <GeonDaonContentCard
                                             Loading={
-                                                mybodyScoreImprvmState.status ===
-                                                'loading'
+                                                dashBoardPageState
+                                                    .mybodyScoreImprvm
+                                                    .status === 'loading'
                                             }
                                             LeftTitle={
                                                 <>
@@ -506,7 +502,7 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={mybodyScoreImprvmState.list.map(
+                                            Items={dashBoardPageState.mybodyScoreImprvm.list.map(
                                                 e => {
                                                     return [
                                                         {

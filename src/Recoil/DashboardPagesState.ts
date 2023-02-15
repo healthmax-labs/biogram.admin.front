@@ -13,152 +13,112 @@ import {
     RiskGroupDormantMemberItemInterface,
 } from '@Type/DashBoardTypes'
 
-interface MemberListStateInterface {
-    status: DefaultStatus
-    list: MemberInfoItemInterface[]
-}
-
-interface MemberGenderListStateInterface {
-    status: DefaultStatus
-    list: MemberGenderItemInterface[]
-    count: {
-        today: number
-        total: number
+interface DashBoardPageStateInterface {
+    status: 'idle' | 'end'
+    member: {
+        // 회원 현황 리스트 페이지
+        status: DefaultStatus
+        list: MemberInfoItemInterface[]
+    }
+    gender: {
+        // 성별 회원 현황
+        status: DefaultStatus
+        list: MemberGenderItemInterface[]
+        count: {
+            today: number
+            total: number
+        }
+    }
+    ageGroup: {
+        // 연령별 회원 현환
+        status: DefaultStatus
+        list: MemberAgesGroupItemInterface[]
+    }
+    riskFctr: {
+        // 위험 요인 현황
+        status: DefaultStatus
+        list: RiskFctrListITemInterface[]
+    }
+    fctrFctrGroup: {
+        // 위험 요인별 현황
+        status: DefaultStatus
+        list: FctrFctrGroupListItemInterface[]
+    }
+    riskGroupDormant: {
+        // 위혐군 휴면 현황
+        status: DefaultStatus
+        list: RiskGroupDormantMemberItemInterface[]
+    }
+    mesureInfo: {
+        // 측정현황
+        status: DefaultStatus
+        list: MesureInfoItemInterface[]
+    }
+    mesureInfoZone: {
+        // 존 측정 현황
+        status: DefaultStatus
+        list: MesureInfoZoneItemInterface[]
+    }
+    mesureInfoZoneDevice: {
+        // 존 기기별 측정현황
+        status: DefaultStatus
+        list: MesureInfoZoneDeviceItemInterface[]
+    }
+    mybodyScoreImprvm: {
+        // 건강 개선률
+        status: DefaultStatus
+        list: MybodyScoreImprvmItemInterface[]
     }
 }
 
-interface MemberAgeGroupListStateInterface {
-    status: DefaultStatus
-    list: MemberAgesGroupItemInterface[]
-}
-
-interface RiskFctrListStateInterface {
-    status: DefaultStatus
-    list: RiskFctrListITemInterface[]
-}
-
-interface FctrFctrGroupListStateInterface {
-    status: DefaultStatus
-    list: FctrFctrGroupListItemInterface[]
-}
-
-interface RiskGroupDormantMemberListInterface {
-    status: DefaultStatus
-    list: RiskGroupDormantMemberItemInterface[]
-}
-
-interface MesureInfoStateInterface {
-    status: DefaultStatus
-    list: MesureInfoItemInterface[]
-}
-
-interface MesureInfoZoneStateInterface {
-    status: DefaultStatus
-    list: MesureInfoZoneItemInterface[]
-}
-
-interface MesureInfoZoneDeviceStateInterface {
-    status: DefaultStatus
-    list: MesureInfoZoneDeviceItemInterface[]
-}
-
-interface MybodyScoreImprvmStateInterface {
-    status: DefaultStatus
-    list: MybodyScoreImprvmItemInterface[]
-}
-
-// 회원 현황 리스트 페이지
-export const MemberListState = atom<MemberListStateInterface>({
-    key: `dashboardPage/member-list`,
+// 대시보드
+export const DashBoardPageState = atom<DashBoardPageStateInterface>({
+    key: `dashBoardPage/dashboard`,
     default: {
         status: 'idle',
-        list: [],
-    },
-})
-
-// 성별 회원 현황
-export const MemberGenderListState = atom<MemberGenderListStateInterface>({
-    key: `dashboardPage/gender-list`,
-    default: {
-        status: 'idle',
-        list: [],
-        count: {
-            today: 0,
-            total: 0,
-        },
-    },
-})
-
-// 연령별 회원 현환
-export const MemberAgeGroupListState = atom<MemberAgeGroupListStateInterface>({
-    key: `dashboardPage/age-group-list`,
-    default: {
-        status: 'idle',
-        list: [],
-    },
-})
-
-// 위험 요인 현황
-export const RiskFctrListState = atom<RiskFctrListStateInterface>({
-    key: `dashboardPage/risk-fctr-list`,
-    default: {
-        status: 'idle',
-        list: [],
-    },
-})
-
-// 위험 요인별 현황
-export const FctrFctrGroupListState = atom<FctrFctrGroupListStateInterface>({
-    key: `dashboardPage/fctr-fctr-group-list`,
-    default: {
-        status: 'idle',
-        list: [],
-    },
-})
-
-// 위혐군 휴면 현황
-export const RiskGroupDormantMemberListState =
-    atom<RiskGroupDormantMemberListInterface>({
-        key: `dashboardPage/risk-group-dormant-member-list`,
-        default: {
+        member: {
             status: 'idle',
             list: [],
         },
-    })
-
-// 측정현황
-export const MesureInfoState = atom<MesureInfoStateInterface>({
-    key: `dashboardPage/mesure-info-list`,
-    default: {
-        status: 'idle',
-        list: [],
-    },
-})
-
-// 존 측정 현황
-export const MesureInfoZoneState = atom<MesureInfoZoneStateInterface>({
-    key: `dashboardPage/mesure-info-zone`,
-    default: {
-        status: 'idle',
-        list: [],
-    },
-})
-
-// 존 측정 현황
-export const MesureInfoZoneDeviceState =
-    atom<MesureInfoZoneDeviceStateInterface>({
-        key: `dashboardPage/mesure-info-zone-device`,
-        default: {
+        gender: {
+            status: 'idle',
+            list: [],
+            count: {
+                today: 0,
+                total: 0,
+            },
+        },
+        ageGroup: {
             status: 'idle',
             list: [],
         },
-    })
-
-// 존 측정 현황
-export const MybodyScoreImprvmState = atom<MybodyScoreImprvmStateInterface>({
-    key: `dashboardPage/mybody-score-imprvm`,
-    default: {
-        status: 'idle',
-        list: [],
+        riskFctr: {
+            status: 'idle',
+            list: [],
+        },
+        fctrFctrGroup: {
+            status: 'idle',
+            list: [],
+        },
+        riskGroupDormant: {
+            status: 'idle',
+            list: [],
+        },
+        mesureInfo: {
+            status: 'idle',
+            list: [],
+        },
+        mesureInfoZone: {
+            status: 'idle',
+            list: [],
+        },
+        mesureInfoZoneDevice: {
+            status: 'idle',
+            list: [],
+        },
+        mybodyScoreImprvm: {
+            status: 'idle',
+            list: [],
+        },
     },
 })

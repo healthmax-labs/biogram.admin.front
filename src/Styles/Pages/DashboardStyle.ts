@@ -5,15 +5,16 @@ import { TextColorType } from '@CommonTypes'
 export const DashboardStyle = {
     GeonDaonStyle: {
         Container: tw.div`flex w-full p-4`,
+        MainWapper: tw.div`flex w-center-width bg-gray-200`,
         Wapper: tw.div`flex w-full gap-4`,
-        LeftWapper: tw.div`flex w-1/2 rounded-xl bg-gray-50`,
-        RightWapper: tw.div`flex w-1/2 rounded-xl bg-gray-50`,
-        WapperCol: tw.div`flex flex-col w-full`,
+        LeftWapper: tw.div`flex w-1/2 rounded-xl`,
+        RightWapper: tw.div`flex w-1/2 rounded-xl`,
+        WapperCol: tw.div`flex flex-col w-full gap-2`,
         FlexFull: tw.div`flex w-full`,
-        FlexNowrapFull: tw.div`flex flex-nowrap w-full`,
+        FlexNowrapFull: tw.div`flex flex-nowrap w-full gap-2`,
         FlexHelf: tw.div`flex w-1/2`,
         Card: {
-            Container: tw.div`flex w-full p-3`,
+            Container: tw.div`flex w-full p-3 rounded-xl bg-gray-100`,
             Wapper: tw.div`flex flex-col w-full`,
             SpinnerWapper: tw.div`flex w-full h-20 items-center object-center justify-center`,
             TitleWapper: tw.div`flex w-full justify-between px-2 pb-1`,

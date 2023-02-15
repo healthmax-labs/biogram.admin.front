@@ -4,7 +4,7 @@ import { MainTabStyle } from '@Style/Layouts/TabStyles'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
-import { useRecoilReset, useTab } from '@Hooks'
+import { useDashBoard, useRecoilReset, useTab } from '@Hooks'
 import _ from 'lodash'
 
 const { Wapper, TabItem, TabButton, CloseButton, RotateButton, ButtonWapper } =
@@ -13,10 +13,12 @@ const { Wapper, TabItem, TabButton, CloseButton, RotateButton, ButtonWapper } =
 const MainTabComponent = () => {
     const navigate = useNavigate()
     const [tabState, setTabState] = useRecoilState(AtomPageTabState)
-    const { handleDeleteTab } = useTab()
+    const { handleDeleteTab, handleReloadButton } = useTab()
     const [showCloseButton, setShowCloseButton] = useState<boolean>(true)
     const [tabList, setTabList] = useState<TabItemInterface[]>([])
     const { recoilReset } = useRecoilReset()
+    const [pageTabState, setPageTabState] = useRecoilState(AtomPageTabState)
+    const { handleGetGeonDaonData } = useDashBoard()
 
     // 텝 클릭 처리.
     const handleTabClick = (pathName: string) => {
@@ -71,6 +73,22 @@ const MainTabComponent = () => {
         }
     }, [recoilReset, setTabState, tabState.close])
 
+    useEffect(() => {
+        const { name, action } = pageTabState.reloadTask
+
+        if (name === '/manage/dashboard' && action) {
+            handleGetGeonDaonData()
+
+            setPageTabState(prevState => ({
+                ...prevState,
+                reloadTask: {
+                    name: '',
+                    action: false,
+                },
+            }))
+        }
+    }, [handleGetGeonDaonData, pageTabState.reloadTask, setPageTabState])
+
     return (
         <Wapper>
             {tabList &&
@@ -88,7 +106,7 @@ const MainTabComponent = () => {
                                 {element.reloadButton && (
                                     <RotateButton
                                         onClick={() => {
-                                            //
+                                            handleReloadButton(element)
                                         }}>
                                         <svg
                                             className="h-3 w-3"
