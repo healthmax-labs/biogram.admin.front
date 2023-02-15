@@ -119,11 +119,11 @@ export const RiskFctrTableConfig = {
             },
             {
                 name: `위험요인`,
-                key: `NM`,
+                key: `RISK_FCTR`,
             },
             {
                 name: `복약`,
-                key: `NM`,
+                key: `TAKNG_MDCIN`,
             },
             {
                 name: `체중<br/>(kg)`,
