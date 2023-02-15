@@ -208,7 +208,7 @@ export const postInstPstinstConfmUpdate = ({
     REJECT_RESN,
 }: {
     flag: 'Y' | 'N'
-    INST_NO: number
+    INST_NO?: number
     MBER_LIST: Array<{ MBER_NO: string }>
     REJECT_RESN: string
 }): Promise<ServicesDefaultResult<{ test: boolean }>> => {

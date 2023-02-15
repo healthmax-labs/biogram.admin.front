@@ -77,15 +77,15 @@ const MsgBookManageBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             CMIDS: checkRow[0],
                         })
 
-                        if (status) {
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    confirm: false,
-                                },
-                            }))
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                confirm: false,
+                            },
+                        }))
 
+                        if (status) {
                             handlMainAlert({
                                 state: true,
                                 message:
