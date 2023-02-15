@@ -196,8 +196,8 @@ export default {
             key: 'riskFctrCnt',
             list: [
                 { code: '0', name: '정상군' },
-                { code: '3', name: '건강주의군' },
-                { code: '5', name: '건강위험군' },
+                { code: '1', name: '건강주의군' },
+                { code: '3', name: '건강위험군' },
             ],
         },
     ],
