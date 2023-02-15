@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react'
-import { StplatItemInterface } from '@Type/MemberTypes'
 import {
     VaryButton,
     VaryDatepickerInput,
@@ -13,85 +12,107 @@ import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { gmtTimeToTimeObject } from '@Helper'
 
 import { useRecoilState } from 'recoil'
-import { NonMeasureAlertState } from '@Recoil/StatusPagesState'
-import { getNonMeasureAlert } from '@Service/StatusService'
+import {
+    NonMeasureAlertState,
+    NonMeasureListState,
+} from '@Recoil/StatusPagesState'
+import { getNonMeasureAlert, postNonMeasureAlert } from '@Service/StatusService'
 import { isNull } from 'lodash'
+
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
 const { Container, RowWapper, TableBox, Table: T } = ContentsStyle
 const { SearchItemWapper, SearchLabel, SearchItem } = SearchBoxStyle
 
-const initializeState = {
-    NTCN_STTUS_AT: 'Y',
-    BP_NTCN_AT: 'Y',
-    BC_N_MESURE_DAY: 7,
-    SB_NTCN_AT: 'Y',
-    HA_N_MESURE_DAY: 7,
-    IS_N_MESURE_DAY: 7,
-    N_MESURE_NTCN_DAY: 7,
-    NTCN_TY_CODE: 'PUSH',
-    NTCN_CN:
-        '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램 존에서 건강을 측정 해주세요.',
-    BP_N_MESURE_DAY: 7,
-    IS_NTCN_AT: 'Y',
-    BS_N_MESURE_DAY: 7,
-    HA_NTCN_AT: 'Y',
-    BS_NTCN_AT: 'Y',
-    AL_SELECT_AT: 'Y',
-    SR_N_MESURE_DAY: 7,
-    BC_NTCN_AT: 'Y',
-    SB_N_MESURE_DAY: 7,
-    REGIST_DT: 1673332279000,
-    SR_NTCN_AT: 'Y',
-    N_MESURE_PD_ETC: '',
-    N_MESURE_PD_CODE: '00',
-}
-
 const AutoAlertModal = ({
     CancleButtonClick,
-}: //CallBackResturn,
-{
+}: {
     CancleButtonClick: () => void
-    MemberStplatList?: StplatItemInterface
-    CallBackResturn: (e: StplatItemInterface) => void
 }) => {
-    const [nonMeasureListState, setNonMeasureListState] =
+    const [nonMeasureAlertState, setNonMeasureAlertState] =
         useRecoilState(NonMeasureAlertState)
 
-    const [nonMeasureAlertSettingState, setNonMeasureAlertSettingState] =
-        useRecoilState(NonMeasureAlertState)
+    const nonMeasureListState = useRecoilState(NonMeasureListState)
+    const instNo = nonMeasureListState[0].search.INST_NO
+        ? nonMeasureListState[0].search.INST_NO
+        : 0
+
+    const { handlMainAlert } = useMainLayouts()
+    const initializeState = {
+        ...nonMeasureAlertState,
+        data: {
+            NOT_MESURE_NTCN_SET_INFO: {
+                INST_NO: instNo,
+                NTCN_STTUS_AT: 'Y',
+                BP_NTCN_AT: 'Y',
+                BC_N_MESURE_DAY: 7,
+                SB_NTCN_AT: 'Y',
+                HA_N_MESURE_DAY: 7,
+                IS_N_MESURE_DAY: 7,
+                N_MESURE_NTCN_DAY: 7,
+                NTCN_TY_CODE: 'PUSH',
+                NTCN_CN:
+                    '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램 존에서 건강을 측정 해주세요.',
+                BP_N_MESURE_DAY: 7,
+                IS_NTCN_AT: 'Y',
+                BS_N_MESURE_DAY: 7,
+                HA_NTCN_AT: 'Y',
+                BS_NTCN_AT: 'Y',
+                AL_SELECT_AT: 'Y',
+                SR_N_MESURE_DAY: 7,
+                BC_NTCN_AT: 'Y',
+                SB_N_MESURE_DAY: 7,
+                REGIST_DT: 1673332279000,
+                SR_NTCN_AT: 'Y',
+                N_MESURE_PD_ETC: '',
+                N_MESURE_PD_CODE: '00',
+            },
+        },
+    }
 
     const getAlertSetting = useCallback(async () => {
-        const instNo = nonMeasureListState.search.INST_NO
-
         const { status, payload } = await getNonMeasureAlert({
             INST_NO: !isNull(instNo) ? Number(instNo) : 1000,
         })
 
         if (status) {
-            setNonMeasureAlertSettingState(prevState => ({
+            setNonMeasureAlertState(prevState => ({
                 ...prevState,
                 status: 'success',
                 data: payload,
             }))
         } else {
-            setNonMeasureAlertSettingState(prevState => ({
+            setNonMeasureAlertState(prevState => ({
                 ...prevState,
                 status: 'failure',
             }))
         }
-    }, [nonMeasureListState.search.INST_NO, setNonMeasureAlertSettingState])
+    }, [instNo, setNonMeasureAlertState])
 
-    // 저장
-    const handleClickSaveButton = () => {
-        //저장 api 태우기
+    // 자동알림 셋팅 저장
+    const handleClickSaveButton = async () => {
+        const { status } = await postNonMeasureAlert(
+            nonMeasureAlertState.data.NOT_MESURE_NTCN_SET_INFO
+        )
+
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
     }
 
-    // 리셋
+    // 초기화
     const handleClickResetButton = () => {
-        // setNonMeasureAlertState(initializeState)
+        setNonMeasureAlertState(initializeState)
     }
-
-    // const getSettingVal = useCallback(async () => {})
 
     useEffect(() => {
         const pageStart = () => {
@@ -99,7 +120,7 @@ const AutoAlertModal = ({
         }
 
         pageStart()
-    }, [getAlertSetting, nonMeasureListState.status])
+    }, [getAlertSetting, nonMeasureAlertState.status])
 
     return (
         <>
@@ -148,7 +169,7 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureAlertSettingState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
                                                                 data: {
@@ -170,7 +191,8 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureListState.data
+                                                        nonMeasureAlertState
+                                                            .data
                                                             .NOT_MESURE_NTCN_SET_INFO
                                                             .BP_N_MESURE_DAY
                                                     }
@@ -180,7 +202,7 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
                                                                 data: {
@@ -202,7 +224,8 @@ const AutoAlertModal = ({
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureListState.data
+                                                        nonMeasureAlertState
+                                                            .data
                                                             .NOT_MESURE_NTCN_SET_INFO
                                                             .BS_N_MESURE_DAY
                                                     }
@@ -212,31 +235,32 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    BC_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            BC_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
+                                                        nonMeasureAlertState
                                                             .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .BC_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .BC_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -244,31 +268,32 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    HA_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            HA_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
+                                                        nonMeasureAlertState
                                                             .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .HA_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .HA_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -276,31 +301,32 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    IS_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            IS_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
+                                                        nonMeasureAlertState
                                                             .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .IS_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .IS_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -308,31 +334,32 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    SR_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            SR_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
+                                                        nonMeasureAlertState
                                                             .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .SR_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .SR_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -340,31 +367,32 @@ const AutoAlertModal = ({
                                                 <VaryInput
                                                     InputType={'text'}
                                                     HandleOnChange={e =>
-                                                        setNonMeasureListState(
+                                                        setNonMeasureAlertState(
                                                             prevState => ({
                                                                 ...prevState,
-                                                                search: {
-                                                                    ...prevState.search,
-                                                                    SB_N_MESURE_DAY:
-                                                                        Number(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        ),
+                                                                data: {
+                                                                    ...prevState.data,
+                                                                    NOT_MESURE_NTCN_SET_INFO:
+                                                                        {
+                                                                            ...prevState
+                                                                                .data
+                                                                                .NOT_MESURE_NTCN_SET_INFO,
+                                                                            SB_N_MESURE_DAY:
+                                                                                Number(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ),
+                                                                        },
                                                                 },
                                                             })
                                                         )
                                                     }
                                                     Value={
-                                                        nonMeasureAlertSettingState
+                                                        nonMeasureAlertState
                                                             .data
-                                                            ?.NOT_MESURE_NTCN_SET_INFO
+                                                            .NOT_MESURE_NTCN_SET_INFO
                                                             .SB_N_MESURE_DAY
-                                                            ? nonMeasureAlertSettingState
-                                                                  .data
-                                                                  ?.NOT_MESURE_NTCN_SET_INFO
-                                                                  .SB_N_MESURE_DAY
-                                                            : 7
                                                     }
                                                 />
                                             </T.Cell>
@@ -413,9 +441,11 @@ const AutoAlertModal = ({
                                     <VaryDatepickerInput
                                         InputeType={`search`}
                                         Value={
-                                            initializeState.REGIST_DT
+                                            initializeState.data
+                                                .NOT_MESURE_NTCN_SET_INFO
+                                                .REGIST_DT
                                                 ? new Date(
-                                                      initializeState.REGIST_DT
+                                                      initializeState.data.NOT_MESURE_NTCN_SET_INFO.REGIST_DT
                                                   )
                                                 : new Date()
                                         }
@@ -423,7 +453,7 @@ const AutoAlertModal = ({
                                             const { year, monthPad, dayPad } =
                                                 gmtTimeToTimeObject(e)
 
-                                            setNonMeasureListState(
+                                            setNonMeasureAlertState(
                                                 prevState => ({
                                                     ...prevState,
                                                     endDT:
@@ -444,15 +474,17 @@ const AutoAlertModal = ({
                         </div>
                         <VaryTextArea
                             HandleOnChange={e =>
-                                setNonMeasureListState(prevState => ({
+                                setNonMeasureAlertState(prevState => ({
                                     ...prevState,
                                     msg: e.target.value,
                                 }))
                             }
                             Placeholder={`메세지 내용을입력해 주세요`}
                             Value={
-                                initializeState.NTCN_CN
-                                    ? initializeState.NTCN_CN
+                                nonMeasureAlertState.data
+                                    .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
+                                    ? nonMeasureAlertState.data
+                                          .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
                                     : `[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.`
                             }
                             Rows={15}
