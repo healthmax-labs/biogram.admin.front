@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
 import { TabInterface } from '@Type/CommonTypes'
 import Routers from '@Routers'
+
 // atom page tab current
 export const AtomPageTabState = atom<TabInterface>({
     key: `tab/TabState`,
@@ -18,6 +19,10 @@ export const AtomPageTabState = atom<TabInterface>({
         close: {
             closeIndex: null,
             recoilKey: null,
+        },
+        reloadTask: {
+            name: '',
+            action: false,
         },
     },
 })

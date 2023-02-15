@@ -110,6 +110,10 @@ export interface TabInterface {
         closeIndex: null | number
         recoilKey: null | string
     }
+    reloadTask: {
+        name: string
+        action: boolean
+    }
 }
 
 // router match
