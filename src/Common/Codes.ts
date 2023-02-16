@@ -1086,6 +1086,35 @@ export default {
             ],
         },
     ],
+    DeviceSearchCode: {
+        name: `기기측정 검색 코드`,
+        list: [
+            {
+                code: `IS`,
+                name: `체성분`,
+            },
+            {
+                code: `BP`,
+                name: `혈압`,
+            },
+            {
+                code: `BS`,
+                name: `혈당`,
+            },
+            {
+                code: `BC`,
+                name: `콜레스테롤`,
+            },
+            {
+                code: `ST`,
+                name: `스트레스`,
+            },
+            {
+                code: `ET`,
+                name: `기타`,
+            },
+        ],
+    },
     StatisticsDeviceCode: [
         {
             name: `기기측정현황`,
