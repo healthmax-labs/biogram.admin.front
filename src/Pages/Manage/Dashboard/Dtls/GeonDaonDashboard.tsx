@@ -54,7 +54,11 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={dashBoardPageState.member.list
+                                Items={_.sortBy(
+                                    dashBoardPageState.member.list,
+                                    'SEARCH_DE'
+                                )
+                                    .reverse()
                                     .slice(-3)
                                     .map(e => {
                                         const searchDate = dateInsertHypen(
@@ -65,13 +69,16 @@ const GeonDaonDashboard = () => {
                                                 name: searchDate
                                                     ? String(searchDate)
                                                     : e.SEARCH_DE,
+                                                textAlign: 'left',
                                             },
                                             {
                                                 name: String(e.TD_CNT),
                                                 color: 'green',
+                                                textAlign: 'center',
                                             },
                                             {
                                                 name: String(e.TT_CNT),
+                                                textAlign: 'right',
                                             },
                                         ]
                                     })}
@@ -123,22 +130,30 @@ const GeonDaonDashboard = () => {
                                                         return [
                                                             {
                                                                 name: e.SEXDSTN,
+                                                                textAlign:
+                                                                    'left',
                                                             },
                                                             {
                                                                 name: `${addComma(
                                                                     e.TT_TOT_RATE
                                                                 )}%`,
+                                                                textAlign:
+                                                                    'center',
                                                             },
                                                             {
                                                                 name: addComma(
                                                                     e.TD_TOT_CNT
                                                                 ),
                                                                 color: 'green',
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                             {
                                                                 name: addComma(
                                                                     e.TT_TOT_CNT
                                                                 ),
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                         ]
                                                     }
@@ -178,21 +193,32 @@ const GeonDaonDashboard = () => {
                                                         return [
                                                             {
                                                                 name: `${e.AGES_GROUP}대`,
+                                                                textAlign:
+                                                                    'left',
                                                             },
                                                             {
-                                                                name: `${addComma(
-                                                                    e.TT_TOT_RATE
-                                                                )}%`,
+                                                                name: `${_.round(
+                                                                    e.TD_TOT_CNT,
+                                                                    2
+                                                                ).toFixed(1)}%`,
+                                                                textAlign:
+                                                                    'center',
                                                             },
                                                             {
-                                                                name: addComma(
-                                                                    e.TD_TOT_CNT
+                                                                // name: addComma( e.TT_TOT_RATE ),
+                                                                name: `${_.round(
+                                                                    e.TT_TOT_RATE,
+                                                                    2
+                                                                ).toFixed(1)}%`,
+                                                                textAlign:
+                                                                    'right',
+                                                            },
+                                                            {
+                                                                name: String(
+                                                                    e.TT_TOT_CNT
                                                                 ),
-                                                            },
-                                                            {
-                                                                name: addComma(
-                                                                    e.TT_TOT_RATE
-                                                                ),
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                         ]
                                                     }
@@ -223,14 +249,20 @@ const GeonDaonDashboard = () => {
                                                         if (e.CNT_TY === 'TT') {
                                                             name = `오늘`
                                                         } else {
-                                                            name = `합계`
+                                                            name = `전체`
                                                         }
                                                         return [
-                                                            { name: name },
+                                                            {
+                                                                name: name,
+                                                                textAlign:
+                                                                    'left',
+                                                            },
                                                             {
                                                                 name: addComma(
                                                                     e.RISK_CNT
                                                                 ),
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                         ]
                                                     }
@@ -277,19 +309,25 @@ const GeonDaonDashboard = () => {
                                                         return [
                                                             {
                                                                 name: findCode
-                                                                    ? findCode.name
+                                                                    ? findCode.genName
                                                                     : '',
+                                                                textAlign:
+                                                                    'left',
                                                             },
                                                             {
                                                                 name: addComma(
                                                                     e.TD_CNT
                                                                 ),
                                                                 color: 'orange',
+                                                                textAlign:
+                                                                    'center',
                                                             },
                                                             {
                                                                 name: addComma(
                                                                     e.TT_CNT
                                                                 ),
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                         ]
                                                     }
@@ -325,7 +363,7 @@ const GeonDaonDashboard = () => {
                                                             ∎ 오늘
                                                         </p>
                                                         <p className="flex text-xs pl-1">
-                                                            ∎ 누적
+                                                            ∎ 전체
                                                         </p>
                                                     </>
                                                 }
@@ -340,13 +378,17 @@ const GeonDaonDashboard = () => {
                                                         return [
                                                             {
                                                                 name: findCode
-                                                                    ? findCode.name
+                                                                    ? findCode.genName
                                                                     : '',
+                                                                textAlign:
+                                                                    'left',
                                                             },
                                                             {
                                                                 name: addComma(
                                                                     e.TT_CNT
                                                                 ),
+                                                                textAlign:
+                                                                    'right',
                                                             },
                                                         ]
                                                     }
@@ -386,7 +428,11 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={dashBoardPageState.mesureInfo.list
+                                Items={_.sortBy(
+                                    dashBoardPageState.mesureInfo.list,
+                                    'MESURE_DE'
+                                )
+                                    .reverse()
                                     .slice(-3)
                                     .map(e => {
                                         const searchDate = dateInsertHypen(
@@ -397,9 +443,13 @@ const GeonDaonDashboard = () => {
                                                 name: searchDate
                                                     ? String(searchDate)
                                                     : e.MESURE_DE,
+                                                textAlign: 'left',
                                             },
                                             { name: addComma(e.TD_CNT) },
-                                            { name: addComma(e.TT_CNT) },
+                                            {
+                                                name: addComma(e.TT_CNT),
+                                                textAlign: 'right',
+                                            },
                                         ]
                                     })}
                             />
@@ -426,12 +476,25 @@ const GeonDaonDashboard = () => {
                                             }
                                             Items={dashBoardPageState.mesureInfoZone.list.map(
                                                 e => {
+                                                    const findCode = _.find(
+                                                        Codes.etc.dayCode.list,
+                                                        {
+                                                            code: e.CNT_TY,
+                                                        }
+                                                    )
+
                                                     return [
-                                                        { name: e.CNT_TY },
+                                                        {
+                                                            name: findCode
+                                                                ? findCode.name
+                                                                : '',
+                                                            textAlign: 'left',
+                                                        },
                                                         {
                                                             name: addComma(
                                                                 e.MESURE_CNT
                                                             ),
+                                                            textAlign: 'right',
                                                         },
                                                     ]
                                                 }
@@ -479,16 +542,19 @@ const GeonDaonDashboard = () => {
                                                             name: findCode
                                                                 ? findCode.name
                                                                 : '없는 device',
+                                                            textAlign: 'left',
                                                         },
                                                         {
                                                             name: addComma(
                                                                 e.TD_CNT
                                                             ),
+                                                            textAlign: 'center',
                                                         },
                                                         {
                                                             name: addComma(
                                                                 e.MT_CNT
                                                             ),
+                                                            textAlign: 'right',
                                                         },
                                                     ]
                                                 }
@@ -521,6 +587,7 @@ const GeonDaonDashboard = () => {
                                                     return [
                                                         {
                                                             name: `${e.AGES_GROUP}`,
+                                                            textAlign: 'left',
                                                         },
                                                         {
                                                             name: addComma(
@@ -556,6 +623,7 @@ const GeonDaonDashboard = () => {
                                                             name: addComma(
                                                                 e.OW_SCORE
                                                             ),
+                                                            textAlign: 'right',
                                                         },
                                                     ]
                                                 }
