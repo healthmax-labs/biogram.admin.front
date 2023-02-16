@@ -2,7 +2,7 @@ import GeonDaonContentCard from './GeonDaonContentCard'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 import { useRecoilValue } from 'recoil'
-import { addComma } from '@Helper'
+import { addComma, dateInsertHypen } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
 
@@ -57,8 +57,15 @@ const GeonDaonDashboard = () => {
                                 Items={dashBoardPageState.member.list
                                     .slice(-3)
                                     .map(e => {
+                                        const searchDate = dateInsertHypen(
+                                            e.SEARCH_DE
+                                        )
                                         return [
-                                            { name: e.SEARCH_DE },
+                                            {
+                                                name: searchDate
+                                                    ? String(searchDate)
+                                                    : e.SEARCH_DE,
+                                            },
                                             {
                                                 name: String(e.TD_CNT),
                                                 color: 'green',
@@ -382,8 +389,15 @@ const GeonDaonDashboard = () => {
                                 Items={dashBoardPageState.mesureInfo.list
                                     .slice(-3)
                                     .map(e => {
+                                        const searchDate = dateInsertHypen(
+                                            e.MESURE_DE
+                                        )
                                         return [
-                                            { name: e.MESURE_DE },
+                                            {
+                                                name: searchDate
+                                                    ? String(searchDate)
+                                                    : e.MESURE_DE,
+                                            },
                                             { name: addComma(e.TD_CNT) },
                                             { name: addComma(e.TT_CNT) },
                                         ]
