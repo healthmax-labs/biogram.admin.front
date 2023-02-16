@@ -190,15 +190,21 @@ const GeonDaonDashboard = () => {
                                                 }
                                                 Items={dashBoardPageState.ageGroup.list.map(
                                                     e => {
+                                                        const findCode = _.find(
+                                                            Codes.ageGroup.list,
+                                                            {
+                                                                code: String(
+                                                                    e.AGES_GROUP
+                                                                ),
+                                                            }
+                                                        )
+
                                                         return [
                                                             {
                                                                 name: `${
-                                                                    e.AGES_GROUP
-                                                                }대 ${
-                                                                    e.AGES_GROUP >=
-                                                                    70
-                                                                        ? `이상`
-                                                                        : ``
+                                                                    findCode
+                                                                        ? findCode.name
+                                                                        : ''
                                                                 }`,
                                                                 textAlign:
                                                                     'left',
@@ -590,15 +596,21 @@ const GeonDaonDashboard = () => {
                                             }
                                             Items={dashBoardPageState.mybodyScoreImprvm.list.map(
                                                 e => {
+                                                    const findCode = _.find(
+                                                        Codes.ageGroup.list,
+                                                        {
+                                                            code: String(
+                                                                e.AGES_GROUP
+                                                            ),
+                                                        }
+                                                    )
+
                                                     return [
                                                         {
                                                             name: `${
-                                                                e.AGES_GROUP
-                                                            }대 ${
-                                                                e.AGES_GROUP >=
-                                                                70
-                                                                    ? `이상`
-                                                                    : ``
+                                                                findCode
+                                                                    ? findCode.name
+                                                                    : e.AGES_GROUP
                                                             }`,
                                                             textAlign: 'left',
                                                         },

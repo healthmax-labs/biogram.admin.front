@@ -9,6 +9,47 @@ export default {
             ],
         },
     },
+    ageGroup: {
+        name: `체성분`,
+        key: '0010',
+        list: [
+            {
+                key: '10',
+                code: '10',
+                name: '10대',
+            },
+            {
+                key: '20',
+                code: '20',
+                name: '20대',
+            },
+            {
+                key: '30',
+                code: '30',
+                name: '30대',
+            },
+            {
+                key: '40',
+                code: '40',
+                name: '40대',
+            },
+            {
+                key: '50',
+                code: '50',
+                name: '50대',
+            },
+            {
+                key: '60',
+                code: '60',
+                name: '60대',
+            },
+            {
+                key: '70',
+                code: '70',
+                name: '70대 이상',
+            },
+        ],
+    },
     memberStplats: {
         code: {
             US: {
