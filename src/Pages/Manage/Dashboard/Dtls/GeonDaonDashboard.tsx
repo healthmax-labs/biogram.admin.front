@@ -541,7 +541,7 @@ const GeonDaonDashboard = () => {
                                                         {
                                                             name: findCode
                                                                 ? findCode.name
-                                                                : '없는 device',
+                                                                : e.MESURE_TY,
                                                             textAlign: 'left',
                                                         },
                                                         {
