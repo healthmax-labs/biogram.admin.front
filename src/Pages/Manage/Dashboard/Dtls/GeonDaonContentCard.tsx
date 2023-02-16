@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spinner } from '@Elements'
-import { TextColorType } from '@CommonTypes'
+import { TextColorType, TextAlignType } from '@CommonTypes'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 
 const {
@@ -23,6 +23,7 @@ const {
 interface ItemInterface {
     name: string
     color?: TextColorType
+    textAlign?: TextAlignType
 }
 
 const GeonDaonContentCard = ({
@@ -66,6 +67,11 @@ const GeonDaonContentCard = ({
                                                                     e.color
                                                                         ? e.color
                                                                         : 'gray'
+                                                                }
+                                                                TextAlign={
+                                                                    e.textAlign
+                                                                        ? e.textAlign
+                                                                        : 'center'
                                                                 }>
                                                                 {e.name}
                                                             </Cell>
