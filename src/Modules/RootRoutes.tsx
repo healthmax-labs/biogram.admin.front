@@ -12,13 +12,21 @@ import Const from '@Const'
 const RootRoutes = () => {
     const { handleTheme } = useMainLayouts()
 
+    // FIXME: 훅으로 변경 필요.
     useEffect(() => {
         //도메인 체크 해서 테마 변경.
         const hostName = window.location.hostname
-        if (hostName === Const.GeonDaonThemeSiteURL) {
-            handleTheme('GeonDaon' as MainLayoutThemeType)
-        } else {
-            handleTheme('')
+
+        const checkHostNameTheme = () => {
+            if (hostName === Const.GeonDaonThemeSiteURL) {
+                handleTheme('GeonDaon' as MainLayoutThemeType)
+            } else {
+                handleTheme('')
+            }
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+            checkHostNameTheme()
         }
     }, [handleTheme])
 
