@@ -1091,12 +1091,96 @@ export default {
             name: `기기측정현황`,
             key: 'devices',
             list: [
-                { code: 'IS', name: '체성분' },
-                { code: 'BP', name: '혈압' },
-                { code: 'BS', name: '혈당' },
-                { code: 'BC', name: '콜레스테롤' },
-                { code: 'ST', name: '스트레스' },
-                { code: 'ET', name: '기타' },
+                {
+                    code: `BD`,
+                    key: `BD`,
+                    name: `활동량계`,
+                },
+                {
+                    code: `BH`,
+                    key: `BH`,
+                    name: `체온계`,
+                },
+                {
+                    code: `BI`,
+                    key: `BI`,
+                    name: `뇌 건강 측정기`,
+                },
+                {
+                    code: `BP`,
+                    key: `BP`,
+                    name: `혈압계`,
+                },
+                {
+                    code: `BPGP`,
+                    key: `BPGP`,
+                    name: `혈압계 악력계`,
+                },
+                {
+                    code: `BPIC`,
+                    key: `BPIC`,
+                    name: `혈압계 체성분계 콜레스테롤`,
+                },
+                {
+                    code: `BPIS`,
+                    key: `BPIS`,
+                    name: `혈압계 체성분계`,
+                },
+                {
+                    code: `BPSR`,
+                    key: `BPSR`,
+                    name: `혈압계 스트레스계`,
+                },
+                {
+                    code: `BS`,
+                    key: `BS`,
+                    name: `혈당계`,
+                },
+                {
+                    code: `BSBC`,
+                    key: `BSBC`,
+                    name: `혈당계 콜레스테롤계`,
+                },
+                {
+                    code: `GP`,
+                    key: `GP`,
+                    name: `악력계`,
+                },
+                {
+                    code: `HT`,
+                    key: `HT`,
+                    name: `신장계`,
+                },
+                {
+                    code: `HTIS`,
+                    key: `HTIS`,
+                    name: `신장계 체성분계`,
+                },
+                {
+                    code: `IS`,
+                    key: `IS`,
+                    name: `체성분계`,
+                },
+                {
+                    code: `IW`,
+                    key: `IW`,
+                    name: `체중계`,
+                },
+                {
+                    code: `KK`,
+                    key: `KK`,
+                    name: `키오스크`,
+                },
+                {
+                    code: `RR`,
+                    key: `RR`,
+                    name: `스마트줄자`,
+                },
+                {
+                    code: `SR`,
+                    key: `SR`,
+                    name: `스트레스 측정기`,
+                },
             ],
         },
     ],

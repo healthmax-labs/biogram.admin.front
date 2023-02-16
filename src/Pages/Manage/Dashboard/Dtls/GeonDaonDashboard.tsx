@@ -192,7 +192,14 @@ const GeonDaonDashboard = () => {
                                                     e => {
                                                         return [
                                                             {
-                                                                name: `${e.AGES_GROUP}대`,
+                                                                name: `${
+                                                                    e.AGES_GROUP
+                                                                }대 ${
+                                                                    e.AGES_GROUP >=
+                                                                    70
+                                                                        ? `이상`
+                                                                        : ``
+                                                                }`,
                                                                 textAlign:
                                                                     'left',
                                                             },
@@ -420,11 +427,10 @@ const GeonDaonDashboard = () => {
                                 RightTitle={
                                     <>
                                         <p className="flex text-xs pl-1 text-teal-600">
-                                            오늘 15,312
+                                            ∎ 오늘
                                         </p>
-                                        <p className="flex text-xs pl-1">/</p>
                                         <p className="flex text-xs pl-1">
-                                            전체 1,122,584
+                                            ∎ 전체
                                         </p>
                                     </>
                                 }
@@ -586,37 +592,19 @@ const GeonDaonDashboard = () => {
                                                 e => {
                                                     return [
                                                         {
-                                                            name: `${e.AGES_GROUP}`,
+                                                            name: `${
+                                                                e.AGES_GROUP
+                                                            }대 ${
+                                                                e.AGES_GROUP >=
+                                                                70
+                                                                    ? `이상`
+                                                                    : ``
+                                                            }`,
                                                             textAlign: 'left',
                                                         },
                                                         {
                                                             name: addComma(
-                                                                e.IW_CNT
-                                                            ),
-                                                        },
-                                                        {
-                                                            name: addComma(
                                                                 e.IW_SCORE
-                                                            ),
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.NW_CNT
-                                                            ),
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.OW_CNT
-                                                            ),
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.IW_SCORE
-                                                            ),
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.NW_SCORE
                                                             ),
                                                         },
                                                         {
