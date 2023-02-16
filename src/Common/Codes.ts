@@ -16,7 +16,7 @@ export default {
             {
                 key: '10',
                 code: '10',
-                name: '10대',
+                name: '10대 이하',
             },
             {
                 key: '20',
