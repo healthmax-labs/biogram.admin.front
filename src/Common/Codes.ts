@@ -1092,6 +1092,11 @@ export default {
             key: 'devices',
             list: [
                 {
+                    code: `BC`,
+                    key: `BC`,
+                    name: `콜레스테롤계`,
+                },
+                {
                     code: `BD`,
                     key: `BD`,
                     name: `활동량계`,
@@ -1180,6 +1185,11 @@ export default {
                     code: `SR`,
                     key: `SR`,
                     name: `스트레스 측정기`,
+                },
+                {
+                    code: `SB`,
+                    key: `SB`,
+                    name: `뇌기능`,
                 },
             ],
         },
