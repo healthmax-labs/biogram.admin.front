@@ -1,8 +1,10 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton } from '@Elements'
-
+import { VaryButton, ElementLoading } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { MesureListState } from '@Recoil/AnalyticsPagesState'
+import React from 'react'
+import Codes from '@Codes'
+import _ from 'lodash'
 
 const {
     Container,
@@ -15,383 +17,584 @@ const {
 } = ContentsStyle
 
 const MeasureUserTable = () => {
-    const measureListState = useRecoilValue(MesureListState)
-
-    const cellMaker = (
-        lineNum: number,
-        area: string,
-        mode: string,
-        colspan: number,
-        title: string
-    ) => {
-        let cellHtml
-        if (measureListState.status) {
-            if (area === 'AGE' && measureListState.list !== null) {
-                const getAgeData =
-                    measureListState.list.AGE_GROUP_STAT_LIST[lineNum]
-
-                const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
-                const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
-                const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
-                const IS_MBER_CNT = getAgeData.IS_MBER_CNT
-                const IS_WOMAN_CNT = getAgeData.IS_WOMAN_CNT
-                const IS_MAN_CNT = getAgeData.IS_MAN_CNT
-                const BP_MBER_CNT = getAgeData.BP_MBER_CNT
-                const BP_WOMAN_CNT = getAgeData.BP_WOMAN_CNT
-                const BP_MAN_CNT = getAgeData.BP_MAN_CNT
-                const BS_MBER_CNT = getAgeData.BS_MBER_CNT
-                const BS_WOMAN_CNT = getAgeData.BS_WOMAN_CNT
-                const BS_MAN_CNT = getAgeData.BS_MAN_CNT
-                const BC_MBER_CNT = getAgeData.BC_MBER_CNT
-                const BC_WOMAN_CNT = getAgeData.BC_WOMAN_CNT
-                const BC_MAN_CNT = getAgeData.BC_MAN_CNT
-                const ST_MBER_CNT = getAgeData.ST_MBER_CNT
-                const ST_WOMAN_CNT = getAgeData.ST_WOMAN_CNT
-                const ST_MAN_CNT = getAgeData.ST_MAN_CNT
-                const HT_MBER_CNT = getAgeData.HT_MBER_CNT
-                const HT_WOMAN_CNT = getAgeData.HT_WOMAN_CNT
-                const HT_MAN_CNT = getAgeData.HT_MAN_CNT
-                const BD_MBER_CNT = getAgeData.BD_MBER_CNT
-                const BD_WOMAN_CNT = getAgeData.BD_WOMAN_CNT
-                const BD_MAN_CNT = getAgeData.BD_MAN_CNT
-
-                if (mode === '') {
-                    cellHtml = (
-                        <>
-                            <T.CellW colSpan={colspan}>{title}</T.CellW>
-                            <T.CellW>{TOT_MBER_CNT}</T.CellW>
-                            <T.CellW>{TOT_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{TOT_MAN_CNT}</T.CellW>
-                            <T.CellW>{IS_MBER_CNT}</T.CellW>
-                            <T.CellW>{IS_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{IS_MAN_CNT}</T.CellW>
-                            <T.CellW>{BP_MBER_CNT}</T.CellW>
-                            <T.CellW>{BP_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BP_MAN_CNT}</T.CellW>
-                            <T.CellW>{BS_MBER_CNT}</T.CellW>
-                            <T.CellW>{BS_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BS_MAN_CNT}</T.CellW>
-                            <T.CellW>{BC_MBER_CNT}</T.CellW>
-                            <T.CellW>{BC_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BC_MAN_CNT}</T.CellW>
-                            <T.CellW>{ST_MBER_CNT}</T.CellW>
-                            <T.CellW>{ST_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{ST_MAN_CNT}</T.CellW>
-                            <T.CellW>{HT_MBER_CNT}</T.CellW>
-                            <T.CellW>{HT_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{HT_MAN_CNT}</T.CellW>
-                            <T.CellW>{BD_MBER_CNT}</T.CellW>
-                            <T.CellW>{BD_WOMAN_CNT}</T.CellW>
-                            <T.CellW>{BD_MAN_CNT}</T.CellW>
-                        </>
-                    )
-                } else {
-                    cellHtml = (
-                        <>
-                            <T.TFootCell colSpan={colspan}>합계</T.TFootCell>
-                            <T.TFootCell>{TOT_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{IS_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BP_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BS_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BC_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{ST_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{HT_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{HT_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{HT_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BD_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{BD_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{BD_MAN_CNT}</T.TFootCell>
-                        </>
-                    )
-                }
-            } else if (measureListState.list !== null) {
-                const data = measureListState.list.PERIOD_STAT_LIST
-
-                return data.map(data => (
-                    <T.Row key={data.PERIOD}>
-                        <T.CellW colSpan={colspan}>{data.PERIOD}</T.CellW>
-                        <T.CellW>{data.TOT_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.TOT_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.TOT_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.IS_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.IS_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.IS_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.BP_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.BP_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.BP_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.BS_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.BS_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.BS_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.BC_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.BC_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.BC_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.ST_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.ST_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.ST_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.HT_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.HT_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.HT_MAN_CNT}</T.CellW>
-                        <T.CellW>{data.BD_MBER_CNT}</T.CellW>
-                        <T.CellW>{data.BD_WOMAN_CNT}</T.CellW>
-                        <T.CellW>{data.BD_MAN_CNT}</T.CellW>
-                    </T.Row>
-                ))
-            }
-        } else {
-            if (area !== 'AGE') {
-                cellHtml = (
-                    <>
-                        <T.CellW colSpan={colspan}>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                    </>
-                )
-            } else {
-                cellHtml = (
-                    <>
-                        <T.CellW colSpan={colspan}>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                        <T.CellW>-</T.CellW>
-                    </>
-                )
-            }
-        }
-
-        return cellHtml
-    }
+    const {
+        status,
+        list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
+    } = useRecoilValue(MesureListState)
 
     return (
         <Container>
-            <RowWapper>
-                <TitleBox>연령별 통계</TitleBox>
-                <ChartBox>차트</ChartBox>
-            </RowWapper>
-            <RowWapper>
-                <ButtonBox>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName="엑셀다운로드"
-                        HandleClick={() => {
-                            //
-                        }}
-                    />
-                </ButtonBox>
-                <TableBox>
-                    <T.Table>
-                        <T.Thead>
-                            <T.TheadRow>
-                                <T.TheadCell rowSpan={2} colSpan={2}>
-                                    연령
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>전체</T.TheadCell>
-                                <T.TheadCell colSpan={3}>체성분계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>혈압계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>혈당계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    콜레스테롤계
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    스트레스계
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>신장계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>활동량계</T.TheadCell>
-                            </T.TheadRow>
-                            <T.TheadRow>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                            </T.TheadRow>
-                        </T.Thead>
-                        <T.Body>
-                            <T.Row>
-                                {cellMaker(0, 'AGE', '', 2, '10대 이하')}
-                            </T.Row>
-                            <T.Row>{cellMaker(1, 'AGE', '', 2, '20대')}</T.Row>
-                            <T.Row>{cellMaker(2, 'AGE', '', 2, '30대')}</T.Row>
-                            <T.Row>{cellMaker(3, 'AGE', '', 2, '40대')}</T.Row>
-                            <T.Row>{cellMaker(4, 'AGE', '', 2, '50대')}</T.Row>
-                            <T.Row>{cellMaker(5, 'AGE', '', 2, '60대')}</T.Row>
-                            <T.Row>
-                                {cellMaker(6, 'AGE', '', 2, '70대 이상')}
-                            </T.Row>
-                        </T.Body>
-                        <T.TFoot>
-                            <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
-                            </T.TFootRow>
-                        </T.TFoot>
-                    </T.Table>
-                </TableBox>
-            </RowWapper>
-            <RowWapper>
-                <TitleBox>기간별 통계</TitleBox>
-                <ChartBox>차트</ChartBox>
-            </RowWapper>
-            <RowWapper>
-                <ButtonBox>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName="엑셀다운로드"
-                        HandleClick={() => {
-                            //
-                        }}
-                    />
-                </ButtonBox>
-                <TableBox>
-                    <T.Table>
-                        <T.Thead>
-                            <T.TheadRow>
-                                <T.TheadCell rowSpan={2}>기간</T.TheadCell>
-                                <T.TheadCell colSpan={3}>전체</T.TheadCell>
-                                <T.TheadCell colSpan={3}>체성분계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>혈압계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>혈당계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    콜레스테롤계
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    스트레스계
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>신장계</T.TheadCell>
-                                <T.TheadCell colSpan={3}>활동량계</T.TheadCell>
-                            </T.TheadRow>
-                            <T.TheadRow>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                            </T.TheadRow>
-                        </T.Thead>
-                        <T.Body>{cellMaker(0, 'PERIOD', '', 0, '기간')}</T.Body>
-                        {/* <T.TFoot>
-                            <T.TFootRow>
-                                <T.TFootCell>합계</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                                <T.TFootCell>1</T.TFootCell>
-                            </T.TFootRow>   //불요영역 주석처리
-                        </T.TFoot> */}
-                    </T.Table>
-                </TableBox>
-            </RowWapper>
+            {status === 'loading' ? (
+                <RowWapper>
+                    <div className="h-[calc(100vh-10rem)]">
+                        <ElementLoading FullScreen={false} />
+                    </div>
+                </RowWapper>
+            ) : (
+                <>
+                    <RowWapper>
+                        <TitleBox>연령별 통계</TitleBox>
+                        <ChartBox>차트</ChartBox>
+                    </RowWapper>
+                    <RowWapper>
+                        <ButtonBox>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName="엑셀다운로드"
+                                HandleClick={() => {
+                                    //
+                                }}
+                            />
+                        </ButtonBox>
+                        <TableBox>
+                            <T.Table>
+                                <T.Thead>
+                                    <T.TheadRow>
+                                        <T.TheadCell rowSpan={2} colSpan={2}>
+                                            연령
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            전체
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            체성분계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            혈압계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            혈당계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            콜레스테롤계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            스트레스계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            신장계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            활동량계
+                                        </T.TheadCell>
+                                    </T.TheadRow>
+                                    <T.TheadRow>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                    </T.TheadRow>
+                                </T.Thead>
+                                <T.Body>
+                                    {Codes.ageGroup.list.map(
+                                        (age, ageIndex) => {
+                                            const DataRow = _.find(
+                                                AGE_GROUP_STAT_LIST,
+                                                {
+                                                    AGE_GROUP: age.code,
+                                                }
+                                            )
+
+                                            if (DataRow) {
+                                                return (
+                                                    <T.Row
+                                                        key={`analytics-measure-user-age-group-table-row-item-${ageIndex}`}>
+                                                        <T.CellW colSpan={2}>
+                                                            {age.name}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.TOT_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.TOT_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.TOT_MAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.IS_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.IS_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.IS_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BP_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BP_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.BP_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BS_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BS_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.BS_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BC_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BC_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.BC_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.ST_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.ST_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.ST_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.HT_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.HT_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.HT_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BD_MBER_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.BD_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.BD_MAN_CNT}
+                                                        </T.CellW>
+                                                    </T.Row>
+                                                )
+                                            } else {
+                                                return (
+                                                    <T.Row
+                                                        key={`analytics-measure-user-age-group-table-row-item--${ageIndex}`}>
+                                                        <T.CellW colSpan={2}>
+                                                            {age.name}
+                                                        </T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                        <T.CellW>-</T.CellW>
+                                                    </T.Row>
+                                                )
+                                            }
+                                        }
+                                    )}
+                                </T.Body>
+                                <T.TFoot>
+                                    <T.TFootRow>
+                                        {(() => {
+                                            const DataRow = _.find(
+                                                AGE_GROUP_STAT_LIST,
+                                                {
+                                                    AGE_GROUP: 'TOT',
+                                                }
+                                            )
+
+                                            if (DataRow) {
+                                                return (
+                                                    <>
+                                                        <T.TFootCell
+                                                            colSpan={2}>
+                                                            합계
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.TOT_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.TOT_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.TOT_MAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.IS_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.IS_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.IS_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BP_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BP_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.BP_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BS_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BS_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.BS_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BC_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BC_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.BC_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.ST_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.ST_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.ST_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.HT_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.HT_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.HT_MAN_CNT}
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BD_MBER_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {
+                                                                DataRow.BD_WOMAN_CNT
+                                                            }
+                                                        </T.TFootCell>
+                                                        <T.TFootCell>
+                                                            {DataRow.BD_MAN_CNT}
+                                                        </T.TFootCell>
+                                                    </>
+                                                )
+                                            }
+
+                                            return (
+                                                <>
+                                                    <T.TFootCell colSpan={2}>
+                                                        합계
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                </>
+                                            )
+                                        })()}
+                                    </T.TFootRow>
+                                </T.TFoot>
+                            </T.Table>
+                        </TableBox>
+                    </RowWapper>
+                    <RowWapper>
+                        <TitleBox>기간별 통계</TitleBox>
+                        <ChartBox>차트</ChartBox>
+                    </RowWapper>
+                    <RowWapper>
+                        <ButtonBox>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName="엑셀다운로드"
+                                HandleClick={() => {
+                                    //
+                                }}
+                            />
+                        </ButtonBox>
+                        <TableBox>
+                            <T.Table>
+                                <T.Thead>
+                                    <T.TheadRow>
+                                        <T.TheadCell rowSpan={2}>
+                                            기간
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            전체
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            체성분계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            혈압계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            혈당계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            콜레스테롤계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            스트레스계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            신장계
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            활동량계
+                                        </T.TheadCell>
+                                    </T.TheadRow>
+                                    <T.TheadRow>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                    </T.TheadRow>
+                                </T.Thead>
+                                <T.Body>
+                                    {PERIOD_STAT_LIST.map(
+                                        (period, periodIndex) => {
+                                            return (
+                                                <T.Row
+                                                    key={`analytics-measure-user-period-table-row-item-${periodIndex}`}>
+                                                    <T.CellW>
+                                                        {period.PERIOD}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.TOT_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.TOT_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.TOT_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.IS_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.IS_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.IS_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BP_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BP_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BP_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BS_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BS_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BS_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BC_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BC_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BC_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.ST_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.ST_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.ST_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.HT_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.HT_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.HT_MAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BD_MBER_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BD_WOMAN_CNT}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {period.BD_MAN_CNT}
+                                                    </T.CellW>
+                                                </T.Row>
+                                            )
+                                        }
+                                    )}
+                                </T.Body>
+                            </T.Table>
+                        </TableBox>
+                    </RowWapper>
+                </>
+            )}
         </Container>
     )
 }

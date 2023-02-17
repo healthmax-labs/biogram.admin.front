@@ -6,7 +6,6 @@ import MeasureUserTable from './MeasureUserTable'
 import { useRecoilState } from 'recoil'
 import { getMesureAnalyticsList } from '@Service/AnalyticsService'
 import { MesureListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
@@ -18,14 +17,21 @@ const MeasureUserMain = () => {
         useRecoilState(MesureListState)
 
     const getTableList = useCallback(async () => {
+        setMesureListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
-            search: { INST_NO, BGNDE, ENDDE },
+            search: { INST_NO, BGNDE, ENDDE, AGEGROUP, CYCLE },
         } = mesureListState
 
         const { status, payload } = await getMesureAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            INST_NO: INST_NO,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
+            AGEGROUP: AGEGROUP,
+            CYCLE: CYCLE,
         })
 
         if (status) {
@@ -38,7 +44,10 @@ const MeasureUserMain = () => {
             setMesureListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: null,
+                list: {
+                    AGE_GROUP_STAT_LIST: [],
+                    PERIOD_STAT_LIST: [],
+                },
             }))
         }
     }, [mesureListState, setMesureListState])
@@ -52,24 +61,61 @@ const MeasureUserMain = () => {
 
         pageStart()
     }, [getTableList, mesureListState.status])
+
     return (
         <Container>
             <SearchWapper>
                 <AnalyticsSearchBox
                     SearchType={'default'}
-                    HandleGetList={() => console.debug('HandleGetList')}
-                    HandleInstNo={instNo => console.debug(instNo)}
-                    StartDate={mesureListState.search.BGNDE}
-                    HandleStartDate={e => console.debug(e)}
-                    EndDate={mesureListState.search.ENDDE}
-                    HandleEndDate={e => console.debug(e)}
-                    AgeGroup={[]}
-                    HandleAgeGroup={e => {
-                        console.debug(e)
+                    HandleGetList={() => getTableList()}
+                    HandleInstNo={instNo => {
+                        setMesureListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                INST_NO: String(instNo),
+                            },
+                        }))
                     }}
-                    Cycle={``}
+                    StartDate={mesureListState.search.BGNDE}
+                    HandleStartDate={e => {
+                        setMesureListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                BGNDE: e,
+                            },
+                        }))
+                    }}
+                    EndDate={mesureListState.search.ENDDE}
+                    HandleEndDate={e => {
+                        setMesureListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                ENDDE: e,
+                            },
+                        }))
+                    }}
+                    AgeGroup={mesureListState.search.AGEGROUP}
+                    HandleAgeGroup={e => {
+                        setMesureListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                AGEGROUP: e,
+                            },
+                        }))
+                    }}
+                    Cycle={mesureListState.search.CYCLE}
                     HandleCycle={e => {
-                        console.debug(e)
+                        setMesureListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                CYCLE: e,
+                            },
+                        }))
                     }}
                 />
             </SearchWapper>

@@ -85,14 +85,16 @@ interface DeviceListInterface {
 interface MesureListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: string
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: MesureAgeListItemInterface[]
         PERIOD_STAT_LIST: MesurePeriodListItemInterface[]
-    } | null
+    }
 }
 
 export const MemberListState = atom<AnalyticsMemberListStateInterface>({
@@ -119,17 +121,22 @@ export const MesureListState = atom<MesureListInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
+            AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
+            CYCLE: 'day',
         },
-        list: null,
+        list: {
+            AGE_GROUP_STAT_LIST: [],
+            PERIOD_STAT_LIST: [],
+        },
     },
 })
 
 //기기사용 통계
 export const DeviceListState = atom<DeviceListInterface>({
-    key: `analyticsPage/mesure-list`,
+    key: `analyticsPage/device-list`,
     default: {
         status: 'idle',
         search: {
