@@ -1,5 +1,3 @@
-import { String } from 'lodash'
-
 //위험요인 현황
 export interface RiskFctrListItemInterface {
     SLM_JDGMNT: null | string
