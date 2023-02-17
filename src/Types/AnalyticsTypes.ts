@@ -33,31 +33,31 @@ export interface AnalyticsMemberListInterface {
 
 //측정이용자 연령별 통계
 export interface MesureAgeListItemInterface {
-    ST_MBER_CNT: string
-    BD_WOMAN_CNT: string
-    BS_MAN_CNT: string
-    BD_MBER_CNT: string
-    BD_MAN_CNT: string
-    ST_WOMAN_CNT: string
-    HT_MBER_CNT: string
-    BC_MAN_CNT: string
-    TOT_MBER_CNT: string
-    BP_MBER_CNT: string
-    BP_MAN_CNT: string
-    ST_MAN_CNT: string
-    BS_MBER_CNT: string
-    TOT_WOMAN_CNT: string
-    HT_WOMAN_CNT: string
-    BP_WOMAN_CNT: string
-    BC_MBER_CNT: string
-    HT_MAN_CNT: string
-    TOT_MAN_CNT: string
-    BC_WOMAN_CNT: string
-    BS_WOMAN_CNT: string
-    IS_MBER_CNT: string
     AGE_GROUP: string
-    IS_WOMAN_CNT: string
-    IS_MAN_CNT: string
+    BC_MAN_CNT: number
+    BC_MBER_CNT: number
+    BC_WOMAN_CNT: number
+    BD_MAN_CNT: number
+    BD_MBER_CNT: number
+    BD_WOMAN_CNT: number
+    BP_MAN_CNT: number
+    BP_MBER_CNT: number
+    BP_WOMAN_CNT: number
+    BS_MAN_CNT: number
+    BS_MBER_CNT: number
+    BS_WOMAN_CNT: number
+    HT_MAN_CNT: number
+    HT_MBER_CNT: number
+    HT_WOMAN_CNT: number
+    IS_MAN_CNT: number
+    IS_MBER_CNT: number
+    IS_WOMAN_CNT: number
+    ST_MAN_CNT: number
+    ST_MBER_CNT: number
+    ST_WOMAN_CNT: number
+    TOT_MAN_CNT: number
+    TOT_MBER_CNT: number
+    TOT_WOMAN_CNT: number
 }
 
 //측정이용자 기간별 통계
