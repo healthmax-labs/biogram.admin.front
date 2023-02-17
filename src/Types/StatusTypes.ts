@@ -226,6 +226,7 @@ export interface NonMeasureAlertInterface {
 export interface HealthIndicatorsListItemInterface {
     CNT: number | null
     MBER_NO: number
+    TOT_SCORE: number | null
     BP_SCORE: number | null
     TG_SCORE: number | null
     WAIST_SCORE: number | null

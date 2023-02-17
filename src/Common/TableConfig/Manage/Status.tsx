@@ -1059,6 +1059,7 @@ export const NonMeasureTableConfig = {
 export interface HealthIndicatorsTableListItemInterface {
     CNT: number | null
     MBER_NO: number
+    TOT_SCORE: number | null
     BP_SCORE: number | null
     TG_SCORE: number | null
     WAIST_SCORE: number | null
@@ -1086,11 +1087,13 @@ export const HealthIndicatorsTableConfig = {
                 el: HealthIndicatorsTableListItemInterface
             }) => {
                 return (
-                    <XcptComponent>{`${el.CALC_DE} / ${el.CNT}명`}</XcptComponent>
+                    <XcptComponent>{`${dateInsertHypen(String(el.CALC_DE))} / ${
+                        el.CNT
+                    }명`}</XcptComponent>
                 )
             },
         },
-        bgState: false,
+        bgState: true,
     },
     Columns: [
         [
@@ -1156,7 +1159,7 @@ export const HealthIndicatorsTableConfig = {
             },
             {
                 name: `개선성공률`,
-                key: `CNT`,
+                key: `TOT_SCORE`,
             },
             {
                 name: `허리둘레`,
