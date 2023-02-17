@@ -3,7 +3,7 @@ import React from 'react'
 import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
-import { phoneFormat, timeStringParse } from '@Helper'
+import { phoneFormat } from '@Helper'
 
 const {
     Box: { Container, Wapper, Item },
