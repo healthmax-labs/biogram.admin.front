@@ -3,12 +3,17 @@ import { useRecoilValue } from 'recoil'
 import { MainLayoutThemeType } from '@CommonTypes'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
+import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 
 const GeonDaonDashboardMain = lazy(() => import('./GeonDaonDashboardMain'))
 
 const {
     DetailPage: { Container },
 } = PageContainerStyle
+
+const {
+    GeonDaonStyle: { MainWapper },
+} = DashboardStyle
 
 const initializeState = {
     theme: '',
@@ -35,7 +40,7 @@ const DashboardMain = () => {
 
     return (
         <Container>
-            <div className="flex w-center-width bg-gray-100">
+            <MainWapper>
                 <Suspense>
                     {(() => {
                         if (pageState.theme === 'GeonDaon') {
@@ -45,7 +50,7 @@ const DashboardMain = () => {
                         }
                     })()}
                 </Suspense>
-            </div>
+            </MainWapper>
         </Container>
     )
 }

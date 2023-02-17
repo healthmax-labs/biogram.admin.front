@@ -143,12 +143,8 @@ const StatisticsSearchBox = ({
                         <SearchItem>
                             <WapperStyle.FlexNoWarapGap>
                                 {(() => {
-                                    const items =
-                                        Codes.StatisticsDeviceCode.filter(
-                                            e => e.key === 'devices'
-                                        ).shift()
-                                    if (items && items.list) {
-                                        return items.list.map((el, index) => {
+                                    return Codes.DeviceSearchCode.list.map(
+                                        (el, index) => {
                                             const mesureCode =
                                                 statisticsListState.search
                                                     .MESURE_CODE
@@ -216,8 +212,8 @@ const StatisticsSearchBox = ({
                                                     }}
                                                 />
                                             )
-                                        })
-                                    }
+                                        }
+                                    )
                                 })()}
                             </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
