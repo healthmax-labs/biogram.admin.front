@@ -17,6 +17,11 @@ const MemberMain = () => {
         useRecoilState(MemberListState)
 
     const getTableList = useCallback(async () => {
+        setMemberListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: { BGNDE, ENDDE, INST_NO, AGEGROUP, CYCLE },
         } = memberListState

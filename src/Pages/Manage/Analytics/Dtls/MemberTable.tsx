@@ -1,8 +1,10 @@
 import React from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton } from '@Elements'
+import { VaryButton, ElementLoading } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { MemberListState } from '@Recoil/AnalyticsPagesState'
+import Codes from '@Codes'
+import _ from 'lodash'
 
 const {
     Container,
@@ -15,232 +17,284 @@ const {
 } = ContentsStyle
 
 const MemberTable = () => {
-    const memberListState = useRecoilValue(MemberListState)
-
-    const cellMaker = (
-        lineNum: number,
-        area: string,
-        mode: string,
-        colspan: number,
-        title: string
-    ) => {
-        let cellHtml
-        if (memberListState.status) {
-            if (
-                area === 'AGE' &&
-                memberListState.list.AGE_GROUP_STAT_LIST.length > 0
-            ) {
-                const getAgeData =
-                    memberListState.list.AGE_GROUP_STAT_LIST[lineNum]
-                const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
-                const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
-                const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
-                const NEW_MBER_CNT = getAgeData.NEW_MBER_CNT
-                const NEW_WOMAN_CNT = getAgeData.NEW_WOMAN_CNT
-                const NEW_MAN_CNT = getAgeData.NEW_MAN_CNT
-                const DEL_MBER_CNT = getAgeData.DEL_MBER_CNT
-                const DLE_WOMAN_CNT = getAgeData.DLE_WOMAN_CNT
-                const DEL_MAN_CNT = getAgeData.DEL_MAN_CNT
-
-                if (mode === '') {
-                    cellHtml = (
-                        <>
-                            <T.Cell colSpan={colspan}>{title}</T.Cell>
-                            <T.Cell>{TOT_MBER_CNT}</T.Cell>
-                            <T.Cell>{TOT_MAN_CNT}</T.Cell>
-                            <T.Cell>{TOT_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{NEW_MBER_CNT}</T.Cell>
-                            <T.Cell>{NEW_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{NEW_MAN_CNT}</T.Cell>
-                            <T.Cell>{DEL_MBER_CNT}</T.Cell>
-                            <T.Cell>{DLE_WOMAN_CNT}</T.Cell>
-                            <T.Cell>{DEL_MAN_CNT}</T.Cell>
-                        </>
-                    )
-                } else {
-                    cellHtml = (
-                        <>
-                            <T.TFootCell colSpan={colspan}>합계</T.TFootCell>
-                            <T.TFootCell>{TOT_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{TOT_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{NEW_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{NEW_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{NEW_MAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{DEL_MBER_CNT}</T.TFootCell>
-                            <T.TFootCell>{DLE_WOMAN_CNT}</T.TFootCell>
-                            <T.TFootCell>{DEL_MAN_CNT}</T.TFootCell>
-                        </>
-                    )
-                }
-            } else if (memberListState.list !== null) {
-                const data = memberListState.list.PERIOD_STAT_LIST
-
-                return data.map((data, index) => (
-                    <T.Row key={`analytics-member-table-body-row-${index}`}>
-                        <T.Cell colSpan={colspan}>{data.PERIOD}</T.Cell>
-                        <T.Cell>{data.TOT_MBER_CNT}</T.Cell>
-                        <T.Cell>{data.TOT_MAN_CNT}</T.Cell>
-                        <T.Cell>{data.TOT_WOMAN_CNT}</T.Cell>
-                        <T.Cell>{data.NEW_MBER_CNT}</T.Cell>
-                        <T.Cell>{data.NEW_WOMAN_CNT}</T.Cell>
-                        <T.Cell>{data.NEW_MAN_CNT}</T.Cell>
-                        <T.Cell>{data.DEL_MBER_CNT}</T.Cell>
-                        <T.Cell>{data.DLE_WOMAN_CNT}</T.Cell>
-                        <T.Cell>{data.DEL_MAN_CNT}</T.Cell>
-                    </T.Row>
-                ))
-            }
-        } else {
-            if (area !== 'AGE') {
-                cellHtml = (
-                    <>
-                        <T.Cell colSpan={colspan}>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                    </>
-                )
-            } else {
-                cellHtml = (
-                    <>
-                        <T.Cell colSpan={colspan}>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                        <T.Cell>-</T.Cell>
-                    </>
-                )
-            }
-        }
-
-        return cellHtml
-    }
+    const {
+        list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
+        status,
+    } = useRecoilValue(MemberListState)
 
     return (
         <Container>
-            <RowWapper>
-                <TitleBox>연령별 통계</TitleBox>
-                <ChartBox>차트</ChartBox>
-            </RowWapper>
-            <RowWapper>
-                <ButtonBox>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName="엑셀다운로드"
-                        HandleClick={() => {
-                            //
-                        }}
-                    />
-                </ButtonBox>
-                <TableBox>
-                    <T.Table>
-                        <T.Thead>
-                            <T.TheadRow>
-                                <T.TheadCell rowSpan={2} colSpan={2}>
-                                    연령
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    전체회원수
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    신규회원수
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    탈퇴회원수
-                                </T.TheadCell>
-                            </T.TheadRow>
-                            <T.TheadRow>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                            </T.TheadRow>
-                        </T.Thead>
-                        <T.Body>
-                            <T.Row>
-                                {cellMaker(0, 'AGE', '', 2, '10대 이하')}
-                            </T.Row>
-                            <T.Row>{cellMaker(1, 'AGE', '', 2, '20대')}</T.Row>
-                            <T.Row>{cellMaker(2, 'AGE', '', 2, '30대')}</T.Row>
-                            <T.Row>{cellMaker(3, 'AGE', '', 2, '40대')}</T.Row>
-                            <T.Row>{cellMaker(4, 'AGE', '', 2, '50대')}</T.Row>
-                            <T.Row>{cellMaker(5, 'AGE', '', 2, '60대')}</T.Row>
-                            <T.Row>
-                                {cellMaker(6, 'AGE', '', 2, '70대 이상')}
-                            </T.Row>
-                        </T.Body>
-                        <T.TFoot>
-                            <T.TFootRow>
-                                {cellMaker(7, 'AGE', 'footer', 2, '합계')}
-                            </T.TFootRow>
-                        </T.TFoot>
-                    </T.Table>
-                </TableBox>
-                {/* <MainTable {...tableAgeOptions} RowClick={laterFnc} /> */}
-            </RowWapper>
-            <RowWapper>
-                <TitleBox>기간별 통계</TitleBox>
-                <ChartBox>차트</ChartBox>
-            </RowWapper>
-            <RowWapper>
-                <ButtonBox>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName="엑셀다운로드"
-                        HandleClick={() => {
-                            //
-                        }}
-                    />
-                </ButtonBox>
-                <TableBox>
-                    <T.Table>
-                        <T.Thead>
-                            <T.TheadRow>
-                                <T.TheadCell rowSpan={2} colSpan={2}>
-                                    기간
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    전체회원수
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    신규회원수
-                                </T.TheadCell>
-                                <T.TheadCell colSpan={3}>
-                                    탈퇴회원수
-                                </T.TheadCell>
-                            </T.TheadRow>
-                            <T.TheadRow>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                                <T.TheadCell>전체</T.TheadCell>
-                                <T.TheadCell>여성</T.TheadCell>
-                                <T.TheadCell>남성</T.TheadCell>
-                            </T.TheadRow>
-                        </T.Thead>
-                        <T.Body>{cellMaker(0, 'PERIOD', '', 2, '기간')}</T.Body>
-                    </T.Table>
-                </TableBox>
-            </RowWapper>
+            {status === 'loading' ? (
+                <RowWapper>
+                    <div className="h-[calc(100vh-10rem)]">
+                        <ElementLoading FullScreen={false} />
+                    </div>
+                </RowWapper>
+            ) : (
+                <>
+                    <RowWapper>
+                        <TitleBox>연령별 통계</TitleBox>
+                        <ChartBox>차트</ChartBox>
+                    </RowWapper>
+                    <ButtonBox>
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName="엑셀다운로드"
+                            HandleClick={() => {
+                                //
+                            }}
+                        />
+                    </ButtonBox>
+                    <TableBox>
+                        <T.Table>
+                            <T.Thead>
+                                <T.TheadRow>
+                                    <T.TheadCell rowSpan={2} colSpan={2}>
+                                        연령
+                                    </T.TheadCell>
+                                    <T.TheadCell colSpan={3}>
+                                        전체회원수
+                                    </T.TheadCell>
+                                    <T.TheadCell colSpan={3}>
+                                        신규회원수
+                                    </T.TheadCell>
+                                    <T.TheadCell colSpan={3}>
+                                        탈퇴회원수
+                                    </T.TheadCell>
+                                </T.TheadRow>
+                                <T.TheadRow>
+                                    <T.TheadCell>전체</T.TheadCell>
+                                    <T.TheadCell>여성</T.TheadCell>
+                                    <T.TheadCell>남성</T.TheadCell>
+                                    <T.TheadCell>전체</T.TheadCell>
+                                    <T.TheadCell>여성</T.TheadCell>
+                                    <T.TheadCell>남성</T.TheadCell>
+                                    <T.TheadCell>전체</T.TheadCell>
+                                    <T.TheadCell>여성</T.TheadCell>
+                                    <T.TheadCell>남성</T.TheadCell>
+                                </T.TheadRow>
+                            </T.Thead>
+                            <T.Body>
+                                {Codes.ageGroup.list.map((age, ageIndex) => {
+                                    const DataRow = _.find(
+                                        AGE_GROUP_STAT_LIST,
+                                        {
+                                            AGES_GROUP: age.code,
+                                        }
+                                    )
+
+                                    if (DataRow) {
+                                        return (
+                                            <T.Row
+                                                key={`analytics-member-table-row-item-${ageIndex}`}>
+                                                <T.Cell colSpan={2}>
+                                                    {age.name}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.TOT_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.TOT_MAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.TOT_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.NEW_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.NEW_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.NEW_MAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.DEL_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.DEL_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {DataRow.DEL_MAN_CNT}
+                                                </T.Cell>
+                                            </T.Row>
+                                        )
+                                    } else {
+                                        return (
+                                            <T.Row
+                                                key={`analytics-member-list-age-group-table-row-item-${ageIndex}`}>
+                                                <T.Cell colSpan={2}>
+                                                    {age.name}
+                                                </T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                                <T.Cell>-</T.Cell>
+                                            </T.Row>
+                                        )
+                                    }
+                                })}
+                            </T.Body>
+                            <T.TFoot>
+                                <T.TFootRow>
+                                    {(() => {
+                                        const DataRow = _.find(
+                                            AGE_GROUP_STAT_LIST,
+                                            {
+                                                AGES_GROUP: 'TOT',
+                                            }
+                                        )
+
+                                        if (DataRow) {
+                                            return (
+                                                <>
+                                                    <T.TFootCell colSpan={2}>
+                                                        합계
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.TOT_MBER_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.TOT_MAN_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.TOT_WOMAN_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.NEW_MBER_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.NEW_WOMAN_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.NEW_MAN_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.DEL_MBER_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.DEL_WOMAN_CNT}
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>
+                                                        {DataRow.DEL_MAN_CNT}
+                                                    </T.TFootCell>
+                                                </>
+                                            )
+                                        } else {
+                                            return (
+                                                <>
+                                                    <T.TFootCell colSpan={2}>
+                                                        합계
+                                                    </T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                    <T.TFootCell>-</T.TFootCell>
+                                                </>
+                                            )
+                                        }
+                                    })()}
+                                </T.TFootRow>
+                            </T.TFoot>
+                        </T.Table>
+                    </TableBox>
+                    <RowWapper>
+                        <TitleBox>기간별 통계</TitleBox>
+                        <ChartBox>차트</ChartBox>
+                    </RowWapper>
+                    <RowWapper>
+                        <ButtonBox>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName="엑셀다운로드"
+                                HandleClick={() => {
+                                    //
+                                }}
+                            />
+                        </ButtonBox>
+                        <TableBox>
+                            <T.Table>
+                                <T.Thead>
+                                    <T.TheadRow>
+                                        <T.TheadCell rowSpan={2} colSpan={2}>
+                                            기간
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            전체회원수
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            신규회원수
+                                        </T.TheadCell>
+                                        <T.TheadCell colSpan={3}>
+                                            탈퇴회원수
+                                        </T.TheadCell>
+                                    </T.TheadRow>
+                                    <T.TheadRow>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                        <T.TheadCell>전체</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
+                                    </T.TheadRow>
+                                </T.Thead>
+                                <T.Body>
+                                    {PERIOD_STAT_LIST.map((period, pIndex) => {
+                                        return (
+                                            <T.Row
+                                                key={`analytics-member-list-period-table-row-item-${pIndex}`}>
+                                                <T.Cell colSpan={2}>
+                                                    {period.PERIOD}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.TOT_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.TOT_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.TOT_MAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.NEW_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.NEW_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.NEW_MAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.DEL_MBER_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.DEL_WOMAN_CNT}
+                                                </T.Cell>
+                                                <T.Cell>
+                                                    {period.DEL_MAN_CNT}
+                                                </T.Cell>
+                                            </T.Row>
+                                        )
+                                    })}
+                                </T.Body>
+                            </T.Table>
+                        </TableBox>
+                    </RowWapper>
+                </>
+            )}
         </Container>
     )
 }

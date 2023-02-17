@@ -3,8 +3,7 @@ import { DefaultStatus } from '@CommonTypes'
 import {
     DeviceAgeListItemInterface,
     DevicePeriodListItemInterface,
-    MemberAnalyticsAgeListItemInterface,
-    MemberAnalyticsPeriodListItemInterface,
+    AnalyticsMemberListInterface,
     MesureAgeListItemInterface,
     MesurePeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
@@ -20,7 +19,7 @@ import { getNowDate, getOneMonthAgo } from '@Helper'
  */
 
 //회원통계
-interface MemberListInterface {
+interface AnalyticsMemberListStateInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
@@ -29,10 +28,7 @@ interface MemberListInterface {
         AGEGROUP: string[]
         CYCLE: string
     }
-    list: {
-        AGE_GROUP_STAT_LIST: MemberAnalyticsAgeListItemInterface[]
-        PERIOD_STAT_LIST: MemberAnalyticsPeriodListItemInterface[]
-    }
+    list: AnalyticsMemberListInterface
 }
 
 interface ImprvmListInterface {
@@ -99,7 +95,7 @@ interface MesureListInterface {
     } | null
 }
 
-export const MemberListState = atom<MemberListInterface>({
+export const MemberListState = atom<AnalyticsMemberListStateInterface>({
     key: `analyticsPage/member-list`,
     default: {
         status: 'idle',
