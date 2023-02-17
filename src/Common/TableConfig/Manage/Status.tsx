@@ -1072,7 +1072,7 @@ export interface HealthIndicatorsTableListItemInterface {
     NM: string | null
 }
 
-//건강지표 현황 테이블 설정.
+//건강지표 현황 테이블 설정..
 export const HealthIndicatorsTableConfig = {
     Loading: true,
     Options: {
