@@ -30,4 +30,5 @@ export interface MemberDetailInfoInterface {
     SNSTIIVEINFO_THIRD_AGRE_AT: 'Y' | 'N' | null // 약관 (필수)
     MARKTINFO_AGRE_AT: 'Y' | 'N' | null // 약관 (선택)
     MARKTINFO_PURPOSE_AGRE_AT: 'Y' | 'N' | null // 약관 (선택)
+    WORK_TY_CODE: 'I' | 'O' | 'N' //내/외근직 구분
 }

@@ -390,6 +390,7 @@ const MemberDetailTable = ({
             MBTLNUM,
             EMAIL_ADRES,
             MBTLNUM_CRTFC_AT,
+            WORK_TY_CODE,
             MEMO,
         } = detailState.detail
 
@@ -402,6 +403,7 @@ const MemberDetailTable = ({
                 MBTLNUM: MBTLNUM ? getOnlyNumber(MBTLNUM) : '',
                 EMAIL_ADRES: EMAIL_ADRES ? EMAIL_ADRES : '',
                 MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT ? MBTLNUM_CRTFC_AT : 'N',
+                WORK_TY_CODE: WORK_TY_CODE,
                 MEMO: MEMO ? MEMO : '',
             }
 
@@ -902,7 +904,7 @@ const MemberDetailTable = ({
                         <LabelCell>
                             <VaryLabel LabelName={`비밀번호`} />
                         </LabelCell>
-                        <InputCell colSpan={3}>
+                        <InputCell>
                             <VaryButton
                                 ButtonType={`default`}
                                 ButtonName={`비밀번호 초기화`}
@@ -936,6 +938,44 @@ const MemberDetailTable = ({
                                     }))
                                 }}
                             />
+                        </InputCell>
+                        <LabelCell>
+                            <VaryLabel LabelName={`내/외근직`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WS.FlexNoWarapGap>
+                                <VaryLabelRadioButton
+                                    LabelName={`내근직`}
+                                    Checked={
+                                        detailState.detail.WORK_TY_CODE === 'I'
+                                    }
+                                    HandleOnChange={() =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                WORK_TY_CODE: 'I',
+                                            },
+                                        }))
+                                    }
+                                />
+
+                                <VaryLabelRadioButton
+                                    LabelName={`외근직`}
+                                    Checked={
+                                        detailState.detail.WORK_TY_CODE === 'O'
+                                    }
+                                    HandleOnChange={() =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                WORK_TY_CODE: 'O',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WS.FlexNoWarapGap>
                         </InputCell>
                     </Row>
                     <Row>

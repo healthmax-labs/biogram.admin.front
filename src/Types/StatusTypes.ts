@@ -214,6 +214,7 @@ export interface NonMeasureAlertItemInterface {
     SR_NTCN_AT: string
     N_MESURE_PD_ETC: string
     N_MESURE_PD_CODE: string
+    N_MESURE_NTCN_ENDDE: string | null
 }
 
 //미측정 알림 셋팅

@@ -234,6 +234,7 @@ export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
                 SR_NTCN_AT: '',
                 N_MESURE_PD_ETC: '',
                 N_MESURE_PD_CODE: '00',
+                N_MESURE_NTCN_ENDDE: null,
             },
         },
     },

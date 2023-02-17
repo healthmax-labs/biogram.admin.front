@@ -223,6 +223,7 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             SNSTIIVEINFO_THIRD_AGRE_AT: null,
             MARKTINFO_AGRE_AT: null,
             MARKTINFO_PURPOSE_AGRE_AT: null,
+            WORK_TY_CODE: 'N',
         },
         origin: {
             NM: null,
@@ -246,6 +247,7 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             SNSTIIVEINFO_THIRD_AGRE_AT: null,
             MARKTINFO_AGRE_AT: null,
             MARKTINFO_PURPOSE_AGRE_AT: null,
+            WORK_TY_CODE: 'N',
         },
         pstinstLeave: {
             selectNo: null,

@@ -67,6 +67,7 @@ const AutoAlertModal = ({
                 SR_NTCN_AT: 'Y',
                 N_MESURE_PD_ETC: '',
                 N_MESURE_PD_CODE: '00',
+                N_MESURE_NTCN_ENDDE: null,
             },
         },
     }
@@ -428,9 +429,7 @@ const AutoAlertModal = ({
                             </>
                         </div>
                         <div className="flex pt-4">
-                            <div className="text-sm text-gray-500">
-                                알림기간(비사용)
-                            </div>
+                            <div className="text-sm text-gray-500">종료일</div>
                         </div>
                         <SearchItemWapper>
                             <SearchLabel>
@@ -441,11 +440,11 @@ const AutoAlertModal = ({
                                     <VaryDatepickerInput
                                         InputeType={`search`}
                                         Value={
-                                            initializeState.data
+                                            nonMeasureAlertState.data
                                                 .NOT_MESURE_NTCN_SET_INFO
-                                                .REGIST_DT
+                                                .N_MESURE_NTCN_ENDDE
                                                 ? new Date(
-                                                      initializeState.data.NOT_MESURE_NTCN_SET_INFO.REGIST_DT
+                                                      nonMeasureAlertState.data.NOT_MESURE_NTCN_SET_INFO.N_MESURE_NTCN_ENDDE
                                                   )
                                                 : new Date()
                                         }
@@ -456,7 +455,7 @@ const AutoAlertModal = ({
                                             setNonMeasureAlertState(
                                                 prevState => ({
                                                     ...prevState,
-                                                    endDT:
+                                                    N_MESURE_NTCN_ENDDE:
                                                         year +
                                                         monthPad +
                                                         dayPad,
@@ -476,7 +475,14 @@ const AutoAlertModal = ({
                             HandleOnChange={e =>
                                 setNonMeasureAlertState(prevState => ({
                                     ...prevState,
-                                    msg: e.target.value,
+                                    data: {
+                                        ...prevState.data,
+                                        NOT_MESURE_NTCN_SET_INFO: {
+                                            ...prevState.data
+                                                .NOT_MESURE_NTCN_SET_INFO,
+                                            NTCN_CN: e.target.value,
+                                        },
+                                    },
                                 }))
                             }
                             Placeholder={`메세지 내용을입력해 주세요`}
@@ -487,7 +493,7 @@ const AutoAlertModal = ({
                                           .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
                                     : `[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.`
                             }
-                            Rows={15}
+                            Rows={5}
                         />
                     </Container>
                 }
@@ -506,7 +512,7 @@ const AutoAlertModal = ({
                         <VaryButton
                             ButtonType={'manage'}
                             HandleClick={() => CancleButtonClick()}
-                            ButtonName={'취소'}
+                            ButtonName={'닫기'}
                         />
                     </>
                 }
