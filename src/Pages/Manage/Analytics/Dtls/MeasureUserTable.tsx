@@ -2,7 +2,7 @@ import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilValue } from 'recoil'
-import { MesureAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { MesureListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -15,7 +15,7 @@ const {
 } = ContentsStyle
 
 const MeasureUserTable = () => {
-    const measureAnalyticsListState = useRecoilValue(MesureAnalyticsListState)
+    const measureListState = useRecoilValue(MesureListState)
 
     const cellMaker = (
         lineNum: number,
@@ -25,10 +25,10 @@ const MeasureUserTable = () => {
         title: string
     ) => {
         let cellHtml
-        if (measureAnalyticsListState.status) {
-            if (area === 'AGE' && measureAnalyticsListState.list !== null) {
+        if (measureListState.status) {
+            if (area === 'AGE' && measureListState.list !== null) {
                 const getAgeData =
-                    measureAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
+                    measureListState.list.AGE_GROUP_STAT_LIST[lineNum]
 
                 const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
                 const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
@@ -116,8 +116,8 @@ const MeasureUserTable = () => {
                         </>
                     )
                 }
-            } else if (measureAnalyticsListState.list !== null) {
-                const data = measureAnalyticsListState.list.PERIOD_STAT_LIST
+            } else if (measureListState.list !== null) {
+                const data = measureListState.list.PERIOD_STAT_LIST
 
                 return data.map(data => (
                     <T.Row key={data.PERIOD}>

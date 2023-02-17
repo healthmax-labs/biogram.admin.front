@@ -28,11 +28,11 @@ import {
     StatisticsListState,
 } from '@Recoil/StatusPagesState'
 import {
-    DeviceAnalyticsListState,
-    MberAnalyticsListState,
-    MesureAnalyticsListState,
-    RiskFctrCountAnalyticsListState,
-    RiskFctrItemsAnalyticsListState,
+    DeviceListState,
+    MemberListState as AnalyticsMemberListState,
+    MesureListState,
+    RiskFctrCountListState,
+    RiskFctrItemsListState,
 } from '@Recoil/AnalyticsPagesState'
 import {
     NoticeListState,
@@ -69,25 +69,25 @@ export default function useRecoilReset() {
         ActivityWalkListState
     )
 
-    const MberAnalyticsListStateReset = useResetRecoilState(
+    const AnalyticsMemberListStateReset = useResetRecoilState(
         // FIXME : 구분X
-        MberAnalyticsListState
+        AnalyticsMemberListState
     )
     const MesureAnalyticsListStateReset = useResetRecoilState(
         // FIXME : 구분X
-        MesureAnalyticsListState
+        MesureListState
     )
     const RiskFctrItemsAnalyticsListStateReset = useResetRecoilState(
         // FIXME : 구분X
-        RiskFctrItemsAnalyticsListState
+        RiskFctrCountListState
     )
     const RiskFctrCountAnalyticsListStateReset = useResetRecoilState(
         // FIXME : 구분X
-        RiskFctrCountAnalyticsListState
+        RiskFctrItemsListState
     )
     const DeviceAnalyticsListStateReset = useResetRecoilState(
         // FIXME : 구분X
-        DeviceAnalyticsListState
+        DeviceListState
     )
 
     const StplatListStateReset = useResetRecoilState(StplatListState) // 이용 약관 관리
@@ -145,7 +145,7 @@ export default function useRecoilReset() {
             'statusPage/statistics-list': () => StatisticsListStateReset(),
             'statusPage/activity-walk-list': () => ActivityWalkListStateReset(),
             'analyticsPage/member-analytics-list': () =>
-                MberAnalyticsListStateReset(),
+                AnalyticsMemberListStateReset(),
             'analyticsPage/mesure-analytics-list': () =>
                 MesureAnalyticsListStateReset(),
             'analyticsPage/mesure-risk-fctr-items-list': () =>

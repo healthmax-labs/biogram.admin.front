@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import HealthIndicatorsSearchBox from './HealthIndicatorsSearchBox'
+import AnalyticsSearchBox from './AnalyticsSearchBox'
 import HealthIndicatorsTable from './HealthIndicatorsTable'
-
 import { useRecoilState } from 'recoil'
 import { getImprvmCountAnalyticsList } from '@Service/AnalyticsService'
-import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -15,48 +14,62 @@ const {
 } = PageContainerStyle
 
 const HealthIndicatorsMain = () => {
-    const [imprvmAnalyticsListState, setImprvmAnalyticsListState] =
-        useRecoilState(ImprvmAnalyticsListState)
+    const [imprvmListState, setImprvmListState] =
+        useRecoilState(ImprvmListState)
 
     const getTableList = useCallback(async () => {
         const {
             search: { INST_NO },
-        } = imprvmAnalyticsListState
+        } = imprvmListState
 
         const { status, payload } = await getImprvmCountAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
         })
 
         if (status) {
-            setImprvmAnalyticsListState(prevState => ({
+            setImprvmListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setImprvmAnalyticsListState(prevState => ({
+            setImprvmListState(prevState => ({
                 ...prevState,
                 status: 'failure',
                 list: null,
             }))
         }
-    }, [imprvmAnalyticsListState, setImprvmAnalyticsListState])
+    }, [imprvmListState, setImprvmListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (imprvmAnalyticsListState.status == 'idle') {
+            if (imprvmListState.status == 'idle') {
                 getTableList().then()
             }
         }
 
         pageStart()
-    }, [getTableList, imprvmAnalyticsListState.status])
+    }, [getTableList, imprvmListState.status])
 
     return (
         <Container>
             <SearchWapper>
-                <HealthIndicatorsSearchBox
-                    HandleGetList={() => getTableList()}
+                <AnalyticsSearchBox
+                    SearchType={'healthIndicators'}
+                    HandleGetList={() => console.debug('HandleGetList')}
+                    HandleInstNo={instNo => console.debug(instNo)}
+                    StartDate={imprvmListState.search.BGNDE}
+                    HandleStartDate={e => console.debug(e)}
+                    EndDate={imprvmListState.search.ENDDE}
+                    HandleEndDate={e => console.debug(e)}
+                    AgeGroup={[]}
+                    HandleAgeGroup={e => {
+                        console.debug(e)
+                    }}
+                    Cycle={``}
+                    HandleCycle={e => {
+                        console.debug(e)
+                    }}
                 />
             </SearchWapper>
             <TableWapper>

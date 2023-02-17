@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import MemberSearchBox from './MemberSearchBox'
+import AnalyticsSearchBox from './AnalyticsSearchBox'
 import MemberTable from './MemberTable'
 import { useRecoilState } from 'recoil'
 import { getMemberAnalyticsList } from '@Service/AnalyticsService'
-import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
+import { MemberListState } from '@Recoil/AnalyticsPagesState'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
@@ -14,50 +13,106 @@ const {
 } = PageContainerStyle
 
 const MemberMain = () => {
-    const [mberAnalyticsListState, setMberAnalyticsListState] = useRecoilState(
-        MberAnalyticsListState
-    )
+    const [memberListState, setMemberListState] =
+        useRecoilState(MemberListState)
 
     const getTableList = useCallback(async () => {
         const {
-            search: { BGNDE, ENDDE, INST_NO },
-        } = mberAnalyticsListState
+            search: { BGNDE, ENDDE, INST_NO, AGEGROUP, CYCLE },
+        } = memberListState
 
         const { status, payload } = await getMemberAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            INST_NO: INST_NO,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
+            AGEGROUP: AGEGROUP,
+            CYCLE: CYCLE,
         })
 
         if (status) {
-            setMberAnalyticsListState(prevState => ({
+            setMemberListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setMberAnalyticsListState(prevState => ({
+            setMemberListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: null,
+                list: {
+                    AGE_GROUP_STAT_LIST: [],
+                    PERIOD_STAT_LIST: [],
+                },
             }))
         }
-    }, [mberAnalyticsListState, setMberAnalyticsListState])
+    }, [memberListState, setMemberListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (mberAnalyticsListState.status == 'idle') {
+            if (memberListState.status == 'idle') {
                 getTableList().then()
             }
         }
 
         pageStart()
-    }, [getTableList, mberAnalyticsListState.status])
+    }, [getTableList, memberListState.status])
 
     return (
         <Container>
             <SearchWapper>
-                <MemberSearchBox HandleGetList={() => getTableList()} />
+                <AnalyticsSearchBox
+                    SearchType={'default'}
+                    HandleGetList={() => getTableList()}
+                    HandleInstNo={instNo => {
+                        setMemberListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                INST_NO: String(instNo),
+                            },
+                        }))
+                    }}
+                    HandleStartDate={e => {
+                        setMemberListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                BGNDE: e,
+                            },
+                        }))
+                    }}
+                    StartDate={memberListState.search.BGNDE}
+                    HandleEndDate={e => {
+                        setMemberListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                ENDDE: e,
+                            },
+                        }))
+                    }}
+                    EndDate={memberListState.search.ENDDE}
+                    AgeGroup={memberListState.search.AGEGROUP}
+                    HandleAgeGroup={e => {
+                        setMemberListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                AGEGROUP: e,
+                            },
+                        }))
+                    }}
+                    Cycle={memberListState.search.CYCLE}
+                    HandleCycle={e => {
+                        setMemberListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                CYCLE: e,
+                            },
+                        }))
+                    }}
+                />
             </SearchWapper>
             <TableWapper>
                 <MemberTable />

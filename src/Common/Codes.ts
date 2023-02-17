@@ -8,6 +8,25 @@ export default {
                 { code: 'TD', name: `오늘` },
             ],
         },
+        cycleCode: {
+            name: `날짜 주기 코드`,
+            key: `dayCycle`,
+            list: [
+                { code: 'day', name: `1일` },
+                { code: 'week', name: `1주` },
+                { code: 'month', name: `1개월` },
+            ],
+        },
+        dateUnits: {
+            name: `날짜 선택 코드`,
+            key: `dateUnits`,
+            list: [
+                { code: '1', name: `1개월` },
+                { code: '3', name: `3개월` },
+                { code: '6', name: `6개월` },
+                { code: '12', name: `1년` },
+            ],
+        },
     },
     ageGroup: {
         name: `체성분`,

@@ -1,9 +1,8 @@
-// import React, { useEffect, useState } from 'react'
-// import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
+import React from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 import { useRecoilValue } from 'recoil'
-import { MberAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { MemberListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -16,7 +15,7 @@ const {
 } = ContentsStyle
 
 const MemberTable = () => {
-    const mberAnalyticsListState = useRecoilValue(MberAnalyticsListState)
+    const memberListState = useRecoilValue(MemberListState)
 
     const cellMaker = (
         lineNum: number,
@@ -26,10 +25,13 @@ const MemberTable = () => {
         title: string
     ) => {
         let cellHtml
-        if (mberAnalyticsListState.status) {
-            if (area === 'AGE' && mberAnalyticsListState.list !== null) {
+        if (memberListState.status) {
+            if (
+                area === 'AGE' &&
+                memberListState.list.AGE_GROUP_STAT_LIST.length > 0
+            ) {
                 const getAgeData =
-                    mberAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
+                    memberListState.list.AGE_GROUP_STAT_LIST[lineNum]
                 const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
                 const TOT_MAN_CNT = getAgeData.TOT_MAN_CNT
                 const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
@@ -71,8 +73,8 @@ const MemberTable = () => {
                         </>
                     )
                 }
-            } else if (mberAnalyticsListState.list !== null) {
-                const data = mberAnalyticsListState.list.PERIOD_STAT_LIST
+            } else if (memberListState.list !== null) {
+                const data = memberListState.list.PERIOD_STAT_LIST
 
                 return data.map((data, index) => (
                     <T.Row key={`analytics-member-table-body-row-${index}`}>
