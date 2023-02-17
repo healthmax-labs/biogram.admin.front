@@ -136,14 +136,11 @@ const HealthIndicatorsSearchBox = ({
                             />
                         </SearchItem>
                     </SearchItemWapper>
-
-                    <RightSearchButton Item={'end'}>
-                        <DefaultSearchButton
-                            ButtonClick={() => HandleGetList()}
-                        />
-                    </RightSearchButton>
                 </SearchItemRow>
             </SearchRowWapper>
+            <RightSearchButton Item={'end'}>
+                <DefaultSearchButton ButtonClick={() => HandleGetList()} />
+            </RightSearchButton>
         </RowContainer>
     )
 }
