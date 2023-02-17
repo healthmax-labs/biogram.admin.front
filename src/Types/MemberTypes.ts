@@ -63,6 +63,7 @@ export interface MemberInfoListItemInterface {
     MBTLNUM_CRTFC_AT: 'Y' | 'N'
     ACCML_POINT: number
     NM: string
+    WORK_TY_CODE: 'I' | 'O' | 'N'
 }
 
 export interface MemberInfoListInterface {
@@ -151,7 +152,7 @@ export interface MemberInfoInterface {
         USID: string
         MEMO: null | string
         AGE: string
-        WORK_TY_CODE: null
+        WORK_TY_CODE: 'I' | 'O' | 'N'
         MBTLNUM_CNT: number
         TOT_SCORE: null | number
         PSTINST_INFO_LIST: Array<{

@@ -149,6 +149,22 @@ export const MemberTableConfig = {
                 key: `INST_NM`,
             },
             {
+                name: `내/외근직`,
+                key: `WORK_TY_CODE`,
+                component: ({ el }: { el: MemberInfoListItemInterface }) => {
+                    return (
+                        <>
+                            {el.WORK_TY_CODE == 'N'
+                                ? '미지정'
+                                : el.WORK_TY_CODE == 'I'
+                                ? '내근직'
+                                : '외근직'}
+                        </>
+                    )
+                },
+                cellWidth: `w24`,
+            },
+            {
                 name: `가입일`,
                 key: `REGIST_DT`,
                 component: ({ el }: { el: MemberInfoListItemInterface }) => {

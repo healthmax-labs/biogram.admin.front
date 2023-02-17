@@ -57,6 +57,7 @@ const MemberDetailMain = () => {
                     MARKTINFO_AGRE_AT: MBER_INFO.MARKTINFO_AGRE_AT,
                     MARKTINFO_PURPOSE_AGRE_AT:
                         MBER_INFO.MARKTINFO_PURPOSE_AGRE_AT,
+                    WORK_TY_CODE: MBER_INFO.WORK_TY_CODE,
                 }
 
                 setDetailState(prevState => ({
