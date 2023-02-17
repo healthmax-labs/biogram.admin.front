@@ -6,7 +6,6 @@ import {
     JoinTableListItemInterface,
 } from '@Common/TableConfig/Manage/Inst'
 import { useRecoilState } from 'recoil'
-import { useNavigate } from 'react-router-dom'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 
 interface tableOption {
@@ -17,18 +16,13 @@ interface tableOption {
 }
 
 const ListTable = () => {
-    const navigate = useNavigate()
     const [listState, setListState] = useRecoilState(InstJoinListState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(JoinTableConfig)
 
-    const handleRowClick = (element: JoinTableListItemInterface) => {
-        navigate({
-            pathname:
-                process.env.PUBLIC_URL +
-                `/manage/member/${element.MBER_NO}/detail`,
-        })
+    const handleRowClick = () => {
+        //
     }
 
     // 리스트 체크박스 클릭

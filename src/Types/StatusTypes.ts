@@ -1,5 +1,3 @@
-import { String } from 'lodash'
-
 //위험요인 현황
 export interface RiskFctrListItemInterface {
     SLM_JDGMNT: null | string
@@ -226,6 +224,7 @@ export interface NonMeasureAlertInterface {
 export interface HealthIndicatorsListItemInterface {
     CNT: number | null
     MBER_NO: number
+    TOT_SCORE: number | null
     BP_SCORE: number | null
     TG_SCORE: number | null
     WAIST_SCORE: number | null

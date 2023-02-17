@@ -93,7 +93,7 @@ export default {
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
             approval: {
                 appEmpty: `승인 처리할 회원을 선택해 주세요`,
-                appOver: `발송 취소는 한번에 한건만 가능합니다.`,
+                appOver: `승인 처리는 한번에 한건만 가능합니다.`,
                 rejextEmpty: ` 거절 처리할 회원을 선택해 주세요`,
                 appSuccess: `승인 처리가 완료 되었습니다.`,
                 rejectSuccess: `거절 처리가 완료 되었습니다.`,
