@@ -6,7 +6,6 @@ import {
     JoinTableListItemInterface,
 } from '@Common/TableConfig/Manage/Inst'
 import { useRecoilState } from 'recoil'
-import { useNavigate } from 'react-router-dom'
 import { InstJoinListState } from '@Recoil/InstPagesState'
 
 interface tableOption {
@@ -17,7 +16,6 @@ interface tableOption {
 }
 
 const ListTable = () => {
-    const navigate = useNavigate()
     const [listState, setListState] = useRecoilState(InstJoinListState)
 
     const [tableOptions, setTableOptions] =
