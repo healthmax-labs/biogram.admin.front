@@ -3,7 +3,7 @@ import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilState } from 'recoil'
-import { RiskFctrItemsAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { RiskFctrItemsListState } from '@Recoil/AnalyticsPagesState'
 
 import { getRiskFctrItemsAnalyticsList } from '@Service/AnalyticsService'
 import { isNull } from 'lodash'
@@ -19,10 +19,9 @@ const {
 } = ContentsStyle
 
 const RiskFctrItemsTable = () => {
-    const [
-        riskFctrItemsAnalyticsListState,
-        setRiskFctrItemsAnalyticsListState,
-    ] = useRecoilState(RiskFctrItemsAnalyticsListState)
+    const [riskFctrItemsListState, setRiskFctrItemsListState] = useRecoilState(
+        RiskFctrItemsListState
+    )
 
     const getTableList = useCallback(async () => {
         const {
@@ -32,7 +31,7 @@ const RiskFctrItemsTable = () => {
                 ENDDE,
                 INST_NO /*, curPage */,
             },
-        } = riskFctrItemsAnalyticsListState
+        } = riskFctrItemsListState
 
         const { status, payload } = await getRiskFctrItemsAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
@@ -43,28 +42,28 @@ const RiskFctrItemsTable = () => {
         })
 
         if (status) {
-            setRiskFctrItemsAnalyticsListState(prevState => ({
+            setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setRiskFctrItemsAnalyticsListState(prevState => ({
+            setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
                 list: null,
             }))
         }
-    }, [riskFctrItemsAnalyticsListState, setRiskFctrItemsAnalyticsListState])
+    }, [riskFctrItemsListState, setRiskFctrItemsListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (riskFctrItemsAnalyticsListState.status == 'idle') {
+            if (riskFctrItemsListState.status == 'idle') {
                 getTableList().then()
             }
         }
         pageStart()
-    }, [getTableList, riskFctrItemsAnalyticsListState.status])
+    }, [getTableList, riskFctrItemsListState.status])
 
     const cellMaker = (
         lineNum: number,
@@ -74,15 +73,10 @@ const RiskFctrItemsTable = () => {
         title: string
     ) => {
         let cellHtml
-        if (riskFctrItemsAnalyticsListState.status) {
-            if (
-                area === 'AGE' &&
-                riskFctrItemsAnalyticsListState.list !== null
-            ) {
+        if (riskFctrItemsListState.status) {
+            if (area === 'AGE' && riskFctrItemsListState.list !== null) {
                 const getAgeData =
-                    riskFctrItemsAnalyticsListState.list.AGE_GROUP_STAT_LIST[
-                        lineNum
-                    ]
+                    riskFctrItemsListState.list.AGE_GROUP_STAT_LIST[lineNum]
 
                 const RF_ALL_TT_CNT = getAgeData.RF_ALL_TT_CNT
                 const RF_622E_TT_CNT = getAgeData.RF_622E_TT_CNT
@@ -146,9 +140,8 @@ const RiskFctrItemsTable = () => {
                         </>
                     )
                 }
-            } else if (riskFctrItemsAnalyticsListState.list !== null) {
-                const data =
-                    riskFctrItemsAnalyticsListState.list.PERIOD_STAT_LIST
+            } else if (riskFctrItemsListState.list !== null) {
+                const data = riskFctrItemsListState.list.PERIOD_STAT_LIST
 
                 return data.map(data => (
                     <T.Row key={data.RF_PERIOD}>

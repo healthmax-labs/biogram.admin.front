@@ -4,14 +4,13 @@ import {
     DeviceAgeListItemInterface,
     DevicePeriodListItemInterface,
     ImprvmAgeListItemInterface,
-    MemberAnalyticsAgeListItemInterface,
-    MemberAnalyticsPeriodListItemInterface,
     MesureAgeListItemInterface,
     MesurePeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
     RiskFctrItemsAgeListItemInterface,
     RiskFctrItemsPeriodListItemInterface,
+    AnalyticsMemberListInterface,
 } from '@Type/AnalyticsTypes'
 import _ from 'lodash'
 
@@ -22,28 +21,31 @@ export function getMemberAnalyticsList({
     INST_NO,
     BGNDE,
     ENDDE,
+    AGEGROUP,
+    CYCLE,
 }: {
     INST_NO: string
     BGNDE: string
     ENDDE: string
-}): Promise<
-    ServicesDefaultResult<{
-        AGE_GROUP_STAT_LIST: MemberAnalyticsAgeListItemInterface[]
-        PERIOD_STAT_LIST: MemberAnalyticsPeriodListItemInterface[]
-    }>
-> {
-    let payload: {
+    AGEGROUP: string[]
+    CYCLE: string
+}): Promise<ServicesDefaultResult<AnalyticsMemberListInterface>> {
+    const payload: {
         INST_NO?: string
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     } = {
         INST_NO: INST_NO,
         BGNDE: BGNDE,
         ENDDE: ENDDE,
+        AGEGROUP: AGEGROUP,
+        CYCLE: CYCLE,
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'BGNDE', 'ENDDE')
+        delete payload.INST_NO
     }
 
     return _Axios_({

@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import MeasureUserSearchBox from './MeasureUserSearchBox'
+import AnalyticsSearchBox from './AnalyticsSearchBox'
 import MeasureUserTable from './MeasureUserTable'
-
 import { useRecoilState } from 'recoil'
 import { getMesureAnalyticsList } from '@Service/AnalyticsService'
-import { MesureAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { MesureListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -15,13 +14,13 @@ const {
 } = PageContainerStyle
 
 const MeasureUserMain = () => {
-    const [mesureAnalyticsListState, setMesureAnalyticsListState] =
-        useRecoilState(MesureAnalyticsListState)
+    const [mesureListState, setMesureListState] =
+        useRecoilState(MesureListState)
 
     const getTableList = useCallback(async () => {
         const {
             search: { INST_NO, BGNDE, ENDDE },
-        } = mesureAnalyticsListState
+        } = mesureListState
 
         const { status, payload } = await getMesureAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
@@ -30,33 +29,49 @@ const MeasureUserMain = () => {
         })
 
         if (status) {
-            setMesureAnalyticsListState(prevState => ({
+            setMesureListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setMesureAnalyticsListState(prevState => ({
+            setMesureListState(prevState => ({
                 ...prevState,
                 status: 'failure',
                 list: null,
             }))
         }
-    }, [mesureAnalyticsListState, setMesureAnalyticsListState])
+    }, [mesureListState, setMesureListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (mesureAnalyticsListState.status == 'idle') {
+            if (mesureListState.status == 'idle') {
                 getTableList().then()
             }
         }
 
         pageStart()
-    }, [getTableList, mesureAnalyticsListState.status])
+    }, [getTableList, mesureListState.status])
     return (
         <Container>
             <SearchWapper>
-                <MeasureUserSearchBox HandleGetList={() => getTableList()} />
+                <AnalyticsSearchBox
+                    SearchType={'default'}
+                    HandleGetList={() => console.debug('HandleGetList')}
+                    HandleInstNo={instNo => console.debug(instNo)}
+                    StartDate={mesureListState.search.BGNDE}
+                    HandleStartDate={e => console.debug(e)}
+                    EndDate={mesureListState.search.ENDDE}
+                    HandleEndDate={e => console.debug(e)}
+                    AgeGroup={[]}
+                    HandleAgeGroup={e => {
+                        console.debug(e)
+                    }}
+                    Cycle={``}
+                    HandleCycle={e => {
+                        console.debug(e)
+                    }}
+                />
             </SearchWapper>
             <TableWapper>
                 <MeasureUserTable />

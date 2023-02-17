@@ -1,7 +1,7 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 import { useRecoilValue } from 'recoil'
-import { DeviceAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { DeviceListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -14,7 +14,7 @@ const {
 } = ContentsStyle
 
 const DeviceUseTable = () => {
-    const deviceAnalyticsListState = useRecoilValue(DeviceAnalyticsListState)
+    const deviceListState = useRecoilValue(DeviceListState)
 
     const cellMaker = (
         lineNum: number,
@@ -24,10 +24,10 @@ const DeviceUseTable = () => {
         title: string
     ) => {
         let cellHtml
-        if (deviceAnalyticsListState.status) {
-            if (area === 'AGE' && deviceAnalyticsListState.list !== null) {
+        if (deviceListState.status) {
+            if (area === 'AGE' && deviceListState.list !== null) {
                 const getAgeData =
-                    deviceAnalyticsListState.list.AGE_GROUP_STAT_LIST[lineNum]
+                    deviceListState.list.AGE_GROUP_STAT_LIST[lineNum]
 
                 const TOT_MBER_CNT = getAgeData.TOT_MBER_CNT
                 const TOT_WOMAN_CNT = getAgeData.TOT_WOMAN_CNT
@@ -115,8 +115,8 @@ const DeviceUseTable = () => {
                         </>
                     )
                 }
-            } else if (deviceAnalyticsListState.list !== null) {
-                const data = deviceAnalyticsListState.list.PERIOD_STAT_LIST
+            } else if (deviceListState.list !== null) {
+                const data = deviceListState.list.PERIOD_STAT_LIST
 
                 return data.map(data => (
                     <T.Row key={data.PERIOD}>

@@ -2,7 +2,7 @@ import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilValue } from 'recoil'
-import { RiskFctrCountAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { RiskFctrCountListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -15,9 +15,7 @@ const {
 } = ContentsStyle
 
 const RiskFctrCountTable = () => {
-    const riskFctrCountAnalyticsListState = useRecoilValue(
-        RiskFctrCountAnalyticsListState
-    )
+    const riskFctrCountListState = useRecoilValue(RiskFctrCountListState)
 
     const cellMaker = (
         lineNum: number,
@@ -27,15 +25,10 @@ const RiskFctrCountTable = () => {
         title: string
     ) => {
         let cellHtml
-        if (riskFctrCountAnalyticsListState.status) {
-            if (
-                area === 'AGE' &&
-                riskFctrCountAnalyticsListState.list !== null
-            ) {
+        if (riskFctrCountListState.status) {
+            if (area === 'AGE' && riskFctrCountListState.list !== null) {
                 const getAgeData =
-                    riskFctrCountAnalyticsListState.list.AGE_GROUP_STAT_LIST[
-                        lineNum
-                    ]
+                    riskFctrCountListState.list.AGE_GROUP_STAT_LIST[lineNum]
 
                 const RF_ALL_MBER_CNT = getAgeData.RF_ALL_MBER_CNT
                 const RF_ALL_WOMAN_CNT = getAgeData.RF_ALL_WOMAN_CNT
@@ -105,9 +98,8 @@ const RiskFctrCountTable = () => {
                         </>
                     )
                 }
-            } else if (riskFctrCountAnalyticsListState.list !== null) {
-                const data =
-                    riskFctrCountAnalyticsListState.list.PERIOD_STAT_LIST
+            } else if (riskFctrCountListState.list !== null) {
+                const data = riskFctrCountListState.list.PERIOD_STAT_LIST
 
                 return data.map(data => (
                     <T.Row key={data.RF_PERIOD}>

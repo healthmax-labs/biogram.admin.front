@@ -29,7 +29,7 @@ const App = () => {
     return (
         <RecoilRoot>
             {process.env.NODE_ENV === 'development' && <RecoilDevTools />}
-            {(function () {
+            {(() => {
                 if (serverFail) {
                     return <UnderConstructionComponent />
                 }
