@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import RiskFctrItemsSearchBox from './RiskFctrItemsSearchBox'
+import AnalyticsSearchBox from './AnalyticsSearchBox'
 import RiskFctrItemsTable from './RiskFctrItemsTable'
-
 import { useRecoilState } from 'recoil'
 import { getRiskFctrItemsAnalyticsList } from '@Service/AnalyticsService'
-import { RiskFctrItemsAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { RiskFctrItemsListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -15,15 +14,14 @@ const {
 } = PageContainerStyle
 
 const RiskFctrItemsMain = () => {
-    const [
-        riskFctrItemsAnalyticsListState,
-        setRiskFctrItemsAnalyticsListState,
-    ] = useRecoilState(RiskFctrItemsAnalyticsListState)
+    const [riskFctrItemsListState, setRiskFctrItemsListState] = useRecoilState(
+        RiskFctrItemsListState
+    )
 
     const getTableList = useCallback(async () => {
         const {
             search: { INST_NO, BGNDE, ENDDE },
-        } = riskFctrItemsAnalyticsListState
+        } = riskFctrItemsListState
 
         const { status, payload } = await getRiskFctrItemsAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
@@ -32,34 +30,50 @@ const RiskFctrItemsMain = () => {
         })
 
         if (status) {
-            setRiskFctrItemsAnalyticsListState(prevState => ({
+            setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setRiskFctrItemsAnalyticsListState(prevState => ({
+            setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
                 list: null,
             }))
         }
-    }, [riskFctrItemsAnalyticsListState, setRiskFctrItemsAnalyticsListState])
+    }, [riskFctrItemsListState, setRiskFctrItemsListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (riskFctrItemsAnalyticsListState.status == 'idle') {
+            if (riskFctrItemsListState.status == 'idle') {
                 getTableList().then()
             }
         }
 
         pageStart()
-    }, [getTableList, riskFctrItemsAnalyticsListState.status])
+    }, [getTableList, riskFctrItemsListState.status])
 
     return (
         <Container>
             <SearchWapper>
-                <RiskFctrItemsSearchBox HandleGetList={() => getTableList()} />
+                <AnalyticsSearchBox
+                    SearchType={'default'}
+                    HandleGetList={() => console.debug('HandleGetList')}
+                    HandleInstNo={instNo => console.debug(instNo)}
+                    StartDate={riskFctrItemsListState.search.BGNDE}
+                    HandleStartDate={e => console.debug(e)}
+                    EndDate={riskFctrItemsListState.search.ENDDE}
+                    HandleEndDate={e => console.debug(e)}
+                    AgeGroup={[]}
+                    HandleAgeGroup={e => {
+                        console.debug(e)
+                    }}
+                    Cycle={``}
+                    HandleCycle={e => {
+                        console.debug(e)
+                    }}
+                />
             </SearchWapper>
             <TableWapper>
                 <RiskFctrItemsTable />

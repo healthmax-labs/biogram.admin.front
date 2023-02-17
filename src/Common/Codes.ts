@@ -8,6 +8,66 @@ export default {
                 { code: 'TD', name: `오늘` },
             ],
         },
+        cycleCode: {
+            name: `날짜 주기 코드`,
+            key: `dayCycle`,
+            list: [
+                { code: 'day', name: `1일` },
+                { code: 'week', name: `1주` },
+                { code: 'month', name: `1개월` },
+            ],
+        },
+        dateUnits: {
+            name: `날짜 선택 코드`,
+            key: `dateUnits`,
+            list: [
+                { code: '1', name: `1개월` },
+                { code: '3', name: `3개월` },
+                { code: '6', name: `6개월` },
+                { code: '12', name: `1년` },
+            ],
+        },
+    },
+    ageGroup: {
+        name: `체성분`,
+        key: '0010',
+        list: [
+            {
+                key: '10',
+                code: '10',
+                name: '10대 이하',
+            },
+            {
+                key: '20',
+                code: '20',
+                name: '20대',
+            },
+            {
+                key: '30',
+                code: '30',
+                name: '30대',
+            },
+            {
+                key: '40',
+                code: '40',
+                name: '40대',
+            },
+            {
+                key: '50',
+                code: '50',
+                name: '50대',
+            },
+            {
+                key: '60',
+                code: '60',
+                name: '60대',
+            },
+            {
+                key: '70',
+                code: '70',
+                name: '70대 이상',
+            },
+        ],
     },
     memberStplats: {
         code: {

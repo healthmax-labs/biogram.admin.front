@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import RiskFctrCountSearchBox from './RiskFctrCountSearchBox'
+import AnalyticsSearchBox from './AnalyticsSearchBox'
 import RiskFctrCountTable from './RiskFctrCountTable'
 
 import { useRecoilState } from 'recoil'
 import { getRiskFctrCountAnalyticsList } from '@Service/AnalyticsService'
-import { RiskFctrCountAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { RiskFctrCountListState } from '@Recoil/AnalyticsPagesState'
 import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
@@ -15,15 +15,14 @@ const {
 } = PageContainerStyle
 
 const RiskFctrCountMain = () => {
-    const [
-        riskFctrCountAnalyticsListState,
-        setRiskFctrCountAnalyticsListState,
-    ] = useRecoilState(RiskFctrCountAnalyticsListState)
+    const [riskFctrCountListState, setRiskFctrCountListState] = useRecoilState(
+        RiskFctrCountListState
+    )
 
     const getTableList = useCallback(async () => {
         const {
             search: { INST_NO, BGNDE, ENDDE },
-        } = riskFctrCountAnalyticsListState
+        } = riskFctrCountListState
 
         const { status, payload } = await getRiskFctrCountAnalyticsList({
             INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
@@ -32,34 +31,50 @@ const RiskFctrCountMain = () => {
         })
 
         if (status) {
-            setRiskFctrCountAnalyticsListState(prevState => ({
+            setRiskFctrCountListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
             }))
         } else {
-            setRiskFctrCountAnalyticsListState(prevState => ({
+            setRiskFctrCountListState(prevState => ({
                 ...prevState,
                 status: 'failure',
                 list: null,
             }))
         }
-    }, [riskFctrCountAnalyticsListState, setRiskFctrCountAnalyticsListState])
+    }, [riskFctrCountListState, setRiskFctrCountListState])
 
     useEffect(() => {
         const pageStart = () => {
-            if (riskFctrCountAnalyticsListState.status == 'idle') {
+            if (riskFctrCountListState.status == 'idle') {
                 getTableList().then()
             }
         }
 
         pageStart()
-    }, [getTableList, riskFctrCountAnalyticsListState.status])
+    }, [getTableList, riskFctrCountListState.status])
 
     return (
         <Container>
             <SearchWapper>
-                <RiskFctrCountSearchBox HandleGetList={() => getTableList()} />
+                <AnalyticsSearchBox
+                    SearchType={'default'}
+                    HandleGetList={() => console.debug('HandleGetList')}
+                    HandleInstNo={instNo => console.debug(instNo)}
+                    StartDate={riskFctrCountListState.search.BGNDE}
+                    HandleStartDate={e => console.debug(e)}
+                    EndDate={riskFctrCountListState.search.ENDDE}
+                    HandleEndDate={e => console.debug(e)}
+                    AgeGroup={[]}
+                    HandleAgeGroup={e => {
+                        console.debug(e)
+                    }}
+                    Cycle={``}
+                    HandleCycle={e => {
+                        console.debug(e)
+                    }}
+                />
             </SearchWapper>
             <TableWapper>
                 <RiskFctrCountTable />

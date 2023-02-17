@@ -2,7 +2,7 @@ import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { VaryButton } from '@Elements'
 
 import { useRecoilValue } from 'recoil'
-import { ImprvmAnalyticsListState } from '@Recoil/AnalyticsPagesState'
+import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
 
 const {
     Container,
@@ -15,7 +15,7 @@ const {
 } = ContentsStyle
 
 const HealthIndicatorsTable = () => {
-    const imprvmAnalyticsListState = useRecoilValue(ImprvmAnalyticsListState)
+    const imprvmListState = useRecoilValue(ImprvmListState)
 
     const cellMaker = (
         lineNum: number,
@@ -24,12 +24,10 @@ const HealthIndicatorsTable = () => {
         colspan: number
     ) => {
         let cellHtml
-        if (imprvmAnalyticsListState.status) {
-            if (area === 'AGE' && imprvmAnalyticsListState.list !== null) {
+        if (imprvmListState.status) {
+            if (area === 'AGE' && imprvmListState.list !== null) {
                 const getAgeData =
-                    imprvmAnalyticsListState.list.MYBODY_SCORE_IMPRVM_STAT_LIST[
-                        lineNum
-                    ]
+                    imprvmListState.list.MYBODY_SCORE_IMPRVM_STAT_LIST[lineNum]
                 const AGES_GROUP = getAgeData.AGES_GROUP
                 const TT_TOT_SCORE = getAgeData.TT_TOT_SCORE
                 const IW_TOT_SCORE = getAgeData.IW_TOT_SCORE
