@@ -2,6 +2,8 @@
 import React from 'react'
 import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
+import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
+import { phoneFormat, timeStringParse } from '@Helper'
 
 const {
     Box: { Container, Wapper, Item },
@@ -908,7 +910,7 @@ export const ActivityWalkTableConfig = {
                 key: `MBER_NO`,
             },
             {
-                name: `회원명`,
+                name: `이름`,
                 key: `NM`,
             },
             {
@@ -1107,33 +1109,53 @@ export const HealthIndicatorsTableConfig = {
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
+                cellWidth: `w16`,
             },
             {
-                name: `회원명`,
+                name: `이름`,
                 key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
             },
             {
                 name: `생년월일`,
                 key: `BRTHDY`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
             },
             {
                 name: `아이디`,
                 key: `USID`,
+                textAlign: 'left',
+                cellWidth: `w0112`,
             },
             {
-                name: `전화번호`,
+                name: `휴대폰번호`,
                 key: `MBTLNUM`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return (
+                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
+                        </ListTableStyle.MbtlnumCell>
+                    )
+                },
             },
             {
                 name: `성별`,
                 key: `SEXDSTN`,
+                cellWidth: `w16`,
             },
             {
-                name: `계산일자`,
-                key: `CALC_DE`,
-            },
-            {
-                name: `전체건수`,
+                name: `개선성공률`,
                 key: `CNT`,
             },
             {
@@ -1198,26 +1220,50 @@ export const WalkRankingTableConfig = {
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
+                cellWidth: `w16`,
             },
             {
-                name: `회원명`,
+                name: `이름`,
                 key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
             },
             {
                 name: `생년월일`,
                 key: `BRTHDY`,
+                component: ({
+                    el,
+                }: {
+                    el: WalkRankingTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
             },
             {
                 name: `아이디`,
                 key: `USID`,
+                textAlign: `left`,
+                cellWidth: `w0112`,
             },
             {
-                name: `전화번호`,
+                name: `휴대폰번호`,
                 key: `MBTLNUM`,
+                component: ({
+                    el,
+                }: {
+                    el: WalkRankingTableListItemInterface
+                }) => {
+                    return (
+                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
+                        </ListTableStyle.MbtlnumCell>
+                    )
+                },
             },
             {
                 name: `성별`,
                 key: `SEXDSTN`,
+                cellWidth: `w16`,
             },
             {
                 name: `순위`,

@@ -23,12 +23,8 @@ const ListTable = () => {
     const [tableOptions, setTableOptions] =
         useState<tableOption>(JoinTableConfig)
 
-    const handleRowClick = (element: JoinTableListItemInterface) => {
-        navigate({
-            pathname:
-                process.env.PUBLIC_URL +
-                `/manage/member/${element.MBER_NO}/detail`,
-        })
+    const handleRowClick = () => {
+        //
     }
 
     // 리스트 체크박스 클릭
