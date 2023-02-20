@@ -10,7 +10,6 @@ import {
 import {
     changeDatePickerDate,
     gmtTimeToTimeObject,
-    getNowDate,
     getDateMonthUnit,
 } from '@Helper'
 import Codes from '@Codes'
@@ -67,45 +66,19 @@ const AnalyticsSearchBox = ({
     }>(initializeState)
 
     useEffect(() => {
-        const funcDateUnitsButtonCheck = () => {
-            if (StartDate === getDateMonthUnit(1)) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    button: {
-                        ...prevState.button,
-                        dateUnits: `1`,
-                    },
-                }))
-            } else if (StartDate === getDateMonthUnit(3)) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    button: {
-                        ...prevState.button,
-                        dateUnits: `3`,
-                    },
-                }))
-            } else if (StartDate === getDateMonthUnit(6)) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    button: {
-                        ...prevState.button,
-                        dateUnits: `6`,
-                    },
-                }))
-            } else if (StartDate === getDateMonthUnit(12)) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    button: {
-                        ...prevState.button,
-                        dateUnits: `12`,
-                    },
-                }))
-            }
-        }
+        const startDate = changeDatePickerDate(StartDate)
+        const endDate = changeDatePickerDate(EndDate)
+        const btDay: number = endDate.getTime() - startDate.getTime()
+        const cMonth: number = 24 * 60 * 60 * 1000 * 30
+        const result: number = btDay / cMonth
 
-        if (EndDate === getNowDate()) {
-            funcDateUnitsButtonCheck()
-        }
+        setPageState(prevState => ({
+            ...prevState,
+            button: {
+                ...prevState.button,
+                dateUnits: `${parseInt(String(result))}`,
+            },
+        }))
     }, [StartDate, EndDate])
 
     return (
@@ -169,9 +142,13 @@ const AnalyticsSearchBox = ({
                                         }
                                         HandleClick={() => {
                                             HandleStartDate(
-                                                getDateMonthUnit(Number(e.code))
+                                                getDateMonthUnit(
+                                                    changeDatePickerDate(
+                                                        EndDate
+                                                    ),
+                                                    Number(e.code)
+                                                )
                                             )
-                                            HandleEndDate(getNowDate())
                                         }}
                                     />
                                 )
