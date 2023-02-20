@@ -72,10 +72,6 @@ const MainTable = <P,>({
         }
     }, [Loading])
 
-    useEffect(() => {
-        console.debug(Columns)
-    }, [Columns])
-
     return (
         <Container>
             <Wapper>
