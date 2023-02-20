@@ -206,7 +206,10 @@ export default function useDashBoard() {
                     ...prevState,
                     riskGroupDormant: {
                         status: 'success',
-                        list: payload.RISK_GROUP_LIST,
+                        list:
+                            payload.RISK_GROUP_LIST.length > 0
+                                ? payload.RISK_GROUP_LIST
+                                : [],
                     },
                 }))
             } else {
