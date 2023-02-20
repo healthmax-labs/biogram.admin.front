@@ -76,7 +76,7 @@ interface RiskFctrItemsListInterface {
 interface DeviceListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
