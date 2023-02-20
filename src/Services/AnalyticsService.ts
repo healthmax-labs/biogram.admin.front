@@ -244,18 +244,34 @@ export function getRiskFctrCountAnalyticsList({
  */
 export function getImprvmCountAnalyticsList({
     INST_NO,
+    BGNDE,
+    ENDDE,
 }: {
-    INST_NO: string | null
+    INST_NO: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         MYBODY_SCORE_IMPRVM_STAT_LIST: ImprvmAgeListItemInterface[]
     }>
 > {
+    const payload: {
+        INST_NO?: string | null
+        BGNDE: string
+        ENDDE: string
+    } = {
+        INST_NO: INST_NO,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
         url: '/mng/gndn/stat/v1/mybody_score/imprvm',
-        payload: {
-            INST_NO,
-        },
+        payload: payload,
     })
 }
