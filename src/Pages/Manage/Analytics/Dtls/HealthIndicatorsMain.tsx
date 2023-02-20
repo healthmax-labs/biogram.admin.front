@@ -94,14 +94,6 @@ const HealthIndicatorsMain = () => {
                             },
                         }))
                     }}
-                    AgeGroup={[]}
-                    HandleAgeGroup={() => {
-                        //
-                    }}
-                    Cycle={''}
-                    HandleCycle={() => {
-                        //
-                    }}
                 />
             </SearchWapper>
             <TableWapper>
