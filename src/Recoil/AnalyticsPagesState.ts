@@ -79,11 +79,13 @@ interface DeviceListInterface {
         INST_NO: string | null
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: DeviceAgeListItemInterface[]
         PERIOD_STAT_LIST: DevicePeriodListItemInterface[]
-    } | null
+    }
 }
 
 interface MesureListInterface {
@@ -144,11 +146,16 @@ export const DeviceListState = atom<DeviceListInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
+            AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
+            CYCLE: 'day',
         },
-        list: null,
+        list: {
+            AGE_GROUP_STAT_LIST: [],
+            PERIOD_STAT_LIST: [],
+        },
     },
 })
 

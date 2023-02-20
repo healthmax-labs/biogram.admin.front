@@ -19,6 +19,11 @@ const RiskFctrCountMain = () => {
     )
 
     const getTableList = useCallback(async () => {
+        setRiskFctrCountListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: { INST_NO, BGNDE, ENDDE, AGEGROUP, CYCLE },
         } = riskFctrCountListState
