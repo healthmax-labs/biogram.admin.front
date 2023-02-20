@@ -149,23 +149,23 @@ export interface DevicePeriodListItemInterface {
 
 //위험요인 항목별 연령대 통계
 export interface RiskFctrItemsAgeListItemInterface {
+    RF_622E_BD_CNT: string
+    RF_622E_GD_CNT: string
+    RF_622E_TT_CNT: string
+    RF_624A_BD_CNT: string
+    RF_624A_GD_CNT: string
+    RF_624A_TT_CNT: string
+    RF_624D_BD_CNT: string
+    RF_624D_GD_CNT: string
+    RF_624D_TT_CNT: string
+    RF_624E_BD_CNT: string
+    RF_624E_GD_CNT: string
+    RF_624E_TT_CNT: string
+    RF_8072_BD_CNT: string
+    RF_8072_GD_CNT: string
+    RF_8072_TT_CNT: string
     RF_AGE_GROUP: string
     RF_ALL_TT_CNT: string
-    RF_622E_TT_CNT: string //혈압 전체
-    RF_622E_GD_CNT: string //혈압 정상
-    RF_622E_BD_CNT: string //혈압 위험
-    RF_8072_TT_CNT: string //허리둘레 전체
-    RF_8072_GD_CNT: string //허리둘레 정상
-    RF_8072_BD_CNT: string //허리둘레 위험
-    RF_624A_TT_CNT: string //식전혈당 전체
-    RF_624A_GD_CNT: string //식전혈당 정상
-    RF_624A_BD_CNT: string //식전혈당 위험
-    RF_624D_TT_CNT: string //중성지방 전체
-    RF_624D_GD_CNT: string //중성지방 정상
-    RF_624D_BD_CNT: string //중성지방 위험
-    RF_624E_TT_CNT: string //HDLC 전체
-    RF_624E_GD_CNT: string //HDLC 정상
-    RF_624E_BD_CNT: string //HDLC 위험
 }
 
 //위험요인 항목별 기간 통계

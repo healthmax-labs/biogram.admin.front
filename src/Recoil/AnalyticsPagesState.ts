@@ -59,14 +59,16 @@ interface RiskFctrCountListInterface {
 interface RiskFctrItemsListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: string
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: RiskFctrItemsAgeListItemInterface[]
         PERIOD_STAT_LIST: RiskFctrItemsPeriodListItemInterface[]
-    } | null
+    }
 }
 
 interface DeviceListInterface {
@@ -154,11 +156,16 @@ export const RiskFctrItemsListState = atom<RiskFctrItemsListInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
+            AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
+            CYCLE: 'day',
         },
-        list: null,
+        list: {
+            AGE_GROUP_STAT_LIST: [],
+            PERIOD_STAT_LIST: [],
+        },
     },
 })
 
