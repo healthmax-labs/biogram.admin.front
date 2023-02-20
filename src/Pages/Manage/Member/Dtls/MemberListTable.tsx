@@ -64,6 +64,13 @@ const MemberListTable = () => {
         const funcChangeGeonDaonMemberListOption = () => {
             setTableOptions(prevState => ({
                 ...prevState,
+                Columns: MemberTableConfig.Columns,
+            }))
+        }
+
+        const funcChangeDefaultMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
                 Columns: MemberTableConfig.Columns.map(e => {
                     return e.filter(el => {
                         return el.key !== 'WORK_TY_CODE'
@@ -72,14 +79,7 @@ const MemberListTable = () => {
             }))
         }
 
-        const funcChangeDefaultMemberListOption = () => {
-            setTableOptions(prevState => ({
-                ...prevState,
-                Columns: MemberTableConfig.Columns,
-            }))
-        }
-
-        if (mainLayoutState.Theme === '속') {
+        if (mainLayoutState.Theme === 'GeonDaon') {
             funcChangeGeonDaonMemberListOption()
         } else {
             funcChangeDefaultMemberListOption()

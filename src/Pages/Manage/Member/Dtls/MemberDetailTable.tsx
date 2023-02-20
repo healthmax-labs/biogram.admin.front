@@ -945,11 +945,6 @@ const MemberDetailTable = ({
                         </InputCell>
                         {mainLayoutState.Theme === 'GeonDaon' ? (
                             <>
-                                <LabelCell></LabelCell>
-                                <InputCell></InputCell>
-                            </>
-                        ) : (
-                            <>
                                 <LabelCell>
                                     <VaryLabel LabelName={`내/외근직`} />
                                 </LabelCell>
@@ -990,6 +985,11 @@ const MemberDetailTable = ({
                                         />
                                     </WS.FlexNoWarapGap>
                                 </InputCell>
+                            </>
+                        ) : (
+                            <>
+                                <LabelCell></LabelCell>
+                                <InputCell></InputCell>
                             </>
                         )}
                     </Row>
