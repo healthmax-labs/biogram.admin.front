@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import {
     getMbtlnum,
     mberUnityUpdate,
@@ -39,6 +39,7 @@ import {
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import Const from '@Const'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     TableContainer,
@@ -127,6 +128,9 @@ const MemberDetailTable = ({
     const { handlMainAlert, handleOutletLoading } = useMainLayouts()
 
     const inputPhoneNumberRef = useRef<HTMLInputElement>()
+
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
+
     const [pageState, setPageState] = useState<{
         MbtlnumCheck: boolean
         UseStplatAgreAt: {
@@ -939,44 +943,55 @@ const MemberDetailTable = ({
                                 }}
                             />
                         </InputCell>
-                        <LabelCell>
-                            <VaryLabel LabelName={`내/외근직`} />
-                        </LabelCell>
-                        <InputCell>
-                            <WS.FlexNoWarapGap>
-                                <VaryLabelRadioButton
-                                    LabelName={`내근직`}
-                                    Checked={
-                                        detailState.detail.WORK_TY_CODE === 'I'
-                                    }
-                                    HandleOnChange={() =>
-                                        setDetailState(prevState => ({
-                                            ...prevState,
-                                            detail: {
-                                                ...prevState.detail,
-                                                WORK_TY_CODE: 'I',
-                                            },
-                                        }))
-                                    }
-                                />
+                        {mainLayoutState.Theme === 'GeonDaon' ? (
+                            <>
+                                <LabelCell></LabelCell>
+                                <InputCell></InputCell>
+                            </>
+                        ) : (
+                            <>
+                                <LabelCell>
+                                    <VaryLabel LabelName={`내/외근직`} />
+                                </LabelCell>
+                                <InputCell>
+                                    <WS.FlexNoWarapGap>
+                                        <VaryLabelRadioButton
+                                            LabelName={`내근직`}
+                                            Checked={
+                                                detailState.detail
+                                                    .WORK_TY_CODE === 'I'
+                                            }
+                                            HandleOnChange={() =>
+                                                setDetailState(prevState => ({
+                                                    ...prevState,
+                                                    detail: {
+                                                        ...prevState.detail,
+                                                        WORK_TY_CODE: 'I',
+                                                    },
+                                                }))
+                                            }
+                                        />
 
-                                <VaryLabelRadioButton
-                                    LabelName={`외근직`}
-                                    Checked={
-                                        detailState.detail.WORK_TY_CODE === 'O'
-                                    }
-                                    HandleOnChange={() =>
-                                        setDetailState(prevState => ({
-                                            ...prevState,
-                                            detail: {
-                                                ...prevState.detail,
-                                                WORK_TY_CODE: 'O',
-                                            },
-                                        }))
-                                    }
-                                />
-                            </WS.FlexNoWarapGap>
-                        </InputCell>
+                                        <VaryLabelRadioButton
+                                            LabelName={`외근직`}
+                                            Checked={
+                                                detailState.detail
+                                                    .WORK_TY_CODE === 'O'
+                                            }
+                                            HandleOnChange={() =>
+                                                setDetailState(prevState => ({
+                                                    ...prevState,
+                                                    detail: {
+                                                        ...prevState.detail,
+                                                        WORK_TY_CODE: 'O',
+                                                    },
+                                                }))
+                                            }
+                                        />
+                                    </WS.FlexNoWarapGap>
+                                </InputCell>
+                            </>
+                        )}
                     </Row>
                     <Row>
                         <LabelCell>
