@@ -6,7 +6,6 @@ import RiskFctrItemsTable from './RiskFctrItemsTable'
 import { useRecoilState } from 'recoil'
 import { getRiskFctrItemsAnalyticsList } from '@Service/AnalyticsService'
 import { RiskFctrItemsListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
@@ -19,14 +18,20 @@ const RiskFctrItemsMain = () => {
     )
 
     const getTableList = useCallback(async () => {
+        setRiskFctrItemsListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
-            search: { INST_NO, BGNDE, ENDDE },
+            search: { INST_NO, BGNDE, ENDDE, AGEGROUP, CYCLE },
         } = riskFctrItemsListState
 
         const { status, payload } = await getRiskFctrItemsAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            INST_NO: INST_NO,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
+            AGEGROUP: AGEGROUP,
+            CYCLE: CYCLE,
         })
 
         if (status) {
@@ -39,7 +44,10 @@ const RiskFctrItemsMain = () => {
             setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: null,
+                list: {
+                    AGE_GROUP_STAT_LIST: [],
+                    PERIOD_STAT_LIST: [],
+                },
             }))
         }
     }, [riskFctrItemsListState, setRiskFctrItemsListState])
@@ -59,19 +67,55 @@ const RiskFctrItemsMain = () => {
             <SearchWapper>
                 <AnalyticsSearchBox
                     SearchType={'default'}
-                    HandleGetList={() => console.debug('HandleGetList')}
-                    HandleInstNo={instNo => console.debug(instNo)}
-                    StartDate={riskFctrItemsListState.search.BGNDE}
-                    HandleStartDate={e => console.debug(e)}
-                    EndDate={riskFctrItemsListState.search.ENDDE}
-                    HandleEndDate={e => console.debug(e)}
-                    AgeGroup={[]}
-                    HandleAgeGroup={e => {
-                        console.debug(e)
+                    HandleGetList={() => getTableList()}
+                    HandleInstNo={instNo => {
+                        setRiskFctrItemsListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                INST_NO: String(instNo),
+                            },
+                        }))
                     }}
-                    Cycle={``}
+                    HandleStartDate={e => {
+                        setRiskFctrItemsListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                BGNDE: e,
+                            },
+                        }))
+                    }}
+                    StartDate={riskFctrItemsListState.search.BGNDE}
+                    HandleEndDate={e => {
+                        setRiskFctrItemsListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                ENDDE: e,
+                            },
+                        }))
+                    }}
+                    EndDate={riskFctrItemsListState.search.ENDDE}
+                    AgeGroup={riskFctrItemsListState.search.AGEGROUP}
+                    HandleAgeGroup={e => {
+                        setRiskFctrItemsListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                AGEGROUP: e,
+                            },
+                        }))
+                    }}
+                    Cycle={riskFctrItemsListState.search.CYCLE}
                     HandleCycle={e => {
-                        console.debug(e)
+                        setRiskFctrItemsListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                CYCLE: e,
+                            },
+                        }))
                     }}
                 />
             </SearchWapper>

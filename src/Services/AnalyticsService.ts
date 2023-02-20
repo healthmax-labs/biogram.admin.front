@@ -146,28 +146,36 @@ export function getRiskFctrItemsAnalyticsList({
     BGNDE,
     ENDDE,
     INST_NO,
+    AGEGROUP,
+    CYCLE,
 }: {
     INST_NO: string | null
     BGNDE: string
     ENDDE: string
+    AGEGROUP: string[]
+    CYCLE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: RiskFctrItemsAgeListItemInterface[]
         PERIOD_STAT_LIST: RiskFctrItemsPeriodListItemInterface[]
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string | null
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     } = {
         INST_NO: INST_NO,
         BGNDE: BGNDE,
         ENDDE: ENDDE,
+        AGEGROUP: AGEGROUP,
+        CYCLE: CYCLE,
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'BGNDE', 'ENDDE')
+        delete payload.INST_NO
     }
 
     return _Axios_({
