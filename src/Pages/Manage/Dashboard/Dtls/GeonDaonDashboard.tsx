@@ -2,7 +2,7 @@ import GeonDaonContentCard from './GeonDaonContentCard'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 import { useRecoilValue } from 'recoil'
-import { addComma, dateInsertHypen } from '@Helper'
+import { addComma, dateInsertHypen, getDateDayUnit } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
 
@@ -54,34 +54,39 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={_.sortBy(
-                                    dashBoardPageState.member.list,
-                                    'SEARCH_DE'
-                                )
-                                    .reverse()
-                                    .slice(-3)
-                                    .map(e => {
-                                        const searchDate = dateInsertHypen(
-                                            e.SEARCH_DE
-                                        )
-                                        return [
-                                            {
-                                                name: searchDate
-                                                    ? String(searchDate)
-                                                    : e.SEARCH_DE,
-                                                textAlign: 'left',
-                                            },
-                                            {
-                                                name: String(e.TD_CNT),
-                                                color: 'green',
-                                                textAlign: 'center',
-                                            },
-                                            {
-                                                name: String(e.TT_CNT),
-                                                textAlign: 'right',
-                                            },
-                                        ]
-                                    })}
+                                Items={[0, 1, 2].map(e => {
+                                    const {
+                                        member: { list },
+                                    } = dashBoardPageState
+
+                                    const findDate = getDateDayUnit(e)
+
+                                    const findData = _.find(list, {
+                                        SEARCH_DE: findDate,
+                                    })
+
+                                    return [
+                                        {
+                                            name: String(
+                                                dateInsertHypen(findDate)
+                                            ),
+                                            textAlign: 'left',
+                                        },
+                                        {
+                                            name: findData
+                                                ? String(findData.TD_CNT)
+                                                : '0',
+                                            color: 'green',
+                                            textAlign: 'center',
+                                        },
+                                        {
+                                            name: findData
+                                                ? String(findData.TT_CNT)
+                                                : '0',
+                                            textAlign: 'right',
+                                        },
+                                    ]
+                                })}
                             />
                         </FlexFull>
                         <FlexNowrapFull>
