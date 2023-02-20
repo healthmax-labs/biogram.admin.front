@@ -37,7 +37,7 @@ const handleTokenRefresh = (): Promise<LoginTokenInterface> => {
     Helper.COLORLOG('warning', ':: Try Token Refresh :: ')
     const axiosDefaultHeader: AxiosRequestConfig = {
         baseURL: apiBaseURLL,
-        timeout: 20000,
+        timeout: 0,
         headers: {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
@@ -246,7 +246,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
 
     const axiosDefaultHeader: AxiosRequestConfig = {
         baseURL: apiBaseURLL,
-        timeout: 20000,
+        timeout: 0,
         headers: {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
