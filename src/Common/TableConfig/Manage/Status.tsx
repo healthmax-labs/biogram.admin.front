@@ -387,8 +387,8 @@ export interface BrftrCmprTableListItemInterface {
     SEXDSTN: null | string
     FBS_MESURE_DT_0: null | string
     FBS_MESURE_DT_1: null | string
-    FBS_MESURE_DT_MESURE_DT_2: null | string
-    FBS_MESURE_DT_MESURE_DT_3: null | string
+    FBS_MESURE_DT_2: null | string
+    FBS_MESURE_DT_3: null | string
     HDLC_0: null | number
     HDLC_1: null | number
     HDLC_2: null | number
@@ -428,19 +428,15 @@ export const BrftrCmprTableConfig = {
         [
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: `허리둘레`,
@@ -661,9 +657,9 @@ export const BrftrCmprTableConfig = {
                             </Wapper>
                             <Wapper>
                                 <Item>
-                                    {el.FBS_MESURE_DT_MESURE_DT_2
+                                    {el.FBS_MESURE_DT_2
                                         ? timeStringSmapDateParse(
-                                              el.FBS_MESURE_DT_MESURE_DT_2
+                                              el.FBS_MESURE_DT_2
                                           )
                                         : '-'}
                                 </Item>
@@ -671,9 +667,9 @@ export const BrftrCmprTableConfig = {
                             </Wapper>
                             <Wapper>
                                 <Item>
-                                    {el.FBS_MESURE_DT_MESURE_DT_3
+                                    {el.FBS_MESURE_DT_3
                                         ? timeStringSmapDateParse(
-                                              el.FBS_MESURE_DT_MESURE_DT_3
+                                              el.FBS_MESURE_DT_3
                                           )
                                         : '-'}
                                 </Item>

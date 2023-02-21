@@ -74,8 +74,8 @@ export interface BrftrCmprListItemInterface {
     FBS_3: null | number
     FBS_MESURE_DT_0: null | string
     FBS_MESURE_DT_1: null | string
-    FBS_MESURE_DT_MESURE_DT_2: null | string
-    FBS_MESURE_DT_MESURE_DT_3: null | string
+    FBS_MESURE_DT_2: null | string
+    FBS_MESURE_DT_3: null | string
     TG_3: null | string
     TG_2: null | string
     TG_1: null | string
@@ -137,6 +137,7 @@ export interface StatisticsListItemInterface {
     BDHEAT: null | string
     ODR: number
 }
+
 //기기측정 현황 리스트
 export interface StatisticsListInterface {
     DEVICE_MESURE_INFO_LIST: StatisticsListItemInterface[]
