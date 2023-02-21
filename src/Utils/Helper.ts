@@ -412,7 +412,7 @@ export const timeStringDateParse = (str: string): string | boolean => {
 }
 
 export const timeStringSmapDateParse = (date: string): string | boolean => {
-    if (date.length !== 14) return false
+    if (!(date.length === 14 || date.length === 12)) return false
 
     return `${date.substring(2, 4)}-${date.substring(4, 6)}-${date.substring(
         6,
