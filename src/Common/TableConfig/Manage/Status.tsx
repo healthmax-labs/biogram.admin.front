@@ -1103,7 +1103,7 @@ export const HealthIndicatorsTableConfig = {
                 colSpan: 6,
             },
             {
-                name: `측정정보`,
+                name: `측정정보(점)`,
                 rowSpan: 1,
                 colSpan: 7,
             },
@@ -1158,7 +1158,7 @@ export const HealthIndicatorsTableConfig = {
                 cellWidth: `w16`,
             },
             {
-                name: `개선성공률`,
+                name: `총합(개선성공률)`,
                 key: `TOT_SCORE`,
             },
             {

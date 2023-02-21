@@ -86,6 +86,7 @@ export interface ConsultInfoListItemInterface {
     USID: 'geondaon'
     MBTLNUM_CRTFC_AT: 'Y'
     NM: '건다온'
+    WORK_TY_CODE: 'N'
 }
 
 // 회원

@@ -233,6 +233,21 @@ export const ConsultTableConfig = {
                 key: `INST_NM`,
             },
             {
+                name: `내/외근직`,
+                key: `WORK_TY_CODE`,
+                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
+                    return (
+                        <>
+                            {el.WORK_TY_CODE == 'N'
+                                ? '미지정'
+                                : el.WORK_TY_CODE == 'I'
+                                ? '내근직'
+                                : '외근직'}
+                        </>
+                    )
+                },
+            },
+            {
                 name: `최근측정일`,
                 key: `MESURE_DT`,
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
