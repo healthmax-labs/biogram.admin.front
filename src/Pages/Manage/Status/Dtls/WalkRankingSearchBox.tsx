@@ -54,23 +54,21 @@ const WalkRankingSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                Width={'w40'}
+                                ShowType={`year, month`}
+                                DateFormat={'yyyy년 MM월'}
                                 InputeType={`search`}
-                                Value={
-                                    walkRankingListState.search.MESURE_MT
-                                        ? changeDatePickerDate(
-                                              walkRankingListState.search
-                                                  .MESURE_MT
-                                          )
-                                        : new Date()
-                                }
+                                Value={changeDatePickerDate(
+                                    `${walkRankingListState.search.MESURE_MT}01`
+                                )}
                                 CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
+                                    const { year, monthPad } =
                                         gmtTimeToTimeObject(e)
                                     setWalkRankingState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            MESURE_MT: `${year}${monthPad}${dayPad}`,
+                                            MESURE_MT: `${year}${monthPad}`,
                                         },
                                     }))
                                 }}

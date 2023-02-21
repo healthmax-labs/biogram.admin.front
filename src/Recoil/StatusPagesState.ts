@@ -10,7 +10,7 @@ import {
     StatisticsListInterface,
     WalkRankingListInterface,
 } from '@Type/StatusTypes'
-import { getNowDate, getOneMonthAgo } from '@Helper'
+import { getNowDate, getOneMonthAgo, getNowYearMonth } from '@Helper'
 
 /**
  * status 페이지.
@@ -285,13 +285,13 @@ export const HealthIndicatorsListState =
 
 //보행수 랭킹 현황
 export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
-    key: `statusPage/walkRanking-list`,
+    key: `statusPage/walk-ranking-list`,
     default: {
         status: 'idle',
         search: {
             curPage: 0,
             INST_NO: '',
-            MESURE_MT: getNowDate(),
+            MESURE_MT: getNowYearMonth(),
         },
         list: {
             STEP_RANK_INFO_LIST: [],
