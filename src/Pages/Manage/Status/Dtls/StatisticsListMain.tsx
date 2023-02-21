@@ -7,7 +7,6 @@ import ListTable from './StatisticsListTable'
 import { getStatisticsList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -31,13 +30,12 @@ const StatisticsListMain = () => {
         } = statisticsListState
 
         const { status, payload } = await getStatisticsList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            MESURE_CODE: !isNull(MESURE_CODE) ? MESURE_CODE : ``,
-            BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            END_DE: !isNull(END_DE) ? END_DE : ``,
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            MESURE_CODE: MESURE_CODE.join(','),
+            BEGIN_DE: BEGIN_DE,
+            END_DE: END_DE,
         })
 
         if (status) {

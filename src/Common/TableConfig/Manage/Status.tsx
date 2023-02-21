@@ -872,19 +872,15 @@ export const StatisticsTableConfig = {
         [
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: `체성분계`,

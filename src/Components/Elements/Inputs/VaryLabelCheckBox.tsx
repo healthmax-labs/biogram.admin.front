@@ -13,8 +13,10 @@ const VaryLabelCheckBox = ({
     HandleOnChange,
     LabelWidth,
     TextColor,
+    Disabled,
 }: {
     LabelName: string
+    Disabled?: boolean
     Checked: boolean
     LabelReverse?: boolean
     LabelWidth?: WidthType
@@ -26,6 +28,7 @@ const VaryLabelCheckBox = ({
             <Wapper Reverse={LabelReverse ? LabelReverse : false}>
                 <VaryCheckBox
                     Flex={true}
+                    Disabled={Disabled ? Disabled : false}
                     Checked={Checked}
                     HandleOnChange={e => HandleOnChange(e)}
                 />
