@@ -275,7 +275,7 @@ export const BrftrCmprTableConfig = {
                 colSpan: 2,
             },
             {
-                name: `신전혈당`,
+                name: `식전혈당`,
                 colSpan: 2,
             },
             {
@@ -1103,7 +1103,7 @@ export const HealthIndicatorsTableConfig = {
                 colSpan: 6,
             },
             {
-                name: `측정정보(점)`,
+                name: `측정정보`,
                 rowSpan: 1,
                 colSpan: 7,
             },
@@ -1158,28 +1158,70 @@ export const HealthIndicatorsTableConfig = {
                 cellWidth: `w16`,
             },
             {
-                name: `총합(개선성공률)`,
+                name: `개선성공률`,
                 key: `TOT_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.TOT_SCORE}%</>
+                },
             },
             {
                 name: `허리둘레`,
                 key: `WAIST_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.WAIST_SCORE}%</>
+                },
             },
             {
                 name: `혈압`,
                 key: `BP_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.BP_SCORE}%</>
+                },
             },
             {
                 name: `식전혈당`,
                 key: `FBS_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.FBS_SCORE}%</>
+                },
             },
             {
                 name: `중성지방`,
                 key: `TG_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.TG_SCORE}%</>
+                },
             },
             {
                 name: `HDLC`,
                 key: `HDLC_SCORE`,
+                component: ({
+                    el,
+                }: {
+                    el: HealthIndicatorsTableListItemInterface
+                }) => {
+                    return <>{el.HDLC_SCORE}%</>
+                },
             },
         ],
     ],
