@@ -49,12 +49,12 @@ interface RiskFctrSearchListInterface {
 interface StatisticsSearchListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
         BEGIN_DE: string
         END_DE: string
-        MESURE_CODE: string | null
+        MESURE_CODE: string[]
     }
     list: StatisticsListInterface
 }
@@ -116,10 +116,10 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
-            MESURE_CODE: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
+            MESURE_CODE: ['IS', 'BP', 'BS', 'BC'],
             BEGIN_DE: getOneMonthAgo(),
             END_DE: getNowDate(),
         },

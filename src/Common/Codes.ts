@@ -1152,26 +1152,32 @@ export default {
             {
                 code: `IS`,
                 name: `체성분`,
+                searchDisabled: true,
             },
             {
                 code: `BP`,
                 name: `혈압`,
+                searchDisabled: true,
             },
             {
                 code: `BS`,
                 name: `혈당`,
+                searchDisabled: true,
             },
             {
                 code: `BC`,
                 name: `콜레스테롤`,
+                searchDisabled: true,
             },
             {
                 code: `ST`,
                 name: `스트레스`,
+                searchDisabled: false,
             },
             {
                 code: `ET`,
                 name: `기타`,
+                searchDisabled: false,
             },
         ],
     },

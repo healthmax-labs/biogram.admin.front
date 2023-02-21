@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import Codes from '@Codes'
+import _ from 'lodash'
 
 const {
     SearchItemWapper,
@@ -145,33 +146,28 @@ const StatisticsSearchBox = ({
                                 {(() => {
                                     return Codes.DeviceSearchCode.list.map(
                                         (el, index) => {
-                                            const mesureCode =
-                                                statisticsListState.search
-                                                    .MESURE_CODE
-                                                    ? statisticsListState.search.MESURE_CODE.split(
-                                                          ','
-                                                      ).map(element =>
-                                                          element.trim()
-                                                      )
-                                                    : []
+                                            const {
+                                                search: { MESURE_CODE },
+                                            } = statisticsListState
 
                                             return (
                                                 <VaryLabelCheckBox
+                                                    LabelWidth={`wMin`}
+                                                    Disabled={el.searchDisabled}
                                                     LabelName={`${el.name}`}
                                                     key={`statistics-search-box-riksdctr-item-${index}`}
-                                                    Checked={
-                                                        mesureCode.findIndex(
-                                                            e => e === el.code
-                                                        ) > -1
-                                                    }
+                                                    Checked={_.includes(
+                                                        MESURE_CODE,
+                                                        el.code
+                                                    )}
                                                     HandleOnChange={e => {
                                                         if (
-                                                            mesureCode &&
+                                                            MESURE_CODE &&
                                                             e.target.checked
                                                         ) {
                                                             const newMesureCode =
                                                                 [
-                                                                    ...mesureCode,
+                                                                    ...MESURE_CODE,
                                                                     el.code,
                                                                 ]
                                                             setStatisticsListState(
@@ -180,18 +176,16 @@ const StatisticsSearchBox = ({
                                                                     search: {
                                                                         ...prevState.search,
                                                                         MESURE_CODE:
-                                                                            newMesureCode.join(
-                                                                                ','
-                                                                            ),
+                                                                            newMesureCode,
                                                                     },
                                                                 })
                                                             )
                                                         } else if (
-                                                            mesureCode &&
+                                                            MESURE_CODE &&
                                                             !e.target.checked
                                                         ) {
                                                             const newMesureCode =
-                                                                mesureCode.filter(
+                                                                MESURE_CODE.filter(
                                                                     e =>
                                                                         e !==
                                                                         el.code
@@ -202,9 +196,7 @@ const StatisticsSearchBox = ({
                                                                     search: {
                                                                         ...prevState.search,
                                                                         MESURE_CODE:
-                                                                            newMesureCode.join(
-                                                                                ','
-                                                                            ),
+                                                                            newMesureCode,
                                                                     },
                                                                 })
                                                             )

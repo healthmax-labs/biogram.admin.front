@@ -8,10 +8,12 @@ const VaryCheckBox = ({
     HandleOnChange,
     Id,
     Name,
+    Disabled,
     Flex,
 }: {
     Id?: string
     Name?: string
+    Disabled?: boolean
     Checked: boolean
     Flex: boolean
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -19,6 +21,7 @@ const VaryCheckBox = ({
     return (
         <Wapper Flex={Flex}>
             <CheckBox
+                disabled={Disabled ? Disabled : false}
                 checked={Checked}
                 id={Id ? Id : `checked-checkbox`}
                 name={Name ? Name : `checked-checkbox`}
