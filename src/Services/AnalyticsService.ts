@@ -108,28 +108,36 @@ export function getDeviceAnalyticsList({
     INST_NO,
     BGNDE,
     ENDDE,
+    AGEGROUP,
+    CYCLE,
 }: {
     INST_NO: string | null
     BGNDE: string
     ENDDE: string
+    AGEGROUP: string[]
+    CYCLE: string
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: DeviceAgeListItemInterface[]
         PERIOD_STAT_LIST: DevicePeriodListItemInterface[]
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string | null
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     } = {
         INST_NO: INST_NO,
         BGNDE: BGNDE,
         ENDDE: ENDDE,
+        AGEGROUP: AGEGROUP,
+        CYCLE: CYCLE,
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'BGNDE', 'ENDDE')
+        delete payload.INST_NO
     }
 
     return _Axios_({
@@ -236,18 +244,34 @@ export function getRiskFctrCountAnalyticsList({
  */
 export function getImprvmCountAnalyticsList({
     INST_NO,
+    BGNDE,
+    ENDDE,
 }: {
-    INST_NO: string | null
+    INST_NO: string
+    BGNDE: string
+    ENDDE: string
 }): Promise<
     ServicesDefaultResult<{
         MYBODY_SCORE_IMPRVM_STAT_LIST: ImprvmAgeListItemInterface[]
     }>
 > {
+    const payload: {
+        INST_NO?: string | null
+        BGNDE: string
+        ENDDE: string
+    } = {
+        INST_NO: INST_NO,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
         url: '/mng/gndn/stat/v1/mybody_score/imprvm',
-        payload: {
-            INST_NO,
-        },
+        payload: payload,
     })
 }

@@ -7,7 +7,6 @@ import DeviceUseTable from './DeviceUseTable'
 import { useRecoilState } from 'recoil'
 import { getDeviceAnalyticsList } from '@Service/AnalyticsService'
 import { DeviceListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
@@ -19,14 +18,20 @@ const DeviceUseMain = () => {
         useRecoilState(DeviceListState)
 
     const getTableList = useCallback(async () => {
+        setDeviceListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
-            search: { INST_NO, BGNDE, ENDDE },
+            search: { INST_NO, BGNDE, ENDDE, AGEGROUP, CYCLE },
         } = deviceListState
 
         const { status, payload } = await getDeviceAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            INST_NO: INST_NO,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
+            AGEGROUP: AGEGROUP,
+            CYCLE: CYCLE,
         })
 
         if (status) {
@@ -39,7 +44,10 @@ const DeviceUseMain = () => {
             setDeviceListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: null,
+                list: {
+                    AGE_GROUP_STAT_LIST: [],
+                    PERIOD_STAT_LIST: [],
+                },
             }))
         }
     }, [deviceListState, setDeviceListState])
@@ -59,19 +67,55 @@ const DeviceUseMain = () => {
             <SearchWapper>
                 <AnalyticsSearchBox
                     SearchType={'default'}
-                    HandleGetList={() => console.debug('HandleGetList')}
-                    HandleInstNo={instNo => console.debug(instNo)}
-                    StartDate={deviceListState.search.BGNDE}
-                    HandleStartDate={e => console.debug(e)}
-                    EndDate={deviceListState.search.ENDDE}
-                    HandleEndDate={e => console.debug(e)}
-                    AgeGroup={[]}
-                    HandleAgeGroup={e => {
-                        console.debug(e)
+                    HandleGetList={() => getTableList()}
+                    HandleInstNo={instNo => {
+                        setDeviceListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                INST_NO: String(instNo),
+                            },
+                        }))
                     }}
-                    Cycle={``}
+                    HandleStartDate={e => {
+                        setDeviceListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                BGNDE: e,
+                            },
+                        }))
+                    }}
+                    StartDate={deviceListState.search.BGNDE}
+                    HandleEndDate={e => {
+                        setDeviceListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                ENDDE: e,
+                            },
+                        }))
+                    }}
+                    EndDate={deviceListState.search.ENDDE}
+                    AgeGroup={deviceListState.search.AGEGROUP}
+                    HandleAgeGroup={e => {
+                        setDeviceListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                AGEGROUP: e,
+                            },
+                        }))
+                    }}
+                    Cycle={deviceListState.search.CYCLE}
                     HandleCycle={e => {
-                        console.debug(e)
+                        setDeviceListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                CYCLE: e,
+                            },
+                        }))
                     }}
                 />
             </SearchWapper>

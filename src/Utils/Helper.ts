@@ -490,15 +490,31 @@ export const getNowDate = (): string => {
 }
 
 /**
- * unit 별 이전 날짜
+ * EndDate 기준, unit 별 이전 날짜
  * 20220101
+ * @param endDate
  * @param unit
  */
-export const getDateMonthUnit = (unit: number) => {
+export const getDateMonthUnit = (endDate: Date, unit: number) => {
+    const date = new Date(
+        endDate.getFullYear(),
+        endDate.getMonth() - unit,
+        endDate.getDate()
+    )
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    return year + '' + month + '' + day
+}
+
+export const getDateDayUnit = (unit: number) => {
     const date = new Date(
         new Date().getFullYear(),
-        new Date().getMonth() - unit,
-        new Date().getDate()
+        new Date().getMonth(),
+        new Date().getDate() - unit
     )
     const year = date.getFullYear()
     let month: string | number = 1 + date.getMonth()
@@ -571,7 +587,7 @@ export const getNowDateDetail = () => {
  * DatePickerDate 용 날짜로 변경
  * @param dateString
  */
-export const changeDatePickerDate = (dateString: string) => {
+export const changeDatePickerDate = (dateString: string): Date => {
     if (dateString.length === 6) {
         const year = dateString.substring(0, 4)
         const month = dateString.substring(4, 6)
@@ -580,23 +596,21 @@ export const changeDatePickerDate = (dateString: string) => {
         return new Date(Number(year), Number(Number(month) - 1), Number(day))
     }
 
-    if (dateString.length > 6) {
-        const year = dateString.substring(0, 4)
-        const month = dateString.substring(4, 6)
-        const day = dateString.substring(6, 8)
-        const hour = dateString.substring(8, 10)
-        const minute = dateString.substring(10, 12)
-        const second = dateString.substring(12, 14)
+    const year = dateString.substring(0, 4)
+    const month = dateString.substring(4, 6)
+    const day = dateString.substring(6, 8)
+    const hour = dateString.substring(8, 10)
+    const minute = dateString.substring(10, 12)
+    const second = dateString.substring(12, 14)
 
-        return new Date(
-            Number(year),
-            Number(Number(month) - 1),
-            Number(day),
-            Number(hour),
-            Number(minute),
-            Number(second)
-        )
-    }
+    return new Date(
+        Number(year),
+        Number(Number(month) - 1),
+        Number(day),
+        Number(hour),
+        Number(minute),
+        Number(second)
+    )
 }
 
 /**

@@ -21,7 +21,7 @@ export const getMngDashBoardMberInfo = (): Promise<
 > => {
     return _Axios_({
         method: 'get',
-        url: `/mng/v1/dash_board/mber_info`,
+        url: `/mng/v1/dash_board/mber_info/v2`,
         payload: {},
     })
 }
@@ -60,7 +60,7 @@ export const getMngDashBoardRiskFctr = (): Promise<
 > => {
     return _Axios_({
         method: 'get',
-        url: `/mng/v1/dash_board/risk_fctr`,
+        url: `/mng/v1/dash_board/risk_fctr/v2`,
         payload: {},
     })
 }
@@ -73,7 +73,7 @@ export const getMngDashBoardRiskFctrFctrGroup = (): Promise<
 > => {
     return _Axios_({
         method: 'get',
-        url: `/mng/v1/dash_board/risk_fctr/fctr_group`,
+        url: `/mng/v1/dash_board/risk_fctr/fctr_group_v2`,
         payload: {},
     })
 }
@@ -86,7 +86,7 @@ export const getMngDashBoardRiskGroupNotUsed = (): Promise<
 > => {
     return _Axios_({
         method: 'get',
-        url: `/mng/v1/dash_board/risk_group/not_used`,
+        url: `/mng/v1/dash_board/risk_group/not_usedv2`,
         payload: {},
     })
 }
@@ -130,7 +130,9 @@ export const getMngDashBoardMesureInfoZoneDevice = (): Promise<
     })
 }
 
-// /mng/gndn/v1/dash_board/mybody_score/imprvm
+/**
+ * 건강 개선률
+ */
 export const getMngGndnDashBoardMybodyScoreImprvm = (): Promise<
     ServicesDefaultResult<MybodyScoreImprvmInterface>
 > => {

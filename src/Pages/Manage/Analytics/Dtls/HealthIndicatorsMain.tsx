@@ -6,7 +6,6 @@ import HealthIndicatorsTable from './HealthIndicatorsTable'
 import { useRecoilState } from 'recoil'
 import { getImprvmCountAnalyticsList } from '@Service/AnalyticsService'
 import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
-import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper } = MainStyle
 const {
@@ -18,12 +17,19 @@ const HealthIndicatorsMain = () => {
         useRecoilState(ImprvmListState)
 
     const getTableList = useCallback(async () => {
+        setImprvmListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
-            search: { INST_NO },
+            search: { INST_NO, BGNDE, ENDDE },
         } = imprvmListState
 
         const { status, payload } = await getImprvmCountAnalyticsList({
-            INST_NO: !isNull(INST_NO) ? INST_NO : '1000',
+            INST_NO: INST_NO,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
         })
 
         if (status) {
@@ -36,7 +42,9 @@ const HealthIndicatorsMain = () => {
             setImprvmListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: null,
+                list: {
+                    MYBODY_SCORE_IMPRVM_STAT_LIST: [],
+                },
             }))
         }
     }, [imprvmListState, setImprvmListState])
@@ -56,19 +64,35 @@ const HealthIndicatorsMain = () => {
             <SearchWapper>
                 <AnalyticsSearchBox
                     SearchType={'healthIndicators'}
-                    HandleGetList={() => console.debug('HandleGetList')}
-                    HandleInstNo={instNo => console.debug(instNo)}
-                    StartDate={imprvmListState.search.BGNDE}
-                    HandleStartDate={e => console.debug(e)}
-                    EndDate={imprvmListState.search.ENDDE}
-                    HandleEndDate={e => console.debug(e)}
-                    AgeGroup={[]}
-                    HandleAgeGroup={e => {
-                        console.debug(e)
+                    HandleGetList={() => getTableList()}
+                    HandleInstNo={instNo => {
+                        setImprvmListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                INST_NO: String(instNo),
+                            },
+                        }))
                     }}
-                    Cycle={``}
-                    HandleCycle={e => {
-                        console.debug(e)
+                    StartDate={imprvmListState.search.BGNDE}
+                    HandleStartDate={e => {
+                        setImprvmListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                BGNDE: e,
+                            },
+                        }))
+                    }}
+                    EndDate={imprvmListState.search.ENDDE}
+                    HandleEndDate={e => {
+                        setImprvmListState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                ENDDE: e,
+                            },
+                        }))
                     }}
                 />
             </SearchWapper>

@@ -34,13 +34,13 @@ interface AnalyticsMemberListStateInterface {
 interface ImprvmListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: string
         BGNDE: string
         ENDDE: string
     }
     list: {
         MYBODY_SCORE_IMPRVM_STAT_LIST: ImprvmAgeListItemInterface[]
-    } | null
+    }
 }
 
 interface RiskFctrCountListInterface {
@@ -76,14 +76,16 @@ interface RiskFctrItemsListInterface {
 interface DeviceListInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        INST_NO: string
         BGNDE: string
         ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
     }
     list: {
         AGE_GROUP_STAT_LIST: DeviceAgeListItemInterface[]
         PERIOD_STAT_LIST: DevicePeriodListItemInterface[]
-    } | null
+    }
 }
 
 interface MesureListInterface {
@@ -144,11 +146,16 @@ export const DeviceListState = atom<DeviceListInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
+            AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
+            CYCLE: 'day',
         },
-        list: null,
+        list: {
+            AGE_GROUP_STAT_LIST: [],
+            PERIOD_STAT_LIST: [],
+        },
     },
 })
 
@@ -196,10 +203,12 @@ export const ImprvmListState = atom<ImprvmListInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
         },
-        list: null,
+        list: {
+            MYBODY_SCORE_IMPRVM_STAT_LIST: [],
+        },
     },
 })
