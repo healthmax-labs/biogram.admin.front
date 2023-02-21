@@ -447,7 +447,7 @@ export const BrftrCmprTableConfig = {
                 colSpan: 2,
             },
             {
-                name: `신전혈당`,
+                name: `식전혈당`,
                 colSpan: 2,
             },
             {
@@ -455,7 +455,7 @@ export const BrftrCmprTableConfig = {
                 colSpan: 2,
             },
             {
-                name: `고밀도 콜레스트롤`,
+                name: `고밀도 콜레스테롤`,
                 colSpan: 2,
             },
         ],
