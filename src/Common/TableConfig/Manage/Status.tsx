@@ -3,7 +3,7 @@ import React from 'react'
 import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
-import { phoneFormat } from '@Helper'
+import { phoneFormat, addComma } from '@Helper'
 import _ from 'lodash'
 import Const from '@Const'
 
@@ -1106,22 +1106,75 @@ export const ActivityWalkTableConfig = {
             {
                 name: `총보행수(걸음)`,
                 key: `SPORTS_TOT_STEPS`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return (
+                        <>
+                            {el.SPORTS_TOT_STEPS
+                                ? addComma(Number(el.SPORTS_TOT_STEPS))
+                                : '-'}
+                        </>
+                    )
+                },
             },
             {
                 name: `활동 거리(m)`,
                 key: `SPORTS_DSTNC`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return (
+                        <>
+                            {el.SPORTS_DSTNC
+                                ? addComma(Number(el.SPORTS_DSTNC))
+                                : '-'}
+                        </>
+                    )
+                },
             },
             {
                 name: `소비칼로리(kcal)`,
                 key: `CNSMP_CALORIE`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return (
+                        <>
+                            {el.CNSMP_CALORIE
+                                ? addComma(Number(el.CNSMP_CALORIE))
+                                : '-'}
+                        </>
+                    )
+                },
             },
             {
                 name: `최대심박수(bpm)`,
                 key: `MAX_HR`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return <>{el.MAX_HR ? addComma(Number(el.MAX_HR)) : '-'}</>
+                },
             },
             {
                 name: `평균심박수(bpm)`,
                 key: `AVG_HR`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return <>{el.AVG_HR ? addComma(Number(el.AVG_HR)) : '-'}</>
+                },
             },
         ],
     ],
@@ -1417,18 +1470,6 @@ export const WalkRankingTableConfig = {
         bgState: true,
     },
     Columns: [
-        // [
-        //     {
-        //         name: `회원정보`,
-        //         rowSpan: 1,
-        //         colSpan: 6,
-        //     },
-        //     {
-        //         name: `정보`,
-        //         rowSpan: 1,
-        //         colSpan: 7,
-        //     },
-        // ],
         [
             {
                 name: `회원번호`,
