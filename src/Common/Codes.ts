@@ -381,7 +381,7 @@ export default {
             name: `복약정보`,
             key: 'takngMdcin',
             list: [
-                { code: 'OB', name: '비만' },
+                // { code: 'OB', name: '비만' },
                 { code: 'HP', name: '고혈압' },
                 { code: 'DB', name: '당뇨' },
                 { code: 'DP', name: '고지혈' },
