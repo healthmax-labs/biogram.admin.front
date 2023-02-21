@@ -50,4 +50,22 @@ export default {
         'managerPage/notice-detail',
     ],
     GeonDaonThemeSiteURL: 'geondaon.com',
+    RiskFctrJdgmnt: [
+        // 위험 요인 값 색
+        {
+            key: ``,
+            name: `주의`,
+            textColor: `eb6060`,
+        },
+        {
+            key: ``,
+            name: `나쁨`,
+            textColor: `eb6060`,
+        },
+        {
+            key: ``,
+            name: `매우나쁨`,
+            textColor: `eb6060`,
+        },
+    ],
 }
