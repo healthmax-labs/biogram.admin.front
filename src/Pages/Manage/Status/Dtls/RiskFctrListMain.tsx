@@ -7,7 +7,6 @@ import ListTable from './RiskFctrListTable'
 import { getRiskFctrList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -18,6 +17,10 @@ const RiskFctrListMain = () => {
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
     const getTableList = useCallback(async () => {
+        setRiskFctrListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: {
                 SEARCH_KEY,
@@ -32,14 +35,14 @@ const RiskFctrListMain = () => {
         } = riskFctrListState
 
         const { status, payload } = await getRiskFctrList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 0,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
-            RISK_FCTR_CNT: !isNull(RISK_FCTR_CNT) ? RISK_FCTR_CNT : '',
-            RISK_FCTR: !isNull(RISK_FCTR) ? RISK_FCTR : '',
-            TAKNG_MDCIN: !isNull(TAKNG_MDCIN) ? TAKNG_MDCIN : '',
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
+            RISK_FCTR_CNT: RISK_FCTR_CNT,
+            RISK_FCTR: RISK_FCTR,
+            TAKNG_MDCIN: TAKNG_MDCIN,
         })
 
         if (status) {

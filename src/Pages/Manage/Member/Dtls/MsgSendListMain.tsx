@@ -7,8 +7,6 @@ import ListTable from './MsgSendListTable'
 import { getMsgSendList } from '@Service/MsgService'
 import { useRecoilState } from 'recoil'
 import { MsgSendListState } from '@Recoil/MemberPagesState'
-import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -33,17 +31,15 @@ const MsgSendListMain = () => {
             },
         } = msgSendListState
 
-        const { dayPad } = gmtTimeToTimeObject(new Date())
-
         const { status, payload } = await getMsgSendList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            FROM_MONTH: !isNull(FROM_MONTH) ? FROM_MONTH : `202211`,
-            FROM_DAY: !isNull(FROM_DAY) ? FROM_DAY : `01`,
-            TO_DAY: !isNull(TO_DAY) ? TO_DAY : `${dayPad}`,
-            SNDNG_FAILR: !isNull(SNDNG_FAILR) ? SNDNG_FAILR : '',
-            SNDNG_STDR: !isNull(SNDNG_STDR) ? SNDNG_STDR : '',
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            FROM_MONTH: FROM_MONTH,
+            FROM_DAY: FROM_DAY,
+            TO_DAY: TO_DAY,
+            SNDNG_FAILR: SNDNG_FAILR,
+            SNDNG_STDR: SNDNG_STDR,
         })
 
         if (status) {

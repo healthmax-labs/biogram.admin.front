@@ -14,8 +14,8 @@ const timeObject = gmtTimeToTimeObject(new Date())
 interface MagazineSearchListInterface {
     status: DefaultStatus
     search: {
-        CUR_PAGE: string | null
-        SEARCH_KEY: string | null
+        CUR_PAGE: number
+        SEARCH_KEY: string
     }
     magazineList: {
         MISN_MAGAZINE_LIST: MagazineListItemInterface[]
@@ -54,8 +54,8 @@ interface UhealthzoneDetailInterface {
 interface UhealthzoneSearchListInterface {
     status: DefaultStatus
     search: {
-        CUR_PAGE: string | null
-        search_Key: string | null
+        CUR_PAGE: number
+        search_Key: string
     }
     uhealthzoneList: {
         UHEALTH_ZONE_LIST: UhealthZoneListItemInterface[]
@@ -99,8 +99,8 @@ export const MagazineListState = atom<MagazineSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            CUR_PAGE: null,
-            SEARCH_KEY: null,
+            CUR_PAGE: 0,
+            SEARCH_KEY: '',
         },
         magazineList: {
             MISN_MAGAZINE_LIST: [],
@@ -147,8 +147,8 @@ export const UhealthzoneListState = atom<UhealthzoneSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            CUR_PAGE: null,
-            search_Key: null,
+            CUR_PAGE: 0,
+            search_Key: '',
         },
         uhealthzoneList: {
             UHEALTH_ZONE_LIST: [],

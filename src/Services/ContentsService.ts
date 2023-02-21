@@ -17,7 +17,7 @@ export const getMagazineList = ({
     CUR_PAGE,
     SEARCH_KEY,
 }: {
-    CUR_PAGE: string
+    CUR_PAGE: number
     SEARCH_KEY: string
 }): Promise<
     ServicesDefaultResult<{
@@ -98,7 +98,7 @@ export const getUhealthzoneList = ({
     CUR_PAGE,
     SEARCH_KEY,
 }: {
-    CUR_PAGE: string
+    CUR_PAGE: number
     SEARCH_KEY: string
 }): Promise<
     ServicesDefaultResult<{

@@ -26,7 +26,7 @@ export const getMemberList = ({
     registDtFrom: string
     registDtTo: string
 }): Promise<ServicesDefaultResult<MemberInfoListInterface>> => {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         REGIST_DT_FROM: string
@@ -39,12 +39,7 @@ export const getMemberList = ({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(
-            payload,
-            'SEARCH_KEY',
-            'REGIST_DT_FROM',
-            'REGIST_DT_TO'
-        )
+        delete payload.INST_NO
     }
 
     return _Axios_({

@@ -20,7 +20,7 @@ import {
 interface StplatSearchListInterface {
     status: DefaultStatus
     search: {
-        CUR_PAGE: number | null
+        CUR_PAGE: number
     }
     list: StplatListInterface
 }
@@ -66,7 +66,7 @@ export const StplatListState = atom<StplatSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            CUR_PAGE: null,
+            CUR_PAGE: 0,
         },
         list: {
             STPLAT_MANAGE_INFO_LIST: [],
@@ -83,12 +83,12 @@ export const StplatListState = atom<StplatSearchListInterface>({
 interface NoticeSearchListInterface {
     status: DefaultStatus
     search: {
-        CUR_PAGE: number | null
-        ITEM_COUNT: number | null
-        REGIST_DT: string | null
-        TRGET_SVC_CODE: string | null
-        TRGET_SVC_CODE_NM: string | null
-        USE_AT: string | null
+        CUR_PAGE: number
+        ITEM_COUNT: number
+        REGIST_DT: string
+        TRGET_SVC_CODE: string
+        TRGET_SVC_CODE_NM: string
+        USE_AT: string
     }
     contentsList: NoticeListInterface
 }
@@ -98,12 +98,12 @@ export const NoticeListState = atom<NoticeSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            CUR_PAGE: null,
-            ITEM_COUNT: null,
-            REGIST_DT: null,
-            TRGET_SVC_CODE: null,
-            TRGET_SVC_CODE_NM: null,
-            USE_AT: null,
+            CUR_PAGE: 0,
+            ITEM_COUNT: 30,
+            REGIST_DT: '',
+            TRGET_SVC_CODE: 'A',
+            TRGET_SVC_CODE_NM: 'cpnoti',
+            USE_AT: 'A',
         },
         contentsList: {
             NOTICE_LIST: [],

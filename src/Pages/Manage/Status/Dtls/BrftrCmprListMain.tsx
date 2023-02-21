@@ -7,7 +7,6 @@ import ListTable from './BrftrCmprListTable'
 import { getBrftrCmprList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -24,12 +23,11 @@ const BrftrCmprListMain = () => {
         } = brftrCmprListState
 
         const { status, payload } = await getBrftrCmprList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
         })
 
         if (status) {

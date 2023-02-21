@@ -23,7 +23,7 @@ export const getStplatList = ({
 > => {
     return _Axios_({
         method: 'post',
-        url: '/common/v1/stplat/list/' + CUR_PAGE,
+        url: `/common/v1/stplat/list/${CUR_PAGE}`,
         payload: {},
     })
 }

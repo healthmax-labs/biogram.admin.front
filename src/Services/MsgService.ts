@@ -31,7 +31,7 @@ export function getMsgSendList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         FROM_MONTH: string
@@ -50,15 +50,7 @@ export function getMsgSendList({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(
-            payload,
-            'SEARCH_KEY',
-            'FROM_MONTH',
-            'FROM_DAY',
-            'TO_DAY',
-            'SNDNG_FAILR',
-            'SNDNG_STDR'
-        )
+        delete payload.INST_NO
     }
 
     return _Axios_({

@@ -10,15 +10,12 @@ import {
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { gmtTimeToTimeObject } from '@Helper'
-
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useResetRecoilState, useRecoilValue } from 'recoil'
 import {
     NonMeasureAlertState,
     NonMeasureListState,
 } from '@Recoil/StatusPagesState'
 import { getNonMeasureAlert, postNonMeasureAlert } from '@Service/StatusService'
-import { isNull } from 'lodash'
-
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 
@@ -32,49 +29,16 @@ const AutoAlertModal = ({
 }) => {
     const [nonMeasureAlertState, setNonMeasureAlertState] =
         useRecoilState(NonMeasureAlertState)
-
-    const nonMeasureListState = useRecoilState(NonMeasureListState)
-    const instNo = nonMeasureListState[0].search.INST_NO
-        ? nonMeasureListState[0].search.INST_NO
-        : 0
-
+    const resetNonMeasureAlertState = useResetRecoilState(NonMeasureAlertState)
+    const nonMeasureListState = useRecoilValue(NonMeasureListState)
     const { handlMainAlert } = useMainLayouts()
-    const initializeState = {
-        ...nonMeasureAlertState,
-        data: {
-            NOT_MESURE_NTCN_SET_INFO: {
-                INST_NO: instNo,
-                NTCN_STTUS_AT: 'Y',
-                BP_NTCN_AT: 'Y',
-                BC_N_MESURE_DAY: 7,
-                SB_NTCN_AT: 'Y',
-                HA_N_MESURE_DAY: 7,
-                IS_N_MESURE_DAY: 7,
-                N_MESURE_NTCN_DAY: 7,
-                NTCN_TY_CODE: 'PUSH',
-                NTCN_CN:
-                    '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램 존에서 건강을 측정 해주세요.',
-                BP_N_MESURE_DAY: 7,
-                IS_NTCN_AT: 'Y',
-                BS_N_MESURE_DAY: 7,
-                HA_NTCN_AT: 'Y',
-                BS_NTCN_AT: 'Y',
-                AL_SELECT_AT: 'Y',
-                SR_N_MESURE_DAY: 7,
-                BC_NTCN_AT: 'Y',
-                SB_N_MESURE_DAY: 7,
-                REGIST_DT: 1673332279000,
-                SR_NTCN_AT: 'Y',
-                N_MESURE_PD_ETC: '',
-                N_MESURE_PD_CODE: '00',
-                N_MESURE_NTCN_ENDDE: null,
-            },
-        },
-    }
 
     const getAlertSetting = useCallback(async () => {
+        const {
+            search: { INST_NO },
+        } = nonMeasureListState
         const { status, payload } = await getNonMeasureAlert({
-            INST_NO: !isNull(instNo) ? Number(instNo) : 1000,
+            INST_NO: INST_NO,
         })
 
         if (status) {
@@ -89,7 +53,7 @@ const AutoAlertModal = ({
                 status: 'failure',
             }))
         }
-    }, [instNo, setNonMeasureAlertState])
+    }, [nonMeasureListState, setNonMeasureAlertState])
 
     // 자동알림 셋팅 저장
     const handleClickSaveButton = async () => {
@@ -112,7 +76,7 @@ const AutoAlertModal = ({
 
     // 초기화
     const handleClickResetButton = () => {
-        setNonMeasureAlertState(initializeState)
+        resetNonMeasureAlertState()
     }
 
     useEffect(() => {
@@ -422,8 +386,14 @@ const AutoAlertModal = ({
                                     ButtonName={'앱 알림(무료)'}
                                 />
                                 <VaryButton
-                                    ButtonType={'manage'}
-                                    HandleClick={() => alert('준비 중입니다.')}
+                                    ButtonType={'default'}
+                                    HandleClick={() => {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.comingSoon,
+                                        })
+                                    }}
                                     ButtonName={'카톡/SMS(유료)'}
                                 />
                             </>
@@ -489,9 +459,6 @@ const AutoAlertModal = ({
                             Value={
                                 nonMeasureAlertState.data
                                     .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
-                                    ? nonMeasureAlertState.data
-                                          .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
-                                    : `[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.`
                             }
                             Rows={5}
                         />

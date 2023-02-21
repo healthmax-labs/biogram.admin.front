@@ -4,10 +4,9 @@ import { MainStyle } from '@Style/Pages/CommonStyle'
 import SearchBox from './NoticeSearchBox'
 import ManageBox from './NoticeManageBox'
 import ListTable from './NoticeListTable'
-import { getNoticeSendList } from '@Service/NoticeService'
+import { getNoticeList } from '@Service/NoticeService'
 import { useRecoilState } from 'recoil'
 import { NoticeListState } from '@Recoil/ManagerPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -30,15 +29,13 @@ const NoticeListMain = () => {
             },
         } = noticeListState
 
-        const { status, payload } = await getNoticeSendList({
-            CUR_PAGE: !isNull(CUR_PAGE) ? CUR_PAGE : 1,
-            ITEM_COUNT: !isNull(ITEM_COUNT) ? ITEM_COUNT : 30,
-            REGIST_DT: !isNull(REGIST_DT) ? REGIST_DT : '',
-            TRGET_SVC_CODE: !isNull(TRGET_SVC_CODE) ? TRGET_SVC_CODE : 'A',
-            TRGET_SVC_CODE_NM: !isNull(TRGET_SVC_CODE_NM)
-                ? TRGET_SVC_CODE_NM
-                : 'cpnoti',
-            USE_AT: !isNull(USE_AT) ? USE_AT : `A`,
+        const { status, payload } = await getNoticeList({
+            CUR_PAGE: CUR_PAGE,
+            ITEM_COUNT: ITEM_COUNT,
+            REGIST_DT: REGIST_DT,
+            TRGET_SVC_CODE: TRGET_SVC_CODE,
+            TRGET_SVC_CODE_NM: TRGET_SVC_CODE_NM,
+            USE_AT: USE_AT,
         })
 
         if (status) {

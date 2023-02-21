@@ -199,7 +199,7 @@ export interface NonMeasureAlertItemInterface {
     IS_N_MESURE_DAY: number
     N_MESURE_NTCN_DAY: number
     NTCN_TY_CODE: string
-    NTCN_CN: string | null
+    NTCN_CN: string
     BP_N_MESURE_DAY: number
     IS_NTCN_AT: string
     BS_N_MESURE_DAY: number

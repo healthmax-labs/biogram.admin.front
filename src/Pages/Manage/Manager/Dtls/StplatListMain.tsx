@@ -5,7 +5,7 @@ import ListTable from './StplatListTable'
 import { getStplatList } from '@Service/ManagerService'
 import { useRecoilState } from 'recoil'
 import { StplatListState } from '@Recoil/ManagerPagesState'
-import { has, isNull } from 'lodash'
+import { has } from 'lodash'
 import { useLocation } from 'react-router'
 
 const {
@@ -24,7 +24,7 @@ const StplatListMain = () => {
         } = stplatListState
 
         const { status, payload } = await getStplatList({
-            CUR_PAGE: !isNull(CUR_PAGE) ? CUR_PAGE : 1,
+            CUR_PAGE: CUR_PAGE,
         })
 
         if (status) {

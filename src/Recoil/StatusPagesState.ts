@@ -20,9 +20,9 @@ import { getNowDate, getOneMonthAgo } from '@Helper'
 interface BrftrCmprSearchListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
         BGNDE: string
         ENDDE: string
     }
@@ -33,14 +33,14 @@ interface BrftrCmprSearchListInterface {
 interface RiskFctrSearchListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
-        BGNDE: string | null
-        ENDDE: string | null
-        RISK_FCTR_CNT: string | null
-        RISK_FCTR: string | null
-        TAKNG_MDCIN: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
+        BGNDE: string
+        ENDDE: string
+        RISK_FCTR_CNT: string
+        RISK_FCTR: string
+        TAKNG_MDCIN: string
     }
     list: RiskFctrListInterface
 }
@@ -63,13 +63,62 @@ interface StatisticsSearchListInterface {
 interface ActivityWalkInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH: string | null
-        BEGIN_DE: string | null
-        END_DE: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH: string
+        BEGIN_DE: string
+        END_DE: string
     }
     list: ActivityWalkListInterface
+}
+
+interface NonMeasureSearchListInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string
+        MESURE_DT: string
+        BP_NTCN_AT: 'Y' | 'N' //(Y: 미측정 조회, N: 미측정 조회 않함)
+        BS_NTCN_AT: string
+        BC_NTCN_AT: string
+        HA_NTCN_AT: string
+        IS_NTCN_AT: string
+        SR_NTCN_AT: string
+        SB_NTCN_AT: string
+        AND_AT: 'Y' | 'N' //(Y: AND 조회, N: OR 조회)
+        cur_page: number
+        SEARCH_KEY: string | null
+    }
+    list: NonMeasureListInterface
+}
+
+interface NonMeasureSearchAlertInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string
+    }
+    data: NonMeasureAlertInterface
+}
+
+interface HealthIndicatorsSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
+        BGNDE: string
+        ENDDE: string
+    }
+    list: HealthIndicatorsListInterface
+}
+
+interface WalkRankingSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number
+        INST_NO: string
+        MESURE_MT: string
+    }
+    list: WalkRankingListInterface
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
@@ -77,14 +126,14 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             RISK_FCTR_CNT: '',
             RISK_FCTR: 'WS,BP,BS,TG,HD',
-            TAKNG_MDCIN: null,
+            TAKNG_MDCIN: '',
         },
         list: {
             RISK_FCTR_INFO_LIST: [],
@@ -98,9 +147,9 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
         },
@@ -135,9 +184,9 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH: '',
             BEGIN_DE: getOneMonthAgo(),
             END_DE: getNowDate(),
         },
@@ -149,31 +198,13 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
 })
 
 //미측정 현황
-interface NonMeasureSearchListInterface {
-    status: DefaultStatus
-    search: {
-        INST_NO: number | null
-        MESURE_DT: string
-        BP_NTCN_AT: string //(Y: 미측정 조회, N: 미측정 조회 않함)
-        BS_NTCN_AT: string
-        BC_NTCN_AT: string
-        HA_NTCN_AT: string
-        IS_NTCN_AT: string
-        SR_NTCN_AT: string
-        SB_NTCN_AT: string
-        AND_AT: string //(Y: AND 조회, N: OR 조회)
-        cur_page: number
-        SEARCH_KEY: string | null
-    }
-    list: NonMeasureListInterface
-}
 
 export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
     key: `statusPage/non-measure-list`,
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
             MESURE_DT: getNowDate(),
             BP_NTCN_AT: 'Y', //(Y: 미측정 조회, N: 미측정 조회 않함)
             BS_NTCN_AT: 'Y',
@@ -193,20 +224,12 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
 })
 
 //미측정 자동알림 조회 설정
-interface NonMeasureSearchAlertInterface {
-    status: DefaultStatus
-    search: {
-        INST_NO: string | null
-    }
-    data: NonMeasureAlertInterface
-}
-
 export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
     key: `statusPage/non-measure-alert`,
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            INST_NO: '',
         },
         data: {
             NOT_MESURE_NTCN_SET_INFO: {
@@ -241,27 +264,15 @@ export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
 })
 
 //건강지표개선 현황
-interface HealthIndicatorsSearchListInterface {
-    status: DefaultStatus
-    search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
-        BGNDE: string | null
-        ENDDE: string | null
-    }
-    list: HealthIndicatorsListInterface
-}
-
 export const HealthIndicatorsListState =
     atom<HealthIndicatorsSearchListInterface>({
         key: `statusPage/healthIndicators-list`,
         default: {
             status: 'idle',
             search: {
-                curPage: null,
-                INST_NO: null,
-                SEARCH_KEY: null,
+                curPage: 0,
+                INST_NO: '',
+                SEARCH_KEY: '',
                 BGNDE: getOneMonthAgo(),
                 ENDDE: getNowDate(),
             },
@@ -273,27 +284,13 @@ export const HealthIndicatorsListState =
     })
 
 //보행수 랭킹 현황
-interface WalkRankingSearchListInterface {
-    status: DefaultStatus
-    search: {
-        curPage: number | null
-        INST_NO: string | null
-        // SEARCH_KEY: string | null
-        // BGNDE: string | null
-        MESURE_MT: string | null
-    }
-    list: WalkRankingListInterface
-}
-
 export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
     key: `statusPage/walkRanking-list`,
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            // SEARCH_KEY: null,
-            // BGNDE: getOneMonthAgo(),
+            curPage: 0,
+            INST_NO: '',
             MESURE_MT: getNowDate(),
         },
         list: {

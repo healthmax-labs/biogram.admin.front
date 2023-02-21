@@ -7,7 +7,6 @@ import HealthIndicatorsManageBox from './HealthIndicatorsManageBox'
 import { useRecoilState } from 'recoil'
 import { HealthIndicatorsListState } from '@Recoil/StatusPagesState'
 import { getHealthIndicatorsList } from '@Service/StatusService'
-import { isNull } from 'lodash'
 
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const {
@@ -24,12 +23,11 @@ const HealthIndicatorsMain = () => {
         } = healthIndicatorsListState
 
         const { status, payload } = await getHealthIndicatorsList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
-            BGNDE: !isNull(BGNDE) ? BGNDE : ``,
-            ENDDE: !isNull(ENDDE) ? ENDDE : ``,
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            BGNDE: BGNDE,
+            ENDDE: ENDDE,
         })
 
         if (status) {

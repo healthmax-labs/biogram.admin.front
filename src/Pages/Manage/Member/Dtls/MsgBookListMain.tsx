@@ -7,9 +7,6 @@ import ListTable from './MsgBookListTable'
 import { getMsgBookList } from '@Service/MsgService'
 import { useRecoilState } from 'recoil'
 import { MsgBookListState } from '@Recoil/MemberPagesState'
-import { isNull } from 'lodash'
-import { getSearchDateObject } from '@Helper'
-// import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -19,7 +16,6 @@ const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const MsgBookListMain = () => {
     const [msgBookListState, setMsgBookListState] =
         useRecoilState(MsgBookListState)
-    const searchDateObject = getSearchDateObject()
 
     const getTableList = useCallback(async () => {
         const {
@@ -34,15 +30,12 @@ const MsgBookListMain = () => {
         } = msgBookListState
 
         const { status, payload } = await getMsgBookList({
-            CUR_PAGE: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            FROM_DAY: !isNull(FROM_DAY)
-                ? FROM_DAY
-                : `${searchDateObject.end.year}${searchDateObject.end.month}`,
-            TO_DAY: !isNull(TO_DAY) ? TO_DAY : `20230501`,
-            // TO_DAY: !isNull(TO_DAY) ? TO_DAY : `${dayPad}`,
-            SNDNG_STDR: !isNull(SNDNG_STDR) ? SNDNG_STDR : '',
+            CUR_PAGE: curPage,
+            INST_NO: INST_NO,
+            SEARCH_KEY: SEARCH_KEY,
+            FROM_DAY: FROM_DAY,
+            TO_DAY: TO_DAY,
+            SNDNG_STDR: SNDNG_STDR,
         })
 
         if (status) {
@@ -61,12 +54,7 @@ const MsgBookListMain = () => {
                 },
             }))
         }
-    }, [
-        msgBookListState,
-        searchDateObject.end.month,
-        searchDateObject.end.year,
-        setMsgBookListState,
-    ])
+    }, [msgBookListState, setMsgBookListState])
 
     useEffect(() => {
         const pageStart = () => {

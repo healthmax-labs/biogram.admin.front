@@ -128,7 +128,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                             ...prevState.search,
                                             SNDNG_FAILR: e.target.checked
                                                 ? 'F'
-                                                : null,
+                                                : '',
                                         },
                                     }))
                                 }}

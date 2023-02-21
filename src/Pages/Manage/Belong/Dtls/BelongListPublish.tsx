@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { getList } from '@Service/InstdeptService'
+import { getInstdeptList } from '@Service/InstdeptService'
 import { InstdeptListInterface } from '@CommonTypes'
 
 export default function BelongListPublish() {
     const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
-        const response = await getList({
+        const response = await getInstdeptList({
             CUR_PAGE: 1,
-            INST_NO: 0,
+            INST_NO: '',
             ITEM_COUNT: 15,
             SEARCH_KEY: '',
         })

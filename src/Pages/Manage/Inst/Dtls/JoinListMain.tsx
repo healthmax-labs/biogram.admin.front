@@ -7,7 +7,6 @@ import ListTable from './JoinListTable'
 import { getInstJoinList } from '@Service/InstService'
 import { useRecoilState } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -28,9 +27,9 @@ const JoinListMain = () => {
         } = instJoinListState
 
         const { status, payload } = await getInstJoinList({
-            CUR_PAGE: !isNull(CUR_PAGE) ? String(CUR_PAGE) : '0',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? String(SEARCH_KEY) : '',
-            INST_NO: !isNull(INST_NO) ? String(INST_NO) : '',
+            CUR_PAGE: CUR_PAGE,
+            SEARCH_KEY: SEARCH_KEY,
+            INST_NO: INST_NO,
         })
 
         if (status) {

@@ -10,9 +10,9 @@ import { InstJoinListInterface, InstListInterface } from '@Type/InstTypes'
 interface InstJoinSearchListInterface {
     status: DefaultStatus
     search: {
-        CUR_PAGE: string | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
+        CUR_PAGE: number
+        INST_NO: string
+        SEARCH_KEY: string
     }
     list: InstJoinListInterface
     manage: {
@@ -58,9 +58,9 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            CUR_PAGE: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
+            CUR_PAGE: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
         },
         list: {
             PSTINST_REQUEST_INFO_LIST: [],

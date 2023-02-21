@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { InstdeptListInterface } from '@Type/CommonTypes'
-import { getList } from '@Service/InstdeptService'
+import { getInstdeptList } from '@Service/InstdeptService'
 import { VaryButton, VaryCheckBox } from '@Elements'
 
 const {
@@ -20,9 +20,9 @@ export default function ListTable() {
     const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
-        const response = await getList({
+        const response = await getInstdeptList({
             CUR_PAGE: 1,
-            INST_NO: 0,
+            INST_NO: '',
             ITEM_COUNT: 200,
             SEARCH_KEY: '',
         })

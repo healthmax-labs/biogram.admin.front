@@ -7,8 +7,6 @@ import MemberListTable from './MemberListTable'
 import { getMemberList } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { MemberListState } from '@Recoil/MemberPagesState'
-import { isNull } from 'lodash'
-import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -28,18 +26,12 @@ const MemberListMain = () => {
             search: { searchKey, registDtFrom, registDtTo, instNo, curPage },
         } = listState
 
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
-
         const { status, payload } = await getMemberList({
-            curPage: !isNull(curPage) ? curPage : 0,
-            instNo: !isNull(instNo) ? instNo : '',
-            searchKey: !isNull(searchKey) ? searchKey : '',
-            registDtFrom: !isNull(registDtFrom)
-                ? registDtFrom
-                : `${year}${monthPad}${dayPad}`,
-            registDtTo: !isNull(registDtTo)
-                ? registDtTo
-                : `${year}${monthPad}${dayPad}`,
+            curPage: curPage,
+            instNo: instNo,
+            searchKey: searchKey,
+            registDtFrom: registDtFrom,
+            registDtTo: registDtTo,
         })
 
         if (status) {

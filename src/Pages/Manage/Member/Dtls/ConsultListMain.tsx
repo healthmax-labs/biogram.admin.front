@@ -4,11 +4,9 @@ import { MainStyle } from '@Style/Pages/CommonStyle'
 import { getMberCnsltlist } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
-import { isNull } from 'lodash'
 import SearchBox from './ConsultSearchBox'
 import ManageBox from './ConsultManageBox'
 import ListTable from './ConsultListTable'
-import { gmtTimeToTimeObject } from '@Helper'
 
 const {
     ListPage: { Container },
@@ -24,25 +22,17 @@ const ConsultListMain = () => {
             status: 'loading',
         }))
 
-        const { year, monthPad, dayPad } = gmtTimeToTimeObject(new Date())
+        const {
+            search: { curPage, searchKey, instNo, riskFctr, endDt, startDt },
+        } = listState
 
         const { status, payload } = await getMberCnsltlist({
-            curPage: 0,
-            instNo: !isNull(listState.search.instNo)
-                ? listState.search.instNo
-                : ``,
-            searchKey: !isNull(listState.search.searchKey)
-                ? listState.search.searchKey
-                : ``,
-            riskFctr: !isNull(listState.search.riskFctr)
-                ? listState.search.riskFctr
-                : ``,
-            startDt: !isNull(listState.search.startDt)
-                ? listState.search.startDt
-                : `${year}${monthPad}${dayPad}`,
-            endDt: !isNull(listState.search.endDt)
-                ? listState.search.endDt
-                : `${year}${monthPad}${dayPad}`,
+            curPage: curPage,
+            instNo: instNo,
+            searchKey: searchKey,
+            riskFctr: riskFctr,
+            startDt: startDt,
+            endDt: endDt,
         })
         if (status) {
             setListState(prevState => ({
@@ -60,14 +50,7 @@ const ConsultListMain = () => {
                 },
             }))
         }
-    }, [
-        listState.search.instNo,
-        listState.search.riskFctr,
-        listState.search.searchKey,
-        listState.search.startDt,
-        listState.search.endDt,
-        setListState,
-    ])
+    }, [setListState, listState])
 
     useEffect(() => {
         const pageStart = () => {
