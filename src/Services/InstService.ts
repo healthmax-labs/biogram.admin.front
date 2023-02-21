@@ -31,7 +31,7 @@ export const getInstJoinList = ({
     INST_NO,
     SEARCH_KEY,
 }: {
-    CUR_PAGE: string
+    CUR_PAGE: number
     INST_NO: string
     SEARCH_KEY: string
 }): Promise<
@@ -55,7 +55,7 @@ export const getInstJoinList = ({
 
     return _Axios_({
         method: 'post',
-        url: '/inst/v1/request/list/' + CUR_PAGE,
+        url: `/inst/v1/request/list/${CUR_PAGE}`,
         payload: payload,
     })
 }

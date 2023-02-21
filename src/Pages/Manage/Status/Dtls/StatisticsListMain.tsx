@@ -18,6 +18,10 @@ const StatisticsListMain = () => {
         useRecoilState(StatisticsListState)
 
     const getTableList = useCallback(async () => {
+        setStatisticsListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: {
                 SEARCH_KEY,

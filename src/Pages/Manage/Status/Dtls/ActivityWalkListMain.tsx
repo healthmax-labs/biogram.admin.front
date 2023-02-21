@@ -7,7 +7,6 @@ import ListTable from './ActivityWalkListTable'
 import { getActivityWalkList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -25,12 +24,11 @@ const ActivityWalkListMain = () => {
         } = activityWalkListState
 
         const { status, payload } = await getActivityWalkList({
-            curPage: !isNull(curPage) ? curPage : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            SEARCH: !isNull(SEARCH) ? SEARCH : '',
-            // BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : `${year}${monthPad}${dayPad}`,
-            BEGIN_DE: !isNull(BEGIN_DE) ? BEGIN_DE : ``,
-            END_DE: !isNull(END_DE) ? END_DE : ``,
+            curPage: curPage,
+            INST_NO: INST_NO,
+            SEARCH: SEARCH,
+            BEGIN_DE: BEGIN_DE,
+            END_DE: END_DE,
         })
 
         if (status) {

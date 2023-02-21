@@ -7,7 +7,6 @@ import NonMeasureTable from './NonMeasureListTable'
 import { getNonMeasureList } from '@Service/StatusService'
 import { useRecoilState } from 'recoil'
 import { NonMeasureListState } from '@Recoil/StatusPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -37,18 +36,18 @@ const NonMeasureListMain = () => {
         } = nonMeasureListState
 
         const { status, payload } = await getNonMeasureList({
-            cur_page: !isNull(cur_page) ? cur_page : 1,
-            INST_NO: !isNull(INST_NO) ? INST_NO : 1000,
-            MESURE_DT: !isNull(MESURE_DT) ? MESURE_DT : '',
-            BP_NTCN_AT: !isNull(BP_NTCN_AT) ? BP_NTCN_AT : '',
-            BS_NTCN_AT: !isNull(BS_NTCN_AT) ? BS_NTCN_AT : '',
-            BC_NTCN_AT: !isNull(BC_NTCN_AT) ? BC_NTCN_AT : '',
-            HA_NTCN_AT: !isNull(HA_NTCN_AT) ? HA_NTCN_AT : '',
-            IS_NTCN_AT: !isNull(IS_NTCN_AT) ? IS_NTCN_AT : '',
-            SR_NTCN_AT: !isNull(SR_NTCN_AT) ? SR_NTCN_AT : '',
-            SB_NTCN_AT: !isNull(SB_NTCN_AT) ? SB_NTCN_AT : '',
-            AND_AT: !isNull(AND_AT) ? AND_AT : '',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
+            cur_page: cur_page,
+            INST_NO: INST_NO,
+            MESURE_DT: MESURE_DT,
+            BP_NTCN_AT: BP_NTCN_AT,
+            BS_NTCN_AT: BS_NTCN_AT,
+            BC_NTCN_AT: BC_NTCN_AT,
+            HA_NTCN_AT: HA_NTCN_AT,
+            IS_NTCN_AT: IS_NTCN_AT,
+            SR_NTCN_AT: SR_NTCN_AT,
+            SB_NTCN_AT: SB_NTCN_AT,
+            AND_AT: AND_AT,
+            SEARCH_KEY: SEARCH_KEY,
         })
 
         if (status) {

@@ -5,6 +5,7 @@ export default {
         TabCountCheck: `탭 메뉴는 최대 10 개 까지 가능 합니다.`,
         pageError: `잘못된 접근 입니다.`,
         processFail: `처리중 문제가 발생했습니다.`,
+        comingSoon: `준비 중입니다.`,
         processSuccess: `정상 처리 하였습니다.`,
         pstinstSelectEmpty: `소속을 선택해 주세요.`,
         notAllAgree: `모든 약관에 동의 해야 합니다.`,

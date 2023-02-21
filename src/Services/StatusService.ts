@@ -115,7 +115,7 @@ export function getRiskFctrList({
 
     return _Axios_({
         method: 'post',
-        url: '/stats/v1/risk_fctr/' + CUR_PAGE,
+        url: `/stats/v1/risk_fctr/${CUR_PAGE}`,
         payload: payload,
     })
 }
@@ -231,7 +231,7 @@ export function getNonMeasureList({
     cur_page,
     SEARCH_KEY,
 }: {
-    INST_NO: number | null
+    INST_NO: string
     MESURE_DT: string
     BP_NTCN_AT: string
     BS_NTCN_AT: string
@@ -273,7 +273,7 @@ export function getNonMeasureList({
 /**
  * 미측정 자동 알림 설정 로드
  */
-export function getNonMeasureAlert({ INST_NO }: { INST_NO: number }): Promise<
+export function getNonMeasureAlert({ INST_NO }: { INST_NO: string }): Promise<
     ServicesDefaultResult<{
         NOT_MESURE_NTCN_SET_INFO: NonMeasureAlertItemInterface
     }>
@@ -282,7 +282,7 @@ export function getNonMeasureAlert({ INST_NO }: { INST_NO: number }): Promise<
         method: 'post',
         url: '/mng/gndn/v1/not_mesure/ntcn_set/info',
         payload: {
-            INST_NO,
+            INST_NO: INST_NO,
             NOT_MESURE_NTCN_SET_INFO: {},
         },
     })

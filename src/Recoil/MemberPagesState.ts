@@ -20,11 +20,11 @@ const gmtTimeToTime = gmtTimeToTimeObject(new Date())
 interface MemberListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        instNo: string | null
-        searchKey: string | null
-        registDtFrom: string | null
-        registDtTo: string | null
+        curPage: number
+        instNo: string
+        searchKey: string
+        registDtFrom: string
+        registDtTo: string
     }
     list: MemberInfoListInterface
     manage: {
@@ -38,12 +38,12 @@ interface MemberListInterface {
 interface ConsultListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        instNo: string | null
-        searchKey: string | null
-        riskFctr: string | null
-        startDt: string | null
-        endDt: string | null
+        curPage: number
+        instNo: string
+        searchKey: string
+        riskFctr: string
+        startDt: string
+        endDt: string
     }
     list: ConsultInfoListInterface
 }
@@ -142,14 +142,14 @@ interface ConsultMsgBoxListInterface {
 interface MsgSendSearchListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
         FROM_MONTH: string
         FROM_DAY: string
         TO_DAY: string
-        SNDNG_FAILR: 'F' | null
-        SNDNG_STDR: string | null
+        SNDNG_FAILR: string
+        SNDNG_STDR: string
     }
     list: MsgSendListInterface
 }
@@ -158,12 +158,12 @@ interface MsgSendSearchListInterface {
 interface MsgBookListInterface {
     status: DefaultStatus
     search: {
-        curPage: number | null
-        INST_NO: string | null
-        SEARCH_KEY: string | null
-        FROM_DAY: string | null
-        TO_DAY: string | null
-        SNDNG_STDR: string | null
+        curPage: number
+        INST_NO: string
+        SEARCH_KEY: string
+        FROM_DAY: string
+        TO_DAY: string
+        SNDNG_STDR: string
     }
     list: MsgSendListInterface
     manage: {
@@ -177,9 +177,9 @@ export const MemberListState = atom<MemberListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            instNo: null,
-            searchKey: null,
+            curPage: 0,
+            instNo: '',
+            searchKey: '',
             registDtFrom: getOneMonthAgo(),
             registDtTo: getNowDate(),
         },
@@ -263,10 +263,10 @@ export const ConsultListState = atom<ConsultListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            instNo: null,
-            searchKey: null,
-            riskFctr: null,
+            curPage: 0,
+            instNo: '',
+            searchKey: '',
+            riskFctr: '',
             startDt: getOneMonthAgo(),
             endDt: getNowDate(),
         },
@@ -381,11 +381,11 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
-            SNDNG_FAILR: null,
-            SNDNG_STDR: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
+            SNDNG_FAILR: 'F',
+            SNDNG_STDR: '',
             FROM_MONTH: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}`,
             FROM_DAY: `01`,
             TO_DAY: `31`,
@@ -402,9 +402,9 @@ export const MsgBookListState = atom<MsgBookListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: null,
-            INST_NO: null,
-            SEARCH_KEY: null,
+            curPage: 0,
+            INST_NO: '',
+            SEARCH_KEY: '',
             FROM_DAY: getNowDate(),
             TO_DAY: getNowDate(),
             SNDNG_STDR: `S`,

@@ -7,7 +7,6 @@ import ListTable from '@Page/Manage/Contents/Dtls/MagazineListTable'
 import { getMagazineList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { MagazineListState } from '@Recoil/ContentsPagesState'
-import { isNull } from 'lodash'
 
 const {
     ListPage: { Container },
@@ -28,8 +27,8 @@ const InitListMain = () => {
         } = magazineListState
 
         const { status, payload } = await getMagazineList({
-            CUR_PAGE: !isNull(CUR_PAGE) ? String(CUR_PAGE) : '0',
-            SEARCH_KEY: !isNull(SEARCH_KEY) ? String(SEARCH_KEY) : '',
+            CUR_PAGE: CUR_PAGE,
+            SEARCH_KEY: SEARCH_KEY,
         })
 
         if (status) {

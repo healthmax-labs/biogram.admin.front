@@ -26,8 +26,6 @@ const WalkRankingListMain = () => {
         const { status, payload } = await getWalkRankingList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            // SEARCH_KEY: !isNull(SEARCH_KEY) ? SEARCH_KEY : '',
-            // BGNDE: !isNull(BGNDE) ? BGNDE : `${year}${monthPad}${dayPad}`,
             MESURE_MT: !isNull(MESURE_MT) ? MESURE_MT : ``,
         })
 

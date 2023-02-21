@@ -5,7 +5,7 @@ import { NoticeItemInterface, NoticeListItemInterface } from '@Type/MangerTypes'
 /**
  * 게시판 리스트
  */
-export function getNoticeSendList({
+export function getNoticeList({
     CUR_PAGE,
     ITEM_COUNT,
     REGIST_DT,
@@ -27,10 +27,8 @@ export function getNoticeSendList({
     }>
 > {
     return _Axios_({
-        // method: 'post',
         method: 'get',
-        // url: '/hp/v1/' + TRGET_SVC_CODE_NM,
-        url: '/data/v1/notice/list/' + CUR_PAGE,
+        url: `/data/v1/notice/list/${CUR_PAGE}`,
         payload: {
             CUR_PAGE,
             ITEM_COUNT,

@@ -7,7 +7,7 @@ import ListTable from '@Page/Manage/Contents/Dtls/UhealthzoneListTable'
 import { getUhealthzoneList } from '@Service/ContentsService'
 import { useRecoilState } from 'recoil'
 import { UhealthzoneListState } from '@Recoil/ContentsPagesState'
-import { has, isNull } from 'lodash'
+import { has } from 'lodash'
 import { useLocation } from 'react-router'
 
 const {
@@ -31,8 +31,8 @@ const UhealthzoneListMain = () => {
         } = uhealthzoneListState
 
         const { status, payload } = await getUhealthzoneList({
-            CUR_PAGE: !isNull(CUR_PAGE) ? String(CUR_PAGE) : '0',
-            SEARCH_KEY: !isNull(search_Key) ? String(search_Key) : '',
+            CUR_PAGE: CUR_PAGE,
+            SEARCH_KEY: search_Key,
         })
 
         if (status) {
