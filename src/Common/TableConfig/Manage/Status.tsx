@@ -4,11 +4,19 @@ import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
 import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
 import { phoneFormat } from '@Helper'
+import _ from 'lodash'
+import Const from '@Const'
 
 const {
     Box: { Container, Wapper, Item },
     XcptComponent,
 } = ListComponentStyle
+
+const RiskFctrJdgmntColor = (jdgmnt: string): string => {
+    const findData = _.find(Const.RiskFctrJdgmnt, { name: jdgmnt })
+
+    return findData ? findData.textColor : ''
+}
 
 export interface RiskFctrTableListItemInterface {
     SLM_JDGMNT: null | string
@@ -130,34 +138,130 @@ export const RiskFctrTableConfig = {
             {
                 name: `체중<br/>(kg)`,
                 key: `WAIST`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.WAIST_JDGMNT
+                        ? RiskFctrJdgmntColor(el.WAIST_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.WAIST ? el.WAIST : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `BMI<br/>(kg/m²)`,
                 key: `BMI`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.BMI_JDGMNT
+                        ? RiskFctrJdgmntColor(el.BMI_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.BMI ? el.BMI : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `체지방률<br/>(%)`,
                 key: `PBF`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.PBF_JDGMNT
+                        ? RiskFctrJdgmntColor(el.PBF_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.PBF ? el.PBF : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `근육량<br/>(kg)`,
-                key: `SML`,
+                key: `SLM`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.SLM_JDGMNT
+                        ? RiskFctrJdgmntColor(el.SLM_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.SLM ? el.SLM : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `추정골량<br/>(kg)`,
                 key: `EST_BN_MAS`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.EST_BN_MAS_JDGMNT
+                        ? RiskFctrJdgmntColor(el.EST_BN_MAS_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.EST_BN_MAS ? el.EST_BN_MAS : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `내장지방<br/>(lv)`,
                 key: `VFL`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.VFL_JDGMNT
+                        ? RiskFctrJdgmntColor(el.VFL_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.VFL ? el.VFL : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `수축기<br/>(mmHg)`,
                 key: `SYSTOLIC`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.SYSTOLIC_JDGMNT
+                        ? RiskFctrJdgmntColor(el.SYSTOLIC_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.SYSTOLIC ? el.SYSTOLIC : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `이완기<br/>(mmHg)`,
                 key: `DIASTOLIC`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.DIASTOLIC_JDGMNT
+                        ? RiskFctrJdgmntColor(el.DIASTOLIC_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.DIASTOLIC ? el.DIASTOLIC : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `맥박<br/>(bpm)`,
@@ -166,26 +270,98 @@ export const RiskFctrTableConfig = {
             {
                 name: `식전<br/>(mg/dl)`,
                 key: `FBS`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.FBS_JDGMNT
+                        ? RiskFctrJdgmntColor(el.FBS_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.FBS ? el.FBS : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `식후<br/>(mg/dl)`,
                 key: `PP2`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.PP2_JDGMNT
+                        ? RiskFctrJdgmntColor(el.PP2_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.PP2 ? el.PP2 : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `TC<br/>(mg/dl)`,
                 key: `TC`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.TC_JDGMNT
+                        ? RiskFctrJdgmntColor(el.TC_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.TC ? el.TC : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `TG<br/>(mg/dl)`,
                 key: `TG`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.TG_JDGMNT
+                        ? RiskFctrJdgmntColor(el.TG_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.TG ? el.TG : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `HDL-C<br/>(mg/dl)`,
                 key: `HDLC`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.HDLC_JDGMNT
+                        ? RiskFctrJdgmntColor(el.HDLC_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.HDLC ? el.HDLC : ''}`}</p>
+                    )
+                },
             },
             {
                 name: `LDL-C<br/>(mg/dl)`,
                 key: `LDLC`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.LDLC_JDGMNT
+                        ? RiskFctrJdgmntColor(el.LDLC_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.LDLC ? el.LDLC : ''}`}</p>
+                    )
+                },
             },
         ],
     ],
@@ -211,8 +387,8 @@ export interface BrftrCmprTableListItemInterface {
     SEXDSTN: null | string
     FBS_MESURE_DT_0: null | string
     FBS_MESURE_DT_1: null | string
-    FBS_MESURE_DT_MESURE_DT_2: null | string
-    FBS_MESURE_DT_MESURE_DT_3: null | string
+    FBS_MESURE_DT_2: null | string
+    FBS_MESURE_DT_3: null | string
     HDLC_0: null | number
     HDLC_1: null | number
     HDLC_2: null | number
@@ -252,19 +428,15 @@ export const BrftrCmprTableConfig = {
         [
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: `허리둘레`,
@@ -283,7 +455,7 @@ export const BrftrCmprTableConfig = {
                 colSpan: 2,
             },
             {
-                name: `고밀도 콜레스트롤`,
+                name: `고밀도 콜레스테롤`,
                 colSpan: 2,
             },
         ],
@@ -485,9 +657,9 @@ export const BrftrCmprTableConfig = {
                             </Wapper>
                             <Wapper>
                                 <Item>
-                                    {el.FBS_MESURE_DT_MESURE_DT_2
+                                    {el.FBS_MESURE_DT_2
                                         ? timeStringSmapDateParse(
-                                              el.FBS_MESURE_DT_MESURE_DT_2
+                                              el.FBS_MESURE_DT_2
                                           )
                                         : '-'}
                                 </Item>
@@ -495,9 +667,9 @@ export const BrftrCmprTableConfig = {
                             </Wapper>
                             <Wapper>
                                 <Item>
-                                    {el.FBS_MESURE_DT_MESURE_DT_3
+                                    {el.FBS_MESURE_DT_3
                                         ? timeStringSmapDateParse(
-                                              el.FBS_MESURE_DT_MESURE_DT_3
+                                              el.FBS_MESURE_DT_3
                                           )
                                         : '-'}
                                 </Item>
