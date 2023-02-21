@@ -428,19 +428,15 @@ export const BrftrCmprTableConfig = {
         [
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: ``,
-                // rowSpan: 2,
             },
             {
                 name: `허리둘레`,
