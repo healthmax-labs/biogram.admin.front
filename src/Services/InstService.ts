@@ -41,7 +41,7 @@ export const getInstJoinList = ({
         TOTAL_COUNT: number
     }>
 > => {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
     } = {
@@ -50,7 +50,7 @@ export const getInstJoinList = ({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'SEARCH_KEY')
+        delete payload.INST_NO
     }
 
     return _Axios_({
@@ -208,7 +208,7 @@ export const postInstPstinstConfmUpdate = ({
     REJECT_RESN,
 }: {
     flag: 'Y' | 'N'
-    INST_NO?: number
+    INST_NO?: string
     MBER_LIST: Array<{ MBER_NO: string }>
     REJECT_RESN: string
 }): Promise<ServicesDefaultResult<{ test: boolean }>> => {
@@ -217,6 +217,7 @@ export const postInstPstinstConfmUpdate = ({
         MBER_LIST: MBER_LIST,
         REJECT_RESN: REJECT_RESN,
     }
+
     return _Axios_({
         method: 'post',
         url: `/inst/v1/pstinst/confm/${flag}/update`,

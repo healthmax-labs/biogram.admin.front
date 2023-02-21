@@ -123,7 +123,7 @@ const ManageBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             const { status } = await postInstPstinstConfmUpdate(
                                 {
                                     flag: 'Y',
-                                    INST_NO: instNo,
+                                    INST_NO: String(instNo),
                                     MBER_LIST: checkRow.map(e => {
                                         return {
                                             MBER_NO: e,
@@ -201,7 +201,7 @@ const ManageBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             const { status } = await postInstPstinstConfmUpdate(
                                 {
                                     flag: 'N',
-                                    INST_NO: instNo,
+                                    INST_NO: String(instNo),
                                     MBER_LIST: checkRow.map(e => {
                                         return {
                                             MBER_NO: e,

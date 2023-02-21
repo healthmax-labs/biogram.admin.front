@@ -34,7 +34,7 @@ export function getBrftrCmprList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         BGNDE: string
@@ -47,7 +47,7 @@ export function getBrftrCmprList({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'SEARCH_KEY', 'BGNDE', 'ENDDE')
+        delete payload.INST_NO
     }
 
     return _Axios_({
@@ -144,7 +144,7 @@ export function getStatisticsList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH_KEY: string
         MESURE_CODE: string
@@ -159,18 +159,12 @@ export function getStatisticsList({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(
-            payload,
-            'SEARCH_KEY',
-            'MESURE_CODE',
-            'BEGIN_DE',
-            'END_DE'
-        )
+        delete payload.INST_NO
     }
 
     return _Axios_({
         method: 'post',
-        url: '/stats/v1/device_mesure/' + CUR_PAGE,
+        url: `/stats/v1/device_mesure/${CUR_PAGE}`,
         payload: payload,
     })
 }
@@ -197,7 +191,7 @@ export function getActivityWalkList({
         TOTAL_COUNT: number
     }>
 > {
-    let payload: {
+    const payload: {
         INST_NO?: string
         SEARCH: string
         BEGIN_DE: string
@@ -210,12 +204,12 @@ export function getActivityWalkList({
     }
 
     if (_.isEmpty(payload.INST_NO)) {
-        payload = _.pick(payload, 'SEARCH', 'BEGIN_DE', 'END_DE')
+        delete payload.INST_NO
     }
 
     return _Axios_({
         method: 'post',
-        url: '/stats/v1/activity_walk/' + curPage,
+        url: `/stats/v1/activity_walk/${curPage}`,
         payload: payload,
     })
 }
@@ -258,7 +252,7 @@ export function getNonMeasureList({
 > {
     return _Axios_({
         method: 'post',
-        url: '/mng/gndn/v1/not_mesure/ntcn/' + cur_page,
+        url: `/mng/gndn/v1/not_mesure/ntcn/${cur_page}`,
         payload: {
             INST_NO,
             MESURE_DT,
@@ -334,15 +328,26 @@ export function getHealthIndicatorsList({
         TOTAL_COUNT: number
     }>
 > {
+    const payload: {
+        INST_NO?: string
+        SEARCH_KEY: string
+        BGNDE: string
+        ENDDE: string
+    } = {
+        INST_NO: INST_NO,
+        SEARCH_KEY: SEARCH_KEY,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
-        url: '/mng/gndn/v1/mybody_score/imprvm/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            SEARCH_KEY,
-            BGNDE,
-            ENDDE,
-        },
+        url: `/mng/gndn/v1/mybody_score/imprvm/${CUR_PAGE}`,
+        payload: payload,
     })
 }
 
@@ -352,14 +357,10 @@ export function getHealthIndicatorsList({
 export function getWalkRankingList({
     CUR_PAGE,
     INST_NO,
-    // SEARCH_KEY,
-    // BGNDE,
     MESURE_MT,
 }: {
     CUR_PAGE: number
     INST_NO: string
-    // SEARCH_KEY: string
-    // BGNDE: string
     MESURE_MT: string
 }): Promise<
     ServicesDefaultResult<{
@@ -368,14 +369,20 @@ export function getWalkRankingList({
         TOTAL_COUNT: number
     }>
 > {
+    const payload: {
+        INST_NO?: string
+        MESURE_MT: string
+    } = {
+        INST_NO: INST_NO,
+        MESURE_MT: MESURE_MT,
+    }
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
-        url: '/mng/gndn/v1/step_rank/' + CUR_PAGE,
-        payload: {
-            INST_NO,
-            // SEARCH_KEY,
-            // BGNDE,
-            MESURE_MT,
-        },
+        url: `/mng/gndn/v1/step_rank/${CUR_PAGE}`,
+        payload: payload,
     })
 }
