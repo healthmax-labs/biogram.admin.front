@@ -490,6 +490,20 @@ export const getNowDate = (): string => {
 }
 
 /**
+ * 202212
+ * 오늘 날짜(년월).
+ */
+export const getNowYearMonth = (): string => {
+    const date = new Date()
+    const year = date.getFullYear()
+
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+
+    return year + '' + month
+}
+
+/**
  * EndDate 기준, unit 별 이전 날짜
  * 20220101
  * @param endDate
