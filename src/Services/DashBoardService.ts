@@ -20,7 +20,7 @@ export const getMngDashBoardMberInfo = (): Promise<
     ServicesDefaultResult<MemberInfoInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mber_info/v2`,
         payload: {},
     })
@@ -33,7 +33,7 @@ export const getMngDashBoardMberInfoSexdstn = (): Promise<
     ServicesDefaultResult<MemberGenderInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mber_info/sexdstn`,
         payload: {},
     })
@@ -46,7 +46,7 @@ export const getMngDashDoardMberInfoAges = (): Promise<
     ServicesDefaultResult<MemberAgesGroupInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mber_info/ages`,
         payload: {},
     })
@@ -59,7 +59,7 @@ export const getMngDashBoardRiskFctr = (): Promise<
     ServicesDefaultResult<RiskFctrListInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/risk_fctr/v2`,
         payload: {},
     })
@@ -72,7 +72,7 @@ export const getMngDashBoardRiskFctrFctrGroup = (): Promise<
     ServicesDefaultResult<FctrFctrGroupListInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/risk_fctr/fctr_group_v2`,
         payload: {},
     })
@@ -85,7 +85,7 @@ export const getMngDashBoardRiskGroupNotUsed = (): Promise<
     ServicesDefaultResult<RiskGroupDormantMemberInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/risk_group/not_usedv2`,
         payload: {},
     })
@@ -98,7 +98,7 @@ export const getMngDashBoardMesureInfo = (): Promise<
     ServicesDefaultResult<MesureInfoInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mesure_info`,
         payload: {},
     })
@@ -111,7 +111,7 @@ export const getMngDashBoardMesureInfoZone = (): Promise<
     ServicesDefaultResult<MesureInfoZoneInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mesure_info/zone`,
         payload: {},
     })
@@ -124,7 +124,7 @@ export const getMngDashBoardMesureInfoZoneDevice = (): Promise<
     ServicesDefaultResult<MesureInfoZoneDeviceInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/v1/dash_board/mesure_info/zone_device`,
         payload: {},
     })
@@ -137,7 +137,7 @@ export const getMngGndnDashBoardMybodyScoreImprvm = (): Promise<
     ServicesDefaultResult<MybodyScoreImprvmInterface>
 > => {
     return _Axios_({
-        method: 'get',
+        method: 'post',
         url: `/mng/gndn/v1/dash_board/mybody_score/imprvm`,
         payload: {},
     })
