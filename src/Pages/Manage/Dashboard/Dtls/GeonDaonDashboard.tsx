@@ -462,37 +462,50 @@ const GeonDaonDashboard = () => {
                                 RightTitle={
                                     <>
                                         <p className="flex text-xs pl-1 text-teal-600">
-                                            ∎ 오늘
+                                            ∎ 신규
                                         </p>
                                         <p className="flex text-xs pl-1">
                                             ∎ 최근 30일
                                         </p>
                                     </>
                                 }
-                                Items={_.sortBy(
-                                    dashBoardPageState.mesureInfo.list,
-                                    'MESURE_DE'
-                                )
-                                    .reverse()
-                                    .slice(-3)
-                                    .map(e => {
-                                        const searchDate = dateInsertHypen(
-                                            e.MESURE_DE
-                                        )
+                                Items={[0, 1, 2].map(e => {
+                                    const {
+                                        mesureInfo: { list },
+                                    } = dashBoardPageState
+
+                                    const findDate = getDateDayUnit(e)
+
+                                    const findData = _.find(list, {
+                                        MESURE_DE: findDate,
+                                    })
+
+                                    if (findData) {
                                         return [
                                             {
-                                                name: searchDate
-                                                    ? String(searchDate)
-                                                    : e.MESURE_DE,
+                                                name: String(
+                                                    dateInsertHypen(findDate)
+                                                ),
                                                 textAlign: 'left',
                                             },
-                                            { name: addComma(e.TD_CNT) },
                                             {
-                                                name: addComma(e.TT_CNT),
+                                                name: findData
+                                                    ? findData.TD_CNT
+                                                    : '0',
+                                                color: 'green',
+                                                textAlign: 'center',
+                                            },
+                                            {
+                                                name: findData
+                                                    ? findData.TT_CNT
+                                                    : '0',
                                                 textAlign: 'right',
                                             },
                                         ]
-                                    })}
+                                    } else {
+                                        return []
+                                    }
+                                })}
                             />
                         </FlexFull>
                         <FlexNowrapFull>
