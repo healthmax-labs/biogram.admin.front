@@ -6,7 +6,7 @@ export interface MemberInfoItemInterface {
 
 // 회훤 현황
 export interface MemberInfoInterface {
-    MBER_INFO_LIST: MemberInfoItemInterface[]
+    MBER_INFO: MemberInfoItemInterface[]
 }
 
 export interface MemberGenderItemInterface {
@@ -56,7 +56,8 @@ export interface FctrFctrGroupListInterface {
 
 // 위험군 휴면 현황
 export interface RiskGroupDormantMemberItemInterface {
-    TT_CNT: 0
+    TT_CNT: number
+    TD_CNT: number
     MESURE_CODE: '8072'
 }
 
