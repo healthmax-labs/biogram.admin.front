@@ -75,6 +75,7 @@ const NonMeasureSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                Width={'w40'}
                                 InputeType={`search`}
                                 Value={
                                     nonMeasureListState.search.MESURE_DT
@@ -248,34 +249,16 @@ const NonMeasureSearchBox = ({
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={e => {
-                                    console.log(e)
-                                    // setNonMeasureListState(prevState => ({
-                                    //     ...prevState,
-                                    //     search: {
-                                    //         ...prevState.search,
-                                    //         BP_NTCN_AT: e.target.checked
-                                    //             ? 'Y'
-                                    //             : 'N',
-                                    //     },
-                                    // }))
+                                HandleOnChange={() => {
+                                    //
                                 }}
                                 LabelName={`내근직`}
                             />
                             <VaryLabelCheckBox
                                 LabelWidth={'wMin'}
                                 Checked={false}
-                                HandleOnChange={e => {
-                                    console.log(e)
-                                    // setNonMeasureListState(prevState => ({
-                                    //     ...prevState,
-                                    //     search: {
-                                    //         ...prevState.search,
-                                    //         BS_NTCN_AT: e.target.checked
-                                    //             ? 'Y'
-                                    //             : 'N',
-                                    //     },
-                                    // }))
+                                HandleOnChange={() => {
+                                    //
                                 }}
                                 LabelName={`외근직`}
                             />

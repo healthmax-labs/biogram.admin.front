@@ -209,11 +209,9 @@ export interface NonMeasureAlertItemInterface {
     SR_N_MESURE_DAY: number
     BC_NTCN_AT: string
     SB_N_MESURE_DAY: number
-    REGIST_DT: number
     SR_NTCN_AT: string
     N_MESURE_PD_ETC: string
-    N_MESURE_PD_CODE: string
-    N_MESURE_NTCN_ENDDE: string | null
+    N_MESURE_NTCN_ENDDE: string
 }
 
 //미측정 알림 셋팅
