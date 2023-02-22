@@ -3,9 +3,21 @@ export default {
         dayCode: {
             name: `날짜 코드`,
             key: `day`,
-            list: [
-                { code: 'MT', name: `이번달` },
+            type1: [
                 { code: 'TD', name: `오늘` },
+                { code: 'MT', name: `이번달` },
+            ],
+            type2: [
+                { code: 'TD', name: `오늘` },
+                { code: 'MT', name: `최근 30일` },
+            ],
+            type3: [
+                { code: 'TD', name: `오늘` },
+                { code: 'TT', name: `전체` },
+            ],
+            type4: [
+                { code: 'TD', name: `오늘` },
+                { code: 'TT', name: `전체(6개월)` },
             ],
         },
         cycleCode: {

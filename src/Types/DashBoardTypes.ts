@@ -34,13 +34,13 @@ export interface MemberAgesGroupInterface {
 }
 
 // 위험 요인 현황
-export interface RiskFctrListITemInterface {
-    CNT_TY: 'TT' | 'TY'
+export interface RiskFctrListItemInterface {
+    CNT_TY: string
     RISK_CNT: number
 }
 
 export interface RiskFctrListInterface {
-    RISK_FCTR_LIST: RiskFctrListITemInterface[]
+    RISK_FCTR_LIST: RiskFctrListItemInterface[]
 }
 
 // 위험 요인별 현황

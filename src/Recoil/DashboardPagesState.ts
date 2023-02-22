@@ -9,7 +9,7 @@ import {
     MesureInfoZoneDeviceItemInterface,
     MesureInfoZoneItemInterface,
     MybodyScoreImprvmItemInterface,
-    RiskFctrListITemInterface,
+    RiskFctrListItemInterface,
     RiskGroupDormantMemberItemInterface,
 } from '@Type/DashBoardTypes'
 
@@ -37,7 +37,7 @@ interface DashBoardPageStateInterface {
     riskFctr: {
         // 위험 요인 현황
         status: DefaultStatus
-        list: RiskFctrListITemInterface[]
+        list: RiskFctrListItemInterface[]
     }
     fctrFctrGroup: {
         // 위험 요인별 현황
