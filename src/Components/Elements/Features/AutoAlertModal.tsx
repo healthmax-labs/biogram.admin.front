@@ -15,6 +15,7 @@ import { getNonMeasureAlert, postNonMeasureAlert } from '@Service/StatusService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 import { DefaultStatus } from '@CommonTypes'
+import _ from 'lodash'
 
 const {
     Container,
@@ -28,9 +29,8 @@ const {
 
 const initializeState = {
     status: 'idle',
-    instNo: '',
     info: {
-        INST_NO: 0,
+        INST_NO: null,
         NTCN_STTUS_AT: '',
         BP_NTCN_AT: '',
         BC_N_MESURE_DAY: 7,
@@ -66,7 +66,6 @@ const AutoAlertModal = ({
 
     const [pageState, setPageState] = useState<{
         status: string | DefaultStatus
-        instNo: string
         info: NonMeasureAlertItemInterface
     }>(initializeState)
 
@@ -75,11 +74,9 @@ const AutoAlertModal = ({
             ...prevState,
             status: 'loading',
         }))
-        const {
-            search: { INST_NO },
-        } = nonMeasureListState
+
         const { status, payload } = await getNonMeasureAlert({
-            INST_NO: INST_NO,
+            INST_NO: nonMeasureListState.search.INST_NO,
         })
 
         if (status) {
@@ -94,10 +91,9 @@ const AutoAlertModal = ({
                 status: 'failure',
             }))
         }
-    }, [nonMeasureListState])
+    }, [nonMeasureListState.search.INST_NO])
 
-    // 자동알림 셋팅 저장
-    const handleClickSaveButton = async () => {
+    const handleSave = async () => {
         const { status } = await postNonMeasureAlert(pageState.info)
 
         if (status) {
@@ -105,12 +101,36 @@ const AutoAlertModal = ({
                 state: true,
                 message: Messages.Default.processSuccess,
             })
+            CancleButtonClick()
         } else {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.processFail,
             })
         }
+    }
+
+    // 자동알림 셋팅 저장
+    const handleClickSaveButton = async () => {
+        if (_.isEmpty(nonMeasureListState.search.INST_NO)) {
+            setPageState(prevState => ({
+                ...prevState,
+                info: {
+                    ...prevState.info,
+                    INST_NO: null,
+                },
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                info: {
+                    ...prevState.info,
+                    INST_NO: Number(nonMeasureListState.search.INST_NO),
+                },
+            }))
+        }
+
+        handleSave().then()
     }
 
     // 초기화
@@ -132,8 +152,8 @@ const AutoAlertModal = ({
     return (
         <>
             <VaryModal
-                ModalLoading={false}
-                NeedMax={true}
+                ModalLoading={pageState.status === 'loading'}
+                NeedMax={false}
                 Children={
                     <Container>
                         <Title>미측정 자동 알림 설정</Title>

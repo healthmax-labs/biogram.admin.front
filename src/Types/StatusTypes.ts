@@ -190,7 +190,7 @@ export interface NonMeasureListInterface {
 
 //미측정 자동알림 셋팅
 export interface NonMeasureAlertItemInterface {
-    INST_NO: number
+    INST_NO?: number | null
     NTCN_STTUS_AT: string
     BP_NTCN_AT: string
     BC_N_MESURE_DAY: number
