@@ -48,7 +48,7 @@ const GeonDaonDashboard = () => {
                                 RightTitle={
                                     <>
                                         <p className="flex text-xs pl-1 text-teal-600">
-                                            ∎ 오늘
+                                            ∎ 신규
                                         </p>
                                         <p className="flex text-xs pl-1">
                                             ∎ 전체
@@ -416,6 +416,14 @@ const GeonDaonDashboard = () => {
                                                                     : '',
                                                                 textAlign:
                                                                     'left',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.TD_CNT
+                                                                ),
+                                                                textAlign:
+                                                                    'center',
+                                                                color: 'orange',
                                                             },
                                                             {
                                                                 name: addComma(

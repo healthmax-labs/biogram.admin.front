@@ -36,7 +36,7 @@ export default function useDashBoard() {
                     member: {
                         ...prevState.member,
                         status: 'success',
-                        list: payload.MBER_INFO_LIST,
+                        list: payload.MBER_INFO,
                     },
                 }))
             } else {
