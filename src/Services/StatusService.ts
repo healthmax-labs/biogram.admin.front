@@ -278,13 +278,22 @@ export function getNonMeasureAlert({ INST_NO }: { INST_NO: string }): Promise<
         NOT_MESURE_NTCN_SET_INFO: NonMeasureAlertItemInterface
     }>
 > {
+    const payload: {
+        INST_NO?: string
+        NOT_MESURE_NTCN_SET_INFO: any
+    } = {
+        INST_NO: INST_NO,
+        NOT_MESURE_NTCN_SET_INFO: {},
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
         url: '/mng/gndn/v1/not_mesure/ntcn_set/info',
-        payload: {
-            INST_NO: INST_NO,
-            NOT_MESURE_NTCN_SET_INFO: {},
-        },
+        payload: payload,
     })
 }
 

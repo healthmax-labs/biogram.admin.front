@@ -4,7 +4,6 @@ import {
     ActivityWalkListInterface,
     BrftrCmprListInterface,
     HealthIndicatorsListInterface,
-    NonMeasureAlertInterface,
     NonMeasureListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
@@ -89,14 +88,6 @@ interface NonMeasureSearchListInterface {
         SEARCH_KEY: string | null
     }
     list: NonMeasureListInterface
-}
-
-interface NonMeasureSearchAlertInterface {
-    status: DefaultStatus
-    search: {
-        INST_NO: string
-    }
-    data: NonMeasureAlertInterface
 }
 
 interface HealthIndicatorsSearchListInterface {
@@ -219,46 +210,6 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
         },
         list: {
             NOT_MESURE_NTCN_INFO_LIST: [],
-        },
-    },
-})
-
-//미측정 자동알림 조회 설정
-export const NonMeasureAlertState = atom<NonMeasureSearchAlertInterface>({
-    key: `statusPage/non-measure-alert`,
-    default: {
-        status: 'idle',
-        search: {
-            INST_NO: '',
-        },
-        data: {
-            NOT_MESURE_NTCN_SET_INFO: {
-                INST_NO: 0,
-                NTCN_STTUS_AT: '',
-                BP_NTCN_AT: '',
-                BC_N_MESURE_DAY: 7,
-                SB_NTCN_AT: '',
-                HA_N_MESURE_DAY: 7,
-                IS_N_MESURE_DAY: 7,
-                N_MESURE_NTCN_DAY: 0,
-                NTCN_TY_CODE: 'PUSH',
-                NTCN_CN:
-                    '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.',
-                BP_N_MESURE_DAY: 7,
-                IS_NTCN_AT: '',
-                BS_N_MESURE_DAY: 7,
-                HA_NTCN_AT: '',
-                BS_NTCN_AT: '',
-                AL_SELECT_AT: '',
-                SR_N_MESURE_DAY: 7,
-                BC_NTCN_AT: '',
-                SB_N_MESURE_DAY: 7,
-                REGIST_DT: 0,
-                SR_NTCN_AT: '',
-                N_MESURE_PD_ETC: '',
-                N_MESURE_PD_CODE: '00',
-                N_MESURE_NTCN_ENDDE: null,
-            },
         },
     },
 })

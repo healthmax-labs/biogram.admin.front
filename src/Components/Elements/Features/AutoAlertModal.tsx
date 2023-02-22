@@ -1,71 +1,107 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     VaryButton,
     VaryDatepickerInput,
     VaryInput,
-    VaryLabel,
     VaryModal,
     VaryTextArea,
 } from '@Elements'
-import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { gmtTimeToTimeObject } from '@Helper'
-import { useRecoilState, useResetRecoilState, useRecoilValue } from 'recoil'
-import {
-    NonMeasureAlertState,
-    NonMeasureListState,
-} from '@Recoil/StatusPagesState'
+import { AutoAlertModalStyle } from '@Style/Elements/FeaturesStyles'
+import { changeDatePickerDate, getNowDate, gmtTimeToTimeObject } from '@Helper'
+import { useRecoilValue } from 'recoil'
+import { NonMeasureAlertItemInterface } from '@Type/StatusTypes'
+import { NonMeasureListState } from '@Recoil/StatusPagesState'
 import { getNonMeasureAlert, postNonMeasureAlert } from '@Service/StatusService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
+import { DefaultStatus } from '@CommonTypes'
+import _ from 'lodash'
 
-const { Container, RowWapper, TableBox, Table: T } = ContentsStyle
-const { SearchItemWapper, SearchLabel, SearchItem } = SearchBoxStyle
+const {
+    Container,
+    Title,
+    SubTitle,
+    InstText,
+    RowWapper,
+    ButtonBox,
+    TableStyle: { Table, Thead, TheadRow, TheadCell, Body, Row, Cell },
+} = AutoAlertModalStyle
+
+const initializeState = {
+    status: 'idle',
+    info: {
+        INST_NO: null,
+        NTCN_STTUS_AT: '',
+        BP_NTCN_AT: '',
+        BC_N_MESURE_DAY: 7,
+        SB_NTCN_AT: '',
+        HA_N_MESURE_DAY: 7,
+        IS_N_MESURE_DAY: 7,
+        N_MESURE_NTCN_DAY: 0,
+        NTCN_TY_CODE: 'PUSH',
+        NTCN_CN:
+            '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.',
+        BP_N_MESURE_DAY: 7,
+        IS_NTCN_AT: '',
+        BS_N_MESURE_DAY: 7,
+        HA_NTCN_AT: '',
+        BS_NTCN_AT: '',
+        AL_SELECT_AT: '',
+        SR_N_MESURE_DAY: 7,
+        BC_NTCN_AT: '',
+        SB_N_MESURE_DAY: 7,
+        SR_NTCN_AT: '',
+        N_MESURE_PD_ETC: '',
+        N_MESURE_NTCN_ENDDE: getNowDate(),
+    },
+}
 
 const AutoAlertModal = ({
     CancleButtonClick,
 }: {
     CancleButtonClick: () => void
 }) => {
-    const [nonMeasureAlertState, setNonMeasureAlertState] =
-        useRecoilState(NonMeasureAlertState)
-    const resetNonMeasureAlertState = useResetRecoilState(NonMeasureAlertState)
     const nonMeasureListState = useRecoilValue(NonMeasureListState)
     const { handlMainAlert } = useMainLayouts()
 
+    const [pageState, setPageState] = useState<{
+        status: string | DefaultStatus
+        info: NonMeasureAlertItemInterface
+    }>(initializeState)
+
     const getAlertSetting = useCallback(async () => {
-        const {
-            search: { INST_NO },
-        } = nonMeasureListState
+        setPageState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const { status, payload } = await getNonMeasureAlert({
-            INST_NO: INST_NO,
+            INST_NO: nonMeasureListState.search.INST_NO,
         })
 
         if (status) {
-            setNonMeasureAlertState(prevState => ({
+            setPageState(prevState => ({
                 ...prevState,
                 status: 'success',
-                data: payload,
+                info: payload.NOT_MESURE_NTCN_SET_INFO,
             }))
         } else {
-            setNonMeasureAlertState(prevState => ({
+            setPageState(prevState => ({
                 ...prevState,
                 status: 'failure',
             }))
         }
-    }, [nonMeasureListState, setNonMeasureAlertState])
+    }, [nonMeasureListState.search.INST_NO])
 
-    // 자동알림 셋팅 저장
-    const handleClickSaveButton = async () => {
-        const { status } = await postNonMeasureAlert(
-            nonMeasureAlertState.data.NOT_MESURE_NTCN_SET_INFO
-        )
+    const handleSave = async () => {
+        const { status } = await postNonMeasureAlert(pageState.info)
 
         if (status) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.processSuccess,
             })
+            CancleButtonClick()
         } else {
             handlMainAlert({
                 state: true,
@@ -74,9 +110,35 @@ const AutoAlertModal = ({
         }
     }
 
+    // 자동알림 셋팅 저장
+    const handleClickSaveButton = async () => {
+        if (_.isEmpty(nonMeasureListState.search.INST_NO)) {
+            setPageState(prevState => ({
+                ...prevState,
+                info: {
+                    ...prevState.info,
+                    INST_NO: null,
+                },
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                info: {
+                    ...prevState.info,
+                    INST_NO: Number(nonMeasureListState.search.INST_NO),
+                },
+            }))
+        }
+
+        handleSave().then()
+    }
+
     // 초기화
     const handleClickResetButton = () => {
-        resetNonMeasureAlertState()
+        setPageState(prevState => ({
+            ...prevState,
+            info: initializeState.info,
+        }))
     }
 
     useEffect(() => {
@@ -85,301 +147,202 @@ const AutoAlertModal = ({
         }
 
         pageStart()
-    }, [getAlertSetting, nonMeasureAlertState.status])
+    }, [getAlertSetting])
 
     return (
         <>
             <VaryModal
-                ModalLoading={false}
-                NeedMax={true}
+                ModalLoading={pageState.status === 'loading'}
+                NeedMax={false}
                 Children={
                     <Container>
-                        {/* <TitleBox>미측정 자동알림 팝업</TitleBox> */}
-                        <div className="flex flex-nowrap w-full">
-                            <div className="flex text-lg items-center text-gray-500 font-semibold">
-                                미측정 자동 알림 설정
-                            </div>
-                        </div>
-                        <div className="flex pt-5">
-                            <div className="text-xs text-gray-500 w-12/12">
+                        <Title>미측정 자동 알림 설정</Title>
+                        <RowWapper>
+                            <SubTitle>
                                 일정 기간 동안 측정 데이터가 없는(미측정)
                                 회원에게 예약 알림을 발송 합니다.
-                            </div>
-                        </div>
-                        <RowWapper>
-                            <TableBox>
-                                <T.Table>
-                                    <T.Thead>
-                                        <T.TheadRow>
-                                            <T.TheadCell>구분</T.TheadCell>
-                                            <T.TheadCell>혈압</T.TheadCell>
-                                            <T.TheadCell>혈당</T.TheadCell>
-                                            <T.TheadCell>
-                                                콜레스테롤
-                                            </T.TheadCell>
-                                            <T.TheadCell>
-                                                당화혈색소
-                                            </T.TheadCell>
-                                            <T.TheadCell>체성분</T.TheadCell>
-                                            <T.TheadCell>스트레스</T.TheadCell>
-                                            <T.TheadCell>
-                                                뇌기능검사
-                                            </T.TheadCell>
-                                        </T.TheadRow>
-                                    </T.Thead>
-                                    <T.Body>
-                                        <T.Row>
-                                            <T.Cell>미측정 알림기준</T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            BP_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .BP_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            BS_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .BS_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            BC_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .BC_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            HA_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .HA_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            IS_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .IS_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            SR_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .SR_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                            <T.Cell>
-                                                <VaryInput
-                                                    InputType={'text'}
-                                                    HandleOnChange={e =>
-                                                        setNonMeasureAlertState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                data: {
-                                                                    ...prevState.data,
-                                                                    NOT_MESURE_NTCN_SET_INFO:
-                                                                        {
-                                                                            ...prevState
-                                                                                .data
-                                                                                .NOT_MESURE_NTCN_SET_INFO,
-                                                                            SB_N_MESURE_DAY:
-                                                                                Number(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                ),
-                                                                        },
-                                                                },
-                                                            })
-                                                        )
-                                                    }
-                                                    Value={
-                                                        nonMeasureAlertState
-                                                            .data
-                                                            .NOT_MESURE_NTCN_SET_INFO
-                                                            .SB_N_MESURE_DAY
-                                                    }
-                                                />
-                                            </T.Cell>
-                                        </T.Row>
-                                    </T.Body>
-                                </T.Table>
-                            </TableBox>
-                        </RowWapper>
-                        <div className="flex w-full items-end">
-                            {/* justify-end */}
-                            <div className="text-xs text-gray-500">
+                            </SubTitle>
+                            <Table>
+                                <Thead>
+                                    <TheadRow>
+                                        <TheadCell>구분</TheadCell>
+                                        <TheadCell>혈압</TheadCell>
+                                        <TheadCell>혈당</TheadCell>
+                                        <TheadCell>콜레스테롤</TheadCell>
+                                        <TheadCell>당화혈색소</TheadCell>
+                                        <TheadCell>체성분</TheadCell>
+                                        <TheadCell>스트레스</TheadCell>
+                                        <TheadCell>뇌기능검사</TheadCell>
+                                    </TheadRow>
+                                </Thead>
+                                <Body>
+                                    <Row>
+                                        <Cell>미측정 알림기준</Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            BP_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .BP_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            BS_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .BS_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            BC_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .BC_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            HA_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .HA_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            IS_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .IS_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            SR_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .SR_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                        <Cell>
+                                            <VaryInput
+                                                InputType={'text'}
+                                                HandleOnChange={e =>
+                                                    setPageState(prevState => ({
+                                                        ...prevState,
+                                                        info: {
+                                                            ...prevState.info,
+                                                            SB_N_MESURE_DAY:
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                ),
+                                                        },
+                                                    }))
+                                                }
+                                                Value={
+                                                    pageState.info
+                                                        .SB_N_MESURE_DAY
+                                                }
+                                            />
+                                        </Cell>
+                                    </Row>
+                                </Body>
+                            </Table>
+                            <InstText>
                                 *당일기준 설정된 기간내 측정기록이 없는
                                 대상자에게 알림이 발송됩니다.
-                            </div>
-                        </div>
-                        <div className="flex flex-nowrap pt-4">
-                            <div className="text-sm text-gray-500">
-                                알림방법
-                            </div>
-                        </div>
-                        <div className="flex w-full items-end">
-                            <>
+                            </InstText>
+                        </RowWapper>
+                        <RowWapper>
+                            <SubTitle>알림방법</SubTitle>
+                            <ButtonBox>
                                 <VaryButton
                                     ButtonType={'default'}
                                     HandleClick={() => handleClickResetButton()}
@@ -396,88 +359,63 @@ const AutoAlertModal = ({
                                     }}
                                     ButtonName={'카톡/SMS(유료)'}
                                 />
-                            </>
-                        </div>
-                        <div className="flex pt-4">
-                            <div className="text-sm text-gray-500">종료일</div>
-                        </div>
-                        <SearchItemWapper>
-                            <SearchLabel>
-                                <VaryLabel LabelName={`종료일`} />
-                            </SearchLabel>
-                            <SearchItem>
-                                <div className={`flex px-3`}>
-                                    <VaryDatepickerInput
-                                        InputeType={`search`}
-                                        Value={
-                                            nonMeasureAlertState.data
-                                                .NOT_MESURE_NTCN_SET_INFO
-                                                .N_MESURE_NTCN_ENDDE
-                                                ? new Date(
-                                                      nonMeasureAlertState.data.NOT_MESURE_NTCN_SET_INFO.N_MESURE_NTCN_ENDDE
-                                                  )
-                                                : new Date()
-                                        }
-                                        CallBackReturn={e => {
-                                            const { year, monthPad, dayPad } =
-                                                gmtTimeToTimeObject(e)
+                            </ButtonBox>
+                        </RowWapper>
+                        <RowWapper>
+                            <SubTitle>종료일</SubTitle>
+                            <VaryDatepickerInput
+                                InputeType={`search`}
+                                Width={`w40`}
+                                Value={changeDatePickerDate(
+                                    pageState.info.N_MESURE_NTCN_ENDDE
+                                )}
+                                CallBackReturn={e => {
+                                    const { year, monthPad, dayPad } =
+                                        gmtTimeToTimeObject(e)
 
-                                            setNonMeasureAlertState(
-                                                prevState => ({
-                                                    ...prevState,
-                                                    N_MESURE_NTCN_ENDDE:
-                                                        year +
-                                                        monthPad +
-                                                        dayPad,
-                                                })
-                                            )
-                                        }}
-                                    />
-                                </div>
-                            </SearchItem>
-                        </SearchItemWapper>
-                        <div className="flex pt-4">
-                            <div className="text-sm text-gray-500">
-                                알림메세지 작성
-                            </div>
-                        </div>
-                        <VaryTextArea
-                            HandleOnChange={e =>
-                                setNonMeasureAlertState(prevState => ({
-                                    ...prevState,
-                                    data: {
-                                        ...prevState.data,
-                                        NOT_MESURE_NTCN_SET_INFO: {
-                                            ...prevState.data
-                                                .NOT_MESURE_NTCN_SET_INFO,
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
+                                            N_MESURE_NTCN_ENDDE: `${year}${monthPad}${dayPad}`,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </RowWapper>
+                        <RowWapper>
+                            <SubTitle>알림메세지 작성</SubTitle>
+                            <VaryTextArea
+                                HandleOnChange={e =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        info: {
+                                            ...prevState.info,
                                             NTCN_CN: e.target.value,
                                         },
-                                    },
-                                }))
-                            }
-                            Placeholder={`메세지 내용을입력해 주세요`}
-                            Value={
-                                nonMeasureAlertState.data
-                                    .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
-                            }
-                            Rows={5}
-                        />
+                                    }))
+                                }
+                                Placeholder={`메세지 내용을 입력해 주세요`}
+                                Value={pageState.info.NTCN_CN}
+                                Rows={5}
+                            />
+                        </RowWapper>
                     </Container>
                 }
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => handleClickResetButton()}
                             ButtonName={'초기화'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => handleClickSaveButton()}
                             ButtonName={'저장하기'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => CancleButtonClick()}
                             ButtonName={'닫기'}
                         />

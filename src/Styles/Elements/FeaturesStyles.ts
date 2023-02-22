@@ -1,6 +1,5 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
-//
 
 // PstinstSelector
 export const PstinstSelectorStyle = {
@@ -50,4 +49,22 @@ export const StplatInfoAgreeModalStyle = {
 
 export const PstinstSelectBoxStyle = {
     Wapper: tw.div`flex flex-nowrap w-full gap-2`,
+}
+
+export const AutoAlertModalStyle = {
+    Container: tw.div`flex flex-col max-h-[75vh] overflow-y-scroll`,
+    Title: tw.div`flex text-lg items-center text-gray-500 font-semibold`,
+    SubTitle: tw.div`text-xs text-gray-500 w-full text-left pb-1`,
+    InstText: tw.div`text-xs text-gray-500 w-full text-left`,
+    RowWapper: tw.div`flex w-full flex-col py-1`,
+    ButtonBox: tw.div`flex w-full gap-2`,
+    TableStyle: {
+        Table: tw.table`text-center min-w-full table-fixed`,
+        Thead: tw.thead`text-xs`,
+        TheadRow: tw.tr``,
+        TheadCell: tw.th`border bg-steel text-xs text-white max-w-xs`,
+        Body: tw.tbody``,
+        Row: tw.tr`w-full`,
+        Cell: tw.td`border text-xs text-gray-500 object-center w-1/12`,
+    },
 }
