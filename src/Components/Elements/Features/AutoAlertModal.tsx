@@ -94,7 +94,6 @@ const AutoAlertModal = ({
                 NeedMax={true}
                 Children={
                     <Container>
-                        {/* <TitleBox>미측정 자동알림 팝업</TitleBox> */}
                         <div className="flex flex-nowrap w-full">
                             <div className="flex text-lg items-center text-gray-500 font-semibold">
                                 미측정 자동 알림 설정
@@ -455,7 +454,7 @@ const AutoAlertModal = ({
                                     },
                                 }))
                             }
-                            Placeholder={`메세지 내용을입력해 주세요`}
+                            Placeholder={`메세지 내용을 입력해 주세요`}
                             Value={
                                 nonMeasureAlertState.data
                                     .NOT_MESURE_NTCN_SET_INFO.NTCN_CN
@@ -467,17 +466,17 @@ const AutoAlertModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => handleClickResetButton()}
                             ButtonName={'초기화'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => handleClickSaveButton()}
                             ButtonName={'저장하기'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => CancleButtonClick()}
                             ButtonName={'닫기'}
                         />

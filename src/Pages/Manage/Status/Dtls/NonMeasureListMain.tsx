@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
 import NonMeasureSearchBox from './NonMeasureSearchBox'
+import NonMeasureManageBox from './NonMeasureManageBox'
 import NonMeasureTable from './NonMeasureListTable'
 
 import { getNonMeasureList } from '@Service/StatusService'
@@ -11,7 +12,7 @@ import { NonMeasureListState } from '@Recoil/StatusPagesState'
 const {
     ListPage: { Container },
 } = PageContainerStyle
-const { SearchWapper, TableWapper } = MainStyle
+const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const NonMeasureListMain = () => {
     const [nonMeasureListState, setNonMeasureListState] =
@@ -82,6 +83,9 @@ const NonMeasureListMain = () => {
             <SearchWapper>
                 <NonMeasureSearchBox HandleGetList={() => getTableList()} />
             </SearchWapper>
+            <ManageWapper>
+                <NonMeasureManageBox />
+            </ManageWapper>
             <TableWapper>
                 <NonMeasureTable />
             </TableWapper>
