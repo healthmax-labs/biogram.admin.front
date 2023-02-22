@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil'
 import { addComma, dateInsertHypen, getDateDayUnit } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
+import React from 'react'
 
 const {
     GeonDaonStyle: {
@@ -261,28 +262,43 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={dashBoardPageState.riskFctr.list.map(
-                                                    e => {
-                                                        let name: string | ''
-                                                        if (e.CNT_TY === 'TT') {
-                                                            name = `오늘`
+                                                Items={Codes.etc.dayCode.type4.map(
+                                                    day => {
+                                                        const findData = _.find(
+                                                            dashBoardPageState
+                                                                .riskFctr.list,
+                                                            { CNT_TY: day.code }
+                                                        )
+
+                                                        if (findData) {
+                                                            return [
+                                                                {
+                                                                    name: day.name,
+                                                                    textAlign:
+                                                                        'left',
+                                                                },
+                                                                {
+                                                                    name: addComma(
+                                                                        findData.RISK_CNT
+                                                                    ),
+                                                                    textAlign:
+                                                                        'right',
+                                                                },
+                                                            ]
                                                         } else {
-                                                            name = `전체`
+                                                            return [
+                                                                {
+                                                                    name: day.name,
+                                                                    textAlign:
+                                                                        'left',
+                                                                },
+                                                                {
+                                                                    name: '0',
+                                                                    textAlign:
+                                                                        'right',
+                                                                },
+                                                            ]
                                                         }
-                                                        return [
-                                                            {
-                                                                name: name,
-                                                                textAlign:
-                                                                    'left',
-                                                            },
-                                                            {
-                                                                name: addComma(
-                                                                    e.RISK_CNT
-                                                                ),
-                                                                textAlign:
-                                                                    'right',
-                                                            },
-                                                        ]
                                                     }
                                                 )}
                                             />
@@ -312,7 +328,7 @@ const GeonDaonDashboard = () => {
                                                             ∎ 오늘
                                                         </p>
                                                         <p className="flex text-xs pl-1">
-                                                            ∎ 월 누적
+                                                            ∎ 6개월
                                                         </p>
                                                     </>
                                                 }
@@ -381,7 +397,7 @@ const GeonDaonDashboard = () => {
                                                             ∎ 오늘
                                                         </p>
                                                         <p className="flex text-xs pl-1">
-                                                            ∎ 전체
+                                                            ∎ 6개월
                                                         </p>
                                                     </>
                                                 }
@@ -441,7 +457,7 @@ const GeonDaonDashboard = () => {
                                             ∎ 오늘
                                         </p>
                                         <p className="flex text-xs pl-1">
-                                            ∎ 전체
+                                            ∎ 최근 30일
                                         </p>
                                     </>
                                 }
@@ -491,29 +507,44 @@ const GeonDaonDashboard = () => {
                                                     </p>
                                                 </>
                                             }
-                                            Items={dashBoardPageState.mesureInfoZone.list.map(
-                                                e => {
-                                                    const findCode = _.find(
-                                                        Codes.etc.dayCode.list,
-                                                        {
-                                                            code: e.CNT_TY,
-                                                        }
+                                            Items={Codes.etc.dayCode.type2.map(
+                                                day => {
+                                                    const findData = _.find(
+                                                        dashBoardPageState
+                                                            .mesureInfoZone
+                                                            .list,
+                                                        { CNT_TY: day.code }
                                                     )
 
-                                                    return [
-                                                        {
-                                                            name: findCode
-                                                                ? findCode.name
-                                                                : '',
-                                                            textAlign: 'left',
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.MESURE_CNT
-                                                            ),
-                                                            textAlign: 'right',
-                                                        },
-                                                    ]
+                                                    if (findData) {
+                                                        return [
+                                                            {
+                                                                name: day.name,
+                                                                textAlign:
+                                                                    'left',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    findData.MESURE_CNT
+                                                                ),
+                                                                textAlign:
+                                                                    'right',
+                                                            },
+                                                        ]
+                                                    } else {
+                                                        return [
+                                                            {
+                                                                name: day.name,
+                                                                textAlign:
+                                                                    'left',
+                                                            },
+                                                            {
+                                                                name: '0',
+                                                                textAlign:
+                                                                    'right',
+                                                            },
+                                                        ]
+                                                    }
                                                 }
                                             )}
                                         />
@@ -541,7 +572,7 @@ const GeonDaonDashboard = () => {
                                                         ∎ 오늘
                                                     </p>
                                                     <p className="flex text-xs pl-1">
-                                                        ∎ 월 누적
+                                                        ∎ 최근 30일
                                                     </p>
                                                 </>
                                             }
