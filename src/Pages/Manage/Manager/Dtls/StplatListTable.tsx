@@ -8,6 +8,7 @@ import {
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { StplatDetailState, StplatListState } from '@Recoil/ManagerPagesState'
+import { useTab } from '@Hook/index'
 
 interface tableOption {
     Loading: boolean
@@ -18,6 +19,7 @@ interface tableOption {
 
 const ListTable = () => {
     const navigate = useNavigate()
+    const { handleDeleteTabbyMatchRouter } = useTab()
 
     const listState = useRecoilValue(StplatListState)
     const resetDetailState = useResetRecoilState(StplatDetailState)
@@ -27,11 +29,34 @@ const ListTable = () => {
 
     const handleRowClick = (element: StplatTableListItemInterface) => {
         resetDetailState()
+        handleDeleteTabbyMatchRouter(
+            '/manage/manager/stplat/:seCode/:kndCode/:SN/:STPLAT/stplat'
+        )
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/manager/stplat/${element.STPLAT_SE_CODE}/${element.STPLAT_KND_CODE}/${element.STPLAT_SN}/detail`,
         })
+    }
+
+    const handleButtonClick = ({
+        code,
+        element,
+    }: {
+        code: string
+        element: StplatTableListItemInterface
+    }) => {
+        if (code === 'stplat') {
+            resetDetailState()
+            handleDeleteTabbyMatchRouter(
+                '/manage/manager/stplat/:seCode/:kndCode/:SN/detail'
+            )
+            navigate({
+                pathname:
+                    process.env.PUBLIC_URL +
+                    `/manage/manager/stplat/${element.STPLAT_SE_CODE}/${element.STPLAT_KND_CODE}/${element.STPLAT_SN}/STPLAT/stplat`,
+            })
+        }
     }
 
     useEffect(() => {
@@ -42,7 +67,15 @@ const ListTable = () => {
         }))
     }, [listState.list.STPLAT_MANAGE_INFO_LIST, listState.status])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            ButtonClick={({ code, Element }) =>
+                handleButtonClick({ code: code, element: Element })
+            }
+        />
+    )
 }
 
 export default ListTable

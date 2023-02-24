@@ -15,7 +15,6 @@ const {
 
 const StplatDetailMain = () => {
     const { handlMainAlert } = useMainLayouts()
-    // /manage/manager/stplat/:seCode/:kndCode/:SN/detail
     const params = useParams<{
         seCode: StplatSeCodeType | undefined
         kndCode: StplatKndCodeType | undefined
@@ -66,7 +65,7 @@ const StplatDetailMain = () => {
     )
 
     useEffect(() => {
-        const start = async () => {
+        const start = () => {
             const { seCode, kndCode, SN } = params
 
             if (seCode && kndCode && SN) {
@@ -79,14 +78,18 @@ const StplatDetailMain = () => {
         }
 
         if (detailState.status === 'idle') {
-            start().then()
+            start()
         }
     }, [detailState.status, handleGetInfo, params])
 
     return (
         <Container>
             <LeftWapper>
-                <StplatDetailTable />
+                <StplatDetailTable
+                    HandleGetInfo={({ seCode, kndCode, SN }) =>
+                        handleGetInfo({ seCode, kndCode, SN })
+                    }
+                />
             </LeftWapper>
         </Container>
     )

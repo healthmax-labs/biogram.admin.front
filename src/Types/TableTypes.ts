@@ -9,8 +9,9 @@ export interface OptionsInterface<T> {
     indexKey: string
     tableType?: string | 'auto' | 'fixed'
     xcpt?: {
-        option: string | 'row-null'
-        component: React.FC<{ el: T }>
+        option: string | 'row-null' | 'row-button'
+        component?: React.FC<{ el: T }>
+        buttons?: Array<{ name: string; code: string }>
     }
     bgState: boolean
 }
@@ -32,6 +33,7 @@ export interface MainTablePropsInterface<T> {
     Columns: Array<ColumnsInterface<T>[]>
     RowClick: (element: T) => void
     CheckedRow?: (checked: string[]) => void
+    ButtonClick?: ({ code, Element }: { code: string; Element: T }) => void
     Lists: T[]
 }
 
@@ -49,5 +51,6 @@ export interface MainTableBodyPropsInterface<T> {
         checked: boolean
         Element: T
     }) => void
+    ButtonClick?: ({ code, Element }: { code: string; Element: T }) => void
     Lists: T[]
 }

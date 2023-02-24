@@ -31,34 +31,34 @@ interface StplatDetailInterface {
         CUR_PAGE: number | null
     }
     detail: {
-        STPLAT_KND_CODE: StplatKndCodeType | null
-        STPLAT_SE_CODE_NM: string | null
-        USE_AT: DefaultYesNo | null
-        REGIST_ID: string | null
-        STPLAT_CHANGE_DE: string | null
+        STPLAT_KND_CODE: StplatKndCodeType
+        STPLAT_SE_CODE_NM: string
+        USE_AT: DefaultYesNo
+        REGIST_ID: string
+        STPLAT_CHANGE_DE: string
         STPLAT_SN: number | null
-        STPLAT_CHANGE_RESN: string | null
-        REGIST_DT: string | null
-        STPLAT_SE_CODE: StplatSeCodeType | null
-        STPLAT_KND_CODE_NM: string | null
-        STPLAT_DC: string | null
-        history: StplatInfoHistListItemInterface[] | null
+        STPLAT_CHANGE_RESN: string
+        REGIST_DT: string
+        STPLAT_SE_CODE: StplatSeCodeType
+        STPLAT_KND_CODE_NM: string
+        STPLAT_DC: string
+        history: StplatInfoHistListItemInterface[]
     }
     origin: {
-        STPLAT_KND_CODE: StplatKndCodeType | null
-        STPLAT_SE_CODE_NM: string | null
-        USE_AT: DefaultYesNo | null
-        REGIST_ID: string | null
-        STPLAT_CHANGE_DE: string | null
+        STPLAT_KND_CODE: StplatKndCodeType
+        STPLAT_SE_CODE_NM: string
+        USE_AT: DefaultYesNo
+        REGIST_ID: string
+        STPLAT_CHANGE_DE: string
         STPLAT_SN: number | null
-        STPLAT_CHANGE_RESN: string | null
-        REGIST_DT: string | null
-        STPLAT_SE_CODE: StplatSeCodeType | null
-        STPLAT_KND_CODE_NM: string | null
-        STPLAT_DC: string | null
-        history: StplatInfoHistListItemInterface[] | null
+        STPLAT_CHANGE_RESN: string
+        REGIST_DT: string
+        STPLAT_SE_CODE: StplatSeCodeType
+        STPLAT_KND_CODE_NM: string
+        STPLAT_DC: string
+        history: StplatInfoHistListItemInterface[]
     }
-    info: StplatInfoInterface | null
+    info: StplatInfoInterface
 }
 
 export const StplatListState = atom<StplatSearchListInterface>({
@@ -120,34 +120,49 @@ export const StplatDetailState = atom<StplatDetailInterface>({
             CUR_PAGE: null,
         },
         detail: {
-            STPLAT_KND_CODE: null,
-            STPLAT_SE_CODE_NM: null,
-            USE_AT: null,
-            REGIST_ID: null,
-            STPLAT_CHANGE_DE: null,
+            STPLAT_KND_CODE: 'II',
+            STPLAT_SE_CODE_NM: '',
+            USE_AT: 'Y',
+            REGIST_ID: '',
+            STPLAT_CHANGE_DE: '',
             STPLAT_SN: null,
-            STPLAT_CHANGE_RESN: null,
-            REGIST_DT: null,
-            STPLAT_SE_CODE: null,
-            STPLAT_KND_CODE_NM: null,
-            STPLAT_DC: null,
-            history: null,
+            STPLAT_CHANGE_RESN: '',
+            REGIST_DT: '',
+            STPLAT_SE_CODE: 'HMAX',
+            STPLAT_KND_CODE_NM: '',
+            STPLAT_DC: '',
+            history: [],
         },
         origin: {
-            STPLAT_KND_CODE: null,
-            STPLAT_SE_CODE_NM: null,
-            USE_AT: null,
-            REGIST_ID: null,
-            STPLAT_CHANGE_DE: null,
+            STPLAT_KND_CODE: 'II',
+            STPLAT_SE_CODE_NM: '',
+            USE_AT: 'Y',
+            REGIST_ID: '',
+            STPLAT_CHANGE_DE: '',
             STPLAT_SN: null,
-            STPLAT_CHANGE_RESN: null,
-            REGIST_DT: null,
-            STPLAT_SE_CODE: null,
-            STPLAT_KND_CODE_NM: null,
-            STPLAT_DC: null,
-            history: null,
+            STPLAT_CHANGE_RESN: '',
+            REGIST_DT: '',
+            STPLAT_SE_CODE: 'HMAX',
+            STPLAT_KND_CODE_NM: '',
+            STPLAT_DC: '',
+            history: [],
         },
-        info: null,
+        info: {
+            STPLAT_MANAGE_HIST_LIST: [],
+            STPLAT_MANAGE_INFO: {
+                STPLAT_KND_CODE: 'II',
+                STPLAT_SE_CODE_NM: '',
+                USE_AT: 'Y',
+                REGIST_ID: '',
+                STPLAT_CHANGE_DE: '',
+                STPLAT_SN: null,
+                STPLAT_CHANGE_RESN: '',
+                REGIST_DT: '',
+                STPLAT_SE_CODE: 'HMAX',
+                STPLAT_KND_CODE_NM: '',
+                STPLAT_DC: '',
+            },
+        },
     },
 })
 

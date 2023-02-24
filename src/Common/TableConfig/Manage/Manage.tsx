@@ -20,6 +20,15 @@ export const StplatTableConfig = {
         selectAll: false,
         indexKey: `STPLAT_SE_CODE`,
         bgState: true,
+        xcpt: {
+            option: 'row-button',
+            buttons: [
+                {
+                    name: `약관걔정`,
+                    code: `stplat`,
+                },
+            ],
+        },
     },
     Columns: [
         [

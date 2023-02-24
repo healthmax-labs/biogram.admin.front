@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     ConfirmModal,
     ReactQuillEditor,
@@ -16,11 +16,12 @@ import _ from 'lodash'
 import { StplatKndCodeType, StplatSeCodeType } from '@CommonTypes'
 import {
     getCommonStplatStplatSeCodeStplatKndCodeStplatSn,
+    postCommonStplat,
     postCommonStplatDelete,
     postCommonStplatUpdate,
 } from '@Service/ManagerService'
 import { useMainLayouts } from '@Hook/index'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const {
     TableContainer,
@@ -35,27 +36,58 @@ const {
 
 const initializeState = {
     selectHistoryStplatDc: '',
+    pageMode: 'detail',
     modal: {
         updateConfirm: false,
         deleteConfirm: false,
+        stplatConfirm: false,
         history: false,
     },
 }
 
 const resnLength = 50
 
-const StplatDetailTable = () => {
+const StplatDetailTable = ({
+    HandleGetInfo,
+}: {
+    HandleGetInfo: ({
+        seCode,
+        kndCode,
+        SN,
+    }: {
+        seCode: StplatSeCodeType
+        kndCode: StplatKndCodeType
+        SN: number
+    }) => void
+}) => {
     const navigate = useNavigate()
+    const params = useParams<{
+        seCode: string | undefined
+        kndCode: string | undefined
+        SN: string | undefined
+        STPLAT: string | undefined
+    }>()
     const { handlMainAlert } = useMainLayouts()
     const [detailState, setDetailState] = useRecoilState(StplatDetailState)
     const [pageState, setPageState] = useState<{
         selectHistoryStplatDc: string
+        pageMode: string | 'detail' | 'stplat'
         modal: {
             updateConfirm: boolean
             deleteConfirm: boolean
+            stplatConfirm: boolean
             history: boolean
         }
     }>(initializeState)
+
+    const handleGoListPage = () => {
+        navigate(
+            {
+                pathname: process.env.PUBLIC_URL + `/manage/manager/stplat`,
+            },
+            { state: { renew: true } }
+        )
+    }
 
     const handleClickHistoryRow = async ({
         seCode,
@@ -81,50 +113,105 @@ const StplatDetailTable = () => {
         }
     }
 
+    // 약관 수정.
     const handleInfoUpdate = async () => {
-        if (
-            detailState.detail.STPLAT_DC &&
-            detailState.detail.STPLAT_SN &&
-            detailState.detail.STPLAT_KND_CODE &&
-            detailState.detail.STPLAT_SE_CODE &&
-            detailState.detail.STPLAT_CHANGE_RESN
-        ) {
+        const {
+            STPLAT_DC,
+            STPLAT_SN,
+            STPLAT_KND_CODE,
+            STPLAT_SE_CODE,
+            STPLAT_CHANGE_RESN,
+        } = detailState.detail
+
+        if (STPLAT_SN) {
             const { status } = await postCommonStplatUpdate({
-                STPLAT_DC: detailState.detail.STPLAT_DC,
-                STPLAT_SN: detailState.detail.STPLAT_SN,
-                STPLAT_KND_CODE: detailState.detail.STPLAT_KND_CODE,
-                STPLAT_SE_CODE: detailState.detail.STPLAT_SE_CODE,
-                STPLAT_CHANGE_RESN: detailState.detail.STPLAT_CHANGE_RESN,
+                STPLAT_DC: STPLAT_DC,
+                STPLAT_SN: STPLAT_SN,
+                STPLAT_KND_CODE: STPLAT_KND_CODE,
+                STPLAT_SE_CODE: STPLAT_SE_CODE,
+                STPLAT_CHANGE_RESN: STPLAT_CHANGE_RESN,
             })
 
             if (status) {
+                HandleGetInfo({
+                    seCode: STPLAT_SE_CODE,
+                    kndCode: STPLAT_KND_CODE,
+                    SN: STPLAT_SN,
+                })
+
                 handlMainAlert({
                     state: true,
                     message: Messages.Default.processSuccess,
                 })
+
+                handleGoListPage()
             } else {
                 handlMainAlert({
                     state: true,
                     message: Messages.Default.processFail,
                 })
             }
+        }
+    }
+
+    // 약관 개정
+    const handleInfoStplat = async () => {
+        const {
+            STPLAT_DC,
+            STPLAT_CHANGE_DE,
+            STPLAT_KND_CODE,
+            STPLAT_SE_CODE,
+            STPLAT_CHANGE_RESN,
+            STPLAT_SN,
+        } = detailState.detail
+
+        const { status } = await postCommonStplat({
+            STPLAT_DC: STPLAT_DC,
+            STPLAT_SE_CODE: STPLAT_SE_CODE,
+            STPLAT_CHANGE_RESN: STPLAT_CHANGE_RESN,
+            STPLAT_KND_CODE: STPLAT_KND_CODE,
+            STPLAT_CHANGE_DE: STPLAT_CHANGE_DE,
+        })
+
+        if (status) {
+            if (STPLAT_SN) {
+                HandleGetInfo({
+                    seCode: STPLAT_SE_CODE,
+                    kndCode: STPLAT_KND_CODE,
+                    SN: STPLAT_SN,
+                })
+            }
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+
+            handleGoListPage()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
         }
     }
 
     const handleInfoDelete = async () => {
-        if (
-            detailState.detail.STPLAT_DC &&
-            detailState.detail.STPLAT_SN &&
-            detailState.detail.STPLAT_KND_CODE &&
-            detailState.detail.STPLAT_SE_CODE &&
-            detailState.detail.STPLAT_CHANGE_RESN
-        ) {
+        const {
+            STPLAT_DC,
+            STPLAT_SN,
+            STPLAT_KND_CODE,
+            STPLAT_SE_CODE,
+            STPLAT_CHANGE_RESN,
+        } = detailState.detail
+
+        if (STPLAT_SN) {
             const { status } = await postCommonStplatDelete({
-                STPLAT_DC: detailState.detail.STPLAT_DC,
-                STPLAT_SN: detailState.detail.STPLAT_SN,
-                STPLAT_KND_CODE: detailState.detail.STPLAT_KND_CODE,
-                STPLAT_SE_CODE: detailState.detail.STPLAT_SE_CODE,
-                STPLAT_CHANGE_RESN: detailState.detail.STPLAT_CHANGE_RESN,
+                STPLAT_SN: STPLAT_SN,
+                STPLAT_DC: STPLAT_DC,
+                STPLAT_KND_CODE: STPLAT_KND_CODE,
+                STPLAT_SE_CODE: STPLAT_SE_CODE,
+                STPLAT_CHANGE_RESN: STPLAT_CHANGE_RESN,
             })
 
             if (status) {
@@ -140,6 +227,15 @@ const StplatDetailTable = () => {
             }
         }
     }
+
+    useEffect(() => {
+        if (params && params.STPLAT && params.STPLAT === 'STPLAT') {
+            setPageState(prevState => ({
+                ...prevState,
+                pageMode: 'stplat',
+            }))
+        }
+    }, [params])
 
     return (
         <DPS.DetailContainer>
@@ -330,24 +426,40 @@ const StplatDetailTable = () => {
                         ButtonType={`default`}
                         ButtonName={`취소`}
                         HandleClick={() => {
-                            //
+                            handleGoListPage()
                         }}
                     />
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName={`수정`}
-                        HandleClick={() => {
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    updateConfirm: true,
-                                },
-                            }))
-                        }}
-                    />
+                    {pageState.pageMode === 'stplat' ? (
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName={`약관개정`}
+                            HandleClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        stplatConfirm: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    ) : (
+                        <VaryButton
+                            ButtonType={`default`}
+                            ButtonName={`수정`}
+                            HandleClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        updateConfirm: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    )}
                 </DPS.Stplat.ButtonItem>
                 <DPS.Stplat.ButtonItem>
                     <VaryButton
@@ -450,6 +562,34 @@ const StplatDetailTable = () => {
                 />
             )}
 
+            {pageState.modal.stplatConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.stplatConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                stplatConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        handleInfoStplat().then(() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    stplatConfirm: false,
+                                },
+                            }))
+                        )
+                    }}
+                />
+            )}
+
             {pageState.modal.deleteConfirm && (
                 <ConfirmModal
                     Title={Messages.Default.deleteConfirm}
@@ -474,14 +614,7 @@ const StplatDetailTable = () => {
                                 },
                             }))
                         })
-                        navigate(
-                            {
-                                pathname:
-                                    process.env.PUBLIC_URL +
-                                    `/manage/manager/stplat`,
-                            },
-                            { state: { renew: true } }
-                        )
+                        handleGoListPage()
                     }}
                 />
             )}

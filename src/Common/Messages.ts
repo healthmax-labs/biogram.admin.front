@@ -14,6 +14,7 @@ export default {
         memberConfirmMesure: `수기입력을 하시겠습니까?`,
         saveConfirm: `저장 하시겠습니까?`,
         updateConfirm: `수정 하시겠습니까?`,
+        stplatConfirm: `약관 개정 하시겠습니까?`,
         deleteConfirm: `삭제 하시겠습니까?`,
         loginExtension: `후에 자동 로그아웃 됩니다. 로그인 연장 하시겠습니까?`,
         dataGetFail: `데이터를 불러 올수 없습니다.`,

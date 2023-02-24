@@ -57,6 +57,16 @@ const MainTableHeader = <E,>({
                                 </HeaderCell>
                             )
                         })}
+                        {Options.xcpt &&
+                            Options.xcpt.option &&
+                            Options.xcpt.option === 'row-button' && (
+                                <HeaderCell
+                                    key={`main-table-head-checkbox-cell-${rowIndex}`}
+                                    rowSpan={Rows.length}
+                                    cellWidth={`w10`}>
+                                    {`관리`}
+                                </HeaderCell>
+                            )}
                     </HeaderRow>
                 )
             })}

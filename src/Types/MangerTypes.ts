@@ -34,7 +34,7 @@ export interface StplatInfoInterface {
         USE_AT: DefaultYesNo
         REGIST_ID: string
         STPLAT_CHANGE_DE: string
-        STPLAT_SN: number
+        STPLAT_SN: number | null
         STPLAT_CHANGE_RESN: string
         REGIST_DT: string
         STPLAT_SE_CODE: StplatSeCodeType
