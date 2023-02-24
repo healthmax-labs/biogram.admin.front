@@ -19,6 +19,10 @@ const NonMeasureListMain = () => {
         useRecoilState(NonMeasureListState)
 
     const getTableList = useCallback(async () => {
+        setNonMeasureListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: {
                 INST_NO,

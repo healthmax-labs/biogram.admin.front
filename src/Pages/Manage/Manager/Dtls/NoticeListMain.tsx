@@ -18,6 +18,11 @@ const NoticeListMain = () => {
         useRecoilState(NoticeListState)
 
     const getTableList = useCallback(async () => {
+        setNoticeListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: {
                 CUR_PAGE,
