@@ -16,26 +16,23 @@ export interface MagazineListInterface {
 
 // 매거진 상세 항목
 export interface MagazineItemInterface {
-    MISN_CD: null | string
-    MISN_COMPT_REWARD_POINT: null | number
+    ATCHMNFL_NM: string
+    ATCHMNFL_NO: number
+    ATCHMNFL_PATH: string
+    BEGIN_DT: string
+    CN_ATCHMNFL_NM: string
+    CN_ATCHMNFL_NO: number
+    CN_ATCHMNFL_PATH: string
+    END_DT: string
+    MISN_CD: string
+    MISN_COMPT_REWARD_POINT: number
     MISN_DC: null | string
-    MISN_STEP: null | number
-    ATCHMNFL_NO: null | number
-    ATCHMNFL_NM: null | string
-    ATCHMNFL_PATH: number | string
-    CN_ATCHMNFL_NO: null | number
-    CN_ATCHMNFL_NM: null | string
-    CN_ATCHMNFL_PATH: number | string
-    BEGIN_DT: null | string
-    END_DT: null | string
+    MISN_STEP: number
     MISN_SUBNAME1: string
     MISN_SUBNAME2: string
-    MULTI_FILE_SN: null
     MULTI_FILE_LIST: []
-    EXPOSCD: null | string
-    MISN_NAME: null | string
-    FIX_AT: null | string
-    USE_AT: null | string
+    MULTI_FILE_SN: null
+    USE_AT: string | 'Y' | 'N'
 }
 
 // 바이로그램 존 리스트 항목

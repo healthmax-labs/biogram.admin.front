@@ -72,7 +72,7 @@ const SiGunSelectBox = ({
         } else {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.pageError,
+                message: Messages.Default.getInfoError,
             })
         }
     }, [handlMainAlert])
@@ -107,7 +107,7 @@ const SiGunSelectBox = ({
             } else {
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.getInfoError,
                 })
             }
         },

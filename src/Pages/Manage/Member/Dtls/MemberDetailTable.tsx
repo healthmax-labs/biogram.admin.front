@@ -38,7 +38,6 @@ import {
 } from '@Type/MemberTypes'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router-dom'
-import Const from '@Const'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
@@ -474,11 +473,13 @@ const MemberDetailTable = ({
     useEffect(() => {
         // 데이터 통합 가능한지 체크.
         const funcCheckMbtlnumCnt = () => {
+            const { MBTLNUM_CRTFC_AT, MBTLNUM_CNT } = detailState.origin
+
             if (
-                detailState.detail.MBTLNUM_CRTFC_AT &&
-                detailState.detail.MBTLNUM_CRTFC_AT === 'Y' &&
-                detailState.detail.MBTLNUM_CNT &&
-                detailState.detail.MBTLNUM_CNT > 1
+                MBTLNUM_CRTFC_AT &&
+                MBTLNUM_CRTFC_AT === 'Y' &&
+                MBTLNUM_CNT &&
+                MBTLNUM_CNT > 1
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -494,14 +495,24 @@ const MemberDetailTable = ({
 
         // 약관 동의 체크.
         const funcUseStplatAgreAt = () => {
+            const {
+                USE_STPLAT_AGRE_AT,
+                INDVDLINFO_AGRE_AT,
+                SNSTIIVEINFO_AGRE_AT,
+                INDVDLINFO_THIRD_AGRE_AT,
+                SNSTIIVEINFO_THIRD_AGRE_AT,
+                MARKTINFO_AGRE_AT,
+                MARKTINFO_PURPOSE_AGRE_AT,
+            } = detailState.origin
+
             if (
-                detailState.origin.USE_STPLAT_AGRE_AT === 'Y' &&
-                detailState.origin.INDVDLINFO_AGRE_AT === 'Y' &&
-                detailState.origin.SNSTIIVEINFO_AGRE_AT === 'Y' &&
-                detailState.origin.INDVDLINFO_THIRD_AGRE_AT === 'Y' &&
-                detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT === 'Y' &&
-                detailState.origin.MARKTINFO_AGRE_AT === 'Y' &&
-                detailState.origin.MARKTINFO_PURPOSE_AGRE_AT === 'Y'
+                USE_STPLAT_AGRE_AT === 'Y' &&
+                INDVDLINFO_AGRE_AT === 'Y' &&
+                SNSTIIVEINFO_AGRE_AT === 'Y' &&
+                INDVDLINFO_THIRD_AGRE_AT === 'Y' &&
+                SNSTIIVEINFO_THIRD_AGRE_AT === 'Y' &&
+                MARKTINFO_AGRE_AT === 'Y' &&
+                MARKTINFO_PURPOSE_AGRE_AT === 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -514,11 +525,11 @@ const MemberDetailTable = ({
             }
 
             if (
-                detailState.origin.USE_STPLAT_AGRE_AT !== 'Y' ||
-                detailState.origin.INDVDLINFO_AGRE_AT !== 'Y' ||
-                detailState.origin.SNSTIIVEINFO_AGRE_AT !== 'Y' ||
-                detailState.origin.INDVDLINFO_THIRD_AGRE_AT !== 'Y' ||
-                detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT !== 'Y'
+                USE_STPLAT_AGRE_AT !== 'Y' ||
+                INDVDLINFO_AGRE_AT !== 'Y' ||
+                SNSTIIVEINFO_AGRE_AT !== 'Y' ||
+                INDVDLINFO_THIRD_AGRE_AT !== 'Y' ||
+                SNSTIIVEINFO_THIRD_AGRE_AT !== 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -531,8 +542,8 @@ const MemberDetailTable = ({
             }
 
             if (
-                detailState.origin.MARKTINFO_AGRE_AT !== 'Y' ||
-                detailState.origin.MARKTINFO_PURPOSE_AGRE_AT !== 'Y'
+                MARKTINFO_AGRE_AT !== 'Y' ||
+                MARKTINFO_PURPOSE_AGRE_AT !== 'Y'
             ) {
                 setPageState(prevState => ({
                     ...prevState,
@@ -559,14 +570,7 @@ const MemberDetailTable = ({
     }, [
         detailState.detail.MBTLNUM_CNT,
         detailState.detail.MBTLNUM_CRTFC_AT,
-        detailState.origin.INDVDLINFO_AGRE_AT,
-        detailState.origin.INDVDLINFO_THIRD_AGRE_AT,
-        detailState.origin.MARKTINFO_AGRE_AT,
-        detailState.origin.MARKTINFO_PURPOSE_AGRE_AT,
-        detailState.origin.MBTLNUM,
-        detailState.origin.SNSTIIVEINFO_AGRE_AT,
-        detailState.origin.SNSTIIVEINFO_THIRD_AGRE_AT,
-        detailState.origin.USE_STPLAT_AGRE_AT,
+        detailState.origin,
     ])
 
     return (
@@ -1120,7 +1124,7 @@ const MemberDetailTable = ({
                         ButtonName={`목록으로`}
                         HandleClick={() => {
                             navigate({
-                                pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
+                                pathname: `${process.env.PUBLIC_URL}/manage/member/member-list`,
                             })
                         }}
                     />

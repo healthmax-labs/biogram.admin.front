@@ -6,7 +6,7 @@ import {
     UhealthzoneInfoInterface,
     UhealthZoneListItemInterface,
 } from '@Type/ContentsTypes'
-import { gmtTimeToTimeObject } from '@Helper'
+import { gmtTimeToTimeObject, getNowDate } from '@Helper'
 
 const timeObject = gmtTimeToTimeObject(new Date())
 
@@ -66,31 +66,27 @@ interface UhealthzoneSearchListInterface {
 export interface MagazineDetailStateInterface {
     status: DefaultStatus
     info: {
-        MISN_CD: null | string
-        MISN_DC: null | string
-        MISN_STEP: null | number
-        ATCHMNFL_NO: null | number
-        ATCHMNFL_NM: null | string
-        ATCHMNFL_PATH: number | string
-        CN_ATCHMNFL_NO: null | number
-        CN_ATCHMNFL_NM: null | string
-        CN_ATCHMNFL_PATH: number | string
-        MISN_COMPT_REWARD_POINT: null | number
-        MULTI_FILE_SN: null | string
-        MISN_SUBNAME1: string
-        MISN_SUBNAME1_u: null | string
-        MISN_SUBNAME1_d: null | string
-        MISN_SUBNAME2: string
-        MISN_SUBNAME2_u: null | string
-        MISN_SUBNAME2_d: null | string
-        MULTI_FILE_LIST: []
-        BEGIN_DT: null | string
-        END_DT: null | string
-        USE_AT: null | string
-    }
-    modal: {
-        confirm: boolean
-        delete: boolean
+        ATCHMNFL_NM: string
+        ATCHMNFL_NO: number | null
+        ATCHMNFL_PATH: string
+        BEGIN_DT: string
+        CN_ATCHMNFL_NM: string
+        CN_ATCHMNFL_NO: number | null
+        CN_ATCHMNFL_PATH: string
+        END_DT: string
+        MISN_CD: string
+        MISN_COMPT_REWARD_POINT: number | null
+        MISN_DC: string
+        MISN_STEP: number | null
+        MISN_SUBNAME1: {
+            first: string
+            second: string
+        }
+        MISN_SUBNAME2: {
+            first: string
+            second: string
+        }
+        USE_AT: string | 'Y' | 'N'
     }
 }
 
@@ -113,31 +109,27 @@ export const MagazineDetailState = atom<MagazineDetailStateInterface>({
     default: {
         status: 'idle',
         info: {
-            MISN_CD: '',
-            MISN_COMPT_REWARD_POINT: 0,
-            MISN_STEP: 0,
-            ATCHMNFL_NO: 0,
             ATCHMNFL_NM: '',
+            ATCHMNFL_NO: null,
             ATCHMNFL_PATH: '',
-            CN_ATCHMNFL_NO: 0,
+            BEGIN_DT: getNowDate(),
             CN_ATCHMNFL_NM: '',
+            CN_ATCHMNFL_NO: null,
             CN_ATCHMNFL_PATH: '',
+            END_DT: getNowDate(),
+            MISN_CD: '',
+            MISN_COMPT_REWARD_POINT: null,
             MISN_DC: '',
-            MISN_SUBNAME1: '',
-            MISN_SUBNAME1_u: '',
-            MISN_SUBNAME1_d: '',
-            MISN_SUBNAME2: '',
-            MISN_SUBNAME2_u: '',
-            MISN_SUBNAME2_d: '',
-            MULTI_FILE_SN: null,
-            MULTI_FILE_LIST: [],
-            BEGIN_DT: `${timeObject.year}-${timeObject.monthPad}-${timeObject.dayPad}`,
-            END_DT: `${timeObject.year}-${timeObject.monthPad}-${timeObject.dayPad}`,
-            USE_AT: 'N',
-        },
-        modal: {
-            confirm: false,
-            delete: false,
+            MISN_STEP: null,
+            MISN_SUBNAME1: {
+                first: '',
+                second: '',
+            },
+            MISN_SUBNAME2: {
+                first: '',
+                second: '',
+            },
+            USE_AT: 'Y',
         },
     },
 })

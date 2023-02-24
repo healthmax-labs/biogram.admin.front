@@ -71,7 +71,7 @@ const ConsultDetailMain = () => {
                 }))
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.getInfoError,
                 })
             }
         }
@@ -81,16 +81,16 @@ const ConsultDetailMain = () => {
         const pageStart = () => {
             if (memNo) {
                 setConsultChart(() => ({
-                    CNST: null,
+                    CNST: '',
                     MBER_NO: Number(memNo),
-                    PLN: null,
-                    REG_NM: null,
+                    PLN: '',
+                    REG_NM: '',
                     CNST_NO: null,
-                    MNG_ID: null,
-                    MNG_NM: null,
-                    MOD_DT: null,
-                    MOD_MNG_NM: null,
-                    REGDT: null,
+                    MNG_ID: '',
+                    MNG_NM: '',
+                    MOD_DT: '',
+                    MOD_MNG_NM: '',
+                    REGDT: '',
                 }))
                 resetConsultSmsSend()
                 handleGetMemberInfo().then()
