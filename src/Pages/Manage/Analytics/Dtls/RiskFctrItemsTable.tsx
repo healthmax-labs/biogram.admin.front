@@ -414,7 +414,7 @@ const RiskFctrItemsTable = () => {
                                                 <T.Row
                                                     key={`analytics-risk-fctr-items-period-table-row-item-${periodIndex}`}>
                                                     <T.CellW colSpan={2}>
-                                                        {period.RF_PERIOD}
+                                                        {period.PERIOD}
                                                     </T.CellW>
                                                     <T.CellW>
                                                         {period.RF_ALL_TT_CNT}

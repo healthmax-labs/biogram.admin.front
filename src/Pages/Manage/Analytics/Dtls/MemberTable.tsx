@@ -94,10 +94,10 @@ const MemberTable = () => {
                                                     {DataRow.TOT_MBER_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {DataRow.TOT_MAN_CNT}
+                                                    {DataRow.TOT_WOMAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {DataRow.TOT_WOMAN_CNT}
+                                                    {DataRow.TOT_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {DataRow.NEW_MBER_CNT}

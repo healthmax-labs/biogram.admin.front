@@ -170,7 +170,7 @@ export interface RiskFctrItemsAgeListItemInterface {
 
 //위험요인 항목별 기간 통계
 export interface RiskFctrItemsPeriodListItemInterface {
-    RF_PERIOD: string
+    PERIOD: string
     RF_ALL_TT_CNT: string
     RF_622E_TT_CNT: string //혈압 전체
     RF_622E_GD_CNT: string //혈압 정상
@@ -214,7 +214,7 @@ export interface RiskFctrCountAgeListItemInterface {
 
 //위험요인 개수별 기간 통계
 export interface RiskFctrCountPeriodListItemInterface {
-    RF_PERIOD: string
+    PERIOD: string
     RF_ALL_MBER_CNT: string //전체 건수
     RF_ALL_WOMAN_CNT: string //전체 여성 건수
     RF_ALL_MAN_CNT: string //전체 남성 건수
