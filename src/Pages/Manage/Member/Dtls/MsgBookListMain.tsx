@@ -18,6 +18,10 @@ const MsgBookListMain = () => {
         useRecoilState(MsgBookListState)
 
     const getTableList = useCallback(async () => {
+        setMsgBookListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: {
                 curPage,

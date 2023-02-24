@@ -18,6 +18,10 @@ const MsgSendListMain = () => {
         useRecoilState(MsgSendListState)
 
     const getTableList = useCallback(async () => {
+        setMsgSendListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: {
                 curPage,

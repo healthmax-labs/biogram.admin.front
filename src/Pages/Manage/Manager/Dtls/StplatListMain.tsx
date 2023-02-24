@@ -19,6 +19,11 @@ const StplatListMain = () => {
         useRecoilState(StplatListState)
 
     const getTableList = useCallback(async () => {
+        setStplatListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: { CUR_PAGE },
         } = stplatListState
