@@ -39,6 +39,20 @@ export default {
                 { code: '12', name: `1년` },
             ],
         },
+        workType: {
+            name: `직종구분`,
+            key: `workTypeCode`,
+            list: [
+                {
+                    code: 'I',
+                    name: `내근직`,
+                },
+                {
+                    code: 'O',
+                    name: `외근직`,
+                },
+            ],
+        },
     },
     ageGroup: {
         name: `체성분`,
@@ -384,7 +398,7 @@ export default {
             list: [
                 { code: 'WS', name: '허리둘레' },
                 { code: 'BP', name: '혈압' },
-                { code: 'BS', name: '혈당' },
+                { code: 'BS', name: '식전혈당' },
                 { code: 'TG', name: '중성지방' },
                 { code: 'HD', name: 'HDLC' },
             ],

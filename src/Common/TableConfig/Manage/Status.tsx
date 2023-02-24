@@ -139,15 +139,15 @@ export const RiskFctrTableConfig = {
                 name: `체중<br/>(kg)`,
                 key: `WAIST`,
                 component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
-                    const textColor = el.WAIST_JDGMNT
-                        ? RiskFctrJdgmntColor(el.WAIST_JDGMNT)
+                    const textColor = el.BDWGH_JDGMNT
+                        ? RiskFctrJdgmntColor(el.BDWGH_JDGMNT)
                         : ''
 
                     return (
                         <p
                             style={{
                                 color: `#${textColor}`,
-                            }}>{`${el.WAIST ? el.WAIST : ''}`}</p>
+                            }}>{`${el.BDWGH ? el.BDWGH : ''}`}</p>
                     )
                 },
             },

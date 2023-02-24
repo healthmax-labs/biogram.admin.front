@@ -230,6 +230,8 @@ export function getNonMeasureList({
     AND_AT,
     cur_page,
     SEARCH_KEY,
+    BF_N_MESURE_DAY,
+    WORK_TY_CODE,
 }: {
     INST_NO: string
     MESURE_DT: string
@@ -243,6 +245,8 @@ export function getNonMeasureList({
     AND_AT: string
     cur_page: number
     SEARCH_KEY: string | null
+    BF_N_MESURE_DAY: number
+    WORK_TY_CODE: string
 }): Promise<
     ServicesDefaultResult<{
         CUR_PAGE: number
@@ -266,6 +270,8 @@ export function getNonMeasureList({
             AND_AT,
             SEARCH_KEY,
             NOT_MESURE_NTCN_INFO_LIST: [],
+            BF_N_MESURE_DAY,
+            WORK_TY_CODE,
         },
     })
 }

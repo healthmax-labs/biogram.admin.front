@@ -18,6 +18,10 @@ const BrftrCmprListMain = () => {
         useRecoilState(BrftrCmprListState)
 
     const getTableList = useCallback(async () => {
+        setBrftrCmprListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage },
         } = brftrCmprListState

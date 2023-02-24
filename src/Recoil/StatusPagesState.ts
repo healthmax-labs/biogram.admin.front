@@ -85,7 +85,9 @@ interface NonMeasureSearchListInterface {
         SB_NTCN_AT: string
         AND_AT: 'Y' | 'N' //(Y: AND 조회, N: OR 조회)
         cur_page: number
-        SEARCH_KEY: string | null
+        SEARCH_KEY: string
+        BF_N_MESURE_DAY: number
+        WORK_TY_CODE: string
     }
     list: NonMeasureListInterface
 }
@@ -207,6 +209,8 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
             AND_AT: 'Y', //(Y: AND 조회, N: OR 조회)
             cur_page: 0,
             SEARCH_KEY: '',
+            BF_N_MESURE_DAY: 3,
+            WORK_TY_CODE: 'I',
         },
         list: {
             NOT_MESURE_NTCN_INFO_LIST: [],

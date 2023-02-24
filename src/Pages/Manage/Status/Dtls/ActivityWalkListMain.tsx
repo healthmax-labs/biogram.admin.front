@@ -19,6 +19,10 @@ const ActivityWalkListMain = () => {
     )
 
     const getTableList = useCallback(async () => {
+        setActivityWalkListState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: { SEARCH, BEGIN_DE, END_DE, INST_NO, curPage },
         } = activityWalkListState
