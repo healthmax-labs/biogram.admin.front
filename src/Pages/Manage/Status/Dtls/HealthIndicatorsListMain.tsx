@@ -18,6 +18,11 @@ const HealthIndicatorsMain = () => {
         useRecoilState(HealthIndicatorsListState)
 
     const getTableList = useCallback(async () => {
+        setHealthIndicatorsState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
+
         const {
             search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage },
         } = healthIndicatorsListState

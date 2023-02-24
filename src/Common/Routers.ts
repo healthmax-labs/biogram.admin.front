@@ -270,7 +270,7 @@ export default {
             mainCode: `40000`,
             menuCode: `40601`,
             name: `건강지표개선 현황`,
-            pathName: `/manage/status/health-Indicators`,
+            pathName: `/manage/status/health-indicators`,
             recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
             showFlag: 'Y',
             reloadButton: false,
