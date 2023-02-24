@@ -1452,13 +1452,13 @@ export const HealthIndicatorsTableConfig = {
 //보행수 랭킹 현황 테이블 설정
 export interface WalkRankingTableListItemInterface {
     MBER_NO: number
-    NM: string | null
+    NM: string
     BRTHDY: string
     SEXDSTN: string
-    USID: string | null
-    MBTLNUM: string | null
-    INST_RANK: number | null
-    TOT_STEPS: number | null
+    USID: string
+    MBTLNUM: string
+    INST_RANK: number
+    TOT_STEPS: number
 }
 
 //보행수 랭킹  현황 테이블 설정.
@@ -1526,6 +1526,13 @@ export const WalkRankingTableConfig = {
             {
                 name: `보행수`,
                 key: `TOT_STEPS`,
+                component: ({
+                    el,
+                }: {
+                    el: WalkRankingTableListItemInterface
+                }) => {
+                    return <>{addComma(el.TOT_STEPS)}</>
+                },
             },
         ],
     ],

@@ -19,6 +19,10 @@ const WalkRankingListMain = () => {
         useRecoilState(WalkRankingListState)
 
     const getTableList = useCallback(async () => {
+        setWalkRankingState(prevState => ({
+            ...prevState,
+            status: 'loading',
+        }))
         const {
             search: { MESURE_MT, INST_NO, curPage },
         } = walkRankingListState
