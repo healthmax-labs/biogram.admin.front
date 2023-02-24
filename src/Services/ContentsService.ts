@@ -57,9 +57,21 @@ export function getMagazineDetail({
  * 매거진 등록
  * @param payload
  */
-export const postMagazineDetail = (
-    payload: MagazineItemInterface
-): Promise<
+export const postMagazineDetail = (payload: {
+    ATCHMNFL_NO: number
+    BEGIN_DT: string
+    CN_ATCHMNFL_NO: number
+    END_DT: string
+    EXPOSCD: string
+    FIX_AT: string | 'Y' | 'N'
+    MISN_CD: string
+    MISN_COMPT_REWARD_POINT: string
+    MISN_DC: string
+    MISN_NAME: string
+    MISN_SUBNAME1: string
+    MISN_SUBNAME2: string
+    USE_AT: string | 'Y' | 'N'
+}): Promise<
     ServicesDefaultResult<{
         test: boolean
     }>
@@ -75,17 +87,41 @@ export const postMagazineDetail = (
  * 매거진 수정
  * @param payload
  */
-export const postMagazineDetailUpdate = (
-    payload: MagazineItemInterface
-): Promise<
+export const postMagazineDetailUpdate = ({
+    MISN_STEP,
+    BEGIN_DT,
+    END_DT,
+    MISN_COMPT_REWARD_POINT,
+    MISN_DC,
+    MISN_SUBNAME1,
+    MISN_SUBNAME2,
+    USE_AT,
+}: {
+    MISN_STEP: number
+    BEGIN_DT: string
+    END_DT: string
+    MISN_COMPT_REWARD_POINT: string
+    MISN_DC: string
+    MISN_SUBNAME1: string
+    MISN_SUBNAME2: string
+    USE_AT: string | 'Y' | 'N'
+}): Promise<
     ServicesDefaultResult<{
         test: boolean
     }>
 > => {
     return _Axios_({
         method: 'post',
-        url: `/todo/v1/misn/magazine/${payload.MISN_STEP}/update`,
-        payload: payload,
+        url: `/todo/v1/misn/magazine/${MISN_STEP}/update`,
+        payload: {
+            BEGIN_DT,
+            END_DT,
+            MISN_COMPT_REWARD_POINT,
+            MISN_DC,
+            MISN_SUBNAME1,
+            MISN_SUBNAME2,
+            USE_AT,
+        },
     })
 }
 
