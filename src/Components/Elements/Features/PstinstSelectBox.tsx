@@ -126,7 +126,7 @@ const PstinstSelectBox = ({
             }))
             handlMainAlert({
                 state: true,
-                message: Messages.Default.pageError,
+                message: Messages.Default.getInfoError,
             })
         }
     }, [handlMainAlert])
@@ -182,7 +182,7 @@ const PstinstSelectBox = ({
                 }))
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.getInfoError,
                 })
             }
         },
@@ -240,7 +240,7 @@ const PstinstSelectBox = ({
                 }))
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.getInfoError,
                 })
             }
         },

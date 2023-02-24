@@ -10,7 +10,6 @@ import { useRecoilState } from 'recoil'
 import { MemberDetailState } from '@Recoil/MemberPagesState'
 import { getMemberInfo } from '@Service/MemberService'
 import { MemberDetailInfoInterface } from '@Type/PageStateType'
-import Const from '@Const'
 
 const {
     DetailPage: { Container, LeftWapper, RightWapper },
@@ -30,40 +29,62 @@ const MemberDetailMain = () => {
             })
 
             if (status) {
-                const { MBER_INFO } = payload
+                const {
+                    MBER_INFO: {
+                        NM,
+                        MBER_NO,
+                        MBTLNUM,
+                        EMAIL_ADRES,
+                        BRTHDY,
+                        SEX,
+                        REGIST_DT,
+                        USID,
+                        MEMO,
+                        MBTLNUM_CRTFC_AT,
+                        PSTINST_INFO_LIST,
+                        MBTLNUM_CNT,
+                        TOT_CASH,
+                        TOT_SCORE,
+                        USE_STPLAT_AGRE_AT,
+                        INDVDLINFO_AGRE_AT,
+                        SNSTIIVEINFO_AGRE_AT,
+                        INDVDLINFO_THIRD_AGRE_AT,
+                        SNSTIIVEINFO_THIRD_AGRE_AT,
+                        MARKTINFO_AGRE_AT,
+                        MARKTINFO_PURPOSE_AGRE_AT,
+                        WORK_TY_CODE,
+                    },
+                } = payload
 
                 const memberInfo: MemberDetailInfoInterface = {
-                    NM: MBER_INFO.NM,
-                    MBER_NO: MBER_INFO.MBER_NO,
-                    MBTLNUM: MBER_INFO.MBTLNUM,
-                    EMAIL_ADRES: MBER_INFO.EMAIL_ADRES,
-                    BRTHDY: MBER_INFO.BRTHDY,
-                    SEX: MBER_INFO.SEX,
-                    REGIST_DT: MBER_INFO.REGIST_DT,
-                    USID: MBER_INFO.USID,
-                    MEMO: MBER_INFO.MEMO,
-                    MBTLNUM_CRTFC_AT: MBER_INFO.MBTLNUM_CRTFC_AT,
-                    PSTINST_INFO_LIST: MBER_INFO.PSTINST_INFO_LIST,
-                    MBTLNUM_CNT: MBER_INFO.MBTLNUM_CNT,
-                    TOT_CASH: MBER_INFO.TOT_CASH,
-                    TOT_SCORE: MBER_INFO.TOT_SCORE,
-                    USE_STPLAT_AGRE_AT: MBER_INFO.USE_STPLAT_AGRE_AT,
-                    INDVDLINFO_AGRE_AT: MBER_INFO.INDVDLINFO_AGRE_AT,
-                    SNSTIIVEINFO_AGRE_AT: MBER_INFO.SNSTIIVEINFO_AGRE_AT,
-                    INDVDLINFO_THIRD_AGRE_AT:
-                        MBER_INFO.INDVDLINFO_THIRD_AGRE_AT,
-                    SNSTIIVEINFO_THIRD_AGRE_AT:
-                        MBER_INFO.SNSTIIVEINFO_THIRD_AGRE_AT,
-                    MARKTINFO_AGRE_AT: MBER_INFO.MARKTINFO_AGRE_AT,
-                    MARKTINFO_PURPOSE_AGRE_AT:
-                        MBER_INFO.MARKTINFO_PURPOSE_AGRE_AT,
-                    WORK_TY_CODE: MBER_INFO.WORK_TY_CODE,
+                    NM: NM,
+                    MBER_NO: MBER_NO,
+                    MBTLNUM: MBTLNUM,
+                    EMAIL_ADRES: EMAIL_ADRES,
+                    BRTHDY: BRTHDY,
+                    SEX: SEX,
+                    REGIST_DT: REGIST_DT,
+                    USID: USID,
+                    MEMO: MEMO,
+                    MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
+                    PSTINST_INFO_LIST: PSTINST_INFO_LIST,
+                    MBTLNUM_CNT: MBTLNUM_CNT,
+                    TOT_CASH: TOT_CASH,
+                    TOT_SCORE: TOT_SCORE,
+                    USE_STPLAT_AGRE_AT: USE_STPLAT_AGRE_AT,
+                    INDVDLINFO_AGRE_AT: INDVDLINFO_AGRE_AT,
+                    SNSTIIVEINFO_AGRE_AT: SNSTIIVEINFO_AGRE_AT,
+                    INDVDLINFO_THIRD_AGRE_AT: INDVDLINFO_THIRD_AGRE_AT,
+                    SNSTIIVEINFO_THIRD_AGRE_AT: SNSTIIVEINFO_THIRD_AGRE_AT,
+                    MARKTINFO_AGRE_AT: MARKTINFO_AGRE_AT,
+                    MARKTINFO_PURPOSE_AGRE_AT: MARKTINFO_PURPOSE_AGRE_AT,
+                    WORK_TY_CODE: WORK_TY_CODE,
                 }
 
                 setDetailState(prevState => ({
                     ...prevState,
                     status: 'success',
-                    MBER_NO: MBER_INFO.MBER_NO,
+                    MBER_NO: MBER_NO,
                     detail: {
                         ...memberInfo,
                     },
@@ -74,7 +95,7 @@ const MemberDetailMain = () => {
             } else {
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.getInfoError,
                 })
             }
         },
@@ -83,22 +104,9 @@ const MemberDetailMain = () => {
 
     // 첫 로딩시 회원 정보 가지고 오기.
     useEffect(() => {
-        if (detailState.status !== 'idle') {
-            return
-        }
-
-        if (toNumber(MEMBER_NO)) {
+        if (detailState.status === 'idle' && MEMBER_NO) {
             handleGetMemberInfo(toNumber(MEMBER_NO)).then()
-            return
         }
-
-        handlMainAlert({
-            state: true,
-            message: Messages.Default.pageError,
-        })
-        navigate({
-            pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
-        })
     }, [
         MEMBER_NO,
         detailState.status,

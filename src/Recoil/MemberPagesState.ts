@@ -62,16 +62,16 @@ interface ConsultChartListInterface {
 
 // 상담 차트 작성
 interface ConsultChartInterface {
-    CNST: string | null
+    CNST: string
     MBER_NO: number | null
-    PLN: string | null
-    REG_NM: string | null
+    PLN: string
+    REG_NM: string
     CNST_NO: number | null
-    MNG_ID: string | null
-    MNG_NM: string | null
-    MOD_DT: string | null
-    MOD_MNG_NM: string | null
-    REGDT: string | null
+    MNG_ID: string
+    MNG_NM: string
+    MOD_DT: string
+    MOD_MNG_NM: string
+    REGDT: string
 }
 
 interface ConsultSmsSendInterface {
@@ -306,16 +306,16 @@ export const ConsultDetailChartListState = atom<ConsultChartListInterface>({
 export const ConsultDetailChartState = atom<ConsultChartInterface>({
     key: `memberPage/consult-chart`,
     default: {
-        CNST: null,
+        CNST: '',
         MBER_NO: null,
-        PLN: null,
-        REG_NM: null,
+        PLN: '',
+        REG_NM: '',
         CNST_NO: null,
-        MNG_ID: null,
-        MNG_NM: null,
-        MOD_DT: null,
-        MOD_MNG_NM: null,
-        REGDT: null,
+        MNG_ID: '',
+        MNG_NM: '',
+        MOD_DT: '',
+        MOD_MNG_NM: '',
+        REGDT: '',
     },
 })
 

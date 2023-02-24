@@ -110,7 +110,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         } else {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.pageError,
+                message: Messages.Default.processFail,
             })
         }
     }
@@ -156,7 +156,7 @@ const MagazineDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             } else {
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.processFail,
                 })
             }
         }

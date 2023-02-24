@@ -47,19 +47,20 @@ const ConsultDetailTableMemo = () => {
     }>(initializeState)
 
     const handleGetList = useCallback(async () => {
-        if (
-            chartListState.status === 'success' &&
-            chartListState.search.endDt &&
-            chartListState.search.startDt
-        ) {
+        const {
+            memNo,
+            search: { endDt, startDt },
+        } = chartListState
+
+        if (endDt && startDt) {
             setChartListState(prevState => ({
                 ...prevState,
                 listStatus: 'loading',
             }))
             const { status, payload } = await postManageCounsel({
-                MBER_NO: String(chartListState.memNo),
-                END_DT: chartListState.search.endDt,
-                START_DT: chartListState.search.startDt,
+                MBER_NO: String(memNo),
+                END_DT: endDt,
+                START_DT: startDt,
             })
 
             if (status) {
@@ -74,69 +75,67 @@ const ConsultDetailTableMemo = () => {
                 setChartListState(prevState => ({
                     ...prevState,
                     listStatus: 'failure',
+                    list: [],
                 }))
             }
         }
-    }, [
-        chartListState.memNo,
-        chartListState.search.endDt,
-        chartListState.search.startDt,
-        chartListState.status,
-        setChartListState,
-    ])
+    }, [chartListState, setChartListState])
 
-    const handleSave = async () => {
-        if (
-            chartState.PLN &&
-            chartState.CNST &&
-            chartState.REG_NM &&
-            chartState.MBER_NO
-        ) {
-            let resultState: boolean
-            if (chartState.CNST_NO) {
-                const { status } = await postManageUpdateCounsel({
-                    MBER_NO: String(chartState.MBER_NO),
-                    PLN: chartState.PLN,
-                    REG_NM: chartState.REG_NM,
-                    CNST: chartState.CNST,
-                    CNST_NO: String(chartState.CNST_NO),
-                })
+    // 기존 내용 업데이트
+    const handleUpdate = async () => {
+        const { PLN, CNST, REG_NM, MBER_NO, CNST_NO } = chartState
 
-                resultState = status
-            } else {
-                const { status } = await postManageaddCounsel({
-                    PLN: chartState.PLN,
-                    CNST: chartState.CNST,
-                    REG_NM: chartState.REG_NM,
-                    MBER_NO: String(chartState.MBER_NO),
-                })
+        const { status } = await postManageUpdateCounsel({
+            MBER_NO: String(MBER_NO),
+            PLN: PLN,
+            REG_NM: REG_NM,
+            CNST: CNST,
+            CNST_NO: String(CNST_NO),
+        })
 
-                resultState = status
-            }
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+            handleGetList().then()
 
-            if (resultState) {
-                handlMainAlert({
-                    state: true,
-                    message: Messages.Default.processSuccess,
-                })
-                handleGetList().then()
-
-                setChartState(prevState => ({
-                    ...prevState,
-                    REG_NM: null,
-                    CNST: null,
-                    PLN: null,
-                }))
-            } else {
-                handlMainAlert({
-                    state: true,
-                    message: Messages.Default.pageError,
-                })
-            }
+            setChartState(prevState => ({
+                ...prevState,
+                REG_NM: '',
+                CNST: '',
+                PLN: '',
+            }))
         } else {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.pageError,
+                message: Messages.Default.processFail,
+            })
+        }
+    }
+
+    // 추가.
+    const handleSave = async () => {
+        const { PLN, CNST, REG_NM, MBER_NO } = chartState
+        const { status } = await postManageaddCounsel({
+            PLN: PLN,
+            CNST: CNST,
+            REG_NM: REG_NM,
+            MBER_NO: String(MBER_NO),
+        })
+
+        if (status) {
+            setChartState(prevState => ({
+                ...prevState,
+                REG_NM: '',
+                CNST: '',
+                PLN: '',
+            }))
+            handleGetList().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
             })
         }
     }
@@ -265,7 +264,9 @@ const ConsultDetailTableMemo = () => {
                             },
                         }))
 
-                        handleSave().then()
+                        chartState.CNST_NO
+                            ? handleUpdate().then()
+                            : handleSave().then()
                     }}
                 />
             )}

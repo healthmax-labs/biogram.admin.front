@@ -65,7 +65,7 @@ const VaryImageUpload = ({
             } else {
                 handlMainAlert({
                     state: true,
-                    message: Messages.Default.pageError,
+                    message: Messages.Default.imageProcessFail,
                 })
             }
         }
