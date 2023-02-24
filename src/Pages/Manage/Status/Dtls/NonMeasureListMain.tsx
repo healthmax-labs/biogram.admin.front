@@ -33,6 +33,8 @@ const NonMeasureListMain = () => {
                 AND_AT,
                 cur_page,
                 SEARCH_KEY,
+                BF_N_MESURE_DAY,
+                WORK_TY_CODE,
             },
         } = nonMeasureListState
 
@@ -49,6 +51,8 @@ const NonMeasureListMain = () => {
             SB_NTCN_AT: SB_NTCN_AT,
             AND_AT: AND_AT,
             SEARCH_KEY: SEARCH_KEY,
+            BF_N_MESURE_DAY: BF_N_MESURE_DAY,
+            WORK_TY_CODE: WORK_TY_CODE,
         })
 
         if (status) {

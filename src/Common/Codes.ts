@@ -39,6 +39,20 @@ export default {
                 { code: '12', name: `1년` },
             ],
         },
+        workType: {
+            name: `직종구분`,
+            key: `workTypeCode`,
+            list: [
+                {
+                    code: 'I',
+                    name: `내근직`,
+                },
+                {
+                    code: 'O',
+                    name: `외근직`,
+                },
+            ],
+        },
     },
     ageGroup: {
         name: `체성분`,

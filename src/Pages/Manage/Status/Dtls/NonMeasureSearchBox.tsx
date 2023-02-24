@@ -12,6 +12,7 @@ import {
 
 import { useRecoilState } from 'recoil'
 import { NonMeasureListState } from '@Recoil/StatusPagesState'
+import Codes from '@Codes'
 
 const {
     SearchItemWapper,
@@ -62,10 +63,18 @@ const NonMeasureSearchBox = ({
                             <VaryInput
                                 ContentsType={`search`}
                                 Width={'w40'}
-                                // HandleOnChange={}
                                 id={'id'}
-                                Placeholder={'이름/아이디/휴대폰번호'}
-                                Value={'검색어'}
+                                Placeholder={'검색어'}
+                                Value={nonMeasureListState.search.SEARCH_KEY}
+                                HandleOnChange={e =>
+                                    setNonMeasureListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            SEARCH_KEY: e.target.value,
+                                        },
+                                    }))
+                                }
                             />
                         </SearchItem>
                     </SearchItemWapper>
@@ -246,22 +255,30 @@ const NonMeasureSearchBox = ({
                             <VaryLabel LabelName={`직종구분`} />
                         </SearchLabel>
                         <SearchItemGap>
-                            <VaryLabelCheckBox
-                                LabelWidth={'wMin'}
-                                Checked={false}
-                                HandleOnChange={() => {
-                                    //
-                                }}
-                                LabelName={`내근직`}
-                            />
-                            <VaryLabelCheckBox
-                                LabelWidth={'wMin'}
-                                Checked={false}
-                                HandleOnChange={() => {
-                                    //
-                                }}
-                                LabelName={`외근직`}
-                            />
+                            {Codes.etc.workType.list.map((work, index) => {
+                                return (
+                                    <VaryLabelCheckBox
+                                        key={`status-non-measure-search-work-type-checkbox-${index}`}
+                                        LabelWidth={'wMin'}
+                                        Checked={
+                                            nonMeasureListState.search
+                                                .WORK_TY_CODE === work.code
+                                        }
+                                        HandleOnChange={() => {
+                                            setNonMeasureListState(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    search: {
+                                                        ...prevState.search,
+                                                        WORK_TY_CODE: work.code,
+                                                    },
+                                                })
+                                            )
+                                        }}
+                                        LabelName={`${work.name}`}
+                                    />
+                                )
+                            })}
                         </SearchItemGap>
                     </SearchItemWapper>
                     <SearchItemWapper>
@@ -269,26 +286,32 @@ const NonMeasureSearchBox = ({
                             <VaryLabel LabelName={`기간`} />
                         </SearchLabel>
                         <SearchItemGap>
-                            <VaryLabelRadioButton
-                                LabelName={`3일`}
-                                Checked={false}
-                                HandleOnChange={e => console.log(e)}
-                            />
-                            <VaryLabelRadioButton
-                                LabelName={`7일`}
-                                Checked={false}
-                                HandleOnChange={e => console.log(e)}
-                            />
-                            <VaryLabelRadioButton
-                                LabelName={`30일`}
-                                Checked={false}
-                                HandleOnChange={e => console.log(e)}
-                            />
-                            <VaryLabelRadioButton
-                                LabelName={`90일`}
-                                Checked={false}
-                                HandleOnChange={e => console.log(e)}
-                            />
+                            {[3, 7, 30, 90].map((day, index) => {
+                                return (
+                                    <VaryLabelRadioButton
+                                        key={`status-non-measure-search-day-checkbox-${index}`}
+                                        LabelName={`${day}일`}
+                                        Checked={
+                                            nonMeasureListState.search
+                                                .BF_N_MESURE_DAY === day
+                                        }
+                                        HandleOnChange={e => {
+                                            if (e.target.checked) {
+                                                setNonMeasureListState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        search: {
+                                                            ...prevState.search,
+                                                            BF_N_MESURE_DAY:
+                                                                day,
+                                                        },
+                                                    })
+                                                )
+                                            }
+                                        }}
+                                    />
+                                )
+                            })}
                         </SearchItemGap>
                     </SearchItemWapper>
                 </SearchItemRow>
