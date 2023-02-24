@@ -161,7 +161,7 @@ const RiskFctrSearchBox = ({
                                             return (
                                                 <VaryLabelCheckBox
                                                     LabelName={`${el.name}`}
-                                                    LabelWidth={`w10`}
+                                                    LabelWidth={`wMin`}
                                                     key={`risk-fctr-search-box-risk-fctr-item-${index}`}
                                                     Checked={
                                                         riskFctrs.findIndex(

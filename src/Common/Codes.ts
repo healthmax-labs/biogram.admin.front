@@ -384,7 +384,7 @@ export default {
             list: [
                 { code: 'WS', name: '허리둘레' },
                 { code: 'BP', name: '혈압' },
-                { code: 'BS', name: '혈당' },
+                { code: 'BS', name: '식전혈당' },
                 { code: 'TG', name: '중성지방' },
                 { code: 'HD', name: 'HDLC' },
             ],
