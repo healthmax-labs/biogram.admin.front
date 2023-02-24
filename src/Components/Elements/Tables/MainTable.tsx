@@ -20,6 +20,7 @@ const MainTable = <P,>({
     Options,
     Lists,
     CheckedRow,
+    ButtonClick,
 }: MainTablePropsInterface<P>) => {
     const [pageState, setPageState] = useState<{
         checkedRow: string[]
@@ -116,6 +117,13 @@ const MainTable = <P,>({
                                 Options={Options}
                                 Lists={Lists}
                                 CheckedRows={pageState.checkedRow}
+                                ButtonClick={({ code, Element }) => {
+                                    ButtonClick &&
+                                        ButtonClick({
+                                            code: code,
+                                            Element: Element,
+                                        })
+                                }}
                                 RowCheckBoxClick={({ checked, Element }) => {
                                     const indexKeyValue = _.get(
                                         Element,

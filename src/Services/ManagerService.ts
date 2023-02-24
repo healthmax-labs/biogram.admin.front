@@ -86,6 +86,40 @@ export const postCommonStplatUpdate = ({
 }
 
 /**
+ * 약관 개정
+ * @param STPLAT_CHANGE_DE
+ * @param STPLAT_CHANGE_RESN
+ * @param STPLAT_DC
+ * @param STPLAT_KND_CODE
+ * @param STPLAT_SE_CODE
+ */
+export const postCommonStplat = ({
+    STPLAT_CHANGE_DE,
+    STPLAT_CHANGE_RESN,
+    STPLAT_DC,
+    STPLAT_KND_CODE,
+    STPLAT_SE_CODE,
+}: {
+    STPLAT_CHANGE_DE: string
+    STPLAT_CHANGE_RESN: string
+    STPLAT_DC: string
+    STPLAT_KND_CODE: string
+    STPLAT_SE_CODE: string
+}): Promise<ServicesDefaultResult<{ test: false }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/common/v1/stplat`,
+        payload: {
+            STPLAT_CHANGE_DE,
+            STPLAT_CHANGE_RESN,
+            STPLAT_DC,
+            STPLAT_KND_CODE,
+            STPLAT_SE_CODE,
+        },
+    })
+}
+
+/**
  * 이용약관 삭제 처리.
  * @param STPLAT_DC
  * @param STPLAT_SE_CODE

@@ -1,4 +1,5 @@
 import React from 'react'
+import { VaryButton } from '@Elements'
 import { TableStyle } from '@Style/Elements/TableStyles'
 import { MainTableBodyPropsInterface } from '@Type/TableTypes'
 import { VaryCheckBox } from '@Element/index'
@@ -13,6 +14,7 @@ const MainTableBody = <P,>({
     Lists,
     CheckedRows,
     RowCheckBoxClick,
+    ButtonClick,
 }: MainTableBodyPropsInterface<P>) => {
     return (
         <>
@@ -123,6 +125,37 @@ const MainTableBody = <P,>({
                                     }
                                 }
                             })()}
+                            {Options.xcpt &&
+                                Options.xcpt.option &&
+                                Options.xcpt.option === 'row-button' && (
+                                    <TbodyCell>
+                                        {Options.xcpt.buttons &&
+                                            Options.xcpt.buttons.map(
+                                                (xcpt, xindex) => {
+                                                    return (
+                                                        <VaryButton
+                                                            key={`main-table-body-cell-button-${xindex}`}
+                                                            ButtonType={`manage`}
+                                                            HandleClick={() => {
+                                                                if (
+                                                                    ButtonClick
+                                                                ) {
+                                                                    ButtonClick(
+                                                                        {
+                                                                            code: `${xcpt.code}`,
+                                                                            Element:
+                                                                                Row,
+                                                                        }
+                                                                    )
+                                                                }
+                                                            }}
+                                                            ButtonName={`${xcpt.name}`}
+                                                        />
+                                                    )
+                                                }
+                                            )}
+                                    </TbodyCell>
+                                )}
                         </TbodyRow>
                     )
                 })

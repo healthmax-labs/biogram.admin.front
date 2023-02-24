@@ -400,6 +400,18 @@ export default {
         },
         {
             mainCode: `60000`,
+            menuCode: `60202`,
+            name: `이용 약관 관리 개정`,
+            pathName: `/manage/manager/stplat/:seCode/:kndCode/:SN/:STPLAT/stplat`,
+            recooilKey: `managerPage/stplat-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/StplatDetailPage')
+            ),
+        },
+        {
+            mainCode: `60000`,
             menuCode: `60301`,
             name: `게시판 관리`,
             pathName: `/manage/manager/notice-list`,
@@ -413,7 +425,7 @@ export default {
         {
             mainCode: `60000`,
             menuCode: `60301`,
-            name: `게시물 상세`,
+            name: `게시판 상세`,
             pathName: `/manage/manager/notice/:NOTICE_NO/detail`,
             recooilKey: `managerPage/notice-detail`,
             showFlag: 'Y',
