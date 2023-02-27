@@ -6,7 +6,7 @@ import {
     ConsultInfoListItemInterface,
     MemberInfoListItemInterface,
 } from '@Type/MemberTypes'
-import { phoneFormat, timeStringParse } from '@Helper'
+import { addComma, phoneFormat, timeStringParse } from '@Helper'
 import _ from 'lodash'
 
 export type tableListItemInterface = MemberInfoListItemInterface
@@ -184,6 +184,9 @@ export const MemberTableConfig = {
                 name: `당월미션포인트`,
                 key: `ACCML_POINT`,
                 cellWidth: `w24`,
+                component: ({ el }: { el: MemberInfoListItemInterface }) => {
+                    return <>{addComma(el.ACCML_POINT)}</>
+                },
             },
         ],
     ],
