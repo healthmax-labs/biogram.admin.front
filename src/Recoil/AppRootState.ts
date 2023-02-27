@@ -18,7 +18,6 @@ export const AtomRootState = atom<AppRootStateInterface>({
             postal: false,
             state: '',
         },
-        ConHistory: [],
         logininfo: {
             TOKEN_INFO: null,
             VTOKEN_INFO: null,
