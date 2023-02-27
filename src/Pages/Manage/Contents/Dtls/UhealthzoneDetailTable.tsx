@@ -658,90 +658,82 @@ const UhealthzoneDetailTable = ({
                         <InputCell>
                             <WS.FullWapper>
                                 <WS.FlexNoWarapGap>
-                                    {Codes.week.map((el, index) => {
-                                        const ckFindIndex =
-                                            detailState.detail.OPER_WIK_INFO.findIndex(
-                                                element =>
-                                                    element.TIME_KND_CODE ===
-                                                    'BSTM'
-                                            )
-
-                                        return (
-                                            <VaryLabelCheckBox
-                                                key={`uhealth-zone-detail-table-week1-item-${index}`}
-                                                LabelWidth={`w5`}
-                                                Checked={
-                                                    ckFindIndex > -1 &&
-                                                    Number(
-                                                        detailState.detail
-                                                            .OPER_WIK_INFO[
-                                                            ckFindIndex
-                                                        ].WIK_CODE
-                                                    ) >= el.code
-                                                }
-                                                LabelName={`${el.name2}`}
-                                                HandleOnChange={() => {
-                                                    if (ckFindIndex > -1) {
-                                                        setDetailState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                detail: {
-                                                                    ...prevState.detail,
-                                                                    OPER_WIK_INFO:
-                                                                        prevState.detail.OPER_WIK_INFO.map(
-                                                                            e => {
-                                                                                if (
-                                                                                    e.TIME_KND_CODE ===
-                                                                                    'BSTM'
-                                                                                ) {
-                                                                                    return {
-                                                                                        ...e,
-                                                                                        WIK_CODE:
-                                                                                            String(
-                                                                                                Number(
-                                                                                                    e.WIK_CODE
-                                                                                                ) +
-                                                                                                    el.code
-                                                                                            ),
-                                                                                    }
-                                                                                } else {
-                                                                                    return e
-                                                                                }
-                                                                            }
-                                                                        ),
-                                                                },
-                                                            })
-                                                        )
-                                                    } else {
-                                                        setDetailState(
-                                                            prevState => ({
-                                                                ...prevState,
-                                                                detail: {
-                                                                    ...prevState.detail,
-                                                                    OPER_WIK_INFO:
-                                                                        [
-                                                                            ...prevState
-                                                                                .detail
-                                                                                .OPER_WIK_INFO,
-                                                                            {
-                                                                                TIME_KND_CODE:
-                                                                                    'BSTM',
-                                                                                WIK_SE_CODE:
-                                                                                    'RD',
-                                                                                WIK_CODE:
-                                                                                    String(
-                                                                                        el.code
-                                                                                    ),
-                                                                            },
-                                                                        ],
-                                                                },
-                                                            })
+                                    {Codes.uhealthzoneWeek.map(
+                                        (week, weekIndex) => {
+                                            return (
+                                                <VaryLabelCheckBox
+                                                    key={`uhealth-zone-detail-table-week1-item-${weekIndex}`}
+                                                    LabelWidth={`w5`}
+                                                    Checked={
+                                                        !!_.find(
+                                                            detailState.detail
+                                                                .OPER_WIK_INFO,
+                                                            {
+                                                                TIME_KND_CODE:
+                                                                    'BSTM',
+                                                                WIK_SE_CODE:
+                                                                    week.seCode,
+                                                                WIK_CODE:
+                                                                    week.code,
+                                                            }
                                                         )
                                                     }
-                                                }}
-                                            />
-                                        )
-                                    })}
+                                                    LabelName={`${week.name}`}
+                                                    HandleOnChange={e => {
+                                                        if (e.target.checked) {
+                                                            setDetailState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    detail: {
+                                                                        ...prevState.detail,
+                                                                        OPER_WIK_INFO:
+                                                                            [
+                                                                                ...prevState
+                                                                                    .detail
+                                                                                    .OPER_WIK_INFO,
+                                                                                {
+                                                                                    TIME_KND_CODE:
+                                                                                        'BSTM',
+                                                                                    WIK_SE_CODE:
+                                                                                        week.seCode,
+                                                                                    WIK_CODE:
+                                                                                        week.code,
+                                                                                },
+                                                                            ],
+                                                                    },
+                                                                })
+                                                            )
+                                                        } else {
+                                                            setDetailState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    detail: {
+                                                                        ...prevState.detail,
+                                                                        OPER_WIK_INFO:
+                                                                            _.filter(
+                                                                                prevState
+                                                                                    .detail
+                                                                                    .OPER_WIK_INFO,
+                                                                                wi => {
+                                                                                    return !(
+                                                                                        wi.TIME_KND_CODE ==
+                                                                                            'BSTM' &&
+                                                                                        wi.WIK_SE_CODE ==
+                                                                                            week.seCode &&
+                                                                                        wi.WIK_CODE ==
+                                                                                            week.code
+                                                                                    )
+                                                                                }
+                                                                            ),
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    }}
+                                                />
+                                            )
+                                        }
+                                    )}
                                 </WS.FlexNoWarapGap>
                                 <WS.FlexNoWarap>
                                     <DPS.DatePicker>
@@ -838,19 +830,82 @@ const UhealthzoneDetailTable = ({
                         <InputCell>
                             <WS.FullWapper>
                                 <WS.FlexNoWarapGap>
-                                    {Codes.week.map((el, index) => {
-                                        return (
-                                            <VaryLabelCheckBox
-                                                key={`uhealth-zone-detail-table-week2-item-${index}`}
-                                                LabelWidth={`w5`}
-                                                Checked={false}
-                                                LabelName={`${el.name2}`}
-                                                HandleOnChange={() => {
-                                                    //
-                                                }}
-                                            />
-                                        )
-                                    })}
+                                    {Codes.uhealthzoneWeek.map(
+                                        (week, weekIndex) => {
+                                            return (
+                                                <VaryLabelCheckBox
+                                                    key={`uhealth-zone-detail-table-week2-item-${weekIndex}`}
+                                                    LabelWidth={`w5`}
+                                                    Checked={
+                                                        !!_.find(
+                                                            detailState.detail
+                                                                .OPER_WIK_INFO,
+                                                            {
+                                                                TIME_KND_CODE:
+                                                                    'BMTM',
+                                                                WIK_SE_CODE:
+                                                                    week.seCode,
+                                                                WIK_CODE:
+                                                                    week.code,
+                                                            }
+                                                        )
+                                                    }
+                                                    LabelName={`${week.name}`}
+                                                    HandleOnChange={e => {
+                                                        if (e.target.checked) {
+                                                            setDetailState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    detail: {
+                                                                        ...prevState.detail,
+                                                                        OPER_WIK_INFO:
+                                                                            [
+                                                                                ...prevState
+                                                                                    .detail
+                                                                                    .OPER_WIK_INFO,
+                                                                                {
+                                                                                    TIME_KND_CODE:
+                                                                                        'BMTM',
+                                                                                    WIK_SE_CODE:
+                                                                                        week.seCode,
+                                                                                    WIK_CODE:
+                                                                                        week.code,
+                                                                                },
+                                                                            ],
+                                                                    },
+                                                                })
+                                                            )
+                                                        } else {
+                                                            setDetailState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    detail: {
+                                                                        ...prevState.detail,
+                                                                        OPER_WIK_INFO:
+                                                                            _.filter(
+                                                                                prevState
+                                                                                    .detail
+                                                                                    .OPER_WIK_INFO,
+                                                                                wi => {
+                                                                                    return !(
+                                                                                        wi.TIME_KND_CODE ==
+                                                                                            'BMTM' &&
+                                                                                        wi.WIK_SE_CODE ==
+                                                                                            week.seCode &&
+                                                                                        wi.WIK_CODE ==
+                                                                                            week.code
+                                                                                    )
+                                                                                }
+                                                                            ),
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    }}
+                                                />
+                                            )
+                                        }
+                                    )}
                                 </WS.FlexNoWarapGap>
                                 <WS.FlexNoWarap>
                                     <DPS.DatePicker>

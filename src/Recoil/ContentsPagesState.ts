@@ -185,11 +185,11 @@ export const UhealthzoneDetailState = atom<UhealthzoneDetailInterface>({
                 {
                     TIME_KND_CODE: 'BSTM',
                     WIK_SE_CODE: 'BD',
-                    WIK_CODE: '21',
+                    WIK_CODE: '15',
                 },
                 {
                     TIME_KND_CODE: 'BMTM',
-                    WIK_SE_CODE: 'RD',
+                    WIK_SE_CODE: 'BD',
                     WIK_CODE: '15',
                 },
             ],

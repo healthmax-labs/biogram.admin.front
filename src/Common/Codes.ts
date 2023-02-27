@@ -423,54 +423,16 @@ export default {
             ],
         },
     ],
-    week: [
+    uhealthzoneWeek: [
         {
-            name1: `일요일`,
-            name2: '일',
-            key: `time_7`,
-            code: 7,
+            name: `매일`,
+            seCode: `BD`,
+            code: `15`,
         },
         {
-            name1: `월요일`,
-            name2: '월',
-            key: `time_1`,
-            code: 1,
-        },
-        {
-            name1: `화요일`,
-            name2: '화',
-            key: `time_2`,
-            code: 2,
-        },
-        {
-            name1: `수요일`,
-            name2: '수',
-            key: `time_3`,
-            code: 3,
-        },
-        {
-            name1: `목요일`,
-            name2: '목',
-            key: `time_4`,
-            code: 4,
-        },
-        {
-            name1: `금요일`,
-            name2: '금',
-            key: `time_5`,
-            code: 5,
-        },
-        {
-            name1: `토요일`,
-            name2: '토',
-            key: `time_6`,
-            code: 6,
-        },
-        {
-            name1: `공휴일`,
-            name2: '공휴일 휴무',
-            key: `time_rd`,
-            code: 21,
+            name: `공휴일 휴무`,
+            seCode: `RD`,
+            code: `21`,
         },
     ],
     deviceGubun: {
