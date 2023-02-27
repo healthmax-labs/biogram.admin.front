@@ -24,9 +24,9 @@ export default {
             name: `날짜 주기 코드`,
             key: `dayCycle`,
             list: [
-                { code: 'day', name: `1일` },
-                { code: 'week', name: `1주` },
-                { code: 'month', name: `1개월` },
+                { code: 'D', name: `1일` },
+                { code: 'W', name: `1주` },
+                { code: 'M', name: `1개월` },
             ],
         },
         dateUnits: {

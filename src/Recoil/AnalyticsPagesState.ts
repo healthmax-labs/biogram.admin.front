@@ -112,7 +112,7 @@ export const MemberListState = atom<AnalyticsMemberListStateInterface>({
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
-            CYCLE: 'day',
+            CYCLE: 'D',
         },
         list: {
             AGE_GROUP_STAT_LIST: [],
@@ -131,7 +131,7 @@ export const MesureListState = atom<MesureListInterface>({
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
-            CYCLE: 'day',
+            CYCLE: 'D',
         },
         list: {
             AGE_GROUP_STAT_LIST: [],
@@ -150,7 +150,7 @@ export const DeviceListState = atom<DeviceListInterface>({
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
-            CYCLE: 'day',
+            CYCLE: 'D',
         },
         list: {
             AGE_GROUP_STAT_LIST: [],
@@ -169,7 +169,7 @@ export const RiskFctrItemsListState = atom<RiskFctrItemsListInterface>({
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
-            CYCLE: 'day',
+            CYCLE: 'D',
         },
         list: {
             AGE_GROUP_STAT_LIST: [],
@@ -188,7 +188,7 @@ export const RiskFctrCountListState = atom<RiskFctrCountListInterface>({
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
-            CYCLE: 'day',
+            CYCLE: 'D',
         },
         list: {
             AGE_GROUP_STAT_LIST: [],
