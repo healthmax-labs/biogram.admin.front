@@ -233,7 +233,7 @@ export function getNonMeasureList({
     BF_N_MESURE_DAY,
     WORK_TY_CODE,
 }: {
-    INST_NO: string
+    INST_NO?: string
     MESURE_DT: string
     BP_NTCN_AT: string
     BS_NTCN_AT: string
@@ -254,25 +254,44 @@ export function getNonMeasureList({
         TOTAL_COUNT: number
     }>
 > {
+    const payload: {
+        INST_NO?: string
+        MESURE_DT: string
+        BP_NTCN_AT: string
+        BS_NTCN_AT: string
+        BC_NTCN_AT: string
+        HA_NTCN_AT: string
+        IS_NTCN_AT: string
+        SR_NTCN_AT: string
+        SB_NTCN_AT: string
+        AND_AT: string
+        SEARCH_KEY: string | null
+        BF_N_MESURE_DAY: number
+        WORK_TY_CODE: string
+    } = {
+        INST_NO,
+        MESURE_DT,
+        BP_NTCN_AT,
+        BS_NTCN_AT,
+        BC_NTCN_AT,
+        HA_NTCN_AT,
+        IS_NTCN_AT,
+        SR_NTCN_AT,
+        SB_NTCN_AT,
+        AND_AT,
+        SEARCH_KEY,
+        BF_N_MESURE_DAY,
+        WORK_TY_CODE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
     return _Axios_({
         method: 'post',
         url: `/mng/gndn/v1/not_mesure/ntcn/${cur_page}`,
-        payload: {
-            INST_NO,
-            MESURE_DT,
-            BP_NTCN_AT,
-            BS_NTCN_AT,
-            BC_NTCN_AT,
-            HA_NTCN_AT,
-            IS_NTCN_AT,
-            SR_NTCN_AT,
-            SB_NTCN_AT,
-            AND_AT,
-            SEARCH_KEY,
-            NOT_MESURE_NTCN_INFO_LIST: [],
-            BF_N_MESURE_DAY,
-            WORK_TY_CODE,
-        },
+        payload: payload,
     })
 }
 
