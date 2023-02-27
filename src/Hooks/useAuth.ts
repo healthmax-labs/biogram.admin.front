@@ -13,7 +13,7 @@ import {
     saveRefreshToken,
     storageMaster,
 } from '@Helper'
-import { isEmpty, isNull } from 'lodash'
+import _ from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
 import { useCallback } from 'react'
 import Routers from '@Routers'
@@ -23,7 +23,7 @@ export default function useAuth() {
     const handleLoginCheck = (): boolean => {
         return (
             appRootState.login &&
-            !isEmpty(getAccessToken()) &&
+            !_.isEmpty(getAccessToken()) &&
             checkRemainingTime()
         )
     }
@@ -63,17 +63,14 @@ export default function useAuth() {
                 menuInfo: {
                     CHARGER_MENU_INFO: CHARGER_MENU_INFO,
                     AUTHOR_MENU_INFO_LIST: AUTHOR_MENU_INFO_LIST.map(el => {
-                        const ckIndex = Routers.Main.findIndex(
-                            rt => rt.menuCode === el.MENU_CODE
-                        )
+                        const mainMenu = _.find(Routers.Main, {
+                            menuCode: el.MENU_CODE,
+                        })
 
                         return {
                             ...el,
                             reloadButton: false,
-                            pathName:
-                                ckIndex > -1
-                                    ? Routers.Main[ckIndex].pathName
-                                    : '',
+                            pathName: mainMenu ? mainMenu.pathName : '',
                             MENU_ORDR_GUBUN: Number(el.MENU_CODE.charAt(0)),
                         }
                     }),
@@ -112,9 +109,9 @@ export default function useAuth() {
             } = response.payload
 
             saveLoginToken({
-                TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
-                VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
-                TOKEN_LIMIT_TIME: !isEmpty(TOKEN_LIMIT_TIME)
+                TOKEN_INFO: !_.isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
+                VTOKEN_INFO: !_.isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
+                TOKEN_LIMIT_TIME: !_.isEmpty(TOKEN_LIMIT_TIME)
                     ? TOKEN_LIMIT_TIME
                     : 0,
                 AUTHORIZE_CODE: null,
@@ -132,20 +129,20 @@ export default function useAuth() {
                 ...prevState,
                 attemptLogout: false,
                 logininfo: {
-                    TOKEN_INFO: !isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
-                    VTOKEN_INFO: !isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
-                    TOKEN_LIMIT_TIME: !isEmpty(TOKEN_LIMIT_TIME)
+                    TOKEN_INFO: !_.isEmpty(TOKEN_INFO) ? TOKEN_INFO : null,
+                    VTOKEN_INFO: !_.isEmpty(VTOKEN_INFO) ? VTOKEN_INFO : null,
+                    TOKEN_LIMIT_TIME: !_.isEmpty(TOKEN_LIMIT_TIME)
                         ? TOKEN_LIMIT_TIME
                         : 0,
                     AUTHORIZE_CODE: null,
                 },
                 login: true,
                 userinfo: {
-                    USID: !isEmpty(USID) ? USID : null,
-                    NM: !isEmpty(NM) ? NM : null,
-                    MBER_NO: !isNull(MBER_NO) ? MBER_NO : null,
-                    AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
-                    INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
+                    USID: !_.isEmpty(USID) ? USID : null,
+                    NM: !_.isEmpty(NM) ? NM : null,
+                    MBER_NO: !_.isNull(MBER_NO) ? MBER_NO : null,
+                    AUTH_CODE: !_.isEmpty(AUTH_CODE) ? AUTH_CODE : null,
+                    INST_NM: !_.isEmpty(INST_NM) ? INST_NM : null,
                 },
             }))
 
@@ -210,7 +207,7 @@ export default function useAuth() {
         // Vtoken 체크
         const vtoken = getVtokenInfoToken()
 
-        if (isEmpty(vtoken)) {
+        if (_.isEmpty(vtoken)) {
             return {
                 status: false,
             }

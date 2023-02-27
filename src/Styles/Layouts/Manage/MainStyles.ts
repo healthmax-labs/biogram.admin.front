@@ -61,7 +61,12 @@ export const SidebarStyle = {
         },
     },
     Divider: tw.hr`my-0 min-w-full`,
-    MenuHeading: tw.h6`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`,
+    MenuHeading1: tw.h6`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`,
+    MenuHeading: styled.h6(({ Active }: { Active: boolean }) => [
+        Active
+            ? tw`text-blueberry block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`
+            : tw`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`,
+    ]),
     NavigationUl: tw.ul`flex list-none flex-col min-w-full`,
     NavigationLi: tw.li`items-center h-6`,
     MenuLink: styled.div(({ Active }: { Active: boolean }) => [
