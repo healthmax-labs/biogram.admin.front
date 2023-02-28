@@ -35,10 +35,20 @@ const MemberMain = () => {
         })
 
         if (status) {
+            const { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST } = payload
+
             setMemberListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                list: payload,
+                list: {
+                    AGE_GROUP_STAT_LIST: AGE_GROUP_STAT_LIST.map(ageGroup => {
+                        return {
+                            ...ageGroup,
+                            AGES_GROUP: String(ageGroup.AGES_GROUP),
+                        }
+                    }),
+                    PERIOD_STAT_LIST: PERIOD_STAT_LIST,
+                },
             }))
         } else {
             setMemberListState(prevState => ({

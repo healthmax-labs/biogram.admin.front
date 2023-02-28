@@ -124,17 +124,17 @@ const MeasureUserTable = () => {
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.TOT_MBER_CNT
+                                                                DataRow.SUM_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.TOT_WOMAN_CNT
+                                                                DataRow.SUM_WOMAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.TOT_MAN_CNT
+                                                                DataRow.SUM_MAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
@@ -269,163 +269,177 @@ const MeasureUserTable = () => {
                                 </T.Body>
                                 <T.TFoot>
                                     <T.TFootRow>
-                                        {(() => {
-                                            const DataRow = _.find(
-                                                AGE_GROUP_STAT_LIST,
-                                                {
-                                                    AGE_GROUP: 'TOT',
-                                                }
-                                            )
-
-                                            if (DataRow) {
-                                                return (
-                                                    <>
-                                                        <T.TFootCell
-                                                            colSpan={2}>
-                                                            합계
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.TOT_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.TOT_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.TOT_MAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.IS_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.IS_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.IS_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BP_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BP_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.BP_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BS_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BS_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.BS_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BC_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BC_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.BC_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.ST_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.ST_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.ST_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.HT_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.HT_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.HT_MAN_CNT}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BD_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BD_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.BD_MAN_CNT}
-                                                        </T.TFootCell>
-                                                    </>
+                                        <T.TFootCell colSpan={2}>
+                                            합계
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SUM_MBER_CNT)
                                                 )
-                                            }
-
-                                            return (
-                                                <>
-                                                    <T.TFootCell colSpan={2}>
-                                                        합계
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                </>
-                                            )
-                                        })()}
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SUM_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SUM_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.IS_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.IS_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.IS_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BP_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BP_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BP_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BS_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BS_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BS_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BC_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BC_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BC_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.ST_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.ST_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.ST_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HT_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HT_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HT_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BD_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BD_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.BD_MAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
                             </T.Table>
@@ -511,16 +525,16 @@ const MeasureUserTable = () => {
                                                 <T.Row
                                                     key={`analytics-measure-user-period-table-row-item-${periodIndex}`}>
                                                     <T.CellW>
-                                                        {period.PERIOD}
+                                                        {period.CYCLE_GUBUN}
                                                     </T.CellW>
                                                     <T.CellW>
-                                                        {period.TOT_MBER_CNT}
+                                                        {period.SUM_MBER_CNT}
                                                     </T.CellW>
                                                     <T.CellW>
-                                                        {period.TOT_WOMAN_CNT}
+                                                        {period.SUM_WOMAN_CNT}
                                                     </T.CellW>
                                                     <T.CellW>
-                                                        {period.TOT_MAN_CNT}
+                                                        {period.SUM_MAN_CNT}
                                                     </T.CellW>
                                                     <T.CellW>
                                                         {period.IS_MBER_CNT}

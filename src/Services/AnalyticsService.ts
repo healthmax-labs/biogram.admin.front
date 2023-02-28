@@ -4,13 +4,14 @@ import {
     DeviceAgeListItemInterface,
     DevicePeriodListItemInterface,
     ImprvmAgeListItemInterface,
+    MemberAnalyticsAgeListItemInterface,
+    MemberAnalyticsPeriodListItemInterface,
     MesureAgeListItemInterface,
     MesurePeriodListItemInterface,
     RiskFctrCountAgeListItemInterface,
     RiskFctrCountPeriodListItemInterface,
     RiskFctrItemsAgeListItemInterface,
     RiskFctrItemsPeriodListItemInterface,
-    AnalyticsMemberListInterface,
 } from '@Type/AnalyticsTypes'
 import _ from 'lodash'
 
@@ -29,7 +30,12 @@ export function getMemberAnalyticsList({
     ENDDE: string
     AGEGROUP: string[]
     CYCLE: string
-}): Promise<ServicesDefaultResult<AnalyticsMemberListInterface>> {
+}): Promise<
+    ServicesDefaultResult<{
+        AGE_GROUP_STAT_LIST: MemberAnalyticsAgeListItemInterface[]
+        PERIOD_STAT_LIST: MemberAnalyticsPeriodListItemInterface[]
+    }>
+> {
     const payload: {
         INST_NO?: string
         BGNDE: string

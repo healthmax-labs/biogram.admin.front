@@ -26,6 +26,7 @@ import {
     BrftrCmprListState,
     RiskFctrListState,
     StatisticsListState,
+    HealthIndicatorsListState,
 } from '@Recoil/StatusPagesState'
 import {
     DeviceListState,
@@ -67,6 +68,11 @@ export default function useRecoilReset() {
     const ActivityWalkListStateReset = useResetRecoilState(
         // 활동량 현황
         ActivityWalkListState
+    )
+
+    const HealthIndicatorsListStateReset = useResetRecoilState(
+        // 미측정 현황
+        HealthIndicatorsListState
     )
 
     const AnalyticsMemberListStateReset = useResetRecoilState(
@@ -120,6 +126,7 @@ export default function useRecoilReset() {
             'analyticsPage/mesure-analytics-list': () => void
             'analyticsPage/mesure-risk-fctr-items-list': () => void
             'analyticsPage/mesure-risk-fctr-count-list': () => void
+            'analyticsPage/health-indicators-list': () => void
             'analyticsPage/mesure-device-list': () => void
             'managerPage/stplat-list': () => void
             'managerPage/stplat-detail': () => void
@@ -154,6 +161,8 @@ export default function useRecoilReset() {
                 RiskFctrCountAnalyticsListStateReset(),
             'analyticsPage/mesure-device-list': () =>
                 DeviceAnalyticsListStateReset(),
+            'analyticsPage/health-indicators-list': () =>
+                HealthIndicatorsListStateReset(),
             'managerPage/stplat-list': () => StplatListStateReset(),
             'managerPage/stplat-detail': () => StplatDetailStateReset(),
             'statusPage/notice-list': () => NoticeListStateReset(),

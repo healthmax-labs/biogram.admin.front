@@ -9,7 +9,12 @@ import {
     StatisticsListInterface,
     WalkRankingListInterface,
 } from '@Type/StatusTypes'
-import { getNowDate, getOneMonthAgo, getNowYearMonth } from '@Helper'
+import {
+    getNowDate,
+    getOneMonthAgo,
+    getNowYearMonth,
+    getDateDayUnit,
+} from '@Helper'
 
 /**
  * status 페이지.
@@ -180,7 +185,7 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
             curPage: 0,
             INST_NO: '',
             SEARCH: '',
-            BEGIN_DE: getOneMonthAgo(),
+            BEGIN_DE: getDateDayUnit(7),
             END_DE: getNowDate(),
         },
         list: {
@@ -221,14 +226,14 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
 //건강지표개선 현황
 export const HealthIndicatorsListState =
     atom<HealthIndicatorsSearchListInterface>({
-        key: `statusPage/healthIndicators-list`,
+        key: `statusPage/health-indicators-list`,
         default: {
             status: 'idle',
             search: {
                 curPage: 0,
                 INST_NO: '',
                 SEARCH_KEY: '',
-                BGNDE: getOneMonthAgo(),
+                BGNDE: getDateDayUnit(7),
                 ENDDE: getNowDate(),
             },
             list: {

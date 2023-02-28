@@ -1,27 +1,15 @@
+import React from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
 import { ElementLoading, VaryButton } from '@Elements'
-
 import { useRecoilValue } from 'recoil'
 import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
-import React from 'react'
 import Codes from '@Codes'
 import _ from 'lodash'
 
-const {
-    Container,
-    RowWapper,
-    // TitleBox,
-    // ChartBox,
-    ButtonBox,
-    TableBox,
-    Table: T,
-} = ContentsStyle
+const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
 
 const HealthIndicatorsTable = () => {
-    const {
-        status,
-        list: { MYBODY_SCORE_IMPRVM_STAT_LIST },
-    } = useRecoilValue(ImprvmListState)
+    const { status, list } = useRecoilValue(ImprvmListState)
 
     return (
         <Container>
@@ -93,12 +81,9 @@ const HealthIndicatorsTable = () => {
                                 <T.Body>
                                     {Codes.ageGroup.list.map(
                                         (age, ageIndex) => {
-                                            const DataRow = _.find(
-                                                MYBODY_SCORE_IMPRVM_STAT_LIST,
-                                                {
-                                                    AGES_GROUP: age.code,
-                                                }
-                                            )
+                                            const DataRow = _.find(list, {
+                                                AGES_GROUP: age.code,
+                                            })
 
                                             if (DataRow) {
                                                 return (
@@ -108,7 +93,11 @@ const HealthIndicatorsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_TOT_SCORE}%`}
+                                                            {`${
+                                                                (DataRow.IW_TOT_SCORE +
+                                                                    DataRow.OW_TOT_SCORE) /
+                                                                2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_TOT_SCORE}%`}
@@ -117,7 +106,11 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_TOT_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_BP_SCORE}%`}
+                                                            {`${
+                                                                (DataRow.IW_BP_SCORE +
+                                                                    DataRow.OW_BP_SCORE) /
+                                                                2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_BP_SCORE}%`}
@@ -126,7 +119,11 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_BP_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_FBS_SCORE}%`}
+                                                            {`${
+                                                                (DataRow.IW_FBS_SCORE +
+                                                                    DataRow.OW_FBS_SCORE) /
+                                                                2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_FBS_SCORE}%`}
@@ -135,7 +132,11 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_FBS_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_TG_SCORE}%`}
+                                                            {`${
+                                                                DataRow.IW_TG_SCORE +
+                                                                DataRow.OW_TG_SCORE /
+                                                                    2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_TG_SCORE}%`}
@@ -144,7 +145,11 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_TG_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_HDLC_SCORE}%`}
+                                                            {`${
+                                                                DataRow.IW_HDLC_SCORE +
+                                                                DataRow.OW_HDLC_SCORE /
+                                                                    2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_HDLC_SCORE}%`}
@@ -153,7 +158,11 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_HDLC_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${DataRow.TT_WAIST_SCORE}%`}
+                                                            {`${
+                                                                (DataRow.IW_WAIST_SCORE +
+                                                                    DataRow.OW_WAIST_SCORE) /
+                                                                2
+                                                            }%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_WAIST_SCORE}%`}
@@ -196,80 +205,363 @@ const HealthIndicatorsTable = () => {
                                 </T.Body>
                                 <T.TFoot>
                                     <T.TFootRow>
-                                        {(() => {
-                                            const DataRow = _.find(
-                                                MYBODY_SCORE_IMPRVM_STAT_LIST,
-                                                {
-                                                    AGES_GROUP: 'TOT',
-                                                }
-                                            )
-                                            if (DataRow) {
-                                                return (
-                                                    <>
-                                                        <T.TFootCell
-                                                            colSpan={2}>
-                                                            합계
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_TOT_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_TOT_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_TOT_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_BP_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_BP_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_BP_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_FBS_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_FBS_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_FBS_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_TG_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_TG_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_TG_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_HDLC_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_HDLC_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_HDLC_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.TT_WAIST_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.IW_WAIST_SCORE}%`}
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {`${DataRow.OW_WAIST_SCORE}%`}
-                                                        </T.TFootCell>
-                                                    </>
-                                                )
-                                            } else {
-                                                return <></>
-                                            }
-                                        })()}
+                                        <T.TFootCell colSpan={2}>
+                                            합계
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_TOT_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_TOT_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_TOT_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_TOT_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_TOT_SCORE +
+                                                        OW_TOT_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_TOT_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_TOT_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_TOT_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_TOT_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_TOT_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_TOT_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_BP_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_BP_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_BP_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_BP_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_BP_SCORE +
+                                                        OW_BP_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_BP_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_BP_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_BP_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_BP_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_BP_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_BP_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_FBS_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_FBS_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_FBS_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_FBS_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_FBS_SCORE +
+                                                        OW_FBS_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_FBS_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_FBS_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_FBS_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_FBS_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_FBS_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_FBS_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_TG_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_TG_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_TG_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_TG_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_TG_SCORE +
+                                                        OW_TG_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_TG_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_TG_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_TG_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_TG_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_TG_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_TG_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_HDLC_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_HDLC_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_HDLC_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_HDLC_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_HDLC_SCORE +
+                                                        OW_HDLC_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_HDLC_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_HDLC_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_HDLC_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_HDLC_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_HDLC_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_HDLC_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_WAIST_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_WAIST_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                const OW_WAIST_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_WAIST_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${
+                                                    (IW_WAIST_SCORE +
+                                                        OW_WAIST_SCORE) /
+                                                    2
+                                                }%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const IW_WAIST_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.IW_WAIST_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${IW_WAIST_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const OW_WAIST_SCORE =
+                                                    _.sum(
+                                                        list.map(e =>
+                                                            Number(
+                                                                e.OW_WAIST_SCORE
+                                                            )
+                                                        )
+                                                    ) /
+                                                    Codes.ageGroup.list.length
+
+                                                return `${OW_WAIST_SCORE}%`
+                                            })()}
+                                        </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
                             </T.Table>

@@ -35,10 +35,19 @@ const RiskFctrItemsMain = () => {
         })
 
         if (status) {
+            const { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST } = payload
             setRiskFctrItemsListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                list: payload,
+                list: {
+                    AGE_GROUP_STAT_LIST: AGE_GROUP_STAT_LIST.map(ageGroup => {
+                        return {
+                            ...ageGroup,
+                            AGE_GROUP: String(ageGroup.AGE_GROUP),
+                        }
+                    }),
+                    PERIOD_STAT_LIST: PERIOD_STAT_LIST,
+                },
             }))
         } else {
             setRiskFctrItemsListState(prevState => ({

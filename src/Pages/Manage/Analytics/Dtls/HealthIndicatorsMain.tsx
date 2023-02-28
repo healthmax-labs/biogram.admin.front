@@ -36,15 +36,18 @@ const HealthIndicatorsMain = () => {
             setImprvmListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                list: payload,
+                list: payload.MYBODY_SCORE_IMPRVM_STAT_LIST.map(list => {
+                    return {
+                        ...list,
+                        AGES_GROUP: String(list.AGES_GROUP),
+                    }
+                }),
             }))
         } else {
             setImprvmListState(prevState => ({
                 ...prevState,
                 status: 'failure',
-                list: {
-                    MYBODY_SCORE_IMPRVM_STAT_LIST: [],
-                },
+                list: [],
             }))
         }
     }, [imprvmListState, setImprvmListState])

@@ -97,7 +97,7 @@ const RiskFctrItemsTable = () => {
                                             const DataRow = _.find(
                                                 AGE_GROUP_STAT_LIST,
                                                 {
-                                                    RF_AGE_GROUP: age.code,
+                                                    AGE_GROUP: age.code,
                                                 }
                                             )
 
@@ -109,83 +109,79 @@ const RiskFctrItemsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
+                                                            {DataRow.SUM_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
                                                             {
-                                                                DataRow.RF_ALL_TT_CNT
+                                                                DataRow.SYSTOLIC_TOT_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_622E_TT_CNT
+                                                                DataRow.SYSTOLIC_RISK_NO_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_622E_GD_CNT
+                                                                DataRow.SYSTOLIC_RISK_YES_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_622E_BD_CNT
+                                                                DataRow.WAIST_CRCMFRNC_TOT_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_8072_TT_CNT
+                                                                DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_8072_GD_CNT
+                                                                DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_8072_BD_CNT
+                                                                DataRow.FBS_TOT_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624A_TT_CNT
+                                                                DataRow.FBS_RISK_NO_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624A_GD_CNT
+                                                                DataRow.FBS_RISK_YES_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.TG_TOT_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.TG_RISK_NO_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624A_BD_CNT
+                                                                DataRow.TG_RISK_YES_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624D_TT_CNT
+                                                                DataRow.HDLC_TOT_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624D_GD_CNT
+                                                                DataRow.HDLC_RISK_NO_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.RF_624D_BD_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.RF_624E_TT_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.RF_624E_GD_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.RF_624E_BD_CNT
+                                                                DataRow.HDLC_RISK_YES_CNT
                                                             }
                                                         </T.CellW>
                                                     </T.Row>
@@ -221,129 +217,131 @@ const RiskFctrItemsTable = () => {
                                 </T.Body>
                                 <T.TFoot>
                                     <T.TFootRow>
-                                        {(() => {
-                                            const DataRow = _.find(
-                                                AGE_GROUP_STAT_LIST,
-                                                {
-                                                    RF_AGE_GROUP: 'TOT',
-                                                }
-                                            )
-
-                                            if (DataRow) {
-                                                return (
-                                                    <>
-                                                        <T.TFootCell
-                                                            colSpan={2}>
-                                                            합계
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_ALL_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_622E_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_622E_GD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_622E_BD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_8072_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_8072_GD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_8072_BD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624A_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624A_GD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624A_BD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624D_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624D_GD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624D_BD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624E_TT_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624E_GD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_624E_BD_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                    </>
+                                        <T.TFootCell colSpan={2}>
+                                            합계
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SUM_CNT)
                                                 )
-                                            }
-
-                                            return (
-                                                <>
-                                                    <T.TFootCell colSpan={2}>
-                                                        합계
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                </>
-                                            )
-                                        })()}
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SYSTOLIC_TOT_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(
+                                                        e.SYSTOLIC_RISK_NO_CNT
+                                                    )
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(
+                                                        e.SYSTOLIC_RISK_YES_CNT
+                                                    )
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(
+                                                        e.WAIST_CRCMFRNC_TOT_CNT
+                                                    )
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(
+                                                        e.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                    )
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(
+                                                        e.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                    )
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.FBS_TOT_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.FBS_RISK_NO_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.FBS_RISK_YES_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.TG_TOT_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.TG_RISK_NO_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.TG_RISK_YES_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HDLC_TOT_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HDLC_RISK_YES_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.HDLC_RISK_YES_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
                             </T.Table>
@@ -408,66 +406,77 @@ const RiskFctrItemsTable = () => {
                                     </T.TheadRow>
                                 </T.Thead>
                                 <T.Body>
-                                    {PERIOD_STAT_LIST.map(
-                                        (period, periodIndex) => {
-                                            return (
-                                                <T.Row
-                                                    key={`analytics-risk-fctr-items-period-table-row-item-${periodIndex}`}>
-                                                    <T.CellW colSpan={2}>
-                                                        {period.PERIOD}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_ALL_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_622E_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_622E_GD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_622E_BD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_8072_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_8072_GD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_8072_BD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624A_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624A_GD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624A_BD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624D_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624D_GD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624D_BD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624E_TT_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624E_GD_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_624E_BD_CNT}
-                                                    </T.CellW>
-                                                </T.Row>
-                                            )
-                                        }
-                                    )}
+                                    {_.sortBy(
+                                        PERIOD_STAT_LIST,
+                                        'CYCLE_GUBUN'
+                                    ).map((period, periodIndex) => {
+                                        return (
+                                            <T.Row
+                                                key={`analytics-risk-fctr-items-period-table-row-item-${periodIndex}`}>
+                                                <T.CellW colSpan={2}>
+                                                    {period.CYCLE_GUBUN}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.SUM_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.SYSTOLIC_TOT_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {
+                                                        period.SYSTOLIC_RISK_NO_CNT
+                                                    }
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {
+                                                        period.SYSTOLIC_RISK_YES_CNT
+                                                    }
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {
+                                                        period.WAIST_CRCMFRNC_TOT_CNT
+                                                    }
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {
+                                                        period.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                    }
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {
+                                                        period.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                    }
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.FBS_TOT_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.FBS_RISK_NO_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.FBS_RISK_YES_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.TG_TOT_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.TG_RISK_NO_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.TG_RISK_YES_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.HDLC_TOT_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.HDLC_RISK_NO_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.HDLC_RISK_YES_CNT}
+                                                </T.CellW>
+                                            </T.Row>
+                                        )
+                                    })}
                                 </T.Body>
                             </T.Table>
                         </TableBox>
