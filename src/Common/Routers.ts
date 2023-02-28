@@ -511,14 +511,14 @@ export default {
         //         () => import('@Page/Manage/Member/Dtls/ConsultDetailRawAge')
         //     ),
         // },
-        // {
-        //     name: `마이코치`,
-        //     category: `mycoach`,
-        //     active: false,
-        //     Component: React.lazy(
-        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailMyCoach')
-        //     ),
-        // },
+        {
+            name: `마이코치`,
+            category: `mycoach`,
+            active: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailMyCoach')
+            ),
+        },
         // {
         //     name: `식사일기`,
         //     category: `mealdiary`,
