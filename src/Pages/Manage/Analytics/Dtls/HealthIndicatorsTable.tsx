@@ -93,11 +93,12 @@ const HealthIndicatorsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 (DataRow.IW_TOT_SCORE +
                                                                     DataRow.OW_TOT_SCORE) /
+                                                                    2,
                                                                 2
-                                                            }%`}
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_TOT_SCORE}%`}
@@ -106,11 +107,12 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_TOT_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 (DataRow.IW_BP_SCORE +
                                                                     DataRow.OW_BP_SCORE) /
+                                                                    2,
                                                                 2
-                                                            }%`}
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_BP_SCORE}%`}
@@ -119,11 +121,12 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_BP_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 (DataRow.IW_FBS_SCORE +
                                                                     DataRow.OW_FBS_SCORE) /
+                                                                    2,
                                                                 2
-                                                            }%`}
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_FBS_SCORE}%`}
@@ -132,11 +135,12 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_FBS_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 DataRow.IW_TG_SCORE +
-                                                                DataRow.OW_TG_SCORE /
-                                                                    2
-                                                            }%`}
+                                                                    DataRow.OW_TG_SCORE /
+                                                                        2,
+                                                                2
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_TG_SCORE}%`}
@@ -145,11 +149,12 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_TG_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 DataRow.IW_HDLC_SCORE +
-                                                                DataRow.OW_HDLC_SCORE /
-                                                                    2
-                                                            }%`}
+                                                                    DataRow.OW_HDLC_SCORE /
+                                                                        2,
+                                                                2
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_HDLC_SCORE}%`}
@@ -158,11 +163,12 @@ const HealthIndicatorsTable = () => {
                                                             {`${DataRow.OW_HDLC_SCORE}%`}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {`${
+                                                            {`${_.round(
                                                                 (DataRow.IW_WAIST_SCORE +
                                                                     DataRow.OW_WAIST_SCORE) /
+                                                                    2,
                                                                 2
-                                                            }%`}
+                                                            )}%`}
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {`${DataRow.IW_WAIST_SCORE}%`}
@@ -230,11 +236,12 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_TOT_SCORE +
                                                         OW_TOT_SCORE) /
+                                                        2,
                                                     2
-                                                }%`
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -249,7 +256,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_TOT_SCORE}%`
+                                                return `${_.round(
+                                                    IW_TOT_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -264,7 +274,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_TOT_SCORE}%`
+                                                return `${_.round(
+                                                    OW_TOT_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -289,11 +302,11 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_BP_SCORE +
                                                         OW_BP_SCORE) /
-                                                    2
-                                                }%`
+                                                        2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -308,7 +321,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_BP_SCORE}%`
+                                                return `${_.round(
+                                                    IW_BP_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -323,7 +339,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_BP_SCORE}%`
+                                                return `${_.round(
+                                                    OW_BP_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -348,11 +367,12 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_FBS_SCORE +
                                                         OW_FBS_SCORE) /
+                                                        2,
                                                     2
-                                                }%`
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -367,7 +387,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_FBS_SCORE}%`
+                                                return `${_.round(
+                                                    IW_FBS_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -382,7 +405,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_FBS_SCORE}%`
+                                                return `${_.round(
+                                                    OW_FBS_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -407,11 +433,12 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_TG_SCORE +
                                                         OW_TG_SCORE) /
+                                                        2,
                                                     2
-                                                }%`
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -426,7 +453,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_TG_SCORE}%`
+                                                return `${_.round(
+                                                    IW_TG_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -441,7 +471,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_TG_SCORE}%`
+                                                return `${_.round(
+                                                    OW_TG_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -466,11 +499,12 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_HDLC_SCORE +
                                                         OW_HDLC_SCORE) /
+                                                        2,
                                                     2
-                                                }%`
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -485,7 +519,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_HDLC_SCORE}%`
+                                                return `${_.round(
+                                                    IW_HDLC_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -500,7 +537,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_HDLC_SCORE}%`
+                                                return `${_.round(
+                                                    OW_HDLC_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -525,11 +565,12 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${
+                                                return `${_.round(
                                                     (IW_WAIST_SCORE +
                                                         OW_WAIST_SCORE) /
+                                                        2,
                                                     2
-                                                }%`
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -544,7 +585,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${IW_WAIST_SCORE}%`
+                                                return `${_.round(
+                                                    IW_WAIST_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
@@ -559,7 +603,10 @@ const HealthIndicatorsTable = () => {
                                                     ) /
                                                     Codes.ageGroup.list.length
 
-                                                return `${OW_WAIST_SCORE}%`
+                                                return `${_.round(
+                                                    OW_WAIST_SCORE,
+                                                    2
+                                                )}%`
                                             })()}
                                         </T.TFootCell>
                                     </T.TFootRow>
