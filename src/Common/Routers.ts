@@ -494,39 +494,39 @@ export default {
                     import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
             ),
         },
-        {
-            name: `마이그래프`,
-            category: `mygraph`,
-            active: false,
-            Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
-            ),
-        },
-        {
-            name: `생체나이`,
-            category: `raw-age`,
-            active: false,
-            Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailRawAge')
-            ),
-        },
-        {
-            name: `마이코치`,
-            category: `mycoach`,
-            active: false,
-            Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailMyCoach')
-            ),
-        },
-        {
-            name: `식사일기`,
-            category: `mealdiary`,
-            active: false,
-            Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailMealdiary')
-            ),
-        },
+        // {
+        //     name: `마이그래프`,
+        //     category: `mygraph`,
+        //     active: false,
+        //     Component: React.lazy(
+        //         () =>
+        //             import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+        //     ),
+        // },
+        // {
+        //     name: `생체나이`,
+        //     category: `raw-age`,
+        //     active: false,
+        //     Component: React.lazy(
+        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailRawAge')
+        //     ),
+        // },
+        // {
+        //     name: `마이코치`,
+        //     category: `mycoach`,
+        //     active: false,
+        //     Component: React.lazy(
+        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailMyCoach')
+        //     ),
+        // },
+        // {
+        //     name: `식사일기`,
+        //     category: `mealdiary`,
+        //     active: false,
+        //     Component: React.lazy(
+        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailMealdiary')
+        //     ),
+        // },
         {
             name: `설문조사`,
             category: `survey`,
