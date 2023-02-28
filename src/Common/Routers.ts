@@ -281,7 +281,7 @@ export default {
             name: `미측정 현황`,
             pathName: `/manage/status/non-measure`,
             category: `non-measure`,
-            recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            recooilKey: `statusPage/non-measure-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -294,7 +294,7 @@ export default {
             name: `건강지표개선 현황`,
             pathName: `/manage/status/health-indicators`,
             category: `health-indicators`,
-            recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            recooilKey: `statusPage/health-indicators-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -307,7 +307,7 @@ export default {
             name: `보행수 랭킹`,
             pathName: `/manage/status/walk-ranking`,
             category: `walk-ranking`,
-            recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            recooilKey: `statusPage/walk-ranking-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -320,7 +320,7 @@ export default {
             name: `회원 통계`,
             pathName: `/manage/analytics/member`,
             category: `member`,
-            recooilKey: `analyticsPage/member-analytics-list`, // FIXME: recoil 곂침, recoil 명? 변경?
+            recooilKey: `analyticsPage/member-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -333,7 +333,7 @@ export default {
             name: `측정 이용자 통계`,
             pathName: `/manage/analytics/measure-user`,
             category: `measure-user`,
-            recooilKey: `analyticsPage/mesure-analytics-list`,
+            recooilKey: `analyticsPage/mesure-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -372,7 +372,7 @@ export default {
             name: `기기사용 통계`,
             pathName: `/manage/analytics/device-use`,
             category: `device-use`,
-            recooilKey: `analyticsPage/mesure-device-list`, // FIXME : recoil 곂침.
+            recooilKey: `analyticsPage/mesure-device-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(
@@ -385,7 +385,7 @@ export default {
             name: `건강지표 개선통계`,
             pathName: `/manage/analytics/health-indicators`,
             category: `health-indicators`,
-            recooilKey: `analyticsPage/mesure-device-list`, // FIXME : recoil 곂침.
+            recooilKey: `analyticsPage/health-indicators-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(

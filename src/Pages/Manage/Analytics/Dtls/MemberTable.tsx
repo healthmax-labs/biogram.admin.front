@@ -100,7 +100,8 @@ const MemberTable = () => {
                                                     {DataRow.TOT_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {DataRow.NEW_MBER_CNT}
+                                                    {DataRow.NEW_WOMAN_CNT +
+                                                        DataRow.NEW_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {DataRow.NEW_WOMAN_CNT}
@@ -109,7 +110,8 @@ const MemberTable = () => {
                                                     {DataRow.NEW_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {DataRow.DEL_MBER_CNT}
+                                                    {DataRow.DEL_WOMAN_CNT +
+                                                        DataRow.DEL_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {DataRow.DEL_WOMAN_CNT}
@@ -142,68 +144,94 @@ const MemberTable = () => {
                             </T.Body>
                             <T.TFoot>
                                 <T.TFootRow>
-                                    {(() => {
-                                        const DataRow = _.find(
-                                            AGE_GROUP_STAT_LIST,
-                                            {
-                                                AGES_GROUP: 'TOT',
-                                            }
-                                        )
+                                    <T.TFootCell colSpan={2}>합계</T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.TOT_MBER_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.TOT_WOMAN_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.TOT_MAN_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {(() => {
+                                            const NEW_WOMAN_CNT = _.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.NEW_WOMAN_CNT)
+                                                )
+                                            )
 
-                                        if (DataRow) {
-                                            return (
-                                                <>
-                                                    <T.TFootCell colSpan={2}>
-                                                        합계
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.TOT_MBER_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.TOT_MAN_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.TOT_WOMAN_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.NEW_MBER_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.NEW_WOMAN_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.NEW_MAN_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.DEL_MBER_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.DEL_WOMAN_CNT}
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>
-                                                        {DataRow.DEL_MAN_CNT}
-                                                    </T.TFootCell>
-                                                </>
+                                            const NEW_MAN_CNT = _.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.NEW_MAN_CNT)
+                                                )
                                             )
-                                        } else {
-                                            return (
-                                                <>
-                                                    <T.TFootCell colSpan={2}>
-                                                        합계
-                                                    </T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                    <T.TFootCell>-</T.TFootCell>
-                                                </>
+
+                                            return `${
+                                                NEW_WOMAN_CNT + NEW_MAN_CNT
+                                            }`
+                                        })()}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.NEW_WOMAN_CNT)
                                             )
-                                        }
-                                    })()}
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.NEW_MAN_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {(() => {
+                                            const DEL_WOMAN_CNT = _.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.DEL_WOMAN_CNT)
+                                                )
+                                            )
+
+                                            const DEL_MAN_CNT = _.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.DEL_MAN_CNT)
+                                                )
+                                            )
+
+                                            return `${
+                                                DEL_WOMAN_CNT + DEL_MAN_CNT
+                                            }`
+                                        })()}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.DEL_WOMAN_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
+                                    <T.TFootCell>
+                                        {_.sum(
+                                            AGE_GROUP_STAT_LIST.map(e =>
+                                                Number(e.DEL_MAN_CNT)
+                                            )
+                                        )}
+                                    </T.TFootCell>
                                 </T.TFootRow>
                             </T.TFoot>
                         </T.Table>
@@ -257,7 +285,7 @@ const MemberTable = () => {
                                             <T.Row
                                                 key={`analytics-member-list-period-table-row-item-${pIndex}`}>
                                                 <T.Cell colSpan={2}>
-                                                    {period.PERIOD}
+                                                    {period.CYCLE_GUBUN}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {period.TOT_MBER_CNT}
@@ -269,7 +297,8 @@ const MemberTable = () => {
                                                     {period.TOT_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {period.NEW_MBER_CNT}
+                                                    {period.NEW_WOMAN_CNT +
+                                                        period.NEW_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {period.NEW_WOMAN_CNT}
@@ -278,7 +307,8 @@ const MemberTable = () => {
                                                     {period.NEW_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
-                                                    {period.DEL_MBER_CNT}
+                                                    {period.DEL_WOMAN_CNT +
+                                                        period.DEL_MAN_CNT}
                                                 </T.Cell>
                                                 <T.Cell>
                                                     {period.DEL_WOMAN_CNT}
