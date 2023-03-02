@@ -8,6 +8,8 @@ import {
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import _ from 'lodash'
 
 interface tableOption {
     Loading: boolean
@@ -18,6 +20,7 @@ interface tableOption {
 
 const ListTable = () => {
     const navigate = useNavigate()
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const listState = useRecoilValue(ActivityWalkListState)
 
@@ -40,6 +43,35 @@ const ListTable = () => {
             Lists: listState.list.ACTIVITY_STATE_LIST,
         }))
     }, [listState.list.ACTIVITY_STATE_LIST, listState.status])
+
+    // 건다온일때 테이블 옵션 변경.
+    useEffect(() => {
+        // 변경 되면 다시 기본으로 변경.
+        const funcChangeDefaultMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: ActivityWalkTableConfig.Columns,
+            }))
+        }
+
+        // 건다온 일때 회원 번호 제거.
+        const funcChangeGeonDaonMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: ActivityWalkTableConfig.Columns.map(e => {
+                    return _.filter(e, el => {
+                        return el.key !== 'MBER_NO'
+                    })
+                }),
+            }))
+        }
+
+        if (mainLayoutState.Theme === 'GeonDaon') {
+            funcChangeGeonDaonMemberListOption()
+        } else {
+            funcChangeDefaultMemberListOption()
+        }
+    }, [mainLayoutState.Theme])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

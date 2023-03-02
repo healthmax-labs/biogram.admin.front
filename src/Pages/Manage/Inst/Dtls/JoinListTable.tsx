@@ -5,8 +5,10 @@ import {
     JoinTableConfig,
     JoinTableListItemInterface,
 } from '@Common/TableConfig/Manage/Inst'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { InstJoinListState } from '@Recoil/InstPagesState'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import _ from 'lodash'
 
 interface tableOption {
     Loading: boolean
@@ -20,6 +22,7 @@ const ListTable = () => {
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(JoinTableConfig)
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const handleRowClick = () => {
         //
@@ -43,6 +46,35 @@ const ListTable = () => {
             Lists: listState.list.PSTINST_REQUEST_INFO_LIST,
         }))
     }, [listState.list.PSTINST_REQUEST_INFO_LIST, listState.status])
+
+    // 건다온일때 회원 번호 제거.
+    useEffect(() => {
+        // 변경 되면 다시 기본으로 변경.
+        const funcChangeDefaultMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: JoinTableConfig.Columns,
+            }))
+        }
+
+        // 건다온 일때 내/외근직 제거.
+        const funcChangeGeonDaonMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: JoinTableConfig.Columns.map(e => {
+                    return _.filter(e, el => {
+                        return el.key !== 'MBER_NO' // 회원 번호 안보이게 처리.
+                    })
+                }),
+            }))
+        }
+
+        if (mainLayoutState.Theme === 'GeonDaon') {
+            funcChangeGeonDaonMemberListOption()
+        } else {
+            funcChangeDefaultMemberListOption()
+        }
+    }, [mainLayoutState.Theme])
 
     return (
         <MainTable

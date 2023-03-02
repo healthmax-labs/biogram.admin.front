@@ -8,6 +8,8 @@ import {
 import { useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
+import _ from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 interface tableOption {
     Loading: boolean
@@ -20,6 +22,7 @@ const BrftrCmprListTable = () => {
     const navigate = useNavigate()
 
     const listState = useRecoilValue(BrftrCmprListState)
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(BrftrCmprTableConfig)
@@ -39,6 +42,36 @@ const BrftrCmprListTable = () => {
             Lists: listState.list.MESURE_BRFTR_CMPR_INFO_LIST,
         }))
     }, [listState.list.MESURE_BRFTR_CMPR_INFO_LIST, listState.status])
+
+    // 건다온일때 테이블 옵션 변경.
+    useEffect(() => {
+        // 변경 되면 다시 기본으로 변경.
+        const funcChangeDefaultMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: BrftrCmprTableConfig.Columns,
+            }))
+        }
+
+        // FIXME: union type 이라서 filter 시 타입에러 나서 any 로 처리. ( each member of the union type filter )
+        // 건다온 일때 회원 번호 제거.
+        const funcChangeGeonDaonMemberListOption = () => {
+            setTableOptions(prevState => ({
+                ...prevState,
+                Columns: BrftrCmprTableConfig.Columns.map((e: any) => {
+                    return _.filter(e, el => {
+                        return el.key !== 'MBER_NO'
+                    })
+                }),
+            }))
+        }
+
+        if (mainLayoutState.Theme === 'GeonDaon') {
+            funcChangeGeonDaonMemberListOption()
+        } else {
+            funcChangeDefaultMemberListOption()
+        }
+    }, [mainLayoutState.Theme])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }
