@@ -41,6 +41,7 @@ export const JoinTableConfig = {
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
+                cellWidth: `w16`,
             },
             {
                 name: `회원명`,

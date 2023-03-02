@@ -191,6 +191,16 @@ const MemberListManageBox = ({
                                         }
                                     )
 
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        manage: {
+                                            ...prevState.manage,
+                                            checkRowName: '',
+                                            memDeleteMemo: '',
+                                            checkRow: [],
+                                        },
+                                    }))
+
                                     if (status) {
                                         HandleGetList()
 
