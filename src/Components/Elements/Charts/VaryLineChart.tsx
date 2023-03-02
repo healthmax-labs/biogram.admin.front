@@ -20,11 +20,9 @@ const VaryLineChart = () => {
         // https://www.amcharts.com/docs/v5/charts/xy-chart/
         const chart = root.container.children.push(
             am5xy.XYChart.new(root, {
-                panX: true,
-                panY: true,
-                wheelX: 'panX',
-                wheelY: 'zoomX',
-                pinchZoomX: true,
+                panX: false,
+                panY: false,
+                pinchZoomX: false,
             })
         )
 
@@ -39,15 +37,12 @@ const VaryLineChart = () => {
         cursor.lineY.set('visible', false)
 
         // Generate random data
-        const date = new Date()
-        date.setHours(0, 0, 0, 0)
         let value = 100
 
-        function generateData() {
+        function generateData(i: any) {
             value = Math.round(Math.random() * 10 - 5 + value)
-            am5.time.add(date, 'day', 1)
             return {
-                date: date.getTime(),
+                date: i,
                 value: value,
             }
         }
@@ -55,7 +50,7 @@ const VaryLineChart = () => {
         function generateDatas(count: any) {
             const data = []
             for (let i = 0; i < count; ++i) {
-                data.push(generateData())
+                data.push(generateData(i))
             }
             return data
         }
@@ -63,26 +58,24 @@ const VaryLineChart = () => {
         // Create axes
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
         const xAxis = chart.xAxes.push(
-            am5xy.DateAxis.new(root, {
-                maxDeviation: 0.2,
-                baseInterval: {
-                    timeUnit: 'day',
-                    count: 1,
-                },
+            am5xy.ValueAxis.new(root, {
                 renderer: am5xy.AxisRendererX.new(root, {}),
-                tooltip: am5.Tooltip.new(root, {}),
+                // tooltip: am5.Tooltip.new(root, {}),
             })
         )
 
+        const xRenderer = xAxis.get('renderer')
+        xRenderer.labels.template.setAll({
+            fill: am5.color(0x0000000),
+            fontSize: '0.6em',
+        })
+        xRenderer.grid.template.set('visible', false)
+
         const xAxis2 = chart.xAxes.push(
-            am5xy.DateAxis.new(root, {
-                maxDeviation: 0.2,
-                baseInterval: {
-                    timeUnit: 'day',
-                    count: 1,
-                },
+            am5xy.ValueAxis.new(root, {
+                visible: false,
                 renderer: am5xy.AxisRendererX.new(root, {}),
-                tooltip: am5.Tooltip.new(root, {}),
+                // tooltip: am5.Tooltip.new(root, {}),
             })
         )
 
@@ -91,6 +84,27 @@ const VaryLineChart = () => {
                 renderer: am5xy.AxisRendererY.new(root, {}),
             })
         )
+
+        const yRenderer = yAxis.get('renderer')
+        yRenderer.labels.template.setAll({
+            fill: am5.color(0x047481),
+            fontSize: '0.6em',
+        })
+
+        const yAxis2 = chart.yAxes.push(
+            am5xy.ValueAxis.new(root, {
+                renderer: am5xy.AxisRendererY.new(root, {
+                    opposite: true,
+                }),
+            })
+        )
+
+        const yRenderer2 = yAxis2.get('renderer')
+        yRenderer2.labels.template.setAll({
+            fill: am5.color(0x0000000),
+            fontSize: '0.6em',
+        })
+        yRenderer2.grid.template.set('visible', false)
 
         // Add series
         // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
@@ -101,25 +115,54 @@ const VaryLineChart = () => {
                 yAxis: yAxis,
                 valueYField: 'value',
                 valueXField: 'date',
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: '{valueY}',
-                }),
+                stroke: am5.color(0x047481),
             })
         )
 
+        const tooltip = am5.Tooltip.new(root, {
+            getFillFromSprite: false,
+            getStrokeFromSprite: false,
+            autoTextColor: false,
+            getLabelFillFromSprite: false,
+            labelText: '{valueY}',
+        })
+        tooltip.get('background')?.setAll({
+            fill: am5.color(0xffffff),
+            fillOpacity: 0.8,
+            stroke: am5.color(0x047481),
+            strokeOpacity: 0.8,
+        })
+        tooltip.label.setAll({
+            fill: am5.color(0x047481),
+        })
+        series.set('tooltip', tooltip)
         const series2 = chart.series.push(
             am5xy.LineSeries.new(root, {
                 name: 'Series',
                 xAxis: xAxis2,
-                yAxis: yAxis,
+                yAxis: yAxis2,
                 valueYField: 'value',
                 valueXField: 'date',
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: '{valueY}',
-                }),
+                stroke: am5.color(0x0000000),
             })
         )
-
+        const tooltip2 = am5.Tooltip.new(root, {
+            getFillFromSprite: false,
+            getStrokeFromSprite: false,
+            autoTextColor: false,
+            getLabelFillFromSprite: false,
+            labelText: '{valueY}',
+        })
+        tooltip2.get('background')?.setAll({
+            fill: am5.color(0xffffff),
+            fillOpacity: 0.8,
+            stroke: am5.color(0x0000000),
+            strokeOpacity: 0.8,
+        })
+        tooltip2.label.setAll({
+            fill: am5.color(0x0000000),
+        })
+        series2.set('tooltip', tooltip2)
         // Add scrollbar
         // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
         // chart.set(
@@ -130,11 +173,12 @@ const VaryLineChart = () => {
         // )
 
         // Set data
-        const data = generateDatas(1200)
+        const data = generateDatas(30)
         series.data.setAll(data)
 
-        const data2 = generateDatas(1200)
-        series2.data.setAll(data)
+        value = 10000
+        const data2 = generateDatas(30)
+        series2.data.setAll(data2)
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/
