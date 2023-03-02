@@ -1,4 +1,5 @@
 import GeonDaonContentCard from './GeonDaonContentCard'
+import GeonDaonChartCard from './GeonDaonChartCard'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 import { useRecoilValue } from 'recoil'
@@ -32,7 +33,7 @@ const GeonDaonDashboard = () => {
                 <LeftWapper>
                     <WapperCol>
                         <FlexFull>
-                            <GeonDaonContentCard
+                            <GeonDaonChartCard
                                 Loading={
                                     dashBoardPageState.member.status ===
                                     'loading'
@@ -55,39 +56,6 @@ const GeonDaonDashboard = () => {
                                         </p>
                                     </>
                                 }
-                                Items={[0, 1, 2].map(e => {
-                                    const {
-                                        member: { list },
-                                    } = dashBoardPageState
-
-                                    const findDate = getDateDayUnit(e)
-
-                                    const findData = _.find(list, {
-                                        SEARCH_DE: findDate,
-                                    })
-
-                                    return [
-                                        {
-                                            name: String(
-                                                dateInsertHypen(findDate)
-                                            ),
-                                            textAlign: 'left',
-                                        },
-                                        {
-                                            name: findData
-                                                ? String(findData.TD_CNT)
-                                                : '0',
-                                            color: 'green',
-                                            textAlign: 'center',
-                                        },
-                                        {
-                                            name: findData
-                                                ? String(findData.TT_CNT)
-                                                : '0',
-                                            textAlign: 'right',
-                                        },
-                                    ]
-                                })}
                             />
                         </FlexFull>
                         <FlexNowrapFull>
