@@ -61,52 +61,20 @@ const initializeState = {
         text: null,
     },
     modal: {
-        phoneDuplicate: {
-            title: ``,
-            state: false,
-        },
-        phoneAuth: {
-            title: ``,
-            state: false,
-        },
-        unityUpdate: {
-            title: ``,
-            state: false,
-        },
+        phoneDuplicate: false,
+        phoneAuth: false,
+        unityUpdate: false,
         useStplatAgreAt: false,
-        changePassword: {
-            title: ``,
-            state: false,
-        },
-        pstinstInfoListLeave: {
-            title: ``,
-            state: false,
-        },
-        pstinstInfoListLeaveConfirm: {
-            title: ``,
-            state: false,
-        },
-        pstinstSelector: {
-            state: false,
-        },
-        pstinstAgree: {
-            state: false,
-        },
-        pstinstAgreeConfirm: {
-            state: false,
-        },
-        totalScore: {
-            state: false,
-        },
-        totCash: {
-            state: false,
-        },
-        phoneAuthVal: {
-            state: false,
-        },
-        updateAttempt: {
-            state: false,
-        },
+        changePassword: false,
+        pstinstInfoListLeave: false,
+        pstinstInfoListLeaveConfirm: false,
+        pstinstSelector: false,
+        pstinstAgree: false,
+        pstinstAgreeConfirm: false,
+        totalScore: false,
+        totCash: false,
+        phoneAuthVal: false,
+        updateAttempt: false,
     },
     addSelectPstinst: {
         instNo: null,
@@ -115,8 +83,10 @@ const initializeState = {
 }
 
 const MemberDetailTable = ({
+    PageMode,
     HandleGetInfo,
 }: {
+    PageMode: string | 'new' | 'modify'
     HandleGetInfo: (memNo: number) => void
 }) => {
     const navigate = useNavigate()
@@ -134,52 +104,20 @@ const MemberDetailTable = ({
             text: '선택' | '필수' | null
         }
         modal: {
-            phoneDuplicate: {
-                title: string
-                state: boolean
-            }
-            phoneAuth: {
-                title: string
-                state: boolean
-            }
-            unityUpdate: {
-                title: string
-                state: boolean
-            }
+            phoneDuplicate: boolean
+            phoneAuth: boolean
+            unityUpdate: boolean
             useStplatAgreAt: boolean
-            changePassword: {
-                title: string
-                state: boolean
-            }
-            pstinstInfoListLeave: {
-                title: string
-                state: boolean
-            }
-            pstinstInfoListLeaveConfirm: {
-                title: string
-                state: boolean
-            }
-            pstinstSelector: {
-                state: boolean
-            }
-            pstinstAgree: {
-                state: boolean
-            }
-            pstinstAgreeConfirm: {
-                state: boolean
-            }
-            totalScore: {
-                state: boolean
-            }
-            totCash: {
-                state: boolean
-            }
-            phoneAuthVal: {
-                state: boolean
-            }
-            updateAttempt: {
-                state: boolean
-            }
+            changePassword: boolean
+            pstinstInfoListLeave: boolean
+            pstinstInfoListLeaveConfirm: boolean
+            pstinstSelector: boolean
+            pstinstAgree: boolean
+            pstinstAgreeConfirm: boolean
+            totalScore: boolean
+            totCash: boolean
+            phoneAuthVal: boolean
+            updateAttempt: boolean
         }
         addSelectPstinst: {
             instNo: number | null
@@ -268,10 +206,7 @@ const MemberDetailTable = ({
                     ...prevState,
                     modal: {
                         ...prevState.modal,
-                        phoneDuplicate: {
-                            title: `${detailState.detail.MBTLNUM} ${Messages.Default.phoneAuth.duplicate}`,
-                            state: true,
-                        },
+                        phoneDuplicate: true,
                     },
                 }))
             } else {
@@ -289,12 +224,7 @@ const MemberDetailTable = ({
                 modal: {
                     ...prevState.modal,
                     phoneDuplicate: initializeState.modal.phoneDuplicate,
-                    phoneAuth: {
-                        title: detailState.detail.MBTLNUM
-                            ? getOnlyNumber(detailState.detail.MBTLNUM)
-                            : '',
-                        state: true,
-                    },
+                    phoneAuth: true,
                 },
             }))
         }
@@ -307,10 +237,7 @@ const MemberDetailTable = ({
             ...prevState,
             modal: {
                 ...prevState.modal,
-                unityUpdate: {
-                    state: false,
-                    title: ``,
-                },
+                unityUpdate: false,
             },
         }))
 
@@ -345,10 +272,8 @@ const MemberDetailTable = ({
             ...prevState,
             modal: {
                 ...prevState.modal,
-                pstinstInfoListLeave:
-                    initializeState.modal.pstinstInfoListLeave,
-                pstinstInfoListLeaveConfirm:
-                    initializeState.modal.pstinstInfoListLeaveConfirm,
+                pstinstInfoListLeave: false,
+                pstinstInfoListLeaveConfirm: false,
             },
         }))
         setDetailState(prevState => ({
@@ -570,6 +495,10 @@ const MemberDetailTable = ({
         detailState.origin,
     ])
 
+    useEffect(() => {
+        console.debug(PageMode)
+    }, [PageMode])
+
     return (
         <DetailContainer>
             <TableContainer>
@@ -693,14 +622,7 @@ const MemberDetailTable = ({
                                                                 modal: {
                                                                     ...prevState.modal,
                                                                     unityUpdate:
-                                                                        {
-                                                                            title: Messages
-                                                                                .Default
-                                                                                .member
-                                                                                .unityChange
-                                                                                .unityUpdate,
-                                                                            state: true,
-                                                                        },
+                                                                        true,
                                                                 },
                                                             })
                                                         )
@@ -872,9 +794,7 @@ const MemberDetailTable = ({
                                         ...prevState,
                                         modal: {
                                             ...prevState.modal,
-                                            totalScore: {
-                                                state: true,
-                                            },
+                                            totalScore: true,
                                         },
                                     }))
                                 }
@@ -896,9 +816,7 @@ const MemberDetailTable = ({
                                         ...prevState,
                                         modal: {
                                             ...prevState.modal,
-                                            totCash: {
-                                                state: true,
-                                            },
+                                            totCash: true,
                                         },
                                     }))
                                 }}
@@ -935,10 +853,7 @@ const MemberDetailTable = ({
                                         ...prevState,
                                         modal: {
                                             ...prevState.modal,
-                                            changePassword: {
-                                                title: `${Messages.Default.member.password.change}`,
-                                                state: true,
-                                            },
+                                            changePassword: true,
                                         },
                                     }))
                                 }}
@@ -1007,9 +922,7 @@ const MemberDetailTable = ({
                                                 ...prevState,
                                                 modal: {
                                                     ...prevState.modal,
-                                                    pstinstSelector: {
-                                                        state: true,
-                                                    },
+                                                    pstinstSelector: true,
                                                 },
                                             }))
                                         }
@@ -1061,10 +974,7 @@ const MemberDetailTable = ({
                                                                                 modal: {
                                                                                     ...prevState.modal,
                                                                                     pstinstInfoListLeave:
-                                                                                        {
-                                                                                            title: `${Messages.Default.member.pstinstLeave.confirm}`,
-                                                                                            state: true,
-                                                                                        },
+                                                                                        true,
                                                                                 },
                                                                             })
                                                                         )
@@ -1098,7 +1008,7 @@ const MemberDetailTable = ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
-                                        phoneAuthVal: { state: true },
+                                        phoneAuthVal: true,
                                     },
                                 }))
                             } else {
@@ -1106,9 +1016,7 @@ const MemberDetailTable = ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
-                                        updateAttempt: {
-                                            state: true,
-                                        },
+                                        updateAttempt: true,
                                     },
                                 }))
                             }
@@ -1128,7 +1036,7 @@ const MemberDetailTable = ({
                 </ButtonItem>
             </ButtonBox>
             <>
-                {pageState.modal.updateAttempt.state && (
+                {pageState.modal.updateAttempt && (
                     <ConfirmModal
                         Title={Messages.Default.member.infoUpdate}
                         CancleButtonName={`취소`}
@@ -1138,9 +1046,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    updateAttempt: {
-                                        state: false,
-                                    },
+                                    updateAttempt: false,
                                 },
                             }))
                         }}
@@ -1149,9 +1055,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    updateAttempt: {
-                                        state: false,
-                                    },
+                                    updateAttempt: false,
                                 },
                             }))
                             handleClickUpdateButton()
@@ -1160,7 +1064,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*휴대폰 번호 변경 미인증 확인 모달*/}
-                {pageState.modal.phoneAuthVal.state && (
+                {pageState.modal.phoneAuthVal && (
                     <ConfirmModal
                         Title={Messages.Default.phoneAuth.authConfirm}
                         CancleButtonName={`취소`}
@@ -1171,9 +1075,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    phoneAuthVal: {
-                                        state: false,
-                                    },
+                                    phoneAuthVal: false,
                                 },
                             }))
                         }}
@@ -1182,9 +1084,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    phoneAuthVal: {
-                                        state: false,
-                                    },
+                                    phoneAuthVal: false,
                                 },
                             }))
                             handleMemberInfoUpdate().then()
@@ -1193,7 +1093,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*캐쉬 모달*/}
-                {pageState.modal.totCash.state && (
+                {pageState.modal.totCash && (
                     <TotalCashModal
                         MemberNo={Number(detailState.origin.MBER_NO)}
                         CancleButtonClick={() =>
@@ -1201,9 +1101,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    totCash: {
-                                        state: false,
-                                    },
+                                    totCash: false,
                                 },
                             }))
                         }
@@ -1211,7 +1109,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*내몸관리 지수 모달*/}
-                {pageState.modal.totalScore.state && (
+                {pageState.modal.totalScore && (
                     <TotalScoreModal
                         MemberNo={Number(detailState.origin.MBER_NO)}
                         CancleButtonClick={() =>
@@ -1219,16 +1117,14 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    totalScore: {
-                                        state: false,
-                                    },
+                                    totalScore: false,
                                 },
                             }))
                         }
                     />
                 )}
                 {/*소속 추가 확인 모달*/}
-                {pageState.modal.pstinstAgreeConfirm.state && (
+                {pageState.modal.pstinstAgreeConfirm && (
                     <ConfirmModal
                         Title={Messages.Default.member.pstinstAdd.agreeConfirm}
                         CancleButtonName={`취소`}
@@ -1238,12 +1134,8 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstAgree: {
-                                        state: true,
-                                    },
-                                    pstinstAgreeConfirm: {
-                                        state: false,
-                                    },
+                                    pstinstAgree: true,
+                                    pstinstAgreeConfirm: false,
                                 },
                             }))
                         }}
@@ -1286,12 +1178,8 @@ const MemberDetailTable = ({
                                         instNo: null,
                                         instNm: null,
                                     },
-                                    pstinstAgree: {
-                                        state: false,
-                                    },
-                                    pstinstAgreeConfirm: {
-                                        state: false,
-                                    },
+                                    pstinstAgree: false,
+                                    pstinstAgreeConfirm: false,
                                 },
                             }))
                         }}
@@ -1299,7 +1187,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*소속 추가시 약관 모달*/}
-                {pageState.modal.pstinstAgree.state && (
+                {pageState.modal.pstinstAgree && (
                     <PstinstAgreeModal
                         InfoNo={pageState.addSelectPstinst.instNo}
                         InfoType={`thpty`}
@@ -1308,12 +1196,8 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstAgree: {
-                                        state: false,
-                                    },
-                                    pstinstSelector: {
-                                        state: true,
-                                    },
+                                    pstinstAgree: false,
+                                    pstinstSelector: true,
                                 },
                             }))
                         }
@@ -1332,12 +1216,8 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstAgree: {
-                                        state: false,
-                                    },
-                                    pstinstAgreeConfirm: {
-                                        state: true,
-                                    },
+                                    pstinstAgree: false,
+                                    pstinstAgreeConfirm: true,
                                 },
                             }))
                         }}
@@ -1345,7 +1225,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*소속 선택*/}
-                {pageState.modal.pstinstSelector.state && (
+                {pageState.modal.pstinstSelector && (
                     <PstinstSelector
                         SelectorType={`OnlyModal`}
                         HandleSelectValue={({ instNo, instNm }) => {
@@ -1357,12 +1237,8 @@ const MemberDetailTable = ({
                                 },
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstSelector: {
-                                        state: false,
-                                    },
-                                    pstinstAgree: {
-                                        state: true,
-                                    },
+                                    pstinstSelector: false,
+                                    pstinstAgree: true,
                                 },
                             }))
                         }}
@@ -1371,9 +1247,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstSelector: {
-                                        state: false,
-                                    },
+                                    pstinstSelector: false,
                                 },
                             }))
                         }}
@@ -1381,11 +1255,9 @@ const MemberDetailTable = ({
                 )}
 
                 {/*소속 탈퇴 처리 확인*/}
-                {pageState.modal.pstinstInfoListLeaveConfirm.state && (
+                {pageState.modal.pstinstInfoListLeaveConfirm && (
                     <ConfirmModal
-                        Title={
-                            pageState.modal.pstinstInfoListLeaveConfirm.title
-                        }
+                        Title={`${Messages.Default.member.pstinstLeave.confirmModal}`}
                         CancleButtonName={`취소`}
                         ApplyButtonName={`확인`}
                         CancleButtonClick={() => {
@@ -1393,14 +1265,8 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    pstinstInfoListLeaveConfirm: {
-                                        title: ``,
-                                        state: false,
-                                    },
-                                    pstinstInfoListLeave: {
-                                        ...prevState.modal.pstinstInfoListLeave,
-                                        state: true,
-                                    },
+                                    pstinstInfoListLeaveConfirm: false,
+                                    pstinstInfoListLeave: true,
                                 },
                             }))
                         }}
@@ -1445,7 +1311,7 @@ const MemberDetailTable = ({
                 )}
 
                 {/*소속 탈퇴 처리*/}
-                {pageState.modal.pstinstInfoListLeave.state && (
+                {pageState.modal.pstinstInfoListLeave && (
                     <VaryModal
                         MaxWidth={`lg`}
                         ModalLoading={false}
@@ -1486,10 +1352,7 @@ const MemberDetailTable = ({
                                             ...prevState,
                                             modal: {
                                                 ...prevState.modal,
-                                                pstinstInfoListLeave: {
-                                                    title: ``,
-                                                    state: false,
-                                                },
+                                                pstinstInfoListLeave: false,
                                             },
                                         }))
                                         setDetailState(prevState => ({
@@ -1529,16 +1392,9 @@ const MemberDetailTable = ({
                                                 ...prevState,
                                                 modal: {
                                                     ...prevState.modal,
-                                                    pstinstInfoListLeave: {
-                                                        ...prevState.modal
-                                                            .pstinstInfoListLeave,
-                                                        state: false,
-                                                    },
+                                                    pstinstInfoListLeave: false,
                                                     pstinstInfoListLeaveConfirm:
-                                                        {
-                                                            title: `${Messages.Default.member.pstinstLeave.confirmModal}`,
-                                                            state: true,
-                                                        },
+                                                        true,
                                                 },
                                             }))
                                         } else {
@@ -1552,9 +1408,9 @@ const MemberDetailTable = ({
                 )}
 
                 {/* 비밀번호 초기화 모달 */}
-                {pageState.modal.changePassword.state && (
+                {pageState.modal.changePassword && (
                     <ConfirmModal
-                        Title={pageState.modal.changePassword.title}
+                        Title={`${Messages.Default.member.password.change}`}
                         CancleButtonName={`취소`}
                         ApplyButtonName={`보내기`}
                         CancleButtonClick={() => {
@@ -1562,10 +1418,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    changePassword: {
-                                        title: ``,
-                                        state: false,
-                                    },
+                                    changePassword: false,
                                 },
                             }))
                         }}
@@ -1584,10 +1437,7 @@ const MemberDetailTable = ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
-                                        changePassword: {
-                                            title: ``,
-                                            state: false,
-                                        },
+                                        changePassword: false,
                                     },
                                 }))
                             } else {
@@ -1596,9 +1446,9 @@ const MemberDetailTable = ({
                     />
                 )}
                 {/* 확인 모달 */}
-                {pageState.modal.unityUpdate.state && (
+                {pageState.modal.unityUpdate && (
                     <ConfirmModal
-                        Title={pageState.modal.unityUpdate.title}
+                        Title={Messages.Default.member.unityChange.unityUpdate}
                         CancleButtonName={`취소`}
                         ApplyButtonName={`확인`}
                         CancleButtonClick={() => {
@@ -1606,10 +1456,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    unityUpdate: {
-                                        title: ``,
-                                        state: false,
-                                    },
+                                    unityUpdate: false,
                                 },
                             }))
                         }}
@@ -1619,9 +1466,9 @@ const MemberDetailTable = ({
                     />
                 )}
                 {/* 휴대폰 번호 중복 모달 */}
-                {pageState.modal.phoneDuplicate.state && (
+                {pageState.modal.phoneDuplicate && (
                     <ConfirmModal
-                        Title={pageState.modal.phoneDuplicate.title}
+                        Title={`${detailState.detail.MBTLNUM} ${Messages.Default.phoneAuth.duplicate}`}
                         CancleButtonName={`다시입력`}
                         ApplyButtonName={`맞습니다`}
                         CancleButtonClick={() => {
@@ -1630,8 +1477,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    phoneDuplicate:
-                                        initializeState.modal.phoneDuplicate,
+                                    phoneDuplicate: false,
                                 },
                             }))
                         }}
@@ -1641,7 +1487,7 @@ const MemberDetailTable = ({
                     />
                 )}
                 {/*휴대폰 번호 인증 모달*/}
-                {pageState.modal.phoneAuth.state && (
+                {pageState.modal.phoneAuth && (
                     <PhoneAuthModal
                         PhoneNumber={
                             detailState.detail.MBTLNUM
@@ -1653,10 +1499,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    phoneAuth: {
-                                        title: ``,
-                                        state: false,
-                                    },
+                                    phoneAuth: false,
                                 },
                             }))
                         }
@@ -1665,10 +1508,7 @@ const MemberDetailTable = ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
-                                    phoneAuth: {
-                                        title: ``,
-                                        state: false,
-                                    },
+                                    phoneAuth: false,
                                 },
                             }))
                             setDetailState(prevState => ({

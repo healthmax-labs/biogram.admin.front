@@ -6,14 +6,15 @@ import {
     VaryTextArea,
     PstinstAgreeModal,
 } from '@Elements'
-import { useMainLayouts } from '@Hook/index'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { MemberListState } from '@Recoil/MemberPagesState'
+import { useMainLayouts, useTab } from '@Hook/index'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import { MemberListState, MemberDetailState } from '@Recoil/MemberPagesState'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { postMberInfoDelete } from '@Service/MemberService'
 import Const from '@Const'
 import { AtomRootState } from '@Recoil/AppRootState'
+import { useNavigate } from 'react-router-dom'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -29,9 +30,12 @@ const MemberListManageBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const navigate = useNavigate()
     const { handlMainAlert } = useMainLayouts()
     const [listState, setListState] = useRecoilState(MemberListState)
+    const memberDetailStateReset = useResetRecoilState(MemberDetailState)
     const rootState = useRecoilValue(AtomRootState)
+    const { handleDeleteTabbyMatchRouter } = useTab()
 
     const [pageState, setPageState] = useState<{
         modal: {
@@ -47,13 +51,13 @@ const MemberListManageBox = ({
                     <VaryButton
                         ButtonType={`manage`}
                         HandleClick={() => {
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    pstinstAgree: true,
-                                },
-                            }))
+                            handleDeleteTabbyMatchRouter(
+                                '/manage/member/:MEMBER_NO/detail'
+                            )
+                            memberDetailStateReset()
+                            navigate({
+                                pathname: `${process.env.PUBLIC_URL}/manage/member/new-member`,
+                            })
                         }}
                         ButtonName={'신규회원등록'}
                     />
