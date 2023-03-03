@@ -75,12 +75,11 @@ export const TableStyle = {
 }
 
 export const DetailTableStyle = {
-    TableContainer: tw.table`table-fixed w-full`,
+    TableContainer: tw.table`table-auto w-full`,
     TableWapper: tw.tbody`bg-white`,
     Row: tw.tr`whitespace-nowrap max-h-11 w-full`,
-    LabelCell: tw.td`px-6 w-1/4 text-sm text-gray-500 border`,
-    InputCell: tw.td`px-6 w-3/4 py-1 border h-8`,
-    InputCellFull: tw.td`border h-8`,
+    LabelCell: tw.td`px-6 w-36 text-sm text-gray-500 border`,
+    InputCell: tw.td`px-6 py-1 border h-8`,
     QuilEditorLabelCell: tw.td`px-6 w-1/4 text-sm text-gray-500 border`,
     QuilEditorCell: tw.td`px-6 w-3/4 py-1 border min-h-screen`,
     InputItem: tw.div`w-full`,

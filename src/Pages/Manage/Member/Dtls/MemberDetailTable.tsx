@@ -37,14 +37,8 @@ import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
-const {
-    TableContainer,
-    TableWapper,
-    Row,
-    LabelCell,
-    InputCell,
-    InputCellFull,
-} = DetailTableStyle
+const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
+    DetailTableStyle
 const {
     DetailContainer,
     PstinstInfoList: P,
@@ -125,6 +119,7 @@ const MemberDetailTable = ({
         }
     }>(initializeState)
 
+    // 회원 약관 업데이트
     const hadleMemberStplatInfoUpdate = async (e: StplatItemInterface) => {
         if (detailState.origin.MBER_NO) {
             const { status } = await postMberStplatInfoUpdate({
@@ -167,13 +162,6 @@ const MemberDetailTable = ({
                     message: Messages.Default.processFail,
                 })
             }
-            setPageState(prevState => ({
-                ...prevState,
-                modal: {
-                    ...prevState.modal,
-                    useStplatAgreAt: false,
-                },
-            }))
         }
     }
 
@@ -503,36 +491,45 @@ const MemberDetailTable = ({
         <DetailContainer>
             <TableContainer>
                 <TableWapper>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`이름`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryInput
-                                Width={'w60'}
-                                HandleOnChange={e =>
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        detail: {
-                                            ...prevState.detail,
-                                            NM: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'이름'}
-                                Value={
-                                    detailState.detail.NM
-                                        ? detailState.detail.NM
-                                        : ``
-                                }
-                                Children={
-                                    <>
-                                        {pageState.UseStplatAgreAt.state && (
+                    {PageMode === 'new' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`아이디`} />
+                            </LabelCell>
+                            <InputCell colSpan={3}>
+                                <VaryInput
+                                    Width={'w036'}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                USID: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                    id={'USID'}
+                                    Placeholder={'아이디'}
+                                    Value={
+                                        detailState.detail.USID
+                                            ? detailState.detail.USID
+                                            : ``
+                                    }
+                                    Children={
+                                        <>
                                             <WS.FlexRightButton>
                                                 <VaryButton
                                                     ButtonType={`default`}
-                                                    ButtonName={`미동의 약관 (${pageState.UseStplatAgreAt.text})`}
+                                                    ButtonName={`아이디 중복 확인`}
+                                                    HandleClick={() => {
+                                                        //
+                                                    }}
+                                                />
+                                            </WS.FlexRightButton>
+                                            <WS.FlexRightButton>
+                                                <VaryButton
+                                                    ButtonType={`default`}
+                                                    ButtonName={`약관 등의`}
                                                     HandleClick={() =>
                                                         setPageState(
                                                             prevState => ({
@@ -547,36 +544,141 @@ const MemberDetailTable = ({
                                                     }
                                                 />
                                             </WS.FlexRightButton>
-                                        )}
+                                        </>
+                                    }
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
+
+                    {PageMode === 'new' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`비밀번호`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'password'}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                NM: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                    id={'UNM'}
+                                    Placeholder={'비밀번호'}
+                                    Value={
+                                        detailState.detail.USID
+                                            ? detailState.detail.USID
+                                            : ``
+                                    }
+                                />
+                            </InputCell>
+                            <LabelCell>
+                                <VaryLabel LabelName={`회원번호 확인`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'password'}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
+                                    id={'id'}
+                                    Placeholder={'회원번호 확인'}
+                                    Value={
+                                        detailState.detail.MBER_NO
+                                            ? detailState.detail.MBER_NO
+                                            : ``
+                                    }
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
+
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`이름`} />
+                        </LabelCell>
+                        <InputCell colSpan={PageMode === 'new' ? 3 : 1}>
+                            <VaryInput
+                                Width={'w60'}
+                                HandleOnChange={e =>
+                                    setDetailState(prevState => ({
+                                        ...prevState,
+                                        detail: {
+                                            ...prevState.detail,
+                                            NM: e.target.value,
+                                        },
+                                    }))
+                                }
+                                id={'UNM'}
+                                Placeholder={'이름'}
+                                Value={
+                                    detailState.detail.NM
+                                        ? detailState.detail.NM
+                                        : ``
+                                }
+                                Children={
+                                    <>
+                                        {PageMode === 'modify' &&
+                                            pageState.UseStplatAgreAt.state && (
+                                                <WS.FlexRightButton>
+                                                    <VaryButton
+                                                        ButtonType={`default`}
+                                                        ButtonName={`미동의 약관 (${pageState.UseStplatAgreAt.text})`}
+                                                        HandleClick={() =>
+                                                            setPageState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    modal: {
+                                                                        ...prevState.modal,
+                                                                        useStplatAgreAt:
+                                                                            true,
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    />
+                                                </WS.FlexRightButton>
+                                            )}
                                     </>
                                 }
                             />
                         </InputCell>
-                        <LabelCell>
-                            <VaryLabel LabelName={`회원번호`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryInput
-                                Width={'w60'}
-                                HandleOnChange={() => {
-                                    //
-                                }}
-                                id={'id'}
-                                Placeholder={'회원번호'}
-                                Value={
-                                    detailState.detail.MBER_NO
-                                        ? detailState.detail.MBER_NO
-                                        : ``
-                                }
-                                Disabled={true}
-                            />
-                        </InputCell>
+                        {PageMode === 'modify' && (
+                            <>
+                                <LabelCell>
+                                    <VaryLabel LabelName={`회원번호`} />
+                                </LabelCell>
+                                <InputCell>
+                                    <VaryInput
+                                        Width={'w60'}
+                                        HandleOnChange={() => {
+                                            //
+                                        }}
+                                        id={'id'}
+                                        Placeholder={'회원번호'}
+                                        Value={
+                                            detailState.detail.MBER_NO
+                                                ? detailState.detail.MBER_NO
+                                                : ``
+                                        }
+                                        Disabled={true}
+                                    />
+                                </InputCell>
+                            </>
+                        )}
                     </Row>
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`핸드폰번호`} />
                         </LabelCell>
-                        <InputCell>
+                        <InputCell colSpan={PageMode === 'new' ? 3 : 1}>
                             <VaryInput
                                 Ref={inputPhoneNumberRef}
                                 Width={'w60'}
@@ -634,31 +736,35 @@ const MemberDetailTable = ({
                                 }
                             />
                         </InputCell>
-                        <LabelCell>
-                            <VaryLabel LabelName={`이메일`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryInput
-                                Width={'w60'}
-                                InputType={'text'}
-                                HandleOnChange={e =>
-                                    setDetailState(prevState => ({
-                                        ...prevState,
-                                        detail: {
-                                            ...prevState.detail,
-                                            EMAIL_ADRES: e.target.value,
-                                        },
-                                    }))
-                                }
-                                id={'id'}
-                                Placeholder={'이메일'}
-                                Value={
-                                    detailState.detail.EMAIL_ADRES
-                                        ? detailState.detail.EMAIL_ADRES
-                                        : ``
-                                }
-                            />
-                        </InputCell>
+                        {PageMode === 'modify' && (
+                            <>
+                                <LabelCell>
+                                    <VaryLabel LabelName={`이메일`} />
+                                </LabelCell>
+                                <InputCell>
+                                    <VaryInput
+                                        Width={'w60'}
+                                        InputType={'text'}
+                                        HandleOnChange={e =>
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                detail: {
+                                                    ...prevState.detail,
+                                                    EMAIL_ADRES: e.target.value,
+                                                },
+                                            }))
+                                        }
+                                        id={'id'}
+                                        Placeholder={'이메일'}
+                                        Value={
+                                            detailState.detail.EMAIL_ADRES
+                                                ? detailState.detail.EMAIL_ADRES
+                                                : ``
+                                        }
+                                    />
+                                </InputCell>
+                            </>
+                        )}
                     </Row>
                     <Row>
                         <LabelCell>
@@ -735,132 +841,103 @@ const MemberDetailTable = ({
                             </WS.FlexNoWarapGap>
                         </InputCell>
                     </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`가입일자`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryInput
-                                Width={'w60'}
-                                InputType={'text'}
-                                HandleOnChange={() => {
-                                    //
-                                }}
-                                id={'id'}
-                                Placeholder={'가입일자'}
-                                Value={
-                                    detailState.detail.REGIST_DT
-                                        ? detailState.detail.REGIST_DT
-                                        : ``
-                                }
-                                Disabled={true}
-                            />
-                        </InputCell>
-                        <LabelCell>
-                            <VaryLabel LabelName={`아이디`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryInput
-                                Width={'w60'}
-                                InputType={'text'}
-                                HandleOnChange={() => {
-                                    //
-                                }}
-                                id={'id'}
-                                Placeholder={'아이디'}
-                                Value={
-                                    detailState.detail.USID
-                                        ? detailState.detail.USID
-                                        : ``
-                                }
-                                Disabled={true}
-                            />
-                        </InputCell>
-                    </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`내몸관리지수`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryButton
-                                ButtonType={`info`}
-                                ButtonName={`${
-                                    detailState.detail.TOT_SCORE
-                                        ? detailState.detail.TOT_SCORE
-                                        : '0.0'
-                                }`}
-                                HandleClick={() =>
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        modal: {
-                                            ...prevState.modal,
-                                            totalScore: true,
-                                        },
-                                    }))
-                                }
-                            />
-                        </InputCell>
-                        <LabelCell>
-                            <VaryLabel LabelName={`캐쉬`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryButton
-                                ButtonType={`info`}
-                                ButtonName={`${
-                                    detailState.detail.TOT_CASH
-                                        ? detailState.detail.TOT_CASH
-                                        : '0'
-                                }`}
-                                HandleClick={() => {
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        modal: {
-                                            ...prevState.modal,
-                                            totCash: true,
-                                        },
-                                    }))
-                                }}
-                            />
-                        </InputCell>
-                    </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`비밀번호`} />
-                        </LabelCell>
-                        <InputCell>
-                            <VaryButton
-                                ButtonType={`default`}
-                                ButtonName={`비밀번호 초기화`}
-                                HandleClick={() => {
-                                    if (
-                                        !(
-                                            detailState.detail
-                                                .MBTLNUM_CRTFC_AT &&
-                                            detailState.detail
-                                                .MBTLNUM_CRTFC_AT === 'Y'
-                                        )
-                                    ) {
-                                        handlMainAlert({
-                                            state: true,
-                                            message:
-                                                Messages.Default.phoneAuth
-                                                    .authYet,
-                                        })
-                                        return
+                    {PageMode === 'modify' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`가입일자`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'text'}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
+                                    id={'id'}
+                                    Placeholder={'가입일자'}
+                                    Value={
+                                        detailState.detail.REGIST_DT
+                                            ? detailState.detail.REGIST_DT
+                                            : ``
                                     }
+                                    Disabled={true}
+                                />
+                            </InputCell>
+                            <LabelCell>
+                                <VaryLabel LabelName={`아이디`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'text'}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
+                                    id={'id'}
+                                    Placeholder={'아이디'}
+                                    Value={
+                                        detailState.detail.USID
+                                            ? detailState.detail.USID
+                                            : ``
+                                    }
+                                    Disabled={true}
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
 
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        modal: {
-                                            ...prevState.modal,
-                                            changePassword: true,
-                                        },
-                                    }))
-                                }}
-                            />
-                        </InputCell>
-                        {mainLayoutState.Theme === 'GeonDaon' ? (
-                            <>
+                    {PageMode === 'modify' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`내몸관리지수`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryButton
+                                    ButtonType={`info`}
+                                    ButtonName={`${
+                                        detailState.detail.TOT_SCORE
+                                            ? detailState.detail.TOT_SCORE
+                                            : '0.0'
+                                    }`}
+                                    HandleClick={() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                totalScore: true,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </InputCell>
+                            <LabelCell>
+                                <VaryLabel LabelName={`캐쉬`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryButton
+                                    ButtonType={`info`}
+                                    ButtonName={`${
+                                        detailState.detail.TOT_CASH
+                                            ? detailState.detail.TOT_CASH
+                                            : '0'
+                                    }`}
+                                    HandleClick={() => {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                totCash: true,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
+
+                    {PageMode === 'new' &&
+                        mainLayoutState.Theme === 'GeonDaon' && (
+                            <Row>
                                 <LabelCell>
                                     <VaryLabel LabelName={`내/외근직`} />
                                 </LabelCell>
@@ -901,95 +978,289 @@ const MemberDetailTable = ({
                                         />
                                     </WS.FlexNoWarapGap>
                                 </InputCell>
-                            </>
-                        ) : (
-                            <>
                                 <LabelCell></LabelCell>
                                 <InputCell></InputCell>
-                            </>
+                            </Row>
                         )}
-                    </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel
-                                LabelName={`소속정보`}
-                                Children={
+
+                    {PageMode === 'modify' && (
+                        <Row>
+                            <>
+                                <LabelCell>
+                                    <VaryLabel LabelName={`비밀번호`} />
+                                </LabelCell>
+                                <InputCell>
                                     <VaryButton
                                         ButtonType={`default`}
-                                        ButtonName={`추가`}
-                                        HandleClick={() =>
+                                        ButtonName={`비밀번호 초기화`}
+                                        HandleClick={() => {
+                                            if (
+                                                !(
+                                                    detailState.detail
+                                                        .MBTLNUM_CRTFC_AT &&
+                                                    detailState.detail
+                                                        .MBTLNUM_CRTFC_AT ===
+                                                        'Y'
+                                                )
+                                            ) {
+                                                handlMainAlert({
+                                                    state: true,
+                                                    message:
+                                                        Messages.Default
+                                                            .phoneAuth.authYet,
+                                                })
+                                                return
+                                            }
+
                                             setPageState(prevState => ({
                                                 ...prevState,
                                                 modal: {
                                                     ...prevState.modal,
-                                                    pstinstSelector: true,
+                                                    changePassword: true,
                                                 },
                                             }))
-                                        }
+                                        }}
                                     />
-                                }
-                            />
-                        </LabelCell>
-                        <InputCellFull colSpan={3}>
-                            <P.Container>
-                                <P.Table>
-                                    <P.Tbody>
-                                        {detailState.detail.PSTINST_INFO_LIST &&
-                                            detailState.detail.PSTINST_INFO_LIST.map(
-                                                (el, index) => {
-                                                    return (
-                                                        <P.TableRow
-                                                            key={`member-detail-pstinst-table-row-item-${index}`}
-                                                            BgState={
-                                                                index % 2 === 0
-                                                            }>
-                                                            <P.TableCell>
-                                                                {el.INST_NO}
-                                                            </P.TableCell>
-                                                            <P.TableCell>
-                                                                {el.INST_NM}
-                                                            </P.TableCell>
-                                                            <P.TableCell>
-                                                                {el.CONFM_DE}
-                                                            </P.TableCell>
-                                                            <P.TableCell>
-                                                                <VaryButton
-                                                                    ButtonType={`default`}
-                                                                    ButtonName={`소속 탈퇴`}
-                                                                    HandleClick={() => {
-                                                                        setDetailState(
-                                                                            prevState => ({
-                                                                                ...prevState,
-                                                                                pstinstLeave:
-                                                                                    {
-                                                                                        selectNo:
-                                                                                            el.INST_NO,
-                                                                                        text: null,
-                                                                                    },
-                                                                            })
-                                                                        )
-                                                                        setPageState(
-                                                                            prevState => ({
-                                                                                ...prevState,
-                                                                                modal: {
-                                                                                    ...prevState.modal,
-                                                                                    pstinstInfoListLeave:
-                                                                                        true,
-                                                                                },
-                                                                            })
-                                                                        )
-                                                                    }}
-                                                                />
-                                                            </P.TableCell>
-                                                        </P.TableRow>
+                                </InputCell>
+                            </>
+
+                            {mainLayoutState.Theme === 'GeonDaon' ? (
+                                <>
+                                    <LabelCell>
+                                        <VaryLabel LabelName={`내/외근직`} />
+                                    </LabelCell>
+                                    <InputCell>
+                                        <WS.FlexNoWarapGap>
+                                            <VaryLabelRadioButton
+                                                LabelName={`내근직`}
+                                                Checked={
+                                                    detailState.detail
+                                                        .WORK_TY_CODE === 'I'
+                                                }
+                                                HandleOnChange={() =>
+                                                    setDetailState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            detail: {
+                                                                ...prevState.detail,
+                                                                WORK_TY_CODE:
+                                                                    'I',
+                                                            },
+                                                        })
                                                     )
                                                 }
-                                            )}
-                                    </P.Tbody>
-                                </P.Table>
-                            </P.Container>
-                        </InputCellFull>
-                    </Row>
+                                            />
+
+                                            <VaryLabelRadioButton
+                                                LabelName={`외근직`}
+                                                Checked={
+                                                    detailState.detail
+                                                        .WORK_TY_CODE === 'O'
+                                                }
+                                                HandleOnChange={() =>
+                                                    setDetailState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            detail: {
+                                                                ...prevState.detail,
+                                                                WORK_TY_CODE:
+                                                                    'O',
+                                                            },
+                                                        })
+                                                    )
+                                                }
+                                            />
+                                        </WS.FlexNoWarapGap>
+                                    </InputCell>
+                                </>
+                            ) : (
+                                <>
+                                    <LabelCell></LabelCell>
+                                    <InputCell></InputCell>
+                                </>
+                            )}
+                        </Row>
+                    )}
+                    {PageMode === 'modify' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel
+                                    LabelName={`소속정보`}
+                                    Children={
+                                        <VaryButton
+                                            ButtonType={`default`}
+                                            ButtonName={`추가`}
+                                            HandleClick={() =>
+                                                setPageState(prevState => ({
+                                                    ...prevState,
+                                                    modal: {
+                                                        ...prevState.modal,
+                                                        pstinstSelector: true,
+                                                    },
+                                                }))
+                                            }
+                                        />
+                                    }
+                                />
+                            </LabelCell>
+                            <InputCell colSpan={3}>
+                                <P.Container>
+                                    <P.Table>
+                                        <P.Tbody>
+                                            {detailState.detail
+                                                .PSTINST_INFO_LIST &&
+                                                detailState.detail.PSTINST_INFO_LIST.map(
+                                                    (el, index) => {
+                                                        return (
+                                                            <P.TableRow
+                                                                key={`member-detail-pstinst-table-row-item-${index}`}
+                                                                BgState={
+                                                                    index %
+                                                                        2 ===
+                                                                    0
+                                                                }>
+                                                                <P.TableCell>
+                                                                    {el.INST_NO}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    {el.INST_NM}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    {
+                                                                        el.CONFM_DE
+                                                                    }
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    <VaryButton
+                                                                        ButtonType={`default`}
+                                                                        ButtonName={`소속 탈퇴`}
+                                                                        HandleClick={() => {
+                                                                            setDetailState(
+                                                                                prevState => ({
+                                                                                    ...prevState,
+                                                                                    pstinstLeave:
+                                                                                        {
+                                                                                            selectNo:
+                                                                                                el.INST_NO,
+                                                                                            text: null,
+                                                                                        },
+                                                                                })
+                                                                            )
+                                                                            setPageState(
+                                                                                prevState => ({
+                                                                                    ...prevState,
+                                                                                    modal: {
+                                                                                        ...prevState.modal,
+                                                                                        pstinstInfoListLeave:
+                                                                                            true,
+                                                                                    },
+                                                                                })
+                                                                            )
+                                                                        }}
+                                                                    />
+                                                                </P.TableCell>
+                                                            </P.TableRow>
+                                                        )
+                                                    }
+                                                )}
+                                        </P.Tbody>
+                                    </P.Table>
+                                </P.Container>
+                            </InputCell>
+                        </Row>
+                    )}
+                    {PageMode === 'new' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`키`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'number'}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                NM: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                    id={'UNM'}
+                                    Placeholder={'키'}
+                                    Value={
+                                        detailState.detail.USID
+                                            ? detailState.detail.USID
+                                            : ``
+                                    }
+                                    Children={
+                                        <div className="flex text-xs items-end justify-end object-bottom h-8">
+                                            &#13213;
+                                        </div>
+                                    }
+                                />
+                            </InputCell>
+                            <LabelCell>
+                                <VaryLabel LabelName={`체중`} />
+                            </LabelCell>
+                            <InputCell>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'number'}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
+                                    id={'id'}
+                                    Placeholder={'체중'}
+                                    Value={
+                                        detailState.detail.MBER_NO
+                                            ? detailState.detail.MBER_NO
+                                            : ``
+                                    }
+                                    Children={
+                                        <div className="flex text-xs items-end justify-end object-bottom h-8">
+                                            &#13199;
+                                        </div>
+                                    }
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
+                    {PageMode === 'new' && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`허리둘레`} />
+                            </LabelCell>
+                            <InputCell colSpan={3}>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'number'}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                NM: e.target.value,
+                                            },
+                                        }))
+                                    }
+                                    id={'UNM'}
+                                    Placeholder={'허리둘레'}
+                                    Value={
+                                        detailState.detail.USID
+                                            ? detailState.detail.USID
+                                            : ``
+                                    }
+                                    Children={
+                                        <div className="flex text-xs items-end justify-end object-bottom h-8">
+                                            &#13213;
+                                        </div>
+                                    }
+                                />
+                            </InputCell>
+                        </Row>
+                    )}
                 </TableWapper>
             </TableContainer>
 
@@ -1524,6 +1795,7 @@ const MemberDetailTable = ({
                 {/*약관 동의 모달*/}
                 {pageState.modal.useStplatAgreAt && (
                     <StplatInfoAgreeModal
+                        AgreeTitleType={PageMode === 'new' ? 'new' : 're'}
                         MemberStplatList={{
                             USE_STPLAT_AGRE_AT: detailState.origin
                                 .USE_STPLAT_AGRE_AT
@@ -1566,7 +1838,73 @@ const MemberDetailTable = ({
                             }))
                         }}
                         CallBackResturn={e => {
-                            hadleMemberStplatInfoUpdate(e).then()
+                            const filtered = Object.entries(e).filter(
+                                ([, value]) => value === 'Y'
+                            )
+
+                            // 전체 동의 안했을때.
+                            if (Object.keys(e).length !== filtered.length) {
+                                handlMainAlert({
+                                    state: true,
+                                    message: Messages.Default.notAllAgree,
+                                })
+
+                                return
+                            }
+
+                            if (PageMode === 'new') {
+                                setDetailState(prevState => ({
+                                    ...prevState,
+                                    detail: {
+                                        ...prevState.detail,
+                                        USE_STPLAT_AGRE_AT:
+                                            e.USE_STPLAT_AGRE_AT == 'Y'
+                                                ? e.USE_STPLAT_AGRE_AT
+                                                : 'N',
+                                        INDVDLINFO_AGRE_AT:
+                                            e.INDVDLINFO_AGRE_AT == 'Y'
+                                                ? e.INDVDLINFO_AGRE_AT
+                                                : 'N',
+                                        SNSTIIVEINFO_AGRE_AT:
+                                            e.SNSTIIVEINFO_AGRE_AT == 'Y'
+                                                ? e.SNSTIIVEINFO_AGRE_AT
+                                                : 'N',
+                                        MARKTINFO_AGRE_AT:
+                                            e.MARKTINFO_AGRE_AT == 'Y'
+                                                ? e.MARKTINFO_AGRE_AT
+                                                : 'N',
+                                        INDVDLINFO_THIRD_AGRE_AT:
+                                            e.INDVDLINFO_THIRD_AGRE_AT == 'Y'
+                                                ? e.INDVDLINFO_THIRD_AGRE_AT
+                                                : 'N',
+                                        SNSTIIVEINFO_THIRD_AGRE_AT:
+                                            e.SNSTIIVEINFO_THIRD_AGRE_AT == 'Y'
+                                                ? e.SNSTIIVEINFO_THIRD_AGRE_AT
+                                                : 'N',
+                                        MARKTINFO_PURPOSE_AGRE_AT:
+                                            e.MARKTINFO_PURPOSE_AGRE_AT == 'Y'
+                                                ? e.MARKTINFO_PURPOSE_AGRE_AT
+                                                : 'N',
+                                    },
+                                }))
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        useStplatAgreAt: false,
+                                    },
+                                }))
+                            } else {
+                                hadleMemberStplatInfoUpdate(e).then(() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            useStplatAgreAt: false,
+                                        },
+                                    }))
+                                )
+                            }
                         }}
                     />
                 )}

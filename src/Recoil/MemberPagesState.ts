@@ -224,6 +224,11 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             MARKTINFO_AGRE_AT: null,
             MARKTINFO_PURPOSE_AGRE_AT: null,
             WORK_TY_CODE: 'N',
+            BDWGH: null,
+            HEIGHT: null,
+            PASSWORD: null,
+            PASSWORD_CHK: null,
+            WAIST_CRCMFRNC: null,
         },
         origin: {
             NM: null,
@@ -248,6 +253,11 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             MARKTINFO_AGRE_AT: null,
             MARKTINFO_PURPOSE_AGRE_AT: null,
             WORK_TY_CODE: 'N',
+            BDWGH: null,
+            HEIGHT: null,
+            PASSWORD: null,
+            PASSWORD_CHK: null,
+            WAIST_CRCMFRNC: null,
         },
         pstinstLeave: {
             selectNo: null,

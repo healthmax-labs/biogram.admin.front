@@ -27,6 +27,7 @@ export type WidthType =
     | 'w72'
     | 'w80'
     | 'w96'
+    | 'w036'
     | 'w1012'
     | 'w212'
     | 'full'

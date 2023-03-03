@@ -36,10 +36,12 @@ const initializeState = {
 }
 
 const StplatInfoAgreeModal = ({
+    AgreeTitleType,
     CancleButtonClick,
     MemberStplatList,
     CallBackResturn,
 }: {
+    AgreeTitleType: string | `re` | 'new'
     CancleButtonClick: () => void
     MemberStplatList?: StplatItemInterface
     CallBackResturn: (e: StplatItemInterface) => void
@@ -111,7 +113,11 @@ const StplatInfoAgreeModal = ({
                 NeedMax={true}
                 Children={
                     <Container>
-                        <TitleBox>회원 약관 재동의</TitleBox>
+                        <TitleBox>
+                            {AgreeTitleType === 'new'
+                                ? `회원 약관 동의`
+                                : `회원 약관 재동의`}
+                        </TitleBox>
                         <ItemGrid>
                             {pageState.stplatInfoList.length > 0 &&
                                 pageState.stplatInfoList.map(
@@ -204,12 +210,12 @@ const StplatInfoAgreeModal = ({
                 Buttons={
                     <>
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => CancleButtonClick()}
                             ButtonName={'취소'}
                         />
                         <VaryButton
-                            ButtonType={'manage'}
+                            ButtonType={'default'}
                             HandleClick={() => handleClickApplyButton()}
                             ButtonName={'동의하기'}
                         />
