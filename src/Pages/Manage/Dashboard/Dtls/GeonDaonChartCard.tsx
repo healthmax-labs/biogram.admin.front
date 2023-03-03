@@ -1,7 +1,7 @@
 import React from 'react'
 import { Spinner, VaryLineChart } from '@Elements'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
-import { dateInsertHypen } from '@Helper'
+import { dateInsertHypen, generateRandomString } from '@Helper'
 
 const {
     GeonDaonStyle: {
@@ -41,6 +41,7 @@ const GeonDaonChartCard = ({
                 ) : (
                     <ChartWapper>
                         <VaryLineChart
+                            ChartID={generateRandomString(10)}
                             Data1={ChartData.map(c => {
                                 return {
                                     date: dateInsertHypen(c.Date),

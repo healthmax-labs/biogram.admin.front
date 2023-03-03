@@ -242,7 +242,9 @@ export default function useDashBoard() {
                     ...prevState,
                     mesureInfo: {
                         status: 'success',
-                        list: payload.MESURE_INFO_LIST,
+                        list: _.map(payload.MESURE_INFO_LIST, e => {
+                            return e
+                        }),
                     },
                 }))
             } else {

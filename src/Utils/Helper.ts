@@ -678,3 +678,20 @@ export const addComma = (num: number): string => {
     const regexp = /\B(?=(\d{3})+(?!\d))/g
     return num.toString().replace(regexp, ',')
 }
+
+/**
+ * 랜덤 문자열
+ * @param num
+ */
+export const generateRandomString = (num: number) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    let result = ''
+    const charactersLength = characters.length
+    for (let i = 0; i < num; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        )
+    }
+
+    return result
+}

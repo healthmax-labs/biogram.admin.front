@@ -9,14 +9,16 @@ const {
 } = VaryLineChartStyle
 
 const VaryLineChart = ({
+    ChartID,
     Data1,
     Data2,
 }: {
+    ChartID: string
     Data1: Array<{ date: string; value: number }>
     Data2: Array<{ date: string; value: number }>
 }) => {
     useLayoutEffect(() => {
-        const root = am5.Root.new('chartdiv')
+        const root = am5.Root.new(ChartID)
 
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -202,7 +204,7 @@ const VaryLineChart = ({
 
     return (
         <Container>
-            <Wapper id="chartdiv"></Wapper>
+            <Wapper id={ChartID}></Wapper>
         </Container>
     )
 }

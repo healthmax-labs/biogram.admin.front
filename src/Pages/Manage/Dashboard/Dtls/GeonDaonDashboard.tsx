@@ -1,12 +1,12 @@
+import React from 'react'
 import GeonDaonContentCard from './GeonDaonContentCard'
 import GeonDaonChartCard from './GeonDaonChartCard'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
 import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 import { useRecoilValue } from 'recoil'
-import { addComma, dateInsertHypen, getDateDayUnit } from '@Helper'
+import { addComma } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
-import React, { useEffect } from 'react'
 
 const {
     GeonDaonStyle: {
@@ -26,11 +26,6 @@ const GeonDaonDashboard = () => {
 
     const myData = Codes.myData.flatMap(i => i.list)
     const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
-
-    useEffect(() => {
-        // console.debug(dashBoardPageState.member)
-        // console.debug(dashBoardPageState.member)
-    }, [dashBoardPageState.member])
 
     return (
         <Container>
@@ -432,7 +427,7 @@ const GeonDaonDashboard = () => {
                 <RightWapper>
                     <WapperCol>
                         <FlexFull>
-                            <GeonDaonContentCard
+                            <GeonDaonChartCard
                                 Loading={
                                     dashBoardPageState.mesureInfo.status ===
                                     'loading'
@@ -451,47 +446,24 @@ const GeonDaonDashboard = () => {
                                             ∎ 신규
                                         </p>
                                         <p className="flex text-xs pl-1">
-                                            ∎ 최근 30일
+                                            ∎ 전체
                                         </p>
                                     </>
                                 }
-                                Items={[0, 1, 2].map(e => {
-                                    const {
-                                        mesureInfo: { list },
-                                    } = dashBoardPageState
-
-                                    const findDate = getDateDayUnit(e)
-
-                                    const findData = _.find(list, {
-                                        MESURE_DE: findDate,
-                                    })
-
-                                    if (findData) {
-                                        return [
-                                            {
-                                                name: String(
-                                                    dateInsertHypen(findDate)
-                                                ),
-                                                textAlign: 'left',
-                                            },
-                                            {
-                                                name: findData
-                                                    ? findData.TD_CNT
-                                                    : '0',
-                                                color: 'green',
-                                                textAlign: 'center',
-                                            },
-                                            {
-                                                name: findData
-                                                    ? findData.TT_CNT
-                                                    : '0',
-                                                textAlign: 'right',
-                                            },
-                                        ]
-                                    } else {
-                                        return []
-                                    }
-                                })}
+                                ChartData={
+                                    dashBoardPageState.mesureInfo.list.length >
+                                    0
+                                        ? dashBoardPageState.mesureInfo.list.map(
+                                              mesure => {
+                                                  return {
+                                                      Date: mesure.MESURE_DE,
+                                                      Value1: mesure.TT_CNT,
+                                                      Value2: mesure.TD_CNT,
+                                                  }
+                                              }
+                                          )
+                                        : []
+                                }
                             />
                         </FlexFull>
                         <FlexNowrapFull>
@@ -507,7 +479,7 @@ const GeonDaonDashboard = () => {
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
-                                                        존 측정 현황
+                                                        측정 현황
                                                     </p>
                                                     <p className="flex text-little object-bottom pl-1">
                                                         (단위: 명)
@@ -566,7 +538,7 @@ const GeonDaonDashboard = () => {
                                             LeftTitle={
                                                 <>
                                                     <p className="flex text-xs">
-                                                        존 기기별 측정현황
+                                                        기기별 측정현황
                                                     </p>
                                                     <p className="flex text-little object-bottom pl-1">
                                                         (단위: 명)
