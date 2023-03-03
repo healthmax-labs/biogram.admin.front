@@ -68,8 +68,8 @@ export interface RiskGroupDormantMemberInterface {
 // 측정 현황
 export interface MesureInfoItemInterface {
     MESURE_DE: string
-    TT_CNT: string
-    TD_CNT: string
+    TT_CNT: number
+    TD_CNT: number
 }
 
 export interface MesureInfoInterface {

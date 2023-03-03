@@ -425,8 +425,8 @@ export const timeStringSmapDateParse = (date: string): string | boolean => {
  * 20221227 -> 2022-12-27
  * @param date
  */
-export const dateInsertHypen = (date: string): string | boolean => {
-    if (date.length !== 8) return false
+export const dateInsertHypen = (date: string): string => {
+    if (date.length !== 8) return getNowDateHypen()
 
     return `${date.substring(0, 4)}-${date.substring(4, 6)}-${date.substring(
         6,
@@ -487,6 +487,23 @@ export const getNowDate = (): string => {
     day = day >= 10 ? day : '0' + day
 
     return year + '' + month + '' + day
+}
+
+/**
+ * 2022-12-10
+ * 오늘 날짜.
+ */
+export const getNowDateHypen = (): string => {
+    const date = new Date()
+    const year = date.getFullYear()
+
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    return `${year}-${month}-${day}`
 }
 
 /**
@@ -660,4 +677,21 @@ export const getTextLength = (str: string) => {
 export const addComma = (num: number): string => {
     const regexp = /\B(?=(\d{3})+(?!\d))/g
     return num.toString().replace(regexp, ',')
+}
+
+/**
+ * 랜덤 문자열
+ * @param num
+ */
+export const generateRandomString = (num: number) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    let result = ''
+    const charactersLength = characters.length
+    for (let i = 0; i < num; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        )
+    }
+
+    return result
 }
