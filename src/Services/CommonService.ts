@@ -27,6 +27,26 @@ export const getStplatInfo = ({
 }
 
 /**
+ * 회원 가입시 필요한 약관 정보.
+ * @param infoNo
+ */
+export const getCommonStplatInfo = ({
+    infoNo,
+}: {
+    infoNo: number
+}): Promise<
+    ServicesDefaultResult<{
+        STPLAT_INFO_LIST: StplatInfoItem[]
+    }>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/common/v1/stplat/info/${infoNo}`,
+        payload: {},
+    })
+}
+
+/**
  * 소속 변경 시 사용할 약관 정보.
  * @param infoNo
  */

@@ -32,11 +32,8 @@ import {
 import { getOnlyNumber, gmtTimeToTimeObject } from '@Helper'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import {
-    StplatItemInterface,
-    ThptyStplatInfoInterface,
-} from '@Type/MemberTypes'
-import { isEmpty } from 'lodash'
+import { StplatItemInterface } from '@Type/MemberTypes'
+import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
@@ -368,7 +365,7 @@ const MemberDetailTable = ({
 
     // 회원 정보 업데이트 처리
     const handleMemberInfoUpdate = async () => {
-        if (isEmpty(detailState.detail.NM)) {
+        if (_.isEmpty(detailState.detail.NM)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.validation.name,
@@ -377,7 +374,7 @@ const MemberDetailTable = ({
             return
         }
 
-        if (isEmpty(detailState.detail.MBTLNUM)) {
+        if (_.isEmpty(detailState.detail.MBTLNUM)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.validation.phoneNumer,
@@ -1304,7 +1301,8 @@ const MemberDetailTable = ({
                 {/*소속 추가시 약관 모달*/}
                 {pageState.modal.pstinstAgree.state && (
                     <PstinstAgreeModal
-                        infoNo={pageState.addSelectPstinst.instNo}
+                        InfoNo={pageState.addSelectPstinst.instNo}
+                        InfoType={`thpty`}
                         HandleClickCancleButtion={() =>
                             setPageState(prevState => ({
                                 ...prevState,
@@ -1319,14 +1317,10 @@ const MemberDetailTable = ({
                                 },
                             }))
                         }
-                        HandleClickApplyButton={(
-                            e: ThptyStplatInfoInterface
-                        ) => {
-                            const filtered = Object.entries(e).filter(
-                                ([, value]) => value === 'Y'
-                            )
+                        HandleClickApplyButton={e => {
+                            const checked = _.filter(e, ck => ck.check === 'Y')
 
-                            if (Object.keys(e).length !== filtered.length) {
+                            if (checked.length !== e.length) {
                                 handlMainAlert({
                                     state: true,
                                     message: Messages.Default.notAllAgree,
@@ -1349,6 +1343,7 @@ const MemberDetailTable = ({
                         }}
                     />
                 )}
+
                 {/*소속 선택*/}
                 {pageState.modal.pstinstSelector.state && (
                     <PstinstSelector
@@ -1555,6 +1550,7 @@ const MemberDetailTable = ({
                         }
                     />
                 )}
+
                 {/* 비밀번호 초기화 모달 */}
                 {pageState.modal.changePassword.state && (
                     <ConfirmModal
