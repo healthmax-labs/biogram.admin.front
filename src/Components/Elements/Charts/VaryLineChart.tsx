@@ -43,23 +43,23 @@ const VaryLineChart = ({
         cursor.lineY.set('visible', false)
 
         // Generate random data
-        let value = 100
+        // const value = 100
 
-        function generateData(i: any) {
-            value = Math.round(Math.random() * 10 - 5 + value)
-            return {
-                date: i,
-                value: value,
-            }
-        }
+        // function generateData(i: any) {
+        //     value = Math.round(Math.random() * 10 - 5 + value)
+        //     return {
+        //         date: i,
+        //         value: value,
+        //     }
+        // }
 
-        function generateDatas(count: any) {
-            const data = []
-            for (let i = 0; i < count; ++i) {
-                data.push(generateData(i))
-            }
-            return data
-        }
+        // function generateDatas(count: any) {
+        //     const data = []
+        //     for (let i = 0; i < count; ++i) {
+        //         data.push(generateData(i))
+        //     }
+        //     return data
+        // }
 
         // Create axes
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
@@ -182,12 +182,12 @@ const VaryLineChart = ({
         // )
 
         // Set data
-        const data = generateDatas(30)
+        // const data = generateDatas(30)
         series.data.setAll(Data1)
         xAxis.data.setAll(Data1)
 
-        value = 10000
-        const data2 = generateDatas(30)
+        // value = 10000
+        // const data2 = generateDatas(30)
         series2.data.setAll(Data2)
         xAxis2.data.setAll(Data2)
 
@@ -195,6 +195,9 @@ const VaryLineChart = ({
         // https://www.amcharts.com/docs/v5/concepts/animations/
         series.appear(1000)
         chart.appear(1000, 100)
+
+        // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

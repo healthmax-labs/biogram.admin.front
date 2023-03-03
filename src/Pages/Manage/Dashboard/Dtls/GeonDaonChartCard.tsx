@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Spinner, VaryLineChart } from '@Elements'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
-import { Chart } from '@amcharts/amcharts5'
 import { dateInsertHypen } from '@Helper'
 
 const {
