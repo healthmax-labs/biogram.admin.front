@@ -198,18 +198,17 @@ const GeonDaonDashboard = () => {
                                                             },
                                                             {
                                                                 name: `${_.round(
-                                                                    e.TD_TOT_CNT,
+                                                                    e.TT_TOT_RATE,
                                                                     2
                                                                 ).toFixed(1)}%`,
                                                                 textAlign:
                                                                     'center',
                                                             },
                                                             {
-                                                                // name: addComma( e.TT_TOT_RATE ),
-                                                                name: `${_.round(
-                                                                    e.TT_TOT_RATE,
-                                                                    2
-                                                                ).toFixed(1)}%`,
+                                                                name: `${addComma(
+                                                                    e.TD_TOT_CNT
+                                                                )}`,
+                                                                color: 'green',
                                                                 textAlign:
                                                                     'right',
                                                             },
