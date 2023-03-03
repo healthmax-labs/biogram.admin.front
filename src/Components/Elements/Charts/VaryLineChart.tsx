@@ -8,7 +8,13 @@ const {
     LineChart: { Container, Wapper },
 } = VaryLineChartStyle
 
-const VaryLineChart = () => {
+const VaryLineChart = ({
+    Data1,
+    Data2,
+}: {
+    Data1: Array<{ date: number; value: number }>
+    Data2: Array<{ date: number; value: number }>
+}) => {
     useLayoutEffect(() => {
         const root = am5.Root.new('chartdiv')
 
@@ -174,11 +180,11 @@ const VaryLineChart = () => {
 
         // Set data
         const data = generateDatas(30)
-        series.data.setAll(data)
+        series.data.setAll(Data1)
 
         value = 10000
         const data2 = generateDatas(30)
-        series2.data.setAll(data2)
+        series2.data.setAll(Data2)
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/

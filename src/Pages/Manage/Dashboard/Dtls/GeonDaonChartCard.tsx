@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Spinner, VaryLineChart } from '@Elements'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
+import { Chart } from '@amcharts/amcharts5'
+import { dateInsertHypen } from '@Helper'
 
 const {
     GeonDaonStyle: {
@@ -19,10 +21,12 @@ const GeonDaonChartCard = ({
     Loading,
     LeftTitle,
     RightTitle,
+    ChartData,
 }: {
     Loading: boolean
     LeftTitle: React.ReactNode
     RightTitle?: React.ReactNode
+    ChartData: Array<{ Date: string; Value1: number; Value2: number }>
 }) => {
     return (
         <Container>
@@ -37,7 +41,24 @@ const GeonDaonChartCard = ({
                     </SpinnerWapper>
                 ) : (
                     <ChartWapper>
-                        <VaryLineChart />
+                        <VaryLineChart
+                            Data1={ChartData.map(c => {
+                                return {
+                                    date: new Date(
+                                        dateInsertHypen(c.Date)
+                                    ).getTime(),
+                                    value: c.Value1,
+                                }
+                            })}
+                            Data2={ChartData.map(c => {
+                                return {
+                                    date: new Date(
+                                        dateInsertHypen(c.Date)
+                                    ).getTime(),
+                                    value: c.Value2,
+                                }
+                            })}
+                        />
                     </ChartWapper>
                 )}
             </Wapper>

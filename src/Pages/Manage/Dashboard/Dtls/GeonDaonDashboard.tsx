@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil'
 import { addComma, dateInsertHypen, getDateDayUnit } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const {
     GeonDaonStyle: {
@@ -26,6 +26,11 @@ const GeonDaonDashboard = () => {
 
     const myData = Codes.myData.flatMap(i => i.list)
     const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
+
+    useEffect(() => {
+        // console.debug(dashBoardPageState.member)
+        // console.debug(dashBoardPageState.member)
+    }, [dashBoardPageState.member])
 
     return (
         <Container>
@@ -55,6 +60,19 @@ const GeonDaonDashboard = () => {
                                             ∎ 전체
                                         </p>
                                     </>
+                                }
+                                ChartData={
+                                    dashBoardPageState.member.list.length > 0
+                                        ? dashBoardPageState.member.list.map(
+                                              member => {
+                                                  return {
+                                                      Date: member.SEARCH_DE,
+                                                      Value1: member.TT_CNT,
+                                                      Value2: member.TD_CNT,
+                                                  }
+                                              }
+                                          )
+                                        : []
                                 }
                             />
                         </FlexFull>

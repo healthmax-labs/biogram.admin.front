@@ -13,6 +13,7 @@ import {
     getMngDashDoardMberInfoAges,
     getMngGndnDashBoardMybodyScoreImprvm,
 } from '@Service/DashBoardService'
+import _ from 'lodash'
 
 export default function useDashBoard() {
     const setDashBoardPageState = useSetRecoilState(DashBoardPageState)
@@ -36,7 +37,9 @@ export default function useDashBoard() {
                     member: {
                         ...prevState.member,
                         status: 'success',
-                        list: payload.MBER_INFO,
+                        list: _.map(payload.MBER_INFO, e => {
+                            return e
+                        }),
                     },
                 }))
             } else {
