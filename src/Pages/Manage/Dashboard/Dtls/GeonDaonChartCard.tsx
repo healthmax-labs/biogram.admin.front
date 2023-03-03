@@ -44,18 +44,14 @@ const GeonDaonChartCard = ({
                         <VaryLineChart
                             Data1={ChartData.map(c => {
                                 return {
-                                    date: new Date(
-                                        dateInsertHypen(c.Date)
-                                    ).getTime(),
-                                    value: c.Value1,
+                                    date: dateInsertHypen(c.Date),
+                                    value: c.Value2,
                                 }
                             })}
                             Data2={ChartData.map(c => {
                                 return {
-                                    date: new Date(
-                                        dateInsertHypen(c.Date)
-                                    ).getTime(),
-                                    value: c.Value2,
+                                    date: dateInsertHypen(c.Date),
+                                    value: c.Value1,
                                 }
                             })}
                         />

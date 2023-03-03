@@ -12,8 +12,8 @@ const VaryLineChart = ({
     Data1,
     Data2,
 }: {
-    Data1: Array<{ date: number; value: number }>
-    Data2: Array<{ date: number; value: number }>
+    Data1: Array<{ date: string; value: number }>
+    Data2: Array<{ date: string; value: number }>
 }) => {
     useLayoutEffect(() => {
         const root = am5.Root.new('chartdiv')
@@ -64,7 +64,8 @@ const VaryLineChart = ({
         // Create axes
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
         const xAxis = chart.xAxes.push(
-            am5xy.ValueAxis.new(root, {
+            am5xy.CategoryAxis.new(root, {
+                categoryField: 'date',
                 renderer: am5xy.AxisRendererX.new(root, {}),
                 // tooltip: am5.Tooltip.new(root, {}),
             })
@@ -78,7 +79,8 @@ const VaryLineChart = ({
         xRenderer.grid.template.set('visible', false)
 
         const xAxis2 = chart.xAxes.push(
-            am5xy.ValueAxis.new(root, {
+            am5xy.CategoryAxis.new(root, {
+                categoryField: 'date',
                 visible: false,
                 renderer: am5xy.AxisRendererX.new(root, {}),
                 // tooltip: am5.Tooltip.new(root, {}),
@@ -87,6 +89,7 @@ const VaryLineChart = ({
 
         const yAxis = chart.yAxes.push(
             am5xy.ValueAxis.new(root, {
+                min: 0,
                 renderer: am5xy.AxisRendererY.new(root, {}),
             })
         )
@@ -120,7 +123,7 @@ const VaryLineChart = ({
                 xAxis: xAxis,
                 yAxis: yAxis,
                 valueYField: 'value',
-                valueXField: 'date',
+                categoryXField: 'date',
                 stroke: am5.color(0x047481),
             })
         )
@@ -148,7 +151,7 @@ const VaryLineChart = ({
                 xAxis: xAxis2,
                 yAxis: yAxis2,
                 valueYField: 'value',
-                valueXField: 'date',
+                categoryXField: 'date',
                 stroke: am5.color(0x0000000),
             })
         )
@@ -181,10 +184,12 @@ const VaryLineChart = ({
         // Set data
         const data = generateDatas(30)
         series.data.setAll(Data1)
+        xAxis.data.setAll(Data1)
 
         value = 10000
         const data2 = generateDatas(30)
         series2.data.setAll(Data2)
+        xAxis2.data.setAll(Data2)
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/
