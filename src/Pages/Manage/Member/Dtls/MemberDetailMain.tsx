@@ -15,7 +15,7 @@ const {
 } = PageContainerStyle
 
 const initializeState = {
-    pageMode: 'new',
+    pageMode: '',
 }
 
 const MemberDetailMain = () => {

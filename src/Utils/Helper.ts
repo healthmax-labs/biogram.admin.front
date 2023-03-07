@@ -695,3 +695,52 @@ export const generateRandomString = (num: number) => {
 
     return result
 }
+
+/**
+ * 회원 아이디 체크
+ * @param id
+ */
+export const memberUsidCheck = (id: string | null): boolean => {
+    if (!id) return false
+    const idReg = /^[A-Za-z0-9]{4,16}$/
+    return idReg.test(id)
+}
+
+/**
+ * 연속된 문자열 검색
+ * @param str
+ */
+export const stringCodeCheck = (str: string): boolean => {
+    if (!/(\w)\1\1/.test(str)) {
+        let cnt = 0
+        let cnt2 = 0
+        let tmp = ''
+        let tmp2 = ''
+        let tmp3 = ''
+        for (let i = 0; i < str.length; i++) {
+            tmp = str.charAt(i)
+            tmp2 = str.charAt(i + 1)
+            tmp3 = str.charAt(i + 2)
+
+            if (
+                tmp.charCodeAt(0) - tmp2.charCodeAt(0) === 1 &&
+                tmp2.charCodeAt(0) - tmp3.charCodeAt(0) === 1
+            ) {
+                cnt = cnt + 1
+            }
+            if (
+                tmp.charCodeAt(0) - tmp2.charCodeAt(0) === -1 &&
+                tmp2.charCodeAt(0) - tmp3.charCodeAt(0) === -1
+            ) {
+                cnt2 = cnt2 + 1
+            }
+        }
+        if (cnt > 0 || cnt2 > 0) {
+            return false
+        }
+    } else {
+        return false
+    }
+
+    return true
+}

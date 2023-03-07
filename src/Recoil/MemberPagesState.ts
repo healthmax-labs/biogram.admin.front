@@ -97,6 +97,7 @@ interface MemberDetailInterface {
         text: string | null
     }
     phoneAuth: boolean
+    checkUsid: boolean
 }
 
 // 상담 회원 상세
@@ -264,6 +265,7 @@ export const MemberDetailState = atom<MemberDetailInterface>({
             text: null,
         },
         phoneAuth: false,
+        checkUsid: false,
     },
 })
 

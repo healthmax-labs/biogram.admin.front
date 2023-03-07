@@ -110,13 +110,19 @@ const PhoneAuthModal = ({
         if (seconds === 0 && minutes === 0) {
             CancleButtonClick()
         }
-    }, [seconds, minutes, CancleButtonClick])
+
+        // FIXME : 종속성에서 CancleButtonClick 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [seconds, minutes])
 
     useEffect(() => {
         if (pageState.success) {
             HandleSuccess()
         }
-    }, [HandleSuccess, pageState.success])
+
+        // FIXME : 종속성에서 HandleSuccess 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageState.success])
 
     // TODO: 인증 번호가 다를 경우 input 창 글자색도 빨간색으로
     useEffect(() => {
