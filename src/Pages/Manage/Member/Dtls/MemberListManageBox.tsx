@@ -1,19 +1,27 @@
 import React, { useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { VaryButton, VaryModal, VaryTextArea } from '@Elements'
-import { useMainLayouts } from '@Hook/index'
-import { useRecoilState } from 'recoil'
-import { MemberListState } from '@Recoil/MemberPagesState'
+import {
+    VaryButton,
+    VaryModal,
+    VaryTextArea,
+    PstinstAgreeModal,
+} from '@Elements'
+import { useMainLayouts, useTab } from '@Hook/index'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import { MemberListState, MemberDetailState } from '@Recoil/MemberPagesState'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { postMberInfoDelete } from '@Service/MemberService'
 import Const from '@Const'
+import { AtomRootState } from '@Recoil/AppRootState'
+import { useNavigate } from 'react-router-dom'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
 const initializeState = {
     modal: {
         memDelete: false,
+        pstinstAgree: false,
     },
 }
 
@@ -22,12 +30,17 @@ const MemberListManageBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const navigate = useNavigate()
     const { handlMainAlert } = useMainLayouts()
     const [listState, setListState] = useRecoilState(MemberListState)
+    const memberDetailStateReset = useResetRecoilState(MemberDetailState)
+    const rootState = useRecoilValue(AtomRootState)
+    const { handleDeleteTabbyMatchRouter } = useTab()
 
     const [pageState, setPageState] = useState<{
         modal: {
             memDelete: boolean
+            pstinstAgree: boolean
         }
     }>(initializeState)
 
@@ -38,7 +51,13 @@ const MemberListManageBox = ({
                     <VaryButton
                         ButtonType={`manage`}
                         HandleClick={() => {
-                            //
+                            handleDeleteTabbyMatchRouter(
+                                '/manage/member/:MEMBER_NO/detail'
+                            )
+                            memberDetailStateReset()
+                            navigate({
+                                pathname: `${process.env.PUBLIC_URL}/manage/member/new-member`,
+                            })
                         }}
                         ButtonName={'신규회원등록'}
                     />
@@ -116,15 +135,17 @@ const MemberListManageBox = ({
                     NeedMax={false}
                     Children={
                         <div className={`w-full justify-evenly`}>
-                            <div
-                                className={`mt-0 text-base leading-relaxed pb-3`}
-                                dangerouslySetInnerHTML={{
-                                    __html: _.replace(
-                                        Messages.Default.memberDeleteTitle,
-                                        `_NAME_`,
-                                        listState.manage.checkRowName
-                                    ),
-                                }}></div>
+                            <div className="break-normal">
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: _.replace(
+                                            Messages.Default.memberDeleteTitle,
+                                            `_NAME_`,
+                                            listState.manage.checkRowName
+                                        ),
+                                    }}></div>
+                            </div>
+
                             <VaryTextArea
                                 Rows={10}
                                 Placeholder={`사유를 입력해 주세요`}
@@ -220,6 +241,45 @@ const MemberListManageBox = ({
                                 }}
                             />
                         </>
+                    }
+                />
+            )}
+            {pageState.modal.pstinstAgree && (
+                <PstinstAgreeModal
+                    InfoNo={
+                        rootState.userinfo.INST_NM
+                            ? Number(rootState.userinfo.INST_NM)
+                            : 1000
+                    }
+                    InfoType={`stplat`}
+                    HandleClickApplyButton={e => {
+                        const checked = _.filter(e, ck => ck.check === 'Y')
+
+                        if (checked.length !== e.length) {
+                            handlMainAlert({
+                                state: true,
+                                message: Messages.Default.notAllAgree,
+                            })
+
+                            return
+                        }
+
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                pstinstAgree: false,
+                            },
+                        }))
+                    }}
+                    HandleClickCancleButtion={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                pstinstAgree: false,
+                            },
+                        }))
                     }
                 />
             )}

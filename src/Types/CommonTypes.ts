@@ -27,6 +27,7 @@ export type WidthType =
     | 'w72'
     | 'w80'
     | 'w96'
+    | 'w036'
     | 'w1012'
     | 'w212'
     | 'full'
@@ -253,9 +254,12 @@ export interface AppRootStateInterface {
     menuInfo: AuthorMenuInterface<MenuItemInterface>
 }
 
+// 약관 코드
+export type StplatInfoKndCode = 'US' | 'IT' | 'ST' | 'II' | 'SI' | 'MP' | 'MI'
+
 // 약관 인터페이스
 export interface StplatInfoItem {
-    STPLAT_KND_CODE: 'US' | 'IT' | 'ST' | 'II' | 'SI' | 'MP' | 'MI'
+    STPLAT_KND_CODE: StplatInfoKndCode
     STPLAT_KND_CODE_NM: string
     STPLAT_DC: string
 }

@@ -1,11 +1,12 @@
 import { VaryButton, VaryLabelCheckBox, VaryModal } from '@Element/index'
-import { StplatInfoItem } from '@CommonTypes'
+import { StplatInfoItem, StplatInfoKndCode } from '@CommonTypes'
 import React, { useEffect, useState } from 'react'
 import { PstinstAgreeModalStyle } from '@Style/Elements/ModalStyles'
-import { getCommonThptyStplatInfo } from '@Service/CommonService'
-import { ThptyStplatInfoInterface } from '@Type/MemberTypes'
-import { get } from 'lodash'
-import Codes from '@Codes'
+import {
+    getCommonThptyStplatInfo,
+    getCommonStplatInfo,
+} from '@Service/CommonService'
+import _ from 'lodash'
 
 const {
     Container,
@@ -19,39 +20,46 @@ const {
 } = PstinstAgreeModalStyle
 
 const initializeState = {
+    loading: false,
     stplatInfoList: [],
-    checkStplatInfo: {
-        INDVDLINFO_THIRD_AGRE_AT: 'N',
-        SNSTIIVEINFO_THIRD_AGRE_AT: 'N',
-    },
+    checkStplatInfo: [],
     allCheck: false,
 }
 
 const PstinstAgreeModal = ({
-    infoNo,
+    InfoNo,
+    InfoType,
     HandleClickCancleButtion,
     HandleClickApplyButton,
 }: {
-    infoNo: number | null
+    InfoNo: number | null
+    InfoType: 'thpty' | 'stplat' // '소속 변경시 밑 등록에 필요한 약관' | '회원가입시 필요한 약관'
     HandleClickCancleButtion: () => void
-    HandleClickApplyButton: (e: ThptyStplatInfoInterface) => void
+    HandleClickApplyButton: (
+        e: Array<{ kndCode: StplatInfoKndCode; check: 'Y' | 'N' }>
+    ) => void
 }) => {
     const [pageState, setPageState] = useState<{
+        loading: boolean
         stplatInfoList: StplatInfoItem[]
-        checkStplatInfo: ThptyStplatInfoInterface
+        checkStplatInfo: Array<{ kndCode: StplatInfoKndCode; check: 'Y' | 'N' }>
         allCheck: boolean
     }>(initializeState)
 
     useEffect(() => {
-        const funcStartGet = async () => {
-            if (infoNo) {
+        const funcStartThptyGet = async () => {
+            if (InfoNo) {
                 const { status, payload } = await getCommonThptyStplatInfo({
-                    infoNo: infoNo,
+                    infoNo: InfoNo,
                 })
                 if (status) {
                     const { THPTY_STPLAT_INFO_LIST } = payload
                     setPageState(prevState => ({
                         ...prevState,
+                        loading: false,
+                        checkStplatInfo: THPTY_STPLAT_INFO_LIST.map(info => {
+                            return { kndCode: info.STPLAT_KND_CODE, check: 'N' }
+                        }),
                         stplatInfoList: THPTY_STPLAT_INFO_LIST,
                     }))
                 } else {
@@ -62,44 +70,87 @@ const PstinstAgreeModal = ({
             }
         }
 
-        funcStartGet().then()
-    }, [HandleClickCancleButtion, infoNo])
-
-    useEffect(() => {
-        const checkStplatInfo = Object.entries(pageState.checkStplatInfo)
-        const filtered = checkStplatInfo.filter(([, value]) => value === 'Y')
+        const funcStartStplatGet = async () => {
+            if (InfoNo) {
+                const { status, payload } = await getCommonStplatInfo({
+                    infoNo: InfoNo,
+                })
+                if (status) {
+                    const { STPLAT_INFO_LIST } = payload
+                    setPageState(prevState => ({
+                        ...prevState,
+                        checkStplatInfo: STPLAT_INFO_LIST.map(info => {
+                            return { kndCode: info.STPLAT_KND_CODE, check: 'N' }
+                        }),
+                        stplatInfoList: STPLAT_INFO_LIST,
+                    }))
+                } else {
+                    //
+                }
+            } else {
+                HandleClickCancleButtion()
+            }
+        }
 
         setPageState(prevState => ({
             ...prevState,
-            allCheck:
-                filtered.length ===
-                Object.keys(initializeState.checkStplatInfo).length,
+            loading: true,
         }))
-    }, [pageState.checkStplatInfo])
+
+        if (InfoType === 'stplat') {
+            funcStartStplatGet().then(() =>
+                setPageState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                }))
+            )
+        } else {
+            funcStartThptyGet().then(() =>
+                setPageState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                }))
+            )
+        }
+    }, [HandleClickCancleButtion, InfoNo, InfoType])
+
+    useEffect(() => {
+        if (pageState.stplatInfoList.length > 0) {
+            const checked = _.filter(
+                pageState.checkStplatInfo,
+                e => e.check === 'Y'
+            )
+
+            setPageState(prevState => ({
+                ...prevState,
+                allCheck: checked.length === pageState.checkStplatInfo.length,
+            }))
+        }
+    }, [pageState.checkStplatInfo, pageState.stplatInfoList.length])
+
     return (
         <>
             <VaryModal
-                ModalLoading={false}
+                ModalLoading={pageState.loading}
                 NeedMax={false}
                 Children={
                     <Container>
-                        <ItemGrid>
+                        <ItemGrid Length={pageState.stplatInfoList.length}>
                             {pageState.stplatInfoList.length > 0 &&
                                 pageState.stplatInfoList.map(
                                     (el: StplatInfoItem, i) => {
-                                        const { code } = get(
-                                            Codes.memberStplats.code,
-                                            el.STPLAT_KND_CODE
-                                        )
-
-                                        const check = get(
+                                        const check = _.find(
                                             pageState.checkStplatInfo,
-                                            code
+                                            { kndCode: el.STPLAT_KND_CODE }
                                         )
 
                                         return (
                                             <ItemRow
-                                                key={`stplat-info-agree-modal-item-row-${i}`}>
+                                                key={`stplat-info-agree-modal-item-row-${i}`}
+                                                Length={
+                                                    pageState.stplatInfoList
+                                                        .length
+                                                }>
                                                 <AgreeItemCard>
                                                     <AgreeItemTitle>{`${String(
                                                         i + 1
@@ -108,6 +159,7 @@ const PstinstAgreeModal = ({
                                                     }`}</AgreeItemTitle>
                                                     <AgreeItemContent>
                                                         <div
+                                                            className="wrapper"
                                                             dangerouslySetInnerHTML={{
                                                                 __html: el.STPLAT_DC,
                                                             }}></div>
@@ -116,21 +168,36 @@ const PstinstAgreeModal = ({
                                                         <VaryLabelCheckBox
                                                             LabelName={`약관 동의`}
                                                             Checked={
-                                                                check === 'Y'
+                                                                !!(
+                                                                    check &&
+                                                                    check.check ===
+                                                                        'Y'
+                                                                )
                                                             }
                                                             HandleOnChange={e => {
                                                                 setPageState(
                                                                     prevState => ({
                                                                         ...prevState,
                                                                         checkStplatInfo:
-                                                                            {
-                                                                                ...prevState.checkStplatInfo,
-                                                                                [code]: e
-                                                                                    .target
-                                                                                    .checked
-                                                                                    ? 'Y'
-                                                                                    : 'N',
-                                                                            },
+                                                                            prevState.checkStplatInfo.map(
+                                                                                ck => {
+                                                                                    if (
+                                                                                        ck.kndCode ===
+                                                                                        el.STPLAT_KND_CODE
+                                                                                    ) {
+                                                                                        return {
+                                                                                            ...ck,
+                                                                                            check: e
+                                                                                                .target
+                                                                                                .checked
+                                                                                                ? 'Y'
+                                                                                                : 'N',
+                                                                                        }
+                                                                                    } else {
+                                                                                        return ck
+                                                                                    }
+                                                                                }
+                                                                            ),
                                                                     })
                                                                 )
                                                             }}
@@ -148,20 +215,33 @@ const PstinstAgreeModal = ({
                                 Checked={pageState.allCheck}
                                 LabelWidth={`w32`}
                                 HandleOnChange={e => {
-                                    const result = Object.keys(
-                                        pageState.checkStplatInfo
-                                    ).reduce((acc, key) => {
-                                        return {
-                                            ...acc,
-                                            [key]: e.target.checked ? 'Y' : 'N',
-                                        }
-                                    }, {})
-
-                                    setPageState(prevState => ({
-                                        ...prevState,
-                                        checkStplatInfo:
-                                            result as ThptyStplatInfoInterface,
-                                    }))
+                                    if (e.target.checked) {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkStplatInfo:
+                                                prevState.checkStplatInfo.map(
+                                                    ck => {
+                                                        return {
+                                                            ...ck,
+                                                            check: 'Y',
+                                                        }
+                                                    }
+                                                ),
+                                        }))
+                                    } else {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            checkStplatInfo:
+                                                prevState.checkStplatInfo.map(
+                                                    ck => {
+                                                        return {
+                                                            ...ck,
+                                                            check: 'N',
+                                                        }
+                                                    }
+                                                ),
+                                        }))
+                                    }
                                 }}
                             />
                         </AllAgreeButtonBox>
@@ -181,7 +261,9 @@ const PstinstAgreeModal = ({
                                     pageState.checkStplatInfo
                                 )
                             }
-                            ButtonName={'소속추가'}
+                            ButtonName={
+                                InfoType === 'stplat' ? '회원 가입' : '소속추가'
+                            }
                         />
                     </>
                 }

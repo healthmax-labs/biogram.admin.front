@@ -13,6 +13,14 @@ import {
 } from '@Type/MemberTypes'
 import _ from 'lodash'
 
+/**
+ * 회원 리스트
+ * @param curPage
+ * @param instNo
+ * @param searchKey
+ * @param registDtFrom
+ * @param registDtTo
+ */
 export const getMemberList = ({
     curPage,
     instNo,
@@ -45,6 +53,47 @@ export const getMemberList = ({
     return _Axios_({
         method: 'post',
         url: `/mng/v1/mber/list/${curPage}`,
+        payload: payload,
+    })
+}
+
+/**
+ * 회원 등록
+ * @param payload
+ */
+export const postMberMberInfo = (payload: {
+    BDWGH: number
+    BMI: number
+    BRTHDY: string
+    EMAIL_ADRES: string
+    HEIGHT: number
+    INDVDLINFO_AGRE_AT: 'Y' | 'N'
+    INDVDLINFO_THIRD_AGRE_AT: 'Y' | 'N'
+    INST_NO?: string
+    MARKTINFO_AGRE_AT: 'Y' | 'N'
+    MARKTINFO_PURPOSE_AGRE_AT: 'Y' | 'N'
+    MBER_PURPS: string
+    MBTLNUM: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    NCM: string
+    NM: string
+    PASSWORD: string
+    SBSCRB_COURS_CODE: string | 'WS'
+    SEXDSTN: 'M' | 'F'
+    SNSTIIVEINFO_AGRE_AT: 'Y' | 'N'
+    SNSTIIVEINFO_THIRD_AGRE_AT: 'Y' | 'N'
+    TELNO: string
+    USE_STPLAT_AGRE_AT: 'Y' | 'N'
+    USID: string
+    WAIST_CRCMFRNC: number
+}) => {
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/mber_info`,
         payload: payload,
     })
 }
@@ -237,6 +286,20 @@ export const postMemberInfoUpdate = (payload: {
         method: 'post',
         url: `/mber/v1/info/update`,
         payload: payload,
+    })
+}
+
+/**
+ * 회원 아이디 중복 확인.
+ * @param usid
+ */
+export const getMberCheckUsid = (
+    usid: string
+): Promise<ServicesDefaultResult<{ MBER_USID_USE_AT: 'Y' | 'N' }>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mber/v1/check/usid/${usid}`,
+        payload: {},
     })
 }
 

@@ -31,6 +31,19 @@ export default {
         {
             mainCode: `10000`,
             menuCode: ``,
+            name: `회원등록`,
+            pathName: `/manage/member/new-member`,
+            category: `member`,
+            recooilKey: `memberPage/member-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/MemberDetailPage')
+            ),
+        },
+        {
+            mainCode: `10000`,
+            menuCode: ``,
             name: `회원상세`,
             pathName: `/manage/member/:MEMBER_NO/detail`,
             category: `member`,

@@ -48,11 +48,32 @@ export const AlertModelStyle = {
 export const PstinstAgreeModalStyle = {
     Container: tw.div``,
     TitleBox: tw.div`py-2 text-left text-2xl`,
-    ItemGrid: tw.div`grid grid-rows-1 grid-flow-col gap-1 h-1/6`,
-    ItemRow: tw.div`row-span-2 col-span-2`,
+    ItemGrid: styled.div(({ Length }: { Length: number }) => {
+        const returnTw = []
+
+        if (Length === 2) {
+            returnTw.push(tw`grid grid-rows-1 grid-flow-col gap-1 h-1/6`)
+        } else {
+            returnTw.push(tw`grid grid-cols-3 gap-1 h-1/6`)
+        }
+
+        return returnTw
+    }),
+    ItemRow1: tw.div`row-span-2 col-span-2`,
+    ItemRow: styled.div(({ Length }: { Length: number }) => {
+        const returnTw = []
+
+        if (Length === 2) {
+            returnTw.push(tw`row-span-2 col-span-2`)
+        } else {
+            returnTw.push(tw``)
+        }
+
+        return returnTw
+    }),
     AgreeItemCard: tw.div`px-2 py-2 bg-white border border-gray-200 rounded-lg shadow-md`,
     AgreeItemTitle: tw.div`mb-2 text-sm text-left font-bold tracking-tight text-gray-900`,
-    AgreeItemContent: tw.div`h-[35rem] overflow-y-scroll text-left`,
+    AgreeItemContent: tw.div`h-[35rem] overflow-y-scroll text-left w-full break-normal max-w-md`,
     AgreeItemCheckBox1: tw.div`flex pt-3 items-center object-center place-items-end content-end`,
     AgreeItemCheckBox: tw.div`flex items-center`,
     AllAgreeButtonBox: tw.div`flex flex-row justify-center text-xs pt-3`,

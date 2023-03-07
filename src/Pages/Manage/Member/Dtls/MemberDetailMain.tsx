@@ -1,9 +1,8 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import MemberDetailTable from './MemberDetailTable'
 import MemberDetailMemoBox from './MemberDetailMemoBox'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import { useNavigate, useParams } from 'react-router-dom'
-import { toNumber } from 'lodash'
+import { useLocation, useParams } from 'react-router-dom'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { useRecoilState } from 'recoil'
@@ -15,15 +14,28 @@ const {
     DetailPage: { Container, LeftWapper, RightWapper },
 } = PageContainerStyle
 
+const initializeState = {
+    pageMode: '',
+}
+
 const MemberDetailMain = () => {
-    const { MEMBER_NO } = useParams<{ MEMBER_NO: string }>()
-    const navigate = useNavigate()
+    const locationState = useLocation()
     const { handlMainAlert } = useMainLayouts()
-
     const [detailState, setDetailState] = useRecoilState(MemberDetailState)
+    const params = useParams<{ MEMBER_NO: string | undefined }>()
 
+    const [pageState, setPageState] = useState<{
+        pageMode: string | `new` | `modify`
+    }>(initializeState)
+
+    // 회원 정보 가지고 오기.
     const handleGetMemberInfo = useCallback(
         async (member_no: number) => {
+            setDetailState(prevState => ({
+                ...prevState,
+                status: 'loading',
+            }))
+
             const { status, payload } = await getMemberInfo({
                 mber_no: member_no,
             })
@@ -93,6 +105,11 @@ const MemberDetailMain = () => {
                     },
                 }))
             } else {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                }))
+
                 handlMainAlert({
                     state: true,
                     message: Messages.Default.getInfoError,
@@ -104,21 +121,41 @@ const MemberDetailMain = () => {
 
     // 첫 로딩시 회원 정보 가지고 오기.
     useEffect(() => {
-        if (detailState.status === 'idle' && MEMBER_NO) {
-            handleGetMemberInfo(toNumber(MEMBER_NO)).then()
+        const funcChceckPageMode = () => {
+            const { pathname } = locationState
+
+            if (pathname === `/manage/member/new-member`) {
+                setPageState(prevState => ({
+                    ...prevState,
+                    pageMode: `new`,
+                }))
+            } else if (
+                params.MEMBER_NO !== undefined &&
+                params.MEMBER_NO &&
+                detailState.status === 'idle'
+            ) {
+                handleGetMemberInfo(Number(params.MEMBER_NO)).then()
+
+                setPageState(prevState => ({
+                    ...prevState,
+                    pageMode: `modify`,
+                }))
+            }
         }
+
+        funcChceckPageMode()
     }, [
-        MEMBER_NO,
         detailState.status,
-        handlMainAlert,
         handleGetMemberInfo,
-        navigate,
+        locationState,
+        params.MEMBER_NO,
     ])
 
     return (
         <Container>
             <LeftWapper>
                 <MemberDetailTable
+                    PageMode={pageState.pageMode}
                     HandleGetInfo={(memNo: number) =>
                         handleGetMemberInfo(memNo)
                     }

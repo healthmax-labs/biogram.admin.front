@@ -47,6 +47,7 @@ export default {
         w72: tw`w-72`,
         w80: tw`w-80`,
         w96: tw`w-96`,
+        w036: tw`w-3/6`,
         w0112: tw`w-1/12`,
         w0212: tw`w-2/12`,
         w0312: tw`w-3/12`,

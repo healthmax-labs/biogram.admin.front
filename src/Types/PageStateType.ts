@@ -31,4 +31,11 @@ export interface MemberDetailInfoInterface {
     MARKTINFO_AGRE_AT: 'Y' | 'N' | null // 약관 (선택)
     MARKTINFO_PURPOSE_AGRE_AT: 'Y' | 'N' | null // 약관 (선택)
     WORK_TY_CODE: 'I' | 'O' | 'N' //내/외근직 구분
+
+    // 등록시 필요
+    PASSWORD?: string | null
+    PASSWORD_CHK?: string | null
+    HEIGHT?: number | null
+    BDWGH?: number | null
+    WAIST_CRCMFRNC?: number | null
 }

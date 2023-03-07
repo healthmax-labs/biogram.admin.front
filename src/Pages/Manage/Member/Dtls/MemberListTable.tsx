@@ -10,6 +10,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { MemberDetailState, MemberListState } from '@Recoil/MemberPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import _ from 'lodash'
+import { useTab } from '@Hook/index'
 
 interface tableOptionInterface {
     Loading: boolean
@@ -25,6 +26,7 @@ const MemberListTable = () => {
     const detailState = useRecoilValue(MemberDetailState)
     const detailReset = useResetRecoilState(MemberDetailState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
+    const { handleDeleteTabbyMatchRouter } = useTab()
 
     const [tableOptions, setTableOptions] =
         useState<tableOptionInterface>(MemberTableConfig)
@@ -33,6 +35,10 @@ const MemberListTable = () => {
         if (detailState.MBER_NO !== element.MBER_NO) {
             detailReset()
         }
+
+        handleDeleteTabbyMatchRouter(`/manage/member/new-member`)
+
+        detailReset()
 
         navigate({
             pathname:
