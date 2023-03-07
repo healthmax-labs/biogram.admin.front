@@ -57,7 +57,7 @@ const VaryPagination = ({
             const tempPpage: number | undefined = _.min(
                 _.range(pageState.startPage, pageState.endPage)
             )
-            prevPageNumber = tempPpage ? Number(tempPpage) : 1
+            prevPageNumber = tempPpage ? Number(tempPpage) - 1 : 1
         }
 
         let nextPageNumber: null | number = null
