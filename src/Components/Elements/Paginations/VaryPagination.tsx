@@ -84,7 +84,7 @@ const VaryPagination = ({
             1
         let endPage = startPage + pageState.pagingCount
         if (endPage > totalPage) {
-            endPage = totalPage
+            endPage = totalPage + 1
         }
 
         setPageState(prevState => ({
