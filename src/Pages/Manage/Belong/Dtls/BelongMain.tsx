@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-    Container,
-    PaginationWapper,
-    TableWapper,
-    TopWapper,
-} from '@Style/Pages/BelongMain'
-import { DefaultPagination } from '@Elements'
+import { Container, TableWapper, TopWapper } from '@Style/Pages/BelongMain'
 import BelongListTopBox from './BelongListTopBox'
 import BelongListTable from './BelongListTable'
 
@@ -18,9 +12,6 @@ export default function BelongMain() {
             <TableWapper>
                 <BelongListTable />
             </TableWapper>
-            <PaginationWapper>
-                <DefaultPagination />
-            </PaginationWapper>
         </Container>
     )
 }

@@ -1,4 +1,4 @@
-export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure'
+export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure' | 'ready'
 export type MainLayoutThemeType = string | '' | 'GeonDaon' // 테마 타입 테마 추가시 추가 팔요함
 export type DefaultYesNo = 'Y' | 'N'
 export type WidthType =

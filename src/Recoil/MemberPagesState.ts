@@ -178,7 +178,7 @@ export const MemberListState = atom<MemberListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             instNo: '',
             searchKey: '',
             registDtFrom: getOneMonthAgo(),

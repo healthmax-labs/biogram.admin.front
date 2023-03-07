@@ -19,7 +19,7 @@ interface tableOptionInterface {
     Lists: tableListItemInterface[]
 }
 
-const MemberListTable = () => {
+const MemberListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
 
     const [listState, setListState] = useRecoilState(MemberListState)
@@ -30,6 +30,18 @@ const MemberListTable = () => {
 
     const [tableOptions, setTableOptions] =
         useState<tableOptionInterface>(MemberTableConfig)
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        const pageParams = JSON.stringify({
+            ...listState.search,
+            curPage: pageNumber,
+        })
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
+            search: `?params=${pageParams}`,
+        })
+    }
 
     const handleRowClick = (element: tableListItemInterface) => {
         if (detailState.MBER_NO !== element.MBER_NO) {
@@ -104,6 +116,9 @@ const MemberListTable = () => {
             {...tableOptions}
             RowClick={e => handleRowClick(e)}
             CheckedRow={e => handleCheckRow(e)}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
         />
     )
 }
