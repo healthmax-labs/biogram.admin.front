@@ -32,14 +32,17 @@ const MemberListTable = ({ CurrentPage }: { CurrentPage: number }) => {
         useState<tableOptionInterface>(MemberTableConfig)
 
     const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
-        const pageParams = JSON.stringify({
-            ...listState.search,
-            curPage: pageNumber,
-        })
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
 
         navigate({
             pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
-            search: `?params=${pageParams}`,
         })
     }
 

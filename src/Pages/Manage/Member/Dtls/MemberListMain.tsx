@@ -7,9 +7,6 @@ import MemberListTable from './MemberListTable'
 import { getMemberList } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { MemberListState } from '@Recoil/MemberPagesState'
-import queryString from 'query-string'
-import { useLocation } from 'react-router'
-import { useNavigate } from 'react-router-dom'
 
 const {
     ListPage: { Container },
@@ -17,9 +14,7 @@ const {
 const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 
 const MemberListMain = () => {
-    const navigate = useNavigate()
     const [listState, setListState] = useRecoilState(MemberListState)
-    const locationState = useLocation()
 
     const getList = useCallback(async () => {
         setListState(prevState => ({
@@ -59,57 +54,24 @@ const MemberListMain = () => {
 
     // 다시 가지고 오거나 가지고 오는 버튼 클릭 처리.
     const handleGetListButton = () => {
-        const pageParams = JSON.stringify({
-            ...listState.search,
-            curPage: 1,
-        })
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: 1,
+            },
+        }))
 
-        navigate({
-            pathname: process.env.PUBLIC_URL + `/manage/member/member-list`,
-            search: `?params=${pageParams}`,
-        })
+        getList().then()
     }
 
     useEffect(() => {
-        const funcParamCheck = () => {
-            const { params } = queryString.parse(locationState.search)
-
-            if (params) {
-                const parseParams: {
-                    curPage: number
-                    instNo: string
-                    searchKey: string
-                    registDtFrom: string
-                    registDtTo: string
-                } = JSON.parse(params as string)
-
-                setListState(prevState => ({
-                    ...prevState,
-                    status: 'ready',
-                    search: {
-                        ...prevState.search,
-                        curPage: parseParams.curPage,
-                        instNo: parseParams.instNo,
-                        searchKey: parseParams.searchKey,
-                        registDtFrom: parseParams.registDtFrom,
-                        registDtTo: parseParams.registDtTo,
-                    },
-                }))
-            } else {
-                if (listState.status === 'idle') getList().then()
-            }
+        const pageStart = () => {
+            if (listState.status == 'idle') getList().then()
         }
 
-        funcParamCheck()
-
-        // FIXME : 종속성에서 getList, listState.status, setListState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [locationState.search])
-
-    useEffect(() => {
-        if (listState.status === 'ready') {
-            getList().then()
-        }
+        pageStart()
     }, [getList, listState.status])
 
     return (
