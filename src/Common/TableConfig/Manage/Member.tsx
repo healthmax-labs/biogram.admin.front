@@ -165,13 +165,13 @@ export const MemberTableConfig = {
                 },
                 cellWidth: `w24`,
             },
-            // {
-            //     name: `가입일`,
-            //     key: `REGIST_DT`,
-            //     component: ({ el }: { el: MemberInfoListItemInterface }) => {
-            //         return <>{el.REGIST_DT}</>
-            //     },
-            // },
+            {
+                name: `가입일`,
+                key: `REGIST_DT`,
+                component: ({ el }: { el: MemberInfoListItemInterface }) => {
+                    return <>{el.REGIST_DT}</>
+                },
+            },
             {
                 name: `최근방문일`,
                 key: `CONECT_DT`,

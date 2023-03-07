@@ -3,11 +3,9 @@ import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
-    VaryDatepickerInput,
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { MemberListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
@@ -19,7 +17,6 @@ const {
     SearchRowWapper,
     SearchItemRow,
     RightSearchButton,
-    DatepickerLine,
     SearchItem,
 } = SearchBoxStyle
 
@@ -79,66 +76,6 @@ const MemberListSearchBox = ({
                                         : listState.search.searchKey
                                 }
                             />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`가입일자`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <div className="flex w-3/5">
-                                <VaryDatepickerInput
-                                    InputeType={`search`}
-                                    Width={`full`}
-                                    Value={
-                                        listState.search.registDtFrom
-                                            ? changeDatePickerDate(
-                                                  listState.search.registDtFrom
-                                              )
-                                            : new Date()
-                                    }
-                                    CallBackReturn={e => {
-                                        const { year, monthPad, dayPad } =
-                                            gmtTimeToTimeObject(e)
-                                        setListState(prevState => ({
-                                            ...prevState,
-                                            search: {
-                                                ...prevState.search,
-                                                registDtFrom: `${year}${monthPad}${dayPad}`,
-                                            },
-                                        }))
-                                    }}
-                                />
-                            </div>
-
-                            <div className="flex w-1/12">
-                                <DatepickerLine>~</DatepickerLine>
-                            </div>
-
-                            <div className="flex w-3/5">
-                                <VaryDatepickerInput
-                                    Width={`full`}
-                                    InputeType={`search`}
-                                    Value={
-                                        listState.search.registDtTo
-                                            ? changeDatePickerDate(
-                                                  listState.search.registDtTo
-                                              )
-                                            : new Date()
-                                    }
-                                    CallBackReturn={e => {
-                                        const { year, monthPad, dayPad } =
-                                            gmtTimeToTimeObject(e)
-                                        setListState(prevState => ({
-                                            ...prevState,
-                                            search: {
-                                                ...prevState.search,
-                                                registDtTo: `${year}${monthPad}${dayPad}`,
-                                            },
-                                        }))
-                                    }}
-                                />
-                            </div>
                         </SearchItem>
                     </SearchItemWapper>
                 </SearchItemRow>
