@@ -145,22 +145,32 @@ const VaryPagination = ({
                         <PreviousText>이전</PreviousText>
                     </Left>
                     <PagingBox>
-                        {_.range(pageState.startPage, pageState.endPage).map(
-                            (current, index) => {
-                                return (
-                                    <Numbering
-                                        key={`vary-pagination-page-number-${index}`}
-                                        Active={current === CurrentPage}
-                                        onClick={() =>
-                                            current !== CurrentPage &&
-                                            PaginationClick({
-                                                pageNumber: current,
-                                            })
-                                        }>
-                                        {current}
-                                    </Numbering>
-                                )
-                            }
+                        {pageState.endPage > pageState.startPage ? (
+                            _.range(pageState.startPage, pageState.endPage).map(
+                                (current, index) => {
+                                    return (
+                                        <Numbering
+                                            key={`vary-pagination-page-number-${index}`}
+                                            Active={current === CurrentPage}
+                                            onClick={() =>
+                                                current !== CurrentPage &&
+                                                PaginationClick({
+                                                    pageNumber: current,
+                                                })
+                                            }>
+                                            {current}
+                                        </Numbering>
+                                    )
+                                }
+                            )
+                        ) : (
+                            <Numbering
+                                Active={true}
+                                onClick={() => {
+                                    //
+                                }}>
+                                1
+                            </Numbering>
                         )}
                     </PagingBox>
                     <Right
