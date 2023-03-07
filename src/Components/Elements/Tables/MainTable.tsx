@@ -3,10 +3,10 @@ import { TableStyle } from '@Style/Elements/TableStyles'
 import { MainTablePropsInterface } from '@Type/TableTypes'
 import MainTableHeader from './MainTableHeader'
 import MainTableBody from './MainTableBody'
-import { ElementLoading } from '@Elements'
+import { ElementLoading, VaryPagination } from '@Elements'
 import _ from 'lodash'
 
-const { Container, Wapper, Table, Tbody } = TableStyle
+const { Container, Wapper, Table, Tbody, PaginationWapper } = TableStyle
 
 const initializeState = {
     checkedRow: [],
@@ -19,8 +19,11 @@ const MainTable = <P,>({
     Columns,
     Options,
     Lists,
+    TotalCount,
     CheckedRow,
     ButtonClick,
+    PaginationClick,
+    CurrentPage,
 }: MainTablePropsInterface<P>) => {
     const [pageState, setPageState] = useState<{
         checkedRow: string[]
@@ -157,6 +160,17 @@ const MainTable = <P,>({
                     </Table>
                 )}
             </Wapper>
+            {Options.pagination && !Loading && (
+                <PaginationWapper>
+                    <VaryPagination
+                        TotalCount={TotalCount ? TotalCount : 0}
+                        CurrentPage={CurrentPage ? CurrentPage : 1}
+                        PaginationClick={e =>
+                            PaginationClick && PaginationClick(e)
+                        }
+                    />
+                </PaginationWapper>
+            )}
         </Container>
     )
 }

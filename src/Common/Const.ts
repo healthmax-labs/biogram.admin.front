@@ -68,4 +68,7 @@ export default {
             textColor: `eb6060`,
         },
     ],
+    Pages: {
+        perPage: 30,
+    },
 }

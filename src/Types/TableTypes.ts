@@ -5,6 +5,7 @@ import React from 'react'
 
 // 공통 테이블 옵션
 export interface OptionsInterface<T> {
+    pagination?: boolean
     selectAll?: boolean
     indexKey: string
     tableType?: string | 'auto' | 'fixed'
@@ -35,6 +36,9 @@ export interface MainTablePropsInterface<T> {
     CheckedRow?: (checked: string[]) => void
     ButtonClick?: ({ code, Element }: { code: string; Element: T }) => void
     Lists: T[]
+    TotalCount?: number
+    PaginationClick?: ({ pageNumber }: { pageNumber: number }) => void
+    CurrentPage?: number
 }
 
 // 공통 테이블 바디 프롭스
