@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 // DefaultPagination
 export const PageLoadingStyle = {
-    Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center`,
+    Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center h-screen`,
     // Wapper: tw.div`flex items-center h-screen`,
     Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
         {
