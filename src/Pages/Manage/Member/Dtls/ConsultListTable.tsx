@@ -6,7 +6,7 @@ import {
     ConsulttableListItemInterface,
 } from '@Common/TableConfig/Manage/Member'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import _ from 'lodash'
@@ -18,10 +18,10 @@ interface tableOptionInterface {
     Lists: ConsulttableListItemInterface[]
 }
 
-const ConsultListTable = () => {
+const ConsultListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
 
-    const listState = useRecoilValue(ConsultListState)
+    const [listState, setListState] = useRecoilState(ConsultListState)
     const detailState = useRecoilValue(ConsultDetailState)
     const detailReset = useResetRecoilState(ConsultDetailState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
@@ -38,6 +38,21 @@ const ConsultListTable = () => {
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
+        })
+    }
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/member/consult-list`,
         })
     }
 
@@ -82,7 +97,15 @@ const ConsultListTable = () => {
         }
     }, [mainLayoutState.Theme])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
+        />
+    )
 }
 
 export default ConsultListTable
