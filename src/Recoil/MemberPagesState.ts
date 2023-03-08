@@ -372,7 +372,7 @@ export const ConsultSurveyState = atom<ConsultSurveyInterface>({
 
 // 상담 회원 메시지 발송함 리스트
 export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
-    key: `memberPage/consult-messageBox`,
+    key: `memberPage/consult-message-box`,
     default: {
         status: 'idle',
         search: {

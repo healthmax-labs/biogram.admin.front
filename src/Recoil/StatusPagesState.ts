@@ -196,7 +196,6 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
 })
 
 //미측정 현황
-
 export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
     key: `statusPage/non-measure-list`,
     default: {
