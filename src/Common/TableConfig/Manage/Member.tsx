@@ -198,6 +198,7 @@ export const MemberTableConfig = {
 export const ConsultTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: true,
         indexKey: `MBER_NO`,
         bgState: true,

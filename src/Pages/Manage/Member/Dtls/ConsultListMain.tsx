@@ -4,9 +4,9 @@ import { MainStyle } from '@Style/Pages/CommonStyle'
 import { getMberCnsltlist } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
-import SearchBox from './ConsultSearchBox'
-import ManageBox from './ConsultManageBox'
-import ListTable from './ConsultListTable'
+import ConsultSearchBox from './ConsultSearchBox'
+import ConsultManageBox from './ConsultManageBox'
+import ConsultListTable from './ConsultListTable'
 
 const {
     ListPage: { Container },
@@ -52,6 +52,20 @@ const ConsultListMain = () => {
         }
     }, [setListState, listState])
 
+    // 다시 가지고 오거나 가지고 오는 버튼 클릭 처리.
+    const handleGetListButton = () => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: 1,
+            },
+        }))
+
+        handleGetList().then()
+    }
+
     useEffect(() => {
         const pageStart = () => {
             if (listState.status == 'idle') handleGetList().then()
@@ -63,13 +77,13 @@ const ConsultListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <SearchBox HandleGetList={() => handleGetList()} />
+                <ConsultSearchBox HandleGetList={() => handleGetListButton()} />
             </SearchWapper>
             <ManageWapper>
-                <ManageBox />
+                <ConsultManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable />
+                <ConsultListTable CurrentPage={listState.search.curPage} />
             </TableWapper>
         </Container>
     )

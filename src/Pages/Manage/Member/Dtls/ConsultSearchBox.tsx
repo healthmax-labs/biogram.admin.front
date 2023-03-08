@@ -3,12 +3,10 @@ import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
     PstinstSelector,
-    VaryDatepickerInput,
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import Codes from '@Codes'
@@ -21,7 +19,6 @@ const {
     SearchRowWapper,
     SearchItemRow,
     RightSearchButton,
-    DatepickerLine,
     SearchItem,
 } = SearchBoxStyle
 
@@ -74,56 +71,6 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         ? ''
                                         : listState.search.searchKey
                                 }
-                            />
-                        </SearchItem>
-                    </SearchItemWapper>
-                    <SearchItemWapper>
-                        <SearchLabel>
-                            <VaryLabel LabelName={`측정일자`} />
-                        </SearchLabel>
-                        <SearchItem>
-                            <VaryDatepickerInput
-                                InputeType={`search`}
-                                Value={
-                                    listState.search.startDt
-                                        ? changeDatePickerDate(
-                                              listState.search.startDt
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            startDt: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
-                            />
-                            <DatepickerLine>~</DatepickerLine>
-                            <VaryDatepickerInput
-                                InputeType={`search`}
-                                Value={
-                                    listState.search.endDt
-                                        ? changeDatePickerDate(
-                                              listState.search.endDt
-                                          )
-                                        : new Date()
-                                }
-                                CallBackReturn={e => {
-                                    const { year, monthPad, dayPad } =
-                                        gmtTimeToTimeObject(e)
-                                    setListState(prevState => ({
-                                        ...prevState,
-                                        search: {
-                                            ...prevState.search,
-                                            endDt: `${year}${monthPad}${dayPad}`,
-                                        },
-                                    }))
-                                }}
                             />
                         </SearchItem>
                     </SearchItemWapper>

@@ -275,7 +275,7 @@ export const ConsultListState = atom<ConsultListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             instNo: '',
             searchKey: '',
             riskFctr: 'WS,BP,BS,TG,HD,BMI,PP2,ST',
