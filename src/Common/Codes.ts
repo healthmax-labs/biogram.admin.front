@@ -389,7 +389,7 @@ export default {
                 //이하 미정
                 { code: 'BMI', name: 'BMI' },
                 // { code: 'PP2', name: '식후혈당' },
-                { code: 'ST', name: '스트레스' },
+                { code: 'STRS', name: '스트레스' },
             ],
         },
         {
