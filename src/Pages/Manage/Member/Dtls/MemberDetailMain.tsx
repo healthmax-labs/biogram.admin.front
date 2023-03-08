@@ -129,27 +129,24 @@ const MemberDetailMain = () => {
                     ...prevState,
                     pageMode: `new`,
                 }))
-            } else if (
-                params.MEMBER_NO !== undefined &&
-                params.MEMBER_NO &&
-                detailState.status === 'idle'
-            ) {
-                handleGetMemberInfo(Number(params.MEMBER_NO)).then()
-
+            } else {
                 setPageState(prevState => ({
                     ...prevState,
                     pageMode: `modify`,
                 }))
             }
+
+            if (
+                params.MEMBER_NO !== undefined &&
+                params.MEMBER_NO &&
+                detailState.status === 'idle'
+            ) {
+                handleGetMemberInfo(Number(params.MEMBER_NO)).then()
+            }
         }
 
         funcChceckPageMode()
-    }, [
-        detailState.status,
-        handleGetMemberInfo,
-        locationState,
-        params.MEMBER_NO,
-    ])
+    }, [detailState.status, handleGetMemberInfo, locationState, params])
 
     return (
         <Container>
