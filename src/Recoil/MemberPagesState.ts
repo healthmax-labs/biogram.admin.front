@@ -278,7 +278,7 @@ export const ConsultListState = atom<ConsultListInterface>({
             curPage: 1,
             instNo: '',
             searchKey: '',
-            riskFctr: 'WS,BP,BS,TG,HD,BMI,PP2,ST',
+            riskFctr: '',
             startDt: getOneMonthAgo(),
             endDt: getNowDate(),
         },
