@@ -58,10 +58,14 @@ const BrftrCmprListTable = () => {
         const funcChangeGeonDaonMemberListOption = () => {
             setTableOptions(prevState => ({
                 ...prevState,
-                Columns: BrftrCmprTableConfig.Columns.map((e: any) => {
-                    return _.filter(e, el => {
-                        return el.key !== 'MBER_NO'
-                    })
+                Columns: BrftrCmprTableConfig.Columns.map((e: any, index) => {
+                    if (index === 0) {
+                        return e.splice(1)
+                    } else {
+                        return _.filter(e, el => {
+                            return el.key !== 'MBER_NO'
+                        })
+                    }
                 }),
             }))
         }

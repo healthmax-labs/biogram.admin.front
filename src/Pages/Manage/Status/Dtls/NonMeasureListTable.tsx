@@ -58,10 +58,21 @@ const NonMeasureListTable = () => {
         const funcChangeGeonDaonMemberListOption = () => {
             setTableOptions(prevState => ({
                 ...prevState,
-                Columns: NonMeasureTableConfig.Columns.map((e: any) => {
-                    return _.filter(e, el => {
-                        return el.key !== 'MBER_NO'
-                    })
+                Columns: NonMeasureTableConfig.Columns.map((e: any, index) => {
+                    if (index === 0) {
+                        return e.map((el: any, elIndex: number) => {
+                            return {
+                                name: el.name,
+                                rowSpan: el.rowSpan,
+                                colSpan:
+                                    elIndex === 0 ? el.colSpan - 1 : el.colSpan,
+                            }
+                        })
+                    } else {
+                        return _.filter(e, el => {
+                            return el.key !== 'MBER_NO'
+                        })
+                    }
                 }),
             }))
         }

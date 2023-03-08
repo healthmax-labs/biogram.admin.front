@@ -61,11 +61,23 @@ const HealthIndicatorsTable = () => {
         const funcChangeGeonDaonMemberListOption = () => {
             setTableOptions(prevState => ({
                 ...prevState,
-                Columns: HealthIndicatorsTableConfig.Columns.map((e: any) => {
-                    return _.filter(e, el => {
-                        return el.key !== 'MBER_NO'
-                    })
-                }),
+                Columns: HealthIndicatorsTableConfig.Columns.map(
+                    (e: any, index) => {
+                        if (index === 0) {
+                            return e.map((el: any) => {
+                                return {
+                                    name: el.name,
+                                    rowSpan: el.rowSpan,
+                                    colSpan: el.colSpan - 1,
+                                }
+                            })
+                        } else {
+                            return _.filter(e, el => {
+                                return el.key !== 'MBER_NO'
+                            })
+                        }
+                    }
+                ),
             }))
         }
 
