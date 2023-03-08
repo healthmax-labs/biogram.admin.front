@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 // DefaultPagination
 export const PageLoadingStyle = {
-    Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center h-screen`,
+    Container: tw.div`absolute bg-white bg-opacity-60 z-10 w-full flex items-center justify-center`,
     // Wapper: tw.div`flex items-center h-screen`,
     Wapper: styled.div(({ bgImage }: { bgImage: string }) => [
         {
@@ -15,10 +15,10 @@ export const PageLoadingStyle = {
     Text: tw.span`text-xs py-2`,
 }
 export const PaginationStyle = {
-    Container: tw.div`flex items-center justify-center py-10 lg:px-0 sm:px-6 px-4`,
-    Wapper: tw.div`flex lg:w-11/12 w-full items-center justify-between border-t border-gray-200 dark:border-gray-700`,
+    Container: tw.div`flex items-center justify-center`,
+    Wapper: tw.div`flex w-full items-center justify-between border-t border-gray-200`,
     Left: styled.div(({ Active }: { Active: boolean }) => {
-        const returnTw = [tw`flex items-center pt-3 text-gray-600`]
+        const returnTw = [tw`flex items-center text-gray-600`]
 
         if (Active) {
             returnTw.push(tw`cursor-pointer`)
@@ -34,7 +34,7 @@ export const PaginationStyle = {
             : tw`text-sm font-medium leading-none cursor-pointer text-gray-600 hover:text-blueberry border-t border-transparent hover:border-blueberry pt-3 mr-4 px-2`,
     ]),
     Right: styled.div(({ Active }: { Active: boolean }) => {
-        const returnTw = [tw`flex items-center pt-3 text-gray-600`]
+        const returnTw = [tw`flex items-center text-gray-600`]
 
         if (Active) {
             returnTw.push(tw`cursor-pointer`)

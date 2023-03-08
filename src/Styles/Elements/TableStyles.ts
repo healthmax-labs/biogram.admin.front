@@ -5,10 +5,10 @@ import ConstStyle from '@Style/ConstStyle'
 //
 
 export const TableStyle = {
-    Container: tw.div`flex flex-col h-screen max-h-[77vh]`,
+    Container: tw.div`flex flex-col h-screen max-h-[75vh]`,
     Wapper: tw.div`overflow-auto`,
     Table1: tw.table`table-fixed w-full border`,
-    PaginationWapper: tw.div`block w-full overflow-x-auto`,
+    PaginationWapper: tw.div`block w-full pt-2`,
     Table: styled.table(({ tableType }: { tableType: `auto` | `fixed` }) => {
         const returnTw = [tw`w-full border`]
 
@@ -32,7 +32,6 @@ export const TableStyle = {
 
         return returnTw
     }),
-    HeaderCell1: tw.th`z-[1100] bg-steel px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
     HeaderCell: styled.th(({ cellWidth }: { cellWidth?: WidthType }) => {
         const returnTw = [
             tw`z-[1100] bg-steel px-2 h-8 align-middle text-xs whitespace-nowrap text-white border border-gray-100`,
