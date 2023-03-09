@@ -129,7 +129,7 @@ const initializeState = {
     ],
 }
 
-const ConsultDetailSurvey = () => {
+const ConsultDetailPartSurvey = () => {
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -560,4 +560,4 @@ const ConsultDetailSurvey = () => {
     )
 }
 
-export default ConsultDetailSurvey
+export default ConsultDetailPartSurvey

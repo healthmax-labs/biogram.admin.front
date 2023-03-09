@@ -36,7 +36,7 @@ function SamplePrevArrow(props: any) {
     )
 }
 
-const ConsultDetailMealdiary = () => {
+const ConsultDetailPartMealdiary = () => {
     const settings = {
         dots: false,
         infinite: true,
@@ -1257,4 +1257,4 @@ const ConsultDetailMealdiary = () => {
     )
 }
 
-export default ConsultDetailMealdiary
+export default ConsultDetailPartMealdiary

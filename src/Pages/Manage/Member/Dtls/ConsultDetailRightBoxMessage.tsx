@@ -40,7 +40,7 @@ const initializeState = {
     },
 }
 
-const ConsultDetailTableMessageSend = () => {
+const ConsultDetailRightBoxMessage = () => {
     const { handlMainAlert } = useMainLayouts()
     const [smsSendState, setSmsSendState] = useRecoilState(
         ConsultDetailSmsSendState
@@ -335,4 +335,4 @@ const ConsultDetailTableMessageSend = () => {
     )
 }
 
-export default ConsultDetailTableMessageSend
+export default ConsultDetailRightBoxMessage

@@ -33,7 +33,7 @@ const initializeState = {
     },
 }
 
-const ConsultDetailTableMemo = () => {
+const ConsultDetailRightBoxChart = () => {
     const { handlMainAlert } = useMainLayouts()
     const [chartState, setChartState] = useRecoilState(ConsultDetailChartState)
     const [chartListState, setChartListState] = useRecoilState(
@@ -274,4 +274,4 @@ const ConsultDetailTableMemo = () => {
     )
 }
 
-export default ConsultDetailTableMemo
+export default ConsultDetailRightBoxChart

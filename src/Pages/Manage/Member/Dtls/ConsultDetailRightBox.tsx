@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-import ConsultDetailTableMemo from './ConsultDetailTableMemo'
-import ConsultDetailTableMessageSend from './ConsultDetailTableMessageSend'
+import ConsultDetailRightBoxChart from './ConsultDetailRightBoxChart'
+import ConsultDetailRightBoxMessage from './ConsultDetailRightBoxMessage'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailChartState } from '@Recoil/MemberPagesState'
 import _ from 'lodash'
@@ -23,7 +23,7 @@ const initializeState = {
     ],
     activeTab: 'memo',
 }
-const ConsultDetailTableMessageBox = () => {
+const ConsultDetailRightBox = () => {
     const chartState = useRecoilValue(ConsultDetailChartState)
     const [pageState, setPageState] = useState<{
         Tab: Array<{
@@ -95,13 +95,13 @@ const ConsultDetailTableMessageBox = () => {
 
             {(() => {
                 if (pageState.activeTab === 'memo') {
-                    return <ConsultDetailTableMemo />
+                    return <ConsultDetailRightBoxChart />
                 } else if (pageState.activeTab === 'msg') {
-                    return <ConsultDetailTableMessageSend />
+                    return <ConsultDetailRightBoxMessage />
                 }
             })()}
         </Message.Container>
     )
 }
 
-export default ConsultDetailTableMessageBox
+export default ConsultDetailRightBox
