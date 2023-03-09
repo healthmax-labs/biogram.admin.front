@@ -13,7 +13,7 @@ import { getMngMyCoach } from '@Service/MemberService'
 
 const { Detail } = ConsultDetailStyle
 
-const ConsultDetailMyCoach = () => {
+const ConsultDetailPartMyCoach = () => {
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -187,4 +187,4 @@ const ConsultDetailMyCoach = () => {
     )
 }
 
-export default ConsultDetailMyCoach
+export default ConsultDetailPartMyCoach

@@ -31,7 +31,7 @@ const initializeState = {
     },
 }
 
-const ConsultDetailTableMyData = () => {
+const ConsultDetailPartMyData = () => {
     const detailState = useRecoilValue(ConsultDetailState)
     const [pageState, setPageState] = useState<{
         memNo: number | null
@@ -281,4 +281,4 @@ const ConsultDetailTableMyData = () => {
     )
 }
 
-export default ConsultDetailTableMyData
+export default ConsultDetailPartMyData

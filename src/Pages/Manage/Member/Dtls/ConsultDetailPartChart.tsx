@@ -40,7 +40,7 @@ const initializeState = {
     },
 }
 
-const ConsultDetailChart = () => {
+const ConsultDetailPartChart = () => {
     const { handlMainAlert } = useMainLayouts()
     const { memNo } = useParams<{ memNo: string }>()
 
@@ -371,4 +371,4 @@ const ConsultDetailChart = () => {
     )
 }
 
-export default ConsultDetailChart
+export default ConsultDetailPartChart

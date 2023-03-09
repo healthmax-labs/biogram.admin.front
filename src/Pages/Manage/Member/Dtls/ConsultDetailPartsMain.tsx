@@ -21,7 +21,7 @@ const initializeState = {
     },
 }
 
-const ConsultDetailTable = () => {
+const ConsultDetailPartsMain = () => {
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -156,4 +156,4 @@ const ConsultDetailTable = () => {
     )
 }
 
-export default ConsultDetailTable
+export default ConsultDetailPartsMain

@@ -2,7 +2,7 @@ import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 
 const { Detail } = ConsultDetailStyle
 
-const ConsultDetailRawAge = () => {
+const ConsultDetailPartRawAge = () => {
     return (
         <Detail.Container>
             <div className="flex flex-nowrap w-full pt-2">
@@ -202,4 +202,4 @@ const ConsultDetailRawAge = () => {
     )
 }
 
-export default ConsultDetailRawAge
+export default ConsultDetailPartRawAge

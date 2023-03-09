@@ -503,8 +503,7 @@ export default {
             category: `mydata`,
             active: false,
             Component: React.lazy(
-                () =>
-                    import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailPartMyData')
             ),
         },
         // {
@@ -529,7 +528,8 @@ export default {
             category: `mycoach`,
             active: false,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailMyCoach')
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailPartMyCoach')
             ),
         },
         // {
@@ -545,7 +545,7 @@ export default {
             category: `survey`,
             active: false,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailSurvey')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailPartSurvey')
             ),
         },
         {
@@ -553,7 +553,8 @@ export default {
             category: `mesg`,
             active: false,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailMessage')
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailPartMessage')
             ),
         },
         {
@@ -561,7 +562,7 @@ export default {
             category: `chart`,
             active: false,
             Component: React.lazy(
-                () => import('@Page/Manage/Member/Dtls/ConsultDetailChart')
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailPartChart')
             ),
         },
     ],

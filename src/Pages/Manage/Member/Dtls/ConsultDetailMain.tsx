@@ -1,6 +1,6 @@
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
-import ConsultDetailTable from './ConsultDetailTable'
-import ConsultDetailTableMessageBox from './ConsultDetailTableMessageBox'
+import ConsultDetailPartsMain from './ConsultDetailPartsMain'
+import ConsultDetailRightBox from './ConsultDetailRightBox'
 import { useParams } from 'react-router-dom'
 import { useCallback, useEffect } from 'react'
 import { getMemberInfo } from '@Service/MemberService'
@@ -102,10 +102,10 @@ const ConsultDetailMain = () => {
     return (
         <Container>
             <ChartLeftWapper>
-                <ConsultDetailTable />
+                <ConsultDetailPartsMain />
             </ChartLeftWapper>
             <ChartRightWapper>
-                <ConsultDetailTableMessageBox />
+                <ConsultDetailRightBox />
             </ChartRightWapper>
         </Container>
     )

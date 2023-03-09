@@ -19,7 +19,7 @@ const {
     TableBodyCell,
 } = CommonListTableStyle
 
-const ConsultDetailMessage = () => {
+const ConsultDetailPartMessage = () => {
     const params = useParams<{
         memNo: string | undefined
     }>()
@@ -179,4 +179,4 @@ const ConsultDetailMessage = () => {
     )
 }
 
-export default ConsultDetailMessage
+export default ConsultDetailPartMessage
