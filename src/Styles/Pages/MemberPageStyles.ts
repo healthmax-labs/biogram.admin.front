@@ -183,6 +183,7 @@ export const ConsultDetailStyle = {
             GuidBox: tw.div`grid grid-cols-1 gap-1`,
             Table: {
                 Desc: tw.div`flex w-full items-end justify-end`,
+                DescText: tw.div`text-xs`,
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,

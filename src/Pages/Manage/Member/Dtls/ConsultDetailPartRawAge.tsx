@@ -143,9 +143,9 @@ const ConsultDetailPartRawAge = () => {
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.WFull>
                             <Detail.RawAge.Table.Desc>
-                                <Detail.RawAge.SubTitle>
+                                <Detail.RawAge.Table.DescText>
                                     (단위: 나이)
-                                </Detail.RawAge.SubTitle>
+                                </Detail.RawAge.Table.DescText>
                             </Detail.RawAge.Table.Desc>
                             <div className="w-full">
                                 <Detail.RawAge.Table.Table>
@@ -242,9 +242,9 @@ const ConsultDetailPartRawAge = () => {
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.WFull>
                             <Detail.RawAge.Table.Desc>
-                                <Detail.RawAge.SubTitle>
+                                <Detail.RawAge.Table.DescText>
                                     (단위: 나이)
-                                </Detail.RawAge.SubTitle>
+                                </Detail.RawAge.Table.DescText>
                             </Detail.RawAge.Table.Desc>
                             <Detail.RawAge.WFull>
                                 <Detail.RawAge.Table.Table>
