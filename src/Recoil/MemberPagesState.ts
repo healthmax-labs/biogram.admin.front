@@ -3,6 +3,8 @@ import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
+    ConsultRawAgeMiInfoItemInterface,
+    ConsultRawAgeObiInfoItemInterface,
     ManageCounselItemInterface,
     ManageCounselMsgBoxListInterface,
     ManageCounselMycoachInterface,
@@ -169,6 +171,18 @@ interface MsgBookListInterface {
     list: MsgSendListInterface
     manage: {
         checkRow: string[]
+    }
+}
+
+// 생체 나이
+interface RawAgeInterface {
+    status: DefaultStatus
+    search: {
+        memNo: number | null
+    }
+    list: {
+        OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
+        MI_INFO: ConsultRawAgeMiInfoItemInterface[]
     }
 }
 
@@ -388,6 +402,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
     },
 })
 
+// 메시지 발송이력
 export const MsgSendListState = atom<MsgSendSearchListInterface>({
     key: `memberPage/msg-send-list`,
     default: {
@@ -409,6 +424,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
     },
 })
 
+// 메세지 예약현황
 export const MsgBookListState = atom<MsgBookListInterface>({
     key: `memberPage/msg-book-list`,
     default: {
@@ -427,6 +443,21 @@ export const MsgBookListState = atom<MsgBookListInterface>({
         },
         manage: {
             checkRow: [],
+        },
+    },
+})
+
+// 상담회원 생체나이
+export const RawAgeState = atom<RawAgeInterface>({
+    key: `memberPage/consult-raw-age`,
+    default: {
+        status: 'idle',
+        search: {
+            memNo: null,
+        },
+        list: {
+            OBI_INFO: [],
+            MI_INFO: [],
         },
     },
 })

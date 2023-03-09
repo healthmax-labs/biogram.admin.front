@@ -173,8 +173,16 @@ export const ConsultDetailStyle = {
             },
         },
         RawAge: {
-            RowWapper: tw.div`w-full pb-1`,
+            RowWapper: tw.div`flex flex-nowrap w-full pt-4`,
+            TitleBox: tw.div`flex text-lg items-center text-gray-500 font-semibold`,
+            Title: tw.div`w-full`,
+            SubTitle: tw.div`text-sm text-gray-500`,
+            Text: tw.div`text-xs text-gray-500`,
+            WFull: tw.div`w-full`,
+            RsltAnlyBox: tw.div`grid grid-cols-1 gap-1`,
+            GuidBox: tw.div`grid grid-cols-1 gap-1`,
             Table: {
+                Desc: tw.div`flex w-full items-end justify-end`,
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,

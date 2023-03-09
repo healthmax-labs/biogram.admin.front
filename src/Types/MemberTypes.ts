@@ -30,23 +30,6 @@ export interface MesureInfoItemInterface {
 }
 
 //회원 리스트
-// export interface MemberInfoListItemInterface {
-//     INST_NO: 1365
-//     INST_NM: '테슷트 소속'
-//     MBER_NO: 87334
-//     MBTLNUM_CRTFC_AT_NM: '인증'
-//     BRTHDY: '1980-02-02'
-//     SEXDSTN: 'M'
-//     SEXDSTN_NM: '남'
-//     CONECT_DT: '2022-11-15'
-//     TOT_CASH: '0'
-//     MBTLNUM: '010-6248-4549'
-//     REGIST_DT: '2022-10-24 10:41:06'
-//     USID: 'testcs3'
-//     MBTLNUM_CRTFC_AT: 'Y'
-//     ACCML_POINT: 0
-//     NM: '최현소속관2'
-// }
 export interface MemberInfoListItemInterface {
     INST_NO: number
     INST_NM: string
@@ -332,4 +315,36 @@ export interface ManageCounselMsgListInterface {
     REPORTDT: string | null
     CMID: string | null
     MBTLNUM: string | null
+}
+
+// 상담 회원 생체 나이 대사나이 아이템
+export interface ConsultRawAgeMiInfoItemInterface {
+    MI_MHTNA: number
+    MT_AGE: number
+    MI_MAOA: number
+    AGE_DIFF: string
+    MT_MDATE: string
+    MBER_NO: number
+    RSLT_ANLY2: string
+    RSLT_ANLY1: string
+    MI_MDMA: number
+    AGE: number
+    MI_MDLA: number
+}
+
+// 상담 회원 생체 나이 비만생체 나이 아이템
+export interface ConsultRawAgeObiInfoItemInterface {
+    OBI_AGE_DIFF: string
+    'ROUND(IFNULL(RESULT': {
+        'AGE, 0), 1)': 33.0
+    }
+    TOTAL_GUID3: string
+    OBI_BAA: number
+    TOTAL_GUID2: string
+    TOTAL_GUID1: string
+    OBI_AOA: number
+    OBI_BFA: number
+    MEASURE_DT: string
+    OBI_AGE: number
+    MBER_NO: number
 }
