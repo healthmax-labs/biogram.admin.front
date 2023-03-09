@@ -515,14 +515,14 @@ export default {
         //             import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
         //     ),
         // },
-        // {
-        //     name: `생체나이`,
-        //     category: `raw-age`,
-        //     active: false,
-        //     Component: React.lazy(
-        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailRawAge')
-        //     ),
-        // },
+        {
+            name: `생체나이`,
+            category: `raw-age`,
+            active: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/Dtls/ConsultDetailPartRawAge')
+            ),
+        },
         {
             name: `마이코치`,
             category: `mycoach`,

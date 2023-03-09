@@ -2,6 +2,8 @@ import { _Axios_ } from '@Modules'
 import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
+    ConsultRawAgeMiInfoItemInterface,
+    ConsultRawAgeObiInfoItemInterface,
     ManageCounselInterface,
     ManageCounselMsgBoxListInterface,
     ManageCounselMycoachInterface,
@@ -792,5 +794,28 @@ export const postMberCanclSmsresve = ({
         payload: {
             CMIDS: CMIDS,
         },
+    })
+}
+
+/**
+ * 상담회원 생체나이
+ * @param memNo
+ */
+export const getMngUserObmtInfo = ({
+    memNo,
+}: {
+    memNo: number
+}): Promise<
+    ServicesDefaultResult<{
+        BO_INFOS: {
+            OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
+            MI_INFO: ConsultRawAgeMiInfoItemInterface[]
+        }
+    }>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/obmt_info/${memNo}`,
+        payload: {},
     })
 }

@@ -5,11 +5,13 @@ import {
     ConsultTableConfig,
     ConsulttableListItemInterface,
 } from '@Common/TableConfig/Manage/Member'
+import { RecoilStateKeyNameType } from '@CommonTypes'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { ConsultDetailState, ConsultListState } from '@Recoil/MemberPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import _ from 'lodash'
+import { useRecoilReset } from '@Hooks'
 
 interface tableOptionInterface {
     Loading: boolean
@@ -23,15 +25,27 @@ const ConsultListTable = ({ CurrentPage }: { CurrentPage: number }) => {
 
     const [listState, setListState] = useRecoilState(ConsultListState)
     const detailState = useRecoilValue(ConsultDetailState)
-    const detailReset = useResetRecoilState(ConsultDetailState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
+    const { recoilReset } = useRecoilReset()
 
     const [tableOptions, setTableOptions] =
         useState<tableOptionInterface>(ConsultTableConfig)
 
     const handleRowClick = (element: ConsulttableListItemInterface) => {
         if (detailState.memNo !== element.MBER_NO) {
-            detailReset()
+            ;[
+                'memberPage/consult-list',
+                'memberPage/consult-detail',
+                'memberPage/consult-chart-list',
+                'memberPage/consult-chart',
+                'memberPage/consult-sms-send',
+                'memberPage/consult-my-coach',
+                'memberPage/consult-survey',
+                'memberPage/consult-raw-age',
+                'memberPage/consult-message-box',
+            ].forEach(recoilKey => {
+                recoilReset(recoilKey as RecoilStateKeyNameType)
+            })
         }
 
         navigate({

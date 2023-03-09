@@ -14,7 +14,7 @@ import { getMngMyCoach } from '@Service/MemberService'
 const { Detail } = ConsultDetailStyle
 
 const ConsultDetailPartMyCoach = () => {
-    const params = useParams<{
+    const { memNo } = useParams<{
         memNo: string | undefined
         category: string | undefined
     }>()
@@ -50,29 +50,27 @@ const ConsultDetailPartMyCoach = () => {
     }, [coachState.memNo, coachState.search.searchDate, setCoachState])
 
     useEffect(() => {
-        const { memNo } = params
-
         const pageStart = () => {
-            if (memNo) {
-                setCoachState(prevState => ({
-                    ...prevState,
-                    memNo: Number(memNo),
-                }))
-
-                handleGetData().then()
-            }
+            handleGetData().then()
         }
 
-        if (memNo && Number(memNo) !== coachState.memNo) {
+        if (coachState.status === 'idle' && coachState.memNo) {
             pageStart()
         }
-    }, [
-        coachState.memNo,
-        coachState.status,
-        handleGetData,
-        params,
-        setCoachState,
-    ])
+    }, [coachState.memNo, coachState.status, handleGetData])
+
+    useEffect(() => {
+        const pageStart = (memNo: number) => {
+            setCoachState(prevState => ({
+                ...prevState,
+                memNo: memNo,
+            }))
+        }
+
+        if (coachState.status === 'idle' && memNo) {
+            pageStart(Number(memNo))
+        }
+    }, [coachState.status, memNo, setCoachState])
 
     return (
         <Detail.Container>
@@ -102,7 +100,7 @@ const ConsultDetailPartMyCoach = () => {
                             <VaryButton
                                 ButtonType={'default'}
                                 HandleClick={() => {
-                                    //
+                                    handleGetData().then()
                                 }}
                                 ButtonName={'조회'}
                             />
