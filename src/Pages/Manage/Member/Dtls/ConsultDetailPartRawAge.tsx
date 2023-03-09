@@ -1,6 +1,6 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-import { ConsultDetailState, RawAgeState } from '@Recoil/MemberPagesState'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { RawAgeState } from '@Recoil/MemberPagesState'
+import { useRecoilState } from 'recoil'
 import { useParams } from 'react-router-dom'
 import React, { useCallback, useEffect } from 'react'
 import { getMngUserObmtInfo } from '@Service/MemberService'
@@ -13,7 +13,6 @@ const { Detail } = ConsultDetailStyle
 const ConsultDetailPartRawAge = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const [rawAgeState, setRawAgeState] = useRecoilState(RawAgeState)
-    const detailState = useRecoilValue(ConsultDetailState)
 
     const getRawAgeData = useCallback(async () => {
         const {
@@ -91,25 +90,6 @@ const ConsultDetailPartRawAge = () => {
             ) : (
                 <>
                     <Detail.RawAge.RowWapper>
-                        <Detail.RawAge.TitleBox>
-                            <Detail.RawAge.Title>
-                                {(() => {
-                                    const rsltAnly = _.last(
-                                        rawAgeState.list.MI_INFO
-                                    )
-
-                                    if (detailState.detail && rsltAnly) {
-                                        return (
-                                            <>{`${detailState.detail.MBER_INFO.NM} 님의 현재 나이는 ${rsltAnly.AGE} 세 입니다.`}</>
-                                        )
-                                    } else {
-                                        return <></>
-                                    }
-                                })()}
-                            </Detail.RawAge.Title>
-                        </Detail.RawAge.TitleBox>
-                    </Detail.RawAge.RowWapper>
-                    <Detail.RawAge.RowWapper>
                         <Detail.RawAge.SubTitle>
                             대사나이
                         </Detail.RawAge.SubTitle>
@@ -123,7 +103,7 @@ const ConsultDetailPartRawAge = () => {
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.RsltAnlyBox>
                             {(() => {
-                                const rsltAnly = _.last(
+                                const rsltAnly = _.first(
                                     rawAgeState.list.MI_INFO
                                 )
 
@@ -221,7 +201,7 @@ const ConsultDetailPartRawAge = () => {
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.GuidBox>
                             {(() => {
-                                const totalGuid = _.last(
+                                const totalGuid = _.first(
                                     rawAgeState.list.OBI_INFO
                                 )
 
