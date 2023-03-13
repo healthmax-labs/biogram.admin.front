@@ -69,23 +69,23 @@ export const postMberMberInfo = (payload: {
     BRTHDY: string
     EMAIL_ADRES: string
     HEIGHT: number
-    INDVDLINFO_AGRE_AT: 'Y' | 'N'
-    INDVDLINFO_THIRD_AGRE_AT: 'Y' | 'N'
+    INDVDLINFO_AGRE_AT: string | 'Y' | 'N'
+    INDVDLINFO_THIRD_AGRE_AT: string | 'Y' | 'N'
     INST_NO?: string
-    MARKTINFO_AGRE_AT: 'Y' | 'N'
-    MARKTINFO_PURPOSE_AGRE_AT: 'Y' | 'N'
+    MARKTINFO_AGRE_AT: string | 'Y' | 'N'
+    MARKTINFO_PURPOSE_AGRE_AT: string | 'Y' | 'N'
     MBER_PURPS: string
     MBTLNUM: string
-    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    MBTLNUM_CRTFC_AT: string | 'Y' | 'N'
     NCM: string
     NM: string
     PASSWORD: string
     SBSCRB_COURS_CODE: string | 'WS'
-    SEXDSTN: 'M' | 'F'
-    SNSTIIVEINFO_AGRE_AT: 'Y' | 'N'
-    SNSTIIVEINFO_THIRD_AGRE_AT: 'Y' | 'N'
+    SEXDSTN: string | 'M' | 'F'
+    SNSTIIVEINFO_AGRE_AT: string | 'Y' | 'N'
+    SNSTIIVEINFO_THIRD_AGRE_AT: string | 'Y' | 'N'
     TELNO: string
-    USE_STPLAT_AGRE_AT: 'Y' | 'N'
+    USE_STPLAT_AGRE_AT: string | 'Y' | 'N'
     USID: string
     WAIST_CRCMFRNC: number
 }) => {
@@ -278,10 +278,10 @@ export const postMemberInfoUpdate = (payload: {
     MBER_NO: number
     NM: string
     BRTHDY: string
-    SEXDSTN: 'M' | 'F'
+    SEXDSTN: string | 'M' | 'F'
     MBTLNUM: string
     EMAIL_ADRES: string
-    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    MBTLNUM_CRTFC_AT: string | 'Y' | 'N'
     MEMO: string
 }): Promise<ServicesDefaultResult<{ test: null }>> => {
     return _Axios_({

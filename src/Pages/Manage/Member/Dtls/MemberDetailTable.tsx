@@ -319,23 +319,6 @@ const MemberDetailTable = ({
 
     // 회원 정보 업데이트 처리
     const handleMemberInfoUpdate = async () => {
-        if (_.isEmpty(detailState.detail.NM)) {
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.validation.name,
-            })
-
-            return
-        }
-
-        if (_.isEmpty(detailState.detail.MBTLNUM)) {
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.validation.phoneNumer,
-            })
-            return
-        }
-
         const {
             MBER_NO,
             NM,
@@ -357,7 +340,7 @@ const MemberDetailTable = ({
                 MBER_NO: MBER_NO,
                 NM: NM ? NM : '',
                 BRTHDY: BRTHDY ? getOnlyNumber(BRTHDY) : '',
-                SEXDSTN: SEX ? SEX : 'M',
+                SEXDSTN: SEX,
                 MBTLNUM: MBTLNUM ? getOnlyNumber(MBTLNUM) : '',
                 EMAIL_ADRES: EMAIL_ADRES ? EMAIL_ADRES : '',
                 MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT ? MBTLNUM_CRTFC_AT : 'N',
@@ -396,6 +379,152 @@ const MemberDetailTable = ({
 
     // 신규회원 등록
     const handleNewMember = async () => {
+        const {
+            detail: {
+                USE_STPLAT_AGRE_AT,
+                INDVDLINFO_AGRE_AT,
+                SNSTIIVEINFO_AGRE_AT,
+                INDVDLINFO_THIRD_AGRE_AT,
+                SNSTIIVEINFO_THIRD_AGRE_AT,
+                MARKTINFO_AGRE_AT,
+                MARKTINFO_PURPOSE_AGRE_AT,
+                USID,
+                PASSWORD,
+                NM,
+                MBTLNUM,
+                MBTLNUM_CRTFC_AT,
+                SEX,
+                HEIGHT,
+                BDWGH,
+                WAIST_CRCMFRNC,
+                BRTHDY,
+            },
+        } = detailState
+
+        if (
+            BDWGH &&
+            BRTHDY &&
+            HEIGHT &&
+            MBTLNUM &&
+            INDVDLINFO_AGRE_AT == 'Y' &&
+            MBTLNUM_CRTFC_AT &&
+            NM &&
+            PASSWORD &&
+            SEX &&
+            USID &&
+            WAIST_CRCMFRNC
+        ) {
+            setDetailState(prevState => ({
+                ...prevState,
+                status: 'loading',
+            }))
+
+            const payload = {
+                BDWGH: BDWGH,
+                BMI: 0,
+                BRTHDY: BRTHDY.replaceAll('-', ''),
+                EMAIL_ADRES: '',
+                HEIGHT: HEIGHT,
+                INDVDLINFO_AGRE_AT: INDVDLINFO_AGRE_AT,
+                INDVDLINFO_THIRD_AGRE_AT: INDVDLINFO_THIRD_AGRE_AT,
+                INST_NO: atomRootState.userinfo.INST_NM
+                    ? atomRootState.userinfo.INST_NM
+                    : '',
+                MARKTINFO_AGRE_AT: MARKTINFO_AGRE_AT,
+                MARKTINFO_PURPOSE_AGRE_AT: MARKTINFO_PURPOSE_AGRE_AT,
+                MBER_PURPS: '',
+                MBTLNUM: MBTLNUM,
+                MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
+                NCM: '',
+                NM: NM,
+                PASSWORD: PASSWORD,
+                SBSCRB_COURS_CODE: 'WS',
+                SEXDSTN: SEX,
+                SNSTIIVEINFO_AGRE_AT: SNSTIIVEINFO_AGRE_AT,
+                SNSTIIVEINFO_THIRD_AGRE_AT: SNSTIIVEINFO_THIRD_AGRE_AT,
+                TELNO: MBTLNUM,
+                USE_STPLAT_AGRE_AT: USE_STPLAT_AGRE_AT,
+                USID: USID,
+                WAIST_CRCMFRNC: WAIST_CRCMFRNC,
+            }
+
+            const { status } = await postMberMberInfo(payload)
+
+            if (status) {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'success',
+                }))
+
+                memberListState(prevState => ({
+                    ...prevState,
+                    status: 'idle',
+                }))
+
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processSuccess,
+                })
+
+                handleDeleteTabbyMatchRouter(`/manage/member/new-member`)
+
+                navigate({
+                    pathname:
+                        process.env.PUBLIC_URL + `/manage/member/member-list`,
+                })
+                return
+            } else {
+                setDetailState(prevState => ({
+                    ...prevState,
+                    status: 'failure',
+                }))
+
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+                return
+            }
+        }
+
+        handlMainAlert({
+            state: true,
+            message: Messages.Default.processFail,
+        })
+        return
+    }
+
+    // 변경하기 버튼 클릭.
+    const handleClickUpdateButton = () => {
+        if (_.isEmpty(detailState.detail.NM)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.validation.name,
+            })
+
+            return
+        }
+
+        if (_.isEmpty(detailState.detail.MBTLNUM)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.validation.phoneNumer,
+            })
+            return
+        }
+
+        // 변경 확인 모달.
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                confirm: true,
+            },
+        }))
+    }
+
+    // 신규 등록 버튼 클릭.
+    const handleClickNewButton = () => {
         const {
             detail: {
                 USE_STPLAT_AGRE_AT,
@@ -485,7 +614,7 @@ const MemberDetailTable = ({
         if (_.isEmpty(PASSWORD_CHK)) {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.member.info.empty.password,
+                message: Messages.Default.member.info.empty.password_chk,
             })
             return
         }
@@ -632,106 +761,14 @@ const MemberDetailTable = ({
             return
         }
 
-        if (
-            BDWGH &&
-            BRTHDY &&
-            HEIGHT &&
-            MBTLNUM &&
-            MBTLNUM_CRTFC_AT &&
-            NM &&
-            PASSWORD &&
-            SEX &&
-            USID &&
-            WAIST_CRCMFRNC
-        ) {
-            setDetailState(prevState => ({
-                ...prevState,
-                status: 'loading',
-            }))
-
-            const payload = {
-                BDWGH: BDWGH,
-                BMI: 0,
-                BRTHDY: BRTHDY.replaceAll('-', ''),
-                EMAIL_ADRES: '',
-                HEIGHT: HEIGHT,
-                INDVDLINFO_AGRE_AT: INDVDLINFO_AGRE_AT,
-                INDVDLINFO_THIRD_AGRE_AT: INDVDLINFO_THIRD_AGRE_AT,
-                INST_NO: atomRootState.userinfo.INST_NM
-                    ? atomRootState.userinfo.INST_NM
-                    : '',
-                MARKTINFO_AGRE_AT: MARKTINFO_AGRE_AT,
-                MARKTINFO_PURPOSE_AGRE_AT: MARKTINFO_PURPOSE_AGRE_AT,
-                MBER_PURPS: '',
-                MBTLNUM: MBTLNUM,
-                MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
-                NCM: '',
-                NM: NM,
-                PASSWORD: PASSWORD,
-                SBSCRB_COURS_CODE: 'WS',
-                SEXDSTN: SEX,
-                SNSTIIVEINFO_AGRE_AT: SNSTIIVEINFO_AGRE_AT,
-                SNSTIIVEINFO_THIRD_AGRE_AT: SNSTIIVEINFO_THIRD_AGRE_AT,
-                TELNO: MBTLNUM,
-                USE_STPLAT_AGRE_AT: USE_STPLAT_AGRE_AT,
-                USID: USID,
-                WAIST_CRCMFRNC: WAIST_CRCMFRNC,
-            }
-
-            const { status } = await postMberMberInfo(payload)
-
-            if (status) {
-                setDetailState(prevState => ({
-                    ...prevState,
-                    status: 'success',
-                }))
-
-                memberListState(prevState => ({
-                    ...prevState,
-                    status: 'idle',
-                }))
-
-                handlMainAlert({
-                    state: true,
-                    message: Messages.Default.processSuccess,
-                })
-
-                handleDeleteTabbyMatchRouter(`/manage/member/new-member`)
-
-                navigate({
-                    pathname:
-                        process.env.PUBLIC_URL + `/manage/member/member-list`,
-                })
-                return
-            } else {
-                setDetailState(prevState => ({
-                    ...prevState,
-                    status: 'failure',
-                }))
-
-                handlMainAlert({
-                    state: true,
-                    message: Messages.Default.processFail,
-                })
-                return
-            }
-        }
-
-        handlMainAlert({
-            state: true,
-            message: Messages.Default.processFail,
-        })
-        return
-    }
-
-    // 변경하기 버튼 클릭.
-    const handleClickUpdateButton = () => {
-        handleMemberInfoUpdate().then()
-    }
-
-    // 신규 등록 버튼 클릭.
-    const handleClickNewButton = () => {
-        handleNewMember().then()
+        // 등록 확인 모달.
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                confirm: true,
+            },
+        }))
     }
 
     useEffect(() => {
@@ -869,6 +906,42 @@ const MemberDetailTable = ({
         detailState.detail.MBTLNUM_CNT,
         detailState.detail.MBTLNUM_CRTFC_AT,
         detailState.origin,
+    ])
+
+    // 아이디 중복 확인 후 변경 되었을떄.
+    useEffect(() => {
+        // 중복확인후 변경되면 중복확인 초기화.
+        const funcResetCheckUsid = () => {
+            setDetailState(prevState => ({
+                ...prevState,
+                checkUsid: false,
+            }))
+        }
+
+        // 중복확인후
+        const funcChangeCheckUsid = () => {
+            setDetailState(prevState => ({
+                ...prevState,
+                checkUsid: true,
+            }))
+        }
+
+        if (
+            detailState.checkUsid &&
+            detailState.origin.USID !== detailState.detail.USID
+        ) {
+            funcResetCheckUsid()
+        } else if (
+            !detailState.checkUsid &&
+            detailState.origin.USID === detailState.detail.USID
+        ) {
+            funcChangeCheckUsid()
+        }
+    }, [
+        detailState.checkUsid,
+        detailState.detail.USID,
+        detailState.origin.USID,
+        setDetailState,
     ])
 
     // FIXME: 최초 페이지 들어 왔을때 약관 동의 모달이 먼저 뜨게 하려면 주석 제거
@@ -1016,6 +1089,10 @@ const MemberDetailTable = ({
                                                                                         ...prevState,
                                                                                         checkUsid:
                                                                                             true,
+                                                                                        origin: {
+                                                                                            ...prevState.origin,
+                                                                                            USID: USID,
+                                                                                        },
                                                                                     })
                                                                                 )
                                                                                 return
@@ -1137,7 +1214,7 @@ const MemberDetailTable = ({
                                                     },
                                                 }))
                                             }}
-                                            Placeholder={'회원번호 확인'}
+                                            Placeholder={'비밀번호 확인'}
                                             Value={
                                                 detailState.detail.PASSWORD_CHK
                                                     ? detailState.detail
@@ -1866,13 +1943,7 @@ const MemberDetailTable = ({
                                 }
                                 HandleClick={() => {
                                     if (PageMode === 'new') {
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            modal: {
-                                                ...prevState.modal,
-                                                confirm: true,
-                                            },
-                                        }))
+                                        handleClickNewButton()
                                         return
                                     }
 
@@ -1888,15 +1959,10 @@ const MemberDetailTable = ({
                                                 phoneAuthVal: true,
                                             },
                                         }))
-                                    } else {
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            modal: {
-                                                ...prevState.modal,
-                                                confirm: true,
-                                            },
-                                        }))
+                                        return
                                     }
+
+                                    handleClickUpdateButton()
                                 }}
                             />
                         </ButtonItem>
@@ -1944,9 +2010,9 @@ const MemberDetailTable = ({
                             }))
 
                             if (PageMode === 'modify') {
-                                handleClickUpdateButton()
+                                handleMemberInfoUpdate().then()
                             } else {
-                                handleClickNewButton()
+                                handleNewMember().then()
                             }
                         }}
                     />

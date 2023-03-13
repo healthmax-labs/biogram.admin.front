@@ -6,7 +6,12 @@ import {
     ConsultInfoListItemInterface,
     MemberInfoListItemInterface,
 } from '@Type/MemberTypes'
-import { addComma, phoneFormat, timeStringParse } from '@Helper'
+import {
+    addComma,
+    dateInsertHypen,
+    phoneFormat,
+    timeStringParse,
+} from '@Helper'
 import _ from 'lodash'
 
 export type tableListItemInterface = MemberInfoListItemInterface
@@ -260,7 +265,7 @@ export const ConsultTableConfig = {
                         <>
                             {_.isEmpty(el.MESURE_DT)
                                 ? ''
-                                : timeStringParse(el.MESURE_DT)}
+                                : dateInsertHypen(el.MESURE_DT)}
                         </>
                     )
                 },
