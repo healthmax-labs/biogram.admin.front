@@ -77,7 +77,7 @@ const MemberDetailMain = () => {
                     SEX: SEX,
                     REGIST_DT: REGIST_DT,
                     USID: USID,
-                    MEMO: MEMO,
+                    MEMO: MEMO ? MEMO : '',
                     MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
                     PSTINST_INFO_LIST: PSTINST_INFO_LIST,
                     MBTLNUM_CNT: MBTLNUM_CNT,
