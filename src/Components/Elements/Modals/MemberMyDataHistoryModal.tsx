@@ -10,8 +10,8 @@ import {
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import {
     changeDatePickerDate,
+    getDateDayMonthUnit,
     getNowDate,
-    getOneMonthAgo,
     getOnlyNumber,
     gmtTimeToTimeObject,
 } from '@Helper'
@@ -39,7 +39,7 @@ const initializeState = {
     loading: false,
     search: {
         page: 0,
-        startDate: getOneMonthAgo(),
+        startDate: getDateDayMonthUnit(6),
         endDate: getNowDate(),
     },
     list: [],
@@ -235,7 +235,7 @@ const MemberMyDataHistoryModal = ({
                             </div>
                             <div className="flex py-2">
                                 <VaryButton
-                                    ButtonType={'manage'}
+                                    ButtonType={'default'}
                                     ButtonName={'조회'}
                                     HandleClick={() => handleGetList().then()}
                                 />
