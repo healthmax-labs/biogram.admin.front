@@ -463,3 +463,14 @@ export interface TokenValidateInterface {
     TOKEN_LIMIT_TIME: number
     AUTHORIZE_CODE: string
 }
+
+// 회원 검색 인터페이스
+export interface MemberSearchItemInterface {
+    SMS_SNDNG_AT: 'Y' | 'N'
+    MBTLNUM: string
+    MBER_NO: number
+    SV00_NTCN_AT: 'Y' | 'N'
+    USID: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    NM: string
+}

@@ -217,10 +217,28 @@ export const postInstPstinstConfmUpdate = ({
         MBER_LIST: MBER_LIST,
         REJECT_RESN: REJECT_RESN,
     }
-
     return _Axios_({
         method: 'post',
         url: `/inst/v1/pstinst/confm/${flag}/update`,
         payload: payload,
+    })
+}
+
+/**
+ * 소속에서 관리자 권한 삭제.
+ * @param instNo
+ * @param memberNo
+ */
+export const postInstChargerDelete = ({
+    instNo,
+    memberNo,
+}: {
+    instNo: number
+    memberNo: number
+}): Promise<ServicesDefaultResult<{ test: boolean }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/charger/${instNo}/${memberNo}/delete`,
+        payload: {},
     })
 }

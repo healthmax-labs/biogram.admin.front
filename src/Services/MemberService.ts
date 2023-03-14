@@ -1,5 +1,9 @@
 import { _Axios_ } from '@Modules'
-import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
+import {
+    MemberSearchItemInterface,
+    SendSmsInterface,
+    ServicesDefaultResult,
+} from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
     ConsultRawAgeMiInfoItemInterface,
@@ -816,6 +820,52 @@ export const getMngUserObmtInfo = ({
     return _Axios_({
         method: 'get',
         url: `/mng/v1/user/obmt_info/${memNo}`,
+        payload: {},
+    })
+}
+
+/**
+ * 회원 키워드검색
+ * @param keyWord
+ */
+export const getMberSendMberSearch = ({
+    keyWord,
+}: {
+    keyWord: string
+}): Promise<
+    ServicesDefaultResult<{
+        SEND_MBER_INFO_LIST: MemberSearchItemInterface[]
+    }>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mber/v1/send/mber_search?keyword=${keyWord}`,
+        payload: {},
+    })
+}
+
+/**
+ * 관리자 권한 부여전 부여 가능한지 체크(이미 있는지 체크)
+ * @param permiCode
+ * @param memberNo
+ * @param instNo
+ */
+export const getInstChargerCheck = ({
+    permiCode,
+    memberNo,
+    instNo,
+}: {
+    permiCode: string
+    memberNo: number
+    instNo: number
+}): Promise<
+    ServicesDefaultResult<{
+        REGIST_AT: 'D' | 'Y' | 'N'
+    }>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/inst/v1/charger/${permiCode}/${memberNo}/${instNo}`,
         payload: {},
     })
 }

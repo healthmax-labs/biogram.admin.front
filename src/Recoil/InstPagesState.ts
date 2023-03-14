@@ -45,12 +45,26 @@ interface InstDetailStateInterface {
         UPPER_INST_NO: string
         ATCHMNFL_PATH: string
         ORGINL_FILE_NM: string
+        CHARGER_LIST: Array<{
+            Already?: boolean
+            AUTHOR_CODE: string
+            AUTHOR_NM: string
+            BRTHDY: string
+            CNSLTNT_AT: 'N' | 'Y'
+            CONECT_IP: string | null
+            CONECT_LMTT_AT: 'N' | 'Y'
+            INST_NM: string
+            INST_NO: number
+            MBER_NO: number
+            MBTLNUM: string
+            MBTLNUM_CRTFC_AT: 'Y' | 'N'
+            NM: string
+            REGIST_DT: number
+            SEXDSTN: '남' | '여'
+            USID: string
+        }>
     }
     infoStep: string | 'step1' | 'step2' | 'step3'
-    modal: {
-        confirm: boolean
-        delete: boolean
-    }
 }
 
 export const InstJoinListState = atom<InstJoinSearchListInterface>({
@@ -106,11 +120,8 @@ export const InstDetailState = atom<InstDetailStateInterface>({
             ATCHMNFL_PATH: '',
             ORGINL_FILE_NM: '',
             INST_NM_CHECK: false,
+            CHARGER_LIST: [],
         },
         infoStep: 'step1',
-        modal: {
-            confirm: false,
-            delete: false,
-        },
     },
 })

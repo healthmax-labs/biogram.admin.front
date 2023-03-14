@@ -21,6 +21,10 @@ const InstListManageBox = () => {
                             '/manage/inst/inst-list/:instNo/detail'
                         )
 
+                        handleDeleteTabbyMatchRouter(
+                            '/manage/inst/inst-list/new'
+                        )
+
                         navigate({
                             pathname:
                                 process.env.PUBLIC_URL +

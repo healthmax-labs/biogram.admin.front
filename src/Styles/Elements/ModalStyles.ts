@@ -79,3 +79,26 @@ export const PstinstAgreeModalStyle = {
     AllAgreeButtonBox: tw.div`flex flex-row justify-center text-xs pt-3`,
     AllAgreeButton: tw.div`flex flex-nowrap gap-1`,
 }
+
+export const MemberSearchModalStyle = {
+    Container: tw.div`flex flex-wrap w-full gap-1`,
+    RowWapper: tw.div`flex w-full`,
+    RowWapperGap: tw.div`flex w-full gap-2`,
+    Mbtlnum: styled.p(({ Color }: { Color: 'gray' | 'red' }) => {
+        const returnTw = []
+
+        if (Color === 'red') {
+            returnTw.push(tw`text-red-600`)
+        } else {
+            returnTw.push(tw`text-gray-500`)
+        }
+
+        return returnTw
+    }),
+    SelectedButton: {
+        Container: tw.div`grid grid-cols-7 gap-1`,
+        Wapper: tw.span`inline-flex items-center px-2 py-1 mr-2 text-xs font-medium text-gray-500 bg-gray-100 rounded`,
+        Button: tw.button`inline-flex items-center p-0.5 ml-2 text-xs text-gray-500 bg-transparent rounded-sm`,
+        Sr: tw.span`sr-only`,
+    },
+}

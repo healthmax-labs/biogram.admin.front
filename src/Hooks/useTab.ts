@@ -25,6 +25,7 @@ export default function useTab() {
 
         const newList = tabState.list.filter((el, i) => i !== index)
         const lastElement = newList.slice(-1).pop()
+
         setUseTabState(prevState => ({
             ...prevState,
             list: newList,
