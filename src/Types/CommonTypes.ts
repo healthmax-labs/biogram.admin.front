@@ -178,6 +178,7 @@ export interface GeolocationDbInterface {
 // 로그인 사용자
 export interface LoginInfoInterface {
     INST_NM: string
+    INST_NO: string
     AUTH_CODE: string
     CONECT_LMTT_AT: string
     IM_AUTH_CNT: number
@@ -250,6 +251,7 @@ export interface AppRootStateInterface {
         MBER_NO: number | null
         AUTH_CODE: string | null
         INST_NM: string | null
+        INST_NO: string | null
     }
     menuInfo: AuthorMenuInterface<MenuItemInterface>
 }

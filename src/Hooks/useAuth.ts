@@ -17,6 +17,7 @@ import _ from 'lodash'
 import { LoginInfoInterface } from '@CommonTypes'
 import { useCallback } from 'react'
 import Routers from '@Routers'
+import Const from '@Const'
 
 export default function useAuth() {
     const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
@@ -105,7 +106,14 @@ export default function useAuth() {
                 TOKEN_INFO,
                 VTOKEN_INFO,
                 TOKEN_LIMIT_TIME,
-                CHARGER_LOGIN_INFO: { USID, NM, MBER_NO, AUTH_CODE, INST_NM },
+                CHARGER_LOGIN_INFO: {
+                    USID,
+                    NM,
+                    MBER_NO,
+                    AUTH_CODE,
+                    INST_NM,
+                    INST_NO,
+                },
             } = response.payload
 
             saveLoginToken({
@@ -143,6 +151,7 @@ export default function useAuth() {
                     MBER_NO: !_.isNull(MBER_NO) ? MBER_NO : null,
                     AUTH_CODE: !_.isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                     INST_NM: !_.isEmpty(INST_NM) ? INST_NM : null,
+                    INST_NO: !_.isEmpty(INST_NO) ? INST_NO : Const.MasterInstNo,
                 },
             }))
 
@@ -194,6 +203,7 @@ export default function useAuth() {
                 MBER_NO: null,
                 AUTH_CODE: null,
                 INST_NM: null,
+                INST_NO: null,
             },
         }))
 

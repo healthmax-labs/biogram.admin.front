@@ -90,4 +90,5 @@ export default {
     Pages: {
         perPage: 30,
     },
+    MasterInstNo: `1000`,
 }

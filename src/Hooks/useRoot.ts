@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { getGeolocation } from '@Service/EtcService'
 import { useAuth } from '@Hooks'
 import { isEmpty, isNull } from 'lodash'
+import Const from '@Const'
 
 export default function useRoot() {
     const setAppRootState = useSetRecoilState(AtomRootState)
@@ -48,6 +49,7 @@ export default function useRoot() {
                 let NM: null | string = null
                 let MBER_NO: null | number = null
                 let INST_NM: null | string = null
+                let INST_NO: null | string = null
                 let AUTH_CODE: null | string = null
 
                 if (tokenInfo.TOKEN_INFO) {
@@ -58,6 +60,7 @@ export default function useRoot() {
                         NM = res.NM
                         MBER_NO = res.MBER_NO
                         INST_NM = res.INST_NM
+                        INST_NO = res.INST_NO
                         AUTH_CODE = res.AUTH_CODE
                     }
 
@@ -90,6 +93,9 @@ export default function useRoot() {
                         MBER_NO: !isNull(MBER_NO) ? MBER_NO : null,
                         AUTH_CODE: !isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                         INST_NM: !isEmpty(INST_NM) ? INST_NM : null,
+                        INST_NO: !isEmpty(INST_NO)
+                            ? INST_NO
+                            : Const.MasterInstNo,
                     },
                 }))
 
