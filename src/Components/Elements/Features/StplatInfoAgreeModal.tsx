@@ -70,8 +70,8 @@ const StplatInfoAgreeModal = ({
     useEffect(() => {
         const funcSetStplatInfo = async () => {
             const { status, payload } = await getStplatInfo({
-                instNo: rootState.userinfo.INST_NM
-                    ? rootState.userinfo.INST_NM
+                instNo: rootState.userinfo.INST_NO
+                    ? rootState.userinfo.INST_NO
                     : '1000',
             })
 
@@ -88,7 +88,12 @@ const StplatInfoAgreeModal = ({
         funcSetStplatInfo().then(
             () => MemberStplatList && handleStplatToCheckBox()
         )
-    }, [MemberStplatList, handleStplatToCheckBox, rootState.userinfo.INST_NM])
+    }, [
+        MemberStplatList,
+        handleStplatToCheckBox,
+        rootState.userinfo.INST_NM,
+        rootState.userinfo.INST_NO,
+    ])
 
     useEffect(() => {
         if (MemberStplatList) {
