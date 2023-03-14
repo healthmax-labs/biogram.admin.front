@@ -7,7 +7,6 @@ import ConstStyle from '@Style/ConstStyle'
 export const TableStyle = {
     Container: tw.div`flex flex-col h-screen max-h-[75vh]`,
     Wapper: tw.div`overflow-auto`,
-    Table1: tw.table`table-fixed w-full border`,
     PaginationWapper: tw.div`block w-full pt-2`,
     Table: styled.table(({ tableType }: { tableType: `auto` | `fixed` }) => {
         const returnTw = [tw`w-full border`]

@@ -24,6 +24,9 @@ export default {
         memberDeleteTitle: `"_NAME_"님 회원 탈퇴를 진행하시겠습니까? <br />탈퇴사유를 작성해주세요.`,
         memberDeleteMemoEmpty: `사유를 입력해 주세요.`,
         memberDeleteSuccess: `회원 탈퇴 처리가 완료 되었습니다.`,
+        emptySearchKeyword: `검색어를 입력해 주세요.`,
+        memberMbtlnumCrtfcAt: `미인증 회원 입니다.`,
+        memberPermitCheck: `권한을 추가 할수 없는 사용자 입니다.`,
         duplicate: {
             uhealthzoneNameDup: '이미 사용중인 설치 장소명 입니다.',
             uhealthzoneNamePoss: '사용가능한 설치 장소명 입니다.',
@@ -124,6 +127,7 @@ export default {
             instNmCheckFail: `이미 사용중인 소속명 입니다`,
             newConfirm: `소속 정보를 저장 하시겠습니까?`,
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
+            deletePermit: `"_NAME_"님의 관리자 정보를 삭제 하시겠습니까?`,
             approval: {
                 appEmpty: `승인 처리할 회원을 선택해 주세요`,
                 appOver: `승인 처리는 한번에 한건만 가능합니다.`,

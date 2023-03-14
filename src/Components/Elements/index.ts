@@ -40,6 +40,7 @@ export { default as MemberMyDataModal } from './Modals/MemberMyDataHistoryModal'
 export { default as MemberMyDataInputModal } from './Modals/MemberMyDataInputModal'
 export { default as KaKaoPostCodeModal } from './Modals/KaKaoPostCodeModal'
 export { default as KaKaoMapModal } from './Modals/KaKaoMapModal'
+export { default as MemberSearchModal } from './Modals/MemberSearchModal'
 
 export { default as VaryPagination } from './Paginations/VaryPagination'
 

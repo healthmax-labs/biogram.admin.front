@@ -49,4 +49,11 @@ export interface InstInfoInterface {
     TOP_INST_NO?: string
     MIDDLE_INST_NO?: string
     UPPER_INST_NO?: string
+    CHARGER_LIST?: Array<{
+        CRUD: string | 'U'
+        MBER_NO: string
+        CONECT_IP: string
+        CONECT_LMTT_AT: 'Y' | 'N'
+        CNSLTNT_AT: 'Y' | 'N'
+    }>
 }

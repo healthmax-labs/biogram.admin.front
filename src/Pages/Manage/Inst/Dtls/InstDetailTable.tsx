@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { WapperStyle } from '@Style/Pages/CommonStyle'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/InstPageStyle'
@@ -11,6 +11,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
+    MemberSearchModal,
 } from '@Elements'
 import {
     getInstCheckInstNm,
@@ -18,14 +19,15 @@ import {
     postInstInfo,
     postInstInfoDelete,
     postInstInfoUpdate,
+    postInstChargerDelete,
 } from '@Service/InstService'
 import { useMainLayouts } from '@Hooks'
 import Messages from '@Messages'
 import { useNavigate, useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash'
+import _ from 'lodash'
 import { InstInfoInterface } from '@Type/InstTypes'
-import { useRecoilState } from 'recoil'
-import { InstDetailState } from '@Recoil/InstPagesState'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { InstDetailState, InstListState } from '@Recoil/InstPagesState'
 
 const {
     TableContainer,
@@ -37,13 +39,60 @@ const {
     ButtonItem,
 } = DetailTableStyle
 
-const { DetailContainer } = DetailPageStyle
+const { DetailContainer, ChargerList: P } = DetailPageStyle
+
+const initializeState = {
+    modal: {
+        memberSearch: false,
+        confirm: false,
+        delete: false,
+        permitDelete: {
+            already: false,
+            memberNo: null,
+            memberName: '',
+            modal: false,
+        },
+    },
+}
 
 const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
     const params = useParams<{ instNo: string | undefined }>()
     const { handlMainAlert } = useMainLayouts()
     const navigate = useNavigate()
     const [detailState, setDetailState] = useRecoilState(InstDetailState)
+    const setInstListState = useSetRecoilState(InstListState)
+    const [pageState, setPageState] = useState<{
+        modal: {
+            memberSearch: boolean
+            confirm: boolean
+            delete: boolean
+            permitDelete: {
+                already: boolean
+                memberNo: number | null
+                memberName: string
+                modal: boolean
+            }
+        }
+    }>(initializeState)
+
+    const handleDeletePermit = async ({ memberNo }: { memberNo: number }) => {
+        const { status } = await postInstChargerDelete({
+            instNo: Number(params.instNo),
+            memberNo: memberNo,
+        })
+
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+    }
 
     const handleNewInst = async () => {
         const {
@@ -57,6 +106,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             ATCHMNFL_NO,
             SIGUNGU_CD,
             REPRSNT_TELNO,
+            CHARGER_LIST,
         } = detailState.info
 
         let payload: InstInfoInterface = {
@@ -69,33 +119,19 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             SPUSE_STPLAT_AT: SPUSE_STPLAT_AT,
         }
 
-        /*
-        1차
-        ~
-
-        2차
-        TOP_INST_NO: "1001"
-        MIDDLE_INST_NO: "1455"
-        UPPER_INST_NO: "1455"
-
-        3차
-        TOP_INST_NO: "1001"
-        UPPER_INST_NO: "1001"
-         */
-
         // 등록
         if (pageMode === 'new') {
             if (
-                isEmpty(TOP_INST_NO) &&
-                isEmpty(MIDDLE_INST_NO) &&
-                isEmpty(UPPER_INST_NO)
+                _.isEmpty(TOP_INST_NO) &&
+                _.isEmpty(MIDDLE_INST_NO) &&
+                _.isEmpty(UPPER_INST_NO)
             ) {
                 //
                 // 2차 일 경우
             } else if (
-                !isEmpty(TOP_INST_NO) &&
-                isEmpty(MIDDLE_INST_NO) &&
-                isEmpty(UPPER_INST_NO)
+                !_.isEmpty(TOP_INST_NO) &&
+                _.isEmpty(MIDDLE_INST_NO) &&
+                _.isEmpty(UPPER_INST_NO)
             ) {
                 payload = {
                     ...payload,
@@ -103,7 +139,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     UPPER_INST_NO: TOP_INST_NO,
                 }
                 // 3차 일 경우
-            } else if (!isEmpty(TOP_INST_NO) && !isEmpty(MIDDLE_INST_NO)) {
+            } else if (!_.isEmpty(TOP_INST_NO) && !_.isEmpty(MIDDLE_INST_NO)) {
                 payload = {
                     ...payload,
                     TOP_INST_NO: TOP_INST_NO,
@@ -136,6 +172,22 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 ...payload,
                 INST_NO: String(params.instNo),
             }
+
+            if (CHARGER_LIST.length > 0) {
+                payload = {
+                    ...payload,
+                    CHARGER_LIST: CHARGER_LIST.map(cl => {
+                        return {
+                            CRUD: cl.Already ? 'U' : 'C',
+                            MBER_NO: String(cl.MBER_NO),
+                            CONECT_IP: cl.CONECT_IP ? cl.CONECT_IP : '',
+                            CONECT_LMTT_AT: cl.CONECT_LMTT_AT,
+                            CNSLTNT_AT: cl.CNSLTNT_AT,
+                        }
+                    }),
+                }
+            }
+
             const { status } = await postInstInfoUpdate(payload)
             serviceStatus = status
         } else {
@@ -148,6 +200,12 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 state: true,
                 message: Messages.Default.processSuccess,
             })
+
+            // 리스트 다시 받아 올수 있게.
+            setInstListState(prevState => ({
+                ...prevState,
+                status: 'idle',
+            }))
 
             navigate({
                 pathname: process.env.PUBLIC_URL + `/manage/inst/inst-list`,
@@ -195,6 +253,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     BOTTOM_INST_NO,
                     ATCHMNFL_PATH,
                     ORGINL_FILE_NM,
+                    CHARGER_LIST,
                 },
             } = payload
 
@@ -229,6 +288,12 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     ORGINL_FILE_NM: ORGINL_FILE_NM,
                     ATCHMNFL_PATH: ATCHMNFL_PATH,
                     INST_NM_CHECK: true,
+                    CHARGER_LIST: CHARGER_LIST.map(cl => {
+                        return {
+                            ...cl,
+                            Already: true,
+                        }
+                    }),
                 },
                 infoStep: infoStep,
             }))
@@ -267,6 +332,38 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             }
         }
     }
+
+    const handleChargerListDataChange = useCallback(
+        ({
+            value,
+            name,
+            dataIndex,
+        }: {
+            dataIndex: number
+            name: string
+            value: string
+        }) => {
+            setDetailState(prevState => ({
+                ...prevState,
+                info: {
+                    ...prevState.info,
+                    CHARGER_LIST: prevState.info.CHARGER_LIST.map(
+                        (cl, clIndex) => {
+                            if (clIndex === dataIndex) {
+                                return {
+                                    ...cl,
+                                    [name]: value,
+                                }
+                            }
+
+                            return cl
+                        }
+                    ),
+                },
+            }))
+        },
+        [setDetailState]
+    )
 
     useEffect(() => {
         const funcSetDetail = () => {
@@ -614,6 +711,168 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             />
                         </InputCell>
                     </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`관리자`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WapperStyle.FullWapperGap>
+                                <div>
+                                    <VaryButton
+                                        ButtonType={`default`}
+                                        HandleClick={() =>
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                modal: {
+                                                    ...prevState.modal,
+                                                    memberSearch: true,
+                                                },
+                                            }))
+                                        }
+                                        ButtonName={`관리자 추가`}
+                                    />
+                                </div>
+                                <div>
+                                    <P.Container>
+                                        <P.Table>
+                                            <P.Tbody>
+                                                {detailState.info.CHARGER_LIST.map(
+                                                    (el, elIndex) => {
+                                                        return (
+                                                            <P.TableRowNonBg
+                                                                key={`member-detail-pstinst-table-row-item-${elIndex}`}>
+                                                                <P.TableCell>
+                                                                    {el.MBER_NO}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    {el.USID}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    {el.NM}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    {el.MBTLNUM}
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    <VaryInput
+                                                                        Width={`w40`}
+                                                                        InputType={
+                                                                            'text'
+                                                                        }
+                                                                        HandleOnChange={e => {
+                                                                            handleChargerListDataChange(
+                                                                                {
+                                                                                    dataIndex:
+                                                                                        elIndex,
+                                                                                    name: `CONECT_IP`,
+                                                                                    value: e
+                                                                                        .target
+                                                                                        .value,
+                                                                                }
+                                                                            )
+                                                                        }}
+                                                                        Placeholder={
+                                                                            'IP'
+                                                                        }
+                                                                        Value={
+                                                                            el.CONECT_IP
+                                                                                ? el.CONECT_IP
+                                                                                : ''
+                                                                        }
+                                                                    />
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    <VaryLabelCheckBox
+                                                                        LabelWidth={
+                                                                            'wMin'
+                                                                        }
+                                                                        Checked={
+                                                                            el.CONECT_LMTT_AT ===
+                                                                            'Y'
+                                                                        }
+                                                                        HandleOnChange={e => {
+                                                                            handleChargerListDataChange(
+                                                                                {
+                                                                                    dataIndex:
+                                                                                        elIndex,
+                                                                                    name: `CONECT_LMTT_AT`,
+                                                                                    value: e
+                                                                                        .target
+                                                                                        .checked
+                                                                                        ? 'Y'
+                                                                                        : 'N',
+                                                                                }
+                                                                            )
+                                                                        }}
+                                                                        LabelName={`IP 제한 사용`}
+                                                                    />
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    <VaryLabelCheckBox
+                                                                        LabelWidth={
+                                                                            'wMin'
+                                                                        }
+                                                                        Checked={
+                                                                            el.CNSLTNT_AT ===
+                                                                            'Y'
+                                                                        }
+                                                                        HandleOnChange={e => {
+                                                                            handleChargerListDataChange(
+                                                                                {
+                                                                                    dataIndex:
+                                                                                        elIndex,
+                                                                                    name: `CNSLTNT_AT`,
+                                                                                    value: e
+                                                                                        .target
+                                                                                        .checked
+                                                                                        ? 'Y'
+                                                                                        : 'N',
+                                                                                }
+                                                                            )
+                                                                        }}
+                                                                        LabelName={`상담자 사용`}
+                                                                    />
+                                                                </P.TableCell>
+                                                                <P.TableCell>
+                                                                    <VaryButton
+                                                                        ButtonType={`default`}
+                                                                        ButtonName={`관리자 삭제`}
+                                                                        HandleClick={() => {
+                                                                            setPageState(
+                                                                                prevState => ({
+                                                                                    ...prevState,
+                                                                                    modal: {
+                                                                                        ...prevState.modal,
+                                                                                        permitDelete:
+                                                                                            {
+                                                                                                ...prevState
+                                                                                                    .modal
+                                                                                                    .permitDelete,
+                                                                                                memberName:
+                                                                                                    el.NM,
+                                                                                                memberNo:
+                                                                                                    el.MBER_NO,
+                                                                                                already:
+                                                                                                    !!el.Already,
+                                                                                                modal: true,
+                                                                                            },
+                                                                                    },
+                                                                                })
+                                                                            )
+                                                                        }}
+                                                                    />
+                                                                </P.TableCell>
+                                                            </P.TableRowNonBg>
+                                                        )
+                                                    }
+                                                )}
+                                            </P.Tbody>
+                                        </P.Table>
+                                    </P.Container>
+                                </div>
+                            </WapperStyle.FullWapperGap>
+                        </InputCell>
+                    </Row>
                 </TableWapper>
             </TableContainer>
 
@@ -636,7 +895,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         ButtonType={`default`}
                         ButtonName={`확인`}
                         HandleClick={() =>
-                            setDetailState(prevState => ({
+                            setPageState(prevState => ({
                                 ...prevState,
                                 modal: {
                                     ...prevState.modal,
@@ -652,7 +911,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             ButtonType={`default`}
                             ButtonName={`삭제`}
                             HandleClick={() =>
-                                setDetailState(prevState => ({
+                                setPageState(prevState => ({
                                     ...prevState,
                                     modal: {
                                         ...prevState.modal,
@@ -664,13 +923,14 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     </ButtonItem>
                 )}
             </ButtonBox>
-            {detailState.modal.confirm && (
+
+            {pageState.modal.confirm && (
                 <ConfirmModal
                     Title={Messages.Default.inst.newConfirm}
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {
-                        setDetailState(prevState => ({
+                        setPageState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -679,7 +939,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         }))
                     }}
                     ApplyButtonClick={() => {
-                        setDetailState(prevState => ({
+                        setPageState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -690,13 +950,72 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     }}
                 />
             )}
-            {detailState.modal.delete && (
+
+            {/*권한 삭제 모달*/}
+            {pageState.modal.permitDelete.modal &&
+                pageState.modal.permitDelete.memberNo && (
+                    <ConfirmModal
+                        Title={_.replace(
+                            Messages.Default.inst.deletePermit,
+                            `_NAME_`,
+                            pageState.modal.permitDelete.memberName
+                        )}
+                        CancleButtonName={`취소`}
+                        ApplyButtonName={`확인`}
+                        CancleButtonClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    permitDelete:
+                                        initializeState.modal.permitDelete,
+                                },
+                            }))
+                        }}
+                        ApplyButtonClick={() => {
+                            if (
+                                pageState.modal.permitDelete.already &&
+                                pageState.modal.permitDelete.memberNo
+                            ) {
+                                handleDeletePermit({
+                                    memberNo:
+                                        pageState.modal.permitDelete.memberNo,
+                                }).then()
+                            }
+
+                            setDetailState(prevState => ({
+                                ...prevState,
+                                info: {
+                                    ...prevState.info,
+                                    CHARGER_LIST:
+                                        prevState.info.CHARGER_LIST.filter(
+                                            cl =>
+                                                cl.MBER_NO !==
+                                                pageState.modal.permitDelete
+                                                    .memberNo
+                                        ),
+                                },
+                            }))
+
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    permitDelete:
+                                        initializeState.modal.permitDelete,
+                                },
+                            }))
+                        }}
+                    />
+                )}
+
+            {pageState.modal.delete && (
                 <ConfirmModal
                     Title={Messages.Default.inst.deleteConfirm}
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {
-                        setDetailState(prevState => ({
+                        setPageState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -705,7 +1024,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                         }))
                     }}
                     ApplyButtonClick={() => {
-                        setDetailState(prevState => ({
+                        setPageState(prevState => ({
                             ...prevState,
                             modal: {
                                 ...prevState.modal,
@@ -713,6 +1032,55 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             },
                         }))
                         handleDelete().then()
+                    }}
+                />
+            )}
+
+            {pageState.modal.memberSearch && (
+                <MemberSearchModal
+                    InstNo={Number(params.instNo)}
+                    PermiCode={Number(params.instNo) === 1000 ? 'SM00' : 'IM00'}
+                    CloseButtonClick={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: { ...prevState.modal, memberSearch: false },
+                        }))
+                    }
+                    SaveButtonClick={e => {
+                        setDetailState(prevState => ({
+                            ...prevState,
+                            info: {
+                                ...prevState.info,
+                                CHARGER_LIST: _.union(
+                                    prevState.info.CHARGER_LIST,
+                                    e.selected.map(sel => {
+                                        return {
+                                            Already: false,
+                                            INST_NO: Number(params.instNo),
+                                            INST_NM: '',
+                                            CONECT_LMTT_AT: 'N',
+                                            CNSLTNT_AT: 'N',
+                                            MBER_NO: sel.MBER_NO,
+                                            AUTHOR_CODE: 'SM00',
+                                            CONECT_IP: null,
+                                            BRTHDY: '',
+                                            SEXDSTN: '남',
+                                            MBTLNUM: sel.MBTLNUM,
+                                            REGIST_DT: 0,
+                                            USID: sel.USID,
+                                            MBTLNUM_CRTFC_AT: 'Y',
+                                            AUTHOR_NM: '',
+                                            NM: sel.NM,
+                                        }
+                                    })
+                                ),
+                            },
+                        }))
+
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: { ...prevState.modal, memberSearch: false },
+                        }))
                     }}
                 />
             )}
