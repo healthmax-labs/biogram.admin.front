@@ -3,6 +3,7 @@ import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
+    ConsultMealDiaryItemInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselItemInterface,
@@ -184,6 +185,21 @@ interface RawAgeInterface {
         OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
         MI_INFO: ConsultRawAgeMiInfoItemInterface[]
     }
+}
+
+export interface MealDiaryListItemInterface
+    extends ConsultMealDiaryItemInterface {
+    checked: boolean
+}
+
+interface MealDiaryInterface {
+    status: DefaultStatus
+    search: {
+        memNo: number | null
+        mealDe: string
+        startDay: number
+    }
+    list: MealDiaryListItemInterface[]
 }
 
 // 회원 현황 리스트 페이지
@@ -459,5 +475,19 @@ export const RawAgeState = atom<RawAgeInterface>({
             OBI_INFO: [],
             MI_INFO: [],
         },
+    },
+})
+
+// 상담 회원 식사일기
+export const MealDiaryState = atom<MealDiaryInterface>({
+    key: `memberPage/consult-meal-diary`,
+    default: {
+        status: 'idle',
+        search: {
+            memNo: null,
+            mealDe: getNowDate(),
+            startDay: 6,
+        },
+        list: [],
     },
 })

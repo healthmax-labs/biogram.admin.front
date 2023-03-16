@@ -2,6 +2,7 @@ import { _Axios_ } from '@Modules'
 import { SendSmsInterface, ServicesDefaultResult } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
+    ConsultMealDiaryItemInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselInterface,
@@ -816,6 +817,28 @@ export const getMngUserObmtInfo = ({
     return _Axios_({
         method: 'get',
         url: `/mng/v1/user/obmt_info/${memNo}`,
+        payload: {},
+    })
+}
+
+/**
+ * 상담회원 식사일기
+ * @param mealDe
+ * @param startDay
+ * @param mberNo
+ */
+export const getDataDiaryMeal = ({
+    mealDe,
+    startDay,
+    mberNo,
+}: {
+    mealDe: string
+    startDay: number
+    mberNo: number
+}): Promise<ServicesDefaultResult<ConsultMealDiaryItemInterface[]>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/data/v1/diary/meal/${mealDe}/${startDay}/${mberNo}`,
         payload: {},
     })
 }
