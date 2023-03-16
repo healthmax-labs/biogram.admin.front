@@ -160,23 +160,23 @@ const ConsultDetailPartRawAge = () => {
                                                         key={`consult-detail-part-raw-age-mi-item-${miIndex}`}>
                                                         <Detail.RawAge.Table.Cell>
                                                             {dateInsertHypen(
-                                                                mi.MT_MDATE
+                                                                mi.MEASURE_DT
                                                             )}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.MT_AGE}
+                                                            {mi.AGE}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.MI_MHTNA}
+                                                            {mi.MI_MHTNA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.MI_MDMA}
+                                                            {mi.MI_MDMA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.MI_MAOA}
+                                                            {mi.MI_MAOA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.MI_MDLA}
+                                                            {mi.MI_MDLA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                     </Detail.RawAge.Table.Row>
                                                 )
@@ -257,13 +257,13 @@ const ConsultDetailPartRawAge = () => {
                                                             )}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {obi.OBI_AGE}
+                                                            {obi.OBI_AOA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {obi.OBI_BFA}
+                                                            {obi.OBI_BFA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {obi.OBI_BFA}
+                                                            {obi.OBI_AOA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                     </Detail.RawAge.Table.Row>
                                                 )

@@ -319,32 +319,24 @@ export interface ManageCounselMsgListInterface {
 
 // 상담 회원 생체 나이 대사나이 아이템
 export interface ConsultRawAgeMiInfoItemInterface {
-    MI_MHTNA: number
-    MT_AGE: number
-    MI_MAOA: number
-    AGE_DIFF: string
-    MT_MDATE: string
-    MBER_NO: number
-    RSLT_ANLY2: string
-    RSLT_ANLY1: string
-    MI_MDMA: number
     AGE: number
-    MI_MDLA: number
+    MEASURE_DT: string
+    MI_MAOA_DIFF: string // 복부비만
+    MI_MDLA_DIFF: string // 동맥경화
+    MI_MDMA_DIFF: string // 혈당
+    MI_MHTNA_DIFF: string // 혈압
+    RSLT_ANLY1: string
+    RSLT_ANLY2: string
 }
 
 // 상담 회원 생체 나이 비만생체 나이 아이템
 export interface ConsultRawAgeObiInfoItemInterface {
-    OBI_AGE_DIFF: string
-    'ROUND(IFNULL(RESULT': {
-        'AGE, 0), 1)': 33.0
-    }
-    TOTAL_GUID3: string
-    OBI_BAA: number
-    TOTAL_GUID2: string
-    TOTAL_GUID1: string
-    OBI_AOA: number
-    OBI_BFA: number
+    AGE: number
     MEASURE_DT: string
-    OBI_AGE: number
-    MBER_NO: number
+    OBI_AOA_DIFF: string // 복부비만
+    OBI_BAA_DIFF: string // 비만생체
+    OBI_BFA_DIFF: string // 체지방나이
+    TOTAL_GUID1: string
+    TOTAL_GUID2: string
+    TOTAL_GUID3: string
 }
