@@ -5,6 +5,7 @@ import {
     VaryInput,
     VaryModal,
     VaryTextArea,
+    VaryLabelRadioButton,
 } from '@Elements'
 import { AutoAlertModalStyle } from '@Style/Elements/FeaturesStyles'
 import { changeDatePickerDate, getNowDate, gmtTimeToTimeObject } from '@Helper'
@@ -31,13 +32,11 @@ const initializeState = {
     status: 'idle',
     info: {
         INST_NO: null,
-        NTCN_STTUS_AT: '',
         BP_NTCN_AT: '',
         BC_N_MESURE_DAY: 7,
         SB_NTCN_AT: '',
         HA_N_MESURE_DAY: 7,
         IS_N_MESURE_DAY: 7,
-        N_MESURE_NTCN_DAY: 0,
         NTCN_TY_CODE: 'PUSH',
         NTCN_CN:
             '[미측정 알림] 본 문자를 수신하신 경우 가까운 바이오그램존에서 건강을 측정 해주세요.',
@@ -46,13 +45,17 @@ const initializeState = {
         BS_N_MESURE_DAY: 7,
         HA_NTCN_AT: '',
         BS_NTCN_AT: '',
-        AL_SELECT_AT: '',
         SR_N_MESURE_DAY: 7,
         BC_NTCN_AT: '',
         SB_N_MESURE_DAY: 7,
         SR_NTCN_AT: '',
-        N_MESURE_PD_ETC: '',
         N_MESURE_NTCN_ENDDE: getNowDate(),
+        NTCN_STTUS_AT: '',
+        /*
+        AL_SELECT_AT: '',
+        N_MESURE_PD_ETC: '',
+        N_MESURE_NTCN_DAY: 0,
+        */
     },
 }
 
@@ -368,6 +371,8 @@ const AutoAlertModal = ({
                                 Width={`w40`}
                                 Value={changeDatePickerDate(
                                     pageState.info.N_MESURE_NTCN_ENDDE
+                                        ? pageState.info.N_MESURE_NTCN_ENDDE
+                                        : ''
                                 )}
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
@@ -382,6 +387,52 @@ const AutoAlertModal = ({
                                     }))
                                 }}
                             />
+                        </RowWapper>
+                        <RowWapper>
+                            <SubTitle>자동 알림 사용 유무</SubTitle>
+                            <ButtonBox>
+                                <VaryLabelRadioButton
+                                    LabelName={`사용`}
+                                    Checked={
+                                        !!(
+                                            pageState.info.NTCN_STTUS_AT &&
+                                            pageState.info.NTCN_STTUS_AT === 'Y'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                NTCN_STTUS_AT: e.target.checked
+                                                    ? 'Y'
+                                                    : 'N',
+                                            },
+                                        }))
+                                    }
+                                />
+
+                                <VaryLabelRadioButton
+                                    LabelName={`사용중지`}
+                                    Checked={
+                                        !!(
+                                            pageState.info.NTCN_STTUS_AT &&
+                                            pageState.info.NTCN_STTUS_AT === 'N'
+                                        )
+                                    }
+                                    HandleOnChange={e =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                NTCN_STTUS_AT: e.target.checked
+                                                    ? 'N'
+                                                    : 'Y',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </ButtonBox>
                         </RowWapper>
                         <RowWapper>
                             <SubTitle>알림메세지 작성</SubTitle>
