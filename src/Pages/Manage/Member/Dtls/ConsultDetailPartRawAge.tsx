@@ -164,7 +164,7 @@ const ConsultDetailPartRawAge = () => {
                                                             )}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {mi.AGE}
+                                                            {mi.MI_MSA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
                                                             {mi.MI_MHTNA_DIFF}

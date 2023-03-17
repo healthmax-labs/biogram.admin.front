@@ -321,6 +321,7 @@ export interface ManageCounselMsgListInterface {
 export interface ConsultRawAgeMiInfoItemInterface {
     AGE: number
     MEASURE_DT: string
+    MI_MSA_DIFF: string
     MI_MAOA_DIFF: string // 복부비만
     MI_MDLA_DIFF: string // 동맥경화
     MI_MDMA_DIFF: string // 혈당
