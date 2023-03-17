@@ -191,13 +191,11 @@ export interface NonMeasureListInterface {
 //미측정 자동알림 셋팅
 export interface NonMeasureAlertItemInterface {
     INST_NO?: number | null
-    NTCN_STTUS_AT: string
     BP_NTCN_AT: string
     BC_N_MESURE_DAY: number
     SB_NTCN_AT: string
     HA_N_MESURE_DAY: number
     IS_N_MESURE_DAY: number
-    N_MESURE_NTCN_DAY: number
     NTCN_TY_CODE: string
     NTCN_CN: string
     BP_N_MESURE_DAY: number
@@ -205,13 +203,17 @@ export interface NonMeasureAlertItemInterface {
     BS_N_MESURE_DAY: number
     HA_NTCN_AT: string
     BS_NTCN_AT: string
-    AL_SELECT_AT: string
     SR_N_MESURE_DAY: number
     BC_NTCN_AT: string
     SB_N_MESURE_DAY: number
     SR_NTCN_AT: string
+    N_MESURE_NTCN_ENDDE: null | string
+    NTCN_STTUS_AT: string
+    /*
+    AL_SELECT_AT: string
     N_MESURE_PD_ETC: string
-    N_MESURE_NTCN_ENDDE: string
+    N_MESURE_NTCN_DAY: number
+    */
 }
 
 //미측정 알림 셋팅
