@@ -1277,4 +1277,31 @@ export default {
             ],
         },
     ],
+    Meals: [
+        // 식사 구분.
+        {
+            code: 'BRFT',
+            name: '아침',
+        },
+        {
+            code: 'BFSN',
+            name: '오전간식',
+        },
+        {
+            code: 'LNCH',
+            name: '점심',
+        },
+        {
+            code: 'LCSN',
+            name: '오후간식',
+        },
+        {
+            code: 'DINR',
+            name: '저녁',
+        },
+        {
+            code: 'DNSN',
+            name: '야식',
+        },
+    ],
 }

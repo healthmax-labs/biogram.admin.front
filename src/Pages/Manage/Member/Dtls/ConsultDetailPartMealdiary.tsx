@@ -6,7 +6,6 @@ import {
     VaryLabelCheckBox,
 } from '@Elements'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-import Slider from 'react-slick'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
     ConsultDetailState,
@@ -22,35 +21,15 @@ import {
     changeDatePickerDate,
     gmtTimeToTimeObject,
 } from '@Helper'
+import ConsultDetailPartMealdiaryMealHistory from './ConsultDetailPartMealdiaryMealHistory'
+import { ConsultMealDiaryItemMenuListInterface } from '@Type/MemberTypes'
 
 const {
     Detail: D,
     Detail: {
-        MealDiary: { RowWapper, Search, TitleBox, Table: STable, History },
+        MealDiary: { RowWapper, Search, TitleBox, Table: STable },
     },
 } = ConsultDetailStyle
-
-function SampleNextArrow(props: any) {
-    const { className, style, onClick } = props
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: 'block', background: 'gray' }}
-            onClick={onClick}
-        />
-    )
-}
-
-function SamplePrevArrow(props: any) {
-    const { className, style, onClick } = props
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: 'block', background: 'gray' }}
-            onClick={onClick}
-        />
-    )
-}
 
 /**
  * mealDe 타이틀 날짜 정보로 변경.
@@ -113,6 +92,11 @@ const initializeState = {
         sugar: [],
         sodium: [],
         drkwtQy: [],
+        BRFT: [],
+        LNCH: [],
+        DINR: [],
+        BFSNLCSN: [],
+        DNSN: [],
     },
     average: {
         calorie: {
@@ -168,20 +152,39 @@ const initializeState = {
             diff: 0,
             symbol: '▲',
         },
+        BRFT: {
+            // 아침
+            kal: 0,
+            per: 0,
+        },
+        LNCH: {
+            // 점심
+            kal: 0,
+            per: 0,
+        },
+        DINR: {
+            // 저녁
+            kal: 0,
+            per: 0,
+        },
+        BFSNLCSN: {
+            // 오전간식 + 오후간식
+            kal: 0,
+            per: 0,
+        },
+        DNSN: {
+            // 야식
+            kal: 0,
+            per: 0,
+        },
+    },
+    selectMealHistory: {
+        mealDe: '',
+        mealMenuList: [],
     },
 }
 
 const ConsultDetailPartMealdiary = () => {
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
-    }
-
     const { memNo } = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -268,6 +271,36 @@ const ConsultDetailPartMealdiary = () => {
                 symbol: '+' | '-'
                 checked: boolean
             }>
+            BRFT: Array<{
+                // 아침
+                kal: number
+                per: number
+                checked: boolean
+            }>
+            LNCH: Array<{
+                // 점심
+                kal: number
+                per: number
+                checked: boolean
+            }>
+            DINR: Array<{
+                // 저녁
+                kal: number
+                per: number
+                checked: boolean
+            }>
+            BFSNLCSN: Array<{
+                // 오전간식 + 오후간식
+                kal: number
+                per: number
+                checked: boolean
+            }>
+            DNSN: Array<{
+                // 야식
+                kal: number
+                per: number
+                checked: boolean
+            }>
         }
         average: {
             calorie: {
@@ -323,6 +356,35 @@ const ConsultDetailPartMealdiary = () => {
                 diff: number
                 symbol: string | '+' | '-'
             }
+            BRFT: {
+                // 아침
+                kal: number
+                per: number
+            }
+            LNCH: {
+                // 점심
+                kal: number
+                per: number
+            }
+            DINR: {
+                // 저녁
+                kal: number
+                per: number
+            }
+            BFSNLCSN: {
+                // 오전간식 + 오후간식
+                kal: number
+                per: number
+            }
+            DNSN: {
+                // 야식
+                kal: number
+                per: number
+            }
+        }
+        selectMealHistory: {
+            mealDe: string
+            mealMenuList: ConsultMealDiaryItemMenuListInterface[] | null
         }
     }>(initializeState)
 
@@ -364,6 +426,24 @@ const ConsultDetailPartMealdiary = () => {
         }
     }, [mealDiaryState, setMealDiaryState])
 
+    // 날짜 클릭 처리.
+    const handleSelectMealHistory = (index: number) => {
+        if (mealDiaryState.list[index]) {
+            const { MEAL_DE, MEAL_MENU_LIST } = mealDiaryState.list[index]
+
+            setPageState(prevState => ({
+                ...prevState,
+                selectMealHistory: {
+                    mealDe: MEAL_DE,
+                    mealMenuList: MEAL_MENU_LIST ? MEAL_MENU_LIST : [],
+                },
+            }))
+        } else {
+            return
+        }
+    }
+
+    // 데이터 가공.
     useEffect(() => {
         // 데이터 조합 해서 로컬 스테이트에 담는다.
         const funcSetPageState = (data: MealDiaryListItemInterface[]) => {
@@ -514,6 +594,174 @@ const ConsultDetailPartMealdiary = () => {
                             checked: mealDiaryState.list[index].checked,
                         }
                     }),
+                    BRFT: (() => {
+                        const findList = _.map(data, e => {
+                            const { MEAL_MENU_LIST } = e
+                            const totalKal = _.sumBy(
+                                MEAL_MENU_LIST,
+                                'MEAL_CALORIE'
+                            )
+
+                            return {
+                                totalKal: totalKal,
+                                list: _.filter(
+                                    MEAL_MENU_LIST,
+                                    mml => mml.MEAL_SE_CODE === 'BRFT'
+                                ),
+                            }
+                        })
+
+                        return _.map(findList, (fl, index) => {
+                            const kal = _.sumBy(fl.list, 'MEAL_CALORIE')
+                            const per =
+                                kal === 0
+                                    ? 0
+                                    : parseFloat(
+                                          ((kal / fl.totalKal) * 100).toFixed(0)
+                                      )
+
+                            return {
+                                kal: kal,
+                                per: per,
+                                checked: mealDiaryState.list[index].checked,
+                            }
+                        })
+                    })(),
+                    LNCH: (() => {
+                        const findList = _.map(data, e => {
+                            const { MEAL_MENU_LIST } = e
+                            const totalKal = _.sumBy(
+                                MEAL_MENU_LIST,
+                                'MEAL_CALORIE'
+                            )
+
+                            return {
+                                totalKal: totalKal,
+                                list: _.filter(
+                                    MEAL_MENU_LIST,
+                                    mml => mml.MEAL_SE_CODE === 'LNCH'
+                                ),
+                            }
+                        })
+
+                        return _.map(findList, (fl, index) => {
+                            const kal = _.sumBy(fl.list, 'MEAL_CALORIE')
+                            const per =
+                                kal === 0
+                                    ? 0
+                                    : parseFloat(
+                                          ((kal / fl.totalKal) * 100).toFixed(0)
+                                      )
+
+                            return {
+                                kal: kal,
+                                per: per,
+                                checked: mealDiaryState.list[index].checked,
+                            }
+                        })
+                    })(),
+                    DINR: (() => {
+                        const findList = _.map(data, e => {
+                            const { MEAL_MENU_LIST } = e
+                            const totalKal = _.sumBy(
+                                MEAL_MENU_LIST,
+                                'MEAL_CALORIE'
+                            )
+
+                            return {
+                                totalKal: totalKal,
+                                list: _.filter(
+                                    MEAL_MENU_LIST,
+                                    mml => mml.MEAL_SE_CODE === 'DINR'
+                                ),
+                            }
+                        })
+
+                        return _.map(findList, (fl, index) => {
+                            const kal = _.sumBy(fl.list, 'MEAL_CALORIE')
+                            const per =
+                                kal === 0
+                                    ? 0
+                                    : parseFloat(
+                                          ((kal / fl.totalKal) * 100).toFixed(0)
+                                      )
+
+                            return {
+                                kal: kal,
+                                per: per,
+                                checked: mealDiaryState.list[index].checked,
+                            }
+                        })
+                    })(),
+                    BFSNLCSN: (() => {
+                        const findList = _.map(data, e => {
+                            // BFSN, LCSN
+                            const { MEAL_MENU_LIST } = e
+                            const totalKal = _.sumBy(
+                                MEAL_MENU_LIST,
+                                'MEAL_CALORIE'
+                            )
+
+                            return {
+                                totalKal: totalKal,
+                                list: _.filter(
+                                    MEAL_MENU_LIST,
+                                    mml =>
+                                        mml.MEAL_SE_CODE === 'BFSN' ||
+                                        mml.MEAL_SE_CODE === 'LCSN'
+                                ),
+                            }
+                        })
+
+                        return _.map(findList, (fl, index) => {
+                            const kal = _.sumBy(fl.list, 'MEAL_CALORIE')
+                            const per =
+                                kal === 0
+                                    ? 0
+                                    : parseFloat(
+                                          ((kal / fl.totalKal) * 100).toFixed(0)
+                                      )
+
+                            return {
+                                kal: kal,
+                                per: per,
+                                checked: mealDiaryState.list[index].checked,
+                            }
+                        })
+                    })(),
+                    DNSN: (() => {
+                        const findList = _.map(data, e => {
+                            const { MEAL_MENU_LIST } = e
+                            const totalKal = _.sumBy(
+                                MEAL_MENU_LIST,
+                                'MEAL_CALORIE'
+                            )
+
+                            return {
+                                totalKal: totalKal,
+                                list: _.filter(
+                                    MEAL_MENU_LIST,
+                                    mml => mml.MEAL_SE_CODE === 'DNSN'
+                                ),
+                            }
+                        })
+
+                        return _.map(findList, (fl, index) => {
+                            const kal = _.sumBy(fl.list, 'MEAL_CALORIE')
+                            const per =
+                                kal === 0
+                                    ? 0
+                                    : parseFloat(
+                                          ((kal / fl.totalKal) * 100).toFixed(0)
+                                      )
+
+                            return {
+                                kal: kal,
+                                per: per,
+                                checked: mealDiaryState.list[index].checked,
+                            }
+                        })
+                    })(),
                 },
             }))
         }
@@ -535,122 +783,197 @@ const ConsultDetailPartMealdiary = () => {
                 return
             }
             const { data } = pageState
-            const { topKal } = pageState.data
-            const meanCalorie = parseFloat(
-                _.meanBy(
-                    _.filter(data.calorie, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
-            const meanCarbohydrate = parseFloat(
-                _.meanBy(
-                    _.filter(data.carb, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
-            const meanProtein = parseFloat(
-                _.meanBy(
-                    _.filter(data.protein, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
-            const meanFat = parseFloat(
-                _.meanBy(
-                    _.filter(data.fat, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
-            const meanSugar = parseFloat(_.meanBy(data.sugar, 'kal').toFixed(0))
-            const meanSodium = parseFloat(
-                _.meanBy(
-                    _.filter(data.sodium, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
-            const meanDrkwtQy = parseFloat(
-                _.meanBy(
-                    _.filter(data.drkwtQy, e => e.checked),
-                    'kal'
-                ).toFixed(0)
-            )
+            const { topKal } = data
 
             setPageState(prevState => ({
                 ...prevState,
                 average: {
                     ...prevState.average,
-                    calorie: {
-                        kal: meanCalorie,
-                        diff: topKal.totalKcal - meanCalorie,
-                        symbol: topKal.totalKcal > meanCalorie ? '▼' : '▲',
-                    },
-                    carbohydrate: {
-                        k: {
-                            k: meanCarbohydrate * 4,
-                            diff:
-                                topKal.carbohydrates.kcal -
-                                (meanCarbohydrate - 4),
-                        },
-                        g: {
-                            k: meanCarbohydrate,
-                            diff: topKal.carbohydrates.gram - meanCarbohydrate,
-                        },
-                        per: parseFloat(
+                    calorie: (() => {
+                        const meanCalorie = parseFloat(
+                            _.meanBy(
+                                _.filter(data.calorie, e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
+
+                        return {
+                            kal: meanCalorie,
+                            diff: topKal.totalKcal - meanCalorie,
+                            symbol: topKal.totalKcal > meanCalorie ? '▼' : '▲',
+                        }
+                    })(),
+                    carbohydrate: (() => {
+                        const meanCarbohydrate = parseFloat(
                             _.meanBy(
                                 _.filter(data.carb, e => e.checked),
-                                'percent'
+                                'kal'
                             ).toFixed(0)
-                        ),
-                    },
-                    protein: {
-                        k: {
-                            k: meanProtein * 4,
-                            diff: topKal.protein.kcal - (meanProtein - 4),
-                        },
-                        g: {
-                            k: meanProtein,
-                            diff: topKal.protein.gram - meanProtein,
-                        },
-                        per: parseFloat(
+                        )
+
+                        return {
+                            k: {
+                                k: meanCarbohydrate * 4,
+                                diff:
+                                    topKal.carbohydrates.kcal -
+                                    (meanCarbohydrate - 4),
+                            },
+                            g: {
+                                k: meanCarbohydrate,
+                                diff:
+                                    topKal.carbohydrates.gram -
+                                    meanCarbohydrate,
+                            },
+                            per: parseFloat(
+                                _.meanBy(
+                                    _.filter(data.carb, e => e.checked),
+                                    'percent'
+                                ).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    protein: (() => {
+                        const meanProtein = parseFloat(
                             _.meanBy(
                                 _.filter(data.protein, e => e.checked),
-                                'percent'
+                                'kal'
                             ).toFixed(0)
-                        ),
-                    },
-                    fat: {
-                        k: {
-                            k: meanFat * 4,
-                            diff: topKal.fat.kcal - (meanFat - 4),
-                        },
-                        g: {
-                            k: meanFat,
-                            diff: topKal.fat.gram - meanFat,
-                        },
-                        per: parseFloat(
+                        )
+
+                        return {
+                            k: {
+                                k: meanProtein * 4,
+                                diff: topKal.protein.kcal - (meanProtein - 4),
+                            },
+                            g: {
+                                k: meanProtein,
+                                diff: topKal.protein.gram - meanProtein,
+                            },
+                            per: parseFloat(
+                                _.meanBy(
+                                    _.filter(data.protein, e => e.checked),
+                                    'percent'
+                                ).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    fat: (() => {
+                        const meanFat = parseFloat(
                             _.meanBy(
                                 _.filter(data.fat, e => e.checked),
-                                'percent'
+                                'kal'
                             ).toFixed(0)
-                        ),
-                    },
-                    sugar: {
-                        kal: meanSugar,
-                        diff: topKal.sugars.kcal - meanSugar,
-                        symbol: topKal.sugars.kcal > meanSugar ? '-' : '+',
-                    },
-                    sodium: {
-                        kal: meanSodium,
-                        diff: 2000 - meanSodium,
-                        symbol: 2000 > meanSodium ? '-' : '+',
-                    },
-                    drkwtQy: {
-                        kal: meanDrkwtQy,
-                        diff: 1800 - meanDrkwtQy,
-                        symbol: 1800 > meanDrkwtQy ? '-' : '+',
-                    },
+                        )
+
+                        return {
+                            k: {
+                                k: meanFat * 4,
+                                diff: topKal.fat.kcal - (meanFat - 4),
+                            },
+                            g: {
+                                k: meanFat,
+                                diff: topKal.fat.gram - meanFat,
+                            },
+                            per: parseFloat(
+                                _.meanBy(
+                                    _.filter(data.fat, e => e.checked),
+                                    'percent'
+                                ).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    sugar: (() => {
+                        const meanSugar = parseFloat(
+                            _.meanBy(data.sugar, 'kal').toFixed(0)
+                        )
+                        return {
+                            kal: meanSugar,
+                            diff: topKal.sugars.kcal - meanSugar,
+                            symbol: topKal.sugars.kcal > meanSugar ? '-' : '+',
+                        }
+                    })(),
+                    sodium: (() => {
+                        const meanSodium = parseFloat(
+                            _.meanBy(
+                                _.filter(data.sodium, e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
+
+                        return {
+                            kal: meanSodium,
+                            diff: 2000 - meanSodium,
+                            symbol: 2000 > meanSodium ? '-' : '+',
+                        }
+                    })(),
+                    drkwtQy: (() => {
+                        const meanDrkwtQy = parseFloat(
+                            _.meanBy(
+                                _.filter(data.drkwtQy, e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
+
+                        return {
+                            kal: meanDrkwtQy,
+                            diff: 1800 - meanDrkwtQy,
+                            symbol: 1800 > meanDrkwtQy ? '-' : '+',
+                        }
+                    })(),
+                    BRFT: (() => {
+                        const { BRFT } = pageState.data
+                        const list = BRFT.filter(e => e.checked)
+                        return {
+                            kal: _.sumBy(list, 'kal'),
+                            per: parseFloat(
+                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    LNCH: (() => {
+                        const { LNCH } = pageState.data
+                        const list = LNCH.filter(e => e.checked)
+                        return {
+                            kal: _.sumBy(list, 'kal'),
+                            per: parseFloat(
+                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    DINR: (() => {
+                        const { DINR } = pageState.data
+                        const list = DINR.filter(e => e.checked)
+                        return {
+                            kal: _.sumBy(list, 'kal'),
+                            per: parseFloat(
+                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    BFSNLCSN: (() => {
+                        const { BFSNLCSN } = pageState.data
+                        const list = BFSNLCSN.filter(e => e.checked)
+                        return {
+                            kal: _.sumBy(list, 'kal'),
+                            per: parseFloat(
+                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            ),
+                        }
+                    })(),
+                    DNSN: (() => {
+                        const { DNSN } = pageState.data
+                        const list = DNSN.filter(e => e.checked)
+                        return {
+                            kal: _.sumBy(list, 'kal'),
+                            per: parseFloat(
+                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            ),
+                        }
+                    })(),
                 },
             }))
         }
+
         funcSetAverage()
 
         // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
@@ -818,42 +1141,82 @@ const ConsultDetailPartMealdiary = () => {
                                         <>
                                             <STable.Row>
                                                 <STable.Cell
+                                                    Bg={false}
                                                     rowSpan={
                                                         2
                                                     }>{`${totalKcal} Kcal`}</STable.Cell>
                                                 <STable.Cell
+                                                    Bg={false}
                                                     colSpan={
                                                         2
                                                     }>{`${carbohydrates.percent}%`}</STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     {`${protein.percent}%`}
                                                 </STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     {`${carbohydrates.percent}%`}
                                                 </STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     {`${carbohydrates.percent}%`}
                                                 </STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     * 한국인 영양섭취 성인 평균
                                                 </STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     * 한국인 영양섭취 성인 평균
                                                 </STable.Cell>
                                             </STable.Row>
                                             <STable.Row>
-                                                <STable.Cell>{`${carbohydrates.gram}g`}</STable.Cell>
-                                                <STable.Cell>{`${carbohydrates.kcal}Kcal`}</STable.Cell>
-                                                <STable.Cell>{`${protein.gram}g`}</STable.Cell>
-                                                <STable.Cell>{`${protein.kcal}Kcal`}</STable.Cell>
-                                                <STable.Cell>{`${fat.gram}g`}</STable.Cell>
-                                                <STable.Cell>{`${fat.kcal}Kcal`}</STable.Cell>
-                                                <STable.Cell>{`${sugars.gram}g`}</STable.Cell>
-                                                <STable.Cell>{`${sugars.kcal}Kcal`}</STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${carbohydrates.gram}g`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${carbohydrates.kcal}Kcal`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${protein.gram}g`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${protein.kcal}Kcal`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${fat.gram}g`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${fat.kcal}Kcal`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${sugars.gram}g`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={
+                                                        false
+                                                    }>{`${sugars.kcal}Kcal`}</STable.Cell>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     2000 mg
                                                 </STable.Cell>
-                                                <STable.Cell colSpan={2}>
+                                                <STable.Cell
+                                                    Bg={false}
+                                                    colSpan={2}>
                                                     1800 ml
                                                 </STable.Cell>
                                             </STable.Row>
@@ -912,6 +1275,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             LabelName={
                                                                 element.title
                                                             }
+                                                            LabelClick={() =>
+                                                                handleSelectMealHistory(
+                                                                    titleIndex
+                                                                )
+                                                            }
                                                         />
                                                     </STable.TheadCellItem>
                                                 </STable.TheadCell>
@@ -926,7 +1294,7 @@ const ConsultDetailPartMealdiary = () => {
                             </STable.Thead>
                             <STable.Body>
                                 <STable.Row>
-                                    <STable.CellBg>일섭취</STable.CellBg>
+                                    <STable.Cell Bg={true}>일섭취</STable.Cell>
                                     {_.map(
                                         pageState.data.calorie,
                                         (calorie, calorieIndex) => {
@@ -938,26 +1306,17 @@ const ConsultDetailPartMealdiary = () => {
                                                 kalText = `${kal} kcal( - )`
                                             }
 
-                                            if (calorieIndex % 2 == 0) {
-                                                return (
-                                                    <STable.Cell
-                                                        colSpan={2}
-                                                        key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
-                                                        {kalText}
-                                                    </STable.Cell>
-                                                )
-                                            }
-
                                             return (
-                                                <STable.CellBg
+                                                <STable.Cell
+                                                    Bg={calorieIndex % 2 !== 0}
                                                     colSpan={2}
                                                     key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
                                                     {kalText}
-                                                </STable.CellBg>
+                                                </STable.Cell>
                                             )
                                         }
                                     )}
-                                    <STable.CellBg colSpan={4}>
+                                    <STable.Cell Bg={true} colSpan={4}>
                                         {(() => {
                                             const { kal, symbol, diff } =
                                                 pageState.average.calorie
@@ -970,29 +1329,29 @@ const ConsultDetailPartMealdiary = () => {
                                                 <>{`${kal} kcal( ${symbol} ${diff})`}</>
                                             )
                                         })()}
-                                    </STable.CellBg>
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg></STable.CellBg>
-                                    <STable.Cell>( g )</STable.Cell>
-                                    <STable.Cell>( % )</STable.Cell>
-                                    <STable.CellBg>( g )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.Cell>( g )</STable.Cell>
-                                    <STable.Cell>( % )</STable.Cell>
-                                    <STable.CellBg>( g )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.Cell>( g )</STable.Cell>
-                                    <STable.Cell>( % )</STable.Cell>
-                                    <STable.CellBg>( g )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.Cell>( g )</STable.Cell>
-                                    <STable.Cell>( % )</STable.Cell>
-                                    <STable.CellBg colSpan={2}>
+                                    <STable.Cell Bg={true}></STable.Cell>
+                                    <STable.Cell Bg={false}>( g )</STable.Cell>
+                                    <STable.Cell Bg={false}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>( g )</STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={false}>( g )</STable.Cell>
+                                    <STable.Cell Bg={false}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>( g )</STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={false}>( g )</STable.Cell>
+                                    <STable.Cell Bg={false}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>( g )</STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={false}>( g )</STable.Cell>
+                                    <STable.Cell Bg={false}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
                                         ( kcal )
-                                    </STable.CellBg>
-                                    <STable.CellBg>( g )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( g )</STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
                                     <STable.TextCell Bg={true}>
@@ -1460,321 +1819,193 @@ const ConsultDetailPartMealdiary = () => {
                                     </STable.TextCell>
                                 </STable.Row>
                                 <STable.BlankRow>
-                                    <STable.Cell colSpan={19}></STable.Cell>
+                                    <STable.Cell
+                                        Bg={false}
+                                        colSpan={19}></STable.Cell>
                                 </STable.BlankRow>
                                 <STable.Row>
-                                    <STable.CellBg>끼니별</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg>( kcal )</STable.CellBg>
-                                    <STable.CellBg>( % )</STable.CellBg>
-                                    <STable.CellBg colSpan={2}>
+                                    <STable.Cell Bg={true}>끼니별</STable.Cell>
+                                    <STable.Cell Bg={true}>
                                         ( kcal )
-                                    </STable.CellBg>
-                                    <STable.CellBg colSpan={2}>
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true}>( % )</STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        ( kcal )
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
                                         ( % )
-                                    </STable.CellBg>
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg>아침</STable.CellBg>
-                                    <STable.Cell>360</STable.Cell>
-                                    <STable.Cell>47</STable.Cell>
-                                    <STable.CellBg>360</STable.CellBg>
-                                    <STable.CellBg>47</STable.CellBg>
-                                    <STable.Cell>360</STable.Cell>
-                                    <STable.Cell>47</STable.Cell>
-                                    <STable.CellBg>360</STable.CellBg>
-                                    <STable.CellBg>47</STable.CellBg>
-                                    <STable.Cell>360</STable.Cell>
-                                    <STable.Cell>47</STable.Cell>
-                                    <STable.CellBg>360</STable.CellBg>
-                                    <STable.CellBg>47</STable.CellBg>
-                                    <STable.Cell>360</STable.Cell>
-                                    <STable.Cell>47</STable.Cell>
-                                    <STable.CellBg colSpan={2}>
-                                        360
-                                    </STable.CellBg>
-                                    <STable.CellBg colSpan={2}>
-                                        47
-                                    </STable.CellBg>
+                                    <STable.Cell Bg={true}>아침</STable.Cell>
+                                    {pageState.data.BRFT.map(
+                                        (brft, brftIndex) => {
+                                            return (
+                                                <React.Fragment
+                                                    key={`consult-detail-part-meal-diary-table-body-cell-BRFT-item-${brftIndex}`}>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            brftIndex % 2 !== 0
+                                                        }>{`${brft.kal}`}</STable.Cell>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            brftIndex % 2 !== 0
+                                                        }>{`${brft.per}`}</STable.Cell>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    )}
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.BRFT.kal}`}
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.BRFT.per}`}
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg>점심</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
+                                    <STable.Cell Bg={true}>점심</STable.Cell>
+                                    {pageState.data.LNCH.map(
+                                        (lnch, lnchIndex) => {
+                                            return (
+                                                <React.Fragment
+                                                    key={`consult-detail-part-meal-diary-table-body-cell-LNCH-item-${lnchIndex}`}>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            lnchIndex % 2 !== 0
+                                                        }>{`${lnch.kal}`}</STable.Cell>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            lnchIndex % 2 !== 0
+                                                        }>{`${lnch.per}`}</STable.Cell>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    )}
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.LNCH.kal}`}
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.LNCH.per}`}
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg>저녁</STable.CellBg>
-                                    <STable.Cell>413</STable.Cell>
-                                    <STable.Cell>53</STable.Cell>
-                                    <STable.CellBg>413</STable.CellBg>
-                                    <STable.CellBg>53</STable.CellBg>
-                                    <STable.Cell>413</STable.Cell>
-                                    <STable.Cell>53</STable.Cell>
-                                    <STable.CellBg>413</STable.CellBg>
-                                    <STable.CellBg>53</STable.CellBg>
-                                    <STable.Cell>413</STable.Cell>
-                                    <STable.Cell>53</STable.Cell>
-                                    <STable.CellBg>413</STable.CellBg>
-                                    <STable.CellBg>53</STable.CellBg>
-                                    <STable.Cell>413</STable.Cell>
-                                    <STable.Cell>53</STable.Cell>
-                                    <STable.CellBg colSpan={2}>
-                                        413
-                                    </STable.CellBg>
-                                    <STable.CellBg colSpan={2}>
-                                        53
-                                    </STable.CellBg>
+                                    <STable.Cell Bg={true}>저녁</STable.Cell>
+                                    {pageState.data.DINR.map(
+                                        (dinr, dinrIndex) => {
+                                            return (
+                                                <React.Fragment
+                                                    key={`consult-detail-part-meal-diary-table-body-cell-DINR-item-${dinrIndex}`}>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            dinrIndex % 2 !== 0
+                                                        }>{`${dinr.kal}`}</STable.Cell>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            dinrIndex % 2 !== 0
+                                                        }>{`${dinr.per}`}</STable.Cell>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    )}
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.DINR.kal}`}
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.DINR.per}`}
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg>
+                                    <STable.Cell Bg={true}>
                                         간식(오전+오후)
-                                    </STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
+                                    </STable.Cell>
+                                    {pageState.data.BFSNLCSN.map(
+                                        (bfsnlcsn, bfsnlcsnIndex) => {
+                                            return (
+                                                <React.Fragment
+                                                    key={`consult-detail-part-meal-diary-table-body-cell-BFSNLCSN-item-${bfsnlcsnIndex}`}>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            bfsnlcsnIndex %
+                                                                2 !==
+                                                            0
+                                                        }>{`${bfsnlcsn.kal}`}</STable.Cell>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            bfsnlcsnIndex %
+                                                                2 !==
+                                                            0
+                                                        }>{`${bfsnlcsn.per}`}</STable.Cell>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    )}
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.BFSNLCSN.kal}`}
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.BFSNLCSN.per}`}
+                                    </STable.Cell>
                                 </STable.Row>
                                 <STable.Row>
-                                    <STable.CellBg>야식</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.CellBg>0</STable.CellBg>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.Cell>0</STable.Cell>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
-                                    <STable.CellBg colSpan={2}>0</STable.CellBg>
+                                    <STable.Cell Bg={true}>야식</STable.Cell>
+                                    {pageState.data.DNSN.map(
+                                        (dnsn, dnsnIndex) => {
+                                            return (
+                                                <React.Fragment
+                                                    key={`consult-detail-part-meal-diary-table-body-cell-DNSN-item-${dnsnIndex}`}>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            dnsnIndex % 2 !== 0
+                                                        }>{`${dnsn.kal}`}</STable.Cell>
+                                                    <STable.Cell
+                                                        Bg={
+                                                            dnsnIndex % 2 !== 0
+                                                        }>{`${dnsn.per}`}</STable.Cell>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    )}
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.DNSN.kal}`}
+                                    </STable.Cell>
+                                    <STable.Cell Bg={true} colSpan={2}>
+                                        {`${pageState.average.DNSN.per}`}
+                                    </STable.Cell>
                                 </STable.Row>
                             </STable.Body>
                         </STable.Table>
                     </RowWapper>
                     <RowWapper>
-                        <TitleBox>일별 식사 내역 ( 11 / 05 )</TitleBox>
-                        <History.Wapper>
-                            <History.ButtonBox>
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`아침`}
-                                    Active={true}
-                                />
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`오전간식`}
-                                />
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`점심`}
-                                />
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`오후간식`}
-                                />
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`저녁`}
-                                />
-                                <VaryButton
-                                    ButtonType={`button`}
-                                    HandleClick={() => {
-                                        //
-                                    }}
-                                    ButtonName={`야식`}
-                                />
-                            </History.ButtonBox>
-                        </History.Wapper>
-                        <History.Wapper>
-                            <History.ImageBox.Container>
-                                <History.ImageBox.ImageWapper>
-                                    <History.ImageBox.ImageTitleCell>
-                                        <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
-                                        <History.ImageBox.TitleBox>
-                                            메뉴명: 돈육 김치찌개, 밥, 콩나물
-                                        </History.ImageBox.TitleBox>
-                                        <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
-                                    </History.ImageBox.ImageTitleCell>
-                                    <History.ImageBox.ImageImageCell>
-                                        <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
-                                        <History.ImageBox.ImageBox>
-                                            <Slider {...settings}>
-                                                <div>
-                                                    <h3>
-                                                        <img
-                                                            src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                                                            alt=""
-                                                        />
-                                                    </h3>
-                                                </div>
-                                                <div>
-                                                    <h3>
-                                                        <img
-                                                            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-                                                            alt=""
-                                                        />
-                                                    </h3>
-                                                </div>
-                                                <div>
-                                                    <h3>
-                                                        <img
-                                                            src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-                                                            alt=""
-                                                        />
-                                                    </h3>
-                                                </div>
-                                                <div>
-                                                    <h3>
-                                                        <img
-                                                            src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-                                                            alt=""
-                                                        />
-                                                    </h3>
-                                                </div>
-                                                <div>
-                                                    <h3>
-                                                        <img
-                                                            src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
-                                                            alt=""
-                                                        />
-                                                    </h3>
-                                                </div>
-                                            </Slider>
-                                        </History.ImageBox.ImageBox>
-                                        <History.ImageBox.EmptyCellStep1></History.ImageBox.EmptyCellStep1>
-                                    </History.ImageBox.ImageImageCell>
-                                </History.ImageBox.ImageWapper>
-                                <History.ImageBox.TableBox>
-                                    <History.ImageBox.TableBox>
-                                        <STable.Table>
-                                            <STable.Body>
-                                                <STable.Row>
-                                                    <STable.CellBg>
-                                                        식사시간
-                                                    </STable.CellBg>
-                                                    <STable.CellBg>
-                                                        10:10
-                                                    </STable.CellBg>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.CellBg>
-                                                        총열량
-                                                    </STable.CellBg>
-                                                    <STable.CellBg>
-                                                        561 kcal
-                                                    </STable.CellBg>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        열량
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        2000 kcal
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        탄수화물
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        10 g
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        단백질
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        4 g
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        지방
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        3 g
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        당류
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        1 g
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                                <STable.Row>
-                                                    <STable.Cell>
-                                                        나트륨
-                                                    </STable.Cell>
-                                                    <STable.Cell>
-                                                        2 g
-                                                    </STable.Cell>
-                                                </STable.Row>
-                                            </STable.Body>
-                                        </STable.Table>
-                                    </History.ImageBox.TableBox>
-                                </History.ImageBox.TableBox>
-                            </History.ImageBox.Container>
-                        </History.Wapper>
+                        <ConsultDetailPartMealdiaryMealHistory
+                            MealDe={pageState.selectMealHistory.mealDe}
+                            MealMenuList={
+                                pageState.selectMealHistory.mealMenuList
+                            }
+                        />
                     </RowWapper>
                 </>
             )}
