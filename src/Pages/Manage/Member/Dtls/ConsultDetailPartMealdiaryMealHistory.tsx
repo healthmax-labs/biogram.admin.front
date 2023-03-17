@@ -12,7 +12,7 @@ const {
     },
 } = ConsultDetailStyle
 
-function SampleNextArrow(props: any) {
+const SlideNextArrow = (props: any) => {
     const { className, style, onClick } = props
     return (
         <div
@@ -23,7 +23,7 @@ function SampleNextArrow(props: any) {
     )
 }
 
-function SamplePrevArrow(props: any) {
+const SlidePrevArrow = (props: any) => {
     const { className, style, onClick } = props
     return (
         <div
@@ -55,8 +55,8 @@ const ConsultDetailPartMealdiaryMealHistory = ({
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
+        nextArrow: <SlideNextArrow />,
+        prevArrow: <SlidePrevArrow />,
         beforeChange: (oldIndex: number, newIndex: number) => {
             handleBeforeChange(oldIndex, newIndex)
         },
