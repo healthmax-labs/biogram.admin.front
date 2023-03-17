@@ -141,7 +141,7 @@ const ConsultDetailPartMealdiaryMealHistory = ({
                 selectImageIndex: 0,
                 data: list.map(data => {
                     return {
-                        photo: `${process.env.REACT_APP_API_SERVER_URL}${data.PREDICT_IMAGE_PATH}`,
+                        photo: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${data.PREDICT_IMAGE_PATH}`,
                         time: `${data.MEAL_DT.substring(
                             8,
                             10

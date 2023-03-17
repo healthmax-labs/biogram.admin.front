@@ -97,7 +97,7 @@ const VaryImageUpload = ({
             if (Image && !isEmpty(Image.AtchmnflPath)) {
                 setPageState(prevState => ({
                     ...prevState,
-                    SelectImagePrev: `${process.env.REACT_APP_API_SERVER_URL}${Image.AtchmnflPath}`,
+                    SelectImagePrev: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${Image.AtchmnflPath}`,
                 }))
             }
 
