@@ -75,8 +75,8 @@ export const ConsultDetailStyle = {
         MealDiary: {
             RowWapper: tw.div`w-full`,
             Search: {
-                SearchBox: tw.div`flex flex-nowrap w-full border justify-end`,
-                SearchItem: tw.div`flex py-2`,
+                SearchBox: tw.div`flex flex-nowrap w-full border justify-end gap-2`,
+                SearchItem: tw.div`flex py-2 gap-2`,
             },
             TitleBox: tw.div`w-full pt-3 text-xs font-medium text-gray-600`,
             Table: {
@@ -88,8 +88,19 @@ export const ConsultDetailStyle = {
                 Body: tw.tbody``,
                 Row: tw.tr``,
                 BlankRow: tw.tr`h-5`,
-                Cell: tw.td`border text-xs text-gray-500 object-center`,
-                CellBg: tw.td`border text-xs text-white bg-steel items-center object-center`,
+                Cell: styled.td(({ Bg }: { Bg: boolean }) => {
+                    const returnTw = [
+                        tw`border text-xs text-gray-500 items-center object-center`,
+                    ]
+
+                    if (Bg) {
+                        returnTw.push(tw`text-white bg-steel`)
+                    } else {
+                        returnTw.push(tw`text-gray-500`)
+                    }
+
+                    return returnTw
+                }),
                 TextCell: styled.td(({ Bg }: { Bg?: boolean }) => {
                     const returnCss = [
                         tw`border text-xs text-gray-500 object-center`,

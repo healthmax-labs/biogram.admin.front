@@ -532,14 +532,17 @@ export default {
                     import('@Page/Manage/Member/Dtls/ConsultDetailPartMyCoach')
             ),
         },
-        // {
-        //     name: `식사일기`,
-        //     category: `mealdiary`,
-        //     active: false,
-        //     Component: React.lazy(
-        //         () => import('@Page/Manage/Member/Dtls/ConsultDetailMealdiary')
-        //     ),
-        // },
+        {
+            name: `식사일기`,
+            category: `mealdiary`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import(
+                        '@Page/Manage/Member/Dtls/ConsultDetailPartMealdiary'
+                    )
+            ),
+        },
         {
             name: `설문조사`,
             category: `survey`,

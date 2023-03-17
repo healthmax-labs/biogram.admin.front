@@ -107,10 +107,12 @@ export const VaryLabelStyle = {
             Width,
             TextColor,
             TextAlign,
+            CursorPointer,
         }: {
             Width?: WidthType | null
             TextColor: TextColorType
             TextAlign: TextAlignType
+            CursorPointer?: boolean
         }) => {
             const returnTw = [tw`block text-xs`]
 
@@ -128,6 +130,10 @@ export const VaryLabelStyle = {
 
             if (TextColor === 'gray') {
                 returnTw.push(tw`text-gray-500`)
+            }
+
+            if (CursorPointer) {
+                returnTw.push(tw`cursor-pointer`)
             }
 
             return returnTw

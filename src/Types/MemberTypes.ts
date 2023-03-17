@@ -340,3 +340,57 @@ export interface ConsultRawAgeObiInfoItemInterface {
     TOTAL_GUID2: string
     TOTAL_GUID3: string
 }
+
+// 상담회원 삭사 일기 메뉴
+export interface ConsultMealDiaryItemMenuListInterface {
+    MEAL_SE_CODE_NM: '아침'
+    MEAL_CALORIE: 1045
+    MENU_LIST: Array<{
+        FOOD_IMAGE_PATH: string
+        FD_ID: number
+        MEAL_SE_CODE: string
+        MEAL_DT: string
+        FD_NM: string
+        MBER_NO: number
+        NTK_QY: number
+    }>
+    MEAL_SE_CODE: string
+    JSON_DATA: string
+    MBER_NO: number
+    MEAL_SODIUM: number
+    MEAL_FAT: number
+    PREDICT_IMAGE_PATH: string
+    MEAL_DT: string
+    MEAL_PROTEIN: number
+    MEAL_SUGAR: number
+    MEAL_CARBOHYDRATE: number
+}
+
+// 상담회원 삭사 일기
+export interface ConsultMealDiaryItemInterface {
+    MEAL_NUTRITION_INFO: {
+        RECMND_CALORIE: number
+        RECMND_SODIUM: number
+        RECMND_FAT: number
+        RECMND_CARBOHYDRATE: number
+        MEAL_CALORIE: number
+        PROTEIN_RATE: number
+        MEAL_DE: string
+        SODIUM_RATE: number
+        CARBOHYDRATE_RATE: number
+        MEAL_SODIUM: number
+        CALORIE_RATE: number
+        MEAL_FAT: number
+        RECMND_DRKWT: number
+        RECMND_PROTEIN: number
+        DRKWT_QY: number
+        RECMND_SUGAR: number
+        FAT_RATE: number
+        MEAL_PROTEIN: number
+        DRKWT_RATE: number
+        MEAL_SUGAR: number
+        MEAL_CARBOHYDRATE: number
+    }
+    MEAL_DE: string
+    MEAL_MENU_LIST: ConsultMealDiaryItemMenuListInterface[] | null
+}

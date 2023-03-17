@@ -14,6 +14,7 @@ const VaryLabelCheckBox = ({
     LabelWidth,
     TextColor,
     Disabled,
+    LabelClick,
 }: {
     LabelName: string
     Disabled?: boolean
@@ -22,6 +23,7 @@ const VaryLabelCheckBox = ({
     LabelWidth?: WidthType
     TextColor?: TextColorType
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    LabelClick?: () => void
 }) => {
     return (
         <>
@@ -37,6 +39,7 @@ const VaryLabelCheckBox = ({
                     LabelWidth={LabelWidth}
                     TextColor={TextColor ? TextColor : 'gray'}
                     TextAlign={`left`}
+                    LabelClick={LabelClick}
                 />
             </Wapper>
         </>

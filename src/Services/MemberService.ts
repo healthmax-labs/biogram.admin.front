@@ -1,11 +1,12 @@
 import { _Axios_ } from '@Modules'
 import {
-    MemberSearchItemInterface,
     SendSmsInterface,
     ServicesDefaultResult,
+    MemberSearchItemInterface,
 } from '@Type/CommonTypes'
 import {
     ConsultInfoListInterface,
+    ConsultMealDiaryItemInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselInterface,
@@ -866,6 +867,28 @@ export const getInstChargerCheck = ({
     return _Axios_({
         method: 'get',
         url: `/inst/v1/charger/${permiCode}/${memberNo}/${instNo}`,
+        payload: {},
+    })
+}
+
+/**
+ * 상담회원 식사일기
+ * @param mealDe
+ * @param startDay
+ * @param mberNo
+ */
+export const getDataDiaryMeal = ({
+    mealDe,
+    startDay,
+    mberNo,
+}: {
+    mealDe: string
+    startDay: number
+    mberNo: number
+}): Promise<ServicesDefaultResult<ConsultMealDiaryItemInterface[]>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/data/v1/diary/meal/${mealDe}/${startDay}/${mberNo}`,
         payload: {},
     })
 }

@@ -767,3 +767,125 @@ export const stringCodeCheck = (str: string): boolean => {
 
     return true
 }
+
+/**
+ * bmi 에 따른 섭취기준 값 계산.
+ * @param height
+ * @param wight
+ * @param sex
+ */
+export const calCalculate = ({
+    height,
+    weight,
+    sex,
+}: {
+    height: number
+    weight: number
+    sex: 'M' | 'F'
+}): {
+    totalKcal: number
+    carbohydrates: {
+        gram: number
+        kcal: number
+        percent: number
+    }
+    protein: {
+        gram: number
+        kcal: number
+        percent: number
+    }
+    fat: {
+        gram: number
+        kcal: number
+        percent: number
+    }
+    sugars: {
+        gram: number
+        kcal: number
+        percent: number
+    }
+} => {
+    //최박사님 계산 데이터 치환 공식
+    const $B$11 = 100
+    const $B$14 = 500
+    const $D$11 = 100
+    const $D$14 = 0
+    const $E$11 = 50
+    const $E$14 = -350
+    const $G$11 = 60
+    const $G$14 = -480
+    const $I$11 = 70
+    const $I$14 = -720
+    const $L$11 = 70
+    const $L$14 = -960
+    //엑셀 셀 데이터 고정(엑셀 수정시 수정필요 변수명은 셀위치 그대로 사용)
+
+    const baseHeight = (height / 100) * (height / 100) //계량 기초값 = (키*1%)제곱
+    let baseWeight = 0 //표준체중
+
+    if (sex == 'M') {
+        baseWeight = baseHeight * 22
+    } else {
+        baseWeight = baseHeight * 21
+    } //남여 표준체중 계산
+
+    const base_kcal = baseWeight * 30 //기초대사량 kcal
+    const bmiValue = weight / baseHeight //bmi 수치
+
+    let calValue = 0
+
+    //bmi에 따른 계산
+    if (bmiValue <= 18.4) {
+        calValue = $B$14 * ($B$11 / 100)
+    } else if (bmiValue >= 18.5 && bmiValue <= 22.9) {
+        calValue = $D$14 * ($D$11 / 100)
+    } else if (bmiValue >= 23 && bmiValue <= 24.9) {
+        calValue = $E$14 * ($E$11 / 100)
+    } else if (bmiValue >= 25 && bmiValue <= 26.9) {
+        calValue = $G$14 * ($G$11 / 100)
+    } else if (bmiValue >= 27 && bmiValue <= 29.9) {
+        calValue = $I$14 * ($I$11 / 100)
+    } else if (bmiValue >= 30) {
+        calValue = $L$14 * ($L$11 / 100)
+    } else {
+        calValue = 0
+    }
+
+    const eatKcal = base_kcal + calValue //섭취 권장 칼로리
+
+    const tanGram = baseWeight * 4
+    const tanKcal = baseWeight * 4 * 4
+    const danGram = baseWeight * 1.5
+    const danKcal = baseWeight * 1.5 * 4
+    const jiGram = baseWeight
+    const jiKcal = baseWeight * 9
+
+    const totalKcal = tanKcal + danKcal + jiKcal
+
+    const dangKcal = totalKcal * 0.1
+    const dangGram = dangKcal / 4
+
+    return {
+        totalKcal: parseFloat(eatKcal.toFixed(0)),
+        carbohydrates: {
+            gram: parseFloat(tanGram.toFixed(0)),
+            kcal: parseFloat(tanKcal.toFixed(0)),
+            percent: parseFloat(((tanKcal / totalKcal) * 100).toFixed(0)),
+        },
+        protein: {
+            gram: parseFloat(danGram.toFixed(0)),
+            kcal: parseFloat(danKcal.toFixed(0)),
+            percent: parseFloat(((danKcal / totalKcal) * 100).toFixed(0)),
+        },
+        fat: {
+            gram: parseFloat(jiGram.toFixed(0)),
+            kcal: parseFloat(jiKcal.toFixed(0)),
+            percent: parseFloat(((jiKcal / totalKcal) * 100).toFixed(0)),
+        },
+        sugars: {
+            gram: parseFloat(dangGram.toFixed(0)),
+            kcal: parseFloat(dangKcal.toFixed(0)),
+            percent: 0,
+        },
+    }
+}
