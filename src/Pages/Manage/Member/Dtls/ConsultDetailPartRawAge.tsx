@@ -257,7 +257,7 @@ const ConsultDetailPartRawAge = () => {
                                                             )}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
-                                                            {obi.OBI_AOA_DIFF}
+                                                            {obi.OBI_BAA_DIFF}
                                                         </Detail.RawAge.Table.Cell>
                                                         <Detail.RawAge.Table.Cell>
                                                             {obi.OBI_BFA_DIFF}
