@@ -43,6 +43,7 @@ const ConsultListTable = ({ CurrentPage }: { CurrentPage: number }) => {
                 'memberPage/consult-survey',
                 'memberPage/consult-raw-age',
                 'memberPage/consult-message-box',
+                'memberPage/consult-meal-diary',
             ].forEach(recoilKey => {
                 recoilReset(recoilKey as RecoilStateKeyNameType)
             })

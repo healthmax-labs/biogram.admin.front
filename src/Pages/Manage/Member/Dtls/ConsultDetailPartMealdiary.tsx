@@ -1226,787 +1226,991 @@ const ConsultDetailPartMealdiary = () => {
                             </STable.Body>
                         </STable.Table>
                     </RowWapper>
-                    <RowWapper>
-                        <TitleBox>일별 섭취현황 및 차이</TitleBox>
-                        <STable.Table>
-                            <STable.Thead>
-                                <STable.TheadRow>
-                                    <STable.TheadCell></STable.TheadCell>
-                                    {pageState.data.titleDate.map(
-                                        (element, titleIndex) => {
-                                            return (
-                                                <STable.TheadCell
-                                                    colSpan={2}
-                                                    key={`consult-detail-part-meal-diary-table-head-cell-item-${titleIndex}`}>
-                                                    <STable.TheadCellItem>
-                                                        <VaryLabelCheckBox
-                                                            Checked={
-                                                                element.checked
-                                                            }
-                                                            TextColor={`white`}
-                                                            LabelReverse={true}
-                                                            HandleOnChange={e => {
-                                                                setMealDiaryState(
-                                                                    prevState => ({
-                                                                        ...prevState,
-                                                                        list: prevState.list.map(
-                                                                            (
-                                                                                list,
-                                                                                listIndex
-                                                                            ) => {
-                                                                                if (
-                                                                                    listIndex ===
-                                                                                    titleIndex
-                                                                                ) {
-                                                                                    return {
-                                                                                        ...list,
-                                                                                        checked:
-                                                                                            e
-                                                                                                .target
-                                                                                                .checked,
+                    {mealDiaryState.status === 'success' && (
+                        <>
+                            <RowWapper>
+                                <TitleBox>일별 섭취현황 및 차이</TitleBox>
+                                <STable.Table>
+                                    <STable.Thead>
+                                        <STable.TheadRow>
+                                            <STable.TheadCell></STable.TheadCell>
+                                            {pageState.data.titleDate.map(
+                                                (element, titleIndex) => {
+                                                    return (
+                                                        <STable.TheadCell
+                                                            colSpan={2}
+                                                            key={`consult-detail-part-meal-diary-table-head-cell-item-${titleIndex}`}>
+                                                            <STable.TheadCellItem>
+                                                                <VaryLabelCheckBox
+                                                                    Checked={
+                                                                        element.checked
+                                                                    }
+                                                                    TextColor={`white`}
+                                                                    LabelReverse={
+                                                                        true
+                                                                    }
+                                                                    HandleOnChange={e => {
+                                                                        setMealDiaryState(
+                                                                            prevState => ({
+                                                                                ...prevState,
+                                                                                list: prevState.list.map(
+                                                                                    (
+                                                                                        list,
+                                                                                        listIndex
+                                                                                    ) => {
+                                                                                        if (
+                                                                                            listIndex ===
+                                                                                            titleIndex
+                                                                                        ) {
+                                                                                            return {
+                                                                                                ...list,
+                                                                                                checked:
+                                                                                                    e
+                                                                                                        .target
+                                                                                                        .checked,
+                                                                                            }
+                                                                                        }
+                                                                                        return list
                                                                                     }
-                                                                                }
-                                                                                return list
-                                                                            }
-                                                                        ),
-                                                                    })
-                                                                )
-                                                            }}
-                                                            LabelName={
-                                                                element.title
-                                                            }
-                                                            LabelClick={() =>
-                                                                handleSelectMealHistory(
-                                                                    titleIndex
-                                                                )
-                                                            }
-                                                        />
-                                                    </STable.TheadCellItem>
-                                                </STable.TheadCell>
-                                            )
-                                        }
-                                    )}
-
-                                    <STable.TheadCell colSpan={4}>
-                                        평균 섭취 현황
-                                    </STable.TheadCell>
-                                </STable.TheadRow>
-                            </STable.Thead>
-                            <STable.Body>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>일섭취</STable.Cell>
-                                    {_.map(
-                                        pageState.data.calorie,
-                                        (calorie, calorieIndex) => {
-                                            const { kal, symbol, diff } =
-                                                calorie
-
-                                            let kalText = `${kal} kcal( ${symbol} ${diff})`
-                                            if (kal === 0) {
-                                                kalText = `${kal} kcal( - )`
-                                            }
-
-                                            return (
-                                                <STable.Cell
-                                                    Bg={calorieIndex % 2 !== 0}
-                                                    colSpan={2}
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
-                                                    {kalText}
-                                                </STable.Cell>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={4}>
-                                        {(() => {
-                                            const { kal, symbol, diff } =
-                                                pageState.average.calorie
-
-                                            if (kal == 0) {
-                                                return <>{`${kal} kcal( - )`}</>
-                                            }
-
-                                            return (
-                                                <>{`${kal} kcal( ${symbol} ${diff})`}</>
-                                            )
-                                        })()}
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}></STable.Cell>
-                                    <STable.Cell Bg={false}>( g )</STable.Cell>
-                                    <STable.Cell Bg={false}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>( g )</STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={false}>( g )</STable.Cell>
-                                    <STable.Cell Bg={false}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>( g )</STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={false}>( g )</STable.Cell>
-                                    <STable.Cell Bg={false}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>( g )</STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={false}>( g )</STable.Cell>
-                                    <STable.Cell Bg={false}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( g )</STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            탄수화물
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.carb,
-                                        (carb, carbIndex) => {
-                                            const {
-                                                kal,
-                                                symbol,
-                                                percent,
-                                                diff,
-                                            } = carb
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-carb-item-${carbIndex}`}>
-                                                    <STable.TextCell
-                                                        Bg={
-                                                            carbIndex % 2 !== 0
-                                                        }>
-                                                        <STable.CellText
-                                                            Color={
-                                                                carbIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${kal}`}
-                                                        </STable.CellText>
-                                                        <STable.CellText
-                                                            Color={
-                                                                carbIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {kal > 0
-                                                                ? `(${symbol}${diff})`
-                                                                : `( - )`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                    <STable.TextCell
-                                                        Bg={
-                                                            carbIndex % 2 !== 0
-                                                        }>
-                                                        <STable.CellText
-                                                            Color={
-                                                                carbIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${percent}`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.TextCell colSpan={2} Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.carbohydrate.k.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.carbohydrate.k
-                                                    .k == 0
-                                                    ? ' - '
-                                                    : pageState.average
-                                                          .carbohydrate.k.diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.carbohydrate.g.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.carbohydrate.k
-                                                    .k == 0
-                                                    ? ' - '
-                                                    : pageState.average
-                                                          .carbohydrate.g.diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.carbohydrate.per}`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            단백질
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.protein,
-                                        (protein, proteinIndex) => {
-                                            const {
-                                                kal,
-                                                symbol,
-                                                percent,
-                                                diff,
-                                            } = protein
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-protein-item-${proteinIndex}`}>
-                                                    <STable.TextCell
-                                                        Bg={
-                                                            proteinIndex % 2 !==
-                                                            0
-                                                        }>
-                                                        <STable.CellText
-                                                            Color={
-                                                                proteinIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${kal}`}
-                                                        </STable.CellText>
-                                                        <STable.CellText
-                                                            Color={
-                                                                proteinIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {kal > 0
-                                                                ? `(${symbol}${diff})`
-                                                                : `( - )`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                    <STable.TextCell
-                                                        Bg={
-                                                            proteinIndex % 2 !==
-                                                            0
-                                                        }>
-                                                        <STable.CellText
-                                                            Color={
-                                                                proteinIndex %
-                                                                    2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${percent}`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.TextCell colSpan={2} Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.protein.k.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.protein.k
-                                                    .k === 0
-                                                    ? ' - '
-                                                    : pageState.average.protein
-                                                          .k.diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.protein.g.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.protein.k
-                                                    .k === 0
-                                                    ? ' - '
-                                                    : pageState.average.protein
-                                                          .g.diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.protein.per}`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            지방
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.fat,
-                                        (fat, fatIndex) => {
-                                            const {
-                                                kal,
-                                                symbol,
-                                                percent,
-                                                diff,
-                                            } = fat
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-fat-item-${fatIndex}`}>
-                                                    <STable.TextCell
-                                                        Bg={fatIndex % 2 !== 0}>
-                                                        <STable.CellText
-                                                            Color={
-                                                                fatIndex % 2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${kal}`}
-                                                        </STable.CellText>
-                                                        <STable.CellText
-                                                            Color={
-                                                                fatIndex % 2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {kal > 0
-                                                                ? `(${symbol}${diff})`
-                                                                : `( - )`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                    <STable.TextCell
-                                                        Bg={fatIndex % 2 !== 0}>
-                                                        <STable.CellText
-                                                            Color={
-                                                                fatIndex % 2 !==
-                                                                0
-                                                                    ? `white`
-                                                                    : `gray`
-                                                            }>
-                                                            {`${percent}`}
-                                                        </STable.CellText>
-                                                    </STable.TextCell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-
-                                    <STable.TextCell colSpan={2} Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.fat.k.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.fat.k.k === 0
-                                                    ? ' - '
-                                                    : pageState.average.fat.k
-                                                          .diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.fat.g.k}`}
-                                        </STable.CellText>
-                                        <STable.CellText Color={`white`}>
-                                            {`(${
-                                                pageState.average.fat.k.k === 0
-                                                    ? ' - '
-                                                    : pageState.average.fat.g
-                                                          .diff
-                                            })`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            {`${pageState.average.fat.per}`}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
-
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            당류
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.sugar,
-                                        (sugar, sugarIndex) => {
-                                            const { kal, symbol, diff } = sugar
-                                            return (
-                                                <STable.TextCell
-                                                    key={`consult-detail-part-meal-diary-table-sugar-cell-item-${sugarIndex}`}
-                                                    Bg={sugarIndex % 2 !== 0}
-                                                    colSpan={2}>
-                                                    <STable.CellText
-                                                        Color={
-                                                            sugarIndex % 2 === 0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {`${kal}`}
-                                                    </STable.CellText>
-                                                    <STable.CellText
-                                                        Color={
-                                                            sugarIndex % 2 === 0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {kal === 0
-                                                            ? `( - )`
-                                                            : `(${symbol}${diff})`}
-                                                    </STable.CellText>
-                                                </STable.TextCell>
-                                            )
-                                        }
-                                    )}
-
-                                    <STable.TextCell Bg={true} colSpan={4}>
-                                        <STable.CellText Color={`white`}>
-                                            {(() => {
-                                                const { kal, symbol, diff } =
-                                                    pageState.average.sugar
-
-                                                if (kal === 0) {
-                                                    return <>{`${kal}g( - )`}</>
-                                                }
-
-                                                return (
-                                                    <>{`${kal}g( ${symbol} ${diff}g)`}</>
-                                                )
-                                            })()}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
-
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            나트륨
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.sodium,
-                                        (sodium, sodiumIndex) => {
-                                            const { kal, symbol, diff } = sodium
-                                            return (
-                                                <STable.TextCell
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-sodium-item-${sodiumIndex}`}
-                                                    Bg={sodiumIndex % 2 !== 0}
-                                                    colSpan={2}>
-                                                    <STable.CellText
-                                                        Color={
-                                                            sodiumIndex % 2 ===
-                                                            0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {`${kal} mg`}
-                                                    </STable.CellText>
-                                                    <STable.CellText
-                                                        Color={
-                                                            sodiumIndex % 2 ===
-                                                            0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {kal === 0
-                                                            ? `( - )`
-                                                            : `(${symbol}${diff})`}
-                                                    </STable.CellText>
-                                                </STable.TextCell>
-                                            )
-                                        }
-                                    )}
-
-                                    <STable.TextCell Bg={true} colSpan={4}>
-                                        <STable.CellText Color={`white`}>
-                                            {(() => {
-                                                const { kal, symbol, diff } =
-                                                    pageState.average.sodium
-
-                                                if (kal === 0) {
-                                                    return (
-                                                        <>{`${kal}mg( - )`}</>
+                                                                                ),
+                                                                            })
+                                                                        )
+                                                                    }}
+                                                                    LabelName={
+                                                                        element.title
+                                                                    }
+                                                                    LabelClick={() =>
+                                                                        handleSelectMealHistory(
+                                                                            titleIndex
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </STable.TheadCellItem>
+                                                        </STable.TheadCell>
                                                     )
                                                 }
+                                            )}
 
-                                                return (
-                                                    <>{`${kal}mg( ${symbol} ${diff}mg)`}</>
-                                                )
-                                            })()}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
+                                            <STable.TheadCell colSpan={4}>
+                                                평균 섭취 현황
+                                            </STable.TheadCell>
+                                        </STable.TheadRow>
+                                    </STable.Thead>
+                                    <STable.Body>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                일섭취
+                                            </STable.Cell>
+                                            {_.map(
+                                                pageState.data.calorie,
+                                                (calorie, calorieIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        diff,
+                                                    } = calorie
 
-                                <STable.Row>
-                                    <STable.TextCell Bg={true}>
-                                        <STable.CellText Color={`white`}>
-                                            수분
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                    {_.map(
-                                        pageState.data.drkwtQy,
-                                        (drkwtQy, drkwtQyIndex) => {
-                                            const { kal, symbol, diff } =
-                                                drkwtQy
-                                            return (
-                                                <STable.TextCell
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-drkwtQy-item-${drkwtQyIndex}`}
-                                                    Bg={drkwtQyIndex % 2 !== 0}
-                                                    colSpan={2}>
-                                                    <STable.CellText
-                                                        Color={
-                                                            drkwtQyIndex % 2 ===
-                                                            0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {`${kal} ml`}
-                                                    </STable.CellText>
-                                                    <STable.CellText
-                                                        Color={
-                                                            drkwtQyIndex % 2 ===
-                                                            0
-                                                                ? `gray`
-                                                                : `white`
-                                                        }>
-                                                        {kal === 0
-                                                            ? `( - )`
-                                                            : `(${symbol}${diff})`}
-                                                    </STable.CellText>
-                                                </STable.TextCell>
-                                            )
-                                        }
-                                    )}
+                                                    let kalText = `${kal} kcal( ${symbol} ${diff})`
+                                                    if (kal === 0) {
+                                                        kalText = `${kal} kcal( - )`
+                                                    }
 
-                                    <STable.TextCell Bg={true} colSpan={4}>
-                                        <STable.CellText Color={`white`}>
-                                            {(() => {
-                                                const { kal, symbol, diff } =
-                                                    pageState.average.drkwtQy
-
-                                                if (kal === 0) {
                                                     return (
-                                                        <>{`${kal}ml( - )`}</>
+                                                        <STable.Cell
+                                                            Bg={
+                                                                calorieIndex %
+                                                                    2 !==
+                                                                0
+                                                            }
+                                                            colSpan={2}
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
+                                                            {kalText}
+                                                        </STable.Cell>
                                                     )
                                                 }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={4}>
+                                                {(() => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        diff,
+                                                    } =
+                                                        pageState.average
+                                                            .calorie
 
-                                                return (
-                                                    <>{`${kal}ml( ${symbol} ${diff}ml)`}</>
-                                                )
-                                            })()}
-                                        </STable.CellText>
-                                    </STable.TextCell>
-                                </STable.Row>
-                                <STable.BlankRow>
-                                    <STable.Cell
-                                        Bg={false}
-                                        colSpan={19}></STable.Cell>
-                                </STable.BlankRow>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>끼니별</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true}>( % )</STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        ( kcal )
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        ( % )
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>아침</STable.Cell>
-                                    {pageState.data.BRFT.map(
-                                        (brft, brftIndex) => {
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-BRFT-item-${brftIndex}`}>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            brftIndex % 2 !== 0
-                                                        }>{`${brft.kal}`}</STable.Cell>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            brftIndex % 2 !== 0
-                                                        }>{`${brft.per}`}</STable.Cell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.BRFT.kal}`}
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.BRFT.per}`}
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>점심</STable.Cell>
-                                    {pageState.data.LNCH.map(
-                                        (lnch, lnchIndex) => {
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-LNCH-item-${lnchIndex}`}>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            lnchIndex % 2 !== 0
-                                                        }>{`${lnch.kal}`}</STable.Cell>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            lnchIndex % 2 !== 0
-                                                        }>{`${lnch.per}`}</STable.Cell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.LNCH.kal}`}
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.LNCH.per}`}
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>저녁</STable.Cell>
-                                    {pageState.data.DINR.map(
-                                        (dinr, dinrIndex) => {
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-DINR-item-${dinrIndex}`}>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            dinrIndex % 2 !== 0
-                                                        }>{`${dinr.kal}`}</STable.Cell>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            dinrIndex % 2 !== 0
-                                                        }>{`${dinr.per}`}</STable.Cell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.DINR.kal}`}
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.DINR.per}`}
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>
-                                        간식(오전+오후)
-                                    </STable.Cell>
-                                    {pageState.data.BFSNLCSN.map(
-                                        (bfsnlcsn, bfsnlcsnIndex) => {
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-BFSNLCSN-item-${bfsnlcsnIndex}`}>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            bfsnlcsnIndex %
-                                                                2 !==
-                                                            0
-                                                        }>{`${bfsnlcsn.kal}`}</STable.Cell>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            bfsnlcsnIndex %
-                                                                2 !==
-                                                            0
-                                                        }>{`${bfsnlcsn.per}`}</STable.Cell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.BFSNLCSN.kal}`}
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.BFSNLCSN.per}`}
-                                    </STable.Cell>
-                                </STable.Row>
-                                <STable.Row>
-                                    <STable.Cell Bg={true}>야식</STable.Cell>
-                                    {pageState.data.DNSN.map(
-                                        (dnsn, dnsnIndex) => {
-                                            return (
-                                                <React.Fragment
-                                                    key={`consult-detail-part-meal-diary-table-body-cell-DNSN-item-${dnsnIndex}`}>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            dnsnIndex % 2 !== 0
-                                                        }>{`${dnsn.kal}`}</STable.Cell>
-                                                    <STable.Cell
-                                                        Bg={
-                                                            dnsnIndex % 2 !== 0
-                                                        }>{`${dnsn.per}`}</STable.Cell>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    )}
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.DNSN.kal}`}
-                                    </STable.Cell>
-                                    <STable.Cell Bg={true} colSpan={2}>
-                                        {`${pageState.average.DNSN.per}`}
-                                    </STable.Cell>
-                                </STable.Row>
-                            </STable.Body>
-                        </STable.Table>
-                    </RowWapper>
-                    <RowWapper>
-                        <ConsultDetailPartMealdiaryMealHistory
-                            MealDe={pageState.selectMealHistory.mealDe}
-                            MealMenuList={
-                                pageState.selectMealHistory.mealMenuList
-                            }
-                        />
-                    </RowWapper>
+                                                    if (kal == 0) {
+                                                        return (
+                                                            <>{`${kal} kcal( - )`}</>
+                                                        )
+                                                    }
+
+                                                    return (
+                                                        <>{`${kal} kcal( ${symbol} ${diff})`}</>
+                                                    )
+                                                })()}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell
+                                                Bg={true}></STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={false}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( g )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    탄수화물
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.carb,
+                                                (carb, carbIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        percent,
+                                                        diff,
+                                                    } = carb
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-carb-item-${carbIndex}`}>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    carbIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        carbIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${kal}`}
+                                                                </STable.CellText>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        carbIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {kal > 0
+                                                                        ? `(${symbol}${diff})`
+                                                                        : `( - )`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    carbIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        carbIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${percent}`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.TextCell
+                                                colSpan={2}
+                                                Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.carbohydrate.k.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average
+                                                            .carbohydrate.k.k ==
+                                                        0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .carbohydrate
+                                                                  .k.diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.carbohydrate.g.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average
+                                                            .carbohydrate.k.k ==
+                                                        0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .carbohydrate
+                                                                  .g.diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.carbohydrate.per}`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    단백질
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.protein,
+                                                (protein, proteinIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        percent,
+                                                        diff,
+                                                    } = protein
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-protein-item-${proteinIndex}`}>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    proteinIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        proteinIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${kal}`}
+                                                                </STable.CellText>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        proteinIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {kal > 0
+                                                                        ? `(${symbol}${diff})`
+                                                                        : `( - )`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    proteinIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        proteinIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${percent}`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.TextCell
+                                                colSpan={2}
+                                                Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.protein.k.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average
+                                                            .protein.k.k === 0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .protein.k
+                                                                  .diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.protein.g.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average
+                                                            .protein.k.k === 0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .protein.g
+                                                                  .diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.protein.per}`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    지방
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.fat,
+                                                (fat, fatIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        percent,
+                                                        diff,
+                                                    } = fat
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-fat-item-${fatIndex}`}>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    fatIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        fatIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${kal}`}
+                                                                </STable.CellText>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        fatIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {kal > 0
+                                                                        ? `(${symbol}${diff})`
+                                                                        : `( - )`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                            <STable.TextCell
+                                                                Bg={
+                                                                    fatIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>
+                                                                <STable.CellText
+                                                                    Color={
+                                                                        fatIndex %
+                                                                            2 !==
+                                                                        0
+                                                                            ? `white`
+                                                                            : `gray`
+                                                                    }>
+                                                                    {`${percent}`}
+                                                                </STable.CellText>
+                                                            </STable.TextCell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+
+                                            <STable.TextCell
+                                                colSpan={2}
+                                                Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.fat.k.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average.fat.k
+                                                            .k === 0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .fat.k.diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.fat.g.k}`}
+                                                </STable.CellText>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`(${
+                                                        pageState.average.fat.k
+                                                            .k === 0
+                                                            ? ' - '
+                                                            : pageState.average
+                                                                  .fat.g.diff
+                                                    })`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {`${pageState.average.fat.per}`}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    당류
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.sugar,
+                                                (sugar, sugarIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        diff,
+                                                    } = sugar
+                                                    return (
+                                                        <STable.TextCell
+                                                            key={`consult-detail-part-meal-diary-table-sugar-cell-item-${sugarIndex}`}
+                                                            Bg={
+                                                                sugarIndex %
+                                                                    2 !==
+                                                                0
+                                                            }
+                                                            colSpan={2}>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    sugarIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {`${kal}`}
+                                                            </STable.CellText>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    sugarIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {kal === 0
+                                                                    ? `( - )`
+                                                                    : `(${symbol}${diff})`}
+                                                            </STable.CellText>
+                                                        </STable.TextCell>
+                                                    )
+                                                }
+                                            )}
+
+                                            <STable.TextCell
+                                                Bg={true}
+                                                colSpan={4}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {(() => {
+                                                        const {
+                                                            kal,
+                                                            symbol,
+                                                            diff,
+                                                        } =
+                                                            pageState.average
+                                                                .sugar
+
+                                                        if (kal === 0) {
+                                                            return (
+                                                                <>{`${kal}g( - )`}</>
+                                                            )
+                                                        }
+
+                                                        return (
+                                                            <>{`${kal}g( ${symbol} ${diff}g)`}</>
+                                                        )
+                                                    })()}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    나트륨
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.sodium,
+                                                (sodium, sodiumIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        diff,
+                                                    } = sodium
+                                                    return (
+                                                        <STable.TextCell
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-sodium-item-${sodiumIndex}`}
+                                                            Bg={
+                                                                sodiumIndex %
+                                                                    2 !==
+                                                                0
+                                                            }
+                                                            colSpan={2}>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    sodiumIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {`${kal} mg`}
+                                                            </STable.CellText>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    sodiumIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {kal === 0
+                                                                    ? `( - )`
+                                                                    : `(${symbol}${diff})`}
+                                                            </STable.CellText>
+                                                        </STable.TextCell>
+                                                    )
+                                                }
+                                            )}
+
+                                            <STable.TextCell
+                                                Bg={true}
+                                                colSpan={4}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {(() => {
+                                                        const {
+                                                            kal,
+                                                            symbol,
+                                                            diff,
+                                                        } =
+                                                            pageState.average
+                                                                .sodium
+
+                                                        if (kal === 0) {
+                                                            return (
+                                                                <>{`${kal}mg( - )`}</>
+                                                            )
+                                                        }
+
+                                                        return (
+                                                            <>{`${kal}mg( ${symbol} ${diff}mg)`}</>
+                                                        )
+                                                    })()}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+
+                                        <STable.Row>
+                                            <STable.TextCell Bg={true}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    수분
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                            {_.map(
+                                                pageState.data.drkwtQy,
+                                                (drkwtQy, drkwtQyIndex) => {
+                                                    const {
+                                                        kal,
+                                                        symbol,
+                                                        diff,
+                                                    } = drkwtQy
+                                                    return (
+                                                        <STable.TextCell
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-drkwtQy-item-${drkwtQyIndex}`}
+                                                            Bg={
+                                                                drkwtQyIndex %
+                                                                    2 !==
+                                                                0
+                                                            }
+                                                            colSpan={2}>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    drkwtQyIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {`${kal} ml`}
+                                                            </STable.CellText>
+                                                            <STable.CellText
+                                                                Color={
+                                                                    drkwtQyIndex %
+                                                                        2 ===
+                                                                    0
+                                                                        ? `gray`
+                                                                        : `white`
+                                                                }>
+                                                                {kal === 0
+                                                                    ? `( - )`
+                                                                    : `(${symbol}${diff})`}
+                                                            </STable.CellText>
+                                                        </STable.TextCell>
+                                                    )
+                                                }
+                                            )}
+
+                                            <STable.TextCell
+                                                Bg={true}
+                                                colSpan={4}>
+                                                <STable.CellText
+                                                    Color={`white`}>
+                                                    {(() => {
+                                                        const {
+                                                            kal,
+                                                            symbol,
+                                                            diff,
+                                                        } =
+                                                            pageState.average
+                                                                .drkwtQy
+
+                                                        if (kal === 0) {
+                                                            return (
+                                                                <>{`${kal}ml( - )`}</>
+                                                            )
+                                                        }
+
+                                                        return (
+                                                            <>{`${kal}ml( ${symbol} ${diff}ml)`}</>
+                                                        )
+                                                    })()}
+                                                </STable.CellText>
+                                            </STable.TextCell>
+                                        </STable.Row>
+                                        <STable.BlankRow>
+                                            <STable.Cell
+                                                Bg={false}
+                                                colSpan={19}></STable.Cell>
+                                        </STable.BlankRow>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                끼니별
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true}>
+                                                ( % )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                ( kcal )
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                ( % )
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                아침
+                                            </STable.Cell>
+                                            {pageState.data.BRFT.map(
+                                                (brft, brftIndex) => {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-BRFT-item-${brftIndex}`}>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    brftIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${brft.kal}`}</STable.Cell>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    brftIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${brft.per}`}</STable.Cell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.BRFT.kal}`}
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.BRFT.per}`}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                점심
+                                            </STable.Cell>
+                                            {pageState.data.LNCH.map(
+                                                (lnch, lnchIndex) => {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-LNCH-item-${lnchIndex}`}>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    lnchIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${lnch.kal}`}</STable.Cell>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    lnchIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${lnch.per}`}</STable.Cell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.LNCH.kal}`}
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.LNCH.per}`}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                저녁
+                                            </STable.Cell>
+                                            {pageState.data.DINR.map(
+                                                (dinr, dinrIndex) => {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-DINR-item-${dinrIndex}`}>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    dinrIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${dinr.kal}`}</STable.Cell>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    dinrIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${dinr.per}`}</STable.Cell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.DINR.kal}`}
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.DINR.per}`}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                간식(오전+오후)
+                                            </STable.Cell>
+                                            {pageState.data.BFSNLCSN.map(
+                                                (bfsnlcsn, bfsnlcsnIndex) => {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-BFSNLCSN-item-${bfsnlcsnIndex}`}>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    bfsnlcsnIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${bfsnlcsn.kal}`}</STable.Cell>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    bfsnlcsnIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${bfsnlcsn.per}`}</STable.Cell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.BFSNLCSN.kal}`}
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.BFSNLCSN.per}`}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                        <STable.Row>
+                                            <STable.Cell Bg={true}>
+                                                야식
+                                            </STable.Cell>
+                                            {pageState.data.DNSN.map(
+                                                (dnsn, dnsnIndex) => {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={`consult-detail-part-meal-diary-table-body-cell-DNSN-item-${dnsnIndex}`}>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    dnsnIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${dnsn.kal}`}</STable.Cell>
+                                                            <STable.Cell
+                                                                Bg={
+                                                                    dnsnIndex %
+                                                                        2 !==
+                                                                    0
+                                                                }>{`${dnsn.per}`}</STable.Cell>
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                            )}
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.DNSN.kal}`}
+                                            </STable.Cell>
+                                            <STable.Cell Bg={true} colSpan={2}>
+                                                {`${pageState.average.DNSN.per}`}
+                                            </STable.Cell>
+                                        </STable.Row>
+                                    </STable.Body>
+                                </STable.Table>
+                            </RowWapper>
+                            <RowWapper>
+                                <ConsultDetailPartMealdiaryMealHistory
+                                    MealDe={pageState.selectMealHistory.mealDe}
+                                    MealMenuList={
+                                        pageState.selectMealHistory.mealMenuList
+                                    }
+                                />
+                            </RowWapper>
+                        </>
+                    )}
                 </>
             )}
         </D.Container>
