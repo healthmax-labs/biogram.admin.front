@@ -816,7 +816,7 @@ const ConsultDetailPartMealdiary = () => {
                                 k: meanCarbohydrate * 4,
                                 diff:
                                     topKal.carbohydrates.kcal -
-                                    (meanCarbohydrate - 4),
+                                    meanCarbohydrate * 4,
                             },
                             g: {
                                 k: meanCarbohydrate,
@@ -843,7 +843,7 @@ const ConsultDetailPartMealdiary = () => {
                         return {
                             k: {
                                 k: meanProtein * 4,
-                                diff: topKal.protein.kcal - (meanProtein - 4),
+                                diff: topKal.protein.kcal - meanProtein * 4,
                             },
                             g: {
                                 k: meanProtein,
@@ -867,8 +867,8 @@ const ConsultDetailPartMealdiary = () => {
 
                         return {
                             k: {
-                                k: meanFat * 4,
-                                diff: topKal.fat.kcal - (meanFat - 4),
+                                k: meanFat * 9,
+                                diff: topKal.fat.kcal - meanFat * 9,
                             },
                             g: {
                                 k: meanFat,
