@@ -1,4 +1,5 @@
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
+import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { ElementLoading, VaryButton, VaryDatepickerInput } from '@Elements'
 import React, { useCallback, useEffect } from 'react'
 import Messages from '@Messages'
@@ -18,6 +19,12 @@ const {
     TableBodyRow,
     TableBodyCell,
 } = CommonListTableStyle
+
+const {
+    Detail: {
+        Mesg: { Container, Search },
+    },
+} = ConsultDetailStyle
 
 const ConsultDetailPartMessage = () => {
     const params = useParams<{
@@ -80,11 +87,14 @@ const ConsultDetailPartMessage = () => {
     }, [messageBoxListState, handleGetData, params, setMessageBoxListState])
 
     return (
-        <div className="">
-            <div className="flex flex-nowrap">
-                <div className="flex py-2 items-center w-1/3 justify-start">
+        <Container>
+            <Search.SearchBox>
+                <Search.SearchItem>
                     <VaryDatepickerInput
-                        InputeType={'default'}
+                        Width={'w32'}
+                        ShowType={`year, month`}
+                        InputeType={`default`}
+                        DateFormat={'yyyy년 MM월'}
                         Value={changeDatePickerDate(
                             messageBoxListState.search.START_DT
                         )}
@@ -100,17 +110,15 @@ const ConsultDetailPartMessage = () => {
                             }))
                         }}
                     />
-                </div>
-                <div className="flex py-2 items-center w-full justify-end">
-                    <div className="flex py-2">
-                        <VaryButton
-                            ButtonType={'default'}
-                            ButtonName={'조회'}
-                            HandleClick={() => handleGetData().then()}
-                        />
-                    </div>
-                </div>
-            </div>
+                </Search.SearchItem>
+                <Search.SearchItem>
+                    <VaryButton
+                        ButtonType={'default'}
+                        ButtonName={'조회'}
+                        HandleClick={() => handleGetData().then()}
+                    />
+                </Search.SearchItem>
+            </Search.SearchBox>
             {messageBoxListState.status === 'loading' ? (
                 <div className="h-[calc(100vh-10rem)]">
                     <ElementLoading FullScreen={false} />
@@ -175,7 +183,7 @@ const ConsultDetailPartMessage = () => {
                     </TableBody>
                 </TableWapper>
             )}
-        </div>
+        </Container>
     )
 }
 
