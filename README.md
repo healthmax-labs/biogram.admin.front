@@ -23,10 +23,12 @@ touch .env
 > .env
 REACT_APP_VERSION=$npm_package_version
 REACT_APP_NAME=$npm_package_name
-REACT_APP_ENV=development
-REACT_APP_API_SERVER_URL=${Server URL}
-REACT_APP_LOGIN_EXPIRE_IN=${time}
+REACT_APP_ENV=${environment}
+REACT_APP_API_SERVER_URL=${API Server DOMAIN}
+REACT_APP_API_IMAGE_SERVER_URL=${IMAGE Server DOMAIN}
+REACT_APP_LOGIN_EXPIRE_IN=${login time}
 REACT_APP_MENU_CODE=${menu code}
+REACT_APP_KAKAOAK_APPKEY=${kakaoak appkey}
 
 
 
@@ -72,12 +74,14 @@ git branch -d feature/member-list || git branch -D feature/member-list
 ```
 
 > linebreak error fix
+
 ```
 Just made autocrlf param in .gitconfig file false and recloned the code. It worked!
 
 [core]
     autocrlf = false
 ```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
