@@ -32,9 +32,8 @@ const ConsultListTable = ({ CurrentPage }: { CurrentPage: number }) => {
         useState<tableOptionInterface>(ConsultTableConfig)
 
     const handleRowClick = (element: ConsulttableListItemInterface) => {
-        if (detailState.memNo !== element.MBER_NO) {
+        if (detailState.memNo && detailState.memNo !== element.MBER_NO) {
             ;[
-                'memberPage/consult-list',
                 'memberPage/consult-detail',
                 'memberPage/consult-chart-list',
                 'memberPage/consult-chart',
