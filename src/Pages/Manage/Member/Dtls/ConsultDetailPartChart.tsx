@@ -22,6 +22,7 @@ import {
 import { manageRemoveCounsel, postManageCounsel } from '@Service/MemberService'
 import { ManageCounselItemInterface } from '@Type/MemberTypes'
 import { useMainLayouts } from '@Hook/index'
+import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 
 const {
     HeaderRow,
@@ -32,6 +33,12 @@ const {
     TableBodyRow,
     TableBodyCell,
 } = CommonListTableStyle
+
+const {
+    Detail: {
+        Chart: { Container, Search },
+    },
+} = ConsultDetailStyle
 
 const initializeState = {
     select: [],
@@ -146,9 +153,9 @@ const ConsultDetailPartChart = () => {
     }, [chartState, handleGetList, memNo])
 
     return (
-        <>
-            <div className="flex flex-nowrap">
-                <div className="flex py-2 items-center w-1/3 justify-start">
+        <Container>
+            <Search.SearchBox>
+                <Search.SearchItem>
                     <VaryDatepickerInput
                         InputeType={`default`}
                         Value={
@@ -169,7 +176,7 @@ const ConsultDetailPartChart = () => {
                             }))
                         }}
                     />
-                    ~
+                    <Search.DateLine>~</Search.DateLine>
                     <VaryDatepickerInput
                         InputeType={`default`}
                         Value={
@@ -188,37 +195,35 @@ const ConsultDetailPartChart = () => {
                             }))
                         }}
                     />
-                </div>
-                <div className="flex py-2 items-center w-full justify-end">
-                    <div className="flex py-2 gap-1">
-                        <VaryButton
-                            ButtonType={'default'}
-                            ButtonName={'조회'}
-                            HandleClick={() => {
-                                handleGetList(Number(memNo)).then()
-                            }}
-                        />
-                        <VaryButton
-                            ButtonType={'default'}
-                            ButtonName={'신규'}
-                            HandleClick={() => resetConsultChart()}
-                        />
-                        <VaryButton
-                            ButtonType={'default'}
-                            ButtonName={'삭제'}
-                            HandleClick={() => {
-                                setPageState(prevState => ({
-                                    ...prevState,
-                                    modal: {
-                                        ...prevState.modal,
-                                        removeConfirm: true,
-                                    },
-                                }))
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
+                </Search.SearchItem>
+                <Search.SearchItem>
+                    <VaryButton
+                        ButtonType={'default'}
+                        ButtonName={'조회'}
+                        HandleClick={() => {
+                            handleGetList(Number(memNo)).then()
+                        }}
+                    />
+                    <VaryButton
+                        ButtonType={'default'}
+                        ButtonName={'신규'}
+                        HandleClick={() => resetConsultChart()}
+                    />
+                    <VaryButton
+                        ButtonType={'default'}
+                        ButtonName={'삭제'}
+                        HandleClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    removeConfirm: true,
+                                },
+                            }))
+                        }}
+                    />
+                </Search.SearchItem>
+            </Search.SearchBox>
             {chartState.listStatus === 'loading' ? (
                 <div className="h-[calc(100vh-10rem)]">
                     <ElementLoading FullScreen={false} />
@@ -367,7 +372,7 @@ const ConsultDetailPartChart = () => {
                     }}
                 />
             )}
-        </>
+        </Container>
     )
 }
 

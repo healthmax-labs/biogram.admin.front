@@ -17,6 +17,7 @@ import Codes from '@Codes'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
+import { dateInsertHypen } from '@Helper'
 
 const { Detail } = ConsultDetailStyle
 
@@ -222,8 +223,8 @@ const ConsultDetailPartSurvey = () => {
 
     return (
         <Detail.Container>
-            <Detail.Survey.RowWapper>
-                <div className="w-full text-left items-center pt-2">
+            <Detail.Survey.ButtonWapper>
+                <Detail.Survey.Button>
                     <VaryButton
                         ButtonType={'default'}
                         ButtonName={'수기입력'}
@@ -237,8 +238,8 @@ const ConsultDetailPartSurvey = () => {
                             }))
                         }
                     />
-                </div>
-            </Detail.Survey.RowWapper>
+                </Detail.Survey.Button>
+            </Detail.Survey.ButtonWapper>
             {surveyState.data &&
                 surveyState.data.QUSTNR_ANSWERS &&
                 surveyState.data.QUSTNR_ANSWERS.map((survey, index) => {
@@ -247,138 +248,144 @@ const ConsultDetailPartSurvey = () => {
                     } = survey
 
                     return (
-                        <Detail.Survey.RowWapper
-                            key={`consult-detail-survey-table-row-item-${index}`}>
-                            <Detail.Survey.Table.Table>
-                                <Detail.Survey.Table.Body>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            기초 생활습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            흡연
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {LLHB.ANSWER_1}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            음주
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {LLHB.ANSWER_2}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            복약
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {LLHB.ANSWER_3}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            위험요인
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {LLHB.ANSWER_4}
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            운동습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            운동 규칙성
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {SPHB.ANSWER_1
-                                                ? SPHB.ANSWER_1
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            활동량
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {SPHB.ANSWER_2
-                                                ? SPHB.ANSWER_2
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            중강도 운동량
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {SPHB.ANSWER_3
-                                                ? SPHB.ANSWER_3
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            고강도 운동량
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {SPHB.ANSWER_4
-                                                ? SPHB.ANSWER_4
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell rowSpan={2}>
-                                            식습관
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            규칙적인 식사
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_1
-                                                ? MLHB.ANSWER_1
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            1일 2끼이상 담백질
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_2
-                                                ? MLHB.ANSWER_2
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            동물성 지방 섭취
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_3
-                                                ? MLHB.ANSWER_3
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            짠음식 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_4
-                                                ? MLHB.ANSWER_4
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                    <Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Cell>
-                                            채소/과일 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_5
-                                                ? MLHB.ANSWER_5
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            유제품 섭취빈도
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell>
-                                            {MLHB.ANSWER_6
-                                                ? MLHB.ANSWER_6
-                                                : '-'}
-                                        </Detail.Survey.Table.Cell>
-                                        <Detail.Survey.Table.Cell
-                                            colSpan={
-                                                4
-                                            }></Detail.Survey.Table.Cell>
-                                    </Detail.Survey.Table.Row>
-                                </Detail.Survey.Table.Body>
-                            </Detail.Survey.Table.Table>
-                        </Detail.Survey.RowWapper>
+                        <>
+                            <Detail.Survey.DateBox>
+                                {dateInsertHypen(survey.QUSTNR_DE)}
+                            </Detail.Survey.DateBox>
+                            <Detail.Survey.RowWapper
+                                key={`consult-detail-survey-table-row-item-${index}`}>
+                                <Detail.Survey.Table.Table>
+                                    <Detail.Survey.Table.Body>
+                                        <Detail.Survey.Table.Row>
+                                            <Detail.Survey.Table.Cell>
+                                                기초 생활습관
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                흡연
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {LLHB.ANSWER_1}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                음주
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {LLHB.ANSWER_2}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                복약
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {LLHB.ANSWER_3}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                위험요인
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {LLHB.ANSWER_4}
+                                            </Detail.Survey.Table.Cell>
+                                        </Detail.Survey.Table.Row>
+                                        <Detail.Survey.Table.Row>
+                                            <Detail.Survey.Table.Cell>
+                                                운동습관
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                운동 규칙성
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {SPHB.ANSWER_1
+                                                    ? SPHB.ANSWER_1
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                활동량
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {SPHB.ANSWER_2
+                                                    ? SPHB.ANSWER_2
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                중강도 운동량
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {SPHB.ANSWER_3
+                                                    ? SPHB.ANSWER_3
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                고강도 운동량
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {SPHB.ANSWER_4
+                                                    ? SPHB.ANSWER_4
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                        </Detail.Survey.Table.Row>
+                                        <Detail.Survey.Table.Row>
+                                            <Detail.Survey.Table.Cell
+                                                rowSpan={2}>
+                                                식습관
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                규칙적인 식사
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_1
+                                                    ? MLHB.ANSWER_1
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                1일 2끼이상 담백질
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_2
+                                                    ? MLHB.ANSWER_2
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                동물성 지방 섭취
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_3
+                                                    ? MLHB.ANSWER_3
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                짠음식 섭취빈도
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_4
+                                                    ? MLHB.ANSWER_4
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                        </Detail.Survey.Table.Row>
+                                        <Detail.Survey.Table.Row>
+                                            <Detail.Survey.Table.Cell>
+                                                채소/과일 섭취빈도
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_5
+                                                    ? MLHB.ANSWER_5
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                유제품 섭취빈도
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell>
+                                                {MLHB.ANSWER_6
+                                                    ? MLHB.ANSWER_6
+                                                    : '-'}
+                                            </Detail.Survey.Table.Cell>
+                                            <Detail.Survey.Table.Cell
+                                                colSpan={
+                                                    4
+                                                }></Detail.Survey.Table.Cell>
+                                        </Detail.Survey.Table.Row>
+                                    </Detail.Survey.Table.Body>
+                                </Detail.Survey.Table.Table>
+                            </Detail.Survey.RowWapper>
+                        </>
                     )
                 })}
 

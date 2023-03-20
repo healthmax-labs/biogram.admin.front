@@ -1,4 +1,3 @@
-import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { MemberMesureInfoInterface } from '@Type/MemberTypes'
 import Codes from '@Codes'
 import React, { useEffect, useState } from 'react'
@@ -8,6 +7,7 @@ import {
     MemberMyDataModal,
     VaryButton,
 } from '@Elements'
+import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailState } from '@Recoil/MemberPagesState'
 import _ from 'lodash'
@@ -71,6 +71,25 @@ const ConsultDetailPartMyData = () => {
 
     return (
         <>
+            <Detail.MyData.ButtonWapper>
+                <Detail.MyData.Button>
+                    <VaryButton
+                        ButtonType={'default'}
+                        ButtonName={'수기입력'}
+                        HandleClick={() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    myDataInput: {
+                                        state: true,
+                                    },
+                                },
+                            }))
+                        }
+                    />
+                </Detail.MyData.Button>
+            </Detail.MyData.ButtonWapper>
             <Detail.Container>
                 {detailState.status === 'loading' ? (
                     <div className="h-[calc(100vh-10rem)]">
@@ -221,23 +240,6 @@ const ConsultDetailPartMyData = () => {
                     </Detail.MyData.Wapper>
                 )}
             </Detail.Container>
-            <div className="w-full text-left items-center gap-2 mt-3">
-                <VaryButton
-                    ButtonType={`default`}
-                    ButtonName={'수기입력'}
-                    HandleClick={() =>
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                myDataInput: {
-                                    state: true,
-                                },
-                            },
-                        }))
-                    }
-                />
-            </div>
             {pageState.modal.myData.state &&
                 pageState.modal.myData.selectCode &&
                 pageState.modal.myData.selectName && (

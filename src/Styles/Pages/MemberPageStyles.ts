@@ -53,7 +53,6 @@ export const ConsultDetailStyle = {
             BodyCellBef1: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
             BodyCellBef: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
             BodyCellBefLink: tw.div`cursor-pointer`,
-            // BodyCell: tw.td`h-8 border-r text-xs text-gray-600 whitespace-nowrap`,
             BodyCell: styled.td(
                 ({ Color }: { Color?: 'block' | 'red' | 'green' }) => {
                     const returnCss = [
@@ -71,6 +70,8 @@ export const ConsultDetailStyle = {
                     return returnCss
                 }
             ),
+            ButtonWapper: tw.div`flex flex-nowrap w-full border py-2`,
+            Button: tw.div`flex h-8 w-full justify-end gap-2`,
         },
         MealDiary: {
             RowWapper: tw.div`w-full`,
@@ -152,6 +153,7 @@ export const ConsultDetailStyle = {
         },
         Survey: {
             RowWapper: tw.div`w-full pb-1`,
+            DateBox: tw.div`flex w-full justify-end text-xs text-gray-500 pt-2`,
             Table: {
                 Table: tw.table`min-w-full shadow-md rounded`,
                 Body: tw.tbody``,
@@ -159,11 +161,13 @@ export const ConsultDetailStyle = {
                 CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8 content-center justify-center`,
                 Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center`,
             },
+            ButtonWapper: tw.div`flex flex-nowrap w-full border py-2`,
+            Button: tw.div`flex h-8 w-full justify-end gap-2`,
         },
         MyCoach: {
             RowWapper: tw.div`w-full pb-1`,
             SearchWapper: tw.div`flex flex-nowrap w-full border`,
-            SearchBox: tw.div`flex py-2 w-full justify-end`,
+            SearchBox: tw.div`flex py-2 w-full justify-end gap-2`,
             SearchItems: tw.div`flex gap-1 h-8 px-1`,
             SearchItem: tw.div`flex items-center`,
             LoadingBox: tw.div`flex flex-col pt-32`,
@@ -207,6 +211,21 @@ export const ConsultDetailStyle = {
                 TFoot: tw.tfoot`text-xs border bg-gray-500`,
                 TFootRow: tw.tr``,
                 TFootCell: tw.th`bg-steel text-xs text-white`,
+            },
+        },
+        Mesg: {
+            Container: tw.div``,
+            Search: {
+                SearchBox: tw.div`flex flex-nowrap w-full border justify-end gap-2`,
+                SearchItem: tw.div`flex py-2 gap-2`,
+            },
+        },
+        Chart: {
+            Container: tw.div``,
+            Search: {
+                SearchBox: tw.div`flex flex-nowrap w-full border justify-end gap-2`,
+                SearchItem: tw.div`flex py-2 gap-2`,
+                DateLine: tw.div`flex items-center`,
             },
         },
     },
