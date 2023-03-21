@@ -393,12 +393,21 @@ export const gmtTimeToTimeObject = (
  * @param str
  */
 export const timeStringParse = (str: string): string | boolean => {
-    if (str.length !== 14) return false
+    if (str.length < 12) return false
 
-    return str.replace(
-        /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
-        '$1-$2-$3 $4:$5:$6'
-    )
+    if (str.length === 14) {
+        return str.replace(
+            /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
+            '$1-$2-$3 $4:$5:$6'
+        )
+    } else if (str.length === 12) {
+        return str.replace(
+            /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)$/,
+            '$1-$2-$3 $4:$5:00'
+        )
+    }
+
+    return false
 }
 
 /**
