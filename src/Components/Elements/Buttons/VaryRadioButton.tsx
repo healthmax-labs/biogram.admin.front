@@ -6,12 +6,14 @@ const { Wapper, RadioButton } = VaryInputStyle
 const VaryRadioButton = ({
     Checked,
     HandleOnChange,
+    Flex,
 }: {
+    Flex: boolean
     Checked: boolean
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
     return (
-        <Wapper>
+        <Wapper Flex={Flex}>
             <RadioButton
                 type="radio"
                 checked={Checked}

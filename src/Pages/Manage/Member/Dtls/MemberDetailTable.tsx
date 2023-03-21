@@ -1430,6 +1430,7 @@ const MemberDetailTable = ({
                                 <InputCell>
                                     <WS.FlexNoWarapGap>
                                         <VaryLabelRadioButton
+                                            LabelWidth={`wMin`}
                                             LabelName={`남성`}
                                             Checked={
                                                 !!(
@@ -1452,6 +1453,7 @@ const MemberDetailTable = ({
                                         />
 
                                         <VaryLabelRadioButton
+                                            LabelWidth={`wMin`}
                                             LabelName={`여성`}
                                             Checked={
                                                 !!(
@@ -1581,6 +1583,7 @@ const MemberDetailTable = ({
                                         <InputCell>
                                             <WS.FlexNoWarapGap>
                                                 <VaryLabelRadioButton
+                                                    LabelWidth={`wMin`}
                                                     LabelName={`내근직`}
                                                     Checked={
                                                         detailState.detail
@@ -1602,6 +1605,7 @@ const MemberDetailTable = ({
                                                 />
 
                                                 <VaryLabelRadioButton
+                                                    LabelWidth={`wMin`}
                                                     LabelName={`외근직`}
                                                     Checked={
                                                         detailState.detail
@@ -1681,6 +1685,7 @@ const MemberDetailTable = ({
                                             <InputCell>
                                                 <WS.FlexNoWarapGap>
                                                     <VaryLabelRadioButton
+                                                        LabelWidth={`wMin`}
                                                         LabelName={`내근직`}
                                                         Checked={
                                                             detailState.detail
@@ -1702,6 +1707,7 @@ const MemberDetailTable = ({
                                                     />
 
                                                     <VaryLabelRadioButton
+                                                        LabelWidth={`wMin`}
                                                         LabelName={`외근직`}
                                                         Checked={
                                                             detailState.detail
