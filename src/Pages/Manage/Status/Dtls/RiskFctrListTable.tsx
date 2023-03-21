@@ -61,7 +61,8 @@ const RiskFctrListTable = () => {
                     RiskFctrTableConfig.Columns,
                     (column: any, index) => {
                         if (index === 0) {
-                            return _.slice(column, 0)
+                            return _.slice(column, 1)
+                            // return column
                         } else {
                             return _.filter(column, el => {
                                 return el.key !== 'MBER_NO'
