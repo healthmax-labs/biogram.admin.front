@@ -25,6 +25,18 @@ const initializeState = {
             step2: 0,
         },
     },
+    sleep: {
+        data: [],
+        goal: 0,
+        avg: {
+            step1: '',
+            step2: 0,
+        },
+        goalAvg: {
+            step1: 0,
+            step2: 0,
+        },
+    },
 }
 
 const ConsultDetailPartMyGraphLifeLog = () => {
@@ -46,11 +58,23 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             goal: number // 목표
             avg: {
                 step1: number // 평균 활동량
-                step2: number // 평균 운동 시간
+                step2: number // 활동 목표 도달률
             }
             goalAvg: {
-                step1: number // 활동 목표 도달률
+                step1: number // 평균 운동 시간
                 step2: number // 운동 목표 도달률
+            }
+        }
+        sleep: {
+            data: Array<{ date: string; start: number; end: number }>
+            goal: number // 목표
+            avg: {
+                step1: string // 평균 수면 시간
+                step2: number // 수면 목표 도달률
+            }
+            goalAvg: {
+                step1: number // 목표 취침률
+                step2: number // 목표 기상률
             }
         }
     }>(initializeState)
@@ -141,7 +165,6 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                     LATEST_HR_INFOS: hrInfo,
                 },
             } = myGraphState.lifeLog
-            // console.debug(myGraphState.lifeLog)
 
             const chartData = _.map(data, (d, dIndex) => {
                 const {
@@ -163,7 +186,22 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 : 0
 
             const avg = _.sumBy(data, 'STEPS') / data.length
-            const golAvh = (avg / goal) * 100
+            const golAvh = // 운동 목표 보다 더했는지 안했는지 합에 퍼센트
+                _.sum(
+                    _.map(hrInfo, hrel => {
+                        const {
+                            HR_STDR_INFO: { FAT_BURNING, ENDURANCE, SUPER },
+                        } = hrel
+
+                        const total = FAT_BURNING + ENDURANCE + SUPER
+
+                        if (total >= goal) {
+                            return 100
+                        } else {
+                            return 0
+                        }
+                    })
+                ) / hrInfo.length
 
             // 평균 운동 시간. ( 운동시간 정보 데이터 들중 운동 시간정보들만 더해서 평균 값)
             const avgHrTime =
@@ -205,29 +243,154 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                     avg: {
                         ...prevState.trckStep.avg,
                         step1: parseFloat(avg.toFixed(1)),
-                        step2: parseFloat(avgHrTime.toFixed(1)),
+                        step2: parseFloat(golAvh.toFixed(1)),
                     },
                     goalAvg: {
                         ...prevState.trckStep.goalAvg,
-                        step1: parseFloat(golAvh.toFixed(1)),
+                        step1: parseFloat(avgHrTime.toFixed(1)),
                         step2: parseFloat(htGoal.toFixed(1)),
                     },
                 },
             }))
         }
 
-        console.debug(myGraphState.lifeLog)
+        // 수면
+        const funcSetSleepInfo = () => {
+            /**
+             * 12시 보다 크면 : 시간 * 60 + 분
+             * 12시 작으면 : 시간 * 60 + 분 + 720
+             */
 
-        /**
-         * 12시 보다 크면 : 시간 * 60 + 분
-         * 12시 작으면 : 시간 * 60 + 분 + 720
-         */
+            const {
+                data: { SLEEP_14DAYS_INFO_LIST: data },
+            } = myGraphState.lifeLog
+
+            const chartData = _.map(data, d => {
+                const { MESURE_DE, SLEEP_BEGIN_TIME, SLEET_END_TIME } = d
+                if (_.isEmpty(SLEEP_BEGIN_TIME)) {
+                    return {
+                        date: MESURE_DE,
+                        start: 0,
+                        end: 0,
+                    }
+                }
+
+                const startHour = Number(SLEEP_BEGIN_TIME.substring(0, 2))
+                const startMin = Number(SLEEP_BEGIN_TIME.substring(2, 4))
+
+                const endHour = Number(SLEET_END_TIME.substring(0, 2))
+                const endMin = Number(SLEET_END_TIME.substring(2, 4))
+
+                return {
+                    date: d.MESURE_DE,
+                    start:
+                        startHour > 12
+                            ? startHour * 60 + startMin
+                            : startHour * 60 + startMin + 720,
+                    end:
+                        endHour > 12
+                            ? endHour * 60 + endMin
+                            : endHour * 60 + endMin + 720,
+                }
+            })
+
+            const lastData = _.last(data)
+            const goal = lastData // 목표치는 리스트중 마지막꺼.
+                ? lastData.GOAL_VALUE
+                : 0
+
+            // 평균 수면 시간
+            const avg =
+                _.sum(
+                    _.map(data, e => {
+                        const { SLEEP_TIME } = e
+
+                        return SLEEP_TIME
+                    })
+                ) / data.length
+
+            const avgMin = parseFloat(avg.toFixed(0))
+            const avgDays = Math.floor(avgMin / 60 / 24)
+            const avgHours = Math.floor((avgMin - avgDays * 60 * 24) / 60)
+            const avgMins = avgMin - avgDays * 60 * 24 - avgHours * 60
+            const avgRHhour = avgHours > 9 ? avgHours : '0' + avgHours
+            const avgRMins = avgMins > 9 ? avgMins : '0' + avgMins
+
+            // 수면 목표 도달률
+            const golAvh =
+                _.sum(
+                    _.map(data, d => {
+                        const { SLEEP_TIME, GOAL_VALUE } = d
+
+                        if (SLEEP_TIME > GOAL_VALUE) {
+                            return 100
+                        } else {
+                            return (SLEEP_TIME / GOAL_VALUE) * 100
+                        }
+                    })
+                ) / data.length
+
+            const avgStart =
+                _.sum(
+                    _.map(data, d => {
+                        const { GOAL_BEGIN_TIME, SLEEP_BEGIN_TIME } = d
+
+                        const goalHour = Number(GOAL_BEGIN_TIME.substring(0, 2))
+                        const sleepHour = Number(
+                            SLEEP_BEGIN_TIME.substring(0, 2)
+                        )
+
+                        if (goalHour === sleepHour) {
+                            return 100
+                        } else {
+                            return 0
+                        }
+                    })
+                ) / data.length
+
+            const avgEnd =
+                _.sum(
+                    _.map(data, d => {
+                        const { GOAL_END_TIME, SLEET_END_TIME } = d
+
+                        const goalHour = Number(GOAL_END_TIME.substring(0, 2))
+                        const sleepHour = Number(SLEET_END_TIME.substring(0, 2))
+
+                        if (goalHour === sleepHour) {
+                            return 100
+                        } else {
+                            return 0
+                        }
+                    })
+                ) / data.length
+
+            setPageState(prevState => ({
+                ...prevState,
+                sleep: {
+                    ...prevState.sleep,
+                    data: chartData,
+                    goal: goal,
+                    avg: {
+                        ...prevState.trckStep.avg,
+                        step1: `${avgRHhour}시간 ${avgRMins}분`,
+                        step2: parseFloat(golAvh.toFixed(1)),
+                    },
+                    goalAvg: {
+                        ...prevState.trckStep.goalAvg,
+                        step1: parseFloat(avgStart.toFixed(1)),
+                        step2: parseFloat(avgEnd.toFixed(1)),
+                    },
+                },
+            }))
+        }
+
         funcSetMoblphonData()
         funcSetTrckStep()
+        funcSetSleepInfo()
     }, [myGraphState.lifeLog])
 
     useEffect(() => {
-        console.debug(pageState)
+        // console.debug(pageState)
     }, [pageState])
 
     useEffect(() => {
@@ -375,7 +538,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             도달률
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            {`${pageState.trckStep.goalAvg.step1}%`}
+                                            {`${pageState.trckStep.avg.step2}%`}
                                         </div>
                                     </div>
                                 </div>
@@ -385,7 +548,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             평균 운동 시간
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            {`${pageState.trckStep.avg.step2}분`}
+                                            {`${pageState.trckStep.goalAvg.step1}분`}
                                         </div>
                                     </div>
                                 </div>
@@ -412,7 +575,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             평균 수면 시간
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            0시간 0분
+                                            {`${pageState.sleep.avg.step1}`}
                                         </div>
                                     </div>
                                 </div>
@@ -425,7 +588,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             도달률
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            0.0%
+                                            {`${pageState.sleep.avg.step2}%`}
                                         </div>
                                     </div>
                                 </div>
@@ -435,7 +598,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             목표 취침률
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            0.0%
+                                            {`${pageState.sleep.goalAvg.step1}%`}
                                         </div>
                                     </div>
                                 </div>
@@ -445,7 +608,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             목표 기상률
                                         </div>
                                         <div className="text-xs text-gray-500">
-                                            0.0%
+                                            {`${pageState.sleep.goalAvg.step2}%`}
                                         </div>
                                     </div>
                                 </div>
