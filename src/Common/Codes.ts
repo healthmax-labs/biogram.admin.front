@@ -157,6 +157,215 @@ export default {
             },
         },
     },
+    myGraph: {
+        category: [
+            // 상담회원 현황 - 마이그래프 구분 코드.
+            {
+                name: `체성분`,
+                code: `body`,
+            },
+            {
+                name: `혈압`,
+                code: `brssr`,
+            },
+            {
+                name: `혈당`,
+                code: `bdsg`,
+            },
+            {
+                name: `콜레스테롤`,
+                code: `chol`,
+            },
+            {
+                name: `혈관`,
+                code: `bldvss`,
+            },
+            {
+                name: `스트레스`,
+                code: `strs`,
+            },
+            {
+                name: `신장`,
+                code: `height`,
+            },
+            {
+                name: `허리둘레`,
+                code: `waist`,
+            },
+            {
+                name: `뇌기능`,
+                code: `brain`,
+            },
+            {
+                name: `활동량 & 수면`,
+                code: `life_log`,
+            },
+        ],
+        dataCode: {
+            body: [
+                {
+                    code: `BDWGH`,
+                    name: `몸무게(체중)`,
+                },
+                {
+                    code: `SLM`,
+                    name: `근육량`,
+                },
+                {
+                    code: `FAT_MAS`,
+                    name: `체지방량`,
+                },
+                {
+                    code: `EST_BN_MAS`,
+                    name: `추정골량`,
+                },
+                {
+                    code: `PBF`,
+                    name: `체지방률`,
+                },
+                {
+                    code: `VFL`,
+                    name: `내장지방레벨`,
+                },
+                {
+                    code: `BMI`,
+                    name: `BMI`,
+                },
+                {
+                    code: `BMR`,
+                    name: `기초대사량`,
+                },
+            ],
+            brssr: [
+                {
+                    code: 'DIASTOLIC',
+                    name: `이완기 혈압`,
+                },
+                {
+                    code: 'SYSTOLIC',
+                    name: `수축기 혈압`,
+                },
+                {
+                    code: 'PULS',
+                    name: `심박수`,
+                },
+            ],
+            bdsg: [
+                {
+                    code: `FBS`,
+                    name: `식전 혈당`,
+                },
+                {
+                    code: `PP2`,
+                    name: `식후 혈당`,
+                },
+                {
+                    code: `HBA1C`,
+                    name: `당화혈색소`,
+                },
+            ],
+            chol: [
+                {
+                    code: `T_CHOL`,
+                    name: `총 콜레스테롤`,
+                },
+                {
+                    code: `TG`,
+                    name: `중성지방`,
+                },
+                {
+                    code: `HDLC`,
+                    name: `HDL 콜레스테롤`,
+                },
+                {
+                    code: `LDLC`,
+                    name: `LDL 콜레스테롤`,
+                },
+            ],
+            bldvss: [
+                {
+                    code: `BLDVSS_STEP`,
+                    name: `혈관단계`,
+                },
+                {
+                    code: `CAD_OUTPUT_IN`,
+                    name: `박출강도`,
+                },
+                {
+                    code: `ELSTC_DGREE`,
+                    name: `탄성도`,
+                },
+                {
+                    code: `RBV_QY`,
+                    name: `잔혈량`,
+                },
+            ],
+            strs: [
+                {
+                    code: `STRS_SCORE`,
+                    name: `스트레스 점수`,
+                },
+                {
+                    code: `STRS_CNTRMSR_ABLTY`,
+                    name: `신체적 스트레스`,
+                },
+                {
+                    code: `MNTL_STRS`,
+                    name: `정신적 스트레스`,
+                },
+                {
+                    code: `PHYSIC_STRS`,
+                    name: `스트레스 대처능력`,
+                },
+            ],
+            height: [
+                {
+                    code: `HEIGHT`,
+                    name: `신장`,
+                },
+            ],
+            waist: [
+                {
+                    code: `WAIST_CRCMFRNC`,
+                    name: `허리둘레`,
+                },
+            ],
+            brain: [
+                {
+                    code: `WAIST_CRCMFRNC`,
+                    name: `허리둘레`,
+                },
+                {
+                    code: `BBF_ADJST_TIME`,
+                    name: `기초 뇌 기능`,
+                },
+                {
+                    code: `CB_FNCT`,
+                    name: `인지 뇌 기능`,
+                },
+                {
+                    code: `CB_ABLTY`,
+                    name: `인지 뇌 능력`,
+                },
+                {
+                    code: `CB_FNCT_SCORE`,
+                    name: `인지 뇌 기능 점수`,
+                },
+                {
+                    code: `BBF_FNCT_SCORE`,
+                    name: `뇌 혈류 조절 시간`,
+                },
+                {
+                    code: `BB_FNCT`,
+                    name: `뇌 혈류 기능 점수`,
+                },
+                {
+                    code: `BH_TNT_SCORE`,
+                    name: `뇌기능 종합점수`,
+                },
+            ],
+        },
+    },
     myData: [
         {
             name: `체성분`,

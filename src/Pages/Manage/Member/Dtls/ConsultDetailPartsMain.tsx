@@ -38,7 +38,7 @@ const ConsultDetailPartsMain = () => {
 
     const detailState = useRecoilValue(ConsultDetailState)
 
-    // 템에 따른 메인 페이지 동적 로딩.
+    // 텝에 따른 메인 페이지 동적 로딩.
     const renderTabPageComponent = () => {
         const category = params.category
 

@@ -4,6 +4,17 @@ import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
     ConsultMealDiaryItemInterface,
+    ConsultMyGraphBldvssItemResultInterface,
+    ConsultMyGraphBodyResultItemInterface,
+    ConsultMyGraphBrainResultItemInterface,
+    ConsultMyGraphBrssrResultItemInterface,
+    ConsultMyGraphCategoryType,
+    ConsultMyGraphCholResultItemInterface,
+    ConsultMyGraphDdsgResultItemInterface,
+    ConsultMyGraphHeightResultItemInterface,
+    ConsultMyGraphLifeLogResultInterface,
+    ConsultMyGraphStrsResultItemInterface,
+    ConsultMyGraphWaistResultItemInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselItemInterface,
@@ -187,6 +198,7 @@ interface RawAgeInterface {
     }
 }
 
+// 식사 일기
 export interface MealDiaryListItemInterface
     extends ConsultMealDiaryItemInterface {
     checked: boolean
@@ -200,6 +212,55 @@ interface MealDiaryInterface {
         startDay: number
     }
     list: MealDiaryListItemInterface[]
+}
+
+// 마이그래프
+interface MyGraphInterface {
+    search: {
+        memNo: number | null
+        category: string | ConsultMyGraphCategoryType
+        startDay: string
+    }
+    body: {
+        status: DefaultStatus
+        data: ConsultMyGraphBodyResultItemInterface[]
+    }
+    brssr: {
+        status: DefaultStatus
+        data: ConsultMyGraphBrssrResultItemInterface[]
+    }
+    bdsg: {
+        status: DefaultStatus
+        data: ConsultMyGraphDdsgResultItemInterface[]
+    }
+    chol: {
+        status: DefaultStatus
+        data: ConsultMyGraphCholResultItemInterface[]
+    }
+    bldvss: {
+        status: DefaultStatus
+        data: ConsultMyGraphBldvssItemResultInterface[]
+    }
+    strs: {
+        status: DefaultStatus
+        data: ConsultMyGraphStrsResultItemInterface[]
+    }
+    height: {
+        status: DefaultStatus
+        data: ConsultMyGraphHeightResultItemInterface[]
+    }
+    waist: {
+        status: DefaultStatus
+        data: ConsultMyGraphWaistResultItemInterface[]
+    }
+    brain: {
+        status: DefaultStatus
+        data: ConsultMyGraphBrainResultItemInterface[]
+    }
+    lifeLog: {
+        status: DefaultStatus
+        data: ConsultMyGraphLifeLogResultInterface
+    }
 }
 
 // 회원 현황 리스트 페이지
@@ -489,5 +550,51 @@ export const MealDiaryState = atom<MealDiaryInterface>({
             startDay: 6,
         },
         list: [],
+    },
+})
+
+// 상담회원 마이그래프
+export const MyGraphState = atom<MyGraphInterface>({
+    key: `memberPage/consult-my-graph`,
+    default: {
+        search: {
+            memNo: null,
+            category: 'body',
+            startDay: getNowDate(),
+        },
+        body: { status: 'idle', data: [] },
+        brssr: { status: 'idle', data: [] },
+        bdsg: { status: 'idle', data: [] },
+        chol: { status: 'idle', data: [] },
+        bldvss: { status: 'idle', data: [] },
+        strs: { status: 'idle', data: [] },
+        height: { status: 'idle', data: [] },
+        waist: { status: 'idle', data: [] },
+        brain: { status: 'idle', data: [] },
+        lifeLog: {
+            status: 'idle',
+            data: {
+                ACTV_TRCK_14DAYS_STEP_INFO_LIST: [],
+                ACTV_TRCK_14DAYS_AVG_STEP_INFO: {
+                    GOAL_RATE: 0,
+                    AVG_STEPS: 0,
+                },
+                DAIL_MOBLPHON_STEPS_DATA_LIST: [],
+                MEAL_14DAYS_AVG_CALORIE_INFO: {
+                    AVG_GOAL_RATE: 0,
+                    AVG_MEAL_CALORIE: 0,
+                },
+                SLEEP_AVG_14DAYS_INFO: {
+                    GOAL_BEGIN_RATE: 0,
+                    GOAL_RATE: 0,
+                    AVG_SLEEP_TIME: 0,
+                    GOAL_END_RATE: 0,
+                },
+                SLEEP_14DAYS_INFO_LIST: [],
+                LATEST_HR_INFOS: [],
+                MEAL_14DAYS_CALORIE_INFO_LIST: [],
+                MEAL_14DAYS_DETAIL_INFO_LIST: [],
+            },
+        },
     },
 })

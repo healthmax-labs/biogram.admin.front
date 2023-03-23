@@ -7,6 +7,16 @@ import {
 import {
     ConsultInfoListInterface,
     ConsultMealDiaryItemInterface,
+    ConsultMyGraphBldvssResultInterface,
+    ConsultMyGraphBodyResultInterface,
+    ConsultMyGraphBrainResultInterface,
+    ConsultMyGraphBrssrResultInterface,
+    ConsultMyGraphCholResultInterface,
+    ConsultMyGraphDdsgResultInterface,
+    ConsultMyGraphHeightResultInterface,
+    ConsultMyGraphLifeLogResultInterface,
+    ConsultMyGraphStrsResultInterface,
+    ConsultMyGraphWaistResultInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselInterface,
@@ -889,6 +899,220 @@ export const getDataDiaryMeal = ({
     return _Axios_({
         method: 'get',
         url: `/data/v1/diary/meal/${mealDe}/${startDay}/${mberNo}`,
+        payload: {},
+    })
+}
+
+// 마이그래프
+/*
+체성분 : /mng/v1/user/body/:mber_no/:std_day
+혈압 : /mng/v1/user/brssr/:mberno/:std_day
+혈당 : /mng/v1/user/bdsg/:mberno/:std_day
+콜레스테롤: /mng/v1/user/chol/:mberno/:std_day
+혈관 : /mng/v1/user/bldvss/:mberno/:std_day
+스트레스: /mng/v1/user/strs/:mberno/:std_day
+신장 : /mng/v1/user/height/:mberno/:std_day
+허리둘레: /mng/v1/user/waist/:mberno/:std_day
+뇌기능: /mng/v1/user/brain/:mberno/:std_day
+활동량 & 수면 : /data/v1/user/life_log/:mberno/:std_day
+
+체성분 : body
+혈압 : brssr
+혈당 : bdsg
+콜레스테롤: chol
+혈관 : bldvss
+스트레스: strs
+신장 : height
+허리둘레: waist
+뇌기능: brain
+활동량 & 수면 : life_log
+ */
+/**
+ * 체성분
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphBody = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphBodyResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/body/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 혈압
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphBrssr = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphBrssrResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/brssr/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 혈당
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphBdsg = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphDdsgResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/bdsg/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 콜레스테롤
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphChol = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphCholResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/chol/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 혈관
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphBldvss = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphBldvssResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/bldvss/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 스트레스
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphStrs = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphStrsResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/strs/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 신장
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphHeight = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphHeightResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/height/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 허리둘레
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphWaist = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphWaistResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/waist/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 뇌기능
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphBrain = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphBrainResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/user/brain/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 활동량 & 수면
+ * @param memNo
+ * @param startDay
+ */
+export const getMngUserMyGraphLifeLog = ({
+    memNo,
+    startDay,
+}: {
+    memNo: number
+    startDay: string
+}): Promise<ServicesDefaultResult<ConsultMyGraphLifeLogResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/data/v1/user/life_log/${memNo}/${startDay}`,
         payload: {},
     })
 }

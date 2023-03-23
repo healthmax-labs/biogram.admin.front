@@ -163,7 +163,7 @@ const MemberSearchModal = ({
                                     <HeaderCell>{``}</HeaderCell>
                                 </HeaderRow>
                             </TableHeader>
-                            <TableBody>
+                            <TableBody HeightLimit={true}>
                                 {pageState.list.length === 0 ? (
                                     <TableBodyRow BgState={true}>
                                         <TableBodyCell>{`${Messages.Default.searchEmpty}`}</TableBodyCell>

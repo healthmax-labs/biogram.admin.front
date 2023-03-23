@@ -228,6 +228,13 @@ export const ConsultDetailStyle = {
                 DateLine: tw.div`flex items-center`,
             },
         },
+        MyGraph: {
+            Container: tw.div``,
+            Search: {
+                SearchBox: tw.div`flex flex-nowrap w-full border gap-2 px-10`,
+                SearchItem: tw.div`flex py-4 gap-4`,
+            },
+        },
     },
     Message: {
         Container: tw.div`flex flex-col break-words bg-white px-2 pt-20`,
