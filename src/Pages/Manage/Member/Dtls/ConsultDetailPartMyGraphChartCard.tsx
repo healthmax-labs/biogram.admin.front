@@ -1,4 +1,4 @@
-import { VaryLineChart } from '@Elements'
+import { VaryLineChartMember } from '@Elements'
 import { dateInsertHypen, generateRandomString, getNowYearMonth } from '@Helper'
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { useEffect, useState } from 'react'
@@ -106,7 +106,7 @@ const ConsultDetailPartMyGraphChartCard = ({
             <div className="flex w-8/12 items-center justify-center border-r">
                 <div className="w-full">
                     {ChartData.length > 0 && (
-                        <VaryLineChart
+                        <VaryLineChartMember
                             ChartID={generateRandomString(10)}
                             Data1={ChartData}
                             Data2={[]}
