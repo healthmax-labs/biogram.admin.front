@@ -5,6 +5,7 @@ export { default as VaryButton } from './Buttons/VaryButton'
 export { default as VaryLabelRadioButton } from './Buttons/VaryLabelRadioButton'
 
 export { default as VaryLineChart } from './Charts/VaryLineChart'
+export { default as VaryLineChartMember } from './Charts/VaryLineChartMember'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'
