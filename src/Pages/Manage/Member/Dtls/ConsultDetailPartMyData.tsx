@@ -31,7 +31,11 @@ const initializeState = {
     },
 }
 
-const ConsultDetailPartMyData = () => {
+const ConsultDetailPartMyData = ({
+    HandleGetData,
+}: {
+    HandleGetData: () => void
+}) => {
     const detailState = useRecoilValue(ConsultDetailState)
     const [pageState, setPageState] = useState<{
         memNo: number | null
@@ -266,6 +270,19 @@ const ConsultDetailPartMyData = () => {
             {pageState.modal.myDataInput.state && detailState.memNo && (
                 <MemberMyDataInputModal
                     MemberNo={detailState.memNo}
+                    Saved={() => {
+                        HandleGetData()
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                myDataInput: {
+                                    ...prevState.modal.myDataInput,
+                                    state: false,
+                                },
+                            },
+                        }))
+                    }}
                     CancleButtonClick={() =>
                         setPageState(prevState => ({
                             ...prevState,

@@ -102,7 +102,7 @@ const ConsultDetailMain = () => {
     return (
         <Container>
             <ChartLeftWapper>
-                <ConsultDetailPartsMain />
+                <ConsultDetailPartsMain HandleGetData={handleGetMemberInfo} />
             </ChartLeftWapper>
             <ChartRightWapper>
                 <ConsultDetailRightBox />

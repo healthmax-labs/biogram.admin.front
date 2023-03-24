@@ -50,9 +50,11 @@ const initializeState = {
 
 const MemberMyDataInputModal = ({
     MemberNo,
+    Saved,
     CancleButtonClick,
 }: {
     MemberNo: number
+    Saved: () => void
     CancleButtonClick: () => void
 }) => {
     const { handlMainAlert } = useMainLayouts()
@@ -127,85 +129,80 @@ const MemberMyDataInputModal = ({
         }
 
         if (userinfo.MBER_NO) {
-            const payload: {
-                MBER_NO: number
-                REGIST_MBER_NO: number // 작성자 회원번호
-                MESURE_DE: string // 측정일
-                MESURE_TIME: string //측정시분초
-                SLM: string // 근육량
-                PBF: string // 체지방률
-                VFL: string // 내장지방(레벨)
-                EST_BN_MAS: string // 추정골량
-                BMI: string // BMI
-                HEIGHT: string // 신장
-                BDWGH: string //몸무게
-                WAIST_CRCMFRNC: string // 허리둘레
-                BDHEAT: string //체온
-                SYSTOLIC: string // 수축기
-                DIASTOLIC: string /// 이완기
-                PULS: string // 맥박
-                FBS?: string // 식전혈당
-                PP2?: string //식후혈당
-                T_CHOL: string // 총콜레스테롤
-                HDLC: string //HDLC
-                LDLC: string //LDLC
-                TG: string //중성지방
+            const stepPayload: {
+                SLM?: number | null // 근육량
+                PBF?: number | null // 체지방률
+                VFL?: number | null // 내장지방(레벨)
+                EST_BN_MAS?: number | null // 추정골량
+                BMI?: number | null // BMI
+                HEIGHT?: number | null // 신장
+                BDWGH?: number | null //몸무게
+                WAIST_CRCMFRNC?: number | null // 허리둘레
+                BDHEAT?: number | null //체온
+                SYSTOLIC?: number | null // 수축기
+                DIASTOLIC?: number | null /// 이완기
+                PULS?: number | null // 맥박
+                FBS?: number | null // 식전혈당
+                PP2?: number | null //식후혈당
+                T_CHOL?: number | null // 총콜레스테롤
+                HDLC?: number | null //HDLC
+                LDLC?: number | null //LDLC
+                TG?: number | null //중성지방
             } = {
+                SLM: pageState.input.SLM ? Number(pageState.input.SLM) : null,
+                PBF: pageState.input.PBF ? Number(pageState.input.PBF) : null,
+                VFL: pageState.input.VFL ? Number(pageState.input.VFL) : null,
+                EST_BN_MAS: pageState.input.EST_BN_MAS
+                    ? Number(pageState.input.EST_BN_MAS)
+                    : null,
+                BMI: pageState.input.BMI ? Number(pageState.input.BMI) : null,
+                HEIGHT: pageState.input.HEIGHT
+                    ? Number(pageState.input.HEIGHT)
+                    : null,
+                BDWGH: pageState.input.BDWGH
+                    ? Number(pageState.input.BDWGH)
+                    : null,
+                WAIST_CRCMFRNC: pageState.input.WAIST_CRCMFRNC
+                    ? Number(pageState.input.WAIST_CRCMFRNC)
+                    : null,
+                BDHEAT: pageState.input.BDHEAT
+                    ? Number(pageState.input.BDHEAT)
+                    : null,
+                SYSTOLIC: pageState.input.SYSTOLIC
+                    ? Number(pageState.input.SYSTOLIC)
+                    : null,
+                DIASTOLIC: pageState.input.DIASTOLIC
+                    ? Number(pageState.input.DIASTOLIC)
+                    : null,
+                PULS: pageState.input.PULS
+                    ? Number(pageState.input.PULS)
+                    : null,
+                FBS: pageState.input.FBS ? Number(pageState.input.FBS) : null,
+                PP2: pageState.input.PP2 ? Number(pageState.input.PP2) : null,
+                T_CHOL: pageState.input.T_CHOL
+                    ? Number(pageState.input.T_CHOL)
+                    : null,
+                HDLC: pageState.input.HDLC
+                    ? Number(pageState.input.HDLC)
+                    : null,
+                LDLC: pageState.input.LDLC
+                    ? Number(pageState.input.LDLC)
+                    : null,
+                TG: pageState.input.TG ? Number(pageState.input.TG) : null,
+            }
+
+            const payload = _.omitBy(stepPayload, _.isNil)
+
+            const { status } = await postDataMesureInfoManual({
+                ...payload,
                 MBER_NO: MemberNo,
                 REGIST_MBER_NO: userinfo.MBER_NO,
                 MESURE_DE: pageState.input.MESURE_DE.substring(0, 8),
                 MESURE_TIME: pageState.input.MESURE_TIME.substring(8, 14),
-                SLM: pageState.input.SLM !== null ? pageState.input.SLM : '',
-                PBF: pageState.input.PBF !== null ? pageState.input.PBF : '',
-                VFL: pageState.input.VFL !== null ? pageState.input.VFL : '',
-                EST_BN_MAS:
-                    pageState.input.EST_BN_MAS !== null
-                        ? pageState.input.EST_BN_MAS
-                        : '',
-                BMI: pageState.input.BMI !== null ? pageState.input.BMI : '',
-                HEIGHT:
-                    pageState.input.HEIGHT !== null
-                        ? pageState.input.HEIGHT
-                        : '',
-                BDWGH:
-                    pageState.input.BDWGH !== null ? pageState.input.BDWGH : '',
-                WAIST_CRCMFRNC:
-                    pageState.input.WAIST_CRCMFRNC !== null
-                        ? pageState.input.WAIST_CRCMFRNC
-                        : '',
-                BDHEAT:
-                    pageState.input.BDHEAT !== null
-                        ? pageState.input.BDHEAT
-                        : '',
-                SYSTOLIC:
-                    pageState.input.SYSTOLIC !== null
-                        ? pageState.input.SYSTOLIC
-                        : '',
-                DIASTOLIC:
-                    pageState.input.DIASTOLIC !== null
-                        ? pageState.input.DIASTOLIC
-                        : '',
-                PULS: pageState.input.PULS !== null ? pageState.input.PULS : '',
-                FBS: pageState.input.FBS !== null ? pageState.input.FBS : '',
-                PP2: pageState.input.PP2 !== null ? pageState.input.PP2 : '',
-                T_CHOL:
-                    pageState.input.T_CHOL !== null
-                        ? pageState.input.T_CHOL
-                        : '',
-                HDLC: pageState.input.HDLC !== null ? pageState.input.HDLC : '',
-                LDLC: pageState.input.LDLC !== null ? pageState.input.LDLC : '',
-                TG: pageState.input.TG !== null ? pageState.input.TG : '',
-            }
-
-            if (payload.FBS !== '') {
-                delete payload.PP2
-            } else if (payload.PP2 !== '') {
-                delete payload.FBS
-            }
-
-            const { status } = await postDataMesureInfoManual(payload)
+            })
 
             if (status) {
+                Saved()
                 handlMainAlert({
                     state: true,
                     message: Messages.Default.processSuccess,

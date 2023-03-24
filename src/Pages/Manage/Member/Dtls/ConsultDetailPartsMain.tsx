@@ -21,7 +21,11 @@ const initializeState = {
     },
 }
 
-const ConsultDetailPartsMain = () => {
+const ConsultDetailPartsMain = ({
+    HandleGetData,
+}: {
+    HandleGetData: () => void
+}) => {
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -51,7 +55,7 @@ const ConsultDetailPartsMain = () => {
         )
 
         const TabPageComponent = Routers.ConsultTabs[chIndex].Component
-        return <TabPageComponent />
+        return <TabPageComponent HandleGetData={HandleGetData} />
     }
 
     useEffect(() => {
