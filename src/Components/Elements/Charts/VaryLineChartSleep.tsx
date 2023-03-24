@@ -10,11 +10,10 @@ const {
 
 const VaryLineChart = ({
     ChartID,
-    Data1,
+    Data,
 }: {
     ChartID: string
-    Data1: Array<{ date: string; value: number }>
-    Data2: Array<{ date: string; value: number }>
+    Data: Array<{ date: string; start: number; end: number }>
 }) => {
     useLayoutEffect(() => {
         const root = am5.Root.new(ChartID)
@@ -86,8 +85,8 @@ const VaryLineChart = ({
                 name: 'Series',
                 xAxis: xAxis,
                 yAxis: yAxis,
-                valueYField: 'value',
-                openValueYField: 'value',
+                valueYField: 'end',
+                openValueYField: 'start',
                 categoryXField: 'date',
                 stroke: am5.color('#092f98'),
             })
@@ -139,8 +138,8 @@ const VaryLineChart = ({
 
         // Set data
         // const data = generateDatas(30)
-        series.data.setAll(Data1)
-        xAxis.data.setAll(Data1)
+        series.data.setAll(Data)
+        xAxis.data.setAll(Data)
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/

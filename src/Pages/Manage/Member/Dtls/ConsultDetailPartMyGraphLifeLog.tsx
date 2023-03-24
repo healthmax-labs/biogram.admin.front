@@ -53,6 +53,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             data: Array<{
                 date: string
                 value: number
+                value2: number
                 goal: number
                 tooltip: string
             }>
@@ -175,6 +176,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 return {
                     date: d.MESURE_DE,
                     value: d.STEPS,
+                    value2: FAT_BURNING + ENDURANCE + SUPER,
                     goal: d.GOAL_VALUE,
                     tooltip: `${d.STEPS}보(${
                         FAT_BURNING + ENDURANCE + SUPER
@@ -230,7 +232,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         if (total > 30) {
                             return 100
                         } else {
-                            return (total / 30) * 100
+                            return 0
                         }
                     })
                 ) / hrInfo.length
@@ -508,11 +510,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                     <div>
                         <VaryLineChartSleep
                             ChartID={generateRandomString(11)}
-                            Data1={[
-                                { date: '20230320', value: 9 },
-                                { date: '20230321', value: 10 },
-                            ]}
-                            Data2={[]}
+                            Data={pageState.sleep.data}
                         />
                     </div>
                 </div>

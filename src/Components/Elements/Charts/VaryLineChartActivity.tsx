@@ -8,13 +8,18 @@ const {
     LineChart: { Container, Wapper },
 } = VaryLineChartActivityStyle
 
-const VaryLineChart = ({
+const VaryLineChartActivity = ({
     ChartID,
     Data1,
     Data2,
 }: {
     ChartID: string
-    Data1: Array<{ date: string; value: number }>
+    Data1: Array<{
+        date: string
+        value: number
+        value2?: number
+        tooltip?: string
+    }>
     Data2: Array<{ date: string; value: number }>
 }) => {
     useLayoutEffect(() => {
@@ -244,4 +249,4 @@ const VaryLineChart = ({
     )
 }
 
-export default VaryLineChart
+export default VaryLineChartActivity
