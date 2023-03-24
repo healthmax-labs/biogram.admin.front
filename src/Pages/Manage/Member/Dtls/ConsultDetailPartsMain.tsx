@@ -18,6 +18,7 @@ const initializeState = {
         MBTLNUM: '',
         SEXDSTN: '',
         BRTHDY: '',
+        MBTLNUM_CRTFC_AT: 'N',
     },
 }
 
@@ -37,6 +38,7 @@ const ConsultDetailPartsMain = ({
             MBTLNUM: string
             SEXDSTN: string
             BRTHDY: string
+            MBTLNUM_CRTFC_AT: string | 'N' | 'Y'
         }
     }>(initializeState)
 
@@ -61,7 +63,7 @@ const ConsultDetailPartsMain = ({
     useEffect(() => {
         const funcSetData = () => {
             if (detailState.detail) {
-                const { NM, BRTHDY, SEXDSTN, MBTLNUM } =
+                const { NM, BRTHDY, SEXDSTN, MBTLNUM, MBTLNUM_CRTFC_AT } =
                     detailState.detail.MBER_INFO
                 setPageState(prevState => ({
                     ...prevState,
@@ -70,6 +72,7 @@ const ConsultDetailPartsMain = ({
                         BRTHDY: BRTHDY,
                         MBTLNUM: MBTLNUM,
                         SEXDSTN: SEXDSTN,
+                        MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
                     },
                 }))
             }
@@ -106,6 +109,11 @@ const ConsultDetailPartsMain = ({
                             </LabelCell>
                             <InputCell>
                                 <VaryInput
+                                    TextColor={
+                                        pageState.info.MBTLNUM_CRTFC_AT === 'N'
+                                            ? 'red'
+                                            : 'gray'
+                                    }
                                     Width={'w60'}
                                     HandleOnChange={() => {
                                         //

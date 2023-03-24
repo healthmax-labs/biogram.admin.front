@@ -9,8 +9,11 @@ import {
     VaryTextArea,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
-import { ConsultDetailSmsSendState } from '@Recoil/MemberPagesState'
-import { useRecoilState, useResetRecoilState } from 'recoil'
+import {
+    ConsultDetailSmsSendState,
+    ConsultDetailState,
+} from '@Recoil/MemberPagesState'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
@@ -45,6 +48,7 @@ const ConsultDetailRightBoxMessage = () => {
     const [smsSendState, setSmsSendState] = useRecoilState(
         ConsultDetailSmsSendState
     )
+    const detailState = useRecoilValue(ConsultDetailState)
     const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
 
     const [pageState, setPageState] = useState<{
@@ -126,7 +130,21 @@ const ConsultDetailRightBoxMessage = () => {
             <Container>
                 <Row>
                     <VaryTextArea
-                        HandleOnChange={e =>
+                        HandleOnChange={e => {
+                            if (
+                                detailState.detail &&
+                                detailState.detail.MBER_INFO
+                                    .MBTLNUM_CRTFC_AT === 'N'
+                            ) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.memberMbtlnumCrtfcAt,
+                                })
+
+                                return
+                            }
+
                             setSmsSendState(prevState => ({
                                 ...prevState,
                                 send: {
@@ -134,7 +152,7 @@ const ConsultDetailRightBoxMessage = () => {
                                     SMS_CN: e.target.value,
                                 },
                             }))
-                        }
+                        }}
                         Placeholder={`메시지 내용`}
                         Value={
                             smsSendState.send.SMS_CN
@@ -150,7 +168,7 @@ const ConsultDetailRightBoxMessage = () => {
                     </LabelCell>
                     <ItemCell>
                         <VaryInput
-                            HandleOnChange={e =>
+                            HandleOnChange={e => {
                                 setSmsSendState(prevState => ({
                                     ...prevState,
                                     send: {
@@ -158,7 +176,7 @@ const ConsultDetailRightBoxMessage = () => {
                                         SNDNG_NO: e.target.value,
                                     },
                                 }))
-                            }
+                            }}
                             id={'id'}
                             Placeholder={'발신 번호'}
                             Value={
@@ -293,6 +311,21 @@ const ConsultDetailRightBoxMessage = () => {
                             ButtonType={`default`}
                             ButtonName={`보내기`}
                             HandleClick={() => {
+                                if (
+                                    detailState.detail &&
+                                    detailState.detail.MBER_INFO
+                                        .MBTLNUM_CRTFC_AT === 'N'
+                                ) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message:
+                                            Messages.Default
+                                                .memberMbtlnumCrtfcAt,
+                                    })
+
+                                    return
+                                }
+
                                 setPageState(prevState => ({
                                     ...prevState,
                                     modal: {

@@ -23,6 +23,7 @@ const VaryInput = ({
     Children,
     HandleOnFocus,
     HandleOnBlur,
+    TextColor,
 }: {
     ContentsType?: ContentType
     Ref?: any
@@ -40,6 +41,7 @@ const VaryInput = ({
     Disabled?: boolean
     ReadOnly?: boolean
     HandleOnBlur?: (event: React.FocusEvent<HTMLInputElement, Element>) => void
+    TextColor?: 'red' | 'gray'
 }) => {
     const handleOnKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
@@ -50,6 +52,9 @@ const VaryInput = ({
     return (
         <Wapper Width={Width ? Width : null} Flex={!!Children}>
             <Input
+                className={
+                    TextColor === 'red' ? `text-red-700` : 'text-gray-500'
+                }
                 ContentsType={ContentsType ? ContentsType : 'default'}
                 Disabled={Disabled ? Disabled : false}
                 disabled={Disabled ? Disabled : false}
