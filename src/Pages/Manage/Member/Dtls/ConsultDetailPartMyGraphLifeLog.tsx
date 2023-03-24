@@ -169,17 +169,16 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             } = myGraphState.lifeLog
 
             const chartData = _.map(data, (d, dIndex) => {
-                const {
-                    HR_STDR_INFO: { FAT_BURNING, ENDURANCE, SUPER },
-                } = hrInfo[dIndex] // 운동 시간 가지고 오기.
+                const { FAT_BURNING, ENDURANCE, SUPER } = hrInfo[dIndex] // 운동 시간 가지고 오기.
 
                 return {
                     date: d.MESURE_DE,
                     value: d.STEPS,
-                    value2: FAT_BURNING + ENDURANCE + SUPER,
+                    value2:
+                        Number(FAT_BURNING) + Number(ENDURANCE) + Number(SUPER),
                     goal: d.GOAL_VALUE,
                     tooltip: `${d.STEPS}보(${
-                        FAT_BURNING + ENDURANCE + SUPER
+                        Number(FAT_BURNING) + Number(ENDURANCE) + Number(SUPER)
                     }분)`,
                 }
             })
@@ -192,11 +191,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             const golAvh = // 운동 목표 보다 더했는지 안했는지 합에 퍼센트
                 _.sum(
                     _.map(hrInfo, hrel => {
-                        const {
-                            HR_STDR_INFO: { FAT_BURNING, ENDURANCE, SUPER },
-                        } = hrel
+                        const { FAT_BURNING, ENDURANCE, SUPER } = hrel
 
-                        const total = FAT_BURNING + ENDURANCE + SUPER
+                        const total =
+                            Number(FAT_BURNING) +
+                            Number(ENDURANCE) +
+                            Number(SUPER)
 
                         if (total >= goal) {
                             return 100
@@ -210,10 +210,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             const avgHrTime =
                 _.sum(
                     _.map(hrInfo, hrel => {
-                        const {
-                            HR_STDR_INFO: { FAT_BURNING, ENDURANCE, SUPER },
-                        } = hrel
-                        return FAT_BURNING + ENDURANCE + SUPER
+                        const { FAT_BURNING, ENDURANCE, SUPER } = hrel
+                        return (
+                            Number(FAT_BURNING) +
+                            Number(ENDURANCE) +
+                            Number(SUPER)
+                        )
                     })
                 ) / hrInfo.length
 
@@ -223,11 +225,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             const htGoal =
                 _.sum(
                     _.map(hrInfo, hrel => {
-                        const {
-                            HR_STDR_INFO: { FAT_BURNING, ENDURANCE, SUPER },
-                        } = hrel
+                        const { FAT_BURNING, ENDURANCE, SUPER } = hrel
 
-                        const total = FAT_BURNING + ENDURANCE + SUPER
+                        const total =
+                            Number(FAT_BURNING) +
+                            Number(ENDURANCE) +
+                            Number(SUPER)
 
                         if (total > 30) {
                             return 100
@@ -508,10 +511,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         )}
                     </div>
                     <div>
-                        <VaryLineChartSleep
-                            ChartID={generateRandomString(11)}
-                            Data={pageState.sleep.data}
-                        />
+                        {pageState.sleep.data.length > 0 && (
+                            <VaryLineChartSleep
+                                ChartID={generateRandomString(11)}
+                                Data={pageState.sleep.data}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="flex col-span-2 h-full">

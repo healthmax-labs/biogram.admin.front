@@ -800,8 +800,8 @@ export interface ConsultMyGraphLifeLogResultInterface {
     LATEST_HR_INFOS: Array<{
         LATEST_MESURE_DT: string
         LATEST_HR: string
-        SUPER: string
-        ENDURANCE: string
+        SUPER: number
+        ENDURANCE: number
         HR_STDR_INFO: {
             SUPER: number
             ENDURANCE: number
@@ -811,7 +811,7 @@ export interface ConsultMyGraphLifeLogResultInterface {
         MILD_FAT_BURNING: string
         MESURE_DE: string
         STABLE: string
-        FAT_BURNING: string
+        FAT_BURNING: number
     }>
     MEAL_14DAYS_CALORIE_INFO_LIST: Array<{
         RECMND_CALORIE: number
