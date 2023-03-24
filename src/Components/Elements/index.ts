@@ -6,6 +6,8 @@ export { default as VaryLabelRadioButton } from './Buttons/VaryLabelRadioButton'
 
 export { default as VaryLineChart } from './Charts/VaryLineChart'
 export { default as VaryLineChartMember } from './Charts/VaryLineChartMember'
+export { default as VaryLineChartActivity } from './Charts/VaryLineChartActivity'
+export { default as VaryLineChartSleep } from './Charts/VaryLineChartSleep'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'

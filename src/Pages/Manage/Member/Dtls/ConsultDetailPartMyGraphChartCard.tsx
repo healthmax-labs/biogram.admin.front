@@ -100,10 +100,10 @@ const ConsultDetailPartMyGraphChartCard = ({
 
     return (
         <div className="flex w-full border py-2">
-            <div className="flex w-2/12 items-center justify-center border-r">
+            <div className="flex w-2/12 items-center justify-center">
                 <div className="text-xs text-gray-500">{`${Title}`}</div>
             </div>
-            <div className="flex w-8/12 items-center justify-center border-r">
+            <div className="flex w-8/12 items-center justify-center">
                 <div className="w-full">
                     {ChartData.length > 0 && (
                         <VaryLineChartMember
@@ -134,10 +134,9 @@ const ConsultDetailPartMyGraphChartCard = ({
                                     Border={true}>{`${dateInsertHypen(
                                     pageState.last.date
                                 )}`}</TableBodyCell>
-                                <TableBodyCell
-                                    Border={
-                                        true
-                                    }>{`${pageState.result.date}`}</TableBodyCell>
+                                <TableBodyCell Border={true}>
+                                    {`${pageState.result.date}`}&nbsp;일
+                                </TableBodyCell>
                             </TableBodyRow>
                             <TableBodyRow BgState={false}>
                                 <TableBodyCell
