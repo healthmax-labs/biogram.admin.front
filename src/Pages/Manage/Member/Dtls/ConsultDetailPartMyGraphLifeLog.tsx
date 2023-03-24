@@ -2,6 +2,8 @@ import { useRecoilState } from 'recoil'
 import { MyGraphState } from '@Recoil/MemberPagesState'
 import { useCallback, useEffect, useState } from 'react'
 import { getMngUserMyGraphLifeLog } from '@Service/MemberService'
+import { VaryLineChartActivity } from '@Elements'
+import { VaryLineChartSleep } from '@Elements'
 import { VaryLineChart } from '@Elements'
 import { generateRandomString } from '@Helper'
 import _ from 'lodash'
@@ -253,7 +255,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 </div>
                 <div className="col-span-8 border-r">
                     {pageState.moblphon.data.length > 0 && (
-                        <VaryLineChart
+                        <VaryLineChartActivity
                             ChartID={generateRandomString(10)}
                             Data1={pageState.moblphon.data}
                             Data2={[]}
@@ -334,7 +336,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 <div className="col-span-8 border-r">
                     <div className="border-b">
                         {pageState.trckStep.data.length > 0 && (
-                            <VaryLineChart
+                            <VaryLineChartActivity
                                 ChartID={generateRandomString(11)}
                                 Data1={pageState.trckStep.data}
                                 Data2={[]}
@@ -342,7 +344,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         )}
                     </div>
                     <div>
-                        <VaryLineChart
+                        <VaryLineChartSleep
                             ChartID={generateRandomString(11)}
                             Data1={[
                                 { date: '20230320', value: 9 },

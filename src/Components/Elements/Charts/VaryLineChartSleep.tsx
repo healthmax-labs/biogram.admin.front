@@ -2,11 +2,11 @@ import React, { useLayoutEffect } from 'react'
 import * as am5 from '@amcharts/amcharts5'
 import * as am5xy from '@amcharts/amcharts5/xy'
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
-import { VaryLineChartMemberStyle } from '@Style/Elements/ChartStyle'
+import { VaryLineChartSleepStyle } from '@Style/Elements/ChartStyle'
 
 const {
     LineChart: { Container, Wapper },
-} = VaryLineChartMemberStyle
+} = VaryLineChartSleepStyle
 
 const VaryLineChart = ({
     ChartID,
@@ -83,28 +83,23 @@ const VaryLineChart = ({
         // Add series
         // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
         const series = chart.series.push(
-            am5xy.LineSeries.new(root, {
+            am5xy.ColumnSeries.new(root, {
                 name: 'Series',
                 xAxis: xAxis,
                 yAxis: yAxis,
                 valueYField: 'value',
+                openValueYField: 'value',
                 categoryXField: 'date',
                 stroke: am5.color('#092f98'),
             })
         )
 
-        series.strokes.template.setAll({
-            strokeWidth: 2,
-        })
-
-        // 불릿 생성
-        series.bullets.push(function (root) {
-            return am5.Bullet.new(root, {
-                sprite: am5.Circle.new(root, {
-                    radius: 3,
-                    fill: am5.color('#092f98'),
-                }),
-            })
+        series.columns.template.setAll({
+            fillOpacity: 1,
+            strokeWidth: 0,
+            width: 5,
+            cornerRadiusTL: 5,
+            cornerRadiusTR: 5,
         })
 
         // 기준값 생성

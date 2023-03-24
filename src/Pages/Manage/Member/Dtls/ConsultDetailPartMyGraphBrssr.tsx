@@ -100,7 +100,7 @@ const ConsultDetailPartMyGraphBrssr = () => {
     }, [handleGetData, myGraphState])
 
     return (
-        <div className="flex w-full border flex-col">
+        <div className="flex w-full flex-col">
             {Codes.myGraph.dataCode.brssr.map((code, codeIndex) => {
                 return (
                     <ConsultDetailPartMyGraphChartCard
