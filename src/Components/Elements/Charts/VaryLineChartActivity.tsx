@@ -115,7 +115,7 @@ const VaryLineChart = ({
         })
 
         // Create a range
-        const range = yAxis.createAxisRange(rangeDataItem)
+        yAxis.createAxisRange(rangeDataItem)
         rangeDataItem.get('grid')?.setAll({
             stroke: am5.color('#00FFFF'),
             strokeOpacity: 1,
@@ -191,7 +191,7 @@ const VaryLineChart = ({
             labelText: '{categoryX}',
         })
 
-        tooltip.label.adapters.add('text', function (text, target) {
+        tooltip.label.adapters.add('text', function (text) {
             // chart.series.each(function (series) {
             //     text += ' {name} \n {value} \n'
             // })

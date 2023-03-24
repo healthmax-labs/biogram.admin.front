@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { getMngUserMyGraphLifeLog } from '@Service/MemberService'
 import { VaryLineChartActivity } from '@Elements'
 import { VaryLineChartSleep } from '@Elements'
-import { VaryLineChart } from '@Elements'
 import { generateRandomString } from '@Helper'
 import _ from 'lodash'
 

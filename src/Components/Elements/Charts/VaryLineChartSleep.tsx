@@ -11,7 +11,6 @@ const {
 const VaryLineChart = ({
     ChartID,
     Data1,
-    Data2,
 }: {
     ChartID: string
     Data1: Array<{ date: string; value: number }>
@@ -109,7 +108,7 @@ const VaryLineChart = ({
         })
 
         // Create a range
-        const range = yAxis.createAxisRange(rangeDataItem)
+        yAxis.createAxisRange(rangeDataItem)
         rangeDataItem.get('grid')?.set('visible', false)
         rangeDataItem.get('axisFill')?.setAll({
             fill: am5.color('#cfeaf5'),
