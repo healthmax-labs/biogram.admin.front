@@ -427,27 +427,29 @@ export const postDataMesureInfoManualUpdate = ({
  */
 export const postDataMesureInfoManual = (payload: {
     MBER_NO: number
-    REGIST_MBER_NO: number // 작성자 회원번호
-    MESURE_DE: string // 측정일
-    MESURE_TIME: string //측정시분초
-    SLM?: number // 근육량
-    PBF?: number // 체지방률
-    VFL?: number // 내장지방(레벨)
-    EST_BN_MAS?: number // 추정골량
-    BMI?: number // BMI
-    HEIGHT?: number // 신장
-    BDWGH?: number //몸무게
-    WAIST_CRCMFRNC?: number // 허리둘레
-    BDHEAT?: number //체온
-    SYSTOLIC?: number // 수축기
-    DIASTOLIC?: number /// 이완기
-    PULS?: number // 맥박
-    FBS?: number // 식전혈당
-    PP2?: number //식후혈당
-    T_CHOL?: number // 총콜레스테롤
-    HDLC?: number //HDLC
-    LDLC?: number //LDLC
-    TG?: number //중성지방
+    MESURE_DATA: Array<{
+        REGIST_MBER_NO: number // 작성자 회원번호
+        MESURE_DE: string // 측정일
+        MESURE_TIME: string //측정시분초
+        SLM?: number // 근육량
+        PBF?: number // 체지방률
+        VFL?: number // 내장지방(레벨)
+        EST_BN_MAS?: number // 추정골량
+        BMI?: number // BMI
+        HEIGHT?: number // 신장
+        BDWGH?: number //몸무게
+        WAIST_CRCMFRNC?: number // 허리둘레
+        BDHEAT?: number //체온
+        SYSTOLIC?: number // 수축기
+        DIASTOLIC?: number /// 이완기
+        PULS?: number // 맥박
+        FBS?: number // 식전혈당
+        PP2?: number //식후혈당
+        T_CHOL?: number // 총콜레스테롤
+        HDLC?: number //HDLC
+        LDLC?: number //LDLC
+        TG?: number //중성지방
+    }>
 }): Promise<ServicesDefaultResult<{ test: false }>> => {
     return _Axios_({
         method: 'post',

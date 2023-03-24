@@ -194,11 +194,18 @@ const MemberMyDataInputModal = ({
             const payload = _.omitBy(stepPayload, _.isNil)
 
             const { status } = await postDataMesureInfoManual({
-                ...payload,
                 MBER_NO: MemberNo,
-                REGIST_MBER_NO: userinfo.MBER_NO,
-                MESURE_DE: pageState.input.MESURE_DE.substring(0, 8),
-                MESURE_TIME: pageState.input.MESURE_TIME.substring(8, 14),
+                MESURE_DATA: [
+                    {
+                        ...payload,
+                        REGIST_MBER_NO: userinfo.MBER_NO,
+                        MESURE_DE: pageState.input.MESURE_DE.substring(0, 8),
+                        MESURE_TIME: pageState.input.MESURE_TIME.substring(
+                            8,
+                            14
+                        ),
+                    },
+                ],
             })
 
             if (status) {
