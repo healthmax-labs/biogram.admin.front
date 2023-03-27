@@ -41,6 +41,7 @@ export { default as MemberMyDataInputModal } from './Modals/MemberMyDataInputMod
 export { default as KaKaoPostCodeModal } from './Modals/KaKaoPostCodeModal'
 export { default as KaKaoMapModal } from './Modals/KaKaoMapModal'
 export { default as MemberSearchModal } from './Modals/MemberSearchModal'
+export { default as MessageSendModal } from './Modals/MessageSendModal'
 
 export { default as VaryPagination } from './Paginations/VaryPagination'
 
