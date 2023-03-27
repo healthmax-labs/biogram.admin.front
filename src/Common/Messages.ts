@@ -180,6 +180,7 @@ export default {
         },
         messageSend: {
             emptyTarget: `수신자를 선택해 주세요.`,
+            emptyTitle: `제목을 입력해 주세요.`,
             emptyContents: `내용을 입력해 주세요.`,
             emptySndngNo: `발신번호를 입력해 주세요.`,
         },

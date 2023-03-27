@@ -197,3 +197,30 @@ export const postMberSendSms = (payload: {
         payload: payload,
     })
 }
+
+/**
+ * 회원 앱 푸시 보내기.
+ * @param payload
+ */
+export const postMberSendPush = (payload: {
+    INST_NO?: string
+    PUSH_CN: string
+    PUSH_CODE: string // 'SV00'
+    PUSH_SJ: string
+    SEND_ALL_MBER: 'Y' | 'N'
+    SEND_MBER_INFO_LIST: Array<{
+        MBER_NO: string
+        MBTLNUM: string
+        MBTLNUM_CRTFC_AT: 'Y' | 'N'
+        NM: string
+        SV00_NTCN_AT: 'Y' | 'N'
+        USID: string
+    }>
+    SNDNG_DT: string
+}) => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/send/push`,
+        payload: payload,
+    })
+}

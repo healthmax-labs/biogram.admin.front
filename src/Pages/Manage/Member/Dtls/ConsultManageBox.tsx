@@ -18,7 +18,7 @@ import Const from '@Const'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
 import { gmtTimeToTimeObject, hangulContentsByteLength } from '@Helper'
-import { postMberSendSms } from '@Service/CommonService'
+import { postMberSendPush, postMberSendSms } from '@Service/CommonService'
 
 const { Wapper, Buttons } = ManageBoxStyle
 const { InputCell, LabelCell, Row, TableContainer, TableWapper } =
@@ -31,6 +31,7 @@ const initializeState = {
         memberSearch: false,
     },
     message: {
+        type: 'sms',
         title: '',
         contents: '',
         contentsLength: 0,
@@ -46,6 +47,7 @@ const initializeState = {
 }
 
 const contentsByteLengthLimit = 500
+const titleByteLengthLimit = 20
 
 const ConsultManageBox = () => {
     const [pageState, setPageState] = useState<{
@@ -55,6 +57,7 @@ const ConsultManageBox = () => {
             memberSearch: boolean
         }
         message: {
+            type: string | 'sms' | 'push'
             title: string
             contents: string
             contentsLength: number
@@ -70,7 +73,7 @@ const ConsultManageBox = () => {
     }>(initializeState)
     const { handlMainAlert } = useMainLayouts()
 
-    // 발송 처리.
+    // 문자 발송 처리.
     const handleMessageSend = async () => {
         const {
             sendTime: { selectTime },
@@ -169,6 +172,105 @@ const ConsultManageBox = () => {
         }
     }
 
+    // 앱푸시 발송
+    const handleAppPushSend = async () => {
+        const {
+            sendTime: { selectTime },
+            allSendCheck,
+            instNo,
+            title,
+            contents,
+            selectedMember,
+        } = pageState.message
+
+        if (_.isEmpty(contents)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.messageSend.emptyTitle,
+            })
+            return
+        }
+
+        if (_.isEmpty(contents)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.messageSend.emptyContents,
+            })
+            return
+        }
+
+        if (instNo === null && selectedMember.length === 0) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.messageSend.emptyTarget,
+            })
+            return
+        }
+
+        const { year, monthPad, dayPad, hourPad, minutePad, secondPad } =
+            gmtTimeToTimeObject(selectTime)
+
+        const payload: {
+            INST_NO?: string
+            PUSH_CN: string
+            PUSH_CODE: string // 'SV00'
+            PUSH_SJ: string
+            SEND_ALL_MBER: 'Y' | 'N'
+            SEND_MBER_INFO_LIST: Array<{
+                MBER_NO: string
+                MBTLNUM: string
+                MBTLNUM_CRTFC_AT: 'Y' | 'N'
+                NM: string
+                SV00_NTCN_AT: 'Y' | 'N'
+                USID: string
+            }>
+            SNDNG_DT: string
+        } = {
+            INST_NO: String(instNo),
+            PUSH_CN: title,
+            PUSH_SJ: contents,
+            PUSH_CODE: 'SV00',
+            SEND_ALL_MBER: instNo && allSendCheck ? 'Y' : 'N',
+            SEND_MBER_INFO_LIST: selectedMember.map(e => {
+                return {
+                    MBER_NO: String(e.MBER_NO),
+                    MBTLNUM: e.MBTLNUM,
+                    USID: e.USID,
+                    SV00_NTCN_AT: e.SV00_NTCN_AT,
+                    NM: e.NM,
+                    MBTLNUM_CRTFC_AT: e.MBTLNUM_CRTFC_AT,
+                }
+            }),
+            SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
+        }
+
+        if (_.isEmpty(payload.INST_NO) || _.isNull(payload.INST_NO)) {
+            delete payload.INST_NO
+        }
+
+        const { status } = await postMberSendPush(payload)
+        if (status) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+            setPageState(prevState => ({
+                ...prevState,
+                modal: {
+                    ...prevState.modal,
+                    sendMessage: false,
+                },
+            }))
+            return
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+            return
+        }
+    }
+
     useEffect(() => {
         return () => {
             setPageState(initializeState)
@@ -180,6 +282,7 @@ const ConsultManageBox = () => {
             <Buttons>
                 <VaryButton
                     ButtonType={'manage'}
+                    ButtonName={'메세지 보내기'}
                     HandleClick={() => {
                         setPageState(prevState => ({
                             ...prevState,
@@ -187,16 +290,29 @@ const ConsultManageBox = () => {
                                 ...prevState.modal,
                                 sendMessage: true,
                             },
+                            message: {
+                                ...prevState.message,
+                                type: 'sms',
+                            },
                         }))
                     }}
-                    ButtonName={'메세지 보내기'}
                 />
                 <VaryButton
                     ButtonType={'manage'}
-                    HandleClick={() => {
-                        //
-                    }}
                     ButtonName={'앱 푸시 보내기'}
+                    HandleClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                sendMessage: true,
+                            },
+                            message: {
+                                ...prevState.message,
+                                type: 'push',
+                            },
+                        }))
+                    }}
                 />
                 <VaryButton
                     ButtonType={'manage'}
@@ -216,6 +332,58 @@ const ConsultManageBox = () => {
                         <>
                             <TableContainer>
                                 <TableWapper>
+                                    {pageState.message.type === 'push' && (
+                                        <Row>
+                                            <LabelCell>
+                                                <VaryLabel LabelName={`제목`} />
+                                            </LabelCell>
+                                            <InputCell colSpan={3}>
+                                                <div className="flex w-full flex-col">
+                                                    <VaryInput
+                                                        InputType={'text'}
+                                                        Value={
+                                                            pageState.message
+                                                                .title
+                                                        }
+                                                        HandleOnChange={e => {
+                                                            const stateTitleLength =
+                                                                pageState
+                                                                    .message
+                                                                    .title
+                                                                    .length
+                                                            const valueLength =
+                                                                e.target.value
+                                                                    .length
+                                                            if (
+                                                                stateTitleLength >
+                                                                    titleByteLengthLimit ||
+                                                                valueLength >
+                                                                    titleByteLengthLimit
+                                                            ) {
+                                                                return
+                                                            } else {
+                                                                setPageState(
+                                                                    prevState => ({
+                                                                        ...prevState,
+                                                                        message:
+                                                                            {
+                                                                                ...prevState.message,
+                                                                                title: e
+                                                                                    .target
+                                                                                    .value,
+                                                                            },
+                                                                    })
+                                                                )
+                                                            }
+                                                        }}
+                                                    />
+                                                    <div className="flex text-left pt-1">
+                                                        {`${pageState.message.title.length}/${titleByteLengthLimit} 자`}
+                                                    </div>
+                                                </div>
+                                            </InputCell>
+                                        </Row>
+                                    )}
                                     <Row>
                                         <LabelCell>
                                             <VaryLabel LabelName={`내용`} />
@@ -257,7 +425,7 @@ const ConsultManageBox = () => {
                                                     {`${hangulContentsByteLength(
                                                         pageState.message
                                                             .contents
-                                                    )}/500 byte`}
+                                                    )}/${contentsByteLengthLimit} byte`}
                                                 </div>
                                             </div>
                                         </InputCell>
@@ -390,30 +558,39 @@ const ConsultManageBox = () => {
                                             </div>
                                         </InputCell>
                                     </Row>
-                                    <Row>
-                                        <LabelCell>
-                                            <VaryLabel LabelName={`발신번호`} />
-                                        </LabelCell>
-                                        <InputCell colSpan={3}>
-                                            <VaryInput
-                                                Width={'w60'}
-                                                InputType={'text'}
-                                                Value={
-                                                    pageState.message.sndngNo
-                                                }
-                                                HandleOnChange={e => {
-                                                    setPageState(prevState => ({
-                                                        ...prevState,
-                                                        message: {
-                                                            ...prevState.message,
-                                                            sndngNo:
-                                                                e.target.value,
-                                                        },
-                                                    }))
-                                                }}
-                                            />
-                                        </InputCell>
-                                    </Row>
+                                    {pageState.message.type === 'sms' && (
+                                        <Row>
+                                            <LabelCell>
+                                                <VaryLabel
+                                                    LabelName={`발신번호`}
+                                                />
+                                            </LabelCell>
+                                            <InputCell colSpan={3}>
+                                                <VaryInput
+                                                    Width={'w60'}
+                                                    InputType={'text'}
+                                                    Value={
+                                                        pageState.message
+                                                            .sndngNo
+                                                    }
+                                                    HandleOnChange={e => {
+                                                        setPageState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                message: {
+                                                                    ...prevState.message,
+                                                                    sndngNo:
+                                                                        e.target
+                                                                            .value,
+                                                                },
+                                                            })
+                                                        )
+                                                    }}
+                                                />
+                                            </InputCell>
+                                        </Row>
+                                    )}
+
                                     <Row>
                                         <LabelCell>
                                             <VaryLabel
@@ -561,6 +738,7 @@ const ConsultManageBox = () => {
                                             ...prevState.modal,
                                             sendMessage: false,
                                         },
+                                        message: initializeState.message,
                                     }))
                                 }}
                             />
@@ -568,7 +746,9 @@ const ConsultManageBox = () => {
                                 ButtonType={'default'}
                                 ButtonName={'보내기'}
                                 HandleClick={() => {
-                                    handleMessageSend().then()
+                                    pageState.message.type === 'sms'
+                                        ? handleMessageSend().then()
+                                        : handleAppPushSend().then()
                                 }}
                             />
                         </>

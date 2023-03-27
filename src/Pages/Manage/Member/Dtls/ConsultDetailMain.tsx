@@ -58,7 +58,7 @@ const ConsultDetailMain = () => {
                                     payload.MBER_INFO.MBTLNUM_CRTFC_AT,
                                 USID: payload.MBER_INFO.USID,
                                 NM: payload.MBER_INFO.NM,
-                                SV00_NTCN_AT: 'Y', // FIXME: 이게 뭔지?
+                                SV00_NTCN_AT: 'Y', // 전송동의한 회원인지
                             },
                         ],
                     },

@@ -358,7 +358,7 @@ export interface SendSmsItemInterface {
     USID: string
     MBTLNUM: string
     MBTLNUM_CRTFC_AT: 'Y' | 'N'
-    SV00_NTCN_AT: 'Y' | 'N'
+    SV00_NTCN_AT: 'Y' | 'N' // 전송 동의한 회원 인지.
 }
 
 // 메시지 발송
