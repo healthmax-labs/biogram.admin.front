@@ -898,3 +898,22 @@ export const calCalculate = ({
         },
     }
 }
+
+/**
+ * 한글 문자열 byte 길이
+ * @param string
+ */
+export const hangulContentsByteLength = (string: string): number => {
+    const contents = string
+    let str_character
+    let int_char_count = 0
+    const int_contents_length = contents.length
+
+    for (let k = 0; k < int_contents_length; k++) {
+        str_character = contents.charAt(k)
+        if (escape(str_character).length > 4) int_char_count += 2
+        else int_char_count++
+    }
+
+    return int_char_count
+}

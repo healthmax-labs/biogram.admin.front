@@ -17,7 +17,7 @@ import { MemberSearchItemInterface } from '@CommonTypes'
 import Const from '@Const'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import { gmtTimeToTimeObject } from '@Helper'
+import { gmtTimeToTimeObject, hangulContentsByteLength } from '@Helper'
 import { postMberSendSms } from '@Service/CommonService'
 
 const { Wapper, Buttons } = ManageBoxStyle
@@ -33,6 +33,7 @@ const initializeState = {
     message: {
         title: '',
         contents: '',
+        contentsLength: 0,
         instNo: null,
         allSendCheck: false,
         selectedMember: [],
@@ -44,6 +45,8 @@ const initializeState = {
     },
 }
 
+const contentsByteLengthLimit = 500
+
 const ConsultManageBox = () => {
     const [pageState, setPageState] = useState<{
         modal: {
@@ -54,6 +57,7 @@ const ConsultManageBox = () => {
         message: {
             title: string
             contents: string
+            contentsLength: number
             instNo: number | null
             allSendCheck: boolean
             selectedMember: MemberSearchItemInterface[]
@@ -217,23 +221,45 @@ const ConsultManageBox = () => {
                                             <VaryLabel LabelName={`내용`} />
                                         </LabelCell>
                                         <InputCell colSpan={3}>
-                                            <VaryTextArea
-                                                Rows={10}
-                                                Placeholder={`내용을 입력해 주세요`}
-                                                Value={
-                                                    pageState.message.contents
-                                                }
-                                                HandleOnChange={e => {
-                                                    setPageState(prevState => ({
-                                                        ...prevState,
-                                                        message: {
-                                                            ...prevState.message,
-                                                            contents:
-                                                                e.target.value,
-                                                        },
-                                                    }))
-                                                }}
-                                            />
+                                            <div className="flex w-full flex-col">
+                                                <VaryTextArea
+                                                    Rows={10}
+                                                    Placeholder={`내용을 입력해 주세요`}
+                                                    Value={
+                                                        pageState.message
+                                                            .contents
+                                                    }
+                                                    HandleOnChange={e => {
+                                                        if (
+                                                            hangulContentsByteLength(
+                                                                e.target.value
+                                                            ) >
+                                                            contentsByteLengthLimit
+                                                        ) {
+                                                            return
+                                                        } else {
+                                                            setPageState(
+                                                                prevState => ({
+                                                                    ...prevState,
+                                                                    message: {
+                                                                        ...prevState.message,
+                                                                        contents:
+                                                                            e
+                                                                                .target
+                                                                                .value,
+                                                                    },
+                                                                })
+                                                            )
+                                                        }
+                                                    }}
+                                                />
+                                                <div className="flex text-left pt-1">
+                                                    {`${hangulContentsByteLength(
+                                                        pageState.message
+                                                            .contents
+                                                    )}/500 byte`}
+                                                </div>
+                                            </div>
                                         </InputCell>
                                     </Row>
                                     <Row>
