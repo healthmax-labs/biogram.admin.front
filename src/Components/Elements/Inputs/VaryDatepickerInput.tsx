@@ -13,23 +13,29 @@ const DefaultInput = (
         value,
         onFocus,
         onChange,
+        readOnly,
     }: {
         value: string
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+        readOnly: boolean
     },
     ref: any
-) => (
-    <VaryInput
-        Ref={ref}
-        InputType={'text'}
-        HandleOnChange={onChange}
-        id={'id'}
-        Placeholder={'생년월일'}
-        Value={value}
-        HandleOnFocus={onFocus}
-    />
-)
+) => {
+    return (
+        <VaryInput
+            ReadOnly={readOnly}
+            Disabled={readOnly}
+            Ref={ref}
+            InputType={'text'}
+            HandleOnChange={onChange}
+            id={'id'}
+            Placeholder={'날짜선택'}
+            Value={value}
+            HandleOnFocus={onFocus}
+        />
+    )
+}
 
 const SearchInput = (
     {
@@ -38,25 +44,31 @@ const SearchInput = (
         onChange,
         onKeyDown,
         onBlur,
+        readOnly,
     }: {
         value: string
         onFocus: (event: React.FocusEvent<HTMLInputElement, Element>) => void
         onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
         onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
         onBlur: (event: React.FocusEvent<HTMLInputElement, Element>) => void
+        readOnly: boolean
     },
     ref: any
-) => (
-    <VaryInput
-        ContentsType={`search`}
-        Ref={ref}
-        HandleOnFocus={onFocus}
-        Value={value}
-        HandleOnChange={onChange}
-        HandleOnKeyDown={onKeyDown}
-        HandleOnBlur={onBlur}
-    />
-)
+) => {
+    return (
+        <VaryInput
+            ReadOnly={readOnly}
+            ContentsType={`search`}
+            Ref={ref}
+            HandleOnFocus={onFocus}
+            Value={value}
+            Placeholder={'날짜선택'}
+            HandleOnChange={onChange}
+            HandleOnKeyDown={onKeyDown}
+            HandleOnBlur={onBlur}
+        />
+    )
+}
 
 const VaryDatepickerInput = ({
     ShowType,
@@ -65,6 +77,7 @@ const VaryDatepickerInput = ({
     Value,
     CallBackReturn,
     Width,
+    ReadOnly,
 }: {
     ShowType?: DatePickerShowType
     InputeType: ContentType
@@ -72,6 +85,7 @@ const VaryDatepickerInput = ({
     DateFormat?: string
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
+    ReadOnly?: boolean
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
     const [dateFormat, setDateFormat] = useState(`yyyy년 MM월 dd일`)
@@ -102,6 +116,8 @@ const VaryDatepickerInput = ({
     return (
         <DatePickerWapper Width={Width ? Width : `full`}>
             <DatePicker
+                readOnly={ReadOnly ? ReadOnly : false}
+                disabled={ReadOnly ? ReadOnly : false}
                 selected={selectDate}
                 onSelect={(date: Date) => {
                     setSelectDate(date)

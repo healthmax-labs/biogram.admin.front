@@ -170,3 +170,30 @@ export const commonFileImg = (
         payload: formData,
     })
 }
+
+/**
+ * 문자 보내기.
+ * @param payload
+ */
+export const postMberSendSms = (payload: {
+    INST_NO?: string
+    SMS_SJ: string
+    SMS_CN: string
+    SNDNG_NO: string
+    SNDNG_DT: string
+    SEND_ALL_MBER: 'N' | 'Y'
+    SEND_MBER_INFO_LIST: Array<{
+        MBER_NO: string
+        NM: string
+        USID: string
+        MBTLNUM: string
+        MBTLNUM_CRTFC_AT: 'Y' | 'N'
+        SV00_NTCN_AT: 'Y' | 'N'
+    }>
+}): Promise<ServicesDefaultResult<{ test: boolean }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/send/sms`,
+        payload: payload,
+    })
+}

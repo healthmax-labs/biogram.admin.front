@@ -33,11 +33,13 @@ const initializeState = {
     selected: [],
 }
 const MemberSearchModal = ({
+    SearchType,
     InstNo,
     PermiCode,
     CloseButtonClick,
     SaveButtonClick,
 }: {
+    SearchType: 'default' | 'admin'
     InstNo: number
     PermiCode: 'SM00' | 'IM00' // 권한 코드 소속코드(inst_no) 가 1000 이면 SM00 그외 아니면 IM00
     CloseButtonClick: () => void
@@ -230,6 +232,23 @@ const MemberSearchModal = ({
                                                                     })
                                                                 )
                                                             } else {
+                                                                if (
+                                                                    SearchType ===
+                                                                    'default'
+                                                                ) {
+                                                                    setPageState(
+                                                                        prevState => ({
+                                                                            ...prevState,
+                                                                            selected:
+                                                                                [
+                                                                                    ...prevState.selected,
+                                                                                    member,
+                                                                                ],
+                                                                        })
+                                                                    )
+                                                                    return
+                                                                }
+
                                                                 handlePermitCheck(
                                                                     {
                                                                         memberNo:

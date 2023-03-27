@@ -178,5 +178,10 @@ export default {
             updateConfirm: `바이오그램존 정보를 수정 하시겠습니까?`,
             deleteConfirm: `바이오그램존 정보을 삭제 하시겠습니까?`,
         },
+        messageSend: {
+            emptyTarget: `수신자를 선택해 주세요.`,
+            emptyContents: `내용을 입력해 주세요.`,
+            emptySndngNo: `발신번호를 입력해 주세요.`,
+        },
     },
 }
