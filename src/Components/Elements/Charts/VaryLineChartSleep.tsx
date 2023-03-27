@@ -8,16 +8,29 @@ const {
     LineChart: { Container, Wapper },
 } = VaryLineChartSleepStyle
 
-const VaryLineChart = ({
+const VaryLineChartSleep = ({
     ChartID,
     Data,
 }: {
     ChartID: string
-    Data: Array<{ date: string; start: number; end: number }>
+    Data: Array<{
+        date: string
+        start: number
+        end: number
+        tooltip: string
+    }>
 }) => {
     useLayoutEffect(() => {
         const root = am5.Root.new(ChartID)
 
+        for (let i = 0; i < Data.length; i++) {
+            Data[i].tooltip =
+                getTime(Data[i].start) +
+                '~' +
+                getTime(Data[i].end) +
+                '\n' +
+                Data[i].date
+        }
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
         root.setThemes([am5themes_Animated.new(root)])
@@ -48,7 +61,9 @@ const VaryLineChart = ({
         const xAxis = chart.xAxes.push(
             am5xy.CategoryAxis.new(root, {
                 categoryField: 'date',
-                renderer: am5xy.AxisRendererX.new(root, {}),
+                renderer: am5xy.AxisRendererX.new(root, {
+                    minGridDistance: 15,
+                }),
             })
         )
 
@@ -61,10 +76,11 @@ const VaryLineChart = ({
         xRenderer.grid.template.setAll({
             stroke: am5.color('#aeaeaf'),
         })
-
         const yAxis = chart.yAxes.push(
             am5xy.ValueAxis.new(root, {
-                min: 0,
+                min: 720,
+                max: 2160,
+                strictMinMax: true,
                 renderer: am5xy.AxisRendererY.new(root, {}),
             })
         )
@@ -73,9 +89,15 @@ const VaryLineChart = ({
         yRenderer.grid.template.setAll({
             stroke: am5.color('#aeaeaf'),
         })
+
         yRenderer.labels.template.setAll({
             fill: am5.color('#aeaeaf'),
             fontSize: '0.6em',
+        })
+
+        yRenderer.labels.template.adapters.add('text', function (text) {
+            const str_hour = getTime(text)
+            return str_hour
         })
 
         // Add series
@@ -88,7 +110,8 @@ const VaryLineChart = ({
                 valueYField: 'end',
                 openValueYField: 'start',
                 categoryXField: 'date',
-                stroke: am5.color('#092f98'),
+                fill: am5.color('#4f81bd'),
+                tooltipText: '{tooltip}',
             })
         )
 
@@ -98,12 +121,14 @@ const VaryLineChart = ({
             width: 5,
             cornerRadiusTL: 5,
             cornerRadiusTR: 5,
+            cornerRadiusBL: 5,
+            cornerRadiusBR: 5,
         })
 
         // 기준값 생성
         const rangeDataItem = yAxis.makeDataItem({
-            value: 30,
-            endValue: 180,
+            value: 1200,
+            endValue: 1800,
         })
 
         // Create a range
@@ -121,7 +146,6 @@ const VaryLineChart = ({
             getStrokeFromSprite: false,
             autoTextColor: false,
             getLabelFillFromSprite: false,
-            labelText: '{valueY}\n{categoryX}',
         })
         tooltip.get('background')?.setAll({
             fill: am5.color(0xffffff),
@@ -148,7 +172,21 @@ const VaryLineChart = ({
 
         // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
+        function getTime(text: any) {
+            if (text == undefined) return ''
+            text = typeof text == 'string' ? text : new String(text)
+            const texttonum = Number(text?.replace(',', ''))
+            let hour = Math.floor(texttonum / 60)
+
+            const min = texttonum - hour * 60
+
+            if (hour > 24) hour -= 24
+            const str_hour = hour.toString() + ':' + min
+
+            return str_hour
+        }
+    })
 
     return (
         <Container>
@@ -157,4 +195,4 @@ const VaryLineChart = ({
     )
 }
 
-export default VaryLineChart
+export default VaryLineChartSleep

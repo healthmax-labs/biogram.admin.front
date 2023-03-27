@@ -68,7 +68,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
             }
         }
         sleep: {
-            data: Array<{ date: string; start: number; end: number }>
+            data: Array<{
+                date: string
+                start: number
+                end: number
+                tooltip: string
+            }>
             goal: number // 목표
             avg: {
                 step1: string // 평균 수면 시간
@@ -278,6 +283,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         date: MESURE_DE,
                         start: 0,
                         end: 0,
+                        tooltip: '',
                     }
                 }
 
@@ -292,11 +298,12 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                     start:
                         startHour > 12
                             ? startHour * 60 + startMin
-                            : startHour * 60 + startMin + 720,
+                            : startHour * 60 + startMin + 1440,
                     end:
                         endHour > 12
                             ? endHour * 60 + endMin
-                            : endHour * 60 + endMin + 720,
+                            : endHour * 60 + endMin + 1440,
+                    tooltip: '',
                 }
             })
 

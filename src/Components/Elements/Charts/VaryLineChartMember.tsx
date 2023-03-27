@@ -49,7 +49,9 @@ const VaryLineChart = ({
         const xAxis = chart.xAxes.push(
             am5xy.CategoryAxis.new(root, {
                 categoryField: 'date',
-                renderer: am5xy.AxisRendererX.new(root, {}),
+                renderer: am5xy.AxisRendererX.new(root, {
+                    minGridDistance: 15,
+                }),
             })
         )
 

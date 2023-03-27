@@ -11,7 +11,6 @@ const {
 const VaryLineChartActivity = ({
     ChartID,
     Data1,
-    Data2,
 }: {
     ChartID: string
     Data1: Array<{
@@ -57,7 +56,9 @@ const VaryLineChartActivity = ({
         const xAxis = chart.xAxes.push(
             am5xy.CategoryAxis.new(root, {
                 categoryField: 'date',
-                renderer: am5xy.AxisRendererX.new(root, {}),
+                renderer: am5xy.AxisRendererX.new(root, {
+                    minGridDistance: 15,
+                }),
             })
         )
 
@@ -175,8 +176,9 @@ const VaryLineChartActivity = ({
                 name: 'Series2',
                 xAxis: xAxis2,
                 yAxis: yAxis2,
-                valueYField: 'value',
+                valueYField: 'value2',
                 categoryXField: 'date',
+                fill: am5.color('#4f81bd'),
             })
         )
         series2.columns.template.setAll({
@@ -206,6 +208,10 @@ const VaryLineChartActivity = ({
                 '}' +
                 '\n' +
                 '{' +
+                series2.get('valueYField') +
+                '}' +
+                '\n' +
+                '{' +
                 series.get('categoryXField') +
                 '}'
             return text
@@ -230,8 +236,8 @@ const VaryLineChartActivity = ({
         series.data.setAll(Data1)
         xAxis.data.setAll(Data1)
 
-        series2.data.setAll(Data2)
-        xAxis2.data.setAll(Data2)
+        series2.data.setAll(Data1)
+        xAxis2.data.setAll(Data1)
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/
