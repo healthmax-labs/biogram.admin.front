@@ -371,7 +371,7 @@ const PstinstSelector = ({
                                                                                     key={`pstinst-selector-step2-item-${step2Index}`}>
                                                                                     <ItemCheckBox
                                                                                         disabled={
-                                                                                            step1.CHK_INST_2 ===
+                                                                                            step2.CHK_INST_2 ===
                                                                                             'N'
                                                                                         }
                                                                                         ref={el =>
@@ -387,7 +387,7 @@ const PstinstSelector = ({
                                                                                         }
                                                                                         onClick={() => {
                                                                                             if (
-                                                                                                step1.CHK_INST_1 ===
+                                                                                                step2.CHK_INST_2 ===
                                                                                                 'N'
                                                                                             ) {
                                                                                                 return
@@ -435,7 +435,7 @@ const PstinstSelector = ({
                                                                                     key={`pstinst-selector-step3-item-${step3Index}`}>
                                                                                     <ItemCheckBox
                                                                                         disabled={
-                                                                                            step1.CHK_INST_3 ===
+                                                                                            step3.CHK_INST_3 ===
                                                                                             'N'
                                                                                         }
                                                                                         ref={el =>
@@ -451,7 +451,7 @@ const PstinstSelector = ({
                                                                                         }
                                                                                         onClick={() => {
                                                                                             if (
-                                                                                                step1.CHK_INST_1 ===
+                                                                                                step3.CHK_INST_3 ===
                                                                                                 'N'
                                                                                             ) {
                                                                                                 return
