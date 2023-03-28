@@ -62,7 +62,7 @@ const MemberListTable = ({ CurrentPage }: { CurrentPage: number }) => {
         })
     }
 
-    // 리시트 체크박스 클릭
+    // 리스트 체크박스 클릭
     const handleCheckRow = (e: string[]) => {
         setListState(prevState => ({
             ...prevState,

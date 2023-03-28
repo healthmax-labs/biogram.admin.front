@@ -2,6 +2,7 @@ import { _Axios_ } from '@Modules'
 import {
     InstLowInstCodeInterface,
     InstTopInstCodeInterface,
+    MemberSearchItemInterface,
     ServicesDefaultResult,
     SiGunGroupInterface,
     SiGunGuCodeInterface,
@@ -182,14 +183,7 @@ export const postMberSendSms = (payload: {
     SNDNG_NO: string
     SNDNG_DT: string
     SEND_ALL_MBER: 'N' | 'Y'
-    SEND_MBER_INFO_LIST: Array<{
-        MBER_NO: string
-        NM: string
-        USID: string
-        MBTLNUM: string
-        MBTLNUM_CRTFC_AT: 'Y' | 'N'
-        SV00_NTCN_AT: 'Y' | 'N'
-    }>
+    SEND_MBER_INFO_LIST: MemberSearchItemInterface[]
 }): Promise<ServicesDefaultResult<{ test: boolean }>> => {
     return _Axios_({
         method: 'post',
@@ -208,14 +202,7 @@ export const postMberSendPush = (payload: {
     PUSH_CODE: string // 'SV00'
     PUSH_SJ: string
     SEND_ALL_MBER: 'Y' | 'N'
-    SEND_MBER_INFO_LIST: Array<{
-        MBER_NO: string
-        MBTLNUM: string
-        MBTLNUM_CRTFC_AT: 'Y' | 'N'
-        NM: string
-        SV00_NTCN_AT: 'Y' | 'N'
-        USID: string
-    }>
+    SEND_MBER_INFO_LIST: MemberSearchItemInterface[]
     SNDNG_DT: string
 }) => {
     return _Axios_({

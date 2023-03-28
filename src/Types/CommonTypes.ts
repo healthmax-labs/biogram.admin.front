@@ -468,11 +468,11 @@ export interface TokenValidateInterface {
 
 // 회원 검색 인터페이스
 export interface MemberSearchItemInterface {
-    SMS_SNDNG_AT: 'Y' | 'N'
+    SMS_SNDNG_AT?: string | 'Y' | 'N' // 회원 검색 결과에선 내려오지만 sms, push 보낼떄는 payload 에 필요 없어서 ? 처리
     MBTLNUM: string
     MBER_NO: number
-    SV00_NTCN_AT: 'Y' | 'N'
+    SV00_NTCN_AT: string | 'Y' | 'N'
     USID: string
-    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    MBTLNUM_CRTFC_AT: string | 'Y' | 'N'
     NM: string
 }
