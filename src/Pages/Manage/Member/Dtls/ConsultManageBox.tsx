@@ -24,7 +24,6 @@ const ConsultManageBox = () => {
             appPushSend: boolean
         }
         listCheckRowList: MemberSearchItemInterface[]
-        // listCheckRowList: any
     }>(initializeState)
 
     useEffect(() => {
@@ -63,7 +62,8 @@ const ConsultManageBox = () => {
                             }
                         }
                     })
-                    .filter(v => v.MBER_NO !== 0),
+                    .filter(v => v.MBER_NO !== 0)
+                    .filter(v => v.MBTLNUM_CRTFC_AT === 'Y'),
             }))
         }
 
