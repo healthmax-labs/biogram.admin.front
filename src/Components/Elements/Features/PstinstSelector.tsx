@@ -311,6 +311,10 @@ const PstinstSelector = ({
                                                         <TableBodyCell>
                                                             <ItemWapper>
                                                                 <ItemCheckBox
+                                                                    disabled={
+                                                                        step1.CHK_INST_1 ===
+                                                                        'N'
+                                                                    }
                                                                     ref={el =>
                                                                         (inputRef.current[
                                                                             step1.INST_NO
@@ -321,14 +325,20 @@ const PstinstSelector = ({
                                                                     value={
                                                                         step1.INST_NO
                                                                     }
-                                                                    onClick={() =>
+                                                                    onClick={() => {
+                                                                        if (
+                                                                            step1.CHK_INST_1 ===
+                                                                            'N'
+                                                                        ) {
+                                                                            return
+                                                                        }
                                                                         handleItemClick(
                                                                             {
                                                                                 instNo: step1.INST_NO,
                                                                                 instNm: step1.INST_NM_1,
                                                                             }
                                                                         )
-                                                                    }
+                                                                    }}
                                                                 />
                                                                 <ItemLabel
                                                                     htmlFor={`item-checkbox-step1-${step1Index}`}>
@@ -360,6 +370,10 @@ const PstinstSelector = ({
                                                                                 <ItemWapper
                                                                                     key={`pstinst-selector-step2-item-${step2Index}`}>
                                                                                     <ItemCheckBox
+                                                                                        disabled={
+                                                                                            step1.CHK_INST_2 ===
+                                                                                            'N'
+                                                                                        }
                                                                                         ref={el =>
                                                                                             (inputRef.current[
                                                                                                 step2.INST_NO
@@ -371,14 +385,20 @@ const PstinstSelector = ({
                                                                                         value={
                                                                                             step2.INST_NO
                                                                                         }
-                                                                                        onClick={() =>
+                                                                                        onClick={() => {
+                                                                                            if (
+                                                                                                step1.CHK_INST_1 ===
+                                                                                                'N'
+                                                                                            ) {
+                                                                                                return
+                                                                                            }
                                                                                             handleItemClick(
                                                                                                 {
                                                                                                     instNo: step2.INST_NO,
                                                                                                     instNm: step2.INST_NM_2,
                                                                                                 }
                                                                                             )
-                                                                                        }
+                                                                                        }}
                                                                                     />
                                                                                     <ItemLabel
                                                                                         htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
@@ -414,6 +434,10 @@ const PstinstSelector = ({
                                                                                 <ItemWapper
                                                                                     key={`pstinst-selector-step3-item-${step3Index}`}>
                                                                                     <ItemCheckBox
+                                                                                        disabled={
+                                                                                            step1.CHK_INST_3 ===
+                                                                                            'N'
+                                                                                        }
                                                                                         ref={el =>
                                                                                             (inputRef.current[
                                                                                                 step3.INST_NO
@@ -425,14 +449,20 @@ const PstinstSelector = ({
                                                                                         value={
                                                                                             step3.INST_NO
                                                                                         }
-                                                                                        onClick={() =>
+                                                                                        onClick={() => {
+                                                                                            if (
+                                                                                                step1.CHK_INST_1 ===
+                                                                                                'N'
+                                                                                            ) {
+                                                                                                return
+                                                                                            }
                                                                                             handleItemClick(
                                                                                                 {
                                                                                                     instNo: step3.INST_NO,
                                                                                                     instNm: step3.INST_NM_3,
                                                                                                 }
                                                                                             )
-                                                                                        }
+                                                                                        }}
                                                                                     />
                                                                                     <ItemLabel
                                                                                         htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
