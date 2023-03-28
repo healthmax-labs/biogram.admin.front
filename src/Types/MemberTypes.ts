@@ -55,21 +55,22 @@ export interface MemberInfoListInterface {
 }
 
 export interface ConsultInfoListItemInterface {
-    INST_NO: 1443
-    INST_NM: '건다온'
-    MBER_NO: 87335
-    MBTLNUM_CRTFC_AT_NM: '인증'
-    BRTHDY: '2022-11-29'
-    SEXDSTN: 'M'
-    RISK_FCTR: 'BMI'
-    SEXDSTN_NM: '남'
-    MESURE_DT: '20221129095659'
-    MBTLNUM: '010-9279-0312'
-    REGIST_DT: '2022-11-29 09:56:59'
-    USID: 'geondaon'
-    MBTLNUM_CRTFC_AT: 'Y'
-    NM: '건다온'
-    WORK_TY_CODE: 'N'
+    INST_NO: number
+    INST_NM: string
+    MBER_NO: number
+    MBTLNUM_CRTFC_AT_NM: string
+    BRTHDY: string
+    SEXDSTN: 'M' | 'F'
+    RISK_FCTR: string
+    SEXDSTN_NM: '남' | '여'
+    MESURE_DT: string
+    MBTLNUM: string
+    REGIST_DT: string
+    USID: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    NM: string
+    WORK_TY_CODE: 'N' | 'Y' | 'I'
+    SV00_NTCN_AT: 'Y' | 'N'
 }
 
 // 회원

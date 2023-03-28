@@ -49,6 +49,9 @@ interface ConsultListInterface {
         endDt: string
     }
     list: ConsultInfoListInterface
+    manage: {
+        checkRow: string[]
+    }
 }
 
 // 상담 차트 리스트
@@ -315,6 +318,9 @@ export const ConsultListState = atom<ConsultListInterface>({
         list: {
             MBER_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+        manage: {
+            checkRow: [],
         },
     },
 })
