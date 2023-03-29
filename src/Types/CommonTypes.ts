@@ -476,3 +476,11 @@ export interface MemberSearchItemInterface {
     MBTLNUM_CRTFC_AT: 'Y' | 'N'
     NM: string
 }
+
+export interface ExcelDownloadPropsInterface {
+    FileName: string
+    SheetName: string
+    Header: Array<string[]>
+    WsCols: Array<{ wpx: number }>
+    Data: Array<string[]>
+}

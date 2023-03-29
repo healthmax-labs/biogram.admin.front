@@ -199,7 +199,7 @@ export const MemberTableConfig = {
     Lists: [],
 }
 
-// 테이블 설정.
+// 상담 회원 현왕.
 export const ConsultTableConfig = {
     Loading: true,
     Options: {

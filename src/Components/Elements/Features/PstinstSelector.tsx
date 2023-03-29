@@ -47,7 +47,7 @@ const PstinstSelector = ({
     HandleSelectValue,
     HandleCancleClick,
 }: {
-    SelectorType?: 'input' | 'OnlyModal'
+    SelectorType?: 'input' | 'OnlyModal' | 'CloseModal'
     HandleCancleClick?: () => void
     HandleSelectValue: ({
         instNo,
@@ -98,7 +98,7 @@ const PstinstSelector = ({
             selectElement: { value: instNo, text: instNm },
         }))
 
-        if (SelectorType === 'input') {
+        if (SelectorType === 'input' || SelectorType === 'CloseModal') {
             HandleSelectValue({
                 instNo: instNo,
                 instNm: instNm,
@@ -251,7 +251,11 @@ const PstinstSelector = ({
     // 보이는 타입 처리
     useEffect(() => {
         const funcSetModalByType = () => {
-            if (SelectorType === 'OnlyModal' && !showModal) {
+            if (
+                (SelectorType === 'OnlyModal' ||
+                    SelectorType === 'CloseModal') &&
+                !showModal
+            ) {
                 handleShowModal(true)
             }
         }
