@@ -61,64 +61,69 @@ const MemberListManageBox = ({
                         }}
                         ButtonName={'신규회원등록'}
                     />
-                    <VaryButton
-                        ButtonType={`manage`}
-                        ButtonName={'회원 탈퇴'}
-                        HandleClick={() => {
-                            const {
-                                manage: { checkRow },
-                                list: { MBER_INFO_LIST },
-                            } = listState
+                    {(rootState.userinfo.AUTH_CODE === 'MAST' ||
+                        rootState.userinfo.AUTH_CODE === 'SM00') && (
+                        <VaryButton
+                            ButtonType={`manage`}
+                            ButtonName={'회원 탈퇴'}
+                            HandleClick={() => {
+                                const {
+                                    manage: { checkRow },
+                                    list: { MBER_INFO_LIST },
+                                } = listState
 
-                            if (checkRow.length === 0) {
-                                handlMainAlert({
-                                    state: true,
-                                    message:
-                                        Messages.Default.member.leave.empty,
+                                if (checkRow.length === 0) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message:
+                                            Messages.Default.member.leave.empty,
+                                    })
+
+                                    return
+                                }
+
+                                if (checkRow.length > 1) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message:
+                                            Messages.Default.member.leave.over,
+                                    })
+
+                                    return
+                                }
+
+                                const findTask = _.find(MBER_INFO_LIST, {
+                                    MBER_NO: Number(checkRow[0]),
                                 })
 
-                                return
-                            }
+                                if (_.isEmpty(findTask)) {
+                                    handlMainAlert({
+                                        state: true,
+                                        message: Messages.Default.dataGetFail,
+                                    })
 
-                            if (checkRow.length > 1) {
-                                handlMainAlert({
-                                    state: true,
-                                    message: Messages.Default.member.leave.over,
-                                })
+                                    return
+                                }
 
-                                return
-                            }
+                                setListState(prevState => ({
+                                    ...prevState,
+                                    manage: {
+                                        ...prevState.manage,
+                                        checkRowName: findTask.NM,
+                                    },
+                                }))
 
-                            const findTask = _.find(MBER_INFO_LIST, {
-                                MBER_NO: Number(checkRow[0]),
-                            })
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        memDelete: true,
+                                    },
+                                }))
+                            }}
+                        />
+                    )}
 
-                            if (_.isEmpty(findTask)) {
-                                handlMainAlert({
-                                    state: true,
-                                    message: Messages.Default.dataGetFail,
-                                })
-
-                                return
-                            }
-
-                            setListState(prevState => ({
-                                ...prevState,
-                                manage: {
-                                    ...prevState.manage,
-                                    checkRowName: findTask.NM,
-                                },
-                            }))
-
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    memDelete: true,
-                                },
-                            }))
-                        }}
-                    />
                     <VaryButton
                         ButtonType={`manage`}
                         HandleClick={() => {
