@@ -79,17 +79,20 @@ const ConsultDetailPartMyData = ({
         <>
             <Detail.MyData.ButtonWapper>
                 <Detail.MyData.Button>
-                    <VaryButton
-                        ButtonType={'default'}
-                        ButtonName={'마이데이터 프린트하기'}
-                        HandleClick={() => {
-                            window.open(
-                                `${process.env.REACT_APP_SYS_SERVER_URL}/member_mydata_print_v3.jsp?mber_no=${pageState.memNo}&auth=${rootState.logininfo.VTOKEN_INFO}`,
-                                '마이데이터 출력',
-                                'width=1200px,height=4528px,scrollbars=yes'
-                            )
-                        }}
-                    />
+                    {detailState.status === 'success' && (
+                        <VaryButton
+                            ButtonType={'default'}
+                            ButtonName={'마이데이터 프린트하기'}
+                            HandleClick={() => {
+                                window.open(
+                                    `${process.env.REACT_APP_SYS_SERVER_URL}/member_mydata_print_v3.jsp?mber_no=${pageState.memNo}&auth=${rootState.logininfo.VTOKEN_INFO}`,
+                                    '마이데이터 출력',
+                                    'width=1200px,height=4528px,scrollbars=yes'
+                                )
+                            }}
+                        />
+                    )}
+
                     <VaryButton
                         ButtonType={'default'}
                         ButtonName={'수기입력'}
