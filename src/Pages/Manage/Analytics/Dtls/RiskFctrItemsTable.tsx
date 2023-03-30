@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, ElementLoading } from '@Elements'
+import { VaryButton, ElementLoading, ExcelDownload } from '@Elements'
 
 import { useRecoilValue } from 'recoil'
 import { RiskFctrItemsListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { getNowDateDetail } from '@Helper'
 
 const {
     Container,
@@ -17,11 +19,162 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const RiskFctrItemsTable = () => {
     const {
         status,
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
     } = useRecoilValue(RiskFctrItemsListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>({
+            FileName: `위험요인_항목별_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `위험요인 항목별 연령별 통계`,
+            Header: [
+                [
+                    '연령',
+                    '전체',
+                    '혈압',
+                    '',
+                    '',
+                    '허리둘레',
+                    '',
+                    '',
+                    '식전혈당',
+                    '',
+                    '',
+                    '중성지방',
+                    '',
+                    '',
+                    'HDLC',
+                    '',
+                    '',
+                ],
+                [
+                    '',
+                    '',
+                    '전체',
+                    '정상',
+                    '위험',
+                    '전체',
+                    '정상',
+                    '위험',
+                    '전체',
+                    '정상',
+                    '위험',
+                    '전체',
+                    '정상',
+                    '위험',
+                    '전체',
+                    '정상',
+                    '위험',
+                ],
+            ],
+            WsMerge: [
+                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
+                { s: { c: 1, r: 0 }, e: { c: 1, r: 1 } },
+                { s: { c: 2, r: 0 }, e: { c: 4, r: 0 } },
+                { s: { c: 5, r: 0 }, e: { c: 7, r: 0 } },
+                { s: { c: 8, r: 0 }, e: { c: 10, r: 0 } },
+                { s: { c: 11, r: 0 }, e: { c: 13, r: 0 } },
+                { s: { c: 14, r: 0 }, e: { c: 16, r: 0 } },
+            ],
+            WsCols: [
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+            ],
+            Data: [],
+        })
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `위험요인 항목 연령별 통계`,
+            Data: Codes.ageGroup.list.map(age => {
+                const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                    AGE_GROUP: age.code,
+                })
+
+                return [
+                    age.name,
+                    DataRow ? String(DataRow.SUM_CNT) : '',
+                    DataRow ? String(DataRow.SYSTOLIC_TOT_CNT) : '',
+                    DataRow ? String(DataRow.SYSTOLIC_RISK_NO_CNT) : '',
+                    DataRow ? String(DataRow.SYSTOLIC_RISK_YES_CNT) : '',
+                    DataRow ? String(DataRow.WAIST_CRCMFRNC_TOT_CNT) : '',
+                    DataRow ? String(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT) : '',
+                    DataRow ? String(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT) : '',
+                    DataRow ? String(DataRow.FBS_TOT_CNT) : '',
+                    DataRow ? String(DataRow.FBS_RISK_NO_CNT) : '',
+                    DataRow ? String(DataRow.FBS_RISK_YES_CNT) : '',
+                    DataRow ? String(DataRow.TG_TOT_CNT) : '',
+                    DataRow ? String(DataRow.TG_RISK_NO_CNT) : '',
+                    DataRow ? String(DataRow.TG_RISK_YES_CNT) : '',
+                    DataRow ? String(DataRow.HDLC_TOT_CNT) : '',
+                    DataRow ? String(DataRow.HDLC_RISK_NO_CNT) : '',
+                    DataRow ? String(DataRow.HDLC_RISK_YES_CNT) : '',
+                ]
+            }),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName: `위험요인_항목_기간별_통계_${getNowDateDetail()}`,
+            SheetName: `위험요인 항목 기간별 통계`,
+            Data: _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
+                return [
+                    period.CYCLE_GUBUN,
+                    period.SUM_CNT,
+                    period.SYSTOLIC_TOT_CNT,
+                    period.SYSTOLIC_RISK_NO_CNT,
+                    period.SYSTOLIC_RISK_YES_CNT,
+                    period.WAIST_CRCMFRNC_TOT_CNT,
+                    period.WAIST_CRCMFRNC_RISK_NO_CNT,
+                    period.WAIST_CRCMFRNC_RISK_YES_CNT,
+                    period.FBS_TOT_CNT,
+                    period.FBS_RISK_NO_CNT,
+                    period.FBS_RISK_YES_CNT,
+                    period.TG_TOT_CNT,
+                    period.TG_RISK_NO_CNT,
+                    period.TG_RISK_YES_CNT,
+                    period.HDLC_TOT_CNT,
+                    period.HDLC_RISK_NO_CNT,
+                    period.HDLC_RISK_YES_CNT,
+                ]
+            }),
+        }))
+    }
 
     return (
         <Container>
@@ -43,7 +196,15 @@ const RiskFctrItemsTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleAgeExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                ageExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -357,7 +518,15 @@ const RiskFctrItemsTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -482,6 +651,14 @@ const RiskFctrItemsTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

@@ -1,8 +1,8 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { DefaultSearchButton, PstinstSelector, VaryLabel } from '@Elements'
-import { useRecoilState } from 'recoil'
-import { InstJoinListState } from '@Recoil/InstPagesState'
+import { useSetRecoilState } from 'recoil'
+import { InstListState } from '@Recoil/InstPagesState'
 
 const {
     SearchItemWapper,
@@ -19,7 +19,7 @@ const InstListSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
-    const [, setInstJoinListState] = useRecoilState(InstJoinListState)
+    const setInstListState = useSetRecoilState(InstListState)
 
     return (
         <RowContainer>
@@ -32,7 +32,7 @@ const InstListSearchBox = ({
                         <SearchItem>
                             <PstinstSelector
                                 HandleSelectValue={({ instNo }) =>
-                                    setInstJoinListState(prevState => ({
+                                    setInstListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,

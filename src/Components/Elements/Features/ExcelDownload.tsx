@@ -10,6 +10,7 @@ const ExcelDownload = ({
     Header,
     WsCols,
     Data,
+    WsMerge,
 }: ExcelDownloadPropsInterface) => {
     const excelFileType =
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
@@ -18,6 +19,10 @@ const ExcelDownload = ({
 
     const excelDownload = useCallback(() => {
         const ws = XLSX.utils.aoa_to_sheet(Header)
+        if (WsMerge) {
+            ws['!merges'] = WsMerge
+        }
+
         _.forEach(Data, (e: any) => {
             XLSX.utils.sheet_add_aoa(ws, [e], {
                 origin: -1,
@@ -32,7 +37,7 @@ const ExcelDownload = ({
         const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
         const excelFile = new Blob([excelButter], { type: excelFileType })
         FileSaver.saveAs(excelFile, excelFileName + excelFileExtension)
-    }, [Data, Header, SheetName, WsCols, excelFileName])
+    }, [Data, Header, SheetName, WsCols, WsMerge, excelFileName])
 
     useEffect(() => {
         excelDownload()

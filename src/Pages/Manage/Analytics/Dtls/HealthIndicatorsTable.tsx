@@ -1,15 +1,176 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { ElementLoading, VaryButton } from '@Elements'
+import { ElementLoading, ExcelDownload, VaryButton } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { getNowDateDetail } from '@Helper'
 
 const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        excelDownload: false,
+    },
+}
+
 const HealthIndicatorsTable = () => {
     const { status, list } = useRecoilValue(ImprvmListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            excelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>({
+            FileName: `건강지표_개선_통계_${getNowDateDetail()}`,
+            SheetName: `건강지표 개선 통계`,
+            Header: [
+                [
+                    '연령',
+                    '개선성공률',
+                    '',
+                    '',
+                    '혈압',
+                    '',
+                    '',
+                    '공복혈당',
+                    '',
+                    '',
+                    '중성지방',
+                    '',
+                    '',
+                    'HDL-C',
+                    '',
+                    '',
+                    '허리둘레',
+                    '',
+                    '',
+                ],
+                [
+                    '',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                    '전체',
+                    '내근직',
+                    '외근직',
+                ],
+            ],
+            WsMerge: [
+                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
+                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
+                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
+                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
+                { s: { c: 10, r: 0 }, e: { c: 12, r: 0 } },
+                { s: { c: 13, r: 0 }, e: { c: 15, r: 0 } },
+                { s: { c: 16, r: 0 }, e: { c: 18, r: 0 } },
+            ],
+            WsCols: [
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+            ],
+            Data: [],
+        })
+
+    const handleExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName: `건강지표_개선_통계_${getNowDateDetail()}`,
+            Data: Codes.ageGroup.list.map(age => {
+                const DataRow = _.find(list, {
+                    AGES_GROUP: age.code,
+                })
+
+                return [
+                    age.name,
+                    DataRow
+                        ? `${_.round(
+                              (DataRow.IW_TOT_SCORE + DataRow.OW_TOT_SCORE) / 2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_TOT_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_TOT_SCORE}%` : '',
+                    DataRow
+                        ? `${_.round(
+                              (DataRow.IW_BP_SCORE + DataRow.OW_BP_SCORE) / 2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_BP_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_BP_SCORE}%` : '',
+                    DataRow
+                        ? `${_.round(
+                              (DataRow.IW_FBS_SCORE + DataRow.OW_FBS_SCORE) / 2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_FBS_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_FBS_SCORE}%` : '',
+                    DataRow
+                        ? `${_.round(
+                              DataRow.IW_TG_SCORE + DataRow.OW_TG_SCORE / 2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_TG_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_TG_SCORE}%` : '',
+                    DataRow
+                        ? `${_.round(
+                              DataRow.IW_HDLC_SCORE + DataRow.OW_HDLC_SCORE / 2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_HDLC_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_HDLC_SCORE}%` : '',
+                    DataRow
+                        ? `${_.round(
+                              (DataRow.IW_WAIST_SCORE +
+                                  DataRow.OW_WAIST_SCORE) /
+                                  2,
+                              2
+                          )}%`
+                        : '',
+                    DataRow ? `${DataRow.IW_WAIST_SCORE}%` : '',
+                    DataRow ? `${DataRow.OW_WAIST_SCORE}%` : '',
+                ]
+            }),
+        }))
+    }
 
     return (
         <Container>
@@ -27,7 +188,15 @@ const HealthIndicatorsTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                excelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -615,6 +784,10 @@ const HealthIndicatorsTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.excelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

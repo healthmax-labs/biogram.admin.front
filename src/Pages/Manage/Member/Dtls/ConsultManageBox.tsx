@@ -1,15 +1,12 @@
 import React, { useCallback, useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import {
-    VaryButton,
-    MessageSendModal,
-    ExcelDownload,
-    PstinstSelector,
-} from '@Elements'
+import { VaryButton, MessageSendModal, ExcelDownload } from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { dateInsertHypen, getNowDateDetail, phoneFormat } from '@Helper'
 import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
+import { useRecoilValue } from 'recoil'
+import { ConsultListState } from '@Recoil/MemberPagesState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -29,11 +26,11 @@ const initializeState = {
 }
 
 const ConsultManageBox = () => {
+    const listState = useRecoilValue(ConsultListState)
     const [pageState, setPageState] = useState<{
         modal: {
             smsSend: boolean
             appPushSend: boolean
-            excelDownloadPstinst: boolean
             excelDownload: boolean
         }
         excel: {
@@ -75,69 +72,68 @@ const ConsultManageBox = () => {
             Data: [],
         })
 
-    const handleGetExcelData = useCallback(
-        async ({ instNo }: { instNo: number }) => {
+    const handleGetExcelData = useCallback(async () => {
+        setPageState(prevState => ({
+            ...prevState,
+            excel: {
+                ...prevState.excel,
+                status: 'loading',
+            },
+        }))
+
+        const { instNo, searchKey, riskFctr, startDt, endDt } = listState.search
+
+        const { status, payload } = await getMberCnsltlist({
+            curPage: 0,
+            instNo: instNo,
+            searchKey: searchKey,
+            riskFctr: riskFctr,
+            startDt: startDt,
+            endDt: endDt,
+        })
+
+        if (status) {
             setPageState(prevState => ({
                 ...prevState,
                 excel: {
                     ...prevState.excel,
-                    status: 'loading',
+                    status: 'success',
                 },
             }))
 
-            const { status, payload } = await getMberCnsltlist({
-                curPage: 0,
-                instNo: String(instNo),
-                searchKey: '',
-                riskFctr: '',
-                startDt: '',
-                endDt: '',
-            })
-
-            if (status) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    excel: {
-                        ...prevState.excel,
-                        status: 'success',
-                    },
-                }))
-
-                setExcelDownloadProps(prevState => ({
-                    ...prevState,
-                    FileName: `상담회원 현황_${getNowDateDetail()}`,
-                    Data: payload.MBER_INFO_LIST.map(m => {
-                        return [
-                            String(m.MBER_NO),
-                            m.NM,
-                            m.USID,
-                            m.MBTLNUM ? phoneFormat(m.MBTLNUM) : m.MBTLNUM,
-                            m.SEXDSTN_NM,
-                            m.INST_NM,
-                            m.WORK_TY_CODE == 'N'
-                                ? '미지정'
-                                : m.WORK_TY_CODE == 'I'
-                                ? '내근직'
-                                : '외근직',
-                            _.isEmpty(m.MESURE_DT)
-                                ? ''
-                                : dateInsertHypen(m.MESURE_DT),
-                            m.RISK_FCTR,
-                        ]
-                    }),
-                }))
-            } else {
-                setPageState(prevState => ({
-                    ...prevState,
-                    excel: {
-                        ...prevState.excel,
-                        status: 'failure',
-                    },
-                }))
-            }
-        },
-        []
-    )
+            setExcelDownloadProps(prevState => ({
+                ...prevState,
+                FileName: `상담회원_현황_${getNowDateDetail()}`,
+                Data: payload.MBER_INFO_LIST.map(m => {
+                    return [
+                        String(m.MBER_NO),
+                        m.NM,
+                        m.USID,
+                        m.MBTLNUM ? phoneFormat(m.MBTLNUM) : m.MBTLNUM,
+                        m.SEXDSTN_NM,
+                        m.INST_NM,
+                        m.WORK_TY_CODE == 'N'
+                            ? '미지정'
+                            : m.WORK_TY_CODE == 'I'
+                            ? '내근직'
+                            : '외근직',
+                        _.isEmpty(m.MESURE_DT)
+                            ? ''
+                            : dateInsertHypen(m.MESURE_DT),
+                        m.RISK_FCTR,
+                    ]
+                }),
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'failure',
+                },
+            }))
+        }
+    }, [listState.search])
 
     return (
         <Wapper>
@@ -172,13 +168,15 @@ const ConsultManageBox = () => {
                     Loading={pageState.excel.status === 'loading'}
                     ButtonType={'manage'}
                     HandleClick={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                excelDownloadPstinst: true,
-                            },
-                        }))
+                        handleGetExcelData().then(() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    excelDownload: true,
+                                },
+                            }))
+                        )
                     }}
                     ButtonName={'엑셀 내려받기'}
                 />
@@ -211,37 +209,6 @@ const ConsultManageBox = () => {
                             },
                         }))
                     }
-                />
-            )}
-
-            {pageState.modal.excelDownloadPstinst && (
-                <PstinstSelector
-                    SelectorType={`CloseModal`}
-                    HandleSelectValue={({ instNo }) => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                excelDownloadPstinst: false,
-                            },
-                            excel: {
-                                ...prevState.excel,
-                                search: {
-                                    ...prevState.excel.search,
-                                    instNo: instNo,
-                                },
-                            },
-                        }))
-                        handleGetExcelData({ instNo: instNo }).then(() =>
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    excelDownload: true,
-                                },
-                            }))
-                        )
-                    }}
                 />
             )}
 

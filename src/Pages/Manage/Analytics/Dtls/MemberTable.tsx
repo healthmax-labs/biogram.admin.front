@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, ElementLoading } from '@Elements'
+import { VaryButton, ElementLoading, ExcelDownload } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { MemberListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { getNowDateDetail } from '@Helper'
 
 const {
     Container,
@@ -16,11 +18,132 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const MemberTable = () => {
     const {
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
         status,
     } = useRecoilValue(MemberListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>({
+            FileName: `회원_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `회원 연령별 통계`,
+            Header: [
+                [
+                    '연령',
+                    '전체회원수',
+                    '',
+                    '',
+                    '신규회원수',
+                    '',
+                    '',
+                    '신규회원수',
+                    '',
+                    '',
+                ],
+                [
+                    '',
+                    '전체',
+                    '여성',
+                    '남성',
+                    '전체',
+                    '여성',
+                    '남성',
+                    '전체',
+                    '여성',
+                    '남성',
+                ],
+            ],
+            WsMerge: [
+                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
+                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
+                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
+                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
+            ],
+            WsCols: [
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+                { wpx: 80 },
+            ],
+            Data: [],
+        })
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName: `회원_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `회원 연령별 통계`,
+            Data: (() => {
+                return Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        AGES_GROUP: age.code,
+                    })
+
+                    if (DataRow) {
+                        return [
+                            age.name,
+                            String(DataRow.TOT_MBER_CNT),
+                            String(DataRow.TOT_WOMAN_CNT),
+                            String(DataRow.TOT_MAN_CNT),
+                            String(DataRow.NEW_WOMAN_CNT + DataRow.NEW_MAN_CNT),
+                            String(DataRow.NEW_WOMAN_CNT),
+                            String(DataRow.NEW_MAN_CNT),
+                            String(DataRow.DEL_WOMAN_CNT + DataRow.DEL_MAN_CNT),
+                            String(DataRow.DEL_WOMAN_CNT),
+                            String(DataRow.DEL_MAN_CNT),
+                        ]
+                    } else {
+                        return [age.name, '', '', '', '', '', '', '', '', '']
+                    }
+                })
+            })(),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName: `회원_기간별_통계_${getNowDateDetail()}`,
+            SheetName: `회원 기간별 통계`,
+            Data: (() => {
+                return PERIOD_STAT_LIST.map(period => {
+                    return [
+                        period.CYCLE_GUBUN,
+                        String(period.TOT_MBER_CNT),
+                        String(period.TOT_WOMAN_CNT),
+                        String(period.TOT_MAN_CNT),
+                        String(period.NEW_WOMAN_CNT + period.NEW_MAN_CNT),
+                        String(period.NEW_WOMAN_CNT),
+                        String(period.NEW_MAN_CNT),
+                        String(period.DEL_WOMAN_CNT + period.DEL_MAN_CNT),
+                        String(period.DEL_WOMAN_CNT),
+                        String(period.DEL_MAN_CNT),
+                    ]
+                })
+            })(),
+        }))
+    }
 
     return (
         <Container>
@@ -41,7 +164,15 @@ const MemberTable = () => {
                             ButtonType={`default`}
                             ButtonName="엑셀다운로드"
                             HandleClick={() => {
-                                //
+                                handleAgeExcelDownload().then(() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            ageExcelDownload: true,
+                                        },
+                                    }))
+                                )
                             }}
                         />
                     </ButtonBox>
@@ -246,7 +377,15 @@ const MemberTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -324,6 +463,14 @@ const MemberTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

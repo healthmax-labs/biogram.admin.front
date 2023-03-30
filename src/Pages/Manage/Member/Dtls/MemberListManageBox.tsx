@@ -6,7 +6,6 @@ import {
     VaryTextArea,
     PstinstAgreeModal,
     ExcelDownload,
-    PstinstSelector,
 } from '@Elements'
 import { useMainLayouts, useTab } from '@Hook/index'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
@@ -26,7 +25,6 @@ const initializeState = {
     modal: {
         memDelete: false,
         pstinstAgree: false,
-        excelDownloadPstinst: false,
         excelDownload: false,
     },
     excel: {
@@ -53,7 +51,6 @@ const MemberListManageBox = ({
         modal: {
             memDelete: boolean
             pstinstAgree: boolean
-            excelDownloadPstinst: boolean
             excelDownload: boolean
         }
         excel: {
@@ -66,7 +63,7 @@ const MemberListManageBox = ({
 
     const [excelDownloadProps, setExcelDownloadProps] =
         useState<ExcelDownloadPropsInterface>({
-            FileName: `회원 현황_${getNowDateDetail()}`,
+            FileName: `회원_현황_${getNowDateDetail()}`,
             SheetName: `회원 현황`,
             Header: [
                 [
@@ -101,64 +98,63 @@ const MemberListManageBox = ({
             Data: [],
         })
 
-    const handleGetExcelData = useCallback(
-        async ({ instNo }: { instNo: number }) => {
+    const handleGetExcelData = useCallback(async () => {
+        setPageState(prevState => ({
+            ...prevState,
+            excel: {
+                ...prevState.excel,
+                status: 'loading',
+            },
+        }))
+
+        const { instNo, searchKey, registDtTo, registDtFrom } = listState.search
+
+        const { status, payload } = await getMemberList({
+            curPage: 0,
+            instNo: instNo,
+            searchKey: searchKey,
+            registDtFrom: registDtTo,
+            registDtTo: registDtFrom,
+        })
+
+        if (status) {
             setPageState(prevState => ({
                 ...prevState,
                 excel: {
                     ...prevState.excel,
-                    status: 'loading',
+                    status: 'success',
                 },
             }))
 
-            const { status, payload } = await getMemberList({
-                curPage: 0,
-                instNo: String(instNo),
-                searchKey: '',
-                registDtFrom: '',
-                registDtTo: '',
-            })
-
-            if (status) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    excel: {
-                        ...prevState.excel,
-                        status: 'success',
-                    },
-                }))
-
-                setExcelDownloadProps(prevState => ({
-                    ...prevState,
-                    FileName: `회원 현황_${getNowDateDetail()}`,
-                    Data: payload.MBER_INFO_LIST.map(m => {
-                        return [
-                            String(m.MBER_NO),
-                            m.NM,
-                            m.USID,
-                            m.MBTLNUM,
-                            m.MBTLNUM_CRTFC_AT_NM,
-                            m.BRTHDY,
-                            m.SEXDSTN_NM,
-                            m.INST_NM,
-                            m.CONECT_DT,
-                            m.REGIST_DT,
-                            m.TOT_CASH,
-                        ]
-                    }),
-                }))
-            } else {
-                setPageState(prevState => ({
-                    ...prevState,
-                    excel: {
-                        ...prevState.excel,
-                        status: 'failure',
-                    },
-                }))
-            }
-        },
-        []
-    )
+            setExcelDownloadProps(prevState => ({
+                ...prevState,
+                FileName: `회원_현황_${getNowDateDetail()}`,
+                Data: payload.MBER_INFO_LIST.map(m => {
+                    return [
+                        String(m.MBER_NO),
+                        m.NM,
+                        m.USID,
+                        m.MBTLNUM,
+                        m.MBTLNUM_CRTFC_AT_NM,
+                        m.BRTHDY,
+                        m.SEXDSTN_NM,
+                        m.INST_NM,
+                        m.CONECT_DT,
+                        m.REGIST_DT,
+                        m.TOT_CASH,
+                    ]
+                }),
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'failure',
+                },
+            }))
+        }
+    }, [listState.search])
 
     return (
         <>
@@ -239,13 +235,15 @@ const MemberListManageBox = ({
                         Loading={pageState.excel.status === 'loading'}
                         ButtonType={`manage`}
                         HandleClick={() => {
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    excelDownloadPstinst: true,
-                                },
-                            }))
+                            handleGetExcelData().then(() =>
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        excelDownload: true,
+                                    },
+                                }))
+                            )
                         }}
                         ButtonName={'엑셀내려받기'}
                     />
@@ -406,37 +404,6 @@ const MemberListManageBox = ({
                             },
                         }))
                     }
-                />
-            )}
-
-            {pageState.modal.excelDownloadPstinst && (
-                <PstinstSelector
-                    SelectorType={`CloseModal`}
-                    HandleSelectValue={({ instNo }) => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                excelDownloadPstinst: false,
-                            },
-                            excel: {
-                                ...prevState.excel,
-                                search: {
-                                    ...prevState.excel.search,
-                                    instNo: instNo,
-                                },
-                            },
-                        }))
-                        handleGetExcelData({ instNo: instNo }).then(() =>
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    excelDownload: true,
-                                },
-                            }))
-                        )
-                    }}
                 />
             )}
 
