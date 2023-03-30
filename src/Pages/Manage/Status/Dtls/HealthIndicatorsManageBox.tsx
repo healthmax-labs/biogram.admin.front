@@ -6,6 +6,7 @@ import { HealthIndicatorsListState } from '@Recoil/StatusPagesState'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { dateInsertHypen, getNowDateDetail, phoneFormat } from '@Helper'
 import { getHealthIndicatorsList } from '@Service/StatusService'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -39,59 +40,9 @@ const ManageBox = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `위험요인_현황_${getNowDateDetail()}`,
-            SheetName: `위험요인 현황`,
-            Header: [
-                [
-                    '회원정보',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '측정정보',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                ],
-                [
-                    '회원번호',
-                    '이름',
-                    '생년월일',
-                    '아이디',
-                    '휴대폰번호',
-                    '성별',
-                    '개선성공률',
-                    '허리둘레',
-                    '혈압',
-                    '식전혈당',
-                    '중성지방',
-                    'HDLC',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 5, r: 0 } },
-                { s: { c: 6, r: 0 }, e: { c: 11, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Status.HealthIndicators
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({
@@ -125,7 +76,7 @@ const ManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `위험요인_현황_${getNowDateDetail()}`,
+                FileName: `건강지표개선_현황_${getNowDateDetail()}`,
                 Data: payload.MYBODY_SCORE_IMPRVM_INFO_LIST.filter(
                     v => v.MBER_NO !== null
                 ).map(m => {

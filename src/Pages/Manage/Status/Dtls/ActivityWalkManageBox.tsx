@@ -6,6 +6,7 @@ import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getActivityWalkList } from '@Service/StatusService'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -37,35 +38,9 @@ const ActivityWalkManageBox = () => {
         }
     }>(initializeState)
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `활동량_현황_${getNowDateDetail()}`,
-            SheetName: `활동량 현황`,
-            Header: [
-                [
-                    '회원번호',
-                    '이름',
-                    '생년월일',
-                    '성별',
-                    '총보행수(걸음)',
-                    '활동 거리(m)',
-                    '소비칼로리(kcal)',
-                    '최대심박수(bpm)',
-                    '평균심박수(bpm)',
-                ],
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 100 },
-                { wpx: 100 },
-                { wpx: 100 },
-                { wpx: 100 },
-                { wpx: 100 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Status.ActivityWalk
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({

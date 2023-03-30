@@ -7,6 +7,7 @@ import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
 
@@ -26,85 +27,9 @@ const HealthIndicatorsTable = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `건강지표_개선_통계_${getNowDateDetail()}`,
-            SheetName: `건강지표 개선 통계`,
-            Header: [
-                [
-                    '연령',
-                    '개선성공률',
-                    '',
-                    '',
-                    '혈압',
-                    '',
-                    '',
-                    '공복혈당',
-                    '',
-                    '',
-                    '중성지방',
-                    '',
-                    '',
-                    'HDL-C',
-                    '',
-                    '',
-                    '허리둘레',
-                    '',
-                    '',
-                ],
-                [
-                    '',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                    '전체',
-                    '내근직',
-                    '외근직',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
-                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
-                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
-                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
-                { s: { c: 10, r: 0 }, e: { c: 12, r: 0 } },
-                { s: { c: 13, r: 0 }, e: { c: 15, r: 0 } },
-                { s: { c: 16, r: 0 }, e: { c: 18, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.HealthIndicators
+        )
 
     const handleExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({

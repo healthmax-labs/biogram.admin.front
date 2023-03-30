@@ -18,6 +18,7 @@ import { AtomRootState } from '@Recoil/AppRootState'
 import { useNavigate } from 'react-router-dom'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -62,41 +63,9 @@ const MemberListManageBox = ({
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `회원_현황_${getNowDateDetail()}`,
-            SheetName: `회원 현황`,
-            Header: [
-                [
-                    '회원번호',
-                    '이름',
-                    '아이디',
-                    '휴대폰 번호',
-                    '인증여부',
-                    '생년월일',
-                    '성별',
-                    '소속',
-                    '최근방문일자',
-                    '가입일자',
-                    '보유캐시',
-                    '메모',
-                ],
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 100 },
-                { wpx: 100 },
-                { wpx: 50 },
-                { wpx: 80 },
-                { wpx: 30 },
-                { wpx: 200 },
-                { wpx: 100 },
-                { wpx: 150 },
-                { wpx: 100 },
-                { wpx: 100 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Member.MemberList
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({

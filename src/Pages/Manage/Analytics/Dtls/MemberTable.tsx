@@ -7,6 +7,7 @@ import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -39,55 +40,9 @@ const MemberTable = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `회원_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `회원 연령별 통계`,
-            Header: [
-                [
-                    '연령',
-                    '전체회원수',
-                    '',
-                    '',
-                    '신규회원수',
-                    '',
-                    '',
-                    '신규회원수',
-                    '',
-                    '',
-                ],
-                [
-                    '',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
-                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
-                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
-                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.Member
+        )
 
     const handleAgeExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({

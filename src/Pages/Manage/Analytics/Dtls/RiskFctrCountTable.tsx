@@ -8,6 +8,7 @@ import _ from 'lodash'
 import React, { useState } from 'react'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -40,84 +41,9 @@ const RiskFctrCountTable = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `위험요인 항목 연령별 통계`,
-            Header: [
-                [
-                    '연령',
-                    '전체',
-                    '',
-                    '',
-                    '1개',
-                    '',
-                    '',
-                    '2개',
-                    '',
-                    '',
-                    '3개',
-                    '',
-                    '',
-                    '4개',
-                    '',
-                    '',
-                    '5개',
-                    '',
-                    '',
-                ],
-                [
-                    '',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
-                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
-                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
-                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
-                { s: { c: 10, r: 0 }, e: { c: 12, r: 0 } },
-                { s: { c: 13, r: 0 }, e: { c: 15, r: 0 } },
-                { s: { c: 16, r: 0 }, e: { c: 18, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.RiskFctrCount
+        )
 
     const handleAgeExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({

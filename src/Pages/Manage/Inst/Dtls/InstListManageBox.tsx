@@ -6,6 +6,7 @@ import { useTab } from '@Hooks'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail, gmtTimeToTimeObject } from '@Helper'
 import { getInstList } from '@Service/InstService'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -32,35 +33,9 @@ const InstListManageBox = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `소속_현황_${getNowDateDetail()}`,
-            SheetName: `소속 현황`,
-            Header: [
-                [
-                    '소속코드',
-                    '1차',
-                    '2차',
-                    '3차',
-                    '생성일자',
-                    '회원수',
-                    '가입승인대기',
-                    '리워드 현황',
-                    '리워드 예산',
-                ],
-            ],
-            WsCols: [
-                { wpx: 60 },
-                { wpx: 200 },
-                { wpx: 200 },
-                { wpx: 200 },
-                { wpx: 80 },
-                { wpx: 50 },
-                { wpx: 70 },
-                { wpx: 70 },
-                { wpx: 70 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Inst.InstList
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({

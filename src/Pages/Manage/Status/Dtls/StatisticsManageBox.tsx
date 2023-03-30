@@ -6,6 +6,7 @@ import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getStatisticsList } from '@Service/StatusService'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -23,7 +24,7 @@ const initializeState = {
     },
 }
 
-const ManageBox = () => {
+const StatisticsManageBox = () => {
     const statisticsListState = useRecoilValue(StatisticsListState)
     const [pageState, setPageState] = useState<{
         modal: {
@@ -38,121 +39,9 @@ const ManageBox = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `기기측정_현황_${getNowDateDetail()}`,
-            SheetName: `기기측정 현황`,
-            Header: [
-                [
-                    '',
-                    '',
-                    '',
-                    '',
-                    `체성분계`,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    `혈압계`,
-                    ``,
-                    ``,
-                    `혈당계`,
-                    ``,
-                    `콜레스트롤 측정계`,
-                    ``,
-                    ``,
-                    ``,
-                    `스트레스 측정계`,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    ``,
-                    `기타`,
-                    ``,
-                    ``,
-                ],
-                [
-                    '회원번호',
-                    '회원명',
-                    '생년월일',
-                    '성별',
-                    `체중(kg)`,
-                    `BMI(kg/m²)`,
-                    `체지방률(%)`,
-                    `체지방량(kg)`,
-                    `근육량(kg)`,
-                    `추정골량(kg)`,
-                    `내장지방(level)`,
-                    `수축기(mmHg)`,
-                    `이완기(mmHg)`,
-                    `맥박(bpm)`,
-                    `공복(mg/dl)`,
-                    `식후(mg/dl)`,
-                    `TC(mg/dl)`,
-                    `TG(mg/dl)`,
-                    `HDL-C(mg/dl)`,
-                    `LDL-C(mg/dl)`,
-                    `점수(점)`,
-                    `정신적(단계)`,
-                    `신체적(단계)`,
-                    `대처능력(단계)`,
-                    `혈관(단계)`,
-                    `박출강도(단계)`,
-                    `탄성도(단계)`,
-                    `잔혈량(단계)`,
-                    `신장(cm)`,
-                    `체온(°c)`,
-                    `허리둘레(cm)`,
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 3, r: 0 } },
-                { s: { c: 4, r: 0 }, e: { c: 10, r: 0 } },
-                { s: { c: 11, r: 0 }, e: { c: 13, r: 0 } },
-                { s: { c: 14, r: 0 }, e: { c: 15, r: 0 } },
-                { s: { c: 16, r: 0 }, e: { c: 19, r: 0 } },
-                { s: { c: 20, r: 0 }, e: { c: 27, r: 0 } },
-                { s: { c: 28, r: 0 }, e: { c: 30, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Status.Statistics
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({
@@ -262,4 +151,4 @@ const ManageBox = () => {
     )
 }
 
-export default ManageBox
+export default StatisticsManageBox

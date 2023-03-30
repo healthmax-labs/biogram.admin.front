@@ -6,6 +6,7 @@ import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getRiskFctrList } from '@Service/StatusService'
 import { useRecoilValue } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -23,7 +24,7 @@ const initializeState = {
     },
 }
 
-const ManageBox = () => {
+const RiskFctrManageBox = () => {
     const riskFctrListState = useRecoilValue(RiskFctrListState)
 
     const [pageState, setPageState] = useState<{
@@ -39,86 +40,9 @@ const ManageBox = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `위험요인_현황_${getNowDateDetail()}`,
-            SheetName: `위험요인 현황`,
-            Header: [
-                [
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '체성분계',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '혈압계',
-                    '',
-                    '',
-                    '혈당계',
-                    '',
-                    '콜레스트롤 측정계',
-                    '',
-                    '',
-                    '',
-                ],
-                [
-                    '회원번호',
-                    '회원명',
-                    '생년월일',
-                    '위험요인',
-                    '복약',
-                    '체중(Kg)',
-                    'BMI(kg/m²)',
-                    '체지방률(%)',
-                    '근육량(kg)',
-                    '추정골량(kg)',
-                    '내장지방(lv)',
-                    '수축기(mmHg)',
-                    '이완기(mmHg)',
-                    '맥박(bpm)',
-                    '식전(mg/dl)',
-                    '식후(mg/dl)',
-                    'TC(mg/dl)',
-                    'TG(mg/dl)',
-                    'HDL-C(mg/dl)',
-                    'LDL-C(mg/dl)',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 4, r: 0 } },
-                { s: { c: 5, r: 0 }, e: { c: 10, r: 0 } },
-                { s: { c: 11, r: 0 }, e: { c: 13, r: 0 } },
-                { s: { c: 14, r: 0 }, e: { c: 15, r: 0 } },
-                { s: { c: 16, r: 0 }, e: { c: 19, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 100 },
-                { wpx: 150 },
-                { wpx: 50 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-                { wpx: 90 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Status.RiskFctr
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({
@@ -228,4 +152,4 @@ const ManageBox = () => {
     )
 }
 
-export default ManageBox
+export default RiskFctrManageBox

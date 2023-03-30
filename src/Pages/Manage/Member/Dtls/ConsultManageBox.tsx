@@ -7,6 +7,7 @@ import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import { useRecoilValue } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -42,35 +43,9 @@ const ConsultManageBox = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `상담회원 현황_${getNowDateDetail()}`,
-            SheetName: `상담회원 현황`,
-            Header: [
-                [
-                    '회원번호',
-                    '이름',
-                    '아이디',
-                    '휴대폰 번호',
-                    '성별',
-                    '소속',
-                    '내/외근직',
-                    '최근측정일',
-                    '위험요인',
-                ],
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 100 },
-                { wpx: 100 },
-                { wpx: 50 },
-                { wpx: 80 },
-                { wpx: 100 },
-                { wpx: 80 },
-                { wpx: 200 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Member.ConsultList
+        )
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({

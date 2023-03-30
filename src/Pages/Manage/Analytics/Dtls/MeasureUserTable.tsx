@@ -7,6 +7,7 @@ import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -39,105 +40,9 @@ const MeasureUserTable = () => {
     }>(initializeState)
 
     const [excelDownloadProps, setExcelDownloadProps] =
-        useState<ExcelDownloadPropsInterface>({
-            FileName: `측정이용자_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `측정이용자 연령별 통계`,
-            Header: [
-                [
-                    '연령',
-                    '전체',
-                    '',
-                    '',
-                    '체성분계',
-                    '',
-                    '',
-                    '혈압계',
-                    '',
-                    '',
-                    '혈당계',
-                    '',
-                    '',
-                    '콜레스테롤계',
-                    '',
-                    '',
-                    '스트레스계',
-                    '',
-                    '',
-                    '신장계',
-                    '',
-                    '',
-                    '활동량계',
-                    '',
-                    '',
-                ],
-                [
-                    '',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                    '전체',
-                    '여성',
-                    '남성',
-                ],
-            ],
-            WsMerge: [
-                { s: { c: 0, r: 0 }, e: { c: 0, r: 1 } },
-                { s: { c: 1, r: 0 }, e: { c: 3, r: 0 } },
-                { s: { c: 4, r: 0 }, e: { c: 6, r: 0 } },
-                { s: { c: 7, r: 0 }, e: { c: 9, r: 0 } },
-                { s: { c: 10, r: 0 }, e: { c: 12, r: 0 } },
-                { s: { c: 13, r: 0 }, e: { c: 15, r: 0 } },
-                { s: { c: 16, r: 0 }, e: { c: 18, r: 0 } },
-                { s: { c: 19, r: 0 }, e: { c: 21, r: 0 } },
-                { s: { c: 22, r: 0 }, e: { c: 24, r: 0 } },
-            ],
-            WsCols: [
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-                { wpx: 80 },
-            ],
-            Data: [],
-        })
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.MeasureUser
+        )
 
     const handleAgeExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
