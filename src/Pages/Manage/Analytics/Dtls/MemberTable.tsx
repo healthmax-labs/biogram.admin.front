@@ -50,28 +50,85 @@ const MemberTable = () => {
             FileName: `회원_연령별_통계_${getNowDateDetail()}`,
             SheetName: `회원 연령별 통계`,
             Data: (() => {
-                return Codes.ageGroup.list.map(age => {
+                const returnData = Codes.ageGroup.list.map(age => {
                     const DataRow = _.find(AGE_GROUP_STAT_LIST, {
                         AGES_GROUP: age.code,
                     })
 
-                    if (DataRow) {
-                        return [
-                            age.name,
-                            String(DataRow.TOT_MBER_CNT),
-                            String(DataRow.TOT_WOMAN_CNT),
-                            String(DataRow.TOT_MAN_CNT),
-                            String(DataRow.NEW_WOMAN_CNT + DataRow.NEW_MAN_CNT),
-                            String(DataRow.NEW_WOMAN_CNT),
-                            String(DataRow.NEW_MAN_CNT),
-                            String(DataRow.DEL_WOMAN_CNT + DataRow.DEL_MAN_CNT),
-                            String(DataRow.DEL_WOMAN_CNT),
-                            String(DataRow.DEL_MAN_CNT),
-                        ]
-                    } else {
-                        return [age.name, '', '', '', '', '', '', '', '', '']
-                    }
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.TOT_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.TOT_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.TOT_MAN_CNT : ``}`,
+                        `${
+                            DataRow
+                                ? DataRow.NEW_WOMAN_CNT + DataRow.NEW_MAN_CNT
+                                : ``
+                        }`,
+                        `${DataRow ? DataRow.NEW_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.NEW_MAN_CNT : ``}`,
+                        `${
+                            DataRow
+                                ? DataRow.DEL_WOMAN_CNT + DataRow.DEL_MAN_CNT
+                                : ``
+                        }`,
+                        `${DataRow ? DataRow.DEL_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.DEL_MAN_CNT : ``}`,
+                    ]
                 })
+
+                returnData.push([
+                    '합계',
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_MAN_CNT))
+                    )}`,
+                    `${(() => {
+                        const NEW_WOMAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.NEW_WOMAN_CNT)
+                            )
+                        )
+
+                        const NEW_MAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_MAN_CNT))
+                        )
+
+                        return `${NEW_WOMAN_CNT + NEW_MAN_CNT}`
+                    })()}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_MAN_CNT))
+                    )}`,
+                    `${(() => {
+                        const DEL_WOMAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.DEL_WOMAN_CNT)
+                            )
+                        )
+
+                        const DEL_MAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_MAN_CNT))
+                        )
+
+                        return `${DEL_WOMAN_CNT + DEL_MAN_CNT}`
+                    })()}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_MAN_CNT))
+                    )}`,
+                ])
+
+                return returnData
             })(),
         }))
     }
@@ -84,16 +141,24 @@ const MemberTable = () => {
             Data: (() => {
                 return PERIOD_STAT_LIST.map(period => {
                     return [
-                        period.CYCLE_GUBUN,
-                        String(period.TOT_MBER_CNT),
-                        String(period.TOT_WOMAN_CNT),
-                        String(period.TOT_MAN_CNT),
-                        String(period.NEW_WOMAN_CNT + period.NEW_MAN_CNT),
-                        String(period.NEW_WOMAN_CNT),
-                        String(period.NEW_MAN_CNT),
-                        String(period.DEL_WOMAN_CNT + period.DEL_MAN_CNT),
-                        String(period.DEL_WOMAN_CNT),
-                        String(period.DEL_MAN_CNT),
+                        `${period ? period.CYCLE_GUBUN : ''}`,
+                        `${period ? period.TOT_MBER_CNT : ''}`,
+                        `${period ? period.TOT_WOMAN_CNT : ''}`,
+                        `${period ? period.TOT_MAN_CNT : ''}`,
+                        `${
+                            period
+                                ? period.NEW_WOMAN_CNT + period.NEW_MAN_CNT
+                                : ''
+                        }`,
+                        `${period ? period.NEW_WOMAN_CNT : ''}`,
+                        `${period ? period.NEW_MAN_CNT : ''}`,
+                        `${
+                            period
+                                ? period.DEL_WOMAN_CNT + period.DEL_MAN_CNT
+                                : ''
+                        }`,
+                        `${period ? period.DEL_WOMAN_CNT : ''}`,
+                        `${period ? period.DEL_MAN_CNT : ''}`,
                     ]
                 })
             })(),

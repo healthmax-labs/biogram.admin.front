@@ -50,69 +50,117 @@ const MeasureUserTable = () => {
             FileName: `측정이용자_연령별_통계_${getNowDateDetail()}`,
             SheetName: `측정이용자 연령별 통계`,
             Data: (() => {
-                return Codes.ageGroup.list.map(age => {
+                const returnData = Codes.ageGroup.list.map(age => {
                     const DataRow = _.find(AGE_GROUP_STAT_LIST, {
                         AGE_GROUP: age.code,
                     })
 
-                    if (DataRow) {
-                        return [
-                            age.name,
-                            String(DataRow.SUM_MBER_CNT),
-                            String(DataRow.SUM_WOMAN_CNT),
-                            String(DataRow.SUM_MAN_CNT),
-                            String(DataRow.IS_MBER_CNT),
-                            String(DataRow.IS_WOMAN_CNT),
-                            String(DataRow.IS_MAN_CNT),
-                            String(DataRow.BP_MBER_CNT),
-                            String(DataRow.BP_WOMAN_CNT),
-                            String(DataRow.BP_MAN_CNT),
-                            String(DataRow.BS_MBER_CNT),
-                            String(DataRow.BS_WOMAN_CNT),
-                            String(DataRow.BS_MAN_CNT),
-                            String(DataRow.BC_MBER_CNT),
-                            String(DataRow.BC_WOMAN_CNT),
-                            String(DataRow.BC_MAN_CNT),
-                            String(DataRow.ST_MBER_CNT),
-                            String(DataRow.ST_WOMAN_CNT),
-                            String(DataRow.ST_MAN_CNT),
-                            String(DataRow.HT_MBER_CNT),
-                            String(DataRow.HT_WOMAN_CNT),
-                            String(DataRow.HT_MAN_CNT),
-                            String(DataRow.BD_MBER_CNT),
-                            String(DataRow.BD_WOMAN_CNT),
-                            String(DataRow.BD_MAN_CNT),
-                        ]
-                    } else {
-                        return [
-                            age.name,
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                            '',
-                        ]
-                    }
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.SUM_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.SUM_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.SUM_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_MAN_CNT : ``}`,
+                    ]
                 })
+
+                returnData.push([
+                    `합계`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MAN_CNT))
+                    )}`,
+                ])
+
+                return returnData
             })(),
         }))
     }
@@ -125,31 +173,31 @@ const MeasureUserTable = () => {
             Data: (() => {
                 return _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                     return [
-                        period.CYCLE_GUBUN,
-                        String(period.SUM_MBER_CNT),
-                        String(period.SUM_WOMAN_CNT),
-                        String(period.SUM_MAN_CNT),
-                        String(period.IS_MBER_CNT),
-                        String(period.IS_WOMAN_CNT),
-                        String(period.IS_MAN_CNT),
-                        String(period.BP_MBER_CNT),
-                        String(period.BP_WOMAN_CNT),
-                        String(period.BP_MAN_CNT),
-                        String(period.BS_MBER_CNT),
-                        String(period.BS_WOMAN_CNT),
-                        String(period.BS_MAN_CNT),
-                        String(period.BC_MBER_CNT),
-                        String(period.BC_WOMAN_CNT),
-                        String(period.BC_MAN_CNT),
-                        String(period.ST_MBER_CNT),
-                        String(period.ST_WOMAN_CNT),
-                        String(period.ST_MAN_CNT),
-                        String(period.HT_MBER_CNT),
-                        String(period.HT_WOMAN_CNT),
-                        String(period.HT_MAN_CNT),
-                        String(period.BD_MBER_CNT),
-                        String(period.BD_WOMAN_CNT),
-                        String(period.BD_MAN_CNT),
+                        `${period.CYCLE_GUBUN}`,
+                        `${period.SUM_MBER_CNT}`,
+                        `${period.SUM_WOMAN_CNT}`,
+                        `${period.SUM_MAN_CNT}`,
+                        `${period.IS_MBER_CNT}`,
+                        `${period.IS_WOMAN_CNT}`,
+                        `${period.IS_MAN_CNT}`,
+                        `${period.BP_MBER_CNT}`,
+                        `${period.BP_WOMAN_CNT}`,
+                        `${period.BP_MAN_CNT}`,
+                        `${period.BS_MBER_CNT}`,
+                        `${period.BS_WOMAN_CNT}`,
+                        `${period.BS_MAN_CNT}`,
+                        `${period.BC_MBER_CNT}`,
+                        `${period.BC_WOMAN_CNT}`,
+                        `${period.BC_MAN_CNT}`,
+                        `${period.ST_MBER_CNT}`,
+                        `${period.ST_WOMAN_CNT}`,
+                        `${period.ST_MAN_CNT}`,
+                        `${period.HT_MBER_CNT}`,
+                        `${period.HT_WOMAN_CNT}`,
+                        `${period.HT_MAN_CNT}`,
+                        `${period.BD_MBER_CNT}`,
+                        `${period.BD_WOMAN_CNT}`,
+                        `${period.BD_MAN_CNT}`,
                     ]
                 })
             })(),

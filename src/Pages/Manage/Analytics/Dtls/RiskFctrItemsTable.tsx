@@ -50,31 +50,115 @@ const RiskFctrItemsTable = () => {
             ...prevState,
             FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
             SheetName: `위험요인 항목 연령별 통계`,
-            Data: Codes.ageGroup.list.map(age => {
-                const DataRow = _.find(AGE_GROUP_STAT_LIST, {
-                    AGE_GROUP: age.code,
+            Data: (() => {
+                const resutnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        AGE_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? String(DataRow.SUM_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.SYSTOLIC_TOT_CNT) : ''}`,
+                        `${
+                            DataRow ? String(DataRow.SYSTOLIC_RISK_NO_CNT) : ''
+                        }`,
+                        `${
+                            DataRow ? String(DataRow.SYSTOLIC_RISK_YES_CNT) : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? String(DataRow.WAIST_CRCMFRNC_TOT_CNT)
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? String(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT)
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? String(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT)
+                                : ''
+                        }`,
+                        `${DataRow ? String(DataRow.FBS_TOT_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.FBS_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.FBS_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_TOT_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_TOT_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_RISK_YES_CNT) : ''}`,
+                    ]
                 })
 
-                return [
-                    age.name,
-                    DataRow ? String(DataRow.SUM_CNT) : '',
-                    DataRow ? String(DataRow.SYSTOLIC_TOT_CNT) : '',
-                    DataRow ? String(DataRow.SYSTOLIC_RISK_NO_CNT) : '',
-                    DataRow ? String(DataRow.SYSTOLIC_RISK_YES_CNT) : '',
-                    DataRow ? String(DataRow.WAIST_CRCMFRNC_TOT_CNT) : '',
-                    DataRow ? String(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT) : '',
-                    DataRow ? String(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT) : '',
-                    DataRow ? String(DataRow.FBS_TOT_CNT) : '',
-                    DataRow ? String(DataRow.FBS_RISK_NO_CNT) : '',
-                    DataRow ? String(DataRow.FBS_RISK_YES_CNT) : '',
-                    DataRow ? String(DataRow.TG_TOT_CNT) : '',
-                    DataRow ? String(DataRow.TG_RISK_NO_CNT) : '',
-                    DataRow ? String(DataRow.TG_RISK_YES_CNT) : '',
-                    DataRow ? String(DataRow.HDLC_TOT_CNT) : '',
-                    DataRow ? String(DataRow.HDLC_RISK_NO_CNT) : '',
-                    DataRow ? String(DataRow.HDLC_RISK_YES_CNT) : '',
-                ]
-            }),
+                resutnData.push([
+                    `합계`,
+                    `${_.sum(AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_CNT)))}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SYSTOLIC_TOT_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.SYSTOLIC_RISK_NO_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.SYSTOLIC_RISK_YES_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.WAIST_CRCMFRNC_TOT_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.WAIST_CRCMFRNC_RISK_NO_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.WAIST_CRCMFRNC_RISK_YES_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_TOT_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_NO_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_YES_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_TOT_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_NO_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_YES_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_TOT_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.HDLC_RISK_YES_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.HDLC_RISK_YES_CNT)
+                        )
+                    )}`,
+                ])
+
+                return resutnData
+            })(),
         }))
     }
 
@@ -85,23 +169,23 @@ const RiskFctrItemsTable = () => {
             SheetName: `위험요인 항목 기간별 통계`,
             Data: _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                 return [
-                    period.CYCLE_GUBUN,
-                    period.SUM_CNT,
-                    period.SYSTOLIC_TOT_CNT,
-                    period.SYSTOLIC_RISK_NO_CNT,
-                    period.SYSTOLIC_RISK_YES_CNT,
-                    period.WAIST_CRCMFRNC_TOT_CNT,
-                    period.WAIST_CRCMFRNC_RISK_NO_CNT,
-                    period.WAIST_CRCMFRNC_RISK_YES_CNT,
-                    period.FBS_TOT_CNT,
-                    period.FBS_RISK_NO_CNT,
-                    period.FBS_RISK_YES_CNT,
-                    period.TG_TOT_CNT,
-                    period.TG_RISK_NO_CNT,
-                    period.TG_RISK_YES_CNT,
-                    period.HDLC_TOT_CNT,
-                    period.HDLC_RISK_NO_CNT,
-                    period.HDLC_RISK_YES_CNT,
+                    `${period.CYCLE_GUBUN}`,
+                    `${period.SUM_CNT}`,
+                    `${period.SYSTOLIC_TOT_CNT}`,
+                    `${period.SYSTOLIC_RISK_NO_CNT}`,
+                    `${period.SYSTOLIC_RISK_YES_CNT}`,
+                    `${period.WAIST_CRCMFRNC_TOT_CNT}`,
+                    `${period.WAIST_CRCMFRNC_RISK_NO_CNT}`,
+                    `${period.WAIST_CRCMFRNC_RISK_YES_CNT}`,
+                    `${period.FBS_TOT_CNT}`,
+                    `${period.FBS_RISK_NO_CNT}`,
+                    `${period.FBS_RISK_YES_CNT}`,
+                    `${period.TG_TOT_CNT}`,
+                    `${period.TG_RISK_NO_CNT}`,
+                    `${period.TG_RISK_YES_CNT}`,
+                    `${period.HDLC_TOT_CNT}`,
+                    `${period.HDLC_RISK_NO_CNT}`,
+                    `${period.HDLC_RISK_YES_CNT}`,
                 ]
             }),
         }))

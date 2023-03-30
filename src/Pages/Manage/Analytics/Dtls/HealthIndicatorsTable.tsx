@@ -35,65 +35,255 @@ const HealthIndicatorsTable = () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName: `건강지표_개선_통계_${getNowDateDetail()}`,
-            Data: Codes.ageGroup.list.map(age => {
-                const DataRow = _.find(list, {
-                    AGES_GROUP: age.code,
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(list, {
+                        AGES_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_TOT_SCORE +
+                                          DataRow.OW_TOT_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_TOT_SCORE : ''}%`,
+                        `${DataRow ? DataRow.OW_TOT_SCORE : ''}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_BP_SCORE +
+                                          DataRow.OW_BP_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_BP_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_BP_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_FBS_SCORE +
+                                          DataRow.OW_FBS_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_FBS_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_FBS_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      DataRow.IW_TG_SCORE +
+                                          DataRow.OW_TG_SCORE / 2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_TG_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_TG_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      DataRow.IW_HDLC_SCORE +
+                                          DataRow.OW_HDLC_SCORE / 2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_HDLC_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_HDLC_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_WAIST_SCORE +
+                                          DataRow.OW_WAIST_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_WAIST_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_WAIST_SCORE : 0}%`,
+                    ]
                 })
 
-                return [
-                    age.name,
-                    DataRow
-                        ? `${_.round(
-                              (DataRow.IW_TOT_SCORE + DataRow.OW_TOT_SCORE) / 2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_TOT_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_TOT_SCORE}%` : '',
-                    DataRow
-                        ? `${_.round(
-                              (DataRow.IW_BP_SCORE + DataRow.OW_BP_SCORE) / 2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_BP_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_BP_SCORE}%` : '',
-                    DataRow
-                        ? `${_.round(
-                              (DataRow.IW_FBS_SCORE + DataRow.OW_FBS_SCORE) / 2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_FBS_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_FBS_SCORE}%` : '',
-                    DataRow
-                        ? `${_.round(
-                              DataRow.IW_TG_SCORE + DataRow.OW_TG_SCORE / 2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_TG_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_TG_SCORE}%` : '',
-                    DataRow
-                        ? `${_.round(
-                              DataRow.IW_HDLC_SCORE + DataRow.OW_HDLC_SCORE / 2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_HDLC_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_HDLC_SCORE}%` : '',
-                    DataRow
-                        ? `${_.round(
-                              (DataRow.IW_WAIST_SCORE +
-                                  DataRow.OW_WAIST_SCORE) /
-                                  2,
-                              2
-                          )}%`
-                        : '',
-                    DataRow ? `${DataRow.IW_WAIST_SCORE}%` : '',
-                    DataRow ? `${DataRow.OW_WAIST_SCORE}%` : '',
-                ]
-            }),
+                returnData.push([
+                    `합계`,
+                    `${(() => {
+                        const IW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_TOT_SCORE + OW_TOT_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_TOT_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_TOT_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.IW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.OW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round((IW_BP_SCORE + OW_BP_SCORE) / 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.IW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_BP_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.OW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_BP_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.IW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.OW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_FBS_SCORE + OW_FBS_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.IW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_FBS_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.OW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_FBS_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round((IW_TG_SCORE + OW_TG_SCORE) / 2, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_TG_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_TG_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.IW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.OW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_HDLC_SCORE + OW_HDLC_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.IW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_HDLC_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.OW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_HDLC_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.IW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.OW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_WAIST_SCORE + OW_WAIST_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.IW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_WAIST_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.OW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_WAIST_SCORE, 2)}%`
+                    })()}`,
+                ])
+
+                return returnData
+            })(),
         }))
     }
 

@@ -50,33 +50,63 @@ const RiskFctrCountTable = () => {
             ...prevState,
             FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
             SheetName: `위험요인 항목 연령별 통계`,
-            Data: Codes.ageGroup.list.map(age => {
-                const DataRow = _.find(AGE_GROUP_STAT_LIST, {
-                    RF_AGE_GROUP: age.code,
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        RF_AGE_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.RF_ALL_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_ALL_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_ALL_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_MAN_CNT : ''}`,
+                    ]
                 })
 
-                return [
-                    age.name,
-                    DataRow ? String(DataRow.RF_ALL_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_ALL_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_ALL_MAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_1_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_1_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_1_MAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_2_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_2_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_2_MAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_3_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_3_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_3_MAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_4_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_4_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_4_MAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_5_MBER_CNT) : '',
-                    DataRow ? String(DataRow.RF_5_WOMAN_CNT) : '',
-                    DataRow ? String(DataRow.RF_5_MAN_CNT) : '',
-                ]
-            }),
+                const TotDataRow = _.find(AGE_GROUP_STAT_LIST, {
+                    RF_AGE_GROUP: 'TOT',
+                })
+
+                returnData.push([
+                    `합계`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_MAN_CNT : ``}`,
+                ])
+
+                return returnData
+            })(),
         }))
     }
 
@@ -87,25 +117,25 @@ const RiskFctrCountTable = () => {
             SheetName: `위험요인 항목 기간별 통계`,
             Data: PERIOD_STAT_LIST.map(period => {
                 return [
-                    period.PERIOD,
-                    period.RF_ALL_MBER_CNT,
-                    period.RF_ALL_WOMAN_CNT,
-                    period.RF_ALL_MAN_CNT,
-                    period.RF_1_MBER_CNT,
-                    period.RF_1_WOMAN_CNT,
-                    period.RF_1_MAN_CNT,
-                    period.RF_2_MBER_CNT,
-                    period.RF_2_WOMAN_CNT,
-                    period.RF_2_MAN_CNT,
-                    period.RF_3_MBER_CNT,
-                    period.RF_3_WOMAN_CNT,
-                    period.RF_3_MAN_CNT,
-                    period.RF_4_MBER_CNT,
-                    period.RF_4_WOMAN_CNT,
-                    period.RF_4_MAN_CNT,
-                    period.RF_5_MBER_CNT,
-                    period.RF_5_WOMAN_CNT,
-                    period.RF_5_MAN_CNT,
+                    `${period.PERIOD}`,
+                    `${period.RF_ALL_MBER_CNT}`,
+                    `${period.RF_ALL_WOMAN_CNT}`,
+                    `${period.RF_ALL_MAN_CNT}`,
+                    `${period.RF_1_MBER_CNT}`,
+                    `${period.RF_1_WOMAN_CNT}`,
+                    `${period.RF_1_MAN_CNT}`,
+                    `${period.RF_2_MBER_CNT}`,
+                    `${period.RF_2_WOMAN_CNT}`,
+                    `${period.RF_2_MAN_CNT}`,
+                    `${period.RF_3_MBER_CNT}`,
+                    `${period.RF_3_WOMAN_CNT}`,
+                    `${period.RF_3_MAN_CNT}`,
+                    `${period.RF_4_MBER_CNT}`,
+                    `${period.RF_4_WOMAN_CNT}`,
+                    `${period.RF_4_MAN_CNT}`,
+                    `${period.RF_5_MBER_CNT}`,
+                    `${period.RF_5_WOMAN_CNT}`,
+                    `${period.RF_5_MAN_CNT}`,
                 ]
             }),
         }))
