@@ -9,6 +9,7 @@ import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -28,6 +29,7 @@ const initializeState = {
 
 const RiskFctrManageBox = () => {
     const riskFctrListState = useRecoilValue(RiskFctrListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
     const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
@@ -125,6 +127,7 @@ const RiskFctrManageBox = () => {
                         m.LDLC ? String(m.LDLC) : '',
                     ]
                 }),
+                SpliceColumn: Theme === 'GeonDaon', // 건다온일때 회원 번호 삭제.
             }))
         } else {
             setPageState(prevState => ({
@@ -140,7 +143,7 @@ const RiskFctrManageBox = () => {
                 message: Messages.Default.searchEmpty,
             })
         }
-    }, [handlMainAlert, riskFctrListState])
+    }, [Theme, handlMainAlert, riskFctrListState])
 
     return (
         <Wapper>

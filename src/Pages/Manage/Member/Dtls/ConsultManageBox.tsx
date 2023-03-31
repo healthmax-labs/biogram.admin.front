@@ -8,6 +8,7 @@ import _ from 'lodash'
 import { useRecoilValue } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -28,6 +29,7 @@ const initializeState = {
 
 const ConsultManageBox = () => {
     const listState = useRecoilValue(ConsultListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
     const [pageState, setPageState] = useState<{
         modal: {
             smsSend: boolean
@@ -105,6 +107,10 @@ const ConsultManageBox = () => {
                         m.RISK_FCTR,
                     ]
                 }),
+                SpliceColumns:
+                    Theme === 'GeonDaon'
+                        ? [{ start: 1, end: 1 }]
+                        : [{ start: 7, end: 1 }],
             }))
         } else {
             setPageState(prevState => ({
@@ -115,7 +121,7 @@ const ConsultManageBox = () => {
                 },
             }))
         }
-    }, [listState.search])
+    }, [Theme, listState.search])
 
     return (
         <Wapper>

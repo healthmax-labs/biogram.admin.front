@@ -483,4 +483,8 @@ export interface ExcelDownloadPropsInterface {
     Header: Array<string[]>
     MergeCells?: string[]
     Data: Array<string[]>
+    SpliceColumn?: boolean
+    SpliceColumns?: Array<{ start: number; end: number }>
+    SpliceMergeCells?: string[]
+    DownloadEnd?: () => void
 }

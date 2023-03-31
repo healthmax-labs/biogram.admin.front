@@ -9,6 +9,7 @@ import { getStatisticsList } from '@Service/StatusService'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -28,6 +29,7 @@ const initializeState = {
 
 const StatisticsManageBox = () => {
     const statisticsListState = useRecoilValue(StatisticsListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
     const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
@@ -134,6 +136,7 @@ const StatisticsManageBox = () => {
                         m.WAIST_CRCMFRNC ? m.WAIST_CRCMFRNC : '',
                     ]
                 }),
+                SpliceColumn: Theme === 'GeonDaon',
             }))
         } else {
             setPageState(prevState => ({
@@ -149,7 +152,7 @@ const StatisticsManageBox = () => {
                 message: Messages.Default.searchEmpty,
             })
         }
-    }, [handlMainAlert, statisticsListState])
+    }, [Theme, handlMainAlert, statisticsListState])
 
     return (
         <Wapper>

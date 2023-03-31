@@ -13,6 +13,7 @@ import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -32,6 +33,7 @@ const initializeState = {
 
 const BrftrCmprManageBox = () => {
     const brftrCmprListState = useRecoilValue(BrftrCmprListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
 
     const [pageState, setPageState] = useState<{
         modal: {
@@ -216,6 +218,7 @@ const BrftrCmprManageBox = () => {
                         `${m.HDLC_3 ? m.HDLC_3 : ''}`,
                     ]
                 }),
+                SpliceColumn: Theme === 'GeonDaon', // 건다온일때 회원 번호 삭제.
             }))
         } else {
             setPageState(prevState => ({
@@ -230,7 +233,7 @@ const BrftrCmprManageBox = () => {
                 message: Messages.Default.searchEmpty,
             })
         }
-    }, [brftrCmprListState, handlMainAlert])
+    }, [Theme, brftrCmprListState, handlMainAlert])
 
     return (
         <Wapper>

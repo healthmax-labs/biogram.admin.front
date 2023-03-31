@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -47,6 +48,7 @@ const MemberListManageBox = ({
     const memberDetailStateReset = useResetRecoilState(MemberDetailState)
     const rootState = useRecoilValue(AtomRootState)
     const { handleDeleteTabbyMatchRouter } = useTab()
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
 
     const [pageState, setPageState] = useState<{
         modal: {
@@ -96,7 +98,7 @@ const MemberListManageBox = ({
                 },
             }))
 
-            setExcelDownloadProps(prevState => ({
+            await setExcelDownloadProps(prevState => ({
                 ...prevState,
                 FileName:
                     instNo && instNm
@@ -115,11 +117,20 @@ const MemberListManageBox = ({
                         m.BRTHDY,
                         m.SEXDSTN_NM,
                         m.INST_NM,
+                        m.WORK_TY_CODE == 'N'
+                            ? '미지정'
+                            : m.WORK_TY_CODE == 'I'
+                            ? '내근직'
+                            : '외근직',
                         m.CONECT_DT,
                         m.REGIST_DT,
                         m.TOT_CASH,
                     ]
                 }),
+                SpliceColumns:
+                    Theme === 'GeonDaon'
+                        ? [{ start: 1, end: 1 }]
+                        : [{ start: 9, end: 1 }],
             }))
         } else {
             setPageState(prevState => ({
@@ -135,7 +146,7 @@ const MemberListManageBox = ({
                 message: Messages.Default.searchEmpty,
             })
         }
-    }, [handlMainAlert, listState.search])
+    }, [Theme, handlMainAlert, listState.search])
 
     return (
         <>
@@ -389,7 +400,18 @@ const MemberListManageBox = ({
             )}
 
             {pageState.modal.excelDownload && (
-                <ExcelDownload {...excelDownloadProps} />
+                <ExcelDownload
+                    {...excelDownloadProps}
+                    DownloadEnd={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                excelDownload: false,
+                            },
+                        }))
+                    }
+                />
             )}
         </>
     )

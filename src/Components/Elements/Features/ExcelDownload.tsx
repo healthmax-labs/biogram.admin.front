@@ -10,6 +10,9 @@ const ExcelDownload = ({
     Header,
     Data,
     MergeCells,
+    SpliceColumn,
+    SpliceColumns,
+    SpliceMergeCells,
 }: ExcelDownloadPropsInterface) => {
     const handleExcel = useCallback(async () => {
         const workbook = new ExcelJS.Workbook()
@@ -23,9 +26,11 @@ const ExcelDownload = ({
             worksheet.addRow(data)
         })
 
-        _.forEach(MergeCells, mergecells => {
-            worksheet.mergeCells(mergecells)
-        })
+        if (SpliceColumn && SpliceColumns && SpliceColumns.length > 0) {
+            _.forEach(SpliceColumns, s => {
+                worksheet.spliceColumns(s.start, s.end)
+            })
+        }
 
         worksheet.eachRow({ includeEmpty: true }, function (row, rowNumber) {
             row.eachCell(function (cell) {
@@ -59,23 +64,34 @@ const ExcelDownload = ({
             })
         })
 
-        worksheet.columns.forEach(function (column: any, i) {
-            if (i !== 0) {
-                let maxLength = 0
-                column['eachCell'](
-                    { includeEmpty: true },
-                    function (cell: any) {
-                        const columnLength = cell.value
-                            ? cell.value.toString().length
-                            : 10
-                        if (columnLength > maxLength) {
-                            maxLength = columnLength
-                        }
-                    }
-                )
-                column.width = maxLength < 20 ? 20 : maxLength + 20
-            }
+        worksheet.columns.forEach(function (column: any) {
+            let maxLength = 0
+            column['eachCell']({ includeEmpty: true }, function (cell: any) {
+                const columnLength = cell.value
+                    ? cell.value.toString().length
+                    : 20
+                if (columnLength > maxLength) {
+                    maxLength = columnLength
+                }
+            })
+            column.width = maxLength < 20 ? 20 : maxLength + 20
         })
+
+        if (
+            SpliceColumn &&
+            SpliceColumns &&
+            SpliceColumns.length > 0 &&
+            SpliceMergeCells &&
+            SpliceMergeCells.length > 0
+        ) {
+            _.forEach(SpliceMergeCells, mergecells => {
+                worksheet.mergeCells(mergecells)
+            })
+        } else {
+            _.forEach(MergeCells, mergecells => {
+                worksheet.mergeCells(mergecells)
+            })
+        }
 
         // 다운로드
         const mimeType = {
@@ -84,11 +100,20 @@ const ExcelDownload = ({
         const buffer = await workbook.xlsx.writeBuffer()
         const blob = new Blob([buffer], mimeType)
         saveAs(blob, FileName)
-    }, [Data, FileName, Header, MergeCells, SheetName])
+    }, [
+        Data,
+        FileName,
+        Header,
+        MergeCells,
+        SheetName,
+        SpliceColumn,
+        SpliceColumns,
+        SpliceMergeCells,
+    ])
 
     useLayoutEffect(() => {
         handleExcel().then()
-    }, [handleExcel, Data, Header])
+    }, [handleExcel])
 
     return <></>
 }

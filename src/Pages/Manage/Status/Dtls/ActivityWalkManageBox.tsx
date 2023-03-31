@@ -9,6 +9,7 @@ import { getActivityWalkList } from '@Service/StatusService'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -28,6 +29,7 @@ const initializeState = {
 
 const ActivityWalkManageBox = () => {
     const activityWalkListState = useRecoilValue(ActivityWalkListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
     const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
@@ -109,6 +111,7 @@ const ActivityWalkManageBox = () => {
                         ]
                     }
                 ),
+                SpliceColumn: Theme === 'GeonDaon',
             }))
         } else {
             setPageState(prevState => ({
@@ -123,7 +126,7 @@ const ActivityWalkManageBox = () => {
                 message: Messages.Default.searchEmpty,
             })
         }
-    }, [activityWalkListState, handlMainAlert])
+    }, [Theme, activityWalkListState, handlMainAlert])
 
     return (
         <Wapper>
