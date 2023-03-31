@@ -17,11 +17,11 @@ import Const from '@Const'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { useNavigate } from 'react-router-dom'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
-import { getNowDateDetail } from '@Helper'
+import { addComma, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
-const { Wapper, Buttons } = ManageBoxStyle
+const { WapperFull, CountWapper, ButtonsRight, CountText } = ManageBoxStyle
 
 const initializeState = {
     modal: {
@@ -150,8 +150,13 @@ const MemberListManageBox = ({
 
     return (
         <>
-            <Wapper>
-                <Buttons>
+            <WapperFull>
+                <CountWapper>
+                    <CountText>{`총 회원수 : ${addComma(
+                        listState.list.TOTAL_COUNT
+                    )} 명`}</CountText>
+                </CountWapper>
+                <ButtonsRight>
                     <VaryButton
                         ButtonType={`manage`}
                         HandleClick={() => {
@@ -244,8 +249,8 @@ const MemberListManageBox = ({
                         }}
                         ButtonName={'엑셀내려받기'}
                     />
-                </Buttons>
-            </Wapper>
+                </ButtonsRight>
+            </WapperFull>
 
             {pageState.modal.memDelete && (
                 <VaryModal

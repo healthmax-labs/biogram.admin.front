@@ -43,7 +43,11 @@ export const SearchBoxStyle = {
 }
 
 export const ManageBoxStyle = {
-    Wapper: tw.div``,
+    Wapper: tw.div`flex flex-nowrap`,
+    WapperFull: tw.div`flex flex-nowrap w-full`,
+    CountWapper: tw.div`flex w-1/2 items-center justify-start`,
+    CountText: tw.div`text-xs text-gray-500`,
+    ButtonsRight: tw.div`flex flex-nowrap w-1/2 justify-end gap-1`,
     Buttons: tw.div`flex flex-nowrap gap-1`,
 }
 

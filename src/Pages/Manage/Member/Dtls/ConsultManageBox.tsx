@@ -5,13 +5,18 @@ import { ConsultListState } from '@Recoil/MemberPagesState'
 import { MemberSearchItemInterface } from '@CommonTypes'
 import { VaryButton, MessageSendModal, ExcelDownload } from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
-import { dateInsertHypen, getNowDateDetail, phoneFormat } from '@Helper'
+import {
+    addComma,
+    dateInsertHypen,
+    getNowDateDetail,
+    phoneFormat,
+} from '@Helper'
 import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
-const { Wapper, Buttons } = ManageBoxStyle
+const { WapperFull, CountWapper, ButtonsRight, CountText } = ManageBoxStyle
 
 const initializeState = {
     modal: {
@@ -171,8 +176,13 @@ const ConsultManageBox = () => {
     }, [Theme, listState.search])
 
     return (
-        <Wapper>
-            <Buttons>
+        <WapperFull>
+            <CountWapper>
+                <CountText>{`총 회원수 : ${addComma(
+                    listState.list.TOTAL_COUNT
+                )} 명`}</CountText>
+            </CountWapper>
+            <ButtonsRight>
                 <VaryButton
                     ButtonType={'manage'}
                     ButtonName={'메세지 보내기'}
@@ -215,7 +225,7 @@ const ConsultManageBox = () => {
                     }}
                     ButtonName={'엑셀 내려받기'}
                 />
-            </Buttons>
+            </ButtonsRight>
 
             {pageState.modal.smsSend && (
                 <MessageSendModal
@@ -252,7 +262,7 @@ const ConsultManageBox = () => {
             {pageState.modal.excelDownload && (
                 <ExcelDownload {...excelDownloadProps} />
             )}
-        </Wapper>
+        </WapperFull>
     )
 }
 
