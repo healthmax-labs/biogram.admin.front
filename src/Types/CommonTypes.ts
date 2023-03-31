@@ -481,16 +481,6 @@ export interface ExcelDownloadPropsInterface {
     FileName: string
     SheetName: string
     Header: Array<string[]>
-    WsCols: Array<{
-        wpx?: number
-        s?: number
-        r?: number
-        c?: number
-        e?: number
-    }>
-    WsMerge?: Array<{
-        s: { c: number; r: number }
-        e: { c: number; r: number }
-    }>
+    MergeCells?: string[]
     Data: Array<string[]>
 }

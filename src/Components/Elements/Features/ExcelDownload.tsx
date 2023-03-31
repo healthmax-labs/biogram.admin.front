@@ -1,48 +1,94 @@
-import * as XLSX from 'xlsx'
-import FileSaver from 'file-saver'
 import { useCallback, useEffect } from 'react'
-import { ExcelDownloadPropsInterface } from '@CommonTypes'
 import _ from 'lodash'
+import * as ExcelJS from 'exceljs'
+import { saveAs } from 'file-saver'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
 
 const ExcelDownload = ({
     FileName,
     SheetName,
     Header,
-    WsCols,
     Data,
-    WsMerge,
+    MergeCells,
 }: ExcelDownloadPropsInterface) => {
-    const excelFileType =
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
-    const excelFileExtension = '.xlsx'
-    const excelFileName = FileName
+    const handleExcel = useCallback(async () => {
+        const workbook = new ExcelJS.Workbook()
+        const worksheet = workbook.addWorksheet(SheetName) // sheet 이름이 My Sheet
 
-    const excelDownload = useCallback(() => {
-        const ws = XLSX.utils.aoa_to_sheet(Header)
-        if (WsMerge) {
-            ws['!merges'] = WsMerge
-        }
-
-        _.forEach(Data, (e: any) => {
-            XLSX.utils.sheet_add_aoa(ws, [e], {
-                origin: -1,
-            })
-            ws['!cols'] = WsCols
+        _.forEach(Header, header => {
+            worksheet.addRow(header)
         })
 
-        const wb: any = {
-            Sheets: { [SheetName]: ws },
-            SheetNames: [`${SheetName}`],
+        _.forEach(Data, data => {
+            worksheet.addRow(data)
+        })
+
+        _.forEach(MergeCells, mergecells => {
+            worksheet.mergeCells(mergecells)
+        })
+
+        worksheet.eachRow({ includeEmpty: true }, function (row, rowNumber) {
+            row.eachCell(function (cell) {
+                cell.font = {
+                    name: 'Arial',
+                    family: 2,
+                    bold: false,
+                    size: 10,
+                }
+                cell.alignment = {
+                    vertical: 'middle',
+                    horizontal: 'center',
+                }
+                if (rowNumber <= Header.length) {
+                    // row.height = 18
+                    cell.font = {
+                        bold: true,
+                    }
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'C7C7C7' },
+                    }
+                    cell.border = {
+                        top: { style: 'thin' },
+                        left: { style: 'thin' },
+                        bottom: { style: 'thin' },
+                        right: { style: 'thin' },
+                    }
+                }
+            })
+        })
+
+        worksheet.columns.forEach(function (column: any, i) {
+            if (i !== 0) {
+                let maxLength = 0
+                column['eachCell'](
+                    { includeEmpty: true },
+                    function (cell: any) {
+                        const columnLength = cell.value
+                            ? cell.value.toString().length
+                            : 10
+                        if (columnLength > maxLength) {
+                            maxLength = columnLength
+                        }
+                    }
+                )
+                column.width = maxLength < 20 ? 20 : maxLength
+            }
+        })
+
+        // 다운로드
+        const mimeType = {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         }
-        const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-        const excelFile = new Blob([excelButter], { type: excelFileType })
-        FileSaver.saveAs(excelFile, excelFileName + excelFileExtension)
-    }, [Data, Header, SheetName, WsCols, WsMerge, excelFileName])
+        const buffer = await workbook.xlsx.writeBuffer()
+        const blob = new Blob([buffer], mimeType)
+        saveAs(blob, FileName)
+    }, [Data, FileName, Header, MergeCells, SheetName])
 
     useEffect(() => {
-        excelDownload()
-    }, [excelDownload])
-
+        handleExcel().then()
+    }, [handleExcel])
     return <></>
 }
 

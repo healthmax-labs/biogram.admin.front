@@ -80,7 +80,7 @@ const BrftrCmprManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `위험요인_현황_${getNowDateDetail()}`,
+                FileName: `전후비교_현황_${getNowDateDetail()}`,
                 Data: payload.MESURE_BRFTR_CMPR_INFO_LIST.map(m => {
                     return [
                         String(m.MBER_NO),

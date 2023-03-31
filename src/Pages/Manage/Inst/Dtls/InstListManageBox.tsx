@@ -59,7 +59,7 @@ const InstListManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `회원 현황_${getNowDateDetail()}`,
+                FileName: `소속_현황_${getNowDateDetail()}`,
                 Data: payload.INST_INFO_LIST.map(m => {
                     let registDt
                     if (m.REGIST_DT) {
