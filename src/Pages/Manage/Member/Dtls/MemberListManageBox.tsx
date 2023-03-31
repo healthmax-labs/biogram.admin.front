@@ -76,7 +76,8 @@ const MemberListManageBox = ({
             },
         }))
 
-        const { instNo, searchKey, registDtTo, registDtFrom } = listState.search
+        const { instNo, instNm, searchKey, registDtTo, registDtFrom } =
+            listState.search
 
         const { status, payload } = await getMemberList({
             curPage: 0,
@@ -97,7 +98,13 @@ const MemberListManageBox = ({
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `회원_현황_${getNowDateDetail()}`,
+                FileName:
+                    instNo && instNm
+                        ? `회원_현황_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `회원_현황_${getNowDateDetail()}`,
                 Data: payload.MBER_INFO_LIST.map(m => {
                     return [
                         String(m.MBER_NO),

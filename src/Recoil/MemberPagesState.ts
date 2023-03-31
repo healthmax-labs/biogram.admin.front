@@ -25,6 +25,7 @@ interface MemberListInterface {
     search: {
         curPage: number
         instNo: string
+        instNm: string
         searchKey: string
         registDtFrom: string
         registDtTo: string
@@ -210,6 +211,7 @@ export const MemberListState = atom<MemberListInterface>({
         search: {
             curPage: 1,
             instNo: '',
+            instNm: '',
             searchKey: '',
             registDtFrom: getOneMonthAgo(),
             registDtTo: getNowDate(),
