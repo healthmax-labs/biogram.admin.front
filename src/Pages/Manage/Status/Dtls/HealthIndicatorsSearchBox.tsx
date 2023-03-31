@@ -41,12 +41,13 @@ const HealthIndicatorsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setHealthIndicatorsListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

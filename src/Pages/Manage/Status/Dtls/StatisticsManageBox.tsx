@@ -7,6 +7,8 @@ import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getStatisticsList } from '@Service/StatusService'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -26,6 +28,7 @@ const initializeState = {
 
 const StatisticsManageBox = () => {
     const statisticsListState = useRecoilValue(StatisticsListState)
+    const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
             excelDownload: boolean
@@ -53,7 +56,14 @@ const StatisticsManageBox = () => {
         }))
 
         const {
-            search: { INST_NO, SEARCH_KEY, MESURE_CODE, END_DE, BEGIN_DE },
+            search: {
+                INST_NO,
+                instNm,
+                SEARCH_KEY,
+                MESURE_CODE,
+                END_DE,
+                BEGIN_DE,
+            },
         } = statisticsListState
 
         const { status, payload } = await getStatisticsList({
@@ -76,7 +86,17 @@ const StatisticsManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `기기측정_현황_${getNowDateDetail()}`,
+                FileName:
+                    INST_NO && instNm
+                        ? `기기측정_현황_(${dateInsertHypen(
+                              BEGIN_DE
+                          )}_${dateInsertHypen(END_DE)})_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `기기측정_현황_(${dateInsertHypen(
+                              BEGIN_DE
+                          )}_${dateInsertHypen(END_DE)})_${getNowDateDetail()}`,
                 Data: payload.DEVICE_MESURE_INFO_LIST.filter(
                     v => v.MBER_NO
                 ).map(m => {
@@ -123,8 +143,13 @@ const StatisticsManageBox = () => {
                     status: 'failure',
                 },
             }))
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [statisticsListState])
+    }, [handlMainAlert, statisticsListState])
 
     return (
         <Wapper>

@@ -20,6 +20,7 @@ interface AnalyticsMemberListStateInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
@@ -44,6 +45,7 @@ interface ImprvmListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
     }
@@ -68,6 +70,7 @@ interface RiskFctrCountListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
@@ -83,6 +86,7 @@ interface RiskFctrItemsListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
@@ -117,6 +121,7 @@ interface DeviceListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
@@ -132,6 +137,7 @@ interface MesureListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         BGNDE: string
         ENDDE: string
         AGEGROUP: string[]
@@ -176,6 +182,7 @@ export const MemberListState = atom<AnalyticsMemberListStateInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
@@ -195,6 +202,7 @@ export const MesureListState = atom<MesureListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
@@ -214,6 +222,7 @@ export const DeviceListState = atom<DeviceListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
@@ -233,6 +242,7 @@ export const RiskFctrItemsListState = atom<RiskFctrItemsListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
@@ -252,6 +262,7 @@ export const RiskFctrCountListState = atom<RiskFctrCountListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
             AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
@@ -271,6 +282,7 @@ export const ImprvmListState = atom<ImprvmListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
         },

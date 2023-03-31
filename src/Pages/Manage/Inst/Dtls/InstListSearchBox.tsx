@@ -31,12 +31,13 @@ const InstListSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setInstListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             instNo: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

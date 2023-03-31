@@ -129,8 +129,13 @@ const MemberListManageBox = ({
                     status: 'failure',
                 },
             }))
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [listState.search])
+    }, [handlMainAlert, listState.search])
 
     return (
         <>

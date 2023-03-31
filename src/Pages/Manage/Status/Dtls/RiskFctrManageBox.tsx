@@ -7,6 +7,8 @@ import { getRiskFctrList } from '@Service/StatusService'
 import { useRecoilValue } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -26,7 +28,7 @@ const initializeState = {
 
 const RiskFctrManageBox = () => {
     const riskFctrListState = useRecoilValue(RiskFctrListState)
-
+    const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
             excelDownload: boolean
@@ -56,6 +58,7 @@ const RiskFctrManageBox = () => {
         const {
             search: {
                 INST_NO,
+                instNm,
                 SEARCH_KEY,
                 BGNDE,
                 ENDDE,
@@ -87,7 +90,17 @@ const RiskFctrManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `위험요인_현황_${getNowDateDetail()}`,
+                FileName:
+                    INST_NO && instNm
+                        ? `위험요인_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `위험요인_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
                 Data: payload.RISK_FCTR_INFO_LIST.map(m => {
                     return [
                         String(m.MBER_NO),
@@ -121,8 +134,13 @@ const RiskFctrManageBox = () => {
                     status: 'failure',
                 },
             }))
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [riskFctrListState])
+    }, [handlMainAlert, riskFctrListState])
 
     return (
         <Wapper>

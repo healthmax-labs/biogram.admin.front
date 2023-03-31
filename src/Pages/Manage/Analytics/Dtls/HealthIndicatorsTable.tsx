@@ -6,7 +6,7 @@ import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { getNowDateDetail } from '@Helper'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
@@ -18,7 +18,11 @@ const initializeState = {
 }
 
 const HealthIndicatorsTable = () => {
-    const { status, list } = useRecoilValue(ImprvmListState)
+    const {
+        status,
+        list,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
+    } = useRecoilValue(ImprvmListState)
 
     const [pageState, setPageState] = useState<{
         modal: {
@@ -34,7 +38,17 @@ const HealthIndicatorsTable = () => {
     const handleExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
-            FileName: `건강지표_개선_통계_${getNowDateDetail()}`,
+            FileName:
+                INST_NO && instNm
+                    ? `건강지표_개선_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `건강지표_개선_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
             Data: (() => {
                 const returnData = Codes.ageGroup.list.map(age => {
                     const DataRow = _.find(list, {

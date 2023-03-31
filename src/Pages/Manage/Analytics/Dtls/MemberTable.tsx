@@ -6,7 +6,7 @@ import { MemberListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { getNowDateDetail } from '@Helper'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
@@ -28,6 +28,7 @@ const initializeState = {
 
 const MemberTable = () => {
     const {
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
         status,
     } = useRecoilValue(MemberListState)
@@ -47,7 +48,17 @@ const MemberTable = () => {
     const handleAgeExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
-            FileName: `회원_연령별_통계_${getNowDateDetail()}`,
+            FileName:
+                INST_NO && instNm
+                    ? `회원_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `회원_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
             SheetName: `회원 연령별 통계`,
             Header: prevState.Header.map((h, hIndex) => {
                 if (hIndex === 0) {
@@ -148,7 +159,17 @@ const MemberTable = () => {
     const handlePeriodExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
-            FileName: `회원_기간별_통계_${getNowDateDetail()}`,
+            FileName:
+                INST_NO && instNm
+                    ? `회원_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `회원_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
             SheetName: `회원 기간별 통계`,
             Header: prevState.Header.map((h, hIndex) => {
                 if (hIndex === 0) {

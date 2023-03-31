@@ -7,6 +7,8 @@ import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { dateInsertHypen, getNowDateDetail, phoneFormat } from '@Helper'
 import { getHealthIndicatorsList } from '@Service/StatusService'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -43,6 +45,7 @@ const ManageBox = () => {
         useState<ExcelDownloadPropsInterface>(
             ExcelDownloadInitialize.Status.HealthIndicators
         )
+    const { handlMainAlert } = useMainLayouts()
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({
@@ -54,7 +57,7 @@ const ManageBox = () => {
         }))
 
         const {
-            search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage },
+            search: { SEARCH_KEY, BGNDE, ENDDE, INST_NO, curPage, instNm },
         } = healthIndicatorsListState
 
         const { status, payload } = await getHealthIndicatorsList({
@@ -76,7 +79,17 @@ const ManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `건강지표개선_현황_${getNowDateDetail()}`,
+                FileName:
+                    INST_NO && instNm
+                        ? `건강지표개선_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `건강지표개선_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
                 Data: payload.MYBODY_SCORE_IMPRVM_INFO_LIST.filter(
                     v => v.MBER_NO
                 ).map(m => {
@@ -104,8 +117,12 @@ const ManageBox = () => {
                     status: 'failure',
                 },
             }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [healthIndicatorsListState])
+    }, [handlMainAlert, healthIndicatorsListState])
 
     return (
         <Wapper>

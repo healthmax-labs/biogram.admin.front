@@ -7,7 +7,7 @@ import Codes from '@Codes'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { getNowDateDetail } from '@Helper'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
@@ -30,6 +30,7 @@ const initializeState = {
 const RiskFctrCountTable = () => {
     const {
         status,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
     } = useRecoilValue(RiskFctrCountListState)
 
@@ -48,8 +49,18 @@ const RiskFctrCountTable = () => {
     const handleAgeExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
-            FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `위험요인 항목 연령별 통계`,
+            FileName:
+                INST_NO && instNm
+                    ? `위험요인_개수_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `위험요인_개수_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `위험요인 개수 연령별 통계`,
             Header: prevState.Header.map((h, hIndex) => {
                 if (hIndex === 0) {
                     return h.map((he, heIndex) => {
@@ -125,8 +136,18 @@ const RiskFctrCountTable = () => {
     const handlePeriodExcelDownload = async () => {
         await setExcelDownloadProps(prevState => ({
             ...prevState,
-            FileName: `위험요인_항목_기간별_통계_${getNowDateDetail()}`,
-            SheetName: `위험요인 항목 기간별 통계`,
+            FileName:
+                INST_NO && instNm
+                    ? `위험요인_개수_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `위험요인_개수_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `위험요인 개수 기간별 통계`,
             Header: prevState.Header.map((h, hIndex) => {
                 if (hIndex === 0) {
                     return h.map((he, heIndex) => {

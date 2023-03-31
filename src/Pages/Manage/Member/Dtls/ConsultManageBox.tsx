@@ -56,7 +56,8 @@ const ConsultManageBox = () => {
             },
         }))
 
-        const { instNo, searchKey, riskFctr, startDt, endDt } = listState.search
+        const { instNo, instNm, searchKey, riskFctr, startDt, endDt } =
+            listState.search
 
         const { status, payload } = await getMberCnsltlist({
             curPage: 0,
@@ -78,7 +79,13 @@ const ConsultManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `상담회원_현황_${getNowDateDetail()}`,
+                FileName:
+                    instNo && instNm
+                        ? `상담회원_현황_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `상담회원_현황_${getNowDateDetail()}`,
                 Data: payload.MBER_INFO_LIST.map(m => {
                     return [
                         String(m.MBER_NO),

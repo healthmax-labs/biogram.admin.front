@@ -11,6 +11,8 @@ import {
 } from '@Helper'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -47,6 +49,7 @@ const BrftrCmprManageBox = () => {
         useState<ExcelDownloadPropsInterface>(
             ExcelDownloadInitialize.Status.BrftrCmpr
         )
+    const { handlMainAlert } = useMainLayouts()
 
     const handleGetExcelData = useCallback(async () => {
         setPageState(prevState => ({
@@ -58,7 +61,7 @@ const BrftrCmprManageBox = () => {
         }))
 
         const {
-            search: { INST_NO, SEARCH_KEY, BGNDE, ENDDE },
+            search: { INST_NO, instNm, SEARCH_KEY, BGNDE, ENDDE },
         } = brftrCmprListState
 
         const { status, payload } = await getBrftrCmprList({
@@ -80,7 +83,17 @@ const BrftrCmprManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `전후비교_현황_${getNowDateDetail()}`,
+                FileName:
+                    INST_NO && instNm
+                        ? `전후비교_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `전후비교_현황_(${dateInsertHypen(
+                              BGNDE
+                          )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
                 Data: payload.MESURE_BRFTR_CMPR_INFO_LIST.map(m => {
                     return [
                         String(m.MBER_NO),
@@ -212,8 +225,12 @@ const BrftrCmprManageBox = () => {
                     status: 'failure',
                 },
             }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [brftrCmprListState])
+    }, [brftrCmprListState, handlMainAlert])
 
     return (
         <Wapper>

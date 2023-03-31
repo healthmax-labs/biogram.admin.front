@@ -7,6 +7,8 @@ import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getActivityWalkList } from '@Service/StatusService'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -26,6 +28,7 @@ const initializeState = {
 
 const ActivityWalkManageBox = () => {
     const activityWalkListState = useRecoilValue(ActivityWalkListState)
+    const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
             excelDownload: boolean
@@ -52,7 +55,7 @@ const ActivityWalkManageBox = () => {
         }))
 
         const {
-            search: { SEARCH, BEGIN_DE, INST_NO, END_DE },
+            search: { SEARCH, BEGIN_DE, INST_NO, instNm, END_DE },
         } = activityWalkListState
 
         const { status, payload } = await getActivityWalkList({
@@ -74,7 +77,17 @@ const ActivityWalkManageBox = () => {
 
             setExcelDownloadProps(prevState => ({
                 ...prevState,
-                FileName: `활동량_현황_${getNowDateDetail()}`,
+                FileName:
+                    INST_NO && instNm
+                        ? `활동량_현황_(${dateInsertHypen(
+                              BEGIN_DE
+                          )}_${dateInsertHypen(END_DE)})_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `활동량_현황_(${dateInsertHypen(
+                              BEGIN_DE
+                          )}_${dateInsertHypen(END_DE)})_${getNowDateDetail()}`,
                 Data: payload.ACTIVITY_STATE_LIST.filter(v => v.MBER_NO).map(
                     m => {
                         return [
@@ -105,8 +118,12 @@ const ActivityWalkManageBox = () => {
                     status: 'failure',
                 },
             }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
         }
-    }, [activityWalkListState])
+    }, [activityWalkListState, handlMainAlert])
 
     return (
         <Wapper>

@@ -26,6 +26,7 @@ interface BrftrCmprSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         BGNDE: string
         ENDDE: string
@@ -39,6 +40,7 @@ interface RiskFctrSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         BGNDE: string
         ENDDE: string
@@ -55,6 +57,7 @@ interface StatisticsSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         BEGIN_DE: string
         END_DE: string
@@ -69,6 +72,7 @@ interface ActivityWalkInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH: string
         BEGIN_DE: string
         END_DE: string
@@ -102,6 +106,7 @@ interface HealthIndicatorsSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         BGNDE: string
         ENDDE: string
@@ -126,6 +131,7 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
@@ -147,6 +153,7 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
             BGNDE: getOneMonthAgo(),
             ENDDE: getNowDate(),
@@ -165,6 +172,7 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
             MESURE_CODE: ['IS', 'BP', 'BS', 'BC'],
             BEGIN_DE: getOneMonthAgo(),
@@ -184,6 +192,7 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH: '',
             BEGIN_DE: getDateDayUnit(7),
             END_DE: getNowDate(),
@@ -231,6 +240,7 @@ export const HealthIndicatorsListState =
             search: {
                 curPage: 0,
                 INST_NO: '',
+                instNm: '',
                 SEARCH_KEY: '',
                 BGNDE: getDateDayUnit(7),
                 ENDDE: getNowDate(),

@@ -68,12 +68,13 @@ const DeviceUseMain = () => {
                 <AnalyticsSearchBox
                     SearchType={'default'}
                     HandleGetList={() => getTableList()}
-                    HandleInstNo={instNo => {
+                    HandleInstNo={(instNo, instNm) => {
                         setDeviceListState(prevState => ({
                             ...prevState,
                             search: {
                                 ...prevState.search,
                                 INST_NO: String(instNo),
+                                instNm: instNm,
                             },
                         }))
                     }}

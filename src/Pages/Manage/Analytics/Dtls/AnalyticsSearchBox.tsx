@@ -49,7 +49,7 @@ const AnalyticsSearchBox = ({
 }: {
     SearchType: 'default' | 'healthIndicators'
     HandleGetList: () => void
-    HandleInstNo: (instNo: number) => void
+    HandleInstNo: (instNo: number, instNm: string) => void
     StartDate: string
     HandleStartDate: (startDate: string) => void
     EndDate: string
@@ -91,8 +91,8 @@ const AnalyticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) => {
-                                    HandleInstNo(instNo)
+                                HandleSelectValue={({ instNo, instNm }) => {
+                                    HandleInstNo(instNo, instNm)
                                 }}
                             />
                         </SearchItem>
