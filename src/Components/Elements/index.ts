@@ -12,6 +12,7 @@ export { default as StplatInfoAgreeModal } from './Features/StplatInfoAgreeModal
 export { default as AutoAlertModal } from './Features/AutoAlertModal'
 export { default as SiGunSelectBox } from './Features/SiGunSelectBox'
 export { default as ReactQuillEditor } from './Features/ReactQuillEditor'
+export { default as ExcelDownload } from './Features/ExcelDownload'
 
 export { default as DefaultSearchInput } from './Inputs/SearchInput'
 export { default as DatepickerInput } from './Inputs/Datepicker'

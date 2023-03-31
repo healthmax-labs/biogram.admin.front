@@ -70,12 +70,13 @@ const RiskFctrCountMain = () => {
                 <AnalyticsSearchBox
                     SearchType={'default'}
                     HandleGetList={() => getTableList()}
-                    HandleInstNo={instNo => {
+                    HandleInstNo={(instNo, instNm) => {
                         setRiskFctrCountListState(prevState => ({
                             ...prevState,
                             search: {
                                 ...prevState.search,
                                 INST_NO: String(instNo),
+                                instNm: instNm,
                             },
                         }))
                     }}

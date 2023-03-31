@@ -25,6 +25,7 @@ interface MemberListInterface {
     search: {
         curPage: number
         instNo: string
+        instNm: string
         searchKey: string
         registDtFrom: string
         registDtTo: string
@@ -43,6 +44,7 @@ interface ConsultListInterface {
     search: {
         curPage: number
         instNo: string
+        instNm: string
         searchKey: string
         riskFctr: string
         startDt: string
@@ -213,6 +215,7 @@ export const MemberListState = atom<MemberListInterface>({
         search: {
             curPage: 1,
             instNo: '',
+            instNm: '',
             searchKey: '',
             registDtFrom: getOneMonthAgo(),
             registDtTo: getNowDate(),
@@ -310,6 +313,7 @@ export const ConsultListState = atom<ConsultListInterface>({
         search: {
             curPage: 1,
             instNo: '',
+            instNm: '',
             searchKey: '',
             riskFctr: '',
             startDt: getOneMonthAgo(),

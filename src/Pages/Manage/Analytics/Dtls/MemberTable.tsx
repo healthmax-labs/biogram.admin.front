@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, ElementLoading } from '@Elements'
+import { VaryButton, ElementLoading, ExcelDownload } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { MemberListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -16,11 +19,195 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const MemberTable = () => {
     const {
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
         status,
     } = useRecoilValue(MemberListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.Member
+        )
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `회원_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `회원_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `회원 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        AGES_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.TOT_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.TOT_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.TOT_MAN_CNT : ``}`,
+                        `${
+                            DataRow
+                                ? DataRow.NEW_WOMAN_CNT + DataRow.NEW_MAN_CNT
+                                : ``
+                        }`,
+                        `${DataRow ? DataRow.NEW_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.NEW_MAN_CNT : ``}`,
+                        `${
+                            DataRow
+                                ? DataRow.DEL_WOMAN_CNT + DataRow.DEL_MAN_CNT
+                                : ``
+                        }`,
+                        `${DataRow ? DataRow.DEL_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.DEL_MAN_CNT : ``}`,
+                    ]
+                })
+
+                returnData.push([
+                    '합계',
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TOT_MAN_CNT))
+                    )}`,
+                    `${(() => {
+                        const NEW_WOMAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.NEW_WOMAN_CNT)
+                            )
+                        )
+
+                        const NEW_MAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_MAN_CNT))
+                        )
+
+                        return `${NEW_WOMAN_CNT + NEW_MAN_CNT}`
+                    })()}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.NEW_MAN_CNT))
+                    )}`,
+                    `${(() => {
+                        const DEL_WOMAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.DEL_WOMAN_CNT)
+                            )
+                        )
+
+                        const DEL_MAN_CNT = _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_MAN_CNT))
+                        )
+
+                        return `${DEL_WOMAN_CNT + DEL_MAN_CNT}`
+                    })()}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.DEL_MAN_CNT))
+                    )}`,
+                ])
+
+                return returnData
+            })(),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `회원_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `회원_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `회원 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+                return h
+            }),
+            Data: (() => {
+                return PERIOD_STAT_LIST.map(period => {
+                    return [
+                        `${period ? period.CYCLE_GUBUN : ''}`,
+                        `${period ? period.TOT_MBER_CNT : ''}`,
+                        `${period ? period.TOT_WOMAN_CNT : ''}`,
+                        `${period ? period.TOT_MAN_CNT : ''}`,
+                        `${
+                            period
+                                ? period.NEW_WOMAN_CNT + period.NEW_MAN_CNT
+                                : ''
+                        }`,
+                        `${period ? period.NEW_WOMAN_CNT : ''}`,
+                        `${period ? period.NEW_MAN_CNT : ''}`,
+                        `${
+                            period
+                                ? period.DEL_WOMAN_CNT + period.DEL_MAN_CNT
+                                : ''
+                        }`,
+                        `${period ? period.DEL_WOMAN_CNT : ''}`,
+                        `${period ? period.DEL_MAN_CNT : ''}`,
+                    ]
+                })
+            })(),
+        }))
+    }
 
     return (
         <Container>
@@ -41,7 +228,15 @@ const MemberTable = () => {
                             ButtonType={`default`}
                             ButtonName="엑셀다운로드"
                             HandleClick={() => {
-                                //
+                                handleAgeExcelDownload().then(() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            ageExcelDownload: true,
+                                        },
+                                    }))
+                                )
                             }}
                         />
                     </ButtonBox>
@@ -246,7 +441,15 @@ const MemberTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -324,6 +527,14 @@ const MemberTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

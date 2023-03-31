@@ -38,12 +38,13 @@ const MemberListSearchBox = ({
                         <SearchItem>
                             <div className="flex w-full">
                                 <PstinstSelector
-                                    HandleSelectValue={({ instNo }) =>
+                                    HandleSelectValue={({ instNo, instNm }) =>
                                         setListState(prevState => ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
                                                 instNo: String(instNo),
+                                                instNm: instNm,
                                             },
                                         }))
                                     }

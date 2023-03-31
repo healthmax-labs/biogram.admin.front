@@ -1,10 +1,13 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { ElementLoading, VaryButton } from '@Elements'
+import { ElementLoading, ExcelDownload, VaryButton } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { DeviceListState } from '@Recoil/AnalyticsPagesState'
-import React from 'react'
+import React, { useState } from 'react'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -16,11 +19,188 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const DeviceUseTable = () => {
     const {
         status,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
     } = useRecoilValue(DeviceListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.DeviceUse
+        )
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `기기사용_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `기기사용_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `기기사용 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        AGE_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.TOT_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.TOT_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.TOT_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.IS_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.IS_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.IS_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BP_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.BP_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BP_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BS_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.BS_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BS_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BC_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.BC_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BC_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.ST_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.ST_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.ST_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.HT_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.HT_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.HT_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BD_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.BD_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.BD_MAN_CNT : ''}`,
+                    ]
+                })
+
+                const TotDataRow = _.find(AGE_GROUP_STAT_LIST, {
+                    AGE_GROUP: 'TOT',
+                })
+                returnData.push([
+                    `합계`,
+                    `${TotDataRow ? TotDataRow.TOT_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.TOT_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.TOT_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.IS_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.IS_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.IS_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BP_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BP_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BP_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BS_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BS_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BS_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BC_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BC_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BC_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.ST_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.ST_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.ST_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.HT_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.HT_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.HT_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BD_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BD_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.BD_MAN_CNT : ``}`,
+                ])
+
+                return returnData
+            })(),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `기기사용_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `기기사용_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `기기사용 항목 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: PERIOD_STAT_LIST.map(period => {
+                return [
+                    `${period.PERIOD}`,
+                    `${period.TOT_MBER_CNT}`,
+                    `${period.TOT_WOMAN_CNT}`,
+                    `${period.TOT_MAN_CNT}`,
+                    `${period.IS_MBER_CNT}`,
+                    `${period.IS_WOMAN_CNT}`,
+                    `${period.IS_MAN_CNT}`,
+                    `${period.BP_MBER_CNT}`,
+                    `${period.BP_WOMAN_CNT}`,
+                    `${period.BP_MAN_CNT}`,
+                    `${period.BS_MBER_CNT}`,
+                    `${period.BS_WOMAN_CNT}`,
+                    `${period.BS_MAN_CNT}`,
+                    `${period.BC_MBER_CNT}`,
+                    `${period.BC_WOMAN_CNT}`,
+                    `${period.BC_MAN_CNT}`,
+                    `${period.ST_MBER_CNT}`,
+                    `${period.ST_WOMAN_CNT}`,
+                    `${period.ST_MAN_CNT}`,
+                    `${period.HT_MBER_CNT}`,
+                    `${period.HT_WOMAN_CNT}`,
+                    `${period.HT_MAN_CNT}`,
+                    `${period.BD_MBER_CNT}`,
+                    `${period.BD_WOMAN_CNT}`,
+                    `${period.BD_MAN_CNT}`,
+                ]
+            }),
+        }))
+    }
 
     return (
         <Container>
@@ -42,7 +222,15 @@ const DeviceUseTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleAgeExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                ageExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -489,7 +677,15 @@ const DeviceUseTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -640,6 +836,14 @@ const DeviceUseTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

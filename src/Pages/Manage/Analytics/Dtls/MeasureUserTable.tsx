@@ -1,10 +1,13 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { VaryButton, ElementLoading } from '@Elements'
+import { VaryButton, ElementLoading, ExcelDownload } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { MesureListState } from '@Recoil/AnalyticsPagesState'
-import React from 'react'
+import React, { useState } from 'react'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -16,11 +19,235 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const MeasureUserTable = () => {
     const {
         status,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
     } = useRecoilValue(MesureListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.MeasureUser
+        )
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `측정이용자_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `측정이용자_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `측정이용자 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        AGE_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.SUM_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.SUM_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.SUM_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.IS_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BP_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BS_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BC_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.ST_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.HT_MAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_MBER_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_WOMAN_CNT : ``}`,
+                        `${DataRow ? DataRow.BD_MAN_CNT : ``}`,
+                    ]
+                })
+
+                returnData.push([
+                    `합계`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MBER_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_WOMAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MAN_CNT))
+                    )}`,
+                ])
+
+                return returnData
+            })(),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `측정이용자_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `측정이용자_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `측정이용자 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: (() => {
+                return _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
+                    return [
+                        `${period.CYCLE_GUBUN}`,
+                        `${period.SUM_MBER_CNT}`,
+                        `${period.SUM_WOMAN_CNT}`,
+                        `${period.SUM_MAN_CNT}`,
+                        `${period.IS_MBER_CNT}`,
+                        `${period.IS_WOMAN_CNT}`,
+                        `${period.IS_MAN_CNT}`,
+                        `${period.BP_MBER_CNT}`,
+                        `${period.BP_WOMAN_CNT}`,
+                        `${period.BP_MAN_CNT}`,
+                        `${period.BS_MBER_CNT}`,
+                        `${period.BS_WOMAN_CNT}`,
+                        `${period.BS_MAN_CNT}`,
+                        `${period.BC_MBER_CNT}`,
+                        `${period.BC_WOMAN_CNT}`,
+                        `${period.BC_MAN_CNT}`,
+                        `${period.ST_MBER_CNT}`,
+                        `${period.ST_WOMAN_CNT}`,
+                        `${period.ST_MAN_CNT}`,
+                        `${period.HT_MBER_CNT}`,
+                        `${period.HT_WOMAN_CNT}`,
+                        `${period.HT_MAN_CNT}`,
+                        `${period.BD_MBER_CNT}`,
+                        `${period.BD_WOMAN_CNT}`,
+                        `${period.BD_MAN_CNT}`,
+                    ]
+                })
+            })(),
+        }))
+    }
 
     return (
         <Container>
@@ -42,7 +269,15 @@ const MeasureUserTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleAgeExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                ageExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -455,7 +690,15 @@ const MeasureUserTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -609,6 +852,14 @@ const MeasureUserTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     VaryButton,
     VaryModal,
     VaryTextArea,
     PstinstAgreeModal,
+    ExcelDownload,
 } from '@Elements'
 import { useMainLayouts, useTab } from '@Hook/index'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { MemberListState, MemberDetailState } from '@Recoil/MemberPagesState'
 import Messages from '@Messages'
 import _ from 'lodash'
-import { postMberInfoDelete } from '@Service/MemberService'
+import { getMemberList, postMberInfoDelete } from '@Service/MemberService'
 import Const from '@Const'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { useNavigate } from 'react-router-dom'
+import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
+import { getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -22,6 +27,13 @@ const initializeState = {
     modal: {
         memDelete: false,
         pstinstAgree: false,
+        excelDownload: false,
+    },
+    excel: {
+        status: 'idle',
+        search: {
+            instNo: null,
+        },
     },
 }
 
@@ -36,13 +48,105 @@ const MemberListManageBox = ({
     const memberDetailStateReset = useResetRecoilState(MemberDetailState)
     const rootState = useRecoilValue(AtomRootState)
     const { handleDeleteTabbyMatchRouter } = useTab()
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
 
     const [pageState, setPageState] = useState<{
         modal: {
             memDelete: boolean
             pstinstAgree: boolean
+            excelDownload: boolean
+        }
+        excel: {
+            status: string | DefaultStatus
+            search: {
+                instNo: number | null
+            }
         }
     }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Member.MemberList
+        )
+
+    const handleGetExcelData = useCallback(async () => {
+        setPageState(prevState => ({
+            ...prevState,
+            excel: {
+                ...prevState.excel,
+                status: 'loading',
+            },
+        }))
+
+        const { instNo, instNm, searchKey, registDtTo, registDtFrom } =
+            listState.search
+
+        const { status, payload } = await getMemberList({
+            curPage: 0,
+            instNo: instNo,
+            searchKey: searchKey,
+            registDtFrom: registDtTo,
+            registDtTo: registDtFrom,
+        })
+
+        if (status) {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'success',
+                },
+            }))
+
+            await setExcelDownloadProps(prevState => ({
+                ...prevState,
+                FileName:
+                    instNo && instNm
+                        ? `회원_현황_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `회원_현황_${getNowDateDetail()}`,
+                Data: payload.MBER_INFO_LIST.map(m => {
+                    return [
+                        String(m.MBER_NO),
+                        m.NM,
+                        m.USID,
+                        m.MBTLNUM,
+                        m.MBTLNUM_CRTFC_AT_NM,
+                        m.BRTHDY,
+                        m.SEXDSTN_NM,
+                        m.INST_NM,
+                        m.WORK_TY_CODE == 'N'
+                            ? '미지정'
+                            : m.WORK_TY_CODE == 'I'
+                            ? '내근직'
+                            : '외근직',
+                        m.CONECT_DT,
+                        m.REGIST_DT,
+                        m.TOT_CASH,
+                    ]
+                }),
+                SpliceColumns:
+                    Theme === 'GeonDaon'
+                        ? [{ start: 1, end: 1 }]
+                        : [{ start: 9, end: 1 }],
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'failure',
+                },
+            }))
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.searchEmpty,
+            })
+        }
+    }, [Theme, handlMainAlert, listState.search])
 
     return (
         <>
@@ -125,14 +229,24 @@ const MemberListManageBox = ({
                     )}
 
                     <VaryButton
+                        Loading={pageState.excel.status === 'loading'}
                         ButtonType={`manage`}
                         HandleClick={() => {
-                            //
+                            handleGetExcelData().then(() =>
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        excelDownload: true,
+                                    },
+                                }))
+                            )
                         }}
                         ButtonName={'엑셀내려받기'}
                     />
                 </Buttons>
             </Wapper>
+
             {pageState.modal.memDelete && (
                 <VaryModal
                     MaxWidth={`lg`}
@@ -249,6 +363,7 @@ const MemberListManageBox = ({
                     }
                 />
             )}
+
             {pageState.modal.pstinstAgree && (
                 <PstinstAgreeModal
                     InfoNo={
@@ -283,6 +398,21 @@ const MemberListManageBox = ({
                             modal: {
                                 ...prevState.modal,
                                 pstinstAgree: false,
+                            },
+                        }))
+                    }
+                />
+            )}
+
+            {pageState.modal.excelDownload && (
+                <ExcelDownload
+                    {...excelDownloadProps}
+                    DownloadEnd={() =>
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                excelDownload: false,
                             },
                         }))
                     }

@@ -77,12 +77,13 @@ const MeasureUserMain = () => {
                 <AnalyticsSearchBox
                     SearchType={'default'}
                     HandleGetList={() => getTableList()}
-                    HandleInstNo={instNo => {
+                    HandleInstNo={(instNo, instNm) => {
                         setMesureListState(prevState => ({
                             ...prevState,
                             search: {
                                 ...prevState.search,
                                 INST_NO: String(instNo),
+                                instNm: instNm,
                             },
                         }))
                     }}

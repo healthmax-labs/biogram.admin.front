@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
-import { VaryButton, MessageSendModal } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import { MemberSearchItemInterface } from '@CommonTypes'
+import { VaryButton, MessageSendModal, ExcelDownload } from '@Elements'
+import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail, phoneFormat } from '@Helper'
+import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -12,16 +17,32 @@ const initializeState = {
     modal: {
         smsSend: false,
         appPushSend: false,
+        excelDownloadPstinst: false,
+        excelDownload: false,
+    },
+    excel: {
+        status: 'idle',
+        search: {
+            instNo: null,
+        },
     },
     listCheckRowList: [],
 }
 
 const ConsultManageBox = () => {
     const listState = useRecoilValue(ConsultListState)
+    const { Theme } = useRecoilValue(AtomMainLayoutState)
     const [pageState, setPageState] = useState<{
         modal: {
             smsSend: boolean
             appPushSend: boolean
+            excelDownload: boolean
+        }
+        excel: {
+            status: string | DefaultStatus
+            search: {
+                instNo: number | null
+            }
         }
         listCheckRowList: MemberSearchItemInterface[]
     }>(initializeState)
@@ -70,6 +91,85 @@ const ConsultManageBox = () => {
         funcSetCheckRowList()
     }, [listState])
 
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Member.ConsultList
+        )
+
+    const handleGetExcelData = useCallback(async () => {
+        setPageState(prevState => ({
+            ...prevState,
+            excel: {
+                ...prevState.excel,
+                status: 'loading',
+            },
+        }))
+
+        const { instNo, instNm, searchKey, riskFctr, startDt, endDt } =
+            listState.search
+
+        const { status, payload } = await getMberCnsltlist({
+            curPage: 0,
+            instNo: instNo,
+            searchKey: searchKey,
+            riskFctr: riskFctr,
+            startDt: startDt,
+            endDt: endDt,
+        })
+
+        if (status) {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'success',
+                },
+            }))
+
+            setExcelDownloadProps(prevState => ({
+                ...prevState,
+                FileName:
+                    instNo && instNm
+                        ? `상담회원_현황_${instNm.replace(
+                              / /g,
+                              '_'
+                          )}_${getNowDateDetail()}`
+                        : `상담회원_현황_${getNowDateDetail()}`,
+                Data: payload.MBER_INFO_LIST.map(m => {
+                    return [
+                        String(m.MBER_NO),
+                        m.NM,
+                        m.USID,
+                        m.MBTLNUM ? phoneFormat(m.MBTLNUM) : m.MBTLNUM,
+                        m.SEXDSTN_NM,
+                        m.INST_NM,
+                        m.WORK_TY_CODE == 'N'
+                            ? '미지정'
+                            : m.WORK_TY_CODE == 'I'
+                            ? '내근직'
+                            : '외근직',
+                        _.isEmpty(m.MESURE_DT)
+                            ? ''
+                            : dateInsertHypen(m.MESURE_DT),
+                        m.RISK_FCTR,
+                    ]
+                }),
+                SpliceColumns:
+                    Theme === 'GeonDaon'
+                        ? [{ start: 1, end: 1 }]
+                        : [{ start: 7, end: 1 }],
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                excel: {
+                    ...prevState.excel,
+                    status: 'failure',
+                },
+            }))
+        }
+    }, [Theme, listState.search])
+
     return (
         <Wapper>
             <Buttons>
@@ -100,9 +200,18 @@ const ConsultManageBox = () => {
                     }}
                 />
                 <VaryButton
+                    Loading={pageState.excel.status === 'loading'}
                     ButtonType={'manage'}
                     HandleClick={() => {
-                        //
+                        handleGetExcelData().then(() =>
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    excelDownload: true,
+                                },
+                            }))
+                        )
                     }}
                     ButtonName={'엑셀 내려받기'}
                 />
@@ -138,6 +247,10 @@ const ConsultManageBox = () => {
                         }))
                     }
                 />
+            )}
+
+            {pageState.modal.excelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Wapper>
     )

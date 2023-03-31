@@ -1,15 +1,305 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { ElementLoading, VaryButton } from '@Elements'
+import { ElementLoading, ExcelDownload, VaryButton } from '@Elements'
 import { useRecoilValue } from 'recoil'
 import { ImprvmListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const { Container, RowWapper, ButtonBox, TableBox, Table: T } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        excelDownload: false,
+    },
+}
+
 const HealthIndicatorsTable = () => {
-    const { status, list } = useRecoilValue(ImprvmListState)
+    const {
+        status,
+        list,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
+    } = useRecoilValue(ImprvmListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            excelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.HealthIndicators
+        )
+
+    const handleExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `건강지표_개선_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `건강지표_개선_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(list, {
+                        AGES_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_TOT_SCORE +
+                                          DataRow.OW_TOT_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_TOT_SCORE : ''}%`,
+                        `${DataRow ? DataRow.OW_TOT_SCORE : ''}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_BP_SCORE +
+                                          DataRow.OW_BP_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_BP_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_BP_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_FBS_SCORE +
+                                          DataRow.OW_FBS_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_FBS_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_FBS_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      DataRow.IW_TG_SCORE +
+                                          DataRow.OW_TG_SCORE / 2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_TG_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_TG_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      DataRow.IW_HDLC_SCORE +
+                                          DataRow.OW_HDLC_SCORE / 2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_HDLC_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_HDLC_SCORE : 0}%`,
+                        `${
+                            DataRow
+                                ? _.round(
+                                      (DataRow.IW_WAIST_SCORE +
+                                          DataRow.OW_WAIST_SCORE) /
+                                          2,
+                                      2
+                                  )
+                                : 0
+                        }%`,
+                        `${DataRow ? DataRow.IW_WAIST_SCORE : 0}%`,
+                        `${DataRow ? DataRow.OW_WAIST_SCORE : 0}%`,
+                    ]
+                })
+
+                returnData.push([
+                    `합계`,
+                    `${(() => {
+                        const IW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_TOT_SCORE + OW_TOT_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_TOT_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_TOT_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TOT_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_TOT_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.IW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.OW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round((IW_BP_SCORE + OW_BP_SCORE) / 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.IW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_BP_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_BP_SCORE =
+                            _.sum(list.map(e => Number(e.OW_BP_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_BP_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.IW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.OW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_FBS_SCORE + OW_FBS_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.IW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_FBS_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_FBS_SCORE =
+                            _.sum(list.map(e => Number(e.OW_FBS_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_FBS_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round((IW_TG_SCORE + OW_TG_SCORE) / 2, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.IW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_TG_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_TG_SCORE =
+                            _.sum(list.map(e => Number(e.OW_TG_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_TG_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.IW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.OW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_HDLC_SCORE + OW_HDLC_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.IW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_HDLC_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_HDLC_SCORE =
+                            _.sum(list.map(e => Number(e.OW_HDLC_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_HDLC_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.IW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        const OW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.OW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(
+                            (IW_WAIST_SCORE + OW_WAIST_SCORE) / 2,
+                            2
+                        )}%`
+                    })()}`,
+                    `${(() => {
+                        const IW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.IW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(IW_WAIST_SCORE, 2)}%`
+                    })()}`,
+                    `${(() => {
+                        const OW_WAIST_SCORE =
+                            _.sum(list.map(e => Number(e.OW_WAIST_SCORE))) /
+                            Codes.ageGroup.list.length
+
+                        return `${_.round(OW_WAIST_SCORE, 2)}%`
+                    })()}`,
+                ])
+
+                return returnData
+            })(),
+        }))
+    }
 
     return (
         <Container>
@@ -27,7 +317,15 @@ const HealthIndicatorsTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                excelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -615,6 +913,10 @@ const HealthIndicatorsTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.excelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )

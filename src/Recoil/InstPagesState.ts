@@ -23,7 +23,8 @@ interface InstJoinSearchListInterface {
 interface InstListStateInterface {
     status: DefaultStatus
     search: {
-        INST_NO: string | null
+        instNo: string
+        instNm: string
     }
     list: InstListInterface
 }
@@ -92,7 +93,8 @@ export const InstListState = atom<InstListStateInterface>({
     default: {
         status: 'idle',
         search: {
-            INST_NO: null,
+            instNo: '',
+            instNm: '',
         },
         list: {
             TOTAL_COUNT: 0,

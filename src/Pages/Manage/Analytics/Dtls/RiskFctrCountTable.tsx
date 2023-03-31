@@ -1,11 +1,14 @@
 import { ContentsStyle } from '@Style/Pages/AnalyticsPageStyle'
-import { ElementLoading, VaryButton } from '@Elements'
+import { ElementLoading, ExcelDownload, VaryButton } from '@Elements'
 
 import { useRecoilValue } from 'recoil'
 import { RiskFctrCountListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
-import React from 'react'
+import React, { useState } from 'react'
+import { ExcelDownloadPropsInterface } from '@CommonTypes'
+import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
     Container,
@@ -17,11 +20,171 @@ const {
     Table: T,
 } = ContentsStyle
 
+const initializeState = {
+    modal: {
+        ageExcelDownload: false,
+        periodExcelDownload: false,
+    },
+}
+
 const RiskFctrCountTable = () => {
     const {
         status,
+        search: { INST_NO, instNm, BGNDE, ENDDE },
         list: { AGE_GROUP_STAT_LIST, PERIOD_STAT_LIST },
     } = useRecoilValue(RiskFctrCountListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            ageExcelDownload: boolean
+            periodExcelDownload: boolean
+        }
+    }>(initializeState)
+
+    const [excelDownloadProps, setExcelDownloadProps] =
+        useState<ExcelDownloadPropsInterface>(
+            ExcelDownloadInitialize.Analytics.RiskFctrCount
+        )
+
+    const handleAgeExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `위험요인_개수_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `위험요인_개수_연령별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `위험요인 개수 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: (() => {
+                const returnData = Codes.ageGroup.list.map(age => {
+                    const DataRow = _.find(AGE_GROUP_STAT_LIST, {
+                        RF_AGE_GROUP: age.code,
+                    })
+
+                    return [
+                        age.name,
+                        `${DataRow ? DataRow.RF_ALL_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_ALL_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_ALL_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_1_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_2_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_3_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_4_MAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_MBER_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_WOMAN_CNT : ''}`,
+                        `${DataRow ? DataRow.RF_5_MAN_CNT : ''}`,
+                    ]
+                })
+
+                const TotDataRow = _.find(AGE_GROUP_STAT_LIST, {
+                    RF_AGE_GROUP: 'TOT',
+                })
+
+                returnData.push([
+                    `합계`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_ALL_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_1_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_2_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_3_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_4_MAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_MBER_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_WOMAN_CNT : ``}`,
+                    `${TotDataRow ? TotDataRow.RF_5_MAN_CNT : ``}`,
+                ])
+
+                return returnData
+            })(),
+        }))
+    }
+
+    const handlePeriodExcelDownload = async () => {
+        await setExcelDownloadProps(prevState => ({
+            ...prevState,
+            FileName:
+                INST_NO && instNm
+                    ? `위험요인_개수_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${instNm.replace(
+                          / /g,
+                          '_'
+                      )}_${getNowDateDetail()}`
+                    : `위험요인_개수_기간별_통계_(${dateInsertHypen(
+                          BGNDE
+                      )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
+            SheetName: `위험요인 개수 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
+            Data: PERIOD_STAT_LIST.map(period => {
+                return [
+                    `${period.PERIOD}`,
+                    `${period.RF_ALL_MBER_CNT}`,
+                    `${period.RF_ALL_WOMAN_CNT}`,
+                    `${period.RF_ALL_MAN_CNT}`,
+                    `${period.RF_1_MBER_CNT}`,
+                    `${period.RF_1_WOMAN_CNT}`,
+                    `${period.RF_1_MAN_CNT}`,
+                    `${period.RF_2_MBER_CNT}`,
+                    `${period.RF_2_WOMAN_CNT}`,
+                    `${period.RF_2_MAN_CNT}`,
+                    `${period.RF_3_MBER_CNT}`,
+                    `${period.RF_3_WOMAN_CNT}`,
+                    `${period.RF_3_MAN_CNT}`,
+                    `${period.RF_4_MBER_CNT}`,
+                    `${period.RF_4_WOMAN_CNT}`,
+                    `${period.RF_4_MAN_CNT}`,
+                    `${period.RF_5_MBER_CNT}`,
+                    `${period.RF_5_WOMAN_CNT}`,
+                    `${period.RF_5_MAN_CNT}`,
+                ]
+            }),
+        }))
+    }
 
     return (
         <Container>
@@ -43,7 +206,15 @@ const RiskFctrCountTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handleAgeExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                ageExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -386,7 +557,15 @@ const RiskFctrCountTable = () => {
                                 ButtonType={`default`}
                                 ButtonName="엑셀다운로드"
                                 HandleClick={() => {
-                                    //
+                                    handlePeriodExcelDownload().then(() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                periodExcelDownload: true,
+                                            },
+                                        }))
+                                    )
                                 }}
                             />
                         </ButtonBox>
@@ -511,6 +690,14 @@ const RiskFctrCountTable = () => {
                         </TableBox>
                     </RowWapper>
                 </>
+            )}
+
+            {pageState.modal.ageExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
+            )}
+
+            {pageState.modal.periodExcelDownload && (
+                <ExcelDownload {...excelDownloadProps} />
             )}
         </Container>
     )
