@@ -256,7 +256,7 @@ export default {
                 'L1:S1',
                 'T1:AA1',
                 'AB1:AI1',
-                'AJ1:AP1',
+                'AJ1:AQ1',
                 'D2:E2',
                 'F2:G2',
                 'H2:I2',
