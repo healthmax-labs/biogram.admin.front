@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
 import { useNavigate } from 'react-router-dom'
 import { useTab } from '@Hooks'
+import _ from 'lodash'
 
 interface tableOption {
     Loading: boolean
@@ -43,6 +44,35 @@ const ListTable = () => {
             Lists: listState.list.INST_INFO_LIST,
         }))
     }, [listState.list.INST_INFO_LIST, listState.status])
+
+    useEffect(() => {
+        const funcSetSearchNameList = (name: string) => {
+            if (_.isEmpty(name)) {
+                setTableOptions(prevState => ({
+                    ...prevState,
+                    Lists: listState.list.INST_INFO_LIST,
+                }))
+            } else {
+                setTableOptions(prevState => ({
+                    ...prevState,
+                    Lists: listState.list.INST_INFO_LIST.filter(
+                        v =>
+                            _.includes(v.INST_NM_1, name) ||
+                            _.includes(v.INST_NM_2, name) ||
+                            _.includes(v.INST_NM_3, name)
+                    ),
+                }))
+            }
+        }
+
+        if (listState.status === 'success') {
+            funcSetSearchNameList(listState.search.searchName)
+        }
+    }, [
+        listState.list.INST_INFO_LIST,
+        listState.search.searchName,
+        listState.status,
+    ])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

@@ -25,6 +25,7 @@ interface InstListStateInterface {
     search: {
         instNo: string
         instNm: string
+        searchName: string
     }
     list: InstListInterface
 }
@@ -95,6 +96,7 @@ export const InstListState = atom<InstListStateInterface>({
         search: {
             instNo: '',
             instNm: '',
+            searchName: '',
         },
         list: {
             TOTAL_COUNT: 0,

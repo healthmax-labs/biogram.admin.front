@@ -1,7 +1,7 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
-import { DefaultSearchButton, PstinstSelector, VaryLabel } from '@Elements'
-import { useSetRecoilState } from 'recoil'
+import { DefaultSearchButton, VaryInput, VaryLabel } from '@Elements'
+import { useRecoilState } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
 
 const {
@@ -19,7 +19,7 @@ const InstListSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
-    const setInstListState = useSetRecoilState(InstListState)
+    const [instListState, setInstListState] = useRecoilState(InstListState)
 
     return (
         <RowContainer>
@@ -30,17 +30,21 @@ const InstListSearchBox = ({
                             <VaryLabel LabelName={`소속`} />
                         </SearchLabel>
                         <SearchItem>
-                            <PstinstSelector
-                                HandleSelectValue={({ instNo, instNm }) =>
+                            <VaryInput
+                                ContentsType={`search`}
+                                Width={'w40'}
+                                HandleOnChange={e => {
                                     setInstListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            instNo: String(instNo),
-                                            instNm: instNm,
+                                            searchName: e.target.value,
                                         },
                                     }))
-                                }
+                                }}
+                                id={'id'}
+                                Placeholder={'소속'}
+                                Value={instListState.search.searchName}
                             />
                         </SearchItem>
                     </SearchItemWapper>
