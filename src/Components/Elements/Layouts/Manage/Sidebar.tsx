@@ -126,10 +126,6 @@ const Sidebar = () => {
         }
     }, [locationState])
 
-    useEffect(() => {
-        // console.debug(pageState.Menus.active)
-    }, [pageState.Menus.active])
-
     return (
         <>
             <Nav MenuState={mainLayoutState.leftMenuShow}>

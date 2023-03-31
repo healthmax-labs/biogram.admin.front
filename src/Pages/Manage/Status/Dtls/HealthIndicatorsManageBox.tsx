@@ -78,7 +78,7 @@ const ManageBox = () => {
                 ...prevState,
                 FileName: `건강지표개선_현황_${getNowDateDetail()}`,
                 Data: payload.MYBODY_SCORE_IMPRVM_INFO_LIST.filter(
-                    v => v.MBER_NO !== null
+                    v => v.MBER_NO
                 ).map(m => {
                     return [
                         String(m.MBER_NO),

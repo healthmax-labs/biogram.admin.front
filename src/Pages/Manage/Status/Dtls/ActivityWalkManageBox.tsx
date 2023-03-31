@@ -75,25 +75,27 @@ const ActivityWalkManageBox = () => {
             setExcelDownloadProps(prevState => ({
                 ...prevState,
                 FileName: `활동량_현황_${getNowDateDetail()}`,
-                Data: payload.ACTIVITY_STATE_LIST.filter(
-                    f => f.MBER_NO !== null
-                ).map(m => {
-                    return [
-                        String(m.MBER_NO),
-                        m.NM ? m.NM : '',
-                        m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
-                        m.SEXDSTN ? (m.SEXDSTN == 'M' ? '남' : '여') : '',
-                        m.SPORTS_TOT_STEPS
-                            ? addComma(Number(m.SPORTS_TOT_STEPS))
-                            : '',
-                        m.SPORTS_DSTNC ? addComma(Number(m.SPORTS_DSTNC)) : '',
-                        m.CNSMP_CALORIE
-                            ? addComma(Number(m.CNSMP_CALORIE))
-                            : '',
-                        m.MAX_HR ? addComma(Number(m.MAX_HR)) : '',
-                        m.AVG_HR ? addComma(Number(m.AVG_HR)) : '',
-                    ]
-                }),
+                Data: payload.ACTIVITY_STATE_LIST.filter(v => v.MBER_NO).map(
+                    m => {
+                        return [
+                            String(m.MBER_NO),
+                            m.NM ? m.NM : '',
+                            m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
+                            m.SEXDSTN ? (m.SEXDSTN == 'M' ? '남' : '여') : '',
+                            m.SPORTS_TOT_STEPS
+                                ? addComma(Number(m.SPORTS_TOT_STEPS))
+                                : '',
+                            m.SPORTS_DSTNC
+                                ? addComma(Number(m.SPORTS_DSTNC))
+                                : '',
+                            m.CNSMP_CALORIE
+                                ? addComma(Number(m.CNSMP_CALORIE))
+                                : '',
+                            m.MAX_HR ? addComma(Number(m.MAX_HR)) : '',
+                            m.AVG_HR ? addComma(Number(m.AVG_HR)) : '',
+                        ]
+                    }
+                ),
             }))
         } else {
             setPageState(prevState => ({

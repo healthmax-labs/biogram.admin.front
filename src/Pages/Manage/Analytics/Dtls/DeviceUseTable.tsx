@@ -49,6 +49,18 @@ const DeviceUseTable = () => {
             ...prevState,
             FileName: `기기사용_연령별_통계_${getNowDateDetail()}`,
             SheetName: `기기사용 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
             Data: (() => {
                 const returnData = Codes.ageGroup.list.map(age => {
                     const DataRow = _.find(AGE_GROUP_STAT_LIST, {
@@ -125,6 +137,18 @@ const DeviceUseTable = () => {
             ...prevState,
             FileName: `기기사용_기간별_통계_${getNowDateDetail()}`,
             SheetName: `기기사용 항목 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
             Data: PERIOD_STAT_LIST.map(period => {
                 return [
                     `${period.PERIOD}`,

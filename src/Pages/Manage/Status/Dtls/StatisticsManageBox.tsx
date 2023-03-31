@@ -77,7 +77,9 @@ const StatisticsManageBox = () => {
             setExcelDownloadProps(prevState => ({
                 ...prevState,
                 FileName: `기기측정_현황_${getNowDateDetail()}`,
-                Data: payload.DEVICE_MESURE_INFO_LIST.map(m => {
+                Data: payload.DEVICE_MESURE_INFO_LIST.filter(
+                    v => v.MBER_NO
+                ).map(m => {
                     return [
                         String(m.MBER_NO),
                         m.NM ? m.NM : '',

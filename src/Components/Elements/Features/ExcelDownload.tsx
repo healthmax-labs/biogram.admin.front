@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useLayoutEffect } from 'react'
 import _ from 'lodash'
 import * as ExcelJS from 'exceljs'
 import { saveAs } from 'file-saver'
@@ -73,7 +73,7 @@ const ExcelDownload = ({
                         }
                     }
                 )
-                column.width = maxLength < 20 ? 20 : maxLength
+                column.width = maxLength < 20 ? 20 : maxLength + 20
             }
         })
 
@@ -86,9 +86,10 @@ const ExcelDownload = ({
         saveAs(blob, FileName)
     }, [Data, FileName, Header, MergeCells, SheetName])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         handleExcel().then()
-    }, [handleExcel])
+    }, [handleExcel, Data, Header])
+
     return <></>
 }
 

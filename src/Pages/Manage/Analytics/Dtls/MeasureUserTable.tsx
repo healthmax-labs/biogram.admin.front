@@ -49,6 +49,18 @@ const MeasureUserTable = () => {
             ...prevState,
             FileName: `측정이용자_연령별_통계_${getNowDateDetail()}`,
             SheetName: `측정이용자 연령별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `연령`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
             Data: (() => {
                 const returnData = Codes.ageGroup.list.map(age => {
                     const DataRow = _.find(AGE_GROUP_STAT_LIST, {
@@ -170,6 +182,18 @@ const MeasureUserTable = () => {
             ...prevState,
             FileName: `측정이용자_기간별_통계_${getNowDateDetail()}`,
             SheetName: `측정이용자 기간별 통계`,
+            Header: prevState.Header.map((h, hIndex) => {
+                if (hIndex === 0) {
+                    return h.map((he, heIndex) => {
+                        if (heIndex === 0) {
+                            return `기간`
+                        }
+                        return he
+                    })
+                }
+
+                return h
+            }),
             Data: (() => {
                 return _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                     return [
