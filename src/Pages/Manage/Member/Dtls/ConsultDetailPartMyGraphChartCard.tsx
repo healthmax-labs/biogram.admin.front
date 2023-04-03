@@ -103,7 +103,7 @@ const ConsultDetailPartMyGraphChartCard = ({
             <div className="flex w-2/12 items-center justify-center">
                 <div className="text-xs text-gray-500">{`${Title}`}</div>
             </div>
-            <div className="flex w-8/12 items-center justify-center">
+            <div className="flex w-7/12 items-center justify-center">
                 <div className="w-full">
                     {ChartData.length > 0 && (
                         <VaryLineChartMember
@@ -114,7 +114,7 @@ const ConsultDetailPartMyGraphChartCard = ({
                     )}
                 </div>
             </div>
-            <div className="flex w-2/12 items-center justify-center px-2">
+            <div className="flex w-3/12 items-center justify-center px-2">
                 <div className="w-full">
                     <TableWapper>
                         <TableHeader>

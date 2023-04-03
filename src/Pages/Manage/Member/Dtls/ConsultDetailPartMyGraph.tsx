@@ -64,7 +64,7 @@ const ConsultDetailPartMyGraph = () => {
             brain: React.ReactNode
             life_log: React.ReactNode
         } = {
-            body: <ConsultDetailPartMyGraphBody />, // 체정분
+            body: <ConsultDetailPartMyGraphBody />, // 체성분
             brssr: <ConsultDetailPartMyGraphBrssr />, // 혈압
             bdsg: <ConsultDetailPartMyGraphDdsg />, // 혈당
             chol: <ConsultDetailPartMyGraphChol />, // 콜레스트롤
