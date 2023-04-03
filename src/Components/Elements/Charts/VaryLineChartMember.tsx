@@ -11,6 +11,7 @@ const {
 const VaryLineChart = ({
     ChartID,
     Data1,
+    StanData,
 }: {
     ChartID: string
     Data1: Array<{ date: string; value: number }>
@@ -111,8 +112,8 @@ const VaryLineChart = ({
 
         // 기준값 생성
         const rangeDataItem = yAxis.makeDataItem({
-            value: 30,
-            endValue: 180,
+            value: StanData ? StanData.low : 0,
+            endValue: StanData ? StanData.high : 0,
         })
 
         // Create a range
