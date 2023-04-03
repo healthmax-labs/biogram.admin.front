@@ -207,34 +207,34 @@ export default {
                     code: `BDWGH`,
                     name: `몸무게(체중)`,
                 },
-                // {
-                //     code: `SLM`,
-                //     name: `근육량`,
-                // },
-                // {
-                //     code: `FAT_MAS`,
-                //     name: `체지방량`,
-                // },
-                // {
-                //     code: `EST_BN_MAS`,
-                //     name: `추정골량`,
-                // },
-                // {
-                //     code: `PBF`,
-                //     name: `체지방률`,
-                // },
-                // {
-                //     code: `VFL`,
-                //     name: `내장지방레벨`,
-                // },
-                // {
-                //     code: `BMI`,
-                //     name: `BMI`,
-                // },
-                // {
-                //     code: `BMR`,
-                //     name: `기초대사량`,
-                // },
+                {
+                    code: `SLM`,
+                    name: `근육량`,
+                },
+                {
+                    code: `FAT_MAS`,
+                    name: `체지방량`,
+                },
+                {
+                    code: `EST_BN_MAS`,
+                    name: `추정골량`,
+                },
+                {
+                    code: `PBF`,
+                    name: `체지방률`,
+                },
+                {
+                    code: `VFL`,
+                    name: `내장지방레벨`,
+                },
+                {
+                    code: `BMI`,
+                    name: `BMI`,
+                },
+                {
+                    code: `BMR`,
+                    name: `기초대사량`,
+                },
             ],
             brssr: [
                 {

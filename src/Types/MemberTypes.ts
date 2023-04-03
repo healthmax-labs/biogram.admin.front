@@ -424,7 +424,7 @@ export interface ConsultMyGraphBodyResultItemInterface {
     BMI: null | number // BMI
 }
 
-export interface ConsultMyGraphBodyStdResultItemInterface {
+export interface ConsultMyGraphStdResultItemInterface {
     COLOR_CODE_VALUE: string
     MESURE_GRAD: number
     MVL: number
@@ -434,14 +434,14 @@ export interface ConsultMyGraphBodyStdResultItemInterface {
 
 export interface ConsultMyGraphBodyResultInterface {
     BODY_GRAPH: ConsultMyGraphBodyResultItemInterface[]
-    VFL_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    BMR_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    FAT_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    BDWGH_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    EST_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    BMI_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    SLM_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
-    PBF_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    VFL_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BMR_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    FAT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BDWGH_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    EST_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BMI_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    SLM_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PBF_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 혈압
@@ -456,20 +456,8 @@ export interface ConsultMyGraphBrssrResultItemInterface {
 
 export interface ConsultMyGraphBrssrResultInterface {
     SYS_DIA_GRAPH: ConsultMyGraphBrssrResultItemInterface[]
-    SYS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    DIA_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    SYS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    DIA_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 혈당
@@ -482,28 +470,10 @@ export interface ConsultMyGraphDdsgResultItemInterface {
 }
 
 export interface ConsultMyGraphDdsgResultInterface {
-    FBS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    PP2_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    FBS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PP2_STD_LIST: ConsultMyGraphStdResultItemInterface[]
     SUGAR_GRAPH: ConsultMyGraphDdsgResultItemInterface[]
-    HBA1C_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    HBA1C_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 콜레스테롤
@@ -517,35 +487,11 @@ export interface ConsultMyGraphCholResultItemInterface {
 }
 
 export interface ConsultMyGraphCholResultInterface {
-    TG_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    HDLC_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    LDLC_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    TG_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    HDLC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    LDLC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
     CHOL_GRAPH: ConsultMyGraphCholResultItemInterface[]
-    CHOL_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    CHOL_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 혈관
@@ -559,35 +505,11 @@ export interface ConsultMyGraphBldvssItemResultInterface {
 }
 
 export interface ConsultMyGraphBldvssResultInterface {
-    RBV_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    CAD_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    RBV_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CAD_STD_LIST: ConsultMyGraphStdResultItemInterface[]
     VSS_GRAPH: ConsultMyGraphBldvssItemResultInterface[]
-    ELSTC_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    VSS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    ELSTC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    VSS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 스트레스
@@ -602,34 +524,10 @@ export interface ConsultMyGraphStrsResultItemInterface {
 
 export interface ConsultMyGraphStrsResultInterface {
     STRS_GRAPH: ConsultMyGraphStrsResultItemInterface[]
-    ASTRS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    STRS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    PSTRS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    MSTRS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    ASTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    STRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PSTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    MSTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 신장
@@ -652,13 +550,7 @@ export interface ConsultMyGraphWaistResultItemInterface {
 
 export interface ConsultMyGraphWaistResultInterface {
     WAIST_GRAPH: ConsultMyGraphWaistResultItemInterface[]
-    WAIST_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    WAIST_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 마이그래프 뇌기능
@@ -676,56 +568,14 @@ export interface ConsultMyGraphBrainResultItemInterface {
 }
 
 export interface ConsultMyGraphBrainResultInterface {
-    BBFNCT_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    BRAIN_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    BAT_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    BFS_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    BBFNCT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BRAIN_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BAT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BFS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
     BRAIN_GRAPH: ConsultMyGraphBrainResultItemInterface[]
-    CBFNCT_ABLTY_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    CBFNCT_SCORE_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    CBFNCT_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    CBFNCT_ABLTY_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CBFNCT_SCORE_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CBFNCT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
 }
 
 // 활동량 & 수면

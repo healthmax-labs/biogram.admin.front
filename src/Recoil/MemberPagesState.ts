@@ -6,7 +6,6 @@ import {
     ConsultMealDiaryItemInterface,
     ConsultMyGraphBldvssItemResultInterface,
     ConsultMyGraphBodyResultItemInterface,
-    ConsultMyGraphBodyStdResultItemInterface,
     ConsultMyGraphBrainResultItemInterface,
     ConsultMyGraphBrssrResultItemInterface,
     ConsultMyGraphCategoryType,
@@ -14,6 +13,7 @@ import {
     ConsultMyGraphDdsgResultItemInterface,
     ConsultMyGraphHeightResultItemInterface,
     ConsultMyGraphLifeLogResultInterface,
+    ConsultMyGraphStdResultItemInterface,
     ConsultMyGraphStrsResultItemInterface,
     ConsultMyGraphWaistResultItemInterface,
     ConsultRawAgeMiInfoItemInterface,
@@ -226,55 +226,91 @@ interface MyGraphInterface {
         status: DefaultStatus
         data: ConsultMyGraphBodyResultItemInterface[]
         std_list: {
-            VFL: ConsultMyGraphBodyStdResultItemInterface[]
-            BMR: ConsultMyGraphBodyStdResultItemInterface[]
-            FAT: ConsultMyGraphBodyStdResultItemInterface[]
-            BDWGH: ConsultMyGraphBodyStdResultItemInterface[]
-            EST: ConsultMyGraphBodyStdResultItemInterface[]
-            BMI: ConsultMyGraphBodyStdResultItemInterface[]
-            SLM: ConsultMyGraphBodyStdResultItemInterface[]
-            PBF: ConsultMyGraphBodyStdResultItemInterface[]
+            VFL: ConsultMyGraphStdResultItemInterface[]
+            BMR: ConsultMyGraphStdResultItemInterface[]
+            FAT_MAS: ConsultMyGraphStdResultItemInterface[]
+            BDWGH: ConsultMyGraphStdResultItemInterface[]
+            EST_BN_MAS: ConsultMyGraphStdResultItemInterface[]
+            BMI: ConsultMyGraphStdResultItemInterface[]
+            SLM: ConsultMyGraphStdResultItemInterface[]
+            PBF: ConsultMyGraphStdResultItemInterface[]
         }
     }
     brssr: {
         status: DefaultStatus
         data: ConsultMyGraphBrssrResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            SYSTOLIC: ConsultMyGraphStdResultItemInterface[]
+            DIASTOLIC: ConsultMyGraphStdResultItemInterface[]
+            PULS: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     bdsg: {
         status: DefaultStatus
         data: ConsultMyGraphDdsgResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            FBS: ConsultMyGraphStdResultItemInterface[]
+            PP2: ConsultMyGraphStdResultItemInterface[]
+            HBA1C: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     chol: {
         status: DefaultStatus
         data: ConsultMyGraphCholResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            TG: ConsultMyGraphStdResultItemInterface[]
+            HDLC: ConsultMyGraphStdResultItemInterface[]
+            LDLC: ConsultMyGraphStdResultItemInterface[]
+            T_CHOL: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     bldvss: {
         status: DefaultStatus
         data: ConsultMyGraphBldvssItemResultInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            RBV_QY: ConsultMyGraphStdResultItemInterface[]
+            CAD_OUTPUT_IN: ConsultMyGraphStdResultItemInterface[]
+            ELSTC_DGREE: ConsultMyGraphStdResultItemInterface[]
+            BLDVSS_STEP: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     strs: {
         status: DefaultStatus
         data: ConsultMyGraphStrsResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            STRS_SCORE: ConsultMyGraphStdResultItemInterface[]
+            STRS_CNTRMSR_ABLTY: ConsultMyGraphStdResultItemInterface[]
+            MNTL_STRS: ConsultMyGraphStdResultItemInterface[]
+            PHYSIC_STRS: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     height: {
         status: DefaultStatus
         data: ConsultMyGraphHeightResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            HEIGHT: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     waist: {
         status: DefaultStatus
         data: ConsultMyGraphWaistResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            WAIST_CRCMFRNC: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     brain: {
         status: DefaultStatus
         data: ConsultMyGraphBrainResultItemInterface[]
-        std_list: ConsultMyGraphBodyStdResultItemInterface[]
+        std_list: {
+            WAIST_CRCMFRNC: ConsultMyGraphStdResultItemInterface[]
+            BBF_ADJST_TIME: ConsultMyGraphStdResultItemInterface[]
+            CB_FNCT: ConsultMyGraphStdResultItemInterface[]
+            CB_ABLTY: ConsultMyGraphStdResultItemInterface[]
+            CB_FNCT_SCORE: ConsultMyGraphStdResultItemInterface[]
+            BBF_FNCT_SCORE: ConsultMyGraphStdResultItemInterface[]
+            BB_FNCT: ConsultMyGraphStdResultItemInterface[]
+            BH_TNT_SCORE: ConsultMyGraphStdResultItemInterface[]
+        }
     }
     lifeLog: {
         status: DefaultStatus
@@ -587,22 +623,90 @@ export const MyGraphState = atom<MyGraphInterface>({
             std_list: {
                 VFL: [],
                 BMR: [],
-                FAT: [],
+                FAT_MAS: [],
                 BDWGH: [],
-                EST: [],
+                EST_BN_MAS: [],
                 BMI: [],
                 SLM: [],
                 PBF: [],
             },
         },
-        brssr: { status: 'idle', data: [], std_list: [] },
-        bdsg: { status: 'idle', data: [], std_list: [] },
-        chol: { status: 'idle', data: [], std_list: [] },
-        bldvss: { status: 'idle', data: [], std_list: [] },
-        strs: { status: 'idle', data: [], std_list: [] },
-        height: { status: 'idle', data: [], std_list: [] },
-        waist: { status: 'idle', data: [], std_list: [] },
-        brain: { status: 'idle', data: [], std_list: [] },
+        brssr: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                SYSTOLIC: [],
+                DIASTOLIC: [],
+                PULS: [],
+            },
+        },
+        bdsg: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                FBS: [],
+                PP2: [],
+                HBA1C: [],
+            },
+        },
+        chol: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                TG: [],
+                HDLC: [],
+                LDLC: [],
+                T_CHOL: [],
+            },
+        },
+        bldvss: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                RBV_QY: [],
+                CAD_OUTPUT_IN: [],
+                ELSTC_DGREE: [],
+                BLDVSS_STEP: [],
+            },
+        },
+        strs: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                STRS_SCORE: [],
+                STRS_CNTRMSR_ABLTY: [],
+                MNTL_STRS: [],
+                PHYSIC_STRS: [],
+            },
+        },
+        height: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                HEIGHT: [],
+            },
+        },
+        waist: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                WAIST_CRCMFRNC: [],
+            },
+        },
+        brain: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                WAIST_CRCMFRNC: [],
+                BBF_ADJST_TIME: [],
+                CB_FNCT: [],
+                CB_ABLTY: [],
+                CB_FNCT_SCORE: [],
+                BBF_FNCT_SCORE: [],
+                BB_FNCT: [],
+                BH_TNT_SCORE: [],
+            },
+        },
         lifeLog: {
             status: 'idle',
             data: {

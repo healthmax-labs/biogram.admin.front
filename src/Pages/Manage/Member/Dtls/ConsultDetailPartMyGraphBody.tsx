@@ -5,8 +5,6 @@ import { getMngUserMyGraphBody } from '@Service/MemberService'
 import ConsultDetailPartMyGraphChartCard from './ConsultDetailPartMyGraphChartCard'
 import Codes from '@Codes'
 import _ from 'lodash'
-import { dateInsertHypen } from '@Helper'
-import { ConsultMyGraphBodyStdResultItemInterface } from '@Type/MemberTypes'
 
 const initializeState = {
     data: {
@@ -17,13 +15,55 @@ const initializeState = {
                 low: 0,
             },
         },
-        // SLM: [],
-        // FAT_MAS: [],
-        // EST_BN_MAS: [],
-        // PBF: [],
-        // VFL: [],
-        // BMI: [],
-        // BMR: [],
+        SLM: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        FAT_MAS: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        EST_BN_MAS: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        PBF: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        VFL: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        BMI: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        BMR: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
     },
 }
 
@@ -38,13 +78,55 @@ const ConsultDetailPartMyGraphBody = () => {
                     low: number
                 }
             }
-            // SLM: Array<{ date: string; value: number }>
-            // FAT_MAS: Array<{ date: string; value: number }>
-            // EST_BN_MAS: Array<{ date: string; value: number }>
-            // PBF: Array<{ date: string; value: number }>
-            // VFL: Array<{ date: string; value: number }>
-            // BMI: Array<{ date: string; value: number }>
-            // BMR: Array<{ date: string; value: number }>
+            SLM: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            FAT_MAS: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            EST_BN_MAS: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            PBF: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            VFL: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            BMI: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            BMR: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
         }
     }>(initializeState)
 
@@ -75,9 +157,9 @@ const ConsultDetailPartMyGraphBody = () => {
                         std_list: {
                             VFL: payload.VFL_STD_LIST,
                             BMR: payload.BMR_STD_LIST,
-                            FAT: payload.FAT_STD_LIST,
+                            FAT_MAS: payload.FAT_STD_LIST,
                             BDWGH: payload.BDWGH_STD_LIST,
-                            EST: payload.EST_STD_LIST,
+                            EST_BN_MAS: payload.EST_STD_LIST,
                             BMI: payload.BMI_STD_LIST,
                             SLM: payload.SLM_STD_LIST,
                             PBF: payload.PBF_STD_LIST,
@@ -122,6 +204,15 @@ const ConsultDetailPartMyGraphBody = () => {
                     )
                 })
 
+                const high =
+                    stdData && stdData.length > 0
+                        ? _.maxBy(stdData, 'MVL').MVL
+                        : 0
+                const low =
+                    stdData && stdData.length > 0
+                        ? _.minBy(stdData, 'MNVL').MNVL
+                        : 0
+
                 setPageState(prevState => ({
                     ...prevState,
                     data: {
@@ -129,8 +220,8 @@ const ConsultDetailPartMyGraphBody = () => {
                         [code.code]: {
                             list: list,
                             stan: {
-                                high: _.maxBy(stdData, 'MVL').MVL,
-                                low: _.maxBy(stdData, 'MNVL').MNVL,
+                                high: high,
+                                low: low,
                             },
                         },
                     },
@@ -145,10 +236,6 @@ const ConsultDetailPartMyGraphBody = () => {
             handleGetData().then()
         }
     }, [handleGetData, myGraphState])
-
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
 
     return (
         <div className="flex w-full border flex-col">

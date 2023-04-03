@@ -8,9 +8,27 @@ import _ from 'lodash'
 
 const initializeState = {
     data: {
-        DIASTOLIC: [],
-        SYSTOLIC: [],
-        PULS: [],
+        DIASTOLIC: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        SYSTOLIC: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
+        PULS: {
+            list: [],
+            stan: {
+                high: 0,
+                low: 0,
+            },
+        },
     },
 }
 
@@ -18,9 +36,27 @@ const ConsultDetailPartMyGraphBrssr = () => {
     const [myGraphState, setMyGraphState] = useRecoilState(MyGraphState)
     const [pageState, setPageState] = useState<{
         data: {
-            DIASTOLIC: Array<{ date: string; value: number }>
-            SYSTOLIC: Array<{ date: string; value: number }>
-            PULS: Array<{ date: string; value: number }>
+            DIASTOLIC: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            SYSTOLIC: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
+            PULS: {
+                list: Array<{ date: string; value: number }>
+                stan: {
+                    high: number
+                    low: number
+                }
+            }
         }
     }>(initializeState)
 
@@ -48,6 +84,11 @@ const ConsultDetailPartMyGraphBrssr = () => {
                         ...prevState.brssr,
                         status: 'success',
                         data: payload.SYS_DIA_GRAPH,
+                        std_list: {
+                            DIASTOLIC: payload.DIA_STD_LIST,
+                            SYSTOLIC: payload.SYS_STD_LIST,
+                            PULS: [],
+                        },
                     },
                 }))
             } else {
@@ -65,25 +106,48 @@ const ConsultDetailPartMyGraphBrssr = () => {
     // 데이터 조합
     useEffect(() => {
         const { brssr } = Codes.myGraph.dataCode
-        const { status, data } = myGraphState.brssr
+        const { status, data, std_list } = myGraphState.brssr
         if (status === 'success') {
             _.forEach(brssr, code => {
+                const list = _.map(data, d => {
+                    return _.mapKeys(
+                        _.pick(d, ['MESURE_DE', code.code]),
+                        (value, key) => (key === code.code ? 'value' : 'date')
+                    )
+                }).map(e => {
+                    return {
+                        ...e,
+                        value: e.value === null ? 0 : e.value,
+                    }
+                })
+
+                const stdData = _.filter(_.get(std_list, code.code), v => {
+                    return (
+                        v.MESURE_GRAD_NM === '매우좋음' ||
+                        v.MESURE_GRAD_NM === '좋음' ||
+                        v.MESURE_GRAD_NM === '양호'
+                    )
+                })
+
+                const high =
+                    stdData && stdData.length > 0
+                        ? _.maxBy(stdData, 'MVL').MVL
+                        : 0
+                const low =
+                    stdData && stdData.length > 0
+                        ? _.minBy(stdData, 'MNVL').MNVL
+                        : 0
                 setPageState(prevState => ({
                     ...prevState,
                     data: {
                         ...prevState.data,
-                        [code.code]: _.map(data, d => {
-                            return _.mapKeys(
-                                _.pick(d, ['MESURE_DE', code.code]),
-                                (value, key) =>
-                                    key === code.code ? 'value' : 'date'
-                            )
-                        }).map(e => {
-                            return {
-                                ...e,
-                                value: e.value === null ? 0 : e.value,
-                            }
-                        }),
+                        [code.code]: {
+                            list: list,
+                            stan: {
+                                high: high,
+                                low: low,
+                            },
+                        },
                     },
                 }))
             })
@@ -101,15 +165,15 @@ const ConsultDetailPartMyGraphBrssr = () => {
 
     return (
         <div className="flex w-full flex-col">
-            {/*{Codes.myGraph.dataCode.brssr.map((code, codeIndex) => {*/}
-            {/*    return (*/}
-            {/*        <ConsultDetailPartMyGraphChartCard*/}
-            {/*            key={`consult-detail-part-mygraph-item-${code.code}-${codeIndex}`}*/}
-            {/*            Title={code.name}*/}
-            {/*            ChartData={_.get(pageState.data, code.code)}*/}
-            {/*        />*/}
-            {/*    )*/}
-            {/*})}*/}
+            {Codes.myGraph.dataCode.brssr.map((code, codeIndex) => {
+                return (
+                    <ConsultDetailPartMyGraphChartCard
+                        key={`consult-detail-part-mygraph-item-${code.code}-${codeIndex}`}
+                        Title={code.name}
+                        ChartData={_.get(pageState.data, code.code)}
+                    />
+                )
+            })}
         </div>
     )
 }
