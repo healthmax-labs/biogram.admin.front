@@ -88,17 +88,67 @@ export const DetailTableStyle = {
 }
 
 export const CommonListTableStyle = {
-    TableWapper: tw.table`w-full bg-transparent border-collapse items-center text-center`,
+    TableWapper: tw.table`table-auto w-full bg-transparent border-collapse items-center text-center`,
     TableHeader: tw.thead`w-full flex text-white text-xs h-8`,
     HeaderRow: tw.tr`w-full flex bg-steel items-center`,
-    HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle py-1 text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
-    HeaderCell: tw.th`flex p-4 w-2/4 px-3 align-middle py-1 items-center justify-center text-xs border-l-0 border-r-0 whitespace-nowrap text-center text-white border-gray-100`,
-    TableBody: tw.tbody`w-full h-[59vh] bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
+    HeaderCheckbox: tw.th`p-4 w-1/12 px-1 align-middle text-xs whitespace-nowrap text-center text-white`,
+    HeaderCell: styled.th(({ Border }: { Border?: boolean }) => {
+        const returnTw = [
+            tw`flex p-4 w-2/4 px-3 align-middle items-center justify-center text-xs whitespace-nowrap text-center text-white`,
+        ]
+
+        if (Border) {
+            returnTw.push(tw`border border-gray-100`)
+        }
+
+        return returnTw
+    }),
+    TableBody: styled.tbody(
+        ({
+            HeightLimit,
+            Scroll,
+        }: {
+            HeightLimit: boolean
+            Scroll: boolean
+        }) => {
+            const returnTw = [
+                tw`w-full bg-gray-100 flex flex-col text-center items-center`,
+            ]
+
+            if (Scroll) {
+                returnTw.push(tw`overflow-y-scroll`)
+            }
+
+            if (HeightLimit) {
+                returnTw.push(tw`h-[59vh]`)
+            }
+
+            return returnTw
+        }
+    ),
     TableBodyS: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
-    TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
-        BgState
-            ? tw`flex w-full bg-mercury h-9 items-center cursor-pointer hover:bg-daisy text-center`
-            : tw`flex w-full bg-pearl h-9 items-center cursor-pointer hover:bg-daisy text-center`,
-    ]),
-    TableBodyCell: tw.td`flex items-center w-full justify-center h-9 align-middle text-xs border-l-0 border-r-0 text-center truncate text-gray-500 border-gray-100`,
+    TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => {
+        const returnTw = [
+            tw`flex w-full h-9 items-center cursor-pointer hover:bg-daisy text-center`,
+        ]
+
+        if (BgState) {
+            returnTw.push(tw`bg-mercury`)
+        } else {
+            returnTw.push(tw`bg-pearl`)
+        }
+
+        return returnTw
+    }),
+    TableBodyCell: styled.td(({ Border }: { Border?: boolean }) => {
+        const returnTw = [
+            tw`flex items-center w-full justify-center h-9 align-middle text-xs text-center truncate text-gray-500`,
+        ]
+
+        if (Border) {
+            returnTw.push(tw`border border-gray-200`)
+        }
+
+        return returnTw
+    }),
 }

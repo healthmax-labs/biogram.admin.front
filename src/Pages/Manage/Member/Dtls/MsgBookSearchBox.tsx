@@ -135,6 +135,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         <SearchItem>
                             <WapperStyle.FlexNoWarapGap>
                                 <VaryLabelRadioButton
+                                    LabelWidth={`wMin`}
                                     LabelName="발송일시"
                                     Checked={
                                         msgSendListState.search.SNDNG_STDR ===
@@ -153,6 +154,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     }
                                 />
                                 <VaryLabelRadioButton
+                                    LabelWidth={`wMin`}
                                     LabelName="작성일시"
                                     Checked={
                                         msgSendListState.search.SNDNG_STDR ===

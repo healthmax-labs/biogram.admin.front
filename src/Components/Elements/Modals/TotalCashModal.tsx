@@ -146,7 +146,7 @@ const TotalCashModal = ({
                                         <HeaderCell>평가</HeaderCell>
                                     </HeaderRow>
                                 </TableHeader>
-                                <TableBody>
+                                <TableBody HeightLimit={true} Scroll={true}>
                                     {pageState.list.length > 0 ? (
                                         pageState.list.map((el, index) => {
                                             return (

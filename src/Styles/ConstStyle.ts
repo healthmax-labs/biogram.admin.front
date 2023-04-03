@@ -62,6 +62,7 @@ export default {
         w212: tw`w-2/12`,
         full: tw`w-full`,
         wMin: tw`w-min`,
+        wMax: tw`w-max`,
     },
     marginLeft: {
         ml48: tw`ml-48`,

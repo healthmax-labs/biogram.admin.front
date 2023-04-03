@@ -396,3 +396,256 @@ export interface ConsultMealDiaryItemInterface {
     MEAL_DE: string
     MEAL_MENU_LIST: ConsultMealDiaryItemMenuListInterface[] | null
 }
+
+// 상담회원 마이그래프 구분 코드.
+export type ConsultMyGraphCategoryType =
+    | string
+    | `body`
+    | `brssr`
+    | `bdsg`
+    | `chol`
+    | `bldvss`
+    | `strs`
+    | `height`
+    | `waist`
+    | `brain`
+    | `life_log`
+
+// 마이그래프 체성분
+export interface ConsultMyGraphBodyResultItemInterface {
+    EST_BN_MAS: null | number // 추정골량
+    FAT_MAS: null | number // 체지방량
+    BDWGH: null | number // 몸무게(체중)
+    SLM: null | number // 근육량
+    PBF: null | number // 체지방률
+    BMR: null | number // 기초대사량
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    MBER_NO: number // 회원번호
+    VFL: null | number // 내장지방레벨
+    BMI: null | number // BMI
+}
+
+export interface ConsultMyGraphStdResultItemInterface {
+    COLOR_CODE_VALUE: string
+    MESURE_GRAD: number
+    MVL: number
+    MNVL: number
+    MESURE_GRAD_NM: string
+}
+
+export interface ConsultMyGraphBodyResultInterface {
+    BODY_GRAPH: ConsultMyGraphBodyResultItemInterface[]
+    VFL_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BMR_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    FAT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BDWGH_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    EST_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BMI_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    SLM_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PBF_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 혈압
+export interface ConsultMyGraphBrssrResultItemInterface {
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    MESURE_DT: string // 측정일시(yyyyMMddHHmmss)
+    PULS: number | null // 심박수
+    DIASTOLIC: number | null // 이완기 혈압
+    MBER_NO: number | null // 회원번호
+    SYSTOLIC: number | null // 수축기 혈압
+}
+
+export interface ConsultMyGraphBrssrResultInterface {
+    SYS_DIA_GRAPH: ConsultMyGraphBrssrResultItemInterface[]
+    SYS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    DIA_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 혈당
+export interface ConsultMyGraphDdsgResultItemInterface {
+    PP2: null | number //식후 혈당
+    FBS: null | number // 식전 혈당
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    MBER_NO: number //회원번호
+    HBA1C: null | number // 당화혈색소
+}
+
+export interface ConsultMyGraphDdsgResultInterface {
+    FBS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PP2_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    SUGAR_GRAPH: ConsultMyGraphDdsgResultItemInterface[]
+    HBA1C_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 콜레스테롤
+export interface ConsultMyGraphCholResultItemInterface {
+    HDLC: number | null // HDL 콜레스테롤
+    TG: number | null // 중성지방
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    MBER_NO: number // 회원번호
+    T_CHOL: number | null // 총 콜레스테롤
+    LDLC: number | null // LDL 콜레스테롤
+}
+
+export interface ConsultMyGraphCholResultInterface {
+    TG_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    HDLC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    LDLC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CHOL_GRAPH: ConsultMyGraphCholResultItemInterface[]
+    CHOL_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 혈관
+export interface ConsultMyGraphBldvssItemResultInterface {
+    MBER_NO: number // 회원번호
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    BLDVSS_STEP: number | null // 혈관단계
+    CAD_OUTPUT_IN: number | null // 박출강도
+    ELSTC_DGREE: number | null // 탄성도
+    RBV_QY: number | null // 잔혈량
+}
+
+export interface ConsultMyGraphBldvssResultInterface {
+    RBV_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CAD_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    VSS_GRAPH: ConsultMyGraphBldvssItemResultInterface[]
+    ELSTC_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    VSS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 스트레스
+export interface ConsultMyGraphStrsResultItemInterface {
+    MBER_NO: number // 회원번호
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    STRS_SCORE: number | null // 스트레스 점수
+    STRS_CNTRMSR_ABLTY: number | null // 신체적 스트레스
+    MNTL_STRS: number | null // 정신적 스트레스
+    PHYSIC_STRS: number | null // 스트레스 대처능력
+}
+
+export interface ConsultMyGraphStrsResultInterface {
+    STRS_GRAPH: ConsultMyGraphStrsResultItemInterface[]
+    ASTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    STRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    PSTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    MSTRS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 신장
+export interface ConsultMyGraphHeightResultItemInterface {
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    MBER_NO: number // 회원번호
+    HEIGHT: number | null // 신장
+}
+
+export interface ConsultMyGraphHeightResultInterface {
+    HEIGHT_GRAPH: ConsultMyGraphHeightResultItemInterface[]
+}
+
+// 마이그래프 허리둘레
+export interface ConsultMyGraphWaistResultItemInterface {
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    WAIST_CRCMFRNC: number | null // 허리둘레
+    MBER_NO: number // 회원번호
+}
+
+export interface ConsultMyGraphWaistResultInterface {
+    WAIST_GRAPH: ConsultMyGraphWaistResultItemInterface[]
+    WAIST_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 마이그래프 뇌기능
+export interface ConsultMyGraphBrainResultItemInterface {
+    MBER_NO: number // 회원번호
+    MESURE_DE: string // 측정일(yyyyMMdd)
+    WAIST_CRCMFRNC: number | null // 허리둘레
+    BBF_ADJST_TIME: number | null // 기초 뇌 기능
+    CB_FNCT: number | null // 인지 뇌 기능
+    CB_ABLTY: number | null // 인지 뇌 능력
+    CB_FNCT_SCORE: number | null // 인지 뇌 기능 점수
+    BBF_FNCT_SCORE: number | null // 뇌 혈류 조절 시간
+    BB_FNCT: number | null // 뇌 혈류 기능 점수
+    BH_TNT_SCORE: number | null //뇌기능 종합점수
+}
+
+export interface ConsultMyGraphBrainResultInterface {
+    BBFNCT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BRAIN_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BAT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BFS_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    BRAIN_GRAPH: ConsultMyGraphBrainResultItemInterface[]
+    CBFNCT_ABLTY_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CBFNCT_SCORE_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+    CBFNCT_STD_LIST: ConsultMyGraphStdResultItemInterface[]
+}
+
+// 활동량 & 수면
+export interface ConsultMyGraphLifeLogResultItemInterface {
+    test: boolean
+}
+
+export interface ConsultMyGraphLifeLogResultInterface {
+    ACTV_TRCK_14DAYS_STEP_INFO_LIST: Array<{
+        MESURE_DE: string
+        GOAL_VALUE: number
+        STEPS: number
+    }>
+    ACTV_TRCK_14DAYS_AVG_STEP_INFO: {
+        GOAL_RATE: number
+        AVG_STEPS: number
+    }
+    DAIL_MOBLPHON_STEPS_DATA_LIST: Array<{
+        RATE: number
+        MESURE_DE: string
+        MOBLPHON_STEPS: number
+        MBER_NO: number
+        GOAL_VALUE: number
+    }>
+    MEAL_14DAYS_AVG_CALORIE_INFO: {
+        AVG_GOAL_RATE: number
+        AVG_MEAL_CALORIE: number
+    }
+    SLEEP_AVG_14DAYS_INFO: {
+        GOAL_BEGIN_RATE: number
+        GOAL_RATE: number
+        AVG_SLEEP_TIME: number
+        GOAL_END_RATE: number
+    }
+    SLEEP_14DAYS_INFO_LIST: Array<{
+        SLEEP_TIME: number
+        SLEET_END_TIME: string
+        GOAL_END_TIME: string
+        MESURE_DE: string
+        SLEEP_BEGIN_TIME: string
+        GOAL_VALUE: number
+        GOAL_BEGIN_TIME: string
+    }>
+    LATEST_HR_INFOS: Array<{
+        LATEST_MESURE_DT: string
+        LATEST_HR: string
+        SUPER: number
+        ENDURANCE: number
+        HR_STDR_INFO: {
+            SUPER: number
+            ENDURANCE: number
+            MILD_FAT_BURNING: number
+            FAT_BURNING: number
+        }
+        MILD_FAT_BURNING: string
+        MESURE_DE: string
+        STABLE: string
+        FAT_BURNING: number
+    }>
+    MEAL_14DAYS_CALORIE_INFO_LIST: Array<{
+        RECMND_CALORIE: number
+        MEAL_CALORIE: number
+        MEAL_DE: string
+    }>
+    MEAL_14DAYS_DETAIL_INFO_LIST: Array<{
+        DINR_AT: number
+        MEAL_DE: string
+        SNCK_AT: number
+        BRFT_AT: number
+        LNCH_AT: number
+    }>
+}

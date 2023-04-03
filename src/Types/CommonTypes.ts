@@ -32,6 +32,7 @@ export type WidthType =
     | 'w212'
     | 'full'
     | 'wMin'
+    | 'wMax'
 
 // css 타입
 export type MaxWidthType =

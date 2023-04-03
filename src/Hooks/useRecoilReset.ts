@@ -18,6 +18,7 @@ import {
     ConsultDetailSmsSendState,
     MealDiaryState,
     RawAgeState,
+    MyGraphState,
 } from '@Recoil/MemberPagesState'
 import {
     InstDetailState,
@@ -73,6 +74,7 @@ export default function useRecoilReset() {
     const ConsultSurveyStateReset = useResetRecoilState(ConsultSurveyState) // 상담회원 설문조사
     const RawAgeStateReset = useResetRecoilState(RawAgeState) // 상담회원 설문조사
     const MealDiaryStateReset = useResetRecoilState(MealDiaryState) // 상담회원 식사일기
+    const MyGraphStateReset = useResetRecoilState(MyGraphState) // 상담회원 마이그래프
     const ConsultMsgBoxListStateReset = useResetRecoilState(
         ConsultMsgBoxListState
     ) // 상담 회원 마이코치
@@ -140,6 +142,7 @@ export default function useRecoilReset() {
             'memberPage/consult-raw-age': () => void
             'memberPage/consult-message-box': () => void
             'memberPage/consult-meal-diary': () => void
+            'memberPage/consult-my-graph': () => void
 
             'memberPage/msg-send-list': () => void
             'memberPage/msg-book-list': () => void
@@ -194,6 +197,7 @@ export default function useRecoilReset() {
             'memberPage/consult-meal-diary': () => MealDiaryStateReset(),
             'memberPage/msg-send-list': () => MsgSendListStateReset(),
             'memberPage/msg-book-list': () => MsgBookListStateReset(),
+            'memberPage/consult-my-graph': () => MyGraphStateReset(),
 
             'instPage/inst-join-list': () => InstJoinListStateReset(),
             'instPage/inst-list': () => InstListStateReset(),

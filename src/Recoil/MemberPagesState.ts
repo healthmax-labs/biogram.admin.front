@@ -4,6 +4,18 @@ import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultInfoListInterface,
     ConsultMealDiaryItemInterface,
+    ConsultMyGraphBldvssItemResultInterface,
+    ConsultMyGraphBodyResultItemInterface,
+    ConsultMyGraphBrainResultItemInterface,
+    ConsultMyGraphBrssrResultItemInterface,
+    ConsultMyGraphCategoryType,
+    ConsultMyGraphCholResultItemInterface,
+    ConsultMyGraphDdsgResultItemInterface,
+    ConsultMyGraphHeightResultItemInterface,
+    ConsultMyGraphLifeLogResultInterface,
+    ConsultMyGraphStdResultItemInterface,
+    ConsultMyGraphStrsResultItemInterface,
+    ConsultMyGraphWaistResultItemInterface,
     ConsultRawAgeMiInfoItemInterface,
     ConsultRawAgeObiInfoItemInterface,
     ManageCounselItemInterface,
@@ -192,6 +204,7 @@ interface RawAgeInterface {
     }
 }
 
+// 식사 일기
 export interface MealDiaryListItemInterface
     extends ConsultMealDiaryItemInterface {
     checked: boolean
@@ -205,6 +218,109 @@ interface MealDiaryInterface {
         startDay: number
     }
     list: MealDiaryListItemInterface[]
+}
+
+// 마이그래프
+interface MyGraphInterface {
+    search: {
+        memNo: number | null
+        category: string | ConsultMyGraphCategoryType
+        startDay: string
+    }
+    body: {
+        status: DefaultStatus
+        data: ConsultMyGraphBodyResultItemInterface[]
+        std_list: {
+            VFL: ConsultMyGraphStdResultItemInterface[]
+            BMR: ConsultMyGraphStdResultItemInterface[]
+            FAT_MAS: ConsultMyGraphStdResultItemInterface[]
+            BDWGH: ConsultMyGraphStdResultItemInterface[]
+            EST_BN_MAS: ConsultMyGraphStdResultItemInterface[]
+            BMI: ConsultMyGraphStdResultItemInterface[]
+            SLM: ConsultMyGraphStdResultItemInterface[]
+            PBF: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    brssr: {
+        status: DefaultStatus
+        data: ConsultMyGraphBrssrResultItemInterface[]
+        std_list: {
+            SYSTOLIC: ConsultMyGraphStdResultItemInterface[]
+            DIASTOLIC: ConsultMyGraphStdResultItemInterface[]
+            PULS: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    bdsg: {
+        status: DefaultStatus
+        data: ConsultMyGraphDdsgResultItemInterface[]
+        std_list: {
+            FBS: ConsultMyGraphStdResultItemInterface[]
+            PP2: ConsultMyGraphStdResultItemInterface[]
+            HBA1C: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    chol: {
+        status: DefaultStatus
+        data: ConsultMyGraphCholResultItemInterface[]
+        std_list: {
+            TG: ConsultMyGraphStdResultItemInterface[]
+            HDLC: ConsultMyGraphStdResultItemInterface[]
+            LDLC: ConsultMyGraphStdResultItemInterface[]
+            T_CHOL: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    bldvss: {
+        status: DefaultStatus
+        data: ConsultMyGraphBldvssItemResultInterface[]
+        std_list: {
+            RBV_QY: ConsultMyGraphStdResultItemInterface[]
+            CAD_OUTPUT_IN: ConsultMyGraphStdResultItemInterface[]
+            ELSTC_DGREE: ConsultMyGraphStdResultItemInterface[]
+            BLDVSS_STEP: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    strs: {
+        status: DefaultStatus
+        data: ConsultMyGraphStrsResultItemInterface[]
+        std_list: {
+            STRS_SCORE: ConsultMyGraphStdResultItemInterface[]
+            STRS_CNTRMSR_ABLTY: ConsultMyGraphStdResultItemInterface[]
+            MNTL_STRS: ConsultMyGraphStdResultItemInterface[]
+            PHYSIC_STRS: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    height: {
+        status: DefaultStatus
+        data: ConsultMyGraphHeightResultItemInterface[]
+        std_list: {
+            HEIGHT: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    waist: {
+        status: DefaultStatus
+        data: ConsultMyGraphWaistResultItemInterface[]
+        std_list: {
+            WAIST_CRCMFRNC: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    brain: {
+        status: DefaultStatus
+        data: ConsultMyGraphBrainResultItemInterface[]
+        std_list: {
+            WAIST_CRCMFRNC: ConsultMyGraphStdResultItemInterface[]
+            BBF_ADJST_TIME: ConsultMyGraphStdResultItemInterface[]
+            CB_FNCT: ConsultMyGraphStdResultItemInterface[]
+            CB_ABLTY: ConsultMyGraphStdResultItemInterface[]
+            CB_FNCT_SCORE: ConsultMyGraphStdResultItemInterface[]
+            BBF_FNCT_SCORE: ConsultMyGraphStdResultItemInterface[]
+            BB_FNCT: ConsultMyGraphStdResultItemInterface[]
+            BH_TNT_SCORE: ConsultMyGraphStdResultItemInterface[]
+        }
+    }
+    lifeLog: {
+        status: DefaultStatus
+        data: ConsultMyGraphLifeLogResultInterface
+    }
 }
 
 // 회원 현황 리스트 페이지
@@ -499,5 +615,132 @@ export const MealDiaryState = atom<MealDiaryInterface>({
             startDay: 6,
         },
         list: [],
+    },
+})
+
+// 상담회원 마이그래프
+export const MyGraphState = atom<MyGraphInterface>({
+    key: `memberPage/consult-my-graph`,
+    default: {
+        search: {
+            memNo: null,
+            category: 'body',
+            startDay: getNowDate(),
+        },
+        body: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                VFL: [],
+                BMR: [],
+                FAT_MAS: [],
+                BDWGH: [],
+                EST_BN_MAS: [],
+                BMI: [],
+                SLM: [],
+                PBF: [],
+            },
+        },
+        brssr: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                SYSTOLIC: [],
+                DIASTOLIC: [],
+                PULS: [],
+            },
+        },
+        bdsg: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                FBS: [],
+                PP2: [],
+                HBA1C: [],
+            },
+        },
+        chol: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                TG: [],
+                HDLC: [],
+                LDLC: [],
+                T_CHOL: [],
+            },
+        },
+        bldvss: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                RBV_QY: [],
+                CAD_OUTPUT_IN: [],
+                ELSTC_DGREE: [],
+                BLDVSS_STEP: [],
+            },
+        },
+        strs: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                STRS_SCORE: [],
+                STRS_CNTRMSR_ABLTY: [],
+                MNTL_STRS: [],
+                PHYSIC_STRS: [],
+            },
+        },
+        height: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                HEIGHT: [],
+            },
+        },
+        waist: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                WAIST_CRCMFRNC: [],
+            },
+        },
+        brain: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                WAIST_CRCMFRNC: [],
+                BBF_ADJST_TIME: [],
+                CB_FNCT: [],
+                CB_ABLTY: [],
+                CB_FNCT_SCORE: [],
+                BBF_FNCT_SCORE: [],
+                BB_FNCT: [],
+                BH_TNT_SCORE: [],
+            },
+        },
+        lifeLog: {
+            status: 'idle',
+            data: {
+                ACTV_TRCK_14DAYS_STEP_INFO_LIST: [],
+                ACTV_TRCK_14DAYS_AVG_STEP_INFO: {
+                    GOAL_RATE: 0,
+                    AVG_STEPS: 0,
+                },
+                DAIL_MOBLPHON_STEPS_DATA_LIST: [],
+                MEAL_14DAYS_AVG_CALORIE_INFO: {
+                    AVG_GOAL_RATE: 0,
+                    AVG_MEAL_CALORIE: 0,
+                },
+                SLEEP_AVG_14DAYS_INFO: {
+                    GOAL_BEGIN_RATE: 0,
+                    GOAL_RATE: 0,
+                    AVG_SLEEP_TIME: 0,
+                    GOAL_END_RATE: 0,
+                },
+                SLEEP_14DAYS_INFO_LIST: [],
+                LATEST_HR_INFOS: [],
+                MEAL_14DAYS_CALORIE_INFO_LIST: [],
+                MEAL_14DAYS_DETAIL_INFO_LIST: [],
+            },
+        },
     },
 })

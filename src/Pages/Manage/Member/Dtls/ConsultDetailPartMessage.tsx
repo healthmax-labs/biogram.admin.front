@@ -136,7 +136,7 @@ const ConsultDetailPartMessage = () => {
                             <HeaderCell>발신자</HeaderCell>
                         </HeaderRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody HeightLimit={true} Scroll={true}>
                         {messageBoxListState.data &&
                         messageBoxListState.data.SMS_INFO_LIST.length > 0 ? (
                             messageBoxListState.data.SMS_INFO_LIST.map(

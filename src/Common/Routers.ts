@@ -506,15 +506,15 @@ export default {
                 () => import('@Page/Manage/Member/Dtls/ConsultDetailPartMyData')
             ),
         },
-        // {
-        //     name: `마이그래프`,
-        //     category: `mygraph`,
-        //     active: false,
-        //     Component: React.lazy(
-        //         () =>
-        //             import('@Page/Manage/Member/Dtls/ConsultDetailTableMyData')
-        //     ),
-        // },
+        {
+            name: `마이그래프`,
+            category: `mygraph`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import('@Page/Manage/Member/Dtls/ConsultDetailPartMyGraph')
+            ),
+        },
         {
             name: `생체나이`,
             category: `raw-age`,

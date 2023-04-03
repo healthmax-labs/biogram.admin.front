@@ -241,6 +241,7 @@ const RiskFctrSearchBox = ({
                                         return items.list.map((el, elIndex) => {
                                             return (
                                                 <VaryLabelRadioButton
+                                                    LabelWidth={`wMin`}
                                                     key={`risk-fctr-search-box-risk-fctr-cnt-item-${elIndex}`}
                                                     LabelName={`${el.name}`}
                                                     Checked={
@@ -299,7 +300,7 @@ const RiskFctrSearchBox = ({
                                                 <VaryLabelCheckBox
                                                     LabelName={`${el.name}`}
                                                     key={`risk-fctr-search-box-risks-takng-mdcin-item-${index}`}
-                                                    LabelWidth={`w10`}
+                                                    LabelWidth={`wMin`}
                                                     Checked={
                                                         takngMdcin.findIndex(
                                                             e => e === el.code
