@@ -124,7 +124,7 @@ const ConsultDetailPartMyGraphChartCard = ({
                                 <HeaderCell Border={true}>경과</HeaderCell>
                             </HeaderRow>
                         </TableHeader>
-                        <TableBody HeightLimit={false}>
+                        <TableBody HeightLimit={false} Scroll={false}>
                             <TableBodyRow BgState={false}>
                                 <TableBodyCell
                                     Border={true}>{`${dateInsertHypen(

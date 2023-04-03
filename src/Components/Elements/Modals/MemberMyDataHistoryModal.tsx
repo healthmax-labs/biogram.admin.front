@@ -256,7 +256,7 @@ const MemberMyDataHistoryModal = ({
                                         <HeaderCell>평가</HeaderCell>
                                     </HeaderRow>
                                 </TableHeader>
-                                <TableBody HeightLimit={true}>
+                                <TableBody HeightLimit={true} Scroll={true}>
                                     {pageState.list.length > 0 ? (
                                         pageState.list.map((el, index) => {
                                             const MNVL = el.MNVL

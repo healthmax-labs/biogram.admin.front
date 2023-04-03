@@ -153,7 +153,7 @@ const TotalScoreModal = ({
                                         <HeaderCell>중성지방</HeaderCell>
                                     </HeaderRow>
                                 </TableHeader>
-                                <TableBody HeightLimit={true}>
+                                <TableBody HeightLimit={true} Scroll={true}>
                                     {pageState.list.length > 0 ? (
                                         pageState.list.map((el, index) => {
                                             return (

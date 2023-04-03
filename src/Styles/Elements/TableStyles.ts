@@ -103,17 +103,29 @@ export const CommonListTableStyle = {
 
         return returnTw
     }),
-    TableBody: styled.tbody(({ HeightLimit }: { HeightLimit: boolean }) => {
-        const returnTw = [
-            tw`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
-        ]
+    TableBody: styled.tbody(
+        ({
+            HeightLimit,
+            Scroll,
+        }: {
+            HeightLimit: boolean
+            Scroll: boolean
+        }) => {
+            const returnTw = [
+                tw`w-full bg-gray-100 flex flex-col text-center items-center`,
+            ]
 
-        if (HeightLimit) {
-            returnTw.push(tw`h-[59vh]`)
+            if (Scroll) {
+                returnTw.push(tw`overflow-y-scroll`)
+            }
+
+            if (HeightLimit) {
+                returnTw.push(tw`h-[59vh]`)
+            }
+
+            return returnTw
         }
-
-        return returnTw
-    }),
+    ),
     TableBodyS: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
     TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => {
         const returnTw = [

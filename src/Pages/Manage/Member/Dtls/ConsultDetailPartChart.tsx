@@ -268,7 +268,7 @@ const ConsultDetailPartChart = () => {
                             <HeaderCell>관리</HeaderCell>
                         </HeaderRow>
                     </TableHeader>
-                    <TableBody HeightLimit={false}>
+                    <TableBody HeightLimit={false} Scroll={true}>
                         {chartState.list.length > 0 ? (
                             chartState.list.map((el, index) => {
                                 return (
