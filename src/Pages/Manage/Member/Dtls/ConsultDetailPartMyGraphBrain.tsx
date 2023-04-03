@@ -111,15 +111,15 @@ const ConsultDetailPartMyGraphBrain = () => {
 
     return (
         <div className="flex w-full border flex-col">
-            {Codes.myGraph.dataCode.brain.map((code, codeIndex) => {
-                return (
-                    <ConsultDetailPartMyGraphChartCard
-                        key={`consult-detail-part-mygraph-item-${code.code}-${codeIndex}`}
-                        Title={code.name}
-                        ChartData={_.get(pageState.data, code.code)}
-                    />
-                )
-            })}
+            {/*{Codes.myGraph.dataCode.brain.map((code, codeIndex) => {*/}
+            {/*    return (*/}
+            {/*        <ConsultDetailPartMyGraphChartCard*/}
+            {/*            key={`consult-detail-part-mygraph-item-${code.code}-${codeIndex}`}*/}
+            {/*            Title={code.name}*/}
+            {/*            ChartData={_.get(pageState.data, code.code)}*/}
+            {/*        />*/}
+            {/*    )*/}
+            {/*})}*/}
         </div>
     )
 }

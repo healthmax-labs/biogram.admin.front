@@ -6,6 +6,7 @@ import {
     ConsultMealDiaryItemInterface,
     ConsultMyGraphBldvssItemResultInterface,
     ConsultMyGraphBodyResultItemInterface,
+    ConsultMyGraphBodyStdResultItemInterface,
     ConsultMyGraphBrainResultItemInterface,
     ConsultMyGraphBrssrResultItemInterface,
     ConsultMyGraphCategoryType,
@@ -224,38 +225,56 @@ interface MyGraphInterface {
     body: {
         status: DefaultStatus
         data: ConsultMyGraphBodyResultItemInterface[]
+        std_list: {
+            VFL: ConsultMyGraphBodyStdResultItemInterface[]
+            BMR: ConsultMyGraphBodyStdResultItemInterface[]
+            FAT: ConsultMyGraphBodyStdResultItemInterface[]
+            BDWGH: ConsultMyGraphBodyStdResultItemInterface[]
+            EST: ConsultMyGraphBodyStdResultItemInterface[]
+            BMI: ConsultMyGraphBodyStdResultItemInterface[]
+            SLM: ConsultMyGraphBodyStdResultItemInterface[]
+            PBF: ConsultMyGraphBodyStdResultItemInterface[]
+        }
     }
     brssr: {
         status: DefaultStatus
         data: ConsultMyGraphBrssrResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     bdsg: {
         status: DefaultStatus
         data: ConsultMyGraphDdsgResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     chol: {
         status: DefaultStatus
         data: ConsultMyGraphCholResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     bldvss: {
         status: DefaultStatus
         data: ConsultMyGraphBldvssItemResultInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     strs: {
         status: DefaultStatus
         data: ConsultMyGraphStrsResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     height: {
         status: DefaultStatus
         data: ConsultMyGraphHeightResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     waist: {
         status: DefaultStatus
         data: ConsultMyGraphWaistResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     brain: {
         status: DefaultStatus
         data: ConsultMyGraphBrainResultItemInterface[]
+        std_list: ConsultMyGraphBodyStdResultItemInterface[]
     }
     lifeLog: {
         status: DefaultStatus
@@ -562,15 +581,28 @@ export const MyGraphState = atom<MyGraphInterface>({
             category: 'body',
             startDay: getNowDate(),
         },
-        body: { status: 'idle', data: [] },
-        brssr: { status: 'idle', data: [] },
-        bdsg: { status: 'idle', data: [] },
-        chol: { status: 'idle', data: [] },
-        bldvss: { status: 'idle', data: [] },
-        strs: { status: 'idle', data: [] },
-        height: { status: 'idle', data: [] },
-        waist: { status: 'idle', data: [] },
-        brain: { status: 'idle', data: [] },
+        body: {
+            status: 'idle',
+            data: [],
+            std_list: {
+                VFL: [],
+                BMR: [],
+                FAT: [],
+                BDWGH: [],
+                EST: [],
+                BMI: [],
+                SLM: [],
+                PBF: [],
+            },
+        },
+        brssr: { status: 'idle', data: [], std_list: [] },
+        bdsg: { status: 'idle', data: [], std_list: [] },
+        chol: { status: 'idle', data: [], std_list: [] },
+        bldvss: { status: 'idle', data: [], std_list: [] },
+        strs: { status: 'idle', data: [], std_list: [] },
+        height: { status: 'idle', data: [], std_list: [] },
+        waist: { status: 'idle', data: [], std_list: [] },
+        brain: { status: 'idle', data: [], std_list: [] },
         lifeLog: {
             status: 'idle',
             data: {

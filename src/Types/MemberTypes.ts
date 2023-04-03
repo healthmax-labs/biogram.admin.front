@@ -424,52 +424,24 @@ export interface ConsultMyGraphBodyResultItemInterface {
     BMI: null | number // BMI
 }
 
+export interface ConsultMyGraphBodyStdResultItemInterface {
+    COLOR_CODE_VALUE: string
+    MESURE_GRAD: number
+    MVL: number
+    MNVL: number
+    MESURE_GRAD_NM: string
+}
+
 export interface ConsultMyGraphBodyResultInterface {
     BODY_GRAPH: ConsultMyGraphBodyResultItemInterface[]
-    VFL_STD_LIST: []
-    BMR_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    FAT_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    BDWGH_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    EST_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    BMI_STD_LIST: []
-    SLM_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
-    PBF_STD_LIST: Array<{
-        COLOR_CODE_VALUE: string
-        MESURE_GRAD: number
-        MVL: number
-        MNVL: number
-        MESURE_GRAD_NM: string
-    }>
+    VFL_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    BMR_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    FAT_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    BDWGH_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    EST_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    BMI_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    SLM_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
+    PBF_STD_LIST: ConsultMyGraphBodyStdResultItemInterface[]
 }
 
 // 마이그래프 혈압

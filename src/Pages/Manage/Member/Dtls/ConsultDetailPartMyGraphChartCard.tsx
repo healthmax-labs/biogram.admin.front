@@ -34,7 +34,13 @@ const ConsultDetailPartMyGraphChartCard = ({
     ChartData,
 }: {
     Title?: string
-    ChartData: Array<{ date: string; value: number }>
+    ChartData: {
+        list: Array<{ date: string; value: number }>
+        stan: {
+            high: number
+            low: number
+        }
+    }
 }) => {
     const [pageState, setPageState] = useState<{
         first: {
@@ -54,8 +60,10 @@ const ConsultDetailPartMyGraphChartCard = ({
 
     useEffect(() => {
         const funcSetState = () => {
-            const first = _.last(ChartData) ? _.last(ChartData) : null
-            const last = _.first(ChartData) ? _.first(ChartData) : null
+            const first = _.last(ChartData.list) ? _.last(ChartData.list) : null
+            const last = _.first(ChartData.list)
+                ? _.first(ChartData.list)
+                : null
 
             if (first && last) {
                 const fyear = first.date.substring(0, 4)
@@ -93,7 +101,7 @@ const ConsultDetailPartMyGraphChartCard = ({
             }
         }
 
-        if (ChartData && ChartData.length > 0) {
+        if (ChartData && ChartData.list.length > 0) {
             funcSetState()
         }
     }, [ChartData])
@@ -105,16 +113,17 @@ const ConsultDetailPartMyGraphChartCard = ({
             </div>
             <div className="flex w-9/12 items-center justify-center">
                 <div className="w-full">
-                    {ChartData.length > 0 && (
+                    {ChartData && ChartData.list.length > 0 && (
                         <VaryLineChartMember
                             ChartID={generateRandomString(10)}
-                            Data1={ChartData.map(e => {
+                            Data1={ChartData.list.map(e => {
                                 return {
                                     date: dateInsertHypen(e.date),
                                     value: e.value,
                                 }
                             })}
                             Data2={[]}
+                            StanData={ChartData.stan}
                         />
                     )}
                 </div>

@@ -15,6 +15,7 @@ const VaryLineChart = ({
     ChartID: string
     Data1: Array<{ date: string; value: number }>
     Data2: Array<{ date: string; value: number }>
+    StanData?: { high: number; low: number }
 }) => {
     useLayoutEffect(() => {
         const root = am5.Root.new(ChartID)
