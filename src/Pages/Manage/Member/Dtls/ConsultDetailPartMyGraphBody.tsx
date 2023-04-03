@@ -5,6 +5,7 @@ import { getMngUserMyGraphBody } from '@Service/MemberService'
 import ConsultDetailPartMyGraphChartCard from './ConsultDetailPartMyGraphChartCard'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { dateInsertHypen } from '@Helper'
 
 const initializeState = {
     data: {
@@ -76,6 +77,7 @@ const ConsultDetailPartMyGraphBody = () => {
     useEffect(() => {
         const { body } = Codes.myGraph.dataCode
         const { status, data } = myGraphState.body
+        console.debug(data)
         if (status === 'success') {
             _.forEach(body, code => {
                 setPageState(prevState => ({

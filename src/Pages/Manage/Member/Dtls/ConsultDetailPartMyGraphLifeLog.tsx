@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { getMngUserMyGraphLifeLog } from '@Service/MemberService'
 import { VaryLineChartActivity } from '@Elements'
 import { VaryLineChartSleep } from '@Elements'
-import { generateRandomString } from '@Helper'
+import { dateInsertHypen, generateRandomString } from '@Helper'
 import _ from 'lodash'
 
 const initializeState = {
@@ -140,7 +140,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
 
             const chartData = _.map(data, d => {
                 return {
-                    date: d.MESURE_DE,
+                    date: dateInsertHypen(d.MESURE_DE),
                     value: d.MOBLPHON_STEPS,
                     goal: d.GOAL_VALUE,
                 }
@@ -177,7 +177,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 const { FAT_BURNING, ENDURANCE, SUPER } = hrInfo[dIndex] // 운동 시간 가지고 오기.
 
                 return {
-                    date: d.MESURE_DE,
+                    date: dateInsertHypen(d.MESURE_DE),
                     value: d.STEPS,
                     value2:
                         Number(FAT_BURNING) + Number(ENDURANCE) + Number(SUPER),
@@ -280,7 +280,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 const { MESURE_DE, SLEEP_BEGIN_TIME, SLEET_END_TIME } = d
                 if (_.isEmpty(SLEEP_BEGIN_TIME)) {
                     return {
-                        date: MESURE_DE,
+                        date: dateInsertHypen(MESURE_DE),
                         start: 0,
                         end: 0,
                         tooltip: '',
@@ -294,7 +294,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 const endMin = Number(SLEET_END_TIME.substring(2, 4))
 
                 return {
-                    date: d.MESURE_DE,
+                    date: dateInsertHypen(d.MESURE_DE),
                     start:
                         startHour > 12
                             ? startHour * 60 + startMin
@@ -385,7 +385,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                     goal: goal,
                     avg: {
                         ...prevState.trckStep.avg,
-                        step1: `${avgRHhour}시간 ${avgRMins}분`,
+                        step1: `${avgRHhour}:${avgRMins}`,
                         step2: parseFloat(golAvh.toFixed(1)),
                     },
                     goalAvg: {
@@ -403,10 +403,6 @@ const ConsultDetailPartMyGraphLifeLog = () => {
     }, [myGraphState.lifeLog])
 
     useEffect(() => {
-        // console.debug(pageState)
-    }, [pageState])
-
-    useEffect(() => {
         const {
             lifeLog: { status },
         } = myGraphState
@@ -418,7 +414,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
     return (
         <div className="flex flex-col w-full border">
             <div className="grid grid-cols-12 grid-rows-1 border-b">
-                <div className="flex col-span-2 justify-center items-center border-r">
+                <div className="flex col-span-1 justify-center items-center border-r">
                     <div className="flex flex-col items-center">
                         <div className="text-xs text-gray-500">활동량</div>
                         <div className="text-xs text-gray-500">(앱측정)</div>
@@ -427,7 +423,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-8 border-r">
+                <div className="col-span-10 border-r">
                     {pageState.moblphon.data.length > 0 && (
                         <VaryLineChartActivity
                             ChartID={generateRandomString(10)}
@@ -436,7 +432,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         />
                     )}
                 </div>
-                <div className="flex col-span-2 h-full ">
+                <div className="flex col-span-1 h-full ">
                     <div className="grid grid-rows-1 grid-cols-2 items-center w-full">
                         <div className="flex h-full items-center justify-center border-r">
                             <div className="flex flex-col items-center">
@@ -463,7 +459,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                 </div>
             </div>
             <div className="grid grid-cols-12 grid-rows-1 items-center">
-                <div className="flex col-span-2 h-full">
+                <div className="flex col-span-1 h-full">
                     <div className="flex w-full">
                         <div className="flex w-1/2 border-r">
                             <div className="flex flex-col w-full h-full items-center justify-center">
@@ -486,7 +482,10 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                             (걸음)
                                         </div>
                                         <div className="flex justify-center text-xs text-gray-500">
-                                            {`목표:${pageState.trckStep.goal}보`}
+                                            {`목표:`}
+                                        </div>
+                                        <div className="flex justify-center text-xs text-gray-500">
+                                            {`${pageState.trckStep.goal}보`}
                                         </div>
                                     </div>
                                 </div>
@@ -507,7 +506,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-8 border-r">
+                <div className="col-span-10 border-r">
                     <div className="border-b">
                         {pageState.trckStep.data.length > 0 && (
                             <VaryLineChartActivity
@@ -526,7 +525,7 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                         )}
                     </div>
                 </div>
-                <div className="flex col-span-2 h-full">
+                <div className="flex col-span-1 h-full">
                     <div className="flex flex-col w-full">
                         <div className="flex h-1/2">
                             <div className="grid grid-rows-2 w-full grid-cols-2 items-center border-b">
@@ -556,7 +555,10 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                 <div className="flex h-full items-center justify-center border-r">
                                     <div className="flex flex-col items-center">
                                         <div className="text-xs text-gray-500">
-                                            평균 운동 시간
+                                            평균 운동
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            시간
                                         </div>
                                         <div className="text-xs text-gray-500">
                                             {`${pageState.trckStep.goalAvg.step1}분`}
@@ -583,7 +585,10 @@ const ConsultDetailPartMyGraphLifeLog = () => {
                                 <div className="flex h-full items-center justify-center border-r border-b">
                                     <div className="flex flex-col items-center">
                                         <div className="text-xs text-gray-500">
-                                            평균 수면 시간
+                                            평균 수면
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            시간
                                         </div>
                                         <div className="text-xs text-gray-500">
                                             {`${pageState.sleep.avg.step1}`}
