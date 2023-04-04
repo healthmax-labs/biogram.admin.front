@@ -9,6 +9,7 @@ import {
 import {
     addComma,
     dateInsertHypen,
+    getOnlyNumber,
     phoneFormat,
     timeStringParse,
 } from '@Helper'
@@ -174,7 +175,24 @@ export const MemberTableConfig = {
                 name: `가입일`,
                 key: `REGIST_DT`,
                 component: ({ el }: { el: MemberInfoListItemInterface }) => {
-                    return <>{el.REGIST_DT}</>
+                    const registDt =
+                        el.REGIST_DT && !_.isEmpty(el.REGIST_DT)
+                            ? getOnlyNumber(el.REGIST_DT)
+                            : ''
+
+                    if (registDt) {
+                        return (
+                            <>{`${registDt.substring(
+                                0,
+                                4
+                            )}-${registDt.substring(4, 6)}-${registDt.substring(
+                                6,
+                                8
+                            )}`}</>
+                        )
+                    } else {
+                        return <></>
+                    }
                 },
             },
             {
