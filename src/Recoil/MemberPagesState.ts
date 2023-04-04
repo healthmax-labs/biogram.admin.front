@@ -532,7 +532,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
     default: {
         status: 'idle',
         search: {
-            START_DT: getOneMonthAgo(),
+            START_DT: getNowDate(),
             END_DT: getNowDate(),
             SNDNG_FAILR: '',
             SNDNG_STDR: '',
