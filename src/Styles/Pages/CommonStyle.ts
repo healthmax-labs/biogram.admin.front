@@ -61,4 +61,5 @@ export const WapperStyle = {
     FlexNoWarap: tw.div`flex flex-nowrap`,
     FlexNoWarapGap: tw.div`flex flex-nowrap gap-2 py-1`,
     FlexRightButton: tw.div`flex ml-1`,
+    FlexFreeRightButton: tw.div`flex h-8 items-center pl-1`,
 }

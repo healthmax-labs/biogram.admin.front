@@ -1304,62 +1304,68 @@ const MemberDetailTable = ({
                                 <LabelCell>
                                     <VaryLabel LabelName={`핸드폰번호`} />
                                 </LabelCell>
-                                <InputCell colSpan={PageMode === 'new' ? 3 : 1}>
-                                    <VaryInput
-                                        Ref={inputPhoneNumberRef}
-                                        Width={'w60'}
-                                        InputType={'text'}
-                                        HandleOnChange={(
-                                            e: React.ChangeEvent<HTMLInputElement>
-                                        ) => handleChangeMbtlnum(e)}
-                                        Placeholder={'핸드폰번호'}
-                                        Value={
-                                            detailState.detail.MBTLNUM
-                                                ? detailState.detail.MBTLNUM
-                                                : ``
-                                        }
-                                        Children={
-                                            <>
-                                                <WS.FlexRightButton>
-                                                    <VaryButton
-                                                        ButtonType={`default`}
-                                                        ButtonName={
-                                                            detailState.detail
-                                                                .MBTLNUM_CRTFC_AT &&
-                                                            detailState.detail
-                                                                .MBTLNUM_CRTFC_AT ===
-                                                                'Y'
-                                                                ? `재인증`
-                                                                : `미인증`
-                                                        }
-                                                        HandleClick={() =>
-                                                            handleGetMbtlnum().then()
-                                                        }
-                                                    />
-                                                </WS.FlexRightButton>
-                                                {pageState.MbtlnumCheck && (
+                                <InputCell
+                                    colSpan={PageMode === 'new' ? 3 : 1}
+                                    NoWarp={true}>
+                                    <div className="flex flex-nowrap">
+                                        <VaryInput
+                                            Ref={inputPhoneNumberRef}
+                                            Width={'w60'}
+                                            InputType={'text'}
+                                            HandleOnChange={(
+                                                e: React.ChangeEvent<HTMLInputElement>
+                                            ) => handleChangeMbtlnum(e)}
+                                            Placeholder={'핸드폰번호'}
+                                            Value={
+                                                detailState.detail.MBTLNUM
+                                                    ? detailState.detail.MBTLNUM
+                                                    : ``
+                                            }
+                                            Children={
+                                                <>
                                                     <WS.FlexRightButton>
                                                         <VaryButton
                                                             ButtonType={`default`}
-                                                            ButtonName={`데이터통합`}
+                                                            ButtonName={
+                                                                detailState
+                                                                    .detail
+                                                                    .MBTLNUM_CRTFC_AT &&
+                                                                detailState
+                                                                    .detail
+                                                                    .MBTLNUM_CRTFC_AT ===
+                                                                    'Y'
+                                                                    ? `재인증`
+                                                                    : `미인증`
+                                                            }
                                                             HandleClick={() =>
-                                                                setPageState(
-                                                                    prevState => ({
-                                                                        ...prevState,
-                                                                        modal: {
-                                                                            ...prevState.modal,
-                                                                            unityUpdate:
-                                                                                true,
-                                                                        },
-                                                                    })
-                                                                )
+                                                                handleGetMbtlnum().then()
                                                             }
                                                         />
                                                     </WS.FlexRightButton>
-                                                )}
-                                            </>
-                                        }
-                                    />
+                                                </>
+                                            }
+                                        />
+                                        {pageState.MbtlnumCheck && (
+                                            <WS.FlexFreeRightButton>
+                                                <VaryButton
+                                                    ButtonType={`default`}
+                                                    ButtonName={`데이터통합`}
+                                                    HandleClick={() =>
+                                                        setPageState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                modal: {
+                                                                    ...prevState.modal,
+                                                                    unityUpdate:
+                                                                        true,
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                />
+                                            </WS.FlexFreeRightButton>
+                                        )}
+                                    </div>
                                 </InputCell>
                                 {PageMode === 'modify' && (
                                     <>
