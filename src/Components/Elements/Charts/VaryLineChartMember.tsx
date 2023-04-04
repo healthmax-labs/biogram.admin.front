@@ -121,7 +121,7 @@ const VaryLineChart = ({
         rangeDataItem.get('grid')?.set('visible', false)
         rangeDataItem.get('axisFill')?.setAll({
             fill: am5.color('#cfeaf5'),
-            fillOpacity: 0.2,
+            fillOpacity: 0.5,
             visible: true,
         })
 
