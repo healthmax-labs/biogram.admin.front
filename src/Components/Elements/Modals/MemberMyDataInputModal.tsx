@@ -130,6 +130,21 @@ const MemberMyDataInputModal = ({
             return
         }
 
+        // 당화혈색소 범위체크 4~15
+        if (
+            !_.isEmpty(pageState.input.HBA1C) &&
+            !(
+                Number(pageState.input.HBA1C) >= 4 &&
+                Number(pageState.input.HBA1C) <= 15
+            )
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.rangeHba1c,
+            })
+            return
+        }
+
         if (userinfo.MBER_NO) {
             const stepPayload: {
                 SLM?: number | null // 근육량
