@@ -101,9 +101,6 @@ const MeasureUserTable = () => {
                         `${DataRow ? DataRow.HT_MBER_CNT : ``}`,
                         `${DataRow ? DataRow.HT_WOMAN_CNT : ``}`,
                         `${DataRow ? DataRow.HT_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BD_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.BD_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BD_MAN_CNT : ``}`,
                     ]
                 })
 
@@ -172,15 +169,6 @@ const MeasureUserTable = () => {
                     `${_.sum(
                         AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MAN_CNT))
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MBER_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_WOMAN_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BD_MAN_CNT))
-                    )}`,
                 ])
 
                 return returnData
@@ -217,11 +205,33 @@ const MeasureUserTable = () => {
             }),
             Data: (() => {
                 return _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
+                    const sumMber =
+                        period.IS_MBER_CNT +
+                        period.BP_MBER_CNT +
+                        period.BS_MBER_CNT +
+                        period.BC_MBER_CNT +
+                        period.ST_MBER_CNT +
+                        period.HT_MBER_CNT
+                    const sumWoman =
+                        period.IS_WOMAN_CNT +
+                        period.BP_WOMAN_CNT +
+                        period.BS_WOMAN_CNT +
+                        period.BC_WOMAN_CNT +
+                        period.ST_WOMAN_CNT +
+                        period.HT_WOMAN_CNT
+                    const sumMan =
+                        period.IS_MAN_CNT +
+                        period.BP_MAN_CNT +
+                        period.BS_MAN_CNT +
+                        period.BC_MAN_CNT +
+                        period.ST_MAN_CNT +
+                        period.HT_MAN_CNT
+
                     return [
                         `${period.CYCLE_GUBUN}`,
-                        `${period.SUM_MBER_CNT}`,
-                        `${period.SUM_WOMAN_CNT}`,
-                        `${period.SUM_MAN_CNT}`,
+                        `${sumMber}`,
+                        `${sumWoman}`,
+                        `${sumMan}`,
                         `${period.IS_MBER_CNT}`,
                         `${period.IS_WOMAN_CNT}`,
                         `${period.IS_MAN_CNT}`,
@@ -240,9 +250,6 @@ const MeasureUserTable = () => {
                         `${period.HT_MBER_CNT}`,
                         `${period.HT_WOMAN_CNT}`,
                         `${period.HT_MAN_CNT}`,
-                        `${period.BD_MBER_CNT}`,
-                        `${period.BD_WOMAN_CNT}`,
-                        `${period.BD_MAN_CNT}`,
                     ]
                 })
             })(),
@@ -309,14 +316,8 @@ const MeasureUserTable = () => {
                                         <T.TheadCell colSpan={3}>
                                             신장계
                                         </T.TheadCell>
-                                        <T.TheadCell colSpan={3}>
-                                            활동량계
-                                        </T.TheadCell>
                                     </T.TheadRow>
                                     <T.TheadRow>
-                                        <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>여성</T.TheadCell>
-                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
                                         <T.TheadCell>여성</T.TheadCell>
                                         <T.TheadCell>남성</T.TheadCell>
@@ -450,19 +451,6 @@ const MeasureUserTable = () => {
                                                         <T.CellW>
                                                             {DataRow.HT_MAN_CNT}
                                                         </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.BD_MBER_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.BD_WOMAN_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {DataRow.BD_MAN_CNT}
-                                                        </T.CellW>
                                                     </T.Row>
                                                 )
                                             } else {
@@ -472,9 +460,6 @@ const MeasureUserTable = () => {
                                                         <T.CellW colSpan={2}>
                                                             {age.name}
                                                         </T.CellW>
-                                                        <T.CellW>-</T.CellW>
-                                                        <T.CellW>-</T.CellW>
-                                                        <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
@@ -654,27 +639,6 @@ const MeasureUserTable = () => {
                                                 )
                                             )}
                                         </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BD_MBER_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BD_WOMAN_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BD_MAN_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
                             </T.Table>
@@ -730,14 +694,8 @@ const MeasureUserTable = () => {
                                         <T.TheadCell colSpan={3}>
                                             신장계
                                         </T.TheadCell>
-                                        <T.TheadCell colSpan={3}>
-                                            활동량계
-                                        </T.TheadCell>
                                     </T.TheadRow>
                                     <T.TheadRow>
-                                        <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>여성</T.TheadCell>
-                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
                                         <T.TheadCell>여성</T.TheadCell>
                                         <T.TheadCell>남성</T.TheadCell>
@@ -834,15 +792,6 @@ const MeasureUserTable = () => {
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {period.HT_MAN_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_MBER_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_WOMAN_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_MAN_CNT}
                                                 </T.CellW>
                                             </T.Row>
                                         )
