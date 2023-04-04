@@ -212,6 +212,7 @@ const ConsultDetailPartChart = () => {
                                 CNST: '',
                                 PLN: '',
                                 REG_NM: '',
+                                CNST_NO: null,
                                 MNG_ID: '',
                                 MNG_NM: '',
                                 MOD_DT: '',
