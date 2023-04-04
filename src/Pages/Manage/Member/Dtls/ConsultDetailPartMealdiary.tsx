@@ -1317,11 +1317,7 @@ const ConsultDetailPartMealdiary = () => {
 
                                                     return (
                                                         <STable.Cell
-                                                            Bg={
-                                                                calorieIndex %
-                                                                    2 !==
-                                                                0
-                                                            }
+                                                            Bg={false}
                                                             colSpan={2}
                                                             key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
                                                             {kalText}
@@ -1360,10 +1356,10 @@ const ConsultDetailPartMealdiary = () => {
                                             <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( g )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
                                             <STable.Cell Bg={false}>
@@ -1372,10 +1368,10 @@ const ConsultDetailPartMealdiary = () => {
                                             <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( g )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
                                             <STable.Cell Bg={false}>
@@ -1384,10 +1380,10 @@ const ConsultDetailPartMealdiary = () => {
                                             <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( g )
                                             </STable.Cell>
-                                            <STable.Cell Bg={true}>
+                                            <STable.Cell Bg={false}>
                                                 ( % )
                                             </STable.Cell>
                                             <STable.Cell Bg={false}>
@@ -1426,19 +1422,9 @@ const ConsultDetailPartMealdiary = () => {
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-carb-item-${carbIndex}`}>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    carbIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        carbIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${kal}`}
                                                                 </STable.CellText>
                                                                 <STable.CellText
@@ -1455,19 +1441,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 </STable.CellText>
                                                             </STable.TextCell>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    carbIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        carbIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${percent}`}
                                                                 </STable.CellText>
                                                             </STable.TextCell>
@@ -1540,19 +1516,9 @@ const ConsultDetailPartMealdiary = () => {
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-protein-item-${proteinIndex}`}>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    proteinIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        proteinIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${kal}`}
                                                                 </STable.CellText>
                                                                 <STable.CellText
@@ -1569,19 +1535,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 </STable.CellText>
                                                             </STable.TextCell>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    proteinIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        proteinIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${percent}`}
                                                                 </STable.CellText>
                                                             </STable.TextCell>
@@ -1652,19 +1608,9 @@ const ConsultDetailPartMealdiary = () => {
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-fat-item-${fatIndex}`}>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    fatIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        fatIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${kal}`}
                                                                 </STable.CellText>
                                                                 <STable.CellText
@@ -1681,19 +1627,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 </STable.CellText>
                                                             </STable.TextCell>
                                                             <STable.TextCell
-                                                                Bg={
-                                                                    fatIndex %
-                                                                        2 !==
-                                                                    0
-                                                                }>
+                                                                Bg={false}>
                                                                 <STable.CellText
-                                                                    Color={
-                                                                        fatIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
+                                                                    Color={`gray`}>
                                                                     {`${percent}`}
                                                                 </STable.CellText>
                                                             </STable.TextCell>
@@ -1762,20 +1698,10 @@ const ConsultDetailPartMealdiary = () => {
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-sugar-cell-item-${sugarIndex}`}
-                                                            Bg={
-                                                                sugarIndex %
-                                                                    2 !==
-                                                                0
-                                                            }
+                                                            Bg={false}
                                                             colSpan={2}>
                                                             <STable.CellText
-                                                                Color={
-                                                                    sugarIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
+                                                                Color={`gray`}>
                                                                 {`${kal}`}
                                                             </STable.CellText>
                                                             <STable.CellText
@@ -1841,20 +1767,10 @@ const ConsultDetailPartMealdiary = () => {
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-body-cell-sodium-item-${sodiumIndex}`}
-                                                            Bg={
-                                                                sodiumIndex %
-                                                                    2 !==
-                                                                0
-                                                            }
+                                                            Bg={false}
                                                             colSpan={2}>
                                                             <STable.CellText
-                                                                Color={
-                                                                    sodiumIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
+                                                                Color={`gray`}>
                                                                 {`${kal} mg`}
                                                             </STable.CellText>
                                                             <STable.CellText
@@ -1920,20 +1836,10 @@ const ConsultDetailPartMealdiary = () => {
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-body-cell-drkwtQy-item-${drkwtQyIndex}`}
-                                                            Bg={
-                                                                drkwtQyIndex %
-                                                                    2 !==
-                                                                0
-                                                            }
+                                                            Bg={false}
                                                             colSpan={2}>
                                                             <STable.CellText
-                                                                Color={
-                                                                    drkwtQyIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
+                                                                Color={`gray`}>
                                                                 {`${kal} ml`}
                                                             </STable.CellText>
                                                             <STable.CellText
@@ -2049,15 +1955,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             key={`consult-detail-part-meal-diary-table-body-cell-BRFT-item-${brftIndex}`}>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    brftIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${brft.kal}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    brftIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${brft.per}`}</STable.Cell>
                                                         </React.Fragment>
                                                     )
@@ -2081,15 +1983,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             key={`consult-detail-part-meal-diary-table-body-cell-LNCH-item-${lnchIndex}`}>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    lnchIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${lnch.kal}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    lnchIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${lnch.per}`}</STable.Cell>
                                                         </React.Fragment>
                                                     )
@@ -2113,15 +2011,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             key={`consult-detail-part-meal-diary-table-body-cell-DINR-item-${dinrIndex}`}>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    dinrIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${dinr.kal}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    dinrIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${dinr.per}`}</STable.Cell>
                                                         </React.Fragment>
                                                     )
@@ -2145,15 +2039,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             key={`consult-detail-part-meal-diary-table-body-cell-BFSNLCSN-item-${bfsnlcsnIndex}`}>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    bfsnlcsnIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${bfsnlcsn.kal}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    bfsnlcsnIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${bfsnlcsn.per}`}</STable.Cell>
                                                         </React.Fragment>
                                                     )
@@ -2177,15 +2067,11 @@ const ConsultDetailPartMealdiary = () => {
                                                             key={`consult-detail-part-meal-diary-table-body-cell-DNSN-item-${dnsnIndex}`}>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    dnsnIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${dnsn.kal}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
-                                                                    dnsnIndex %
-                                                                        2 !==
-                                                                    0
+                                                                    false
                                                                 }>{`${dnsn.per}`}</STable.Cell>
                                                         </React.Fragment>
                                                     )
