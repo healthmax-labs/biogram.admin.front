@@ -14,7 +14,7 @@ import {
 import React, { useCallback, useEffect, useState } from 'react'
 import Messages from '@Messages'
 import { useParams } from 'react-router-dom'
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartListState,
     ConsultDetailChartState,
@@ -55,7 +55,6 @@ const ConsultDetailPartChart = () => {
         ConsultDetailChartListState
     )
     const setConsultChart = useSetRecoilState(ConsultDetailChartState)
-    const resetConsultChart = useResetRecoilState(ConsultDetailChartState)
 
     const [pageState, setPageState] = useState<{
         select: number[]
@@ -207,7 +206,19 @@ const ConsultDetailPartChart = () => {
                     <VaryButton
                         ButtonType={'default'}
                         ButtonName={'신규'}
-                        HandleClick={() => resetConsultChart()}
+                        HandleClick={() => {
+                            setConsultChart(prevState => ({
+                                ...prevState,
+                                CNST: '',
+                                PLN: '',
+                                REG_NM: '',
+                                MNG_ID: '',
+                                MNG_NM: '',
+                                MOD_DT: '',
+                                MOD_MNG_NM: '',
+                                REGDT: '',
+                            }))
+                        }}
                     />
                     <VaryButton
                         ButtonType={'default'}
