@@ -38,6 +38,7 @@ const initializeState = {
         PULS: null,
         FBS: null,
         PP2: null,
+        HBA1C: null,
         T_CHOL: null,
         HDLC: null,
         LDLC: null,
@@ -78,6 +79,7 @@ const MemberMyDataInputModal = ({
             PULS: string | null // 맥박
             FBS: string | null // 식전혈당
             PP2: string | null //식후혈당
+            HBA1C: string | null //당화혈색소
             T_CHOL: string | null // 총콜레스테롤
             HDLC: string | null //HDLC
             LDLC: string | null //LDLC
@@ -144,6 +146,7 @@ const MemberMyDataInputModal = ({
                 PULS?: number | null // 맥박
                 FBS?: number | null // 식전혈당
                 PP2?: number | null //식후혈당
+                HBA1C?: number | null //당화혈색소
                 T_CHOL?: number | null // 총콜레스테롤
                 HDLC?: number | null //HDLC
                 LDLC?: number | null //LDLC
@@ -179,6 +182,9 @@ const MemberMyDataInputModal = ({
                     : null,
                 FBS: pageState.input.FBS ? Number(pageState.input.FBS) : null,
                 PP2: pageState.input.PP2 ? Number(pageState.input.PP2) : null,
+                HBA1C: pageState.input.HBA1C
+                    ? Number(pageState.input.HBA1C)
+                    : null,
                 T_CHOL: pageState.input.T_CHOL
                     ? Number(pageState.input.T_CHOL)
                     : null,

@@ -450,7 +450,12 @@ export default {
                     keyCode: 'PP2',
                     genName: `식후혈당`,
                 },
-                { code: '624M', name: '당화혈색소(％)', genName: `당화혈색소` },
+                {
+                    code: '624M',
+                    name: '당화혈색소(％)',
+                    keyCode: 'HBA1C',
+                    genName: `당화혈색소`,
+                },
             ],
         },
         {

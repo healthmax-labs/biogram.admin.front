@@ -455,6 +455,7 @@ export const postDataMesureInfoManual = (payload: {
         PULS?: number // 맥박
         FBS?: number // 식전혈당
         PP2?: number //식후혈당
+        HBA1C?: number //당화혈색소
         T_CHOL?: number // 총콜레스테롤
         HDLC?: number //HDLC
         LDLC?: number //LDLC
