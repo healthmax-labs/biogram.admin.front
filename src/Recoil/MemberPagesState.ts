@@ -532,8 +532,8 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
     default: {
         status: 'idle',
         search: {
-            START_DT: getNowDate(),
-            END_DT: getNowDate(),
+            START_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}01`,
+            END_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}31`,
             SNDNG_FAILR: '',
             SNDNG_STDR: '',
             MSG_TYPE: '',
