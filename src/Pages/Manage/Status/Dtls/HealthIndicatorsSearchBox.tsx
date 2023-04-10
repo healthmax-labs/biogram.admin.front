@@ -41,6 +41,20 @@ const HealthIndicatorsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: healthIndicatorsListState.search
+                                        .INST_NO
+                                        ? Number(
+                                              healthIndicatorsListState.search
+                                                  .INST_NO
+                                          )
+                                        : null,
+                                    text: healthIndicatorsListState.search
+                                        .instNm
+                                        ? healthIndicatorsListState.search
+                                              .instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) =>
                                     setHealthIndicatorsListState(prevState => ({
                                         ...prevState,

@@ -37,6 +37,16 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: brftrCmprListState.search.INST_NO
+                                        ? Number(
+                                              brftrCmprListState.search.INST_NO
+                                          )
+                                        : null,
+                                    text: brftrCmprListState.search.instNm
+                                        ? brftrCmprListState.search.instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) =>
                                     setBrftrCmprListState(prevState => ({
                                         ...prevState,

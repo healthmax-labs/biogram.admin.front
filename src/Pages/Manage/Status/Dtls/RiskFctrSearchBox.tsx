@@ -45,6 +45,16 @@ const RiskFctrSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: riskFctrListState.search.INST_NO
+                                        ? Number(
+                                              riskFctrListState.search.INST_NO
+                                          )
+                                        : null,
+                                    text: riskFctrListState.search.instNm
+                                        ? riskFctrListState.search.instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) =>
                                     setRiskFctrListState(prevState => ({
                                         ...prevState,

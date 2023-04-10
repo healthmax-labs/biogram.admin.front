@@ -24,7 +24,7 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const [msgSendListState, setMsgSendListState] =
+    const [msgBookListStaste, setMsgSendListState] =
         useRecoilState(MsgBookListState)
 
     return (
@@ -37,12 +37,23 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                SelectElement={{
+                                    value: msgBookListStaste.search.INST_NO
+                                        ? Number(
+                                              msgBookListStaste.search.INST_NO
+                                          )
+                                        : null,
+                                    text: msgBookListStaste.search.instNm
+                                        ? msgBookListStaste.search.instNm
+                                        : null,
+                                }}
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setMsgSendListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }
@@ -69,8 +80,8 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 id={'id'}
                                 Placeholder={'검색어'}
                                 Value={
-                                    msgSendListState.search.SEARCH_KEY
-                                        ? msgSendListState.search.SEARCH_KEY
+                                    msgBookListStaste.search.SEARCH_KEY
+                                        ? msgBookListStaste.search.SEARCH_KEY
                                         : ''
                                 }
                             />
@@ -84,9 +95,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryDatepickerInput
                                 InputeType={`search`}
                                 Value={
-                                    msgSendListState.search.FROM_DAY
+                                    msgBookListStaste.search.FROM_DAY
                                         ? changeDatePickerDate(
-                                              `${msgSendListState.search.FROM_DAY}`
+                                              `${msgBookListStaste.search.FROM_DAY}`
                                           )
                                         : new Date()
                                 }
@@ -106,9 +117,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VaryDatepickerInput
                                 InputeType={`search`}
                                 Value={
-                                    msgSendListState.search.TO_DAY
+                                    msgBookListStaste.search.TO_DAY
                                         ? changeDatePickerDate(
-                                              `${msgSendListState.search.TO_DAY}`
+                                              `${msgBookListStaste.search.TO_DAY}`
                                           )
                                         : new Date()
                                 }
@@ -138,7 +149,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     LabelWidth={`wMin`}
                                     LabelName="발송일시"
                                     Checked={
-                                        msgSendListState.search.SNDNG_STDR ===
+                                        msgBookListStaste.search.SNDNG_STDR ===
                                         'S'
                                     }
                                     HandleOnChange={e =>
@@ -157,7 +168,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                     LabelWidth={`wMin`}
                                     LabelName="작성일시"
                                     Checked={
-                                        msgSendListState.search.SNDNG_STDR ===
+                                        msgBookListStaste.search.SNDNG_STDR ===
                                         ''
                                     }
                                     HandleOnChange={e =>

@@ -36,12 +36,24 @@ const WalkRankingSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                SelectElement={{
+                                    value: walkRankingListState.search.INST_NO
+                                        ? Number(
+                                              walkRankingListState.search
+                                                  .INST_NO
+                                          )
+                                        : null,
+                                    text: walkRankingListState.search.instNm
+                                        ? walkRankingListState.search.instNm
+                                        : null,
+                                }}
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setWalkRankingState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

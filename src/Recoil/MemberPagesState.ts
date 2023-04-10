@@ -165,6 +165,7 @@ interface MsgSendSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         FROM_MONTH: string
         FROM_DAY: string
@@ -181,6 +182,7 @@ interface MsgBookListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
         FROM_DAY: string
         TO_DAY: string
@@ -552,6 +554,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
             SNDNG_FAILR: 'F',
             SNDNG_STDR: '',
@@ -574,6 +577,7 @@ export const MsgBookListState = atom<MsgBookListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
             FROM_DAY: getNowDate(),
             TO_DAY: getNowDate(),

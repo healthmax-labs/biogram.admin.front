@@ -43,12 +43,23 @@ const StatisticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                SelectElement={{
+                                    value: statisticsListState.search.INST_NO
+                                        ? Number(
+                                              statisticsListState.search.INST_NO
+                                          )
+                                        : null,
+                                    text: statisticsListState.search.instNm
+                                        ? statisticsListState.search.instNm
+                                        : null,
+                                }}
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setStatisticsListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

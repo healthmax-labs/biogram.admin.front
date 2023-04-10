@@ -46,6 +46,7 @@ const AnalyticsSearchBox = ({
     HandleAgeGroup,
     Cycle,
     HandleCycle,
+    InstSelectElement,
 }: {
     SearchType: 'default' | 'healthIndicators'
     HandleGetList: () => void
@@ -58,6 +59,10 @@ const AnalyticsSearchBox = ({
     HandleAgeGroup?: (age: string[]) => void
     Cycle?: string
     HandleCycle?: (cycle: string) => void
+    InstSelectElement: {
+        instNo: number | null
+        instNm: string | null
+    }
 }) => {
     const [pageState, setPageState] = useState<{
         button: {
@@ -91,6 +96,14 @@ const AnalyticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: InstSelectElement.instNo
+                                        ? Number(InstSelectElement.instNo)
+                                        : null,
+                                    text: InstSelectElement.instNm
+                                        ? InstSelectElement.instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) => {
                                     HandleInstNo(instNo, instNm)
                                 }}

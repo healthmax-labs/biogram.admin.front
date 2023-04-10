@@ -68,6 +68,14 @@ const HealthIndicatorsMain = () => {
                 <AnalyticsSearchBox
                     SearchType={'healthIndicators'}
                     HandleGetList={() => getTableList()}
+                    InstSelectElement={{
+                        instNo: imprvmListState.search.INST_NO
+                            ? Number(imprvmListState.search.INST_NO)
+                            : null,
+                        instNm: imprvmListState.search.instNm
+                            ? imprvmListState.search.instNm
+                            : null,
+                    }}
                     HandleInstNo={(instNo, instNm) => {
                         setImprvmListState(prevState => ({
                             ...prevState,

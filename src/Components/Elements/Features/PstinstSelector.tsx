@@ -46,6 +46,7 @@ const PstinstSelector = ({
     SelectorType = 'input',
     HandleSelectValue,
     HandleCancleClick,
+    SelectElement,
 }: {
     SelectorType?: 'input' | 'OnlyModal' | 'CloseModal'
     HandleCancleClick?: () => void
@@ -56,6 +57,10 @@ const PstinstSelector = ({
         instNo: number
         instNm: string
     }) => void
+    SelectElement?: {
+        value: number | null
+        text: string | null
+    }
 }) => {
     // ref...
     const inputRef = useRef<HTMLInputElement[]>([])
@@ -262,6 +267,38 @@ const PstinstSelector = ({
 
         funcSetModalByType()
     }, [SelectorType, handleShowModal, showModal])
+
+    useEffect(() => {
+        const funcSetSelectElement = ({
+            value,
+            text,
+        }: {
+            value: number
+            text: string
+        }) => {
+            setPageState(prevState => ({
+                ...prevState,
+                selectElement: {
+                    value: value,
+                    text: text,
+                },
+            }))
+        }
+
+        if (
+            pageState.PSTINST_INFO_LIST.list.length === 0 &&
+            SelectElement &&
+            SelectElement.value &&
+            SelectElement.text
+        ) {
+            funcSetSelectElement({
+                value: SelectElement.value,
+                text: SelectElement.text,
+            })
+        }
+        // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [SelectElement])
 
     return (
         <>

@@ -12,6 +12,7 @@ interface InstJoinSearchListInterface {
     search: {
         CUR_PAGE: number
         INST_NO: string
+        instNm: string
         SEARCH_KEY: string
     }
     list: InstJoinListInterface
@@ -76,6 +77,7 @@ export const InstJoinListState = atom<InstJoinSearchListInterface>({
         search: {
             CUR_PAGE: 0,
             INST_NO: '',
+            instNm: '',
             SEARCH_KEY: '',
         },
         list: {

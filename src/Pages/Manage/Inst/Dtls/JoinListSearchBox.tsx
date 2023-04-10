@@ -15,7 +15,8 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
-    const [, setInstJoinListState] = useRecoilState(InstJoinListState)
+    const [instJoinListState, setInstJoinListState] =
+        useRecoilState(InstJoinListState)
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -26,12 +27,23 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                SelectElement={{
+                                    value: instJoinListState.search.INST_NO
+                                        ? Number(
+                                              instJoinListState.search.INST_NO
+                                          )
+                                        : null,
+                                    text: instJoinListState.search.instNm
+                                        ? instJoinListState.search.instNm
+                                        : null,
+                                }}
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setInstJoinListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

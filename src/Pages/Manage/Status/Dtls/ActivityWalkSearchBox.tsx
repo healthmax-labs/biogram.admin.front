@@ -38,6 +38,17 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: activityWalkListState.search.INST_NO
+                                        ? Number(
+                                              activityWalkListState.search
+                                                  .INST_NO
+                                          )
+                                        : null,
+                                    text: activityWalkListState.search.instNm
+                                        ? activityWalkListState.search.instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) =>
                                     setActivityWalkListState(prevState => ({
                                         ...prevState,

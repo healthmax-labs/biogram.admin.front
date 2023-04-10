@@ -70,6 +70,14 @@ const RiskFctrCountMain = () => {
                 <AnalyticsSearchBox
                     SearchType={'default'}
                     HandleGetList={() => getTableList()}
+                    InstSelectElement={{
+                        instNo: riskFctrCountListState.search.INST_NO
+                            ? Number(riskFctrCountListState.search.INST_NO)
+                            : null,
+                        instNm: riskFctrCountListState.search.instNm
+                            ? riskFctrCountListState.search.instNm
+                            : null,
+                    }}
                     HandleInstNo={(instNo, instNm) => {
                         setRiskFctrCountListState(prevState => ({
                             ...prevState,

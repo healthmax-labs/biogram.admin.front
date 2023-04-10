@@ -84,6 +84,7 @@ interface NonMeasureSearchListInterface {
     status: DefaultStatus
     search: {
         INST_NO: string
+        instNm: string
         MESURE_DT: string
         BP_NTCN_AT: 'Y' | 'N' //(Y: 미측정 조회, N: 미측정 조회 않함)
         BS_NTCN_AT: string
@@ -119,6 +120,7 @@ interface WalkRankingSearchListInterface {
     search: {
         curPage: number
         INST_NO: string
+        instNm: string
         MESURE_MT: string
     }
     list: WalkRankingListInterface
@@ -211,6 +213,7 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
         status: 'idle',
         search: {
             INST_NO: '',
+            instNm: '',
             MESURE_DT: getNowDate(),
             BP_NTCN_AT: 'Y', //(Y: 미측정 조회, N: 미측정 조회 않함)
             BS_NTCN_AT: 'Y',
@@ -260,6 +263,7 @@ export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
         search: {
             curPage: 0,
             INST_NO: '',
+            instNm: '',
             MESURE_MT: getNowYearMonth(),
         },
         list: {

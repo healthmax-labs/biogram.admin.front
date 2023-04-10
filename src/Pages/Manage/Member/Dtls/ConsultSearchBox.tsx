@@ -35,6 +35,14 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
+                                SelectElement={{
+                                    value: listState.search.instNo
+                                        ? Number(listState.search.instNo)
+                                        : null,
+                                    text: listState.search.instNm
+                                        ? listState.search.instNm
+                                        : null,
+                                }}
                                 HandleSelectValue={({ instNo, instNm }) =>
                                     setListState(prevState => ({
                                         ...prevState,

@@ -43,12 +43,23 @@ const NonMeasureSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <PstinstSelector
-                                HandleSelectValue={({ instNo }) =>
+                                SelectElement={{
+                                    value: nonMeasureListState.search.INST_NO
+                                        ? Number(
+                                              nonMeasureListState.search.INST_NO
+                                          )
+                                        : null,
+                                    text: nonMeasureListState.search.instNm
+                                        ? nonMeasureListState.search.instNm
+                                        : null,
+                                }}
+                                HandleSelectValue={({ instNo, instNm }) =>
                                     setNonMeasureListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
                                             INST_NO: String(instNo),
+                                            instNm: instNm,
                                         },
                                     }))
                                 }

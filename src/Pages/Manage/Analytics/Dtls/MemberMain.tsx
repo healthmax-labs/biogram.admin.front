@@ -77,6 +77,14 @@ const MemberMain = () => {
             <SearchWapper>
                 <AnalyticsSearchBox
                     SearchType={'default'}
+                    InstSelectElement={{
+                        instNo: memberListState.search.INST_NO
+                            ? Number(memberListState.search.INST_NO)
+                            : null,
+                        instNm: memberListState.search.instNm
+                            ? memberListState.search.instNm
+                            : null,
+                    }}
                     HandleGetList={() => getTableList()}
                     HandleInstNo={(instNo, instNm) => {
                         setMemberListState(prevState => ({
