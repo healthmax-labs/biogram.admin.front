@@ -51,6 +51,10 @@ export default {
                     code: 'O',
                     name: `외근직`,
                 },
+                {
+                    code: 'A',
+                    name: `전체`,
+                },
             ],
         },
     },
