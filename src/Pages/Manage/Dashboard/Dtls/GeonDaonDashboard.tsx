@@ -213,9 +213,9 @@ const GeonDaonDashboard = () => {
                                                                     'right',
                                                             },
                                                             {
-                                                                name: String(
+                                                                name: `${addComma(
                                                                     e.TT_TOT_CNT
-                                                                ),
+                                                                )}`,
                                                                 textAlign:
                                                                     'right',
                                                             },
@@ -575,6 +575,7 @@ const GeonDaonDashboard = () => {
                                                                 e.TD_CNT
                                                             ),
                                                             textAlign: 'center',
+                                                            color: 'blue',
                                                         },
                                                         {
                                                             name: addComma(
@@ -604,7 +605,17 @@ const GeonDaonDashboard = () => {
                                                         건강 개선률
                                                     </p>
                                                     <p className="flex text-little object-bottom pl-1">
-                                                        (단위: 명)
+                                                        (단위: %)
+                                                    </p>
+                                                </>
+                                            }
+                                            RightTitle={
+                                                <>
+                                                    <p className="flex text-xs pl-1 text-blue-600">
+                                                        ∎ 내근직
+                                                    </p>
+                                                    <p className="flex text-xs pl-1">
+                                                        ∎ 외근직
                                                     </p>
                                                 </>
                                             }
@@ -632,6 +643,7 @@ const GeonDaonDashboard = () => {
                                                             name: addComma(
                                                                 e.IW_SCORE
                                                             ),
+                                                            color: 'blue',
                                                         },
                                                         {
                                                             name: addComma(
