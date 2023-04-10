@@ -4,7 +4,11 @@ import { ko } from 'date-fns/esm/locale'
 import { VaryInput } from '@Elements'
 import { ContentType, DatePickerShowType, WidthType } from '@CommonTypes'
 import { InputStyle } from '@Style/Elements/InputStyles'
-import { changeDatePickerDate, getOnlyNumber } from '@Helper'
+import {
+    changeDatePickerDate,
+    getOnlyNumber,
+    gmtTimeToTimeObject,
+} from '@Helper'
 
 const { DatePickerWapper } = InputStyle
 
@@ -78,6 +82,7 @@ const VaryDatepickerInput = ({
     CallBackReturn,
     Width,
     ReadOnly,
+    PrevNextButton,
 }: {
     ShowType?: DatePickerShowType
     InputeType: ContentType
@@ -86,9 +91,53 @@ const VaryDatepickerInput = ({
     Value?: Date | null
     CallBackReturn?: (e: Date) => void
     ReadOnly?: boolean
+    PrevNextButton?: boolean
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
+    const [checkAfterDate, setCheckAfterDate] = useState<boolean>(false)
     const [dateFormat, setDateFormat] = useState(`yyyy년 MM월 dd일`)
+
+    // 이전 버튼 클릭
+    const handleClickPrevDate = () => {
+        if (ShowType === 'year, month') {
+            setSelectDate(
+                new Date(
+                    new Date(selectDate).setMonth(
+                        new Date(selectDate).getMonth() - 1
+                    )
+                )
+            )
+            return
+        }
+
+        setSelectDate(
+            new Date(
+                new Date(selectDate).setDate(new Date(selectDate).getDate() - 1)
+            )
+        )
+        return
+    }
+
+    // 다음 버튼 클릭
+    const handleClickNextDate = () => {
+        if (ShowType === 'year, month') {
+            setSelectDate(
+                new Date(
+                    new Date(selectDate).setMonth(
+                        new Date(selectDate).getMonth() + 1
+                    )
+                )
+            )
+            return
+        }
+
+        setSelectDate(
+            new Date(
+                new Date(selectDate).setDate(new Date(selectDate).getDate() + 1)
+            )
+        )
+        return
+    }
 
     useEffect(() => {
         if (Value && selectDate.getTime() !== Value?.getTime()) {
@@ -99,9 +148,25 @@ const VaryDatepickerInput = ({
     }, [Value])
 
     useEffect(() => {
+        // 날짜가 오늘 보다 이후 날짜 인지체크
+        const funcCheckAfterDate = () => {
+            const checkNowDateObject = gmtTimeToTimeObject(new Date())
+            const checkSelectDateObject = gmtTimeToTimeObject(selectDate)
+            const checkSelectDate = Number(
+                `${checkSelectDateObject.year}${checkSelectDateObject.monthPad}${checkSelectDateObject.dayPad}`
+            )
+            const checkNowDate = Number(
+                `${checkNowDateObject.year}${checkNowDateObject.monthPad}${checkNowDateObject.dayPad}`
+            )
+
+            setCheckAfterDate(checkSelectDate >= checkNowDate)
+        }
+
         if (CallBackReturn && selectDate.getTime() !== Value?.getTime()) {
             CallBackReturn(selectDate)
         }
+
+        funcCheckAfterDate()
 
         // FIXME : 종속성에서 selectDate 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +180,23 @@ const VaryDatepickerInput = ({
 
     return (
         <DatePickerWapper Width={Width ? Width : `full`}>
+            {PrevNextButton && (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 cursor-pointer"
+                    onClick={() => handleClickPrevDate()}>
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 19.5L8.25 12l7.5-7.5"
+                    />
+                </svg>
+            )}
+
             <DatePicker
                 readOnly={ReadOnly ? ReadOnly : false}
                 disabled={ReadOnly ? ReadOnly : false}
@@ -148,6 +230,41 @@ const VaryDatepickerInput = ({
                         : React.createElement(React.forwardRef(DefaultInput))
                 }
             />
+
+            {(() => {
+                if (PrevNextButton) {
+                    if (checkAfterDate) {
+                        return (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-5 h-5"></svg>
+                        )
+                    } else {
+                        return (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-5 h-5 cursor-pointer"
+                                onClick={() => handleClickNextDate()}>
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                                />
+                            </svg>
+                        )
+                    }
+                }
+
+                return <></>
+            })()}
         </DatePickerWapper>
     )
 }

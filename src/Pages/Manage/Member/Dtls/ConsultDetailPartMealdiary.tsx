@@ -1070,6 +1070,7 @@ const ConsultDetailPartMealdiary = () => {
                                 />
                                 <VaryDatepickerInput
                                     InputeType={`default`}
+                                    PrevNextButton={true}
                                     Value={changeDatePickerDate(
                                         mealDiaryState.search.mealDe
                                     )}
