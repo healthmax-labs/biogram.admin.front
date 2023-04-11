@@ -143,6 +143,12 @@ export default {
             chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
             chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
             rangeHba1c: `당화혈색소는 4~15사이의 값을 입력해 주세요`,
+            emptyGroupName: `그룹명을 입력해 주세요`,
+            addConfirm: `등록 하시겠습니까?`,
+            updateConfirm: `수정 하시겠습니까?`,
+            emptyCheckRow: `삭제할 그룹을 선택해 주세요.`,
+            manyCheckRow: `그룹 삭제는 한번에 한 그룹만 삭제 할수 있습니다.`,
+            deleteConfirm: `삭제 하시겠습니까?`,
         },
         contents: {
             magazine: {

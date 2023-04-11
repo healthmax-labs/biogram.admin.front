@@ -300,10 +300,6 @@ const PstinstSelector = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [SelectElement])
 
-    useEffect(() => {
-        console.debug(pageState.PSTINST_INFO_LIST)
-    }, [pageState.PSTINST_INFO_LIST])
-
     return (
         <>
             {SelectorType && SelectorType === 'input' && (

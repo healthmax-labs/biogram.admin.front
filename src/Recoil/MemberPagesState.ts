@@ -2,6 +2,7 @@ import { atom } from 'recoil'
 import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
+    ConsultGroupListResultInterface,
     ConsultInfoListInterface,
     ConsultMealDiaryItemInterface,
     ConsultMyGraphBldvssItemResultInterface,
@@ -322,6 +323,33 @@ interface MyGraphInterface {
     lifeLog: {
         status: DefaultStatus
         data: ConsultMyGraphLifeLogResultInterface
+    }
+}
+
+// 삼담회원그룹 목록
+interface ConsultGroupListIntreface {
+    status: DefaultStatus
+    search: {
+        instNo: string
+        instNm: string
+    }
+    list: ConsultGroupListResultInterface
+    manage: {
+        checkRow: string[]
+    }
+}
+
+// 삼담회원그룹 상세
+interface ConsultGroupDetailIntreface {
+    status: DefaultStatus
+    groupNo: number | null
+    detail: {
+        CNST_GRP_NM: string
+        PERM: string | 'G-' | '-U'
+        INST_NO: number | null
+        CNST_GRP_NO: number | null
+        INST_NM: string | null
+        MBER_NO: number | null
     }
 }
 
@@ -745,6 +773,41 @@ export const MyGraphState = atom<MyGraphInterface>({
                 MEAL_14DAYS_CALORIE_INFO_LIST: [],
                 MEAL_14DAYS_DETAIL_INFO_LIST: [],
             },
+        },
+    },
+})
+
+// 상담회원그룹 목록
+export const ConsultGroupListState = atom<ConsultGroupListIntreface>({
+    key: `memberPage/consult-group-list`,
+    default: {
+        status: 'idle',
+        search: {
+            instNo: '',
+            instNm: '',
+        },
+        list: {
+            CNST_GRP_LIST: [],
+        },
+        manage: {
+            checkRow: [],
+        },
+    },
+})
+
+// 상담회원그룹 상세
+export const ConsultGroupDetailState = atom<ConsultGroupDetailIntreface>({
+    key: `memberPage/consult-group-detail`,
+    default: {
+        status: 'idle',
+        groupNo: null,
+        detail: {
+            CNST_GRP_NM: '',
+            PERM: 'G-',
+            INST_NO: null,
+            CNST_GRP_NO: null,
+            INST_NM: null,
+            MBER_NO: null,
         },
     },
 })

@@ -372,3 +372,37 @@ export const MsgBookTableConfig = {
     ],
     Lists: [],
 }
+
+export const ConsultGroupTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: true,
+        indexKey: 'CNST_GRP_NO',
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `그룹명`,
+                key: `CNST_GRP_NM`,
+            },
+            {
+                name: `구분`,
+                key: `PERM`,
+            },
+            {
+                name: `회원수`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `생성자`,
+                key: `MBER_NO`,
+            },
+            {
+                name: `생성일자`,
+                key: `MBER_NO`,
+            },
+        ],
+    ],
+    Lists: [],
+}

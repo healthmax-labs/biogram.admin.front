@@ -107,6 +107,45 @@ export default {
             ),
         },
         {
+            mainCode: `10000`,
+            menuCode: `10501`,
+            name: `상담회원그룹`,
+            pathName: `/manage/member/consult-group-list`,
+            category: `consult-group`,
+            recooilKey: `memberPage/consult-group-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/ConsultGroupListPage')
+            ),
+        },
+        {
+            mainCode: `10000`,
+            menuCode: `10502`,
+            name: `상담회원그룹 상세`,
+            pathName: `/manage/member/consult-group/:groupNo/detail`,
+            category: `consult-group`,
+            recooilKey: `memberPage/consult-group-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/ConsultGroupDetailPage')
+            ),
+        },
+        {
+            mainCode: `10000`,
+            menuCode: `10503`,
+            name: `상담회원그룹 등록`,
+            pathName: `/manage/member/consult-group-list/new`,
+            category: `consult-group`,
+            recooilKey: `memberPage/consult-group-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Member/ConsultGroupDetailPage')
+            ),
+        },
+        {
             mainCode: `20000`,
             menuCode: `20101`,
             name: `소속현황`,

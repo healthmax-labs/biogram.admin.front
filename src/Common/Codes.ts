@@ -1522,4 +1522,14 @@ export default {
             name: '야식',
         },
     ],
+    ConsultGroup: [
+        {
+            code: `G-`,
+            name: `공유`,
+        },
+        {
+            code: `-U`,
+            name: `개인`,
+        },
+    ],
 }
