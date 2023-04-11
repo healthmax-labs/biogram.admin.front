@@ -300,6 +300,10 @@ const PstinstSelector = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [SelectElement])
 
+    useEffect(() => {
+        console.debug(pageState.PSTINST_INFO_LIST)
+    }, [pageState.PSTINST_INFO_LIST])
+
     return (
         <>
             {SelectorType && SelectorType === 'input' && (
@@ -361,7 +365,7 @@ const PstinstSelector = ({
                                                                             step1.INST_NO
                                                                         ] = el as HTMLInputElement)
                                                                     }
-                                                                    id={`item-checkbox-step1-${step1Index}`}
+                                                                    id={`item-checkbox-step1-${step1.INST_NO_1}-${step1Index}`}
                                                                     type="checkbox"
                                                                     value={
                                                                         step1.INST_NO
@@ -382,7 +386,7 @@ const PstinstSelector = ({
                                                                     }}
                                                                 />
                                                                 <ItemLabel
-                                                                    htmlFor={`item-checkbox-step1-${step1Index}`}>
+                                                                    htmlFor={`item-checkbox-step1-${step1.INST_NO_1}-${step1Index}`}>
                                                                     <ItemLavelText
                                                                         BgState={
                                                                             step1.checkSearch
@@ -409,7 +413,7 @@ const PstinstSelector = ({
                                                                         ) => {
                                                                             return (
                                                                                 <ItemWapper
-                                                                                    key={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                    key={`pstinst-selector-step2-item-key-${step2Index}`}>
                                                                                     <ItemCheckBox
                                                                                         disabled={
                                                                                             step2.CHK_INST_2 ===
@@ -421,7 +425,7 @@ const PstinstSelector = ({
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
                                                                                         }
-                                                                                        id={`pstinst-selector-step2-item-${step2Index}`}
+                                                                                        id={`pstinst-selector-step2-item-id-${step2.INST_NO_2}-${step2Index}`}
                                                                                         type="checkbox"
                                                                                         value={
                                                                                             step2.INST_NO
@@ -442,7 +446,7 @@ const PstinstSelector = ({
                                                                                         }}
                                                                                     />
                                                                                     <ItemLabel
-                                                                                        htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                        htmlFor={`pstinst-selector-step2-item-id-${step2.INST_NO_2}-${step2Index}`}>
                                                                                         <ItemLavelText
                                                                                             BgState={
                                                                                                 step2.checkSearch
@@ -485,7 +489,7 @@ const PstinstSelector = ({
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
                                                                                         }
-                                                                                        id={`pstinst-selector-step3-item-${step3Index}`}
+                                                                                        id={`pstinst-selector-step3-item-${step3.INST_NO_3}-${step3Index}`}
                                                                                         type="checkbox"
                                                                                         value={
                                                                                             step3.INST_NO
@@ -506,7 +510,7 @@ const PstinstSelector = ({
                                                                                         }}
                                                                                     />
                                                                                     <ItemLabel
-                                                                                        htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
+                                                                                        htmlFor={`pstinst-selector-step3-item-${step3.INST_NO_3}-${step3Index}`}>
                                                                                         <ItemLavelText
                                                                                             BgState={
                                                                                                 step3.checkSearch
