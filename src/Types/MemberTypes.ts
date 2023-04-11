@@ -649,3 +649,17 @@ export interface ConsultMyGraphLifeLogResultInterface {
         LNCH_AT: number
     }>
 }
+
+// 상담회원그룹
+export interface ConsultGroupListResultItemInterface {
+    INST_NO: number
+    CNST_GRP_NO: number
+    INST_NM: string
+    CNST_GRP_NM: string
+    PERM: string
+    MBER_NO: number
+}
+
+export interface ConsultGroupListResultInterface {
+    CNST_GRP_LIST: ConsultGroupListResultItemInterface[]
+}

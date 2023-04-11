@@ -27,6 +27,7 @@ import {
     MemberInfoInterface,
     MemberInfoListInterface,
     MesureInfoListInterface,
+    ConsultGroupListResultInterface,
 } from '@Type/MemberTypes'
 import _ from 'lodash'
 
@@ -1045,6 +1046,93 @@ export const getMngUserMyGraphLifeLog = ({
     return _Axios_({
         method: 'get',
         url: `/data/v1/user/life_log/${memNo}/${startDay}`,
+        payload: {},
+    })
+}
+
+/**
+ * 상담회원그룹 목록
+ * @param instNo
+ */
+export const getMngCnstgrpList = ({
+    instNo,
+}: {
+    instNo: string
+}): Promise<ServicesDefaultResult<ConsultGroupListResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/cnstgrp/list/${instNo ? instNo : 'instNo'}`, // FIXME: 'instNo 가 없으면 에러발생해서 임시로....'
+        payload: {},
+    })
+}
+
+/**
+ * 상담회원 그룹 등록
+ * @param instNm
+ * @param name
+ * @param perm
+ */
+export const postMngCnstgrpAdd = ({
+    instNm,
+    name,
+    perm,
+}: {
+    instNm: string
+    name: string
+    perm: string
+}): Promise<ServicesDefaultResult<{ test: null }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/cnstgrp/add`,
+        payload: {
+            INST_NO: instNm,
+            CNST_GRP_NM: name,
+            PERM: perm,
+        },
+    })
+}
+
+/**
+ * 상담회원 그룹 수정
+ * @param groupNo
+ * @param instNo
+ * @param name
+ * @param perm
+ */
+export const postMngCnstgrpUpdate = ({
+    groupNo,
+    instNo,
+    name,
+    perm,
+}: {
+    groupNo: number
+    instNo: string
+    name: string
+    perm: string
+}): Promise<ServicesDefaultResult<{ test: null }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/cnstgrp/update/${groupNo}`,
+        payload: {
+            INST_NO: instNo,
+            CNST_GRP_NM: name,
+            PERM: perm,
+        },
+    })
+}
+
+/**
+ * 삼담회원 그룹 삭제
+ * @param groupNo
+ */
+export const getMngCnstgrpDelete = ({
+    groupNo,
+}: {
+    groupNo: number
+}): Promise<ServicesDefaultResult<{ test: null }>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/cnstgrp/delete/${groupNo}`,
         payload: {},
     })
 }

@@ -254,3 +254,7 @@ export const ConsultDetailStyle = {
         },
     },
 }
+
+export const ConsultGroupDetailStyle = {
+    DetailContainer: tw.div`flex flex-nowrap flex-col`,
+}
