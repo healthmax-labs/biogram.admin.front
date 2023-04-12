@@ -1136,3 +1136,47 @@ export const getMngCnstgrpDelete = ({
         payload: {},
     })
 }
+
+/**
+ * 상담회원 그룹 멤버 추가
+ * @param groupNo
+ * @param memberNo
+ */
+export const postMngCnstgrpMberAdd = ({
+    groupNo,
+    memberNo,
+}: {
+    groupNo: number
+    memberNo: number
+}): Promise<ServicesDefaultResult<{ test: null }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/cnstgrp/mber/add`,
+        payload: {
+            CNST_GRP_NO: groupNo,
+            CNST_MBER_NO: memberNo,
+        },
+    })
+}
+
+/**
+ * 상담회원 그룹 멤버 제거
+ * @param groupNo
+ * @param memberNo
+ */
+export const postMngCnstgrpMberRemove = ({
+    groupNo,
+    memberNo,
+}: {
+    groupNo: number
+    memberNo: number
+}): Promise<ServicesDefaultResult<{ test: null }>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/cnstgrp/mber/remove`,
+        payload: {
+            CNST_GRP_NO: groupNo,
+            CNST_MBER_NO: memberNo,
+        },
+    })
+}

@@ -5,10 +5,12 @@ import {
     PstinstSelector,
     VaryInput,
     VaryLabel,
+    VarySelectBox,
 } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { MemberListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
+import Codes from '@Codes'
 
 const {
     SearchItemWapper,
@@ -84,6 +86,28 @@ const MemberListSearchBox = ({
                                         ? ''
                                         : listState.search.searchKey
                                 }
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`그룹명`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VarySelectBox
+                                Width={`w60`}
+                                ContentsType={`search`}
+                                Placeholder={`구분을 선택해 주세요.`}
+                                Value={``}
+                                Elements={Codes.ConsultGroup.map(group => {
+                                    return {
+                                        value: group.code,
+                                        text: group.name,
+                                    }
+                                })}
+                                HandleOnChange={e => {
+                                    console.debug(e)
+                                }}
                             />
                         </SearchItem>
                     </SearchItemWapper>

@@ -102,3 +102,8 @@ export const MemberSearchModalStyle = {
         Sr: tw.span`sr-only`,
     },
 }
+
+export const MemberConsultGroupModalStyle = {
+    TitleWapper: tw.div`flex w-full justify-center pb-4`,
+    TitleBox: tw.div`text-xs`,
+}
