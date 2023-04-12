@@ -6,6 +6,7 @@ import {
     VaryTextArea,
     PstinstAgreeModal,
     ExcelDownload,
+    MemberConsultGroupModal,
 } from '@Elements'
 import { useMainLayouts, useTab } from '@Hook/index'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
@@ -28,6 +29,8 @@ const initializeState = {
         memDelete: false,
         pstinstAgree: false,
         excelDownload: false,
+        addGroup: false,
+        removeGroup: false,
     },
     excel: {
         status: 'idle',
@@ -55,6 +58,8 @@ const MemberListManageBox = ({
             memDelete: boolean
             pstinstAgree: boolean
             excelDownload: boolean
+            addGroup: boolean
+            removeGroup: boolean
         }
         excel: {
             status: string | DefaultStatus
@@ -157,6 +162,72 @@ const MemberListManageBox = ({
                     )} 명`}</CountText>
                 </CountWapper>
                 <ButtonsRight>
+                    <VaryButton
+                        ButtonType={`manage`}
+                        HandleClick={() => {
+                            if (listState.manage.checkRow.length === 0) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.member.groupControll
+                                            .emptyAddRow,
+                                })
+                                return
+                            }
+
+                            if (listState.manage.checkRow.length > 1) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.member.groupControll
+                                            .overAddRow,
+                                })
+                                return
+                            }
+
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    addGroup: true,
+                                },
+                            }))
+                        }}
+                        ButtonName={'그룹추가'}
+                    />
+                    <VaryButton
+                        ButtonType={`manage`}
+                        HandleClick={() => {
+                            if (listState.manage.checkRow.length === 0) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.member.groupControll
+                                            .emptyRemoveRow,
+                                })
+                                return
+                            }
+
+                            if (listState.manage.checkRow.length > 1) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.member.groupControll
+                                            .overRemoveRow,
+                                })
+                                return
+                            }
+
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    removeGroup: true,
+                                },
+                            }))
+                        }}
+                        ButtonName={'그룹삭제'}
+                    />
                     <VaryButton
                         ButtonType={`manage`}
                         HandleClick={() => {
@@ -408,6 +479,38 @@ const MemberListManageBox = ({
                     }
                 />
             )}
+
+            {pageState.modal.addGroup && listState.manage.checkRow.length > 0 && (
+                <MemberConsultGroupModal
+                    ModalType={`add`}
+                    MemberNo={Number(listState.manage.checkRow[0])}
+                    CloseModal={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                addGroup: false,
+                            },
+                        }))
+                    }}
+                />
+            )}
+            {pageState.modal.removeGroup &&
+                listState.manage.checkRow.length > 0 && (
+                    <MemberConsultGroupModal
+                        ModalType={`remove`}
+                        MemberNo={Number(listState.manage.checkRow[0])}
+                        CloseModal={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    removeGroup: false,
+                                },
+                            }))
+                        }}
+                    />
+                )}
 
             {pageState.modal.excelDownload && (
                 <ExcelDownload
