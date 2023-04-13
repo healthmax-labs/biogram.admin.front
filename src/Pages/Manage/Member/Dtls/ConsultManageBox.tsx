@@ -3,7 +3,12 @@ import { ManageBoxStyle } from '@Style/Pages/CommonStyle'
 import { useRecoilValue } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import { MemberSearchItemInterface } from '@CommonTypes'
-import { VaryButton, MessageSendModal, ExcelDownload } from '@Elements'
+import {
+    VaryButton,
+    MessageSendModal,
+    ExcelDownload,
+    MemberConsultGroupModal,
+} from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import {
     addComma,
@@ -15,6 +20,8 @@ import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import Messages from '@Messages'
+import { useMainLayouts } from '@Hook/index'
 
 const { WapperFull, CountWapper, ButtonsRight, CountText } = ManageBoxStyle
 
@@ -24,6 +31,8 @@ const initializeState = {
         appPushSend: false,
         excelDownloadPstinst: false,
         excelDownload: false,
+        addGroup: false,
+        removeGroup: false,
     },
     excel: {
         status: 'idle',
@@ -37,11 +46,14 @@ const initializeState = {
 const ConsultManageBox = () => {
     const listState = useRecoilValue(ConsultListState)
     const { Theme } = useRecoilValue(AtomMainLayoutState)
+    const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         modal: {
             smsSend: boolean
             appPushSend: boolean
             excelDownload: boolean
+            addGroup: boolean
+            removeGroup: boolean
         }
         excel: {
             status: string | DefaultStatus
@@ -184,6 +196,72 @@ const ConsultManageBox = () => {
             </CountWapper>
             <ButtonsRight>
                 <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => {
+                        if (listState.manage.checkRow.length === 0) {
+                            handlMainAlert({
+                                state: true,
+                                message:
+                                    Messages.Default.member.groupControll
+                                        .emptyAddRow,
+                            })
+                            return
+                        }
+
+                        if (listState.manage.checkRow.length > 1) {
+                            handlMainAlert({
+                                state: true,
+                                message:
+                                    Messages.Default.member.groupControll
+                                        .overAddRow,
+                            })
+                            return
+                        }
+
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                addGroup: true,
+                            },
+                        }))
+                    }}
+                    ButtonName={'그룹추가'}
+                />
+                <VaryButton
+                    ButtonType={`manage`}
+                    HandleClick={() => {
+                        if (listState.manage.checkRow.length === 0) {
+                            handlMainAlert({
+                                state: true,
+                                message:
+                                    Messages.Default.member.groupControll
+                                        .emptyRemoveRow,
+                            })
+                            return
+                        }
+
+                        if (listState.manage.checkRow.length > 1) {
+                            handlMainAlert({
+                                state: true,
+                                message:
+                                    Messages.Default.member.groupControll
+                                        .overRemoveRow,
+                            })
+                            return
+                        }
+
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                removeGroup: true,
+                            },
+                        }))
+                    }}
+                    ButtonName={'그룹삭제'}
+                />
+                <VaryButton
                     ButtonType={'manage'}
                     ButtonName={'메세지 보내기'}
                     HandleClick={() => {
@@ -258,6 +336,38 @@ const ConsultManageBox = () => {
                     }
                 />
             )}
+
+            {pageState.modal.addGroup && listState.manage.checkRow.length > 0 && (
+                <MemberConsultGroupModal
+                    ModalType={`add`}
+                    MemberNo={Number(listState.manage.checkRow[0])}
+                    CloseModal={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                addGroup: false,
+                            },
+                        }))
+                    }}
+                />
+            )}
+            {pageState.modal.removeGroup &&
+                listState.manage.checkRow.length > 0 && (
+                    <MemberConsultGroupModal
+                        ModalType={`remove`}
+                        MemberNo={Number(listState.manage.checkRow[0])}
+                        CloseModal={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    removeGroup: false,
+                                },
+                            }))
+                        }}
+                    />
+                )}
 
             {pageState.modal.excelDownload && (
                 <ExcelDownload {...excelDownloadProps} />
