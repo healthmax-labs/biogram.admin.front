@@ -6,6 +6,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryLabelCheckBox,
+    VarySelectBox,
 } from '@Elements'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
@@ -171,7 +172,28 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             </WapperStyle.FlexNoWarapGap>
                         </SearchItem>
                     </SearchItemWapper>
-                    <SearchItemWapper></SearchItemWapper>
+                    <SearchItemWapper>
+                        <SearchLabel>
+                            <VaryLabel LabelName={`그룹명`} />
+                        </SearchLabel>
+                        <SearchItem>
+                            <VarySelectBox
+                                Width={`w60`}
+                                ContentsType={`search`}
+                                Placeholder={`구분을 선택해 주세요.`}
+                                Value={``}
+                                Elements={Codes.ConsultGroup.map(group => {
+                                    return {
+                                        value: group.code,
+                                        text: group.name,
+                                    }
+                                })}
+                                HandleOnChange={e => {
+                                    console.debug(e)
+                                }}
+                            />
+                        </SearchItem>
+                    </SearchItemWapper>
                     <SearchItemWapper></SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
