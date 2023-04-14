@@ -19,6 +19,7 @@ export const AtomPageTabState = atom<TabInterface>({
         close: {
             closeIndex: null,
             recoilKey: null,
+            recoilResetWhere: null,
         },
         reloadTask: {
             name: '',

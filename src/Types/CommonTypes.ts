@@ -111,6 +111,7 @@ export interface TabInterface {
     close: {
         closeIndex: null | number
         recoilKey: null | string
+        recoilResetWhere: null | 'mainTab' | 'mainComponent' // recoil 리셋할 타이밍? MainTabComponent 에서 할지 각 페이지에서 할지 결정
     }
     reloadTask: {
         name: string

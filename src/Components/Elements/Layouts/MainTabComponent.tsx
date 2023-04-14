@@ -55,19 +55,21 @@ const MainTabComponent = () => {
     }, [tabList])
 
     useEffect(() => {
-        const funcTabClose = (recoilKey: RecoilStateKeyNameType) => {
-            recoilReset(recoilKey)
-        }
-
-        const { closeIndex, recoilKey } = tabState.close
-        if (!_.isNull(closeIndex) && !_.isNull(recoilKey)) {
-            funcTabClose(recoilKey as RecoilStateKeyNameType)
+        // recoil reset 위치가 MainTab 일 경우만 recoil reset
+        const { closeIndex, recoilKey, recoilResetWhere } = tabState.close
+        if (
+            recoilResetWhere === 'mainTab' &&
+            !_.isNull(closeIndex) &&
+            !_.isNull(recoilKey)
+        ) {
+            recoilReset(recoilKey as RecoilStateKeyNameType)
 
             setTabState(prevState => ({
                 ...prevState,
                 close: {
                     closeIndex: null,
                     recoilKey: null,
+                    recoilResetWhere: null,
                 },
             }))
         }

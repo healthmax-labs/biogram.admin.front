@@ -502,7 +502,7 @@ export default {
             name: `게시판 관리`,
             pathName: `/manage/manager/notice-list`,
             category: `notice`,
-            recooilKey: `statusPage/notice-list`,
+            recooilKey: `managerPage/notice-list`,
             showFlag: 'Y',
             reloadButton: false,
             Component: React.lazy(

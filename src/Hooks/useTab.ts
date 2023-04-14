@@ -20,28 +20,46 @@ export default function useTab() {
 
     // 텝 삭제.
     const handleDeleteTab = (index: number) => {
+        const { pathname: locationPathName } = locationState
         const indexInfo = tabState.list[index]
         const findInfo = _.find(Routers.Main, { pathName: indexInfo.routePath })
 
         const newList = tabState.list.filter((el, i) => i !== index)
         const lastElement = newList.slice(-1).pop()
 
+        // 닫는 대상 텝이 현재 텝인지 아닌지 체크
+        const pathCheck =
+            lastElement && locationPathName === lastElement.pathname
+
+        /**
+         * 현재 텝이 아닌 텝을 닫았을 경우는 MainTabComponent 에서 recoil 을 리셋 해도 상관 없지만
+         * 현재 텝을 닫았을 경우 recoil 이 리셋되면서 startPage() 함수에서 다시 api 를 콜하는 버그를
+         * 수정 하기 위해 현재 텝을 닫을 경우는 MainComponent 에서 clean 함수를 이용 recoil 리셋 처리를 한다.
+         */
         setUseTabState(prevState => ({
             ...prevState,
             list: newList,
             close: {
                 closeIndex: index,
                 recoilKey: findInfo?.recooilKey ? findInfo.recooilKey : null,
+                recoilResetWhere: !pathCheck ? 'mainComponent' : 'mainTab',
             },
         }))
 
-        if (lastElement) {
+        // 현재 텝일경우 그냥 router 이동 없이 진행
+        if (pathCheck) {
+            return
+        }
+
+        // 현재 텝이 아닐때
+        if (!pathCheck && lastElement) {
             navigate({
                 pathname: `${process.env.PUBLIC_URL}${lastElement.pathname}`,
             })
             return
         }
 
+        // 전부 삭제시 대시보드로 이동.
         navigate({
             pathname: `${process.env.PUBLIC_URL}${Const.DefaultStartRouter}`,
         })
