@@ -242,7 +242,7 @@ export default function useRecoilReset() {
                 RiskFctrItemsListStateReset(),
             'analyticsPage/imprvm-list': () => StplatListStateReset(),
 
-            'managerPage/stplat-list': () => StplatDetailStateReset(),
+            'managerPage/stplat-list': () => StplatListStateReset(),
             'managerPage/notice-list': () => NoticeListStateReset(),
             'managerPage/stplat-detail': () => StplatDetailStateReset(),
             'managerPage/notice-detail': () => NoticeDetailStateReset(),
