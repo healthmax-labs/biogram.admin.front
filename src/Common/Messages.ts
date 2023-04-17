@@ -123,6 +123,7 @@ export default {
                 removeMember: `삭제 하시겠습니까?`,
                 alreadyGruopMember: `이미 등록되어 있는 그룹입니다.`,
                 withoutGruopMember: `등록되어 있는 회원이 아닙니다.`,
+                deletePermission: `삭제 할수 없는 그룹입니다.`,
             },
         },
         instSelectStep1: `1차 소속을 입력해 주세요`,
