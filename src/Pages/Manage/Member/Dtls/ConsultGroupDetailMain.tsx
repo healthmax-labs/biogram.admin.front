@@ -87,7 +87,6 @@ const ConsultGroupDetailMain = () => {
                 ) {
                     const { groupNo } = params
                     if (groupNo) {
-                        console.debug(groupNo)
                         setDetailState(prevState => ({
                             ...prevState,
                             groupNo: Number(groupNo),
