@@ -28,6 +28,8 @@ import {
     MemberInfoListInterface,
     MesureInfoListInterface,
     ConsultGroupListResultInterface,
+    ConsultMemberGroupListResultInterface,
+    ConsultMemberGroupInfoResultInterface,
 } from '@Type/MemberTypes'
 import _ from 'lodash'
 
@@ -329,6 +331,7 @@ export const getMberCheckUsid = (
  * @param riskFctr
  * @param endDt
  * @param startDt
+ * @param groupNo
  */
 export const getMberCnsltlist = ({
     curPage,
@@ -337,6 +340,7 @@ export const getMberCnsltlist = ({
     riskFctr,
     endDt,
     startDt,
+    groupNo,
 }: {
     curPage: number
     instNo: string
@@ -344,6 +348,7 @@ export const getMberCnsltlist = ({
     riskFctr: string
     endDt: string
     startDt: string
+    groupNo: string
 }): Promise<ServicesDefaultResult<ConsultInfoListInterface>> => {
     const payload: {
         INST_NO?: string
@@ -351,16 +356,22 @@ export const getMberCnsltlist = ({
         RISK_FCTR: string
         ENDDT: string
         STARTDT: string
+        CNST_GRP_NO?: string
     } = {
         INST_NO: instNo,
         SEARCH_KEY: searchKey,
         RISK_FCTR: riskFctr,
         ENDDT: endDt,
         STARTDT: startDt,
+        CNST_GRP_NO: groupNo,
     }
 
     if (_.isEmpty(payload.INST_NO)) {
         delete payload.INST_NO
+    }
+
+    if (_.isEmpty(payload.CNST_GRP_NO)) {
+        delete payload.CNST_GRP_NO
     }
 
     return _Axios_({
@@ -1061,7 +1072,7 @@ export const getMngCnstgrpList = ({
 }): Promise<ServicesDefaultResult<ConsultGroupListResultInterface>> => {
     return _Axios_({
         method: 'get',
-        url: `/mng/v1/cnstgrp/list/${instNo ? instNo : 'instNo'}`, // FIXME: 'instNo 가 없으면 에러발생해서 임시로....'
+        url: `/mng/v1/cnstgrp/list${instNo ? `/${instNo}` : ''}`, // FIXME: 'instNo 가 없으면 에러발생해서 임시로....'
         payload: {},
     })
 }
@@ -1178,5 +1189,39 @@ export const postMngCnstgrpMberRemove = ({
             CNST_GRP_NO: groupNo,
             CNST_MBER_NO: memberNo,
         },
+    })
+}
+
+/**
+ * 회원이 등록되어있는 상담회원 그룹 리스트
+ * @param memberNo
+ */
+export const postMemberMngCnstgrpMberList = ({
+    memberNo,
+}: {
+    memberNo: number
+}): Promise<ServicesDefaultResult<ConsultMemberGroupListResultInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/cnstgrp/mber/list`,
+        payload: {
+            CNST_MBER_NO: `${memberNo}`,
+        },
+    })
+}
+
+/**
+ * 상담회원 그룹 상세
+ * @param groupNo
+ */
+export const getMngCnstgrpInfo = ({
+    groupNo,
+}: {
+    groupNo: number
+}): Promise<ServicesDefaultResult<ConsultMemberGroupInfoResultInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/cnstgrp/info/${groupNo}`,
+        payload: {},
     })
 }

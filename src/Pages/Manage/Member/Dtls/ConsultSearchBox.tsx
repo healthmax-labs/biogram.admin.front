@@ -11,7 +11,7 @@ import {
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import Codes from '@Codes'
-import { isNull } from 'lodash'
+import _ from 'lodash'
 
 const {
     SearchItemWapper,
@@ -77,7 +77,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 id={'id'}
                                 Placeholder={'이름/아이디/휴대폰번호'}
                                 Value={
-                                    isNull(listState.search.searchKey)
+                                    _.isNull(listState.search.searchKey)
                                         ? ''
                                         : listState.search.searchKey
                                 }
@@ -181,15 +181,21 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                 Width={`w60`}
                                 ContentsType={`search`}
                                 Placeholder={`구분을 선택해 주세요.`}
-                                Value={``}
-                                Elements={Codes.ConsultGroup.map(group => {
+                                Value={listState.search.groupNo}
+                                Elements={_.map(listState.group, group => {
                                     return {
-                                        value: group.code,
-                                        text: group.name,
+                                        value: group.CNST_GRP_NO,
+                                        text: group.CNST_GRP_NM,
                                     }
                                 })}
                                 HandleOnChange={e => {
-                                    console.debug(e)
+                                    setListState(prevState => ({
+                                        ...prevState,
+                                        search: {
+                                            ...prevState.search,
+                                            groupNo: e.value,
+                                        },
+                                    }))
                                 }}
                             />
                         </SearchItem>

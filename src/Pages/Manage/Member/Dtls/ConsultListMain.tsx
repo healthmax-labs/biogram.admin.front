@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
-import { getMberCnsltlist } from '@Service/MemberService'
+import { getMberCnsltlist, getMngCnstgrpList } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import ConsultSearchBox from './ConsultSearchBox'
@@ -28,7 +28,15 @@ const ConsultListMain = () => {
         }))
 
         const {
-            search: { curPage, searchKey, instNo, riskFctr, endDt, startDt },
+            search: {
+                curPage,
+                searchKey,
+                instNo,
+                riskFctr,
+                endDt,
+                startDt,
+                groupNo,
+            },
         } = listState
 
         const { status, payload } = await getMberCnsltlist({
@@ -38,12 +46,16 @@ const ConsultListMain = () => {
             riskFctr: riskFctr,
             startDt: startDt,
             endDt: endDt,
+            groupNo: groupNo,
         })
         if (status) {
             setListState(prevState => ({
                 ...prevState,
                 status: 'success',
                 list: payload,
+                manage: {
+                    checkRow: [],
+                },
             }))
         } else {
             setListState(prevState => ({
@@ -53,9 +65,34 @@ const ConsultListMain = () => {
                     MBER_INFO_LIST: [],
                     TOTAL_COUNT: 0,
                 },
+                manage: {
+                    checkRow: [],
+                },
             }))
         }
     }, [setListState, listState])
+
+    useEffect(() => {
+        const funcGetGruopList = async () => {
+            const { status, payload } = await getMngCnstgrpList({
+                instNo: listState.search.instNo,
+            })
+
+            if (status) {
+                setListState(prevState => ({
+                    ...prevState,
+                    group: payload.CNST_GRP_LIST,
+                }))
+            } else {
+                setListState(prevState => ({
+                    ...prevState,
+                    group: [],
+                }))
+            }
+        }
+
+        funcGetGruopList().then()
+    }, [listState.search.instNo, setListState])
 
     // 다시 가지고 오거나 가지고 오는 버튼 클릭 처리.
     const handleGetListButton = () => {
