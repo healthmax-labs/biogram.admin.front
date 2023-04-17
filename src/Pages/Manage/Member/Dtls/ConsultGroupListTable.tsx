@@ -21,7 +21,6 @@ const ConsultGroupListTable = () => {
     const [tableOptions, setTableOptions] = useState<tableOptionInterface>(
         ConsultGroupTableConfig
     )
-
     const handleRowClick = (element: ConsultGroupListResultItemInterface) => {
         navigate({
             pathname:

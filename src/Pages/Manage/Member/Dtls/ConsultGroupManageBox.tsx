@@ -11,6 +11,7 @@ import {
 import { useResetRecoilState, useRecoilValue } from 'recoil'
 import Messages from '@Messages'
 import _ from 'lodash'
+import { AtomRootState } from '@Recoil/AppRootState'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -37,6 +38,7 @@ const ConsultGroupManageBox = ({
     )
     const consultGroupListState = useRecoilValue(ConsultGroupListState)
     const { handleDeleteTabbyMatchRouter } = useTab()
+    const rootState = useRecoilValue(AtomRootState)
 
     const handleDeleteGroup = useCallback(async () => {
         const {
@@ -44,6 +46,34 @@ const ConsultGroupManageBox = ({
         } = consultGroupListState
 
         const selectGroup = checkRow[0]
+        let checkPermission = true
+
+        const findGroup = _.find(consultGroupListState.list.CNST_GRP_LIST, {
+            CNST_GRP_NO: Number(selectGroup),
+        })
+
+        // 조회 안되면 삭제 불가증
+        if (!findGroup) {
+            checkPermission = false
+        }
+
+        // 조회 되고 구분이 공유면 삭제 가능
+        if (findGroup && findGroup.PERM !== 'G-') {
+            checkPermission = true
+        }
+
+        // 조회되고 개인 일때 다른 사람이 등록한거면 불가능
+        if (findGroup && findGroup.PERM !== '-U') {
+            checkPermission = findGroup.MBER_NO === rootState.userinfo.MBER_NO
+        }
+
+        if (!checkPermission) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.member.groupControll.deletePermission,
+            })
+            return
+        }
 
         const { status } = await getMngCnstgrpDelete({
             groupNo: Number(selectGroup),
@@ -60,7 +90,12 @@ const ConsultGroupManageBox = ({
                 message: Messages.Default.processFail,
             })
         }
-    }, [HandleGetList, consultGroupListState, handlMainAlert])
+    }, [
+        HandleGetList,
+        consultGroupListState,
+        handlMainAlert,
+        rootState.userinfo.MBER_NO,
+    ])
 
     return (
         <Wapper>
