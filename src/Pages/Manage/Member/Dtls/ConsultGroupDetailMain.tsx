@@ -53,12 +53,12 @@ const ConsultGroupDetailMain = () => {
                     ...prevState,
                     status: 'failure',
                 }))
-                handlMainAlert({
-                    state: true,
-                    message: Messages.Default.processFail,
-                })
             }
         } else {
+            setDetailState(prevState => ({
+                ...prevState,
+                status: 'failure',
+            }))
             handlMainAlert({
                 state: true,
                 message: Messages.Default.processFail,
