@@ -3,8 +3,10 @@ import { MemberDetailInfoInterface } from '@Type/PageStateType'
 import { DefaultStatus, SendSmsItemInterface } from '@CommonTypes'
 import {
     ConsultGroupListResultInterface,
+    ConsultGroupListResultItemInterface,
     ConsultInfoListInterface,
     ConsultMealDiaryItemInterface,
+    ConsultMemberGroupInfoResultInterface,
     ConsultMyGraphBldvssItemResultInterface,
     ConsultMyGraphBodyResultItemInterface,
     ConsultMyGraphBrainResultItemInterface,
@@ -62,8 +64,10 @@ interface ConsultListInterface {
         riskFctr: string
         startDt: string
         endDt: string
+        groupNo: string
     }
     list: ConsultInfoListInterface
+    group: ConsultGroupListResultItemInterface[]
     manage: {
         checkRow: string[]
     }
@@ -343,14 +347,8 @@ interface ConsultGroupListIntreface {
 interface ConsultGroupDetailIntreface {
     status: DefaultStatus
     groupNo: number | null
-    detail: {
-        CNST_GRP_NM: string
-        PERM: string | 'G-' | '-U'
-        INST_NO: number | null
-        CNST_GRP_NO: number | null
-        INST_NM: string | null
-        MBER_NO: number | null
-    }
+    detail: ConsultMemberGroupInfoResultInterface
+    origin: ConsultMemberGroupInfoResultInterface
 }
 
 // 회원 현황 리스트 페이지
@@ -464,11 +462,13 @@ export const ConsultListState = atom<ConsultListInterface>({
             riskFctr: '',
             startDt: getOneMonthAgo(),
             endDt: getNowDate(),
+            groupNo: '',
         },
         list: {
             MBER_INFO_LIST: [],
             TOTAL_COUNT: 0,
         },
+        group: [],
         manage: {
             checkRow: [],
         },
@@ -802,12 +802,26 @@ export const ConsultGroupDetailState = atom<ConsultGroupDetailIntreface>({
         status: 'idle',
         groupNo: null,
         detail: {
+            INST_NO: 0,
+            CNST_GRP_NO: 0,
+            INST_NM: '',
             CNST_GRP_NM: '',
-            PERM: 'G-',
-            INST_NO: null,
-            CNST_GRP_NO: null,
-            INST_NM: null,
-            MBER_NO: null,
+            PERM: '',
+            CNST_MBERS: 0,
+            REGIST_DT: '',
+            MBER_NM: '',
+            MBER_NO: 0,
+        },
+        origin: {
+            INST_NO: 0,
+            CNST_GRP_NO: 0,
+            INST_NM: '',
+            CNST_GRP_NM: '',
+            PERM: '',
+            CNST_MBERS: 0,
+            REGIST_DT: '',
+            MBER_NM: '',
+            MBER_NO: 0,
         },
     },
 })

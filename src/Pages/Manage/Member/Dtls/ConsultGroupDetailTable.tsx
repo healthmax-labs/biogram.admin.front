@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
     ConfirmModal,
     ElementLoading,
@@ -10,7 +10,7 @@ import {
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { ConsultGroupDetailStyle } from '@Style/Pages/MemberPageStyles'
 import Codes from '@Codes'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import {
     ConsultGroupDetailState,
@@ -59,7 +59,7 @@ const ConsultGroupDetailTable = ({
     const [detailState, setDetailState] = useRecoilState(
         ConsultGroupDetailState
     )
-    const [listState, setListState] = useRecoilState(ConsultGroupListState)
+    const setListState = useSetRecoilState(ConsultGroupListState)
     const { handleDeleteTabbyMatchRouter } = useTab()
 
     // 등록 처리
@@ -182,6 +182,14 @@ const ConsultGroupDetailTable = ({
             return
         }
 
+        if (_.isEmpty(detailState.detail.PERM)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.emptyGroupCategory,
+            })
+            return
+        }
+
         setPageState(prevState => ({
             ...prevState,
             modal: {
@@ -191,74 +199,11 @@ const ConsultGroupDetailTable = ({
         }))
     }
 
-    // 그룹 정보 가지고 오기.
-    useEffect(() => {
-        const funcPageMode = () => {
-            if (params.groupNo) {
-                const findData = _.find(listState.list.CNST_GRP_LIST, {
-                    CNST_GRP_NO: Number(params.groupNo),
-                })
-
-                if (findData) {
-                    const {
-                        CNST_GRP_NO,
-                        CNST_GRP_NM,
-                        PERM,
-                        INST_NO,
-                        INST_NM,
-                        MBER_NO,
-                    } = findData
-
-                    setDetailState(prevState => ({
-                        ...prevState,
-                        detail: {
-                            CNST_GRP_NO: CNST_GRP_NO,
-                            CNST_GRP_NM: CNST_GRP_NM,
-                            PERM: PERM,
-                            INST_NO: INST_NO,
-                            INST_NM: INST_NM,
-                            MBER_NO: MBER_NO,
-                        },
-                    }))
-                } else {
-                    // NOTE: 데이터 초회 안되면(ex 새로 고침) 리스트로 이동
-
-                    handlMainAlert({
-                        state: true,
-                        message: Messages.Default.getInfoError,
-                    })
-
-                    handleDeleteTabbyMatchRouter(
-                        `/manage/member/consult-group/:groupNo/detail`
-                    )
-                    navigate({
-                        pathname:
-                            process.env.PUBLIC_URL +
-                            `/manage/member/consult-group-list`,
-                    })
-                }
-            } else {
-                navigate({
-                    pathname:
-                        process.env.PUBLIC_URL +
-                        `/manage/member/consult-group-list/new`,
-                })
-            }
-        }
-
-        if (pageMode === 'modify' && params.groupNo) {
-            funcPageMode()
-        }
-
-        // FIXME : 종속성에서 handleDeleteTabbyMatchRouter, listState.list.CNST_GRP_LIST, navigate, setDetailState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageMode, params.groupNo])
-
     return (
         <DetailContainer>
             {detailState.status === 'loading' ? (
-                <div className="h-[calc(100vh-30rem)]">
-                    <ElementLoading FullScreen={false} />
+                <div className="flex w-full h-[calc(100vh-30rem)]">
+                    <ElementLoading FullScreen={true} />
                 </div>
             ) : (
                 <>
@@ -325,12 +270,13 @@ const ConsultGroupDetailTable = ({
                                         ReadOnly={true}
                                         Width={`w60`}
                                         InputType={'text'}
-                                        id={'id'}
-                                        Placeholder={'그룹명'}
+                                        Placeholder={'생성자'}
                                         Value={
-                                            atomRootState.userinfo.NM
+                                            pageMode === 'modify'
+                                                ? detailState.detail.MBER_NM
+                                                : atomRootState.userinfo.NM
                                                 ? atomRootState.userinfo.NM
-                                                : ``
+                                                : ''
                                         }
                                     />
                                 </InputCell>
@@ -344,12 +290,13 @@ const ConsultGroupDetailTable = ({
                                         ReadOnly={true}
                                         Width={`w60`}
                                         InputType={'text'}
-                                        HandleOnChange={() => {
-                                            //
-                                        }}
-                                        id={'id'}
                                         Placeholder={'생성일자'}
                                         Value={(() => {
+                                            if (pageMode === 'modify') {
+                                                return detailState.detail
+                                                    .REGIST_DT
+                                            }
+
                                             const newDateObject =
                                                 gmtTimeToTimeObject(new Date())
                                             return `${newDateObject.year}.${newDateObject.monthPad}.${newDateObject.dayPad}`
@@ -365,9 +312,13 @@ const ConsultGroupDetailTable = ({
                                 ButtonType={`default`}
                                 ButtonName={`취소`}
                                 HandleClick={() => {
-                                    handleDeleteTabbyMatchRouter(
-                                        `/manage/member/consult-group-list/new`
-                                    )
+                                    pageMode === 'modify'
+                                        ? handleDeleteTabbyMatchRouter(
+                                              `/manage/member/consult-group/:groupNo/detail`
+                                          )
+                                        : handleDeleteTabbyMatchRouter(
+                                              `/manage/member/consult-group-list/new`
+                                          )
 
                                     navigate({
                                         pathname:

@@ -122,7 +122,7 @@ const ConsultManageBox = () => {
             },
         }))
 
-        const { instNo, instNm, searchKey, riskFctr, startDt, endDt } =
+        const { instNo, instNm, searchKey, riskFctr, startDt, endDt, groupNo } =
             listState.search
 
         const { status, payload } = await getMberCnsltlist({
@@ -132,6 +132,7 @@ const ConsultManageBox = () => {
             riskFctr: riskFctr,
             startDt: startDt,
             endDt: endDt,
+            groupNo: groupNo,
         })
 
         if (status) {
@@ -341,6 +342,7 @@ const ConsultManageBox = () => {
                 <MemberConsultGroupModal
                     ModalType={`add`}
                     MemberNo={Number(listState.manage.checkRow[0])}
+                    InstNo={listState.search.instNo}
                     CloseModal={() => {
                         setPageState(prevState => ({
                             ...prevState,
@@ -356,6 +358,7 @@ const ConsultManageBox = () => {
                 listState.manage.checkRow.length > 0 && (
                     <MemberConsultGroupModal
                         ModalType={`remove`}
+                        InstNo={listState.search.instNo}
                         MemberNo={Number(listState.manage.checkRow[0])}
                         CloseModal={() => {
                             setPageState(prevState => ({

@@ -3,6 +3,7 @@ import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
 
 // 회원 테이블 데이터
 import {
+    ConsultGroupListResultItemInterface,
     ConsultInfoListItemInterface,
     MemberInfoListItemInterface,
 } from '@Type/MemberTypes'
@@ -14,6 +15,7 @@ import {
     timeStringParse,
 } from '@Helper'
 import _ from 'lodash'
+import Codes from '@Codes'
 
 export type tableListItemInterface = MemberInfoListItemInterface
 
@@ -389,18 +391,33 @@ export const ConsultGroupTableConfig = {
             {
                 name: `구분`,
                 key: `PERM`,
+                component: ({
+                    el,
+                }: {
+                    el: ConsultGroupListResultItemInterface
+                }) => {
+                    const findCode = _.find(Codes.ConsultGroup, {
+                        code: el.PERM,
+                    })
+
+                    if (findCode) {
+                        return <>{`${findCode.name}`}</>
+                    } else {
+                        return <>{`${el.PERM}`}</>
+                    }
+                },
             },
             {
                 name: `회원수`,
-                key: `MBER_NO`,
+                key: `CNST_MBERS`,
             },
             {
                 name: `생성자`,
-                key: `MBER_NO`,
+                key: `MBER_NM`,
             },
             {
                 name: `생성일자`,
-                key: `MBER_NO`,
+                key: `REGIST_DT`,
             },
         ],
     ],

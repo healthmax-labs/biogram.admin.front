@@ -652,14 +652,40 @@ export interface ConsultMyGraphLifeLogResultInterface {
 
 // 상담회원그룹
 export interface ConsultGroupListResultItemInterface {
+    CNST_GRP_NM: string
+    CNST_GRP_NO: number
+    CNST_MBERS: number
+    INST_NM: string
+    INST_NO: number
+    MBER_NM: string
+    MBER_NO: number
+    PERM: string
+    REGIST_DT: string
+}
+
+export interface ConsultGroupListResultInterface {
+    CNST_GRP_LIST: ConsultGroupListResultItemInterface[]
+}
+
+export interface ConsultMemberGroupListResultItemInterface {
+    CNST_GRP_NO: number
+    CNST_GRP_NM: string
+    CNST_MBER_NO: number
+    NM: string
+}
+
+export interface ConsultMemberGroupListResultInterface {
+    MBER_CNST_GRP_LIST: ConsultMemberGroupListResultItemInterface[]
+}
+
+export interface ConsultMemberGroupInfoResultInterface {
     INST_NO: number
     CNST_GRP_NO: number
     INST_NM: string
     CNST_GRP_NM: string
     PERM: string
+    CNST_MBERS: number
+    REGIST_DT: string
+    MBER_NM: string
     MBER_NO: number
-}
-
-export interface ConsultGroupListResultInterface {
-    CNST_GRP_LIST: ConsultGroupListResultItemInterface[]
 }

@@ -3,15 +3,20 @@ import { ConfirmModal, VaryButton, VaryModal } from '@Element/index'
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { WapperStyle } from '@Style/Pages/CommonStyle'
 import { MemberConsultGroupModalStyle } from '@Style/Elements/ModalStyles'
-import { ConsultGroupListResultItemInterface } from '@Type/MemberTypes'
+import {
+    ConsultGroupListResultItemInterface,
+    ConsultMemberGroupListResultItemInterface,
+} from '@Type/MemberTypes'
 import {
     getMngCnstgrpList,
     postMngCnstgrpMberAdd,
     postMngCnstgrpMberRemove,
+    postMemberMngCnstgrpMberList,
 } from '@Service/MemberService'
 import _ from 'lodash'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
+import Codes from '@Codes'
 
 const {
     HeaderRow,
@@ -29,6 +34,7 @@ const { TitleWapper, TitleBox } = MemberConsultGroupModalStyle
 const initializeState = {
     loading: false,
     list: [],
+    memberGroup: [],
     selectGroupNo: null,
     modal: {
         confirm: false,
@@ -38,16 +44,19 @@ const initializeState = {
 const MemberConsultGroupModal = ({
     ModalType,
     MemberNo,
+    InstNo,
     CloseModal,
 }: {
     ModalType: 'add' | 'remove'
     MemberNo: number
+    InstNo: string
     CloseModal: () => void
 }) => {
     const { handlMainAlert } = useMainLayouts()
     const [pageState, setPageState] = useState<{
         loading: boolean
         list: ConsultGroupListResultItemInterface[]
+        memberGroup: ConsultMemberGroupListResultItemInterface[]
         selectGroupNo: number | null
         modal: {
             confirm: boolean
@@ -60,7 +69,7 @@ const MemberConsultGroupModal = ({
             loading: true,
         }))
 
-        const { status, payload } = await getMngCnstgrpList({ instNo: `1000` })
+        const { status, payload } = await getMngCnstgrpList({ instNo: InstNo })
         if (status) {
             setPageState(prevState => ({
                 ...prevState,
@@ -83,7 +92,24 @@ const MemberConsultGroupModal = ({
             ...prevState,
             loading: false,
         }))
-    }, [])
+    }, [InstNo])
+
+    const handleGetMemberGroupList = useCallback(async () => {
+        const { status, payload } = await postMemberMngCnstgrpMberList({
+            memberNo: MemberNo,
+        })
+        if (status) {
+            setPageState(prevState => ({
+                ...prevState,
+                memberGroup: payload.MBER_CNST_GRP_LIST,
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                memberGroup: [],
+            }))
+        }
+    }, [MemberNo])
 
     const handleAdd = useCallback(
         async ({
@@ -144,10 +170,15 @@ const MemberConsultGroupModal = ({
     useEffect(() => {
         const startPage = () => {
             handleGetList().then()
+            handleGetMemberGroupList().then()
         }
 
         startPage()
-    }, [handleGetList])
+    }, [handleGetList, handleGetMemberGroupList])
+
+    useEffect(() => {
+        console.debug(pageState)
+    }, [pageState])
 
     return (
         <>
@@ -172,15 +203,69 @@ const MemberConsultGroupModal = ({
                                         <HeaderCell>구분</HeaderCell>
                                     </HeaderRow>
                                 </TableHeader>
-                                <TableBody HeightLimit={false} Scroll={true}>
+                                <TableBody HeightLimit={true} Scroll={true}>
                                     {_.map(
                                         pageState.list,
                                         (list, listIndex) => {
+                                            const findCode = _.find(
+                                                Codes.ConsultGroup,
+                                                {
+                                                    code: list.PERM,
+                                                }
+                                            )
+
+                                            const codeName = findCode
+                                                ? findCode.name
+                                                : list.PERM
+
                                             return (
                                                 <TableBodyRow
                                                     key={`member-consult-group-modal-item-row-${listIndex}`}
                                                     BgState={false}
                                                     onClick={() => {
+                                                        const findData = _.find(
+                                                            pageState.memberGroup,
+                                                            {
+                                                                CNST_GRP_NO:
+                                                                    list.CNST_GRP_NO,
+                                                            }
+                                                        )
+
+                                                        if (
+                                                            findData &&
+                                                            ModalType === 'add'
+                                                        ) {
+                                                            handlMainAlert({
+                                                                state: true,
+                                                                message:
+                                                                    Messages
+                                                                        .Default
+                                                                        .member
+                                                                        .groupControll
+                                                                        .alreadyGruopMember,
+                                                            })
+
+                                                            return
+                                                        }
+
+                                                        if (
+                                                            ModalType ===
+                                                                'remove' &&
+                                                            !findData
+                                                        ) {
+                                                            handlMainAlert({
+                                                                state: true,
+                                                                message:
+                                                                    Messages
+                                                                        .Default
+                                                                        .member
+                                                                        .groupControll
+                                                                        .withoutGruopMember,
+                                                            })
+
+                                                            return
+                                                        }
+
                                                         setPageState(
                                                             prevState => ({
                                                                 ...prevState,
@@ -196,7 +281,7 @@ const MemberConsultGroupModal = ({
                                                     <TableBodyCell>
                                                         {`${list.CNST_GRP_NM}`}
                                                     </TableBodyCell>
-                                                    <TableBodyCell>{`${list.PERM}`}</TableBodyCell>
+                                                    <TableBodyCell>{`${codeName}`}</TableBodyCell>
                                                 </TableBodyRow>
                                             )
                                         }
