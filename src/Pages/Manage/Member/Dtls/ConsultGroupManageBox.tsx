@@ -10,6 +10,7 @@ import {
 } from '@Recoil/MemberPagesState'
 import { useResetRecoilState, useRecoilValue } from 'recoil'
 import Messages from '@Messages'
+import _ from 'lodash'
 
 const { Wapper, Buttons } = ManageBoxStyle
 
@@ -68,6 +69,17 @@ const ConsultGroupManageBox = ({
                     ButtonType={'manage'}
                     ButtonName={'등록'}
                     HandleClick={() => {
+                        if (
+                            _.isEmpty(consultGroupListState.search.instNo) ||
+                            _.isEmpty(consultGroupListState.search.instNm)
+                        ) {
+                            handlMainAlert({
+                                state: true,
+                                message: Messages.Default.pstinstSelectEmpty,
+                            })
+                            return
+                        }
+
                         handleDeleteTabbyMatchRouter(
                             `/manage/member/consult-group/:groupNo/detail`
                         )

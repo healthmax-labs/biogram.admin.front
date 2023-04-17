@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     ConfirmModal,
     ElementLoading,
@@ -10,7 +10,7 @@ import {
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { ConsultGroupDetailStyle } from '@Style/Pages/MemberPageStyles'
 import Codes from '@Codes'
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useRecoilState } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import {
     ConsultGroupDetailState,
@@ -59,7 +59,7 @@ const ConsultGroupDetailTable = ({
     const [detailState, setDetailState] = useRecoilState(
         ConsultGroupDetailState
     )
-    const setListState = useSetRecoilState(ConsultGroupListState)
+    const [listState, setListState] = useRecoilState(ConsultGroupListState)
     const { handleDeleteTabbyMatchRouter } = useTab()
 
     // 등록 처리
@@ -199,6 +199,38 @@ const ConsultGroupDetailTable = ({
         }))
     }
 
+    useEffect(() => {
+        const funcInstnoCheck = () => {
+            if (
+                _.isEmpty(listState.search.instNo) ||
+                _.isEmpty(listState.search.instNm)
+            ) {
+                handleDeleteTabbyMatchRouter(
+                    `/manage/member/consult-group-list/new`
+                )
+
+                navigate({
+                    pathname:
+                        process.env.PUBLIC_URL +
+                        `/manage/member/consult-group-list`,
+                })
+
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.pstinstSelectEmpty,
+                })
+            }
+        }
+
+        if (pageMode === 'new') {
+            funcInstnoCheck()
+        }
+
+        // FIXME : 종속성에서 handlMainAlert, handleDeleteTabbyMatchRouter, listState.search.instNm, listState.search.instNo, navigate, pageMode 업데이트 되면
+        // 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [listState.search.instNm, listState.search.instNo])
+
     return (
         <DetailContainer>
             {detailState.status === 'loading' ? (
@@ -209,6 +241,24 @@ const ConsultGroupDetailTable = ({
                 <>
                     <TableContainer>
                         <TableWapper>
+                            <Row>
+                                <LabelCell>
+                                    <VaryLabel LabelName={`소속`} />
+                                </LabelCell>
+                                <InputCell>
+                                    <VaryInput
+                                        ReadOnly={true}
+                                        Width={`w60`}
+                                        InputType={'text'}
+                                        Placeholder={'소속'}
+                                        Value={
+                                            pageMode === 'modify'
+                                                ? detailState.detail.INST_NM
+                                                : listState.search.instNm
+                                        }
+                                    />
+                                </InputCell>
+                            </Row>
                             <Row>
                                 <LabelCell>
                                     <VaryLabel LabelName={`그룹명`} />
