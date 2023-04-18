@@ -180,7 +180,8 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                             <VarySelectBox
                                 Width={`w60`}
                                 ContentsType={`search`}
-                                Placeholder={`구분을 선택해 주세요.`}
+                                PlaceholderDisable={false}
+                                Placeholder={`그룹명을 선택해 주세요.`}
                                 Value={listState.search.groupNo}
                                 Elements={_.map(listState.group, group => {
                                     return {

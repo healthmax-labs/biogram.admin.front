@@ -1,5 +1,5 @@
-import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import React from 'react'
+import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import { ContentType, WidthType } from '@CommonTypes'
 
 const { Wapper, Select } = VarySelectBoxStyle
@@ -14,6 +14,7 @@ const VarySelectBox = ({
     HandleOnChange,
     Width,
     AutoComplete,
+    PlaceholderDisable,
 }: {
     Value?: string
     Placeholder?: string
@@ -27,6 +28,7 @@ const VarySelectBox = ({
     HandleOnChange?: ({ value, text }: { value: string; text: string }) => void
     Width?: WidthType | null
     AutoComplete?: boolean
+    PlaceholderDisable?: boolean
 }) => {
     return (
         <Wapper Width={Width ? Width : 'w60'}>
@@ -44,7 +46,10 @@ const VarySelectBox = ({
                             text: e.target.selectedOptions[0].text,
                         })
                 }}>
-                <option value={``} disabled hidden>
+                <option
+                    value={``}
+                    disabled={!PlaceholderDisable ? true : PlaceholderDisable}
+                    hidden={!PlaceholderDisable ? true : PlaceholderDisable}>
                     {Placeholder ? Placeholder : `선택해 주세요`}
                 </option>
                 {Elements &&
