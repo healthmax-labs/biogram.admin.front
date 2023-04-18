@@ -34,8 +34,14 @@ export default {
         'memberPage/consult-my-coach',
         'memberPage/consult-survey',
         'memberPage/consult-message-box',
+        'memberPage/consult-raw-age',
+        'memberPage/consult-meal-diary',
         'memberPage/msg-send-list',
         'memberPage/msg-book-list',
+        'memberPage/consult-my-graph',
+
+        'memberPage/consult-group-list',
+        'memberPage/consult-group-detail',
 
         'instPage/inst-join-list',
         'instPage/inst-list',
