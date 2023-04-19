@@ -1084,11 +1084,11 @@ export const getMngCnstgrpList = ({
  * @param perm
  */
 export const postMngCnstgrpAdd = ({
-    instNm,
+    instNo,
     name,
     perm,
 }: {
-    instNm: string
+    instNo: string
     name: string
     perm: string
 }): Promise<ServicesDefaultResult<{ test: null }>> => {
@@ -1096,7 +1096,7 @@ export const postMngCnstgrpAdd = ({
         method: 'post',
         url: `/mng/v1/cnstgrp/add`,
         payload: {
-            INST_NO: instNm,
+            INST_NO: instNo,
             CNST_GRP_NM: name,
             PERM: perm,
         },

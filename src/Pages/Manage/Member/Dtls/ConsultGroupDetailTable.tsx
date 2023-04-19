@@ -70,9 +70,9 @@ const ConsultGroupDetailTable = ({
         }))
 
         const { CNST_GRP_NM, PERM } = detailState.detail
-        if (atomRootState.userinfo.INST_NO) {
+        if (listState.search.instNo) {
             const { status } = await postMngCnstgrpAdd({
-                instNm: atomRootState.userinfo.INST_NO,
+                instNo: listState.search.instNo,
                 name: CNST_GRP_NM,
                 perm: PERM,
             })
@@ -113,13 +113,13 @@ const ConsultGroupDetailTable = ({
             }
         }
     }, [
-        setListState,
-        atomRootState.userinfo.INST_NO,
         detailState.detail,
         handlMainAlert,
         handleDeleteTabbyMatchRouter,
+        listState.search.instNo,
         navigate,
         setDetailState,
+        setListState,
     ])
 
     // 수정 처리
@@ -130,10 +130,10 @@ const ConsultGroupDetailTable = ({
         }))
 
         const { CNST_GRP_NM, PERM } = detailState.detail
-        if (atomRootState.userinfo.INST_NO && params.groupNo) {
+        if (params.groupNo) {
             const { status } = await postMngCnstgrpUpdate({
                 groupNo: Number(params.groupNo),
-                instNo: atomRootState.userinfo.INST_NO,
+                instNo: String(detailState.detail.INST_NO),
                 perm: PERM,
                 name: CNST_GRP_NM,
             })
@@ -164,7 +164,6 @@ const ConsultGroupDetailTable = ({
             }
         }
     }, [
-        atomRootState.userinfo.INST_NO,
         detailState.detail,
         handlMainAlert,
         params.groupNo,
