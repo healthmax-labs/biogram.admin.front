@@ -1,3 +1,5 @@
+import ConsultChartPrintModal from '@Element/Modals/ConsultChartPrintModal'
+
 export { default as HamburgerButton } from './Buttons/Hamburger'
 export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'
@@ -47,6 +49,7 @@ export { default as KaKaoMapModal } from './Modals/KaKaoMapModal'
 export { default as MemberSearchModal } from './Modals/MemberSearchModal'
 export { default as MessageSendModal } from './Modals/MessageSendModal'
 export { default as MemberConsultGroupModal } from './Modals/MemberConsultGroupModal'
+export { default as ConsultChartPrintModal } from './Modals/ConsultChartPrintModal'
 
 export { default as VaryPagination } from './Paginations/VaryPagination'
 

@@ -2,6 +2,7 @@ import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
 import { MaxHeightType } from '@CommonTypes'
+import { Container } from '../Pages/BelongMain'
 
 export const ModalStyle = {
     Container: tw.div`fixed inset-0 z-10 overflow-y-auto max-h-[calc(100vh - 5%)] overflow-x-hidden`,
@@ -106,4 +107,8 @@ export const MemberSearchModalStyle = {
 export const MemberConsultGroupModalStyle = {
     TitleWapper: tw.div`flex w-full justify-center pb-4`,
     TitleBox: tw.div`text-xs`,
+}
+
+export const ConsultChartPrintModalStyle = {
+    Container: tw.div``,
 }

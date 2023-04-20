@@ -9,6 +9,7 @@ import {
     VaryInput,
     VaryLabel,
     VaryTextArea,
+    ConsultChartPrintModal,
 } from '@Elements'
 import {
     ConsultDetailChartListState,
@@ -30,6 +31,7 @@ const {
 const initializeState = {
     modal: {
         confirm: false,
+        chartPrint: false,
     },
 }
 
@@ -43,6 +45,7 @@ const ConsultDetailRightBoxChart = () => {
     const [pageState, setPageState] = useState<{
         modal: {
             confirm: boolean
+            chartPrint: boolean
         }
     }>(initializeState)
 
@@ -206,6 +209,19 @@ const ConsultDetailRightBoxChart = () => {
                     <ButtonBox>
                         <VaryButton
                             ButtonType={`default`}
+                            ButtonName={`프린트`}
+                            HandleClick={() => {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        chartPrint: true,
+                                    },
+                                }))
+                            }}
+                        />
+                        <VaryButton
+                            ButtonType={`default`}
                             ButtonName={`저장`}
                             HandleClick={() => {
                                 if (_.isEmpty(chartState.REG_NM)) {
@@ -267,6 +283,20 @@ const ConsultDetailRightBoxChart = () => {
                         chartState.CNST_NO
                             ? handleUpdate().then()
                             : handleSave().then()
+                    }}
+                />
+            )}
+
+            {pageState.modal.chartPrint && (
+                <ConsultChartPrintModal
+                    CloseModal={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                chartPrint: false,
+                            },
+                        }))
                     }}
                 />
             )}
