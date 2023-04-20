@@ -1,5 +1,3 @@
-import ConsultChartPrintModal from '@Element/Modals/ConsultChartPrintModal'
-
 export { default as HamburgerButton } from './Buttons/Hamburger'
 export { default as DatepickerButton } from './Buttons/Datepicker'
 export { default as DefaultSearchButton } from './Buttons/DefaultSearch'

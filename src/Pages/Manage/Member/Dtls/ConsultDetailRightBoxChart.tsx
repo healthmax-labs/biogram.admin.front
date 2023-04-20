@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useMainLayouts } from '@Hook/index'
 import Messages from '@Messages'
 import _ from 'lodash'
@@ -14,6 +14,7 @@ import {
 import {
     ConsultDetailChartListState,
     ConsultDetailChartState,
+    ConsultDetailState,
 } from '@Recoil/MemberPagesState'
 import {
     postManageaddCounsel,
@@ -21,6 +22,7 @@ import {
     postManageUpdateCounsel,
 } from '@Service/MemberService'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import { timeStringParse } from '@Helper'
 
 const {
     Message: {
@@ -29,6 +31,12 @@ const {
 } = ConsultDetailStyle
 
 const initializeState = {
+    memberInfo: {
+        NM: '',
+        MBTLNUM: '',
+        SEXDSTN: '',
+        BRTHDY: '',
+    },
     modal: {
         confirm: false,
         chartPrint: false,
@@ -41,8 +49,13 @@ const ConsultDetailRightBoxChart = () => {
     const [chartListState, setChartListState] = useRecoilState(
         ConsultDetailChartListState
     )
+    const detailState = useRecoilValue(ConsultDetailState)
 
     const [pageState, setPageState] = useState<{
+        memberInfo: {
+            NM: string
+            BRTHDY: string
+        }
         modal: {
             confirm: boolean
             chartPrint: boolean
@@ -143,6 +156,25 @@ const ConsultDetailRightBoxChart = () => {
         }
     }
 
+    useEffect(() => {
+        const funcSetData = () => {
+            if (detailState.detail) {
+                const { NM, BRTHDY } = detailState.detail.MBER_INFO
+                setPageState(prevState => ({
+                    ...prevState,
+                    memberInfo: {
+                        NM: NM,
+                        BRTHDY: BRTHDY,
+                    },
+                }))
+            }
+        }
+
+        if (detailState.status === 'success') {
+            funcSetData()
+        }
+    }, [detailState])
+
     return (
         <>
             <Container>
@@ -207,19 +239,25 @@ const ConsultDetailRightBoxChart = () => {
 
                 <Row>
                     <ButtonBox>
-                        <VaryButton
-                            ButtonType={`default`}
-                            ButtonName={`프린트`}
-                            HandleClick={() => {
-                                setPageState(prevState => ({
-                                    ...prevState,
-                                    modal: {
-                                        ...prevState.modal,
-                                        chartPrint: true,
-                                    },
-                                }))
-                            }}
-                        />
+                        {!_.isEmpty(chartState.REGDT) &&
+                            !_.isEmpty(chartState.REG_NM) &&
+                            !_.isEmpty(chartState.CNST) &&
+                            !_.isEmpty(chartState.PLN) && (
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`프린트`}
+                                    HandleClick={() => {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                chartPrint: true,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            )}
+
                         <VaryButton
                             ButtonType={`default`}
                             ButtonName={`저장`}
@@ -289,6 +327,16 @@ const ConsultDetailRightBoxChart = () => {
 
             {pageState.modal.chartPrint && (
                 <ConsultChartPrintModal
+                    MemberName={pageState.memberInfo.NM}
+                    BirthDate={pageState.memberInfo.BRTHDY}
+                    ConsultDate={
+                        chartState.REGDT && timeStringParse(chartState.REGDT)
+                            ? `${timeStringParse(chartState.REGDT)}`
+                            : ``
+                    }
+                    AuthorName={chartState.REG_NM ? chartState.REG_NM : ``}
+                    History={chartState.CNST ? chartState.CNST : ``}
+                    Planning={chartState.PLN ? chartState.PLN : ``}
                     CloseModal={() => {
                         setPageState(prevState => ({
                             ...prevState,
