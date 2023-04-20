@@ -23,6 +23,7 @@ import { manageRemoveCounsel, postManageCounsel } from '@Service/MemberService'
 import { ManageCounselItemInterface } from '@Type/MemberTypes'
 import { useMainLayouts } from '@Hook/index'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
+import _ from 'lodash'
 
 const {
     HeaderRow,
@@ -343,8 +344,18 @@ const ConsultDetailPartChart = () => {
                                         <TableBodyCell>
                                             {el.MOD_MNG_NM}
                                         </TableBodyCell>
-                                        <TableBodyCell>{el.CNST}</TableBodyCell>
-                                        <TableBodyCell>{el.PLN}</TableBodyCell>
+                                        <TableBodyCell>
+                                            {_.truncate(el.CNST, {
+                                                length: 15,
+                                                omission: '...',
+                                            })}
+                                        </TableBodyCell>
+                                        <TableBodyCell>
+                                            {_.truncate(el.PLN, {
+                                                length: 15,
+                                                omission: '...',
+                                            })}
+                                        </TableBodyCell>
                                     </TableBodyRow>
                                 )
                             })

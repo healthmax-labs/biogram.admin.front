@@ -691,17 +691,6 @@ export const toDateWithOutTimeZone = (date: string) => {
     return dt
 }
 
-export const getTextLength = (str: string) => {
-    let len = 0
-    for (let i = 0; i < str.length; i++) {
-        if (escape(str.charAt(i)).length == 6) {
-            len++
-        }
-        len++
-    }
-    return len
-}
-
 /**
  * 숫자에 , 붙이기
  * @param num
