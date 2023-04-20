@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { VaryModal } from '@Element/index'
 import { ConsultChartPrintModalStyle } from '@Style/Elements/ModalStyles'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
@@ -32,51 +32,36 @@ const ConsultChartPrintModal = ({
     Planning: string
     CloseModal: () => void
 }) => {
-    const componentRef = React.useRef(null)
+    const [isPrinting, setIsPrinting] = useState<boolean>(false)
+    const printRef = useRef<any>(null)
 
-    const onBeforeGetContentResolve = React.useRef<any>(null)
+    // We store the resolve Promise being used in `onBeforeGetContent` here
+    const promiseResolveRef = useRef<any>(null)
 
-    const [loading, setLoading] = React.useState(false)
-
-    const handleAfterPrint = React.useCallback(() => {
-        CloseModal()
-    }, [CloseModal])
-
-    const handleBeforePrint = React.useCallback(() => {
-        //
-    }, [])
-
-    const handleOnBeforeGetContent = React.useCallback(() => {
-        setLoading(true)
-
-        return new Promise<void>(resolve => {
-            onBeforeGetContentResolve.current = resolve
-
-            setTimeout(() => {
-                setLoading(false)
-                resolve()
-            }, 500)
-        })
-    }, [setLoading])
-
-    const reactToPrintContent = React.useCallback(() => {
-        return componentRef.current
-    }, [])
+    // We watch for the state to change here, and for the Promise resolve to be available
+    useEffect(() => {
+        if (isPrinting && promiseResolveRef.current) {
+            // Resolves the Promise, letting `react-to-print` know that the DOM updates are completed
+            promiseResolveRef.current()
+        }
+    }, [isPrinting])
 
     const handlePrint = useReactToPrint({
-        content: reactToPrintContent,
+        content: () => printRef.current,
         documentTitle: '상담차트',
-        onBeforeGetContent: handleOnBeforeGetContent,
-        onBeforePrint: handleBeforePrint,
-        onAfterPrint: handleAfterPrint,
-        removeAfterPrint: true,
+        onBeforeGetContent: () => {
+            return new Promise(resolve => {
+                promiseResolveRef.current = resolve
+                setIsPrinting(true)
+            })
+        },
+        onAfterPrint: () => {
+            // Reset the Promise resolve so we can print again
+            promiseResolveRef.current = null
+            setIsPrinting(false)
+            CloseModal()
+        },
     })
-
-    React.useEffect(() => {
-        if (typeof onBeforeGetContentResolve.current === 'function') {
-            onBeforeGetContentResolve.current()
-        }
-    }, [onBeforeGetContentResolve])
 
     useEffect(() => {
         handlePrint()
@@ -85,13 +70,13 @@ const ConsultChartPrintModal = ({
     return (
         <>
             <VaryModal
-                ModalLoading={loading}
+                ModalLoading={false}
                 NeedMax={false}
                 MaxWidth={'xl6'}
                 Children={
                     <>
-                        <ReactToPrint content={() => componentRef.current} />
-                        <Container ref={componentRef}>
+                        <ReactToPrint content={() => printRef.current} />
+                        <Container ref={printRef}>
                             <RowWapper>
                                 <FlexRow>
                                     <LabelBox>
