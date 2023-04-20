@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { VaryButton, VaryModal } from '@Element/index'
+import React, { useEffect } from 'react'
+import { VaryModal } from '@Element/index'
 import { ConsultChartPrintModalStyle } from '@Style/Elements/ModalStyles'
 import ReactToPrint, { useReactToPrint } from 'react-to-print'
 
@@ -55,7 +55,7 @@ const ConsultChartPrintModal = ({
             setTimeout(() => {
                 setLoading(false)
                 resolve()
-            }, 1000)
+            }, 500)
         })
     }, [setLoading])
 
@@ -132,7 +132,7 @@ const ConsultChartPrintModal = ({
                             </RowWapper>
                             <RowWapper>
                                 <TitleRow>
-                                    <Text>추후계획</Text>
+                                    <Text>비고</Text>
                                 </TitleRow>
                                 <FlexRow>
                                     <Contents>{`${Planning}`}</Contents>

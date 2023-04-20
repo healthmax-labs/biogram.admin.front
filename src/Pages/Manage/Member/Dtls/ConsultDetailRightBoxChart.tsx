@@ -218,7 +218,7 @@ const ConsultDetailRightBoxChart = () => {
                 </Row>
                 <Row>
                     <LabelCell>
-                        <VaryLabel LabelName={`추후계획`} TextAlign={`left`} />
+                        <VaryLabel LabelName={`비고`} TextAlign={`left`} />
                     </LabelCell>
                 </Row>
                 <Row>
