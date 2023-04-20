@@ -131,7 +131,7 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             INST_NO: '',
             instNm: '',
             SEARCH_KEY: '',
@@ -153,7 +153,7 @@ export const BrftrCmprListState = atom<BrftrCmprSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             INST_NO: '',
             instNm: '',
             SEARCH_KEY: '',
@@ -172,7 +172,7 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             INST_NO: '',
             instNm: '',
             SEARCH_KEY: '',

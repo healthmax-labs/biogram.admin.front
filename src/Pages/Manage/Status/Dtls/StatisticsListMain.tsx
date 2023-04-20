@@ -108,7 +108,7 @@ const StatisticsListMain = () => {
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable />
+                <ListTable CurrentPage={listState.search.curPage} />
             </TableWapper>
         </Container>
     )

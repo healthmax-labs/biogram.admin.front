@@ -5,7 +5,7 @@ import {
     RiskFctrTableConfig,
     RiskFctrTableListItemInterface,
 } from '@Common/TableConfig/Manage/Status'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
@@ -18,10 +18,10 @@ interface tableOption {
     Lists: RiskFctrTableListItemInterface[]
 }
 
-const RiskFctrListTable = () => {
+const RiskFctrListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
-    const listState = useRecoilValue(RiskFctrListState)
+    const [listState, setListState] = useRecoilState(RiskFctrListState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(RiskFctrTableConfig)
@@ -31,6 +31,21 @@ const RiskFctrListTable = () => {
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
+        })
+    }
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/status/risk-fctr`,
         })
     }
 
@@ -80,7 +95,15 @@ const RiskFctrListTable = () => {
         }
     }, [mainLayoutState.Theme])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
+        />
+    )
 }
 
 export default RiskFctrListTable
