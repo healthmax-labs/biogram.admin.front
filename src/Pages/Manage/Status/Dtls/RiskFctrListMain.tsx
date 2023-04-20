@@ -112,7 +112,7 @@ const RiskFctrListMain = () => {
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable />
+                <ListTable CurrentPage={listState.search.curPage} />
             </TableWapper>
         </Container>
     )

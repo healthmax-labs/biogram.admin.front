@@ -5,7 +5,7 @@ import {
     ActivityWalkTableConfig,
     ActivityWalkTableListItemInterface,
 } from '@Common/TableConfig/Manage/Status'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
@@ -18,11 +18,11 @@ interface tableOption {
     Lists: ActivityWalkTableListItemInterface[]
 }
 
-const ListTable = () => {
+const ListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
-    const listState = useRecoilValue(ActivityWalkListState)
+    const [listState, setListState] = useRecoilState(ActivityWalkListState)
 
     const [tableOptions, setTableOptions] = useState<tableOption>(
         ActivityWalkTableConfig
@@ -33,6 +33,21 @@ const ListTable = () => {
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
+        })
+    }
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/status/activity-walk`,
         })
     }
 
@@ -73,7 +88,15 @@ const ListTable = () => {
         }
     }, [mainLayoutState.Theme])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
+        />
+    )
 }
 
 export default ListTable

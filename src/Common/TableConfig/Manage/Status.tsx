@@ -63,6 +63,7 @@ export interface RiskFctrTableListItemInterface {
 export const RiskFctrTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: false,
         indexKey: `MBER_NO`,
         bgState: true,
@@ -420,6 +421,7 @@ export interface BrftrCmprTableListItemInterface {
 export const BrftrCmprTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: false,
         indexKey: `MBER_NO`,
         bgState: true,
@@ -856,6 +858,7 @@ export interface StatisticsTableListItemInterface {
 export const StatisticsTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: false,
         indexKey: `MBER_NO`,
         xcpt: {
@@ -1057,6 +1060,7 @@ export interface ActivityWalkTableListItemInterface {
 export const ActivityWalkTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: false,
         indexKey: `MBER_NO`,
         xcpt: {

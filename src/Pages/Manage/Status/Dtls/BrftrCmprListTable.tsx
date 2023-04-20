@@ -5,7 +5,7 @@ import {
     BrftrCmprTableConfig,
     BrftrCmprTableListItemInterface,
 } from '@Common/TableConfig/Manage/Status'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { BrftrCmprListState } from '@Recoil/StatusPagesState'
 import _ from 'lodash'
@@ -18,10 +18,10 @@ interface tableOption {
     Lists: BrftrCmprTableListItemInterface[]
 }
 
-const BrftrCmprListTable = () => {
+const BrftrCmprListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
 
-    const listState = useRecoilValue(BrftrCmprListState)
+    const [listState, setListState] = useRecoilState(BrftrCmprListState)
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const [tableOptions, setTableOptions] =
@@ -32,6 +32,21 @@ const BrftrCmprListTable = () => {
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
+        })
+    }
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/status/brftt-cmpr`,
         })
     }
 
@@ -80,7 +95,15 @@ const BrftrCmprListTable = () => {
         }
     }, [mainLayoutState.Theme])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
+        />
+    )
 }
 
 export default BrftrCmprListTable

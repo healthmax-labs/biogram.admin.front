@@ -101,7 +101,7 @@ const BrftrCmprListMain = () => {
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable />
+                <ListTable CurrentPage={listState.search.curPage} />
             </TableWapper>
         </Container>
     )
