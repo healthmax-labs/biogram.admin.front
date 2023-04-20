@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { VarySelectBoxStyle } from '@Style/Elements/SelectStyles'
 import { ContentType, WidthType } from '@CommonTypes'
 
@@ -48,8 +48,16 @@ const VarySelectBox = ({
                 }}>
                 <option
                     value={``}
-                    disabled={!PlaceholderDisable ? true : PlaceholderDisable}
-                    hidden={!PlaceholderDisable ? true : PlaceholderDisable}>
+                    disabled={
+                        PlaceholderDisable === undefined
+                            ? true
+                            : PlaceholderDisable
+                    }
+                    hidden={
+                        PlaceholderDisable === undefined
+                            ? true
+                            : PlaceholderDisable
+                    }>
                     {Placeholder ? Placeholder : `선택해 주세요`}
                 </option>
                 {Elements &&
