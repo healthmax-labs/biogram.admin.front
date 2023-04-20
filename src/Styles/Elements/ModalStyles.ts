@@ -107,3 +107,15 @@ export const MemberConsultGroupModalStyle = {
     TitleWapper: tw.div`flex w-full justify-center pb-4`,
     TitleBox: tw.div`text-xs`,
 }
+
+export const ConsultChartPrintModalStyle = {
+    Container: tw.div`flex w-full flex-col`,
+    RowWapper: tw.div`flex flex-col w-full`,
+    EmptyRow: tw.div`flex flex-col w-full pt-5`,
+    FlexRow: tw.div`flex w-full`,
+    TitleRow: tw.div`flex w-full h-8 justify-start items-center px-4`,
+    LabelBox: tw.div`flex w-2/12 h-16 border justify-center items-center`,
+    ValueBox: tw.div`flex w-4/12 h-16 border justify-center items-center`,
+    Text: tw.p`text-xs`,
+    Contents: tw.div`text-xs py-2 px-2 border h-auto text-left break-words whitespace-pre-wrap`,
+}
