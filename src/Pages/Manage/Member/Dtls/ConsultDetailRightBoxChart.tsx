@@ -241,8 +241,8 @@ const ConsultDetailRightBoxChart = () => {
                     <ButtonBox>
                         {!_.isEmpty(chartState.REGDT) &&
                             !_.isEmpty(chartState.REG_NM) &&
-                            !_.isEmpty(chartState.CNST) &&
-                            !_.isEmpty(chartState.PLN) && (
+                            (!_.isEmpty(chartState.CNST) ||
+                                !_.isEmpty(chartState.PLN)) && (
                                 <VaryButton
                                     ButtonType={`default`}
                                     ButtonName={`프린트`}
