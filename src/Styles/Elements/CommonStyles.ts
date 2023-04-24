@@ -27,7 +27,7 @@ export const PaginationStyle = {
         return returnTw
     }),
     PreviousText: tw.p`text-sm ml-3 font-medium leading-none`,
-    PagingBox: tw.div`sm:flex`,
+    PagingBox: tw.div`flex`,
     Numbering: styled.p(({ Active }: { Active: boolean }) => [
         Active
             ? tw`text-sm font-medium leading-none cursor-pointer text-blueberry border-t border-blueberry pt-3 mr-4 px-2`
