@@ -192,7 +192,7 @@ export const ActivityWalkListState = atom<ActivityWalkInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             INST_NO: '',
             instNm: '',
             SEARCH: '',

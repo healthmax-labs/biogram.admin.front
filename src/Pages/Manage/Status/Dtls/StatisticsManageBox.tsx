@@ -103,6 +103,7 @@ const StatisticsManageBox = () => {
                     v => v.MBER_NO
                 ).map(m => {
                     return [
+                        m.MESURE_DE ? dateInsertHypen(String(m.MESURE_DE)) : '',
                         String(m.MBER_NO),
                         m.NM ? m.NM : '',
                         m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',

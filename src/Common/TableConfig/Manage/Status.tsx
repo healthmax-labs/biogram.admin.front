@@ -854,7 +854,7 @@ export interface StatisticsTableListItemInterface {
     ODR: number
 }
 
-// 테이블 설정.
+// 기기측정현황
 export const StatisticsTableConfig = {
     Loading: true,
     Options: {
@@ -873,6 +873,9 @@ export const StatisticsTableConfig = {
     },
     Columns: [
         [
+            {
+                name: ``,
+            },
             {
                 name: ``,
             },
@@ -911,6 +914,17 @@ export const StatisticsTableConfig = {
             },
         ],
         [
+            {
+                name: `측정일자`,
+                key: `MESURE_DE`,
+                component: ({
+                    el,
+                }: {
+                    el: StatisticsTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.MESURE_DE))}</>
+                },
+            },
             {
                 name: `회원번호`,
                 key: `MBER_NO`,
@@ -1077,6 +1091,17 @@ export const ActivityWalkTableConfig = {
     },
     Columns: [
         [
+            {
+                name: `측정일자`,
+                key: `MESURE_DE`,
+                component: ({
+                    el,
+                }: {
+                    el: ActivityWalkTableListItemInterface
+                }) => {
+                    return <>{dateInsertHypen(String(el.MESURE_DE))}</>
+                },
+            },
             {
                 name: `회원번호`,
                 key: `MBER_NO`,

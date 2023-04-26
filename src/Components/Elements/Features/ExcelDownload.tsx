@@ -16,7 +16,7 @@ const ExcelDownload = ({
 }: ExcelDownloadPropsInterface) => {
     const handleExcel = useCallback(async () => {
         const workbook = new ExcelJS.Workbook()
-        const worksheet = workbook.addWorksheet(SheetName) // sheet 이름이 My Sheet
+        const worksheet = workbook.addWorksheet(SheetName) // sheet 이름
 
         _.forEach(Header, header => {
             worksheet.addRow(header)
