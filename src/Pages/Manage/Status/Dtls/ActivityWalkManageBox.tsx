@@ -109,8 +109,6 @@ const ActivityWalkManageBox = () => {
                             m.CNSMP_CALORIE
                                 ? addComma(Number(m.CNSMP_CALORIE))
                                 : '',
-                            m.MAX_HR ? addComma(Number(m.MAX_HR)) : '',
-                            m.AVG_HR ? addComma(Number(m.AVG_HR)) : '',
                         ]
                     }
                 ),

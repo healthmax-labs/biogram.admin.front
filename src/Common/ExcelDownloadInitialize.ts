@@ -387,8 +387,6 @@ export default {
                     '총보행수(걸음)',
                     '활동 거리(m)',
                     '소비칼로리(kcal)',
-                    '최대심박수(bpm)',
-                    '평균심박수(bpm)',
                 ],
             ],
             Data: [],
@@ -592,8 +590,8 @@ export default {
             Data: [],
         },
         RiskFctrCount: {
-            FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `위험요인 항목 연령별 통계`,
+            FileName: `위험요인_개수_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `위험요인 개수 연령별 통계`,
             Header: [
                 [
                     '연령',
@@ -650,8 +648,8 @@ export default {
             Data: [],
         },
         DeviceUse: {
-            FileName: `위험요인_항목_연령별_통계_${getNowDateDetail()}`,
-            SheetName: `위험요인 항목 연령별 통계`,
+            FileName: `기기사용_연령별_통계_${getNowDateDetail()}`,
+            SheetName: `기기사용 연령별 통계`,
             Header: [
                 [
                     '연령',
@@ -676,15 +674,9 @@ export default {
                     '신장계',
                     '',
                     '',
-                    '활동량계',
-                    '',
-                    '',
                 ],
                 [
                     '',
-                    '전체',
-                    '여성',
-                    '남성',
                     '전체',
                     '여성',
                     '남성',
@@ -716,7 +708,6 @@ export default {
                 'N1:P1',
                 'Q1:S1',
                 'T1:V1',
-                'W1:Y1',
                 'A1:A2',
             ],
             Data: [],

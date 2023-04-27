@@ -1183,28 +1183,6 @@ export const ActivityWalkTableConfig = {
                     )
                 },
             },
-            {
-                name: `최대심박수(bpm)`,
-                key: `MAX_HR`,
-                component: ({
-                    el,
-                }: {
-                    el: ActivityWalkTableListItemInterface
-                }) => {
-                    return <>{el.MAX_HR ? addComma(Number(el.MAX_HR)) : '-'}</>
-                },
-            },
-            {
-                name: `평균심박수(bpm)`,
-                key: `AVG_HR`,
-                component: ({
-                    el,
-                }: {
-                    el: ActivityWalkTableListItemInterface
-                }) => {
-                    return <>{el.AVG_HR ? addComma(Number(el.AVG_HR)) : '-'}</>
-                },
-            },
         ],
     ],
     Lists: [],

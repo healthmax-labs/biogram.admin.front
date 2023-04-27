@@ -616,76 +616,7 @@ const RiskFctrCountTable = () => {
                                         <T.TheadCell>남성</T.TheadCell>
                                     </T.TheadRow>
                                 </T.Thead>
-                                <T.Body>
-                                    {PERIOD_STAT_LIST.map(
-                                        (period, periodIndex) => {
-                                            return (
-                                                <T.Row
-                                                    key={`analytics-risk-fctr-count-period-table-row-item-${periodIndex}`}>
-                                                    <T.CellWW>
-                                                        {period.PERIOD}
-                                                    </T.CellWW>
-                                                    <T.CellW>
-                                                        {period.RF_ALL_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {
-                                                            period.RF_ALL_WOMAN_CNT
-                                                        }
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_ALL_MAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_1_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_1_WOMAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_1_MAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_2_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_2_WOMAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_2_MAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_3_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_3_WOMAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_3_MAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_4_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_4_WOMAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_4_MAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_5_MBER_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_5_WOMAN_CNT}
-                                                    </T.CellW>
-                                                    <T.CellW>
-                                                        {period.RF_5_MAN_CNT}
-                                                    </T.CellW>
-                                                </T.Row>
-                                            )
-                                        }
-                                    )}
-                                </T.Body>
+                                <T.Body></T.Body>
                             </T.Table>
                         </TableBox>
                     </RowWapper>

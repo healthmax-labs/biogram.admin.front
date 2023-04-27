@@ -43,7 +43,13 @@ const RiskFctrCountMain = () => {
             setListState(prevState => ({
                 ...prevState,
                 status: 'success',
-                list: payload,
+                list: {
+                    ...prevState.list,
+                    AGE_GROUP_STAT_LIST: payload.AGE_GROUP_STAT_LIST,
+                    PERIOD_STAT_LIST: payload.PERIOD_STAT_LIST
+                        ? payload.PERIOD_STAT_LIST
+                        : [],
+                },
             }))
         } else {
             setListState(prevState => ({

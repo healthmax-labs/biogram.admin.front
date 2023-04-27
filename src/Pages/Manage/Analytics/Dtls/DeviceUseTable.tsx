@@ -101,9 +101,6 @@ const DeviceUseTable = () => {
                         `${DataRow ? DataRow.HT_MBER_CNT : ''}`,
                         `${DataRow ? DataRow.HT_WOMAN_CNT : ''}`,
                         `${DataRow ? DataRow.HT_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.BD_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.BD_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.BD_MAN_CNT : ''}`,
                     ]
                 })
 
@@ -133,9 +130,6 @@ const DeviceUseTable = () => {
                     `${TotDataRow ? TotDataRow.HT_MBER_CNT : ``}`,
                     `${TotDataRow ? TotDataRow.HT_WOMAN_CNT : ``}`,
                     `${TotDataRow ? TotDataRow.HT_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.BD_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.BD_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.BD_MAN_CNT : ``}`,
                 ])
 
                 return returnData
@@ -194,9 +188,6 @@ const DeviceUseTable = () => {
                     `${period.HT_MBER_CNT}`,
                     `${period.HT_WOMAN_CNT}`,
                     `${period.HT_MAN_CNT}`,
-                    `${period.BD_MBER_CNT}`,
-                    `${period.BD_WOMAN_CNT}`,
-                    `${period.BD_MAN_CNT}`,
                 ]
             }),
         }))
@@ -262,14 +253,8 @@ const DeviceUseTable = () => {
                                         <T.TheadCell colSpan={3}>
                                             신장계
                                         </T.TheadCell>
-                                        <T.TheadCell colSpan={3}>
-                                            활동량계
-                                        </T.TheadCell>
                                     </T.TheadRow>
                                     <T.TheadRow>
-                                        <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>여성</T.TheadCell>
-                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
                                         <T.TheadCell>여성</T.TheadCell>
                                         <T.TheadCell>남성</T.TheadCell>
@@ -403,19 +388,6 @@ const DeviceUseTable = () => {
                                                         <T.CellW>
                                                             {DataRow.HT_MAN_CNT}
                                                         </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.BD_MBER_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.BD_WOMAN_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {DataRow.BD_MAN_CNT}
-                                                        </T.CellW>
                                                     </T.Row>
                                                 )
                                             } else {
@@ -425,9 +397,6 @@ const DeviceUseTable = () => {
                                                         <T.CellW colSpan={2}>
                                                             {age.name}
                                                         </T.CellW>
-                                                        <T.CellW>-</T.CellW>
-                                                        <T.CellW>-</T.CellW>
-                                                        <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
                                                         <T.CellW>-</T.CellW>
@@ -564,19 +533,6 @@ const DeviceUseTable = () => {
                                                         <T.TFootCell>
                                                             {DataRow.HT_MAN_CNT}
                                                         </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BD_MBER_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {
-                                                                DataRow.BD_WOMAN_CNT
-                                                            }
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            {DataRow.BD_MAN_CNT}
-                                                        </T.TFootCell>
                                                     </>
                                                 )
                                             } else {
@@ -585,15 +541,6 @@ const DeviceUseTable = () => {
                                                         <T.TFootCell
                                                             colSpan={2}>
                                                             합계
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            -
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            -
-                                                        </T.TFootCell>
-                                                        <T.TFootCell>
-                                                            -
                                                         </T.TFootCell>
                                                         <T.TFootCell>
                                                             -
@@ -717,14 +664,8 @@ const DeviceUseTable = () => {
                                         <T.TheadCell colSpan={3}>
                                             신장계
                                         </T.TheadCell>
-                                        <T.TheadCell colSpan={3}>
-                                            활동량계
-                                        </T.TheadCell>
                                     </T.TheadRow>
                                     <T.TheadRow>
-                                        <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>여성</T.TheadCell>
-                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
                                         <T.TheadCell>여성</T.TheadCell>
                                         <T.TheadCell>남성</T.TheadCell>
@@ -818,15 +759,6 @@ const DeviceUseTable = () => {
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {period.HT_MAN_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_MBER_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_WOMAN_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.BD_MAN_CNT}
                                                 </T.CellW>
                                             </T.Row>
                                         )

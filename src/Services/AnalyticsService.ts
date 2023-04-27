@@ -217,7 +217,7 @@ export function getRiskFctrCountAnalyticsList({
 }): Promise<
     ServicesDefaultResult<{
         AGE_GROUP_STAT_LIST: RiskFctrCountAgeListItemInterface[]
-        PERIOD_STAT_LIST: RiskFctrCountPeriodListItemInterface[]
+        PERIOD_STAT_LIST?: RiskFctrCountPeriodListItemInterface[]
     }>
 > {
     const payload: {
