@@ -239,6 +239,7 @@ const BrftrCmprManageBox = () => {
         <Wapper>
             <Buttons>
                 <VaryButton
+                    Loading={pageState.excel.status === 'loading'}
                     ButtonType={`manage`}
                     HandleClick={() => {
                         handleGetExcelData().then(() =>
