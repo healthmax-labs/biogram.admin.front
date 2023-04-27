@@ -140,48 +140,44 @@ export interface DevicePeriodListItemInterface {
 
 //위험요인 항목별 연령대 통계
 export interface RiskFctrItemsAgeListItemInterface {
-    AGE_GROUP: number
-    FBS_RISK_NO_CNT: number
-    FBS_RISK_YES_CNT: number
-    FBS_TOT_CNT: number
+    AGE_GROUP: string
+    FBS_MAN_CNT: number
+    FBS_WOMAN_CNT: number
+    FBS_MBER_CNT: number
     HDLC_MAN_CNT: number
-    HDLC_RISK_NO_CNT: number
-    HDLC_RISK_YES_CNT: number
-    HDLC_TOT_CNT: number
-    SUM_CNT: number
-    SYSTOLIC_RISK_NO_CNT: number
-    SYSTOLIC_RISK_YES_CNT: number
-    SYSTOLIC_TOT_CNT: number
-    TG_RISK_NO_CNT: number
-    TG_RISK_YES_CNT: number
-    TG_TOT_CNT: number
-    WAIST_CRCMFRNC_RISK_NO_CNT: number
-    WAIST_CRCMFRNC_RISK_YES_CNT: number
-    WAIST_CRCMFRNC_TOT_CNT: number
+    HDLC_WOMAN_CNT: number
+    HDLC_MBER_CNT: number
+    SUM_MBER_CNT: number
+    SYSTOLIC_MAN_CNT: number
+    SYSTOLIC_WOMAN_CNT: number
+    SYSTOLIC_MBER_CNT: number
+    TG_MAN_CNT: number
+    TG_WOMAN_CNT: number
+    TG_MBER_CNT: number
+    WAIST_CRCMFRNC_MAN_CNT: number
+    WAIST_CRCMFRNC_WOMAN_CNT: number
+    WAIST_CRCMFRNC_MBER_CNT: number
 }
 
 //위험요인 항목별 기간 통계
 export interface RiskFctrItemsPeriodListItemInterface {
     CYCLE_GUBUN: string
-    FBS_RISK_NO_CNT: string
-    FBS_RISK_YES_CNT: string
-    FBS_TOT_CNT: string
-    HDLC_RISK_NO_CNT: string
-    HDLC_RISK_YES_CNT: string
-    HDLC_TOT_CNT: string
-    RES_RISK_NO_CNT_TEXT: number
-    RES_RISK_YES_CNT_TEXT: number
-    RES_TOT_CNT: number
-    SUM_CNT: string
-    SYSTOLIC_RISK_NO_CNT: string
-    SYSTOLIC_RISK_YES_CNT: string
-    SYSTOLIC_TOT_CNT: string
-    TG_RISK_NO_CNT: string
-    TG_RISK_YES_CNT: string
-    TG_TOT_CNT: string
-    WAIST_CRCMFRNC_RISK_NO_CNT: string
-    WAIST_CRCMFRNC_RISK_YES_CNT: string
-    WAIST_CRCMFRNC_TOT_CNT: string
+    FBS_MAN_CNT: string
+    FBS_WOMAN_CNT: string
+    FBS_MBER_CNT: string
+    HDLC_MAN_CNT: string
+    HDLC_WOMAN_CNT: string
+    HDLC_MBER_CNT: string
+    SUM_MBER_CNT: string
+    SYSTOLIC_MAN_CNT: string
+    SYSTOLIC_WOMAN_CNT: string
+    SYSTOLIC_MBER_CNT: string
+    TG_MAN_CNT: string
+    TG_WOMAN_CNT: string
+    TG_MBER_CNT: string
+    WAIST_CRCMFRNC_MAN_CNT: string
+    WAIST_CRCMFRNC_WOMAN_CNT: string
+    WAIST_CRCMFRNC_MBER_CNT: string
 }
 
 //위험요인 개수별 연령대 통계

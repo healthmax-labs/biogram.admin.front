@@ -81,102 +81,96 @@ const RiskFctrItemsTable = () => {
 
                     return [
                         age.name,
-                        `${DataRow ? String(DataRow.SUM_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.SYSTOLIC_TOT_CNT) : ''}`,
-                        `${
-                            DataRow ? String(DataRow.SYSTOLIC_RISK_NO_CNT) : ''
-                        }`,
-                        `${
-                            DataRow ? String(DataRow.SYSTOLIC_RISK_YES_CNT) : ''
-                        }`,
+                        `${DataRow ? String(DataRow.SUM_MBER_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.SYSTOLIC_MBER_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.SYSTOLIC_WOMAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.SYSTOLIC_MAN_CNT) : ''}`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_TOT_CNT)
+                                ? String(DataRow.WAIST_CRCMFRNC_MBER_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT)
+                                ? String(DataRow.WAIST_CRCMFRNC_WOMAN_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT)
+                                ? String(DataRow.WAIST_CRCMFRNC_MAN_CNT)
                                 : ''
                         }`,
-                        `${DataRow ? String(DataRow.FBS_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.FBS_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.FBS_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.FBS_MBER_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.FBS_WOMAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.FBS_MAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_MBER_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_WOMAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.TG_MAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_MBER_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_WOMAN_CNT) : ''}`,
+                        `${DataRow ? String(DataRow.HDLC_MAN_CNT) : ''}`,
                     ]
                 })
 
                 resutnData.push([
                     `합계`,
-                    `${_.sum(AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_CNT)))}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.SYSTOLIC_TOT_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
                     )}`,
                     `${_.sum(
                         AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.SYSTOLIC_RISK_NO_CNT)
+                            Number(e.SYSTOLIC_MBER_CNT)
                         )
                     )}`,
                     `${_.sum(
                         AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.SYSTOLIC_RISK_YES_CNT)
+                            Number(e.SYSTOLIC_WOMAN_CNT)
+                        )
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.SYSTOLIC_MAN_CNT))
+                    )}`,
+                    `${_.sum(
+                        AGE_GROUP_STAT_LIST.map(e =>
+                            Number(e.WAIST_CRCMFRNC_MBER_CNT)
                         )
                     )}`,
                     `${_.sum(
                         AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_TOT_CNT)
+                            Number(e.WAIST_CRCMFRNC_WOMAN_CNT)
                         )
                     )}`,
                     `${_.sum(
                         AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_RISK_NO_CNT)
+                            Number(e.WAIST_CRCMFRNC_MAN_CNT)
                         )
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_RISK_YES_CNT)
-                        )
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_MBER_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_TOT_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_WOMAN_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_NO_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_MAN_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_YES_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_MBER_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_TOT_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_WOMAN_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_NO_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_MAN_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_YES_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_MBER_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_TOT_CNT))
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_WOMAN_CNT))
                     )}`,
                     `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.HDLC_RISK_YES_CNT)
-                        )
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.HDLC_RISK_YES_CNT)
-                        )
+                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_MAN_CNT))
                     )}`,
                 ])
 
@@ -215,22 +209,22 @@ const RiskFctrItemsTable = () => {
             Data: _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                 return [
                     `${period.CYCLE_GUBUN}`,
-                    `${period.SUM_CNT}`,
-                    `${period.SYSTOLIC_TOT_CNT}`,
-                    `${period.SYSTOLIC_RISK_NO_CNT}`,
-                    `${period.SYSTOLIC_RISK_YES_CNT}`,
-                    `${period.WAIST_CRCMFRNC_TOT_CNT}`,
-                    `${period.WAIST_CRCMFRNC_RISK_NO_CNT}`,
-                    `${period.WAIST_CRCMFRNC_RISK_YES_CNT}`,
-                    `${period.FBS_TOT_CNT}`,
-                    `${period.FBS_RISK_NO_CNT}`,
-                    `${period.FBS_RISK_YES_CNT}`,
-                    `${period.TG_TOT_CNT}`,
-                    `${period.TG_RISK_NO_CNT}`,
-                    `${period.TG_RISK_YES_CNT}`,
-                    `${period.HDLC_TOT_CNT}`,
-                    `${period.HDLC_RISK_NO_CNT}`,
-                    `${period.HDLC_RISK_YES_CNT}`,
+                    `${period.SUM_MBER_CNT}`,
+                    `${period.SYSTOLIC_MBER_CNT}`,
+                    `${period.SYSTOLIC_WOMAN_CNT}`,
+                    `${period.SYSTOLIC_MAN_CNT}`,
+                    `${period.WAIST_CRCMFRNC_MBER_CNT}`,
+                    `${period.WAIST_CRCMFRNC_WOMAN_CNT}`,
+                    `${period.WAIST_CRCMFRNC_MAN_CNT}`,
+                    `${period.FBS_MBER_CNT}`,
+                    `${period.FBS_WOMAN_CNT}`,
+                    `${period.FBS_MAN_CNT}`,
+                    `${period.TG_MBER_CNT}`,
+                    `${period.TG_WOMAN_CNT}`,
+                    `${period.TG_MAN_CNT}`,
+                    `${period.HDLC_MBER_CNT}`,
+                    `${period.HDLC_WOMAN_CNT}`,
+                    `${period.HDLC_MAN_CNT}`,
                 ]
             }),
         }))
@@ -296,20 +290,20 @@ const RiskFctrItemsTable = () => {
                                     </T.TheadRow>
                                     <T.TheadRow>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                     </T.TheadRow>
                                 </T.Thead>
                                 <T.Body>
@@ -330,79 +324,81 @@ const RiskFctrItemsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SUM_CNT}
-                                                        </T.CellW>
-                                                        <T.CellW>
                                                             {
-                                                                DataRow.SYSTOLIC_TOT_CNT
+                                                                DataRow.SUM_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.SYSTOLIC_RISK_NO_CNT
+                                                                DataRow.SYSTOLIC_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.SYSTOLIC_RISK_YES_CNT
+                                                                DataRow.SYSTOLIC_WOMAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.WAIST_CRCMFRNC_TOT_CNT
+                                                                DataRow.SYSTOLIC_MAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                                DataRow.WAIST_CRCMFRNC_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                                DataRow.WAIST_CRCMFRNC_WOMAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.FBS_TOT_CNT
+                                                                DataRow.WAIST_CRCMFRNC_MAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.FBS_RISK_NO_CNT
+                                                                DataRow.FBS_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.FBS_RISK_YES_CNT
-                                                            }
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {DataRow.TG_TOT_CNT}
-                                                        </T.CellW>
-                                                        <T.CellW>
-                                                            {
-                                                                DataRow.TG_RISK_NO_CNT
+                                                                DataRow.FBS_WOMAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.TG_RISK_YES_CNT
+                                                                DataRow.FBS_MAN_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.HDLC_TOT_CNT
+                                                                DataRow.TG_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.HDLC_RISK_NO_CNT
+                                                                DataRow.TG_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {DataRow.TG_MAN_CNT}
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.HDLC_MBER_CNT
                                                             }
                                                         </T.CellW>
                                                         <T.CellW>
                                                             {
-                                                                DataRow.HDLC_RISK_YES_CNT
+                                                                DataRow.HDLC_WOMAN_CNT
+                                                            }
+                                                        </T.CellW>
+                                                        <T.CellW>
+                                                            {
+                                                                DataRow.HDLC_MAN_CNT
                                                             }
                                                         </T.CellW>
                                                     </T.Row>
@@ -444,14 +440,28 @@ const RiskFctrItemsTable = () => {
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SUM_CNT)
+                                                    Number(e.SUM_MBER_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SYSTOLIC_TOT_CNT)
+                                                    Number(e.SYSTOLIC_MBER_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SYSTOLIC_WOMAN_CNT)
+                                                )
+                                            )}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.SYSTOLIC_MAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
@@ -459,7 +469,7 @@ const RiskFctrItemsTable = () => {
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
                                                     Number(
-                                                        e.SYSTOLIC_RISK_NO_CNT
+                                                        e.WAIST_CRCMFRNC_MBER_CNT
                                                     )
                                                 )
                                             )}
@@ -468,7 +478,7 @@ const RiskFctrItemsTable = () => {
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
                                                     Number(
-                                                        e.SYSTOLIC_RISK_YES_CNT
+                                                        e.WAIST_CRCMFRNC_WOMAN_CNT
                                                     )
                                                 )
                                             )}
@@ -477,7 +487,7 @@ const RiskFctrItemsTable = () => {
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
                                                     Number(
-                                                        e.WAIST_CRCMFRNC_TOT_CNT
+                                                        e.WAIST_CRCMFRNC_MAN_CNT
                                                     )
                                                 )
                                             )}
@@ -485,81 +495,63 @@ const RiskFctrItemsTable = () => {
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                    )
+                                                    Number(e.FBS_MBER_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                    )
+                                                    Number(e.FBS_WOMAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_TOT_CNT)
+                                                    Number(e.FBS_MAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_RISK_NO_CNT)
+                                                    Number(e.TG_MBER_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_RISK_YES_CNT)
+                                                    Number(e.TG_WOMAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_TOT_CNT)
+                                                    Number(e.TG_MAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_RISK_NO_CNT)
+                                                    Number(e.HDLC_MBER_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_RISK_YES_CNT)
+                                                    Number(e.HDLC_WOMAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
                                             {_.sum(
                                                 AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_TOT_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_RISK_YES_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_RISK_YES_CNT)
+                                                    Number(e.HDLC_MAN_CNT)
                                                 )
                                             )}
                                         </T.TFootCell>
@@ -618,20 +610,20 @@ const RiskFctrItemsTable = () => {
                                     </T.TheadRow>
                                     <T.TheadRow>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                     </T.TheadRow>
                                 </T.Thead>
                                 <T.Body>
@@ -646,62 +638,58 @@ const RiskFctrItemsTable = () => {
                                                     {period.CYCLE_GUBUN}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SUM_CNT}
+                                                    {period.SUM_MBER_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SYSTOLIC_TOT_CNT}
+                                                    {period.SYSTOLIC_MBER_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.SYSTOLIC_WOMAN_CNT}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {period.SYSTOLIC_MAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {
-                                                        period.SYSTOLIC_RISK_NO_CNT
+                                                        period.WAIST_CRCMFRNC_MBER_CNT
                                                     }
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {
-                                                        period.SYSTOLIC_RISK_YES_CNT
+                                                        period.WAIST_CRCMFRNC_WOMAN_CNT
                                                     }
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {
-                                                        period.WAIST_CRCMFRNC_TOT_CNT
+                                                        period.WAIST_CRCMFRNC_MAN_CNT
                                                     }
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                    }
+                                                    {period.FBS_MBER_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                    }
+                                                    {period.FBS_WOMAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_TOT_CNT}
+                                                    {period.FBS_MAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_RISK_NO_CNT}
+                                                    {period.TG_MBER_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_RISK_YES_CNT}
+                                                    {period.TG_WOMAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_TOT_CNT}
+                                                    {period.TG_MAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_RISK_NO_CNT}
+                                                    {period.HDLC_MBER_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_RISK_YES_CNT}
+                                                    {period.HDLC_WOMAN_CNT}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HDLC_TOT_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.HDLC_RISK_NO_CNT}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {period.HDLC_RISK_YES_CNT}
+                                                    {period.HDLC_MAN_CNT}
                                                 </T.CellW>
                                             </T.Row>
                                         )
