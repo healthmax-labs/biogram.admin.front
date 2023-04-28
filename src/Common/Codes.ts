@@ -8,7 +8,7 @@ export default {
                 { code: 'MT', name: `이번달` },
             ],
             type2: [
-                { code: 'TD', name: `오늘` },
+                { code: 'DT', name: `오늘` },
                 { code: 'MT', name: `최근 30일` },
             ],
             type3: [
