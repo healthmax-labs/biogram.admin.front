@@ -4,14 +4,12 @@ import { useCallback } from 'react'
 import {
     getMngDashBoardMberInfo,
     getMngDashBoardMberInfoSexdstn,
-    getMngDashBoardMesureInfo,
-    getMngDashBoardMesureInfoZone,
-    getMngDashBoardMesureInfoZoneDevice,
     getMngDashBoardRiskFctr,
     getMngDashBoardRiskFctrFctrGroup,
     getMngDashBoardRiskGroupNotUsed,
     getMngDashDoardMberInfoAges,
     getMngGndnDashBoardMybodyScoreImprvm,
+    getMngDashboardMesureInfoTotal,
 } from '@Service/DashBoardService'
 import _ from 'lodash'
 
@@ -226,97 +224,100 @@ export default function useDashBoard() {
             }
         }
 
-        // 측정현황
-        const getMesureInfo = async () => {
+        // 측정현황 통합
+        const getDashboardMesureInfoTotal = async () => {
             setDashBoardPageState(prevState => ({
                 ...prevState,
                 mesureInfo: {
                     ...prevState.mesureInfo,
                     status: 'loading',
                 },
-            }))
-
-            const { status, payload } = await getMngDashBoardMesureInfo()
-            if (status) {
-                setDashBoardPageState(prevState => ({
-                    ...prevState,
-                    mesureInfo: {
-                        status: 'success',
-                        list: _.map(payload.MESURE_INFO_LIST, e => {
-                            return e
-                        }),
-                    },
-                }))
-            } else {
-                setDashBoardPageState(prevState => ({
-                    ...prevState,
-                    mesureInfo: {
-                        status: 'failure',
-                        list: [],
-                    },
-                }))
-            }
-        }
-
-        // 존 측정 현황
-        const getMesureInfoZone = async () => {
-            setDashBoardPageState(prevState => ({
-                ...prevState,
                 mesureInfoZone: {
                     ...prevState.mesureInfoZone,
                     status: 'loading',
                 },
-            }))
-
-            const { status, payload } = await getMngDashBoardMesureInfoZone()
-            if (status) {
-                setDashBoardPageState(prevState => ({
-                    ...prevState,
-                    mesureInfoZone: {
-                        ...prevState.mesureInfoZone,
-                        status: 'success',
-                        list: payload.MESURE_INFO_LIST,
-                    },
-                }))
-            } else {
-                setDashBoardPageState(prevState => ({
-                    ...prevState,
-                    mesureInfoZone: {
-                        ...prevState.mesureInfoZone,
-                        status: 'failure',
-                        list: [],
-                    },
-                }))
-            }
-        }
-
-        // 존 기기별 측정현황
-        const getMesureInfoZoneDevice = async () => {
-            setDashBoardPageState(prevState => ({
-                ...prevState,
                 mesureInfoZoneDevice: {
                     ...prevState.mesureInfoZoneDevice,
                     status: 'loading',
                 },
             }))
-            const { status, payload } =
-                await getMngDashBoardMesureInfoZoneDevice()
+
+            let intervalCount = 1
+            const { status, payload } = await getMngDashboardMesureInfoTotal()
             if (status) {
                 setDashBoardPageState(prevState => ({
                     ...prevState,
+                    mesureInfo: {
+                        ...prevState.mesureInfo,
+                        // status: 'success',
+                        list: _.map(payload.MESURE_INFO_LIST, e => {
+                            return e
+                        }),
+                    },
+                    mesureInfoZone: {
+                        ...prevState.mesureInfoZone,
+                        // status: 'success',
+                        list: payload.MESURE_TOTAL_LIST,
+                    },
                     mesureInfoZoneDevice: {
                         ...prevState.mesureInfoZoneDevice,
-                        status: 'success',
-                        list: payload.MESURE_INFO_LIST,
+                        // status: 'success',
+                        list: payload.MESURE_DEVICE_LIST,
                     },
                 }))
+
+                // 한번에 바껴서 강체로 인터벌 줌.
+                const timer = setInterval(() => {
+                    if (intervalCount === 1) {
+                        setDashBoardPageState(prevState => ({
+                            ...prevState,
+                            mesureInfo: {
+                                ...prevState.mesureInfo,
+                                status: 'success',
+                            },
+                        }))
+                    }
+
+                    if (intervalCount === 2) {
+                        setDashBoardPageState(prevState => ({
+                            ...prevState,
+                            mesureInfoZone: {
+                                ...prevState.mesureInfoZone,
+                                status: 'success',
+                            },
+                        }))
+                    }
+
+                    if (intervalCount === 3) {
+                        setDashBoardPageState(prevState => ({
+                            ...prevState,
+                            mesureInfoZoneDevice: {
+                                ...prevState.mesureInfoZoneDevice,
+                                status: 'success',
+                            },
+                        }))
+                    }
+
+                    if (intervalCount > 3) {
+                        clearInterval(timer)
+                    }
+
+                    intervalCount++
+                }, 500)
             } else {
                 setDashBoardPageState(prevState => ({
                     ...prevState,
+                    mesureInfo: {
+                        ...prevState.mesureInfo,
+                        status: 'failure',
+                    },
+                    mesureInfoZone: {
+                        ...prevState.mesureInfoZone,
+                        status: 'failure',
+                    },
                     mesureInfoZoneDevice: {
                         ...prevState.mesureInfoZoneDevice,
                         status: 'failure',
-                        list: [],
                     },
                 }))
             }
@@ -360,9 +361,7 @@ export default function useDashBoard() {
         getRiskFctr().then()
         getfctrFctrGroup().then()
         getriskGroupDormantMember().then()
-        getMesureInfo().then()
-        getMesureInfoZone().then()
-        getMesureInfoZoneDevice().then()
+        getDashboardMesureInfoTotal().then()
         getMybodyScoreImprvm().then()
     }, [setDashBoardPageState])
 

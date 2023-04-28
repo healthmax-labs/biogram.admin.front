@@ -6,8 +6,8 @@ import {
     MemberGenderItemInterface,
     MemberInfoItemInterface,
     MesureInfoItemInterface,
+    MesureInfoTotalResultMesureTotalListItemInterface,
     MesureInfoZoneDeviceItemInterface,
-    MesureInfoZoneItemInterface,
     MybodyScoreImprvmItemInterface,
     RiskFctrListItemInterface,
     RiskGroupDormantMemberItemInterface,
@@ -57,7 +57,7 @@ interface DashBoardPageStateInterface {
     mesureInfoZone: {
         // 존 측정 현황
         status: DefaultStatus
-        list: MesureInfoZoneItemInterface[]
+        list: MesureInfoTotalResultMesureTotalListItemInterface[]
     }
     mesureInfoZoneDevice: {
         // 존 기기별 측정현황
