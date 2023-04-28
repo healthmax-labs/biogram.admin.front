@@ -7,7 +7,7 @@ import { RiskFctrItemsListState } from '@Recoil/AnalyticsPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
@@ -81,101 +81,147 @@ const RiskFctrItemsTable = () => {
 
                     return [
                         age.name,
-                        `${DataRow ? String(DataRow.SUM_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.SYSTOLIC_TOT_CNT) : ''}`,
-                        `${
-                            DataRow ? String(DataRow.SYSTOLIC_RISK_NO_CNT) : ''
-                        }`,
-                        `${
-                            DataRow ? String(DataRow.SYSTOLIC_RISK_YES_CNT) : ''
-                        }`,
+                        `${DataRow ? addComma(DataRow.SUM_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.SYSTOLIC_TOT_CNT) : ''}`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_TOT_CNT)
+                                ? addComma(DataRow.SYSTOLIC_RISK_NO_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT)
+                                ? addComma(DataRow.SYSTOLIC_RISK_YES_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? String(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT)
+                                ? addComma(DataRow.WAIST_CRCMFRNC_TOT_CNT)
                                 : ''
                         }`,
-                        `${DataRow ? String(DataRow.FBS_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.FBS_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.FBS_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.TG_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_TOT_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? String(DataRow.HDLC_RISK_YES_CNT) : ''}`,
+                        `${
+                            DataRow
+                                ? addComma(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT)
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT)
+                                : ''
+                        }`,
+                        `${DataRow ? addComma(DataRow.FBS_TOT_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.FBS_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.FBS_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_TOT_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_TOT_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_RISK_NO_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_RISK_YES_CNT) : ''}`,
                     ]
                 })
 
                 resutnData.push([
                     `합계`,
-                    `${_.sum(AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_CNT)))}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.SYSTOLIC_TOT_CNT))
+                    `${addComma(
+                        _.sum(AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_CNT)))
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.SYSTOLIC_RISK_NO_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.SYSTOLIC_TOT_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.SYSTOLIC_RISK_YES_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.SYSTOLIC_RISK_NO_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_TOT_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.SYSTOLIC_RISK_YES_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_RISK_NO_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.WAIST_CRCMFRNC_TOT_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.WAIST_CRCMFRNC_RISK_YES_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.WAIST_CRCMFRNC_RISK_NO_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_TOT_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_NO_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_RISK_YES_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_TOT_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_NO_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.TG_RISK_YES_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_TOT_CNT))
-                    )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.HDLC_RISK_YES_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.WAIST_CRCMFRNC_RISK_YES_CNT)
+                            )
                         )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e =>
-                            Number(e.HDLC_RISK_YES_CNT)
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_TOT_CNT))
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.FBS_RISK_NO_CNT)
+                            )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.FBS_RISK_YES_CNT)
+                            )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.TG_TOT_CNT))
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.TG_RISK_NO_CNT)
+                            )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.TG_RISK_YES_CNT)
+                            )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_TOT_CNT))
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.HDLC_RISK_YES_CNT)
+                            )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.HDLC_RISK_YES_CNT)
+                            )
                         )
                     )}`,
                 ])
@@ -215,22 +261,22 @@ const RiskFctrItemsTable = () => {
             Data: _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                 return [
                     `${period.CYCLE_GUBUN}`,
-                    `${period.SUM_CNT}`,
-                    `${period.SYSTOLIC_TOT_CNT}`,
-                    `${period.SYSTOLIC_RISK_NO_CNT}`,
-                    `${period.SYSTOLIC_RISK_YES_CNT}`,
-                    `${period.WAIST_CRCMFRNC_TOT_CNT}`,
-                    `${period.WAIST_CRCMFRNC_RISK_NO_CNT}`,
-                    `${period.WAIST_CRCMFRNC_RISK_YES_CNT}`,
-                    `${period.FBS_TOT_CNT}`,
-                    `${period.FBS_RISK_NO_CNT}`,
-                    `${period.FBS_RISK_YES_CNT}`,
-                    `${period.TG_TOT_CNT}`,
-                    `${period.TG_RISK_NO_CNT}`,
-                    `${period.TG_RISK_YES_CNT}`,
-                    `${period.HDLC_TOT_CNT}`,
-                    `${period.HDLC_RISK_NO_CNT}`,
-                    `${period.HDLC_RISK_YES_CNT}`,
+                    `${addComma(Number(period.SUM_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_TOT_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_RISK_NO_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_RISK_YES_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_TOT_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_RISK_NO_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_RISK_YES_CNT))}`,
+                    `${addComma(Number(period.FBS_TOT_CNT))}`,
+                    `${addComma(Number(period.FBS_RISK_NO_CNT))}`,
+                    `${addComma(Number(period.FBS_RISK_YES_CNT))}`,
+                    `${addComma(Number(period.TG_TOT_CNT))}`,
+                    `${addComma(Number(period.TG_RISK_NO_CNT))}`,
+                    `${addComma(Number(period.TG_RISK_YES_CNT))}`,
+                    `${addComma(Number(period.HDLC_TOT_CNT))}`,
+                    `${addComma(Number(period.HDLC_RISK_NO_CNT))}`,
+                    `${addComma(Number(period.HDLC_RISK_YES_CNT))}`,
                 ]
             }),
         }))
@@ -330,80 +376,84 @@ const RiskFctrItemsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SUM_CNT}
+                                                            {DataRow.SUM_CNT
+                                                                ? DataRow.SUM_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.SYSTOLIC_TOT_CNT
-                                                            }
+                                                            {DataRow.SYSTOLIC_TOT_CNT
+                                                                ? DataRow.SYSTOLIC_TOT_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.SYSTOLIC_RISK_NO_CNT
-                                                            }
+                                                            {DataRow.SYSTOLIC_RISK_NO_CNT
+                                                                ? DataRow.SYSTOLIC_RISK_NO_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.SYSTOLIC_RISK_YES_CNT
-                                                            }
+                                                            {DataRow.SYSTOLIC_RISK_YES_CNT
+                                                                ? DataRow.SYSTOLIC_RISK_YES_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.WAIST_CRCMFRNC_TOT_CNT
-                                                            }
+                                                            {DataRow.WAIST_CRCMFRNC_TOT_CNT
+                                                                ? DataRow.WAIST_CRCMFRNC_TOT_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                            }
+                                                            {DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                                ? DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                            }
+                                                            {DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                                ? DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.FBS_TOT_CNT
-                                                            }
+                                                            {DataRow.FBS_TOT_CNT
+                                                                ? DataRow.FBS_TOT_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.FBS_RISK_NO_CNT
-                                                            }
+                                                            {DataRow.FBS_RISK_NO_CNT
+                                                                ? DataRow.FBS_RISK_NO_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.FBS_RISK_YES_CNT
-                                                            }
+                                                            {DataRow.FBS_RISK_YES_CNT
+                                                                ? DataRow.FBS_RISK_YES_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.TG_TOT_CNT}
+                                                            {DataRow.TG_TOT_CNT
+                                                                ? DataRow.TG_TOT_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.TG_RISK_NO_CNT
-                                                            }
+                                                            {DataRow.TG_RISK_NO_CNT
+                                                                ? DataRow.TG_RISK_NO_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.TG_RISK_YES_CNT
-                                                            }
+                                                            {DataRow.TG_RISK_YES_CNT
+                                                                ? DataRow.TG_RISK_YES_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.HDLC_TOT_CNT
-                                                            }
+                                                            {DataRow.HDLC_TOT_CNT
+                                                                ? DataRow.HDLC_TOT_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.HDLC_RISK_NO_CNT
-                                                            }
+                                                            {DataRow.HDLC_RISK_NO_CNT
+                                                                ? DataRow.HDLC_RISK_NO_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.HDLC_RISK_YES_CNT
-                                                            }
+                                                            {DataRow.HDLC_RISK_YES_CNT
+                                                                ? DataRow.HDLC_RISK_YES_CNT
+                                                                : ''}
                                                         </T.CellW>
                                                     </T.Row>
                                                 )
@@ -442,126 +492,234 @@ const RiskFctrItemsTable = () => {
                                             합계
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SUM_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SYSTOLIC_TOT_CNT)
-                                                )
-                                            )}
-                                        </T.TFootCell>
-                                        <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.SYSTOLIC_RISK_NO_CNT
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.SUM_CNT)
                                                     )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.SYSTOLIC_RISK_YES_CNT
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.SYSTOLIC_TOT_CNT
+                                                        )
                                                     )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.WAIST_CRCMFRNC_TOT_CNT
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.SYSTOLIC_RISK_NO_CNT
+                                                        )
                                                     )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.WAIST_CRCMFRNC_RISK_NO_CNT
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.SYSTOLIC_RISK_YES_CNT
+                                                        )
                                                     )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(
-                                                        e.WAIST_CRCMFRNC_RISK_YES_CNT
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.WAIST_CRCMFRNC_TOT_CNT
+                                                        )
                                                     )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_TOT_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                        )
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_RISK_NO_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                        )
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.FBS_RISK_YES_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.FBS_TOT_CNT)
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_TOT_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.FBS_RISK_NO_CNT
+                                                        )
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_RISK_NO_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.FBS_RISK_YES_CNT
+                                                        )
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.TG_RISK_YES_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.TG_TOT_CNT)
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_TOT_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.TG_RISK_NO_CNT)
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_RISK_YES_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.TG_RISK_YES_CNT
+                                                        )
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HDLC_RISK_YES_CNT)
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.HDLC_TOT_CNT)
+                                                    )
                                                 )
-                                            )}
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.HDLC_RISK_YES_CNT
+                                                        )
+                                                    )
+                                                )
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
+                                        </T.TFootCell>
+                                        <T.TFootCell>
+                                            {(() => {
+                                                const result = _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(
+                                                            e.HDLC_RISK_YES_CNT
+                                                        )
+                                                    )
+                                                )
+
+                                                return result
+                                                    ? addComma(result)
+                                                    : ''
+                                            })()}
                                         </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
@@ -646,62 +804,114 @@ const RiskFctrItemsTable = () => {
                                                     {period.CYCLE_GUBUN}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SUM_CNT}
+                                                    {addComma(
+                                                        Number(period.SUM_CNT)
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SYSTOLIC_TOT_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.SYSTOLIC_TOT_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.SYSTOLIC_RISK_NO_CNT
-                                                    }
+                                                    {addComma(
+                                                        Number(
+                                                            period.SYSTOLIC_RISK_NO_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.SYSTOLIC_RISK_YES_CNT
-                                                    }
+                                                    {addComma(
+                                                        Number(
+                                                            period.SYSTOLIC_RISK_YES_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.WAIST_CRCMFRNC_TOT_CNT
-                                                    }
+                                                    {addComma(
+                                                        Number(
+                                                            period.WAIST_CRCMFRNC_TOT_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                    }
+                                                    {addComma(
+                                                        Number(
+                                                            period.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {
-                                                        period.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                    }
+                                                    {addComma(
+                                                        Number(
+                                                            period.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_TOT_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.FBS_TOT_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_RISK_NO_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.FBS_RISK_NO_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.FBS_RISK_YES_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.FBS_RISK_YES_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_TOT_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.TG_TOT_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_RISK_NO_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.TG_RISK_NO_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.TG_RISK_YES_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.TG_RISK_YES_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HDLC_TOT_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.HDLC_TOT_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HDLC_RISK_NO_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.HDLC_RISK_NO_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HDLC_RISK_YES_CNT}
+                                                    {addComma(
+                                                        Number(
+                                                            period.HDLC_RISK_YES_CNT
+                                                        )
+                                                    )}
                                                 </T.CellW>
                                             </T.Row>
                                         )

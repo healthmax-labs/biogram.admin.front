@@ -7,7 +7,7 @@ import Codes from '@Codes'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
@@ -81,24 +81,96 @@ const RiskFctrCountTable = () => {
 
                     return [
                         age.name,
-                        `${DataRow ? DataRow.RF_ALL_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_ALL_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_ALL_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_1_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_1_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_1_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_2_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_2_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_2_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_3_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_3_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_3_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_4_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_4_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_4_MAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_5_MBER_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_5_WOMAN_CNT : ''}`,
-                        `${DataRow ? DataRow.RF_5_MAN_CNT : ''}`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_ALL_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_ALL_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_ALL_MAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_1_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_1_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_1_MAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_2_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_2_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_2_MAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_3_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_3_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_3_MAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_4_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_4_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_4_MAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_5_MBER_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_5_WOMAN_CNT))
+                                : ''
+                        }`,
+                        `${
+                            DataRow
+                                ? addComma(Number(DataRow.RF_5_MAN_CNT))
+                                : ''
+                        }`,
                     ]
                 })
 
@@ -108,24 +180,96 @@ const RiskFctrCountTable = () => {
 
                 returnData.push([
                     `합계`,
-                    `${TotDataRow ? TotDataRow.RF_ALL_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_ALL_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_ALL_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_1_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_1_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_1_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_2_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_2_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_2_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_3_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_3_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_3_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_4_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_4_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_4_MAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_5_MBER_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_5_WOMAN_CNT : ``}`,
-                    `${TotDataRow ? TotDataRow.RF_5_MAN_CNT : ``}`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_ALL_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_ALL_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_ALL_MAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_1_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_1_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_1_MAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_2_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_2_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_2_MAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_3_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_3_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_3_MAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_4_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_4_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_4_MAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_5_MBER_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_5_WOMAN_CNT))
+                            : ``
+                    }`,
+                    `${
+                        TotDataRow
+                            ? addComma(Number(TotDataRow.RF_5_MAN_CNT))
+                            : ``
+                    }`,
                 ])
 
                 return returnData
@@ -163,24 +307,24 @@ const RiskFctrCountTable = () => {
             Data: PERIOD_STAT_LIST.map(period => {
                 return [
                     `${period.PERIOD}`,
-                    `${period.RF_ALL_MBER_CNT}`,
-                    `${period.RF_ALL_WOMAN_CNT}`,
-                    `${period.RF_ALL_MAN_CNT}`,
-                    `${period.RF_1_MBER_CNT}`,
-                    `${period.RF_1_WOMAN_CNT}`,
-                    `${period.RF_1_MAN_CNT}`,
-                    `${period.RF_2_MBER_CNT}`,
-                    `${period.RF_2_WOMAN_CNT}`,
-                    `${period.RF_2_MAN_CNT}`,
-                    `${period.RF_3_MBER_CNT}`,
-                    `${period.RF_3_WOMAN_CNT}`,
-                    `${period.RF_3_MAN_CNT}`,
-                    `${period.RF_4_MBER_CNT}`,
-                    `${period.RF_4_WOMAN_CNT}`,
-                    `${period.RF_4_MAN_CNT}`,
-                    `${period.RF_5_MBER_CNT}`,
-                    `${period.RF_5_WOMAN_CNT}`,
-                    `${period.RF_5_MAN_CNT}`,
+                    `${addComma(Number(period.RF_ALL_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_ALL_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_ALL_MAN_CNT))}`,
+                    `${addComma(Number(period.RF_1_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_1_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_1_MAN_CNT))}`,
+                    `${addComma(Number(period.RF_2_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_2_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_2_MAN_CNT))}`,
+                    `${addComma(Number(period.RF_3_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_3_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_3_MAN_CNT))}`,
+                    `${addComma(Number(period.RF_4_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_4_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_4_MAN_CNT))}`,
+                    `${addComma(Number(period.RF_5_MBER_CNT))}`,
+                    `${addComma(Number(period.RF_5_WOMAN_CNT))}`,
+                    `${addComma(Number(period.RF_5_MAN_CNT))}`,
                 ]
             }),
         }))
@@ -283,94 +427,130 @@ const RiskFctrCountTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_ALL_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_ALL_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_ALL_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_1_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_1_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_1_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_2_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_2_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_2_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_3_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_3_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_3_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_4_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_4_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_4_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_5_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_5_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
-                                                                DataRow.RF_5_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                     </T.Row>
                                                 )
@@ -423,94 +603,130 @@ const RiskFctrCountTable = () => {
                                                             합계
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_ALL_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_ALL_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_ALL_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_ALL_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_1_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_1_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_1_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_1_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_2_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_2_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_2_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_2_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_3_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_3_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_3_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_3_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_4_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_4_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_4_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_4_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_5_MBER_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_5_WOMAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                         <T.TFootCell>
-                                                            {
-                                                                DataRow.RF_5_MAN_CNT
-                                                            }
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.RF_5_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.TFootCell>
                                                     </>
                                                 )
@@ -616,7 +832,146 @@ const RiskFctrCountTable = () => {
                                         <T.TheadCell>남성</T.TheadCell>
                                     </T.TheadRow>
                                 </T.Thead>
-                                <T.Body></T.Body>
+                                <T.Body>
+                                    {PERIOD_STAT_LIST.map(
+                                        (period, periodIndex) => {
+                                            return (
+                                                <T.Row
+                                                    key={`analytics-risk-fctr-count-period-table-row-item-${periodIndex}`}>
+                                                    <T.CellWW>
+                                                        {period.PERIOD}
+                                                    </T.CellWW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_ALL_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_ALL_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_ALL_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_1_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_1_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_1_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_2_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_2_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_2_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_3_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_3_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_3_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_4_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_4_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_4_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_5_MBER_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_5_WOMAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                    <T.CellW>
+                                                        {addComma(
+                                                            Number(
+                                                                period.RF_5_MAN_CNT
+                                                            )
+                                                        )}
+                                                    </T.CellW>
+                                                </T.Row>
+                                            )
+                                        }
+                                    )}
+                                </T.Body>
                             </T.Table>
                         </TableBox>
                     </RowWapper>

@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import Codes from '@Codes'
 import _ from 'lodash'
 import { ExcelDownloadPropsInterface } from '@CommonTypes'
-import { dateInsertHypen, getNowDateDetail } from '@Helper'
+import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
 
 const {
@@ -80,94 +80,138 @@ const MeasureUserTable = () => {
 
                     return [
                         age.name,
-                        `${DataRow ? DataRow.SUM_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.SUM_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.SUM_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.IS_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.IS_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.IS_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BP_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.BP_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BP_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BS_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.BS_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BS_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BC_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.BC_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.BC_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.ST_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.ST_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.ST_MAN_CNT : ``}`,
-                        `${DataRow ? DataRow.HT_MBER_CNT : ``}`,
-                        `${DataRow ? DataRow.HT_WOMAN_CNT : ``}`,
-                        `${DataRow ? DataRow.HT_MAN_CNT : ``}`,
+                        `${DataRow ? addComma(DataRow.SUM_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.SUM_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.SUM_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.IS_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.IS_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.IS_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BP_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BP_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BP_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BS_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BS_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BS_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BC_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BC_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.BC_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.ST_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.ST_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.ST_MAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.HT_MBER_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.HT_WOMAN_CNT) : ``}`,
+                        `${DataRow ? addComma(DataRow.HT_MAN_CNT) : ``}`,
                     ]
                 })
 
                 returnData.push([
                     `합계`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e =>
+                                Number(e.SUM_WOMAN_CNT)
+                            )
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.IS_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.IS_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BP_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BP_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BS_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BS_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BC_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.BC_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.ST_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.ST_MAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MBER_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MBER_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_WOMAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.HT_WOMAN_CNT))
+                        )
                     )}`,
-                    `${_.sum(
-                        AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MAN_CNT))
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.HT_MAN_CNT))
+                        )
                     )}`,
                 ])
 
@@ -229,27 +273,27 @@ const MeasureUserTable = () => {
 
                     return [
                         `${period.CYCLE_GUBUN}`,
-                        `${sumMber}`,
-                        `${sumWoman}`,
-                        `${sumMan}`,
-                        `${period.IS_MBER_CNT}`,
-                        `${period.IS_WOMAN_CNT}`,
-                        `${period.IS_MAN_CNT}`,
-                        `${period.BP_MBER_CNT}`,
-                        `${period.BP_WOMAN_CNT}`,
-                        `${period.BP_MAN_CNT}`,
-                        `${period.BS_MBER_CNT}`,
-                        `${period.BS_WOMAN_CNT}`,
-                        `${period.BS_MAN_CNT}`,
-                        `${period.BC_MBER_CNT}`,
-                        `${period.BC_WOMAN_CNT}`,
-                        `${period.BC_MAN_CNT}`,
-                        `${period.ST_MBER_CNT}`,
-                        `${period.ST_WOMAN_CNT}`,
-                        `${period.ST_MAN_CNT}`,
-                        `${period.HT_MBER_CNT}`,
-                        `${period.HT_WOMAN_CNT}`,
-                        `${period.HT_MAN_CNT}`,
+                        `${addComma(sumMber)}`,
+                        `${addComma(sumWoman)}`,
+                        `${addComma(sumMan)}`,
+                        `${addComma(period.IS_MBER_CNT)}`,
+                        `${addComma(period.IS_WOMAN_CNT)}`,
+                        `${addComma(period.IS_MAN_CNT)}`,
+                        `${addComma(period.BP_MBER_CNT)}`,
+                        `${addComma(period.BP_WOMAN_CNT)}`,
+                        `${addComma(period.BP_MAN_CNT)}`,
+                        `${addComma(period.BS_MBER_CNT)}`,
+                        `${addComma(period.BS_WOMAN_CNT)}`,
+                        `${addComma(period.BS_MAN_CNT)}`,
+                        `${addComma(period.BC_MBER_CNT)}`,
+                        `${addComma(period.BC_WOMAN_CNT)}`,
+                        `${addComma(period.BC_MAN_CNT)}`,
+                        `${addComma(period.ST_MBER_CNT)}`,
+                        `${addComma(period.ST_WOMAN_CNT)}`,
+                        `${addComma(period.ST_MAN_CNT)}`,
+                        `${addComma(period.HT_MBER_CNT)}`,
+                        `${addComma(period.HT_WOMAN_CNT)}`,
+                        `${addComma(period.HT_MAN_CNT)}`,
                     ]
                 })
             })(),
@@ -359,97 +403,109 @@ const MeasureUserTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.SUM_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.SUM_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.SUM_MAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.IS_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.IS_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.IS_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.IS_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BP_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BP_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.BP_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.BP_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BS_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BS_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.BS_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.BS_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BC_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.BC_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.BC_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.BC_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.ST_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.ST_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.ST_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.ST_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.HT_MBER_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {
+                                                            {addComma(
                                                                 DataRow.HT_WOMAN_CNT
-                                                            }
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.HT_MAN_CNT}
+                                                            {addComma(
+                                                                DataRow.HT_MAN_CNT
+                                                            )}
                                                         </T.CellW>
                                                     </T.Row>
                                                 )
@@ -493,149 +549,191 @@ const MeasureUserTable = () => {
                                             합계
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SUM_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.SUM_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SUM_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.SUM_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.SUM_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.SUM_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.IS_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.IS_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.IS_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.IS_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.IS_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.IS_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BP_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BP_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BP_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BP_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BP_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BP_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BS_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BS_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BS_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BS_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BS_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BS_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BC_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BC_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BC_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BC_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.BC_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.BC_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.ST_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.ST_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.ST_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.ST_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.ST_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.ST_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HT_MBER_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.HT_MBER_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HT_WOMAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.HT_WOMAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {_.sum(
-                                                AGE_GROUP_STAT_LIST.map(e =>
-                                                    Number(e.HT_MAN_CNT)
+                                            {addComma(
+                                                _.sum(
+                                                    AGE_GROUP_STAT_LIST.map(e =>
+                                                        Number(e.HT_MAN_CNT)
+                                                    )
                                                 )
                                             )}
                                         </T.TFootCell>
@@ -731,67 +829,109 @@ const MeasureUserTable = () => {
                                                     {period.CYCLE_GUBUN}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SUM_MBER_CNT}
+                                                    {addComma(
+                                                        period.SUM_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SUM_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.SUM_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.SUM_MAN_CNT}
+                                                    {addComma(
+                                                        period.SUM_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.IS_MBER_CNT}
+                                                    {addComma(
+                                                        period.IS_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.IS_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.IS_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.IS_MAN_CNT}
+                                                    {addComma(
+                                                        period.IS_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BP_MBER_CNT}
+                                                    {addComma(
+                                                        period.BP_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BP_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.BP_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BP_MAN_CNT}
+                                                    {addComma(
+                                                        period.BP_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BS_MBER_CNT}
+                                                    {addComma(
+                                                        period.BS_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BS_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.BS_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BS_MAN_CNT}
+                                                    {addComma(
+                                                        period.BS_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BC_MBER_CNT}
+                                                    {addComma(
+                                                        period.BC_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BC_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.BC_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.BC_MAN_CNT}
+                                                    {addComma(
+                                                        period.BC_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.ST_MBER_CNT}
+                                                    {addComma(
+                                                        period.ST_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.ST_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.ST_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.ST_MAN_CNT}
+                                                    {addComma(
+                                                        period.ST_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HT_MBER_CNT}
+                                                    {addComma(
+                                                        period.HT_MBER_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HT_WOMAN_CNT}
+                                                    {addComma(
+                                                        period.HT_WOMAN_CNT
+                                                    )}
                                                 </T.CellW>
                                                 <T.CellW>
-                                                    {period.HT_MAN_CNT}
+                                                    {addComma(
+                                                        period.HT_MAN_CNT
+                                                    )}
                                                 </T.CellW>
                                             </T.Row>
                                         )
