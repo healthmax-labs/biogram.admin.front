@@ -81,147 +81,137 @@ const RiskFctrItemsTable = () => {
 
                     return [
                         age.name,
-                        `${DataRow ? addComma(DataRow.SUM_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.SYSTOLIC_TOT_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.SUM_MBER_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.SYSTOLIC_MBER_CNT) : ''}`,
+                        `${
+                            DataRow ? addComma(DataRow.SYSTOLIC_WOMAN_CNT) : ''
+                        }`,
+                        `${DataRow ? addComma(DataRow.SYSTOLIC_MAN_CNT) : ''}`,
                         `${
                             DataRow
-                                ? addComma(DataRow.SYSTOLIC_RISK_NO_CNT)
+                                ? addComma(DataRow.WAIST_CRCMFRNC_MBER_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? addComma(DataRow.SYSTOLIC_RISK_YES_CNT)
+                                ? addComma(DataRow.WAIST_CRCMFRNC_WOMAN_CNT)
                                 : ''
                         }`,
                         `${
                             DataRow
-                                ? addComma(DataRow.WAIST_CRCMFRNC_TOT_CNT)
+                                ? addComma(DataRow.WAIST_CRCMFRNC_MAN_CNT)
                                 : ''
                         }`,
-                        `${
-                            DataRow
-                                ? addComma(DataRow.WAIST_CRCMFRNC_RISK_NO_CNT)
-                                : ''
-                        }`,
-                        `${
-                            DataRow
-                                ? addComma(DataRow.WAIST_CRCMFRNC_RISK_YES_CNT)
-                                : ''
-                        }`,
-                        `${DataRow ? addComma(DataRow.FBS_TOT_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.FBS_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.FBS_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.TG_TOT_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.TG_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.TG_RISK_YES_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.HDLC_TOT_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.HDLC_RISK_NO_CNT) : ''}`,
-                        `${DataRow ? addComma(DataRow.HDLC_RISK_YES_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.FBS_MBER_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.FBS_WOMAN_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.FBS_MAN_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_MBER_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_WOMAN_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.TG_MAN_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_MBER_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_WOMAN_CNT) : ''}`,
+                        `${DataRow ? addComma(DataRow.HDLC_MAN_CNT) : ''}`,
                     ]
                 })
 
                 resutnData.push([
                     `합계`,
                     `${addComma(
-                        _.sum(AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_CNT)))
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.SUM_MBER_CNT))
+                        )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.SYSTOLIC_TOT_CNT)
+                                Number(e.SYSTOLIC_MBER_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.SYSTOLIC_RISK_NO_CNT)
+                                Number(e.SYSTOLIC_WOMAN_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.SYSTOLIC_RISK_YES_CNT)
+                                Number(e.SYSTOLIC_MAN_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.WAIST_CRCMFRNC_TOT_CNT)
+                                Number(e.WAIST_CRCMFRNC_MBER_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.WAIST_CRCMFRNC_RISK_NO_CNT)
+                                Number(e.WAIST_CRCMFRNC_WOMAN_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.WAIST_CRCMFRNC_RISK_YES_CNT)
+                                Number(e.WAIST_CRCMFRNC_MAN_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
-                            AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_TOT_CNT))
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_MBER_CNT))
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.FBS_RISK_NO_CNT)
+                                Number(e.FBS_WOMAN_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
-                            AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.FBS_RISK_YES_CNT)
-                            )
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.FBS_MAN_CNT))
                         )
                     )}`,
                     `${addComma(
                         _.sum(
-                            AGE_GROUP_STAT_LIST.map(e => Number(e.TG_TOT_CNT))
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.TG_MBER_CNT))
                         )
                     )}`,
                     `${addComma(
                         _.sum(
-                            AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.TG_RISK_NO_CNT)
-                            )
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.TG_WOMAN_CNT))
                         )
                     )}`,
                     `${addComma(
                         _.sum(
-                            AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.TG_RISK_YES_CNT)
-                            )
-                        )
-                    )}`,
-                    `${addComma(
-                        _.sum(
-                            AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_TOT_CNT))
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.TG_MAN_CNT))
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.HDLC_RISK_YES_CNT)
+                                Number(e.HDLC_MBER_CNT)
                             )
                         )
                     )}`,
                     `${addComma(
                         _.sum(
                             AGE_GROUP_STAT_LIST.map(e =>
-                                Number(e.HDLC_RISK_YES_CNT)
+                                Number(e.HDLC_WOMAN_CNT)
                             )
+                        )
+                    )}`,
+                    `${addComma(
+                        _.sum(
+                            AGE_GROUP_STAT_LIST.map(e => Number(e.HDLC_MAN_CNT))
                         )
                     )}`,
                 ])
@@ -261,22 +251,22 @@ const RiskFctrItemsTable = () => {
             Data: _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
                 return [
                     `${period.CYCLE_GUBUN}`,
-                    `${addComma(Number(period.SUM_CNT))}`,
-                    `${addComma(Number(period.SYSTOLIC_TOT_CNT))}`,
-                    `${addComma(Number(period.SYSTOLIC_RISK_NO_CNT))}`,
-                    `${addComma(Number(period.SYSTOLIC_RISK_YES_CNT))}`,
-                    `${addComma(Number(period.WAIST_CRCMFRNC_TOT_CNT))}`,
-                    `${addComma(Number(period.WAIST_CRCMFRNC_RISK_NO_CNT))}`,
-                    `${addComma(Number(period.WAIST_CRCMFRNC_RISK_YES_CNT))}`,
-                    `${addComma(Number(period.FBS_TOT_CNT))}`,
-                    `${addComma(Number(period.FBS_RISK_NO_CNT))}`,
-                    `${addComma(Number(period.FBS_RISK_YES_CNT))}`,
-                    `${addComma(Number(period.TG_TOT_CNT))}`,
-                    `${addComma(Number(period.TG_RISK_NO_CNT))}`,
-                    `${addComma(Number(period.TG_RISK_YES_CNT))}`,
-                    `${addComma(Number(period.HDLC_TOT_CNT))}`,
-                    `${addComma(Number(period.HDLC_RISK_NO_CNT))}`,
-                    `${addComma(Number(period.HDLC_RISK_YES_CNT))}`,
+                    `${addComma(Number(period.SUM_MBER_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_MBER_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_WOMAN_CNT))}`,
+                    `${addComma(Number(period.SYSTOLIC_MAN_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_MBER_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_WOMAN_CNT))}`,
+                    `${addComma(Number(period.WAIST_CRCMFRNC_MAN_CNT))}`,
+                    `${addComma(Number(period.FBS_MBER_CNT))}`,
+                    `${addComma(Number(period.FBS_WOMAN_CNT))}`,
+                    `${addComma(Number(period.FBS_MAN_CNT))}`,
+                    `${addComma(Number(period.TG_MBER_CNT))}`,
+                    `${addComma(Number(period.TG_WOMAN_CNT))}`,
+                    `${addComma(Number(period.TG_MAN_CNT))}`,
+                    `${addComma(Number(period.HDLC_MBER_CNT))}`,
+                    `${addComma(Number(period.HDLC_WOMAN_CNT))}`,
+                    `${addComma(Number(period.HDLC_MAN_CNT))}`,
                 ]
             }),
         }))
@@ -376,84 +366,116 @@ const RiskFctrItemsTable = () => {
                                                             {age.name}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SUM_CNT
-                                                                ? DataRow.SUM_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.SUM_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SYSTOLIC_TOT_CNT
-                                                                ? DataRow.SYSTOLIC_TOT_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.SYSTOLIC_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SYSTOLIC_RISK_NO_CNT
-                                                                ? DataRow.SYSTOLIC_RISK_NO_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.SYSTOLIC_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.SYSTOLIC_RISK_YES_CNT
-                                                                ? DataRow.SYSTOLIC_RISK_YES_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.SYSTOLIC_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.WAIST_CRCMFRNC_TOT_CNT
-                                                                ? DataRow.WAIST_CRCMFRNC_TOT_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.WAIST_CRCMFRNC_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                                ? DataRow.WAIST_CRCMFRNC_RISK_NO_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.WAIST_CRCMFRNC_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                                ? DataRow.WAIST_CRCMFRNC_RISK_YES_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.WAIST_CRCMFRNC_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.FBS_TOT_CNT
-                                                                ? DataRow.FBS_TOT_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.FBS_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.FBS_RISK_NO_CNT
-                                                                ? DataRow.FBS_RISK_NO_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.FBS_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.FBS_RISK_YES_CNT
-                                                                ? DataRow.FBS_RISK_YES_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.FBS_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.TG_TOT_CNT
-                                                                ? DataRow.TG_TOT_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.TG_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.TG_RISK_NO_CNT
-                                                                ? DataRow.TG_RISK_NO_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.TG_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.TG_RISK_YES_CNT
-                                                                ? DataRow.TG_RISK_YES_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.TG_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.HDLC_TOT_CNT
-                                                                ? DataRow.HDLC_TOT_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.HDLC_MBER_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.HDLC_RISK_NO_CNT
-                                                                ? DataRow.HDLC_RISK_NO_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    DataRow.HDLC_WOMAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                         <T.CellW>
-                                                            {DataRow.HDLC_RISK_YES_CNT
-                                                                ? DataRow.HDLC_RISK_YES_CNT
-                                                                : ''}
+                                                            {addComma(
+                                                                Number(
+                                                                    -DataRow.HDLC_MAN_CNT
+                                                                )
+                                                            )}
                                                         </T.CellW>
                                                     </T.Row>
                                                 )
@@ -492,234 +514,158 @@ const RiskFctrItemsTable = () => {
                                             합계
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(e.SUM_CNT)
+                                                        Number(e.SUM_MBER_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.SYSTOLIC_TOT_CNT
+                                                            e.SYSTOLIC_MBER_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.SYSTOLIC_RISK_NO_CNT
+                                                            e.SYSTOLIC_WOMAN_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.SYSTOLIC_RISK_YES_CNT
+                                                            e.SYSTOLIC_MAN_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.WAIST_CRCMFRNC_TOT_CNT
+                                                            e.WAIST_CRCMFRNC_MBER_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                            e.WAIST_CRCMFRNC_WOMAN_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
                                                         Number(
-                                                            e.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                            e.WAIST_CRCMFRNC_MAN_CNT
                                                         )
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(e.FBS_TOT_CNT)
+                                                        Number(e.FBS_MBER_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(
-                                                            e.FBS_RISK_NO_CNT
-                                                        )
+                                                        Number(e.FBS_WOMAN_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(
-                                                            e.FBS_RISK_YES_CNT
-                                                        )
+                                                        Number(e.FBS_MAN_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(e.TG_TOT_CNT)
+                                                        Number(e.TG_MBER_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(e.TG_RISK_NO_CNT)
+                                                        Number(e.TG_WOMAN_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
-                                                    AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(
-                                                            e.TG_RISK_YES_CNT
-                                                        )
-                                                    )
+                                            {_.sum(
+                                                AGE_GROUP_STAT_LIST.map(e =>
+                                                    Number(e.TG_MAN_CNT)
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(e.HDLC_TOT_CNT)
+                                                        Number(e.HDLC_MBER_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(
-                                                            e.HDLC_RISK_YES_CNT
-                                                        )
+                                                        Number(e.HDLC_WOMAN_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                         <T.TFootCell>
-                                            {(() => {
-                                                const result = _.sum(
+                                            {addComma(
+                                                _.sum(
                                                     AGE_GROUP_STAT_LIST.map(e =>
-                                                        Number(
-                                                            e.HDLC_RISK_YES_CNT
-                                                        )
+                                                        Number(e.HDLC_MAN_CNT)
                                                     )
                                                 )
-
-                                                return result
-                                                    ? addComma(result)
-                                                    : ''
-                                            })()}
+                                            )}
                                         </T.TFootCell>
                                     </T.TFootRow>
                                 </T.TFoot>
@@ -805,111 +751,113 @@ const RiskFctrItemsTable = () => {
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
-                                                        Number(period.SUM_CNT)
-                                                    )}
-                                                </T.CellW>
-                                                <T.CellW>
-                                                    {addComma(
                                                         Number(
-                                                            period.SYSTOLIC_TOT_CNT
+                                                            period.SUM_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.SYSTOLIC_RISK_NO_CNT
+                                                            period.SYSTOLIC_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.SYSTOLIC_RISK_YES_CNT
+                                                            period.SYSTOLIC_WOMAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.WAIST_CRCMFRNC_TOT_CNT
+                                                            period.SYSTOLIC_MAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.WAIST_CRCMFRNC_RISK_NO_CNT
+                                                            period.WAIST_CRCMFRNC_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.WAIST_CRCMFRNC_RISK_YES_CNT
+                                                            period.WAIST_CRCMFRNC_WOMAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.FBS_TOT_CNT
+                                                            period.WAIST_CRCMFRNC_MAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.FBS_RISK_NO_CNT
+                                                            period.FBS_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.FBS_RISK_YES_CNT
+                                                            period.FBS_WOMAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.TG_TOT_CNT
+                                                            period.FBS_MAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.TG_RISK_NO_CNT
+                                                            period.TG_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.TG_RISK_YES_CNT
+                                                            period.TG_WOMAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.HDLC_TOT_CNT
+                                                            period.TG_MAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.HDLC_RISK_NO_CNT
+                                                            period.HDLC_MBER_CNT
                                                         )
                                                     )}
                                                 </T.CellW>
                                                 <T.CellW>
                                                     {addComma(
                                                         Number(
-                                                            period.HDLC_RISK_YES_CNT
+                                                            period.HDLC_WOMAN_CNT
+                                                        )
+                                                    )}
+                                                </T.CellW>
+                                                <T.CellW>
+                                                    {addComma(
+                                                        Number(
+                                                            period.HDLC_MAN_CNT
                                                         )
                                                     )}
                                                 </T.CellW>

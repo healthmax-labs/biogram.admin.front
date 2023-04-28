@@ -95,23 +95,22 @@ interface RiskFctrItemsListInterface {
     list: {
         AGE_GROUP_STAT_LIST: Array<{
             AGE_GROUP: string
-            FBS_RISK_NO_CNT: number
-            FBS_RISK_YES_CNT: number
-            FBS_TOT_CNT: number
+            FBS_MAN_CNT: number
+            FBS_WOMAN_CNT: number
+            FBS_MBER_CNT: number
             HDLC_MAN_CNT: number
-            HDLC_RISK_NO_CNT: number
-            HDLC_RISK_YES_CNT: number
-            HDLC_TOT_CNT: number
-            SUM_CNT: number
-            SYSTOLIC_RISK_NO_CNT: number
-            SYSTOLIC_RISK_YES_CNT: number
-            SYSTOLIC_TOT_CNT: number
-            TG_RISK_NO_CNT: number
-            TG_RISK_YES_CNT: number
-            TG_TOT_CNT: number
-            WAIST_CRCMFRNC_RISK_NO_CNT: number
-            WAIST_CRCMFRNC_RISK_YES_CNT: number
-            WAIST_CRCMFRNC_TOT_CNT: number
+            HDLC_WOMAN_CNT: number
+            HDLC_MBER_CNT: number
+            SUM_MBER_CNT: number
+            SYSTOLIC_MAN_CNT: number
+            SYSTOLIC_WOMAN_CNT: number
+            SYSTOLIC_MBER_CNT: number
+            TG_MAN_CNT: number
+            TG_WOMAN_CNT: number
+            TG_MBER_CNT: number
+            WAIST_CRCMFRNC_MAN_CNT: number
+            WAIST_CRCMFRNC_WOMAN_CNT: number
+            WAIST_CRCMFRNC_MBER_CNT: number
         }>
         PERIOD_STAT_LIST: RiskFctrItemsPeriodListItemInterface[]
     }
