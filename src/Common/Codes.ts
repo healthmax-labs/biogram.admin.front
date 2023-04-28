@@ -1483,14 +1483,19 @@ export default {
                     name: `스마트줄자`,
                 },
                 {
-                    code: `SR`,
-                    key: `SR`,
+                    code: `ST`,
+                    key: `ST`,
                     name: `스트레스 측정기`,
                 },
                 {
                     code: `SB`,
                     key: `SB`,
                     name: `뇌기능`,
+                },
+                {
+                    code: `ET`,
+                    key: `ET`,
+                    name: `기타`,
                 },
             ],
         },

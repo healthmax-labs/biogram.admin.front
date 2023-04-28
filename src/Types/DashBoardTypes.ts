@@ -111,3 +111,27 @@ export interface MybodyScoreImprvmItemInterface {
 export interface MybodyScoreImprvmInterface {
     MYBODY_SCORE_IMPRVM_LIST: MybodyScoreImprvmItemInterface[]
 }
+
+// 측정현황 통합
+export interface MesureInfoTotalResultMesureInfoListItemInterface {
+    TT_CNT: number
+    MESURE_DE: string
+    TD_CNT: number
+}
+
+export interface MesureInfoTotalResultMesureDeviceListItemInterface {
+    MT_CNT: number
+    TD_CNT: number
+    MESURE_TY: string
+}
+
+export interface MesureInfoTotalResultMesureTotalListItemInterface {
+    MESURE_CNT: number
+    CNT_TY: string
+}
+
+export interface MesureInfoTotalResultInterface {
+    MESURE_INFO_LIST: MesureInfoTotalResultMesureInfoListItemInterface[]
+    MESURE_DEVICE_LIST: MesureInfoTotalResultMesureDeviceListItemInterface[]
+    MESURE_TOTAL_LIST: MesureInfoTotalResultMesureTotalListItemInterface[]
+}

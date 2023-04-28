@@ -6,6 +6,7 @@ import {
     MemberGenderInterface,
     MemberInfoInterface,
     MesureInfoInterface,
+    MesureInfoTotalResultInterface,
     MesureInfoZoneDeviceInterface,
     MesureInfoZoneInterface,
     MybodyScoreImprvmInterface,
@@ -139,6 +140,18 @@ export const getMngGndnDashBoardMybodyScoreImprvm = (): Promise<
     return _Axios_({
         method: 'post',
         url: `/mng/gndn/v1/dash_board/mybody_score/imprvm`,
+        payload: {},
+    })
+}
+/**
+ * 측정현황 통합
+ */
+export const getMngDashboardMesureInfoTotal = (): Promise<
+    ServicesDefaultResult<MesureInfoTotalResultInterface>
+> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/dash_board/mesure_info/total`,
         payload: {},
     })
 }
