@@ -473,7 +473,7 @@ const RiskFctrItemsTable = () => {
                                                         <T.CellW>
                                                             {addComma(
                                                                 Number(
-                                                                    -DataRow.HDLC_MAN_CNT
+                                                                    DataRow.HDLC_MAN_CNT
                                                                 )
                                                             )}
                                                         </T.CellW>
