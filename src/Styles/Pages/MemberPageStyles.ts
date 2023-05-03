@@ -235,6 +235,16 @@ export const ConsultDetailStyle = {
                 SearchItem: tw.div`flex py-4 gap-4`,
             },
         },
+        Report: {
+            Container: tw.div`flex flex-col`,
+            RowWapper: tw.div`flex flex-col w-full`,
+            TitleBox: tw.div`flex w-full px-6 pt-10 pb-5`,
+            Title: tw.div`text-xs text-gray-600`,
+            ItemWapper: tw.div`flex flex-col w-full border px-10 py-5 justify-center`,
+            ItemBox: tw.div`flex flex-wrap w-full`,
+            RadioItems: tw.div`flex flex-nowrap w-full py-1`,
+            CheckBoxItems: tw.div`grid grid-cols-12 gap-1 py-1`,
+        },
     },
     Message: {
         Container: tw.div`flex flex-col break-words bg-white px-2 pt-20`,
