@@ -336,10 +336,6 @@ export default {
             ],
             brain: [
                 {
-                    code: `WAIST_CRCMFRNC`,
-                    name: `허리둘레`,
-                },
-                {
                     code: `BBF_ADJST_TIME`,
                     name: `기초 뇌 기능`,
                 },

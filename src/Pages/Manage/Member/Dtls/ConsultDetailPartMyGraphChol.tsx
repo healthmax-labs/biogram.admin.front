@@ -124,8 +124,6 @@ const ConsultDetailPartMyGraphChol = () => {
         const { status, data, std_list } = myGraphState.chol
         if (status === 'success') {
             _.forEach(chol, code => {
-                console.debug(code.code)
-
                 const list = _.map(data, d => {
                     return _.mapKeys(
                         _.pick(d, ['MESURE_DE', code.code]),

@@ -15,6 +15,7 @@ const {
 } = CommonListTableStyle
 
 const initializeState = {
+    renderWhether: false,
     first: {
         date: getNowYearMonth(),
         value: 0,
@@ -43,6 +44,7 @@ const ConsultDetailPartMyGraphChartCard = ({
     }
 }) => {
     const [pageState, setPageState] = useState<{
+        renderWhether: boolean
         first: {
             date: string
             value: number
@@ -60,8 +62,8 @@ const ConsultDetailPartMyGraphChartCard = ({
 
     useEffect(() => {
         const funcSetState = () => {
-            const first = _.last(ChartData.list) ? _.last(ChartData.list) : null
-            const last = _.first(ChartData.list)
+            const last = _.last(ChartData.list) ? _.last(ChartData.list) : null
+            const first = _.first(ChartData.list)
                 ? _.first(ChartData.list)
                 : null
 
@@ -91,6 +93,7 @@ const ConsultDetailPartMyGraphChartCard = ({
 
                 setPageState(prevState => ({
                     ...prevState,
+                    renderWhether: true,
                     first: first,
                     last: last,
                     result: {
@@ -98,6 +101,8 @@ const ConsultDetailPartMyGraphChartCard = ({
                         value: parseFloat(diffData.toFixed(1)),
                     },
                 }))
+            } else {
+                setPageState({ ...initializeState, renderWhether: true })
             }
         }
 
@@ -107,70 +112,80 @@ const ConsultDetailPartMyGraphChartCard = ({
     }, [ChartData])
 
     return (
-        <div className="flex w-full border py-2">
-            <div className="flex w-1/12 items-center justify-center">
-                <div className="text-xs text-gray-500">{`${Title}`}</div>
-            </div>
-            <div className="flex w-9/12 items-center justify-center">
-                <div className="w-full">
-                    {ChartData && ChartData.list.length > 0 && (
-                        <VaryLineChartMember
-                            ChartID={generateRandomString(10)}
-                            Data1={ChartData.list.map(e => {
-                                return {
-                                    date: dateInsertHypen(e.date),
-                                    value: e.value,
-                                }
-                            })}
-                            Data2={[]}
-                            StanData={ChartData.stan}
-                        />
-                    )}
+        <>
+            {pageState.renderWhether && (
+                <div className="flex w-full border py-2">
+                    <div className="flex w-1/12 items-center justify-center">
+                        <div className="text-xs text-gray-500">{`${Title}`}</div>
+                    </div>
+                    <div className="flex w-9/12 items-center justify-center">
+                        <div className="w-full">
+                            {ChartData && ChartData.list.length > 0 && (
+                                <VaryLineChartMember
+                                    ChartID={generateRandomString(10)}
+                                    Data1={ChartData.list.map(e => {
+                                        return {
+                                            date: dateInsertHypen(e.date),
+                                            value: e.value,
+                                        }
+                                    })}
+                                    Data2={[]}
+                                    StanData={ChartData.stan}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex w-2/12 items-center justify-center px-2">
+                        <div className="w-full">
+                            <TableWapper>
+                                <TableHeader>
+                                    <HeaderRow>
+                                        <HeaderCell Border={true}>
+                                            전
+                                        </HeaderCell>
+                                        <HeaderCell Border={true}>
+                                            후
+                                        </HeaderCell>
+                                        <HeaderCell Border={true}>
+                                            경과
+                                        </HeaderCell>
+                                    </HeaderRow>
+                                </TableHeader>
+                                <TableBody HeightLimit={false} Scroll={false}>
+                                    <TableBodyRow BgState={false}>
+                                        <TableBodyCell
+                                            Border={true}>{`${dateInsertHypen(
+                                            pageState.first.date
+                                        )}`}</TableBodyCell>
+                                        <TableBodyCell
+                                            Border={true}>{`${dateInsertHypen(
+                                            pageState.last.date
+                                        )}`}</TableBodyCell>
+                                        <TableBodyCell Border={true}>
+                                            {`${pageState.result.date}`}&nbsp;일
+                                        </TableBodyCell>
+                                    </TableBodyRow>
+                                    <TableBodyRow BgState={false}>
+                                        <TableBodyCell
+                                            Border={
+                                                true
+                                            }>{`${pageState.first.value}`}</TableBodyCell>
+                                        <TableBodyCell
+                                            Border={
+                                                true
+                                            }>{`${pageState.last.value}`}</TableBodyCell>
+                                        <TableBodyCell
+                                            Border={
+                                                true
+                                            }>{`${pageState.result.value}`}</TableBodyCell>
+                                    </TableBodyRow>
+                                </TableBody>
+                            </TableWapper>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="flex w-2/12 items-center justify-center px-2">
-                <div className="w-full">
-                    <TableWapper>
-                        <TableHeader>
-                            <HeaderRow>
-                                <HeaderCell Border={true}>전</HeaderCell>
-                                <HeaderCell Border={true}>후</HeaderCell>
-                                <HeaderCell Border={true}>경과</HeaderCell>
-                            </HeaderRow>
-                        </TableHeader>
-                        <TableBody HeightLimit={false} Scroll={false}>
-                            <TableBodyRow BgState={false}>
-                                <TableBodyCell
-                                    Border={true}>{`${dateInsertHypen(
-                                    pageState.first.date
-                                )}`}</TableBodyCell>
-                                <TableBodyCell
-                                    Border={true}>{`${dateInsertHypen(
-                                    pageState.last.date
-                                )}`}</TableBodyCell>
-                                <TableBodyCell Border={true}>
-                                    {`${pageState.result.date}`}&nbsp;일
-                                </TableBodyCell>
-                            </TableBodyRow>
-                            <TableBodyRow BgState={false}>
-                                <TableBodyCell
-                                    Border={
-                                        true
-                                    }>{`${pageState.first.value}`}</TableBodyCell>
-                                <TableBodyCell
-                                    Border={
-                                        true
-                                    }>{`${pageState.last.value}`}</TableBodyCell>
-                                <TableBodyCell
-                                    Border={
-                                        true
-                                    }>{`${pageState.result.value}`}</TableBodyCell>
-                            </TableBodyRow>
-                        </TableBody>
-                    </TableWapper>
-                </div>
-            </div>
-        </div>
+            )}
+        </>
     )
 }
 
