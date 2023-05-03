@@ -166,9 +166,9 @@ const ConsultManageBox = () => {
                             : m.WORK_TY_CODE == 'I'
                             ? '내근직'
                             : '외근직',
-                        _.isEmpty(m.MESURE_DT)
+                        _.isEmpty(m.MESURE_DE)
                             ? ''
-                            : dateInsertHypen(m.MESURE_DT),
+                            : dateInsertHypen(m.MESURE_DE),
                         m.RISK_FCTR,
                     ]
                 }),

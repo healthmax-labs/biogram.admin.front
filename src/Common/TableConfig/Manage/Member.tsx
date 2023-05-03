@@ -283,9 +283,9 @@ export const ConsultTableConfig = {
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
                     return (
                         <>
-                            {_.isEmpty(el.MESURE_DT)
+                            {_.isEmpty(el.MESURE_DE)
                                 ? ''
-                                : dateInsertHypen(el.MESURE_DT)}
+                                : dateInsertHypen(el.MESURE_DE)}
                         </>
                     )
                 },

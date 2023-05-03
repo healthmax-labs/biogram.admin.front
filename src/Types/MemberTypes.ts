@@ -63,7 +63,7 @@ export interface ConsultInfoListItemInterface {
     SEXDSTN: 'M' | 'F'
     RISK_FCTR: string
     SEXDSTN_NM: '남' | '여'
-    MESURE_DT: string
+    MESURE_DE: string
     MBTLNUM: string
     REGIST_DT: string
     USID: string
