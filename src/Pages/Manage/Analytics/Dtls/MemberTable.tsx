@@ -13,7 +13,6 @@ const {
     Container,
     RowWapper,
     TitleBox,
-    ChartBox,
     ButtonBox,
     TableBox,
     Table: T,
@@ -251,7 +250,6 @@ const MemberTable = () => {
                 <>
                     <RowWapper>
                         <TitleBox>연령별 통계</TitleBox>
-                        <ChartBox>차트</ChartBox>
                     </RowWapper>
                     <ButtonBox>
                         <VaryButton
@@ -495,7 +493,6 @@ const MemberTable = () => {
                     </TableBox>
                     <RowWapper>
                         <TitleBox>기간별 통계</TitleBox>
-                        <ChartBox>차트</ChartBox>
                     </RowWapper>
                     <RowWapper>
                         <ButtonBox>

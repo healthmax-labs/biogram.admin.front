@@ -13,7 +13,6 @@ const {
     Container,
     RowWapper,
     TitleBox,
-    ChartBox,
     ButtonBox,
     TableBox,
     Table: T,
@@ -312,7 +311,6 @@ const MeasureUserTable = () => {
                 <>
                     <RowWapper>
                         <TitleBox>연령별 통계</TitleBox>
-                        <ChartBox>차트</ChartBox>
                     </RowWapper>
                     <RowWapper>
                         <ButtonBox>
@@ -744,7 +742,6 @@ const MeasureUserTable = () => {
                     </RowWapper>
                     <RowWapper>
                         <TitleBox>기간별 통계</TitleBox>
-                        <ChartBox>차트</ChartBox>
                     </RowWapper>
                     <RowWapper>
                         <ButtonBox>
