@@ -74,13 +74,6 @@ const ConsultListMain = () => {
 
     useEffect(() => {
         const funcGetGruopList = async () => {
-            setListState(prevState => ({
-                ...prevState,
-                search: {
-                    ...prevState.search,
-                    groupNo: '',
-                },
-            }))
             const { status, payload } = await getMngCnstgrpList({
                 instNo: listState.search.instNo,
             })
