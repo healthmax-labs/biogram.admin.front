@@ -82,14 +82,16 @@ const ConsultDetailRightBoxMessage = () => {
             smsSendState.send.SEND_ALL_MBER &&
             smsSendState.send.SEND_MBER_INFO_LIST.length > 0
         ) {
-            const { status } = await mberSendSms({
+            const payload = {
                 SMS_CN: smsSendState.send.SMS_CN,
                 SMS_SJ: smsSendState.send.SMS_SJ,
                 SNDNG_DT: smsSendState.send.SNDNG_DT,
                 SNDNG_NO: smsSendState.send.SNDNG_NO,
                 SEND_ALL_MBER: smsSendState.send.SEND_ALL_MBER,
                 SEND_MBER_INFO_LIST: smsSendState.send.SEND_MBER_INFO_LIST,
-            })
+            }
+
+            const { status } = await mberSendSms(payload)
 
             if (status) {
                 handlMainAlert({
