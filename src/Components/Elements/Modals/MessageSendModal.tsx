@@ -151,6 +151,7 @@ const MessageSendModal = ({
             ...prevState,
             status: 'loading',
         }))
+
         const { status } = await postMberSendSms(payload)
         if (status) {
             handlMainAlert({
@@ -567,7 +568,7 @@ const MessageSendModal = ({
                                                                 ...prevState
                                                                     .message
                                                                     .sendTime,
-                                                                time: e,
+                                                                selectTime: e,
                                                             },
                                                         },
                                                     }))
@@ -595,7 +596,7 @@ const MessageSendModal = ({
                                                                 ...prevState
                                                                     .message
                                                                     .sendTime,
-                                                                time: e,
+                                                                selectTime: e,
                                                             },
                                                         },
                                                     }))
