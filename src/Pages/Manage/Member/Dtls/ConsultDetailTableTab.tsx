@@ -68,7 +68,7 @@ const ConsultDetailTableTab = () => {
         <Tabs.Container>
             <Tabs.Rows>
                 {(() => {
-                    if (process.env.APP_ENV === 'development') {
+                    if (process.env.REACT_APP_ENV === 'development') {
                         return pageState.Tab.map((el, i) => {
                             return (
                                 <Tabs.Cells
@@ -82,23 +82,23 @@ const ConsultDetailTableTab = () => {
                                 </Tabs.Cells>
                             )
                         })
-                    } else {
-                        return pageState.Tab.filter(
-                            e => e.category !== `nutrition-report`
-                        ).map((el, i) => {
-                            return (
-                                <Tabs.Cells
-                                    key={`consult-detail-table-tab-item-${i}`}
-                                    onClick={() => {
-                                        handleTabClick(el)
-                                    }}>
-                                    <Tabs.Items Active={el.active}>
-                                        {el.name}
-                                    </Tabs.Items>
-                                </Tabs.Cells>
-                            )
-                        })
                     }
+
+                    return pageState.Tab.filter(
+                        e => e.category !== `nutrition-report`
+                    ).map((el, i) => {
+                        return (
+                            <Tabs.Cells
+                                key={`consult-detail-table-tab-item-${i}`}
+                                onClick={() => {
+                                    handleTabClick(el)
+                                }}>
+                                <Tabs.Items Active={el.active}>
+                                    {el.name}
+                                </Tabs.Items>
+                            </Tabs.Cells>
+                        )
+                    })
                 })()}
             </Tabs.Rows>
         </Tabs.Container>
