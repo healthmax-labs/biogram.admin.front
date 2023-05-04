@@ -238,7 +238,7 @@ export const ConsultDetailStyle = {
         Report: {
             Container: tw.div`flex flex-col`,
             RowWapper: tw.div`flex flex-col w-full`,
-            TitleBox: tw.div`flex w-full px-6 pt-10 pb-5`,
+            TitleBox: tw.div`flex w-full px-6 pt-6 pb-2`,
             Title: tw.div`text-xs text-gray-600`,
             ItemWapper: tw.div`flex flex-col w-full border px-10 py-5 justify-center`,
             ItemBox: tw.div`flex flex-wrap w-full`,
