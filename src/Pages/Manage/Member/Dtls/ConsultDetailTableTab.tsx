@@ -1,5 +1,5 @@
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Routers from '@Routers'
 import { useTab } from '@Hook/index'
@@ -67,19 +67,39 @@ const ConsultDetailTableTab = () => {
     return (
         <Tabs.Container>
             <Tabs.Rows>
-                {pageState.Tab.map((el, i) => {
-                    return (
-                        <Tabs.Cells
-                            key={`consult-detail-table-tab-item-${i}`}
-                            onClick={() => {
-                                handleTabClick(el)
-                            }}>
-                            <Tabs.Items Active={el.active}>
-                                {el.name}
-                            </Tabs.Items>
-                        </Tabs.Cells>
-                    )
-                })}
+                {(() => {
+                    if (process.env.APP_ENV === 'development') {
+                        return pageState.Tab.map((el, i) => {
+                            return (
+                                <Tabs.Cells
+                                    key={`consult-detail-table-tab-item-${i}`}
+                                    onClick={() => {
+                                        handleTabClick(el)
+                                    }}>
+                                    <Tabs.Items Active={el.active}>
+                                        {el.name}
+                                    </Tabs.Items>
+                                </Tabs.Cells>
+                            )
+                        })
+                    } else {
+                        return pageState.Tab.filter(
+                            e => e.category !== `nutrition-report`
+                        ).map((el, i) => {
+                            return (
+                                <Tabs.Cells
+                                    key={`consult-detail-table-tab-item-${i}`}
+                                    onClick={() => {
+                                        handleTabClick(el)
+                                    }}>
+                                    <Tabs.Items Active={el.active}>
+                                        {el.name}
+                                    </Tabs.Items>
+                                </Tabs.Cells>
+                            )
+                        })
+                    }
+                })()}
             </Tabs.Rows>
         </Tabs.Container>
     )
