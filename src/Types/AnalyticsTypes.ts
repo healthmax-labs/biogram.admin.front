@@ -182,48 +182,54 @@ export interface RiskFctrItemsPeriodListItemInterface {
 
 //위험요인 개수별 연령대 통계
 export interface RiskFctrCountAgeListItemInterface {
-    RF_AGE_GROUP: string
-    RF_ALL_MBER_CNT: string //전체 건수
-    RF_ALL_WOMAN_CNT: string //전체 여성 건수
-    RF_ALL_MAN_CNT: string //전체 남성 건수
-    RF_1_MBER_CNT: string //1개 전체 건수
-    RF_1_WOMAN_CNT: string //1개 여성 건수
-    RF_1_MAN_CNT: string //1개 남성 건수
-    RF_2_MBER_CNT: string //2개 전체 건수
-    RF_2_WOMAN_CNT: string //2개 여성 건수
-    RF_2_MAN_CNT: string //2개 남성 건수
-    RF_3_MBER_CNT: string //3개 전체 건수
-    RF_3_WOMAN_CNT: string //3개 여성 건수
-    RF_3_MAN_CNT: string //3개 남성 건수,
-    RF_4_MBER_CNT: string //4개 전체 건수
-    RF_4_WOMAN_CNT: string //4개 여성 건수
-    RF_4_MAN_CNT: string //4개 남성 건수
-    RF_5_MBER_CNT: string //5개 전체 건수
-    RF_5_WOMAN_CNT: string //5개 여성 건수
-    RF_5_MAN_CNT: string //5개 남성 건수
+    '4_MAN_CNT': number
+    '4_MBER_CNT': number
+    '5_MAN_CNT': number
+    SUM_MBER_CNT: number
+    '3_MAN_CNT': number
+    '5_MBER_CNT': number
+    '1_MBER_CNT': number
+    '3_WOMAN_CNT': number
+    '3_MBER_CNT': number
+    AGE_GROUP: number
+    '0_MAN_CNT': number
+    '2_WOMAN_CNT': number
+    '0_MBER_CNT': number
+    '4_WOMAN_CNT': number
+    '2_MBER_CNT': number
+    '2_MAN_CNT': number
+    '5_WOMAN_CNT': number
+    '1_WOMAN_CNT': number
+    SUM_WOMAN_CNT: number
+    '1_MAN_CNT': number
+    '0_WOMAN_CNT': number
+    SUM_MAN_CNT: number
 }
 
 //위험요인 개수별 기간 통계
 export interface RiskFctrCountPeriodListItemInterface {
-    PERIOD: string
-    RF_ALL_MBER_CNT: string //전체 건수
-    RF_ALL_WOMAN_CNT: string //전체 여성 건수
-    RF_ALL_MAN_CNT: string //전체 남성 건수
-    RF_1_MBER_CNT: string //1개 전체 건수
-    RF_1_WOMAN_CNT: string //1개 여성 건수
-    RF_1_MAN_CNT: string //1개 남성 건수
-    RF_2_MBER_CNT: string //2개 전체 건수
-    RF_2_WOMAN_CNT: string //2개 여성 건수
-    RF_2_MAN_CNT: string //2개 남성 건수
-    RF_3_MBER_CNT: string //3개 전체 건수
-    RF_3_WOMAN_CNT: string //3개 여성 건수
-    RF_3_MAN_CNT: string //3개 남성 건수,
-    RF_4_MBER_CNT: string //4개 전체 건수
-    RF_4_WOMAN_CNT: string //4개 여성 건수
-    RF_4_MAN_CNT: string //4개 남성 건수
-    RF_5_MBER_CNT: string //5개 전체 건수
-    RF_5_WOMAN_CNT: string //5개 여성 건수
-    RF_5_MAN_CNT: string //5개 남성 건수
+    '4_MAN_CNT': number
+    '4_MBER_CNT': number
+    '5_MAN_CNT': number
+    SUM_MBER_CNT: number
+    '3_MAN_CNT': number
+    '5_MBER_CNT': number
+    '1_MBER_CNT': number
+    '3_WOMAN_CNT': number
+    '3_MBER_CNT': number
+    '0_MAN_CNT': number
+    '2_WOMAN_CNT': number
+    CYCLE_GUBUN: string
+    '0_MBER_CNT': number
+    '4_WOMAN_CNT': number
+    '2_MAN_CNT': number
+    '2_MBER_CNT': number
+    '5_WOMAN_CNT': number
+    '1_WOMAN_CNT': number
+    SUM_WOMAN_CNT: number
+    '1_MAN_CNT': number
+    '0_WOMAN_CNT': number
+    SUM_MAN_CNT: number
 }
 
 //건강지표 개선 연령별 통계
