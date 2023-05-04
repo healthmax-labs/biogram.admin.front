@@ -607,5 +607,16 @@ export default {
                 () => import('@Page/Manage/Member/Dtls/ConsultDetailPartChart')
             ),
         },
+        {
+            name: `영양레포트`,
+            category: `nutrition-report`,
+            active: false,
+            Component: React.lazy(
+                () =>
+                    import(
+                        '@Page/Manage/Member/Dtls/ConsultDetailPartNutritionReport'
+                    )
+            ),
+        },
     ],
 }

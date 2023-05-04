@@ -84,8 +84,17 @@ const ConsultDetailPartMyData = ({
                             ButtonType={'default'}
                             ButtonName={'마이데이터 프린트하기'}
                             HandleClick={() => {
+                                const params = new URLSearchParams()
+
+                                params.append('mber_no', `${pageState.memNo}`)
+                                params.append(
+                                    'auth',
+                                    `${rootState.logininfo.VTOKEN_INFO}`
+                                )
                                 window.open(
-                                    `${process.env.REACT_APP_SYS_SERVER_URL}/member_mydata_print_v3.jsp?mber_no=${pageState.memNo}&auth=${rootState.logininfo.VTOKEN_INFO}`,
+                                    `${
+                                        process.env.REACT_APP_SYS_SERVER_URL
+                                    }/member_mydata_print_v3.jsp?${params.toString()}`,
                                     '마이데이터 출력',
                                     'width=1200px,height=4528px,scrollbars=yes'
                                 )
