@@ -176,10 +176,6 @@ const MemberConsultGroupModal = ({
         startPage()
     }, [handleGetList, handleGetMemberGroupList])
 
-    useEffect(() => {
-        console.debug(pageState)
-    }, [pageState])
-
     return (
         <>
             <VaryModal

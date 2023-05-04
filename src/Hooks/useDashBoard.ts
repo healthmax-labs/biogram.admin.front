@@ -17,7 +17,6 @@ export default function useDashBoard() {
     const setDashBoardPageState = useSetRecoilState(DashBoardPageState)
 
     const getData = useCallback(() => {
-        console.debug('getData')
         // 회원 현황
         const getMberInfo = async () => {
             setDashBoardPageState(prevState => ({
