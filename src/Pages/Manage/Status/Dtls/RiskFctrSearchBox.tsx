@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { SearchBoxStyle, WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -10,7 +9,12 @@ import {
     VaryLabelCheckBox,
     VaryLabelRadioButton,
 } from '@Elements'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import {
+    changeDatePickerDate,
+    getDateMonthUnit,
+    gmtTimeToTimeObject,
+    dateInsertHypen,
+} from '@Helper'
 import { useRecoilState } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -102,6 +106,19 @@ const RiskFctrSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                MinDate={
+                                    new Date(
+                                        dateInsertHypen(
+                                            getDateMonthUnit(
+                                                changeDatePickerDate(
+                                                    riskFctrListState.search
+                                                        .ENDDE
+                                                ),
+                                                12
+                                            )
+                                        )
+                                    )
+                                }
                                 InputeType={`search`}
                                 Value={
                                     riskFctrListState.search.BGNDE

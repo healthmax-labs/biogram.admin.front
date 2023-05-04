@@ -8,7 +8,12 @@ import {
     VaryLabel,
     VaryLabelCheckBox,
 } from '@Elements'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import {
+    changeDatePickerDate,
+    dateInsertHypen,
+    getDateMonthUnit,
+    gmtTimeToTimeObject,
+} from '@Helper'
 import { useRecoilState } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -101,6 +106,19 @@ const StatisticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                MinDate={
+                                    new Date(
+                                        dateInsertHypen(
+                                            getDateMonthUnit(
+                                                changeDatePickerDate(
+                                                    statisticsListState.search
+                                                        .END_DE
+                                                ),
+                                                12
+                                            )
+                                        )
+                                    )
+                                }
                                 InputeType={`search`}
                                 Value={
                                     statisticsListState.search.BEGIN_DE

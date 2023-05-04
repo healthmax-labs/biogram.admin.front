@@ -570,7 +570,7 @@ export const getDateDayUnit = (unit: number) => {
 }
 
 /**
- *
+ * uinit 기준 이전 날짜(월)
  * @param unit
  */
 export const getDateDayMonthUnit = (unit: number) => {

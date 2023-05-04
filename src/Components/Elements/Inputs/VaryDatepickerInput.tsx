@@ -83,6 +83,8 @@ const VaryDatepickerInput = ({
     Width,
     ReadOnly,
     PrevNextButton,
+    MinDate,
+    MaxDate,
 }: {
     ShowType?: DatePickerShowType
     InputeType: ContentType
@@ -92,6 +94,8 @@ const VaryDatepickerInput = ({
     CallBackReturn?: (e: Date) => void
     ReadOnly?: boolean
     PrevNextButton?: boolean
+    MinDate?: Date | null
+    MaxDate?: Date
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
     const [checkAfterDate, setCheckAfterDate] = useState<boolean>(false)
@@ -209,6 +213,15 @@ const VaryDatepickerInput = ({
                         setSelectDate(e as Date)
                     }
                 }}
+                onChangeRaw={e => {
+                    const changeDate = changeDatePickerDate(
+                        getOnlyNumber(e.target.value)
+                    ) as Date
+
+                    if (MinDate && changeDate < MinDate) {
+                        setSelectDate(MinDate)
+                    }
+                }}
                 onBlur={e => {
                     setSelectDate(
                         changeDatePickerDate(
@@ -229,6 +242,8 @@ const VaryDatepickerInput = ({
                         ? React.createElement(React.forwardRef(SearchInput))
                         : React.createElement(React.forwardRef(DefaultInput))
                 }
+                minDate={MinDate ?? MinDate}
+                maxDate={MaxDate ?? MaxDate}
             />
 
             {(() => {

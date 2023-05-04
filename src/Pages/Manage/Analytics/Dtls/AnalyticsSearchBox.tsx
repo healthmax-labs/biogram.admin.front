@@ -11,6 +11,7 @@ import {
     changeDatePickerDate,
     gmtTimeToTimeObject,
     getDateMonthUnit,
+    dateInsertHypen,
 } from '@Helper'
 import Codes from '@Codes'
 import { useEffect, useState } from 'react'
@@ -116,6 +117,16 @@ const AnalyticsSearchBox = ({
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                MinDate={
+                                    new Date(
+                                        dateInsertHypen(
+                                            getDateMonthUnit(
+                                                changeDatePickerDate(EndDate),
+                                                12
+                                            )
+                                        )
+                                    )
+                                }
                                 InputeType={`search`}
                                 Value={changeDatePickerDate(StartDate)}
                                 CallBackReturn={e => {

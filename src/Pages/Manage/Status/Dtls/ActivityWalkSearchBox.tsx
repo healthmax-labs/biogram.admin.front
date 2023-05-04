@@ -7,7 +7,12 @@ import {
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import {
+    changeDatePickerDate,
+    dateInsertHypen,
+    getDateMonthUnit,
+    gmtTimeToTimeObject,
+} from '@Helper'
 import { useRecoilState } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
@@ -95,6 +100,19 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                         </SearchLabel>
                         <SearchItem>
                             <VaryDatepickerInput
+                                MinDate={
+                                    new Date(
+                                        dateInsertHypen(
+                                            getDateMonthUnit(
+                                                changeDatePickerDate(
+                                                    activityWalkListState.search
+                                                        .END_DE
+                                                ),
+                                                12
+                                            )
+                                        )
+                                    )
+                                }
                                 InputeType={`search`}
                                 Value={
                                     activityWalkListState.search.BEGIN_DE
