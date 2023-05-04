@@ -359,7 +359,8 @@ const PstinstSelector = ({
                                                                     ref={el =>
                                                                         (inputRef.current[
                                                                             step1.INST_NO
-                                                                        ] = el as HTMLInputElement)
+                                                                        ] =
+                                                                            el as HTMLInputElement)
                                                                     }
                                                                     id={`item-checkbox-step1-${step1.INST_NO_1}-${step1Index}`}
                                                                     type="checkbox"

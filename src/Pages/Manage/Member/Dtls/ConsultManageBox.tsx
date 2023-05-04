@@ -338,22 +338,23 @@ const ConsultManageBox = () => {
                 />
             )}
 
-            {pageState.modal.addGroup && listState.manage.checkRow.length > 0 && (
-                <MemberConsultGroupModal
-                    ModalType={`add`}
-                    MemberNo={Number(listState.manage.checkRow[0])}
-                    InstNo={listState.search.instNo}
-                    CloseModal={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                addGroup: false,
-                            },
-                        }))
-                    }}
-                />
-            )}
+            {pageState.modal.addGroup &&
+                listState.manage.checkRow.length > 0 && (
+                    <MemberConsultGroupModal
+                        ModalType={`add`}
+                        MemberNo={Number(listState.manage.checkRow[0])}
+                        InstNo={listState.search.instNo}
+                        CloseModal={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    addGroup: false,
+                                },
+                            }))
+                        }}
+                    />
+                )}
             {pageState.modal.removeGroup &&
                 listState.manage.checkRow.length > 0 && (
                     <MemberConsultGroupModal

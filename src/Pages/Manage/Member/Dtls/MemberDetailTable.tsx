@@ -1058,15 +1058,17 @@ const MemberDetailTable = ({
                                                                         const {
                                                                             status,
                                                                             payload,
-                                                                        } = await getMberCheckUsid(
-                                                                            USID
-                                                                        )
+                                                                        } =
+                                                                            await getMberCheckUsid(
+                                                                                USID
+                                                                            )
                                                                         if (
                                                                             status
                                                                         ) {
                                                                             const {
                                                                                 MBER_USID_USE_AT,
-                                                                            } = payload
+                                                                            } =
+                                                                                payload
 
                                                                             if (
                                                                                 MBER_USID_USE_AT ===
