@@ -7,7 +7,6 @@ import 'react-quill/dist/quill.snow.css'
 
 import SplashComponent from '@Component/SplashComponent'
 import UnderConstructionComponent from '@Component/UnderConstructionComponent'
-import { RecoilDevTools } from 'recoil-gear'
 import { RootRoutes } from '@Modules'
 
 const App = () => {
@@ -28,7 +27,6 @@ const App = () => {
 
     return (
         <RecoilRoot>
-            {process.env.NODE_ENV === 'development' && <RecoilDevTools />}
             {(() => {
                 if (serverFail) {
                     return <UnderConstructionComponent />
