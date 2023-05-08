@@ -208,18 +208,20 @@ const VaryDatepickerInput = ({
                 onSelect={(date: Date) => {
                     setSelectDate(date)
                 }}
-                onChange={e => {
+                onChange={(e: Date) => {
                     if (ShowType === 'time') {
-                        setSelectDate(e as Date)
+                        setSelectDate(e)
                     }
                 }}
                 onChangeRaw={e => {
-                    const changeDate = changeDatePickerDate(
-                        getOnlyNumber(e.target.value)
-                    ) as Date
+                    if (e.target.value) {
+                        const changeDate = changeDatePickerDate(
+                            getOnlyNumber(e.target.value)
+                        ) as Date
 
-                    if (MinDate && changeDate < MinDate) {
-                        setSelectDate(MinDate)
+                        if (MinDate && changeDate < MinDate) {
+                            setSelectDate(MinDate)
+                        }
                     }
                 }}
                 onBlur={e => {
