@@ -103,6 +103,7 @@ const initializeState = {
             kal: 0,
             diff: 0,
             symbol: '▲',
+            diffColor: 'red',
         },
         carbohydrate: {
             k: {
@@ -140,16 +141,19 @@ const initializeState = {
         sugar: {
             kal: 0,
             diff: 0,
+            diffColor: 'red',
             symbol: '▲',
         },
         sodium: {
             kal: 0,
             diff: 0,
+            diffColor: 'red',
             symbol: '▲',
         },
         drkwtQy: {
             kal: 0,
             diff: 0,
+            diffColor: 'red',
             symbol: '▲',
         },
         BRFT: {
@@ -224,6 +228,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '▲' | '▼'
+                diffColor: 'red' | 'blue'
                 checked: boolean
             }>
             carb: Array<{
@@ -231,6 +236,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 percent: number
                 checked: boolean
             }>
@@ -239,6 +245,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 percent: number
                 checked: boolean
             }>
@@ -247,6 +254,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 percent: number
                 checked: boolean
             }>
@@ -255,6 +263,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 checked: boolean
             }>
             sodium: Array<{
@@ -262,6 +271,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 checked: boolean
             }>
             drkwtQy: Array<{
@@ -269,6 +279,7 @@ const ConsultDetailPartMealdiary = () => {
                 kal: number
                 diff: number
                 symbol: '+' | '-'
+                diffColor: 'red' | 'blue'
                 checked: boolean
             }>
             BRFT: Array<{
@@ -306,6 +317,7 @@ const ConsultDetailPartMealdiary = () => {
             calorie: {
                 kal: number
                 diff: number
+                diffColor: string | 'red' | 'blue'
                 symbol: string | '▲' | '▼'
             }
             carbohydrate: {
@@ -344,16 +356,19 @@ const ConsultDetailPartMealdiary = () => {
             sugar: {
                 kal: number
                 diff: number
+                diffColor: string | 'red' | 'blue'
                 symbol: string | '+' | '-'
             }
             sodium: {
                 kal: number
                 diff: number
+                diffColor: string | 'red' | 'blue'
                 symbol: string | '+' | '-'
             }
             drkwtQy: {
                 kal: number
                 diff: number
+                diffColor: string | 'red' | 'blue'
                 symbol: string | '+' | '-'
             }
             BRFT: {
@@ -466,8 +481,10 @@ const ConsultDetailPartMealdiary = () => {
                         } = e
                         return {
                             kal: MEAL_CALORIE,
-                            diff: RECMND_CALORIE - MEAL_CALORIE,
+                            diff: Math.abs(RECMND_CALORIE - MEAL_CALORIE),
                             symbol: RECMND_CALORIE > MEAL_CALORIE ? '▼' : '▲',
+                            diffColor:
+                                RECMND_CALORIE > MEAL_CALORIE ? 'blue' : 'red',
                             checked: mealDiaryState.list[index].checked,
                         }
                     }),
@@ -493,11 +510,17 @@ const ConsultDetailPartMealdiary = () => {
 
                         return {
                             kal: MEAL_CARBOHYDRATE,
-                            diff: RECMND_CARBOHYDRATE - MEAL_CARBOHYDRATE,
+                            diff: Math.abs(
+                                RECMND_CARBOHYDRATE - MEAL_CARBOHYDRATE
+                            ),
                             symbol:
                                 RECMND_CARBOHYDRATE > MEAL_CARBOHYDRATE
                                     ? '-'
                                     : '+',
+                            diffColor:
+                                RECMND_CARBOHYDRATE > MEAL_CARBOHYDRATE
+                                    ? 'blue'
+                                    : 'red',
                             percent: MEAL_CARBOHYDRATE ? percent : 0,
                             checked: mealDiaryState.list[index].checked,
                         }
@@ -526,6 +549,8 @@ const ConsultDetailPartMealdiary = () => {
                             kal: MEAL_PROTEIN,
                             diff: Math.abs(RECMND_PROTEIN - MEAL_PROTEIN),
                             symbol: RECMND_PROTEIN > MEAL_PROTEIN ? '-' : '+',
+                            diffColor:
+                                RECMND_PROTEIN > MEAL_PROTEIN ? 'blue' : 'red',
                             percent: MEAL_PROTEIN ? percent : 0,
                             checked: mealDiaryState.list[index].checked,
                         }
@@ -554,6 +579,7 @@ const ConsultDetailPartMealdiary = () => {
                             kal: MEAL_FAT,
                             diff: Math.abs(RECMND_FAT - MEAL_FAT),
                             symbol: RECMND_FAT > MEAL_FAT ? '-' : '+',
+                            diffColor: RECMND_FAT > MEAL_FAT ? 'blue' : 'red',
                             percent: MEAL_FAT ? percent : 0,
                             checked: mealDiaryState.list[index].checked,
                         }
@@ -567,6 +593,8 @@ const ConsultDetailPartMealdiary = () => {
                             kal: MEAL_SUGAR,
                             diff: Math.abs(RECMND_SUGAR - MEAL_SUGAR),
                             symbol: RECMND_SUGAR > MEAL_SUGAR ? '-' : '+',
+                            diffColor:
+                                RECMND_SUGAR > MEAL_SUGAR ? 'blue' : 'red',
                             checked: mealDiaryState.list[index].checked,
                         }
                     }),
@@ -579,6 +607,8 @@ const ConsultDetailPartMealdiary = () => {
                             kal: MEAL_SODIUM,
                             diff: Math.abs(RECMND_SODIUM - MEAL_SODIUM),
                             symbol: RECMND_SODIUM > MEAL_SODIUM ? '-' : '+',
+                            diffColor:
+                                RECMND_SODIUM > MEAL_SODIUM ? 'blue' : 'red',
                             checked: mealDiaryState.list[index].checked,
                         }
                     }),
@@ -590,6 +620,7 @@ const ConsultDetailPartMealdiary = () => {
                         return {
                             kal: DRKWT_QY,
                             diff: Math.abs(RECMND_DRKWT - DRKWT_QY),
+                            diffColor: RECMND_DRKWT > DRKWT_QY ? 'blue' : 'red',
                             symbol: RECMND_DRKWT > DRKWT_QY ? '-' : '+',
                             checked: mealDiaryState.list[index].checked,
                         }
@@ -801,6 +832,8 @@ const ConsultDetailPartMealdiary = () => {
                             kal: meanCalorie,
                             diff: topKal.totalKcal - meanCalorie,
                             symbol: topKal.totalKcal > meanCalorie ? '▼' : '▲',
+                            diffColor:
+                                topKal.totalKcal > meanCalorie ? 'blue' : 'red',
                         }
                     })(),
                     carbohydrate: (() => {
@@ -889,6 +922,8 @@ const ConsultDetailPartMealdiary = () => {
                         return {
                             kal: meanSugar,
                             diff: topKal.sugars.kcal - meanSugar,
+                            diffColor:
+                                topKal.sugars.kcal > meanSugar ? 'blue' : 'red',
                             symbol: topKal.sugars.kcal > meanSugar ? '-' : '+',
                         }
                     })(),
@@ -903,6 +938,7 @@ const ConsultDetailPartMealdiary = () => {
                         return {
                             kal: meanSodium,
                             diff: 2000 - meanSodium,
+                            diffColor: 2000 > meanSodium ? 'blue' : 'red',
                             symbol: 2000 > meanSodium ? '-' : '+',
                         }
                     })(),
@@ -917,6 +953,7 @@ const ConsultDetailPartMealdiary = () => {
                         return {
                             kal: meanDrkwtQy,
                             diff: 1800 - meanDrkwtQy,
+                            diffColor: 1800 > meanDrkwtQy ? 'blue' : 'red',
                             symbol: 1800 > meanDrkwtQy ? '-' : '+',
                         }
                     })(),
@@ -1309,19 +1346,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         kal,
                                                         symbol,
                                                         diff,
+                                                        diffColor,
                                                     } = calorie
 
-                                                    let kalText = `${kal} kcal( ${symbol} ${diff})`
-                                                    if (kal === 0) {
-                                                        kalText = `${kal} kcal( - )`
-                                                    }
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
 
                                                     return (
                                                         <STable.Cell
                                                             Bg={false}
                                                             colSpan={2}
                                                             key={`consult-detail-part-meal-diary-table-body-cell-eat-item-${calorieIndex}`}>
-                                                            {kalText}
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         </STable.Cell>
                                                     )
                                                 }
@@ -1332,18 +1381,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         kal,
                                                         symbol,
                                                         diff,
+                                                        diffColor,
                                                     } =
                                                         pageState.average
                                                             .calorie
 
-                                                    if (kal == 0) {
-                                                        return (
-                                                            <>{`${kal} kcal( - )`}</>
+                                                    const kalText = (
+                                                        <STable.NumericText
+                                                            TextColor={`white`}>{`${kal} kal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText
+                                                                TextColor={`white`}>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff}kal)`}</STable.DiffText>
                                                         )
-                                                    }
 
                                                     return (
-                                                        <>{`${kal} kcal( ${symbol} ${diff})`}</>
+                                                        <STable.TextWapper>
+                                                            {kalText}
+                                                            {diffText}
+                                                        </STable.TextWapper>
                                                     )
                                                 })()}
                                             </STable.Cell>
@@ -1418,28 +1480,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         symbol,
                                                         percent,
                                                         diff,
+                                                        diffColor,
                                                     } = carb
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
+
                                                     return (
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-carb-item-${carbIndex}`}>
                                                             <STable.TextCell
                                                                 Bg={false}>
-                                                                <STable.CellText
-                                                                    Color={`gray`}>
-                                                                    {`${kal}`}
-                                                                </STable.CellText>
-                                                                <STable.CellText
-                                                                    Color={
-                                                                        carbIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
-                                                                    {kal > 0
-                                                                        ? `(${symbol}${diff})`
-                                                                        : `( - )`}
-                                                                </STable.CellText>
+                                                                <STable.TextWapper>
+                                                                    {kalText}
+                                                                    {diffText}
+                                                                </STable.TextWapper>
                                                             </STable.TextCell>
                                                             <STable.TextCell
                                                                 Bg={false}>
@@ -1512,28 +1577,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         symbol,
                                                         percent,
                                                         diff,
+                                                        diffColor,
                                                     } = protein
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
+
                                                     return (
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-protein-item-${proteinIndex}`}>
                                                             <STable.TextCell
                                                                 Bg={false}>
-                                                                <STable.CellText
-                                                                    Color={`gray`}>
-                                                                    {`${kal}`}
-                                                                </STable.CellText>
-                                                                <STable.CellText
-                                                                    Color={
-                                                                        proteinIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
-                                                                    {kal > 0
-                                                                        ? `(${symbol}${diff})`
-                                                                        : `( - )`}
-                                                                </STable.CellText>
+                                                                <STable.TextWapper>
+                                                                    {kalText}
+                                                                    {diffText}
+                                                                </STable.TextWapper>
                                                             </STable.TextCell>
                                                             <STable.TextCell
                                                                 Bg={false}>
@@ -1604,28 +1672,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         symbol,
                                                         percent,
                                                         diff,
+                                                        diffColor,
                                                     } = fat
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
+
                                                     return (
                                                         <React.Fragment
                                                             key={`consult-detail-part-meal-diary-table-body-cell-fat-item-${fatIndex}`}>
                                                             <STable.TextCell
                                                                 Bg={false}>
-                                                                <STable.CellText
-                                                                    Color={`gray`}>
-                                                                    {`${kal}`}
-                                                                </STable.CellText>
-                                                                <STable.CellText
-                                                                    Color={
-                                                                        fatIndex %
-                                                                            2 !==
-                                                                        0
-                                                                            ? `white`
-                                                                            : `gray`
-                                                                    }>
-                                                                    {kal > 0
-                                                                        ? `(${symbol}${diff})`
-                                                                        : `( - )`}
-                                                                </STable.CellText>
+                                                                <STable.TextWapper>
+                                                                    {kalText}
+                                                                    {diffText}
+                                                                </STable.TextWapper>
                                                             </STable.TextCell>
                                                             <STable.TextCell
                                                                 Bg={false}>
@@ -1695,28 +1766,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         kal,
                                                         symbol,
                                                         diff,
+                                                        diffColor,
                                                     } = sugar
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
+
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-sugar-cell-item-${sugarIndex}`}
                                                             Bg={false}
                                                             colSpan={2}>
-                                                            <STable.CellText
-                                                                Color={`gray`}>
-                                                                {`${kal}`}
-                                                            </STable.CellText>
-                                                            <STable.CellText
-                                                                Color={
-                                                                    sugarIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
-                                                                {kal === 0
-                                                                    ? `( - )`
-                                                                    : `(${symbol}${diff})`}
-                                                            </STable.CellText>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         </STable.TextCell>
                                                     )
                                                 }
@@ -1732,18 +1806,31 @@ const ConsultDetailPartMealdiary = () => {
                                                             kal,
                                                             symbol,
                                                             diff,
+                                                            diffColor,
                                                         } =
                                                             pageState.average
                                                                 .sugar
 
-                                                        if (kal === 0) {
-                                                            return (
-                                                                <>{`${kal}g( - )`}</>
+                                                        const kalText = (
+                                                            <STable.NumericText
+                                                                TextColor={`white`}>{`${kal} g`}</STable.NumericText>
+                                                        )
+                                                        const diffText =
+                                                            kal === 0 ? (
+                                                                <STable.DiffText
+                                                                    TextColor={`white`}>{` ( - )`}</STable.DiffText>
+                                                            ) : (
+                                                                <STable.DiffText
+                                                                    TextColor={
+                                                                        diffColor
+                                                                    }>{` (${symbol} ${diff}g)`}</STable.DiffText>
                                                             )
-                                                        }
 
                                                         return (
-                                                            <>{`${kal}g( ${symbol} ${diff}g)`}</>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         )
                                                     })()}
                                                 </STable.CellText>
@@ -1764,28 +1851,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         kal,
                                                         symbol,
                                                         diff,
+                                                        diffColor,
                                                     } = sodium
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} mg`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText
+                                                                TextColor={`white`}>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-body-cell-sodium-item-${sodiumIndex}`}
                                                             Bg={false}
                                                             colSpan={2}>
-                                                            <STable.CellText
-                                                                Color={`gray`}>
-                                                                {`${kal} mg`}
-                                                            </STable.CellText>
-                                                            <STable.CellText
-                                                                Color={
-                                                                    sodiumIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
-                                                                {kal === 0
-                                                                    ? `( - )`
-                                                                    : `(${symbol}${diff})`}
-                                                            </STable.CellText>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         </STable.TextCell>
                                                     )
                                                 }
@@ -1801,18 +1891,30 @@ const ConsultDetailPartMealdiary = () => {
                                                             kal,
                                                             symbol,
                                                             diff,
+                                                            diffColor,
                                                         } =
                                                             pageState.average
                                                                 .sodium
 
-                                                        if (kal === 0) {
-                                                            return (
-                                                                <>{`${kal}mg( - )`}</>
+                                                        const kalText = (
+                                                            <STable.NumericText
+                                                                TextColor={`white`}>{`${kal} mg`}</STable.NumericText>
+                                                        )
+                                                        const diffText =
+                                                            kal === 0 ? (
+                                                                <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                            ) : (
+                                                                <STable.DiffText
+                                                                    TextColor={
+                                                                        diffColor
+                                                                    }>{` (${symbol} ${diff}mg)`}</STable.DiffText>
                                                             )
-                                                        }
 
                                                         return (
-                                                            <>{`${kal}mg( ${symbol} ${diff}mg)`}</>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         )
                                                     })()}
                                                 </STable.CellText>
@@ -1833,28 +1935,31 @@ const ConsultDetailPartMealdiary = () => {
                                                         kal,
                                                         symbol,
                                                         diff,
+                                                        diffColor,
                                                     } = drkwtQy
+
+                                                    const kalText = (
+                                                        <STable.NumericText>{`${kal} ml`}</STable.NumericText>
+                                                    )
+                                                    const diffText =
+                                                        kal === 0 ? (
+                                                            <STable.DiffText>{` ( - )`}</STable.DiffText>
+                                                        ) : (
+                                                            <STable.DiffText
+                                                                TextColor={
+                                                                    diffColor
+                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                        )
+
                                                     return (
                                                         <STable.TextCell
                                                             key={`consult-detail-part-meal-diary-table-body-cell-drkwtQy-item-${drkwtQyIndex}`}
                                                             Bg={false}
                                                             colSpan={2}>
-                                                            <STable.CellText
-                                                                Color={`gray`}>
-                                                                {`${kal} ml`}
-                                                            </STable.CellText>
-                                                            <STable.CellText
-                                                                Color={
-                                                                    drkwtQyIndex %
-                                                                        2 ===
-                                                                    0
-                                                                        ? `gray`
-                                                                        : `white`
-                                                                }>
-                                                                {kal === 0
-                                                                    ? `( - )`
-                                                                    : `(${symbol}${diff})`}
-                                                            </STable.CellText>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         </STable.TextCell>
                                                     )
                                                 }
@@ -1870,18 +1975,31 @@ const ConsultDetailPartMealdiary = () => {
                                                             kal,
                                                             symbol,
                                                             diff,
+                                                            diffColor,
                                                         } =
                                                             pageState.average
                                                                 .drkwtQy
 
-                                                        if (kal === 0) {
-                                                            return (
-                                                                <>{`${kal}ml( - )`}</>
+                                                        const kalText = (
+                                                            <STable.NumericText
+                                                                TextColor={`white`}>{`${kal} ml`}</STable.NumericText>
+                                                        )
+                                                        const diffText =
+                                                            kal === 0 ? (
+                                                                <STable.DiffText
+                                                                    TextColor={`white`}>{` ( - )`}</STable.DiffText>
+                                                            ) : (
+                                                                <STable.DiffText
+                                                                    TextColor={
+                                                                        diffColor
+                                                                    }>{` (${symbol} ${diff}ml)`}</STable.DiffText>
                                                             )
-                                                        }
 
                                                         return (
-                                                            <>{`${kal}ml( ${symbol} ${diff}ml)`}</>
+                                                            <STable.TextWapper>
+                                                                {kalText}
+                                                                {diffText}
+                                                            </STable.TextWapper>
                                                         )
                                                     })()}
                                                 </STable.CellText>

@@ -134,6 +134,43 @@ export const ConsultDetailStyle = {
                         return returnCss
                     }
                 ),
+                TextWapper: tw.div`flex flex-nowrap items-center justify-center`,
+                NumericText: styled.p(
+                    ({ TextColor }: { TextColor?: 'white' | 'gray' }) => {
+                        const returnTw = []
+
+                        if (TextColor === 'white') {
+                            returnTw.push(tw`text-white`)
+                        } else if (TextColor === 'gray') {
+                            returnTw.push(tw`text-gray-600`)
+                        } else {
+                            returnTw.push(tw`text-gray-600`)
+                        }
+
+                        return returnTw
+                    }
+                ),
+                DiffText: styled.p(
+                    ({
+                        TextColor,
+                    }: {
+                        TextColor?: string | 'red' | 'blue' | 'white'
+                    }) => {
+                        const returnTw = []
+
+                        if (TextColor && TextColor === 'red') {
+                            returnTw.push(tw`text-red-600`)
+                        } else if (TextColor && TextColor === 'blue') {
+                            returnTw.push(tw`text-blue-600`)
+                        } else if (TextColor && TextColor === 'white') {
+                            returnTw.push(tw`text-white`)
+                        } else {
+                            returnTw.push(tw`text-gray-600`)
+                        }
+
+                        return returnTw
+                    }
+                ),
             },
             History: {
                 Wapper: tw.div`w-full`,
