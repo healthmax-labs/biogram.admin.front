@@ -20,6 +20,7 @@ import {
     calCalculate,
     changeDatePickerDate,
     gmtTimeToTimeObject,
+    addComma,
 } from '@Helper'
 import ConsultDetailPartMealdiaryMealHistory from './ConsultDetailPartMealdiaryMealHistory'
 import { ConsultMealDiaryItemMenuListInterface } from '@Type/MemberTypes'
@@ -57,6 +58,78 @@ const mealDeToDate = (mealDe: string) => {
     const week = days[dateObject.getDay()].charAt(0)
 
     return `${month}/${day} (${week})`
+}
+
+const totalMealPercent = ({
+    BRFT,
+    LNCH,
+    DINR,
+    BFSNLCSN,
+    DNSN,
+}: {
+    BRFT: Array<{
+        // 아침
+        kal: number
+        per: number
+        checked: boolean
+    }>
+    LNCH: Array<{
+        // 점심
+        kal: number
+        per: number
+        checked: boolean
+    }>
+    DINR: Array<{
+        // 저녁
+        kal: number
+        per: number
+        checked: boolean
+    }>
+    BFSNLCSN: Array<{
+        // 오전간식 + 오후간식
+        kal: number
+        per: number
+        checked: boolean
+    }>
+    DNSN: Array<{
+        // 야식
+        kal: number
+        per: number
+        checked: boolean
+    }>
+}): number => {
+    return (
+        Number(
+            _.meanBy(
+                BRFT.filter(e => e.checked),
+                'kal'
+            ).toFixed(0)
+        ) +
+        Number(
+            _.meanBy(
+                LNCH.filter(e => e.checked),
+                'kal'
+            ).toFixed(0)
+        ) +
+        Number(
+            _.meanBy(
+                DINR.filter(e => e.checked),
+                'kal'
+            ).toFixed(0)
+        ) +
+        Number(
+            _.meanBy(
+                BFSNLCSN.filter(e => e.checked),
+                'kal'
+            ).toFixed(0)
+        ) +
+        Number(
+            _.meanBy(
+                DNSN.filter(e => e.checked),
+                'kal'
+            ).toFixed(0)
+        )
+    )
 }
 
 const initializeState = {
@@ -1025,52 +1098,118 @@ const ConsultDetailPartMealdiary = () => {
                         }
                     })(),
                     BRFT: (() => {
-                        const { BRFT } = pageState.data
-                        const list = BRFT.filter(e => e.checked)
+                        const { BRFT, LNCH, DINR, BFSNLCSN, DNSN } =
+                            pageState.data
+                        const totalPercent = totalMealPercent({
+                            BRFT,
+                            LNCH,
+                            DINR,
+                            BFSNLCSN,
+                            DNSN,
+                        })
+                        const kal = Number(
+                            _.meanBy(
+                                BRFT.filter(e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
                         return {
-                            kal: _.sumBy(list, 'kal'),
-                            per: parseFloat(
-                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            kal: kal,
+                            per: Number(
+                                ((kal / totalPercent) * 100).toFixed(0)
                             ),
                         }
                     })(),
                     LNCH: (() => {
-                        const { LNCH } = pageState.data
-                        const list = LNCH.filter(e => e.checked)
+                        const { BRFT, LNCH, DINR, BFSNLCSN, DNSN } =
+                            pageState.data
+                        const totalPercent = totalMealPercent({
+                            BRFT,
+                            LNCH,
+                            DINR,
+                            BFSNLCSN,
+                            DNSN,
+                        })
+                        const kal = Number(
+                            _.meanBy(
+                                LNCH.filter(e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
                         return {
-                            kal: _.sumBy(list, 'kal'),
-                            per: parseFloat(
-                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            kal: kal,
+                            per: Number(
+                                ((kal / totalPercent) * 100).toFixed(0)
                             ),
                         }
                     })(),
                     DINR: (() => {
-                        const { DINR } = pageState.data
-                        const list = DINR.filter(e => e.checked)
+                        const { BRFT, LNCH, DINR, BFSNLCSN, DNSN } =
+                            pageState.data
+                        const totalPercent = totalMealPercent({
+                            BRFT,
+                            LNCH,
+                            DINR,
+                            BFSNLCSN,
+                            DNSN,
+                        })
+                        const kal = Number(
+                            _.meanBy(
+                                DINR.filter(e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
                         return {
-                            kal: _.sumBy(list, 'kal'),
-                            per: parseFloat(
-                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            kal: kal,
+                            per: Number(
+                                ((kal / totalPercent) * 100).toFixed(0)
                             ),
                         }
                     })(),
                     BFSNLCSN: (() => {
-                        const { BFSNLCSN } = pageState.data
-                        const list = BFSNLCSN.filter(e => e.checked)
+                        const { BRFT, LNCH, DINR, BFSNLCSN, DNSN } =
+                            pageState.data
+                        const totalPercent = totalMealPercent({
+                            BRFT,
+                            LNCH,
+                            DINR,
+                            BFSNLCSN,
+                            DNSN,
+                        })
+                        const kal = Number(
+                            _.meanBy(
+                                BFSNLCSN.filter(e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
+
                         return {
-                            kal: _.sumBy(list, 'kal'),
+                            kal: kal,
                             per: parseFloat(
-                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                                ((kal / totalPercent) * 100).toFixed(0)
                             ),
                         }
                     })(),
                     DNSN: (() => {
-                        const { DNSN } = pageState.data
-                        const list = DNSN.filter(e => e.checked)
+                        const { BRFT, LNCH, DINR, BFSNLCSN, DNSN } =
+                            pageState.data
+                        const totalPercent = totalMealPercent({
+                            BRFT,
+                            LNCH,
+                            DINR,
+                            BFSNLCSN,
+                            DNSN,
+                        })
+                        const kal = Number(
+                            _.meanBy(
+                                DNSN.filter(e => e.checked),
+                                'kal'
+                            ).toFixed(0)
+                        )
                         return {
-                            kal: _.sumBy(list, 'kal'),
-                            per: parseFloat(
-                                (_.sumBy(list, 'per') / list.length).toFixed(0)
+                            kal: kal,
+                            per: Number(
+                                ((kal / totalPercent) * 100).toFixed(0)
                             ),
                         }
                     })(),
@@ -1247,9 +1386,9 @@ const ConsultDetailPartMealdiary = () => {
                                             <STable.Row>
                                                 <STable.Cell
                                                     Bg={false}
-                                                    rowSpan={
-                                                        2
-                                                    }>{`${totalKcal} Kcal`}</STable.Cell>
+                                                    rowSpan={2}>{`${addComma(
+                                                    totalKcal
+                                                )} Kcal`}</STable.Cell>
                                                 <STable.Cell
                                                     Bg={false}
                                                     colSpan={
@@ -1283,46 +1422,46 @@ const ConsultDetailPartMealdiary = () => {
                                             </STable.Row>
                                             <STable.Row>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${carbohydrates.gram}g`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    carbohydrates.gram
+                                                )}g`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${carbohydrates.kcal}Kcal`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    carbohydrates.kcal
+                                                )}Kcal`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${protein.gram}g`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    protein.gram
+                                                )}g`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${protein.kcal}Kcal`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    protein.kcal
+                                                )}Kcal`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${fat.gram}g`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    fat.gram
+                                                )}g`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${fat.kcal}Kcal`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    fat.kcal
+                                                )}Kcal`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${sugars.gram}g`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    sugars.gram
+                                                )}g`}</STable.Cell>
                                                 <STable.Cell
-                                                    Bg={
-                                                        false
-                                                    }>{`${sugars.kcal}Kcal`}</STable.Cell>
+                                                    Bg={false}>{`${addComma(
+                                                    sugars.kcal
+                                                )}Kcal`}</STable.Cell>
                                                 <STable.Cell
                                                     Bg={false}
                                                     colSpan={2}>
-                                                    2000 mg
+                                                    2,000 mg
                                                 </STable.Cell>
                                                 <STable.Cell
                                                     Bg={false}
                                                     colSpan={2}>
-                                                    1800 ml
+                                                    1,800 ml
                                                 </STable.Cell>
                                             </STable.Row>
                                         </>
@@ -1417,7 +1556,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = calorie
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal} kcal`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )} kcal`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1426,7 +1567,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol} ${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol} ${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1455,7 +1598,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                     const kalText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${kal} kal`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            kal
+                                                        )} kal`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1465,7 +1610,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol} ${diff}kal)`}</STable.DiffText>
+                                                                }>{` (${symbol} ${addComma(
+                                                                diff
+                                                            )}kal)`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1551,7 +1698,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = carb
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal}`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1560,7 +1709,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1598,7 +1749,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             .carbohydrate.k
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1608,7 +1761,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1631,7 +1786,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             .carbohydrate.g
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1641,7 +1798,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1677,7 +1836,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = protein
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal}`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1686,7 +1847,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1724,7 +1887,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             .protein.k
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1734,7 +1899,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1757,7 +1924,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             .protein.g
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1767,7 +1936,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1803,7 +1974,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = fat
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal}`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1812,7 +1985,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1850,7 +2025,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1860,7 +2037,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1882,7 +2061,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                     const kText = (
                                                         <STable.NumericText
-                                                            TextColor={`gray`}>{`${k}`}</STable.NumericText>
+                                                            TextColor={`gray`}>{`${addComma(
+                                                            k
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         k == 0 ? (
@@ -1892,7 +2073,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1928,7 +2111,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = sugar
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal}`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )}`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -1937,7 +2122,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -1970,7 +2157,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                         const kalText = (
                                                             <STable.NumericText
-                                                                TextColor={`gray`}>{`${kal}`}</STable.NumericText>
+                                                                TextColor={`gray`}>{`${addComma(
+                                                                kal
+                                                            )}`}</STable.NumericText>
                                                         )
                                                         const diffText =
                                                             kal === 0 ? (
@@ -1980,7 +2169,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 <STable.DiffText
                                                                     TextColor={
                                                                         diffColor
-                                                                    }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                    }>{` (${symbol}${addComma(
+                                                                    diff
+                                                                )})`}</STable.DiffText>
                                                             )
 
                                                         return (
@@ -2012,7 +2203,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = sodium
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal} mg`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )} mg`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -2022,7 +2215,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
                                                     return (
                                                         <STable.TextCell
@@ -2054,7 +2249,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                         const kalText = (
                                                             <STable.NumericText
-                                                                TextColor={`gray`}>{`${kal} mg`}</STable.NumericText>
+                                                                TextColor={`gray`}>{`${addComma(
+                                                                kal
+                                                            )} mg`}</STable.NumericText>
                                                         )
                                                         const diffText =
                                                             kal === 0 ? (
@@ -2064,7 +2261,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 <STable.DiffText
                                                                     TextColor={
                                                                         diffColor
-                                                                    }>{` (${symbol}${diff}mg)`}</STable.DiffText>
+                                                                    }>{` (${symbol}${addComma(
+                                                                    diff
+                                                                )}mg)`}</STable.DiffText>
                                                             )
 
                                                         return (
@@ -2096,7 +2295,9 @@ const ConsultDetailPartMealdiary = () => {
                                                     } = drkwtQy
 
                                                     const kalText = (
-                                                        <STable.NumericText>{`${kal} ml`}</STable.NumericText>
+                                                        <STable.NumericText>{`${addComma(
+                                                            kal
+                                                        )} ml`}</STable.NumericText>
                                                     )
                                                     const diffText =
                                                         kal === 0 ? (
@@ -2105,7 +2306,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.DiffText
                                                                 TextColor={
                                                                     diffColor
-                                                                }>{` (${symbol}${diff})`}</STable.DiffText>
+                                                                }>{` (${symbol}${addComma(
+                                                                diff
+                                                            )})`}</STable.DiffText>
                                                         )
 
                                                     return (
@@ -2138,7 +2341,9 @@ const ConsultDetailPartMealdiary = () => {
 
                                                         const kalText = (
                                                             <STable.NumericText
-                                                                TextColor={`gray`}>{`${kal} ml`}</STable.NumericText>
+                                                                TextColor={`gray`}>{`${addComma(
+                                                                kal
+                                                            )} ml`}</STable.NumericText>
                                                         )
                                                         const diffText =
                                                             kal === 0 ? (
@@ -2148,7 +2353,9 @@ const ConsultDetailPartMealdiary = () => {
                                                                 <STable.DiffText
                                                                     TextColor={
                                                                         diffColor
-                                                                    }>{` (${symbol}${diff}ml)`}</STable.DiffText>
+                                                                    }>{` (${symbol}${addComma(
+                                                                    diff
+                                                                )}ml)`}</STable.DiffText>
                                                             )
 
                                                         return (
@@ -2231,7 +2438,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
-                                                                }>{`${brft.kal}`}</STable.Cell>
+                                                                }>{`${addComma(
+                                                                brft.kal
+                                                            )}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
@@ -2240,11 +2449,15 @@ const ConsultDetailPartMealdiary = () => {
                                                     )
                                                 }
                                             )}
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.BRFT.kal}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.BRFT.kal
+                                                )}`}
                                             </STable.Cell>
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.BRFT.per}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.BRFT.per
+                                                )}`}
                                             </STable.Cell>
                                         </STable.Row>
                                         <STable.Row>
@@ -2259,7 +2472,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
-                                                                }>{`${lnch.kal}`}</STable.Cell>
+                                                                }>{`${addComma(
+                                                                lnch.kal
+                                                            )}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
@@ -2268,10 +2483,12 @@ const ConsultDetailPartMealdiary = () => {
                                                     )
                                                 }
                                             )}
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.LNCH.kal}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.LNCH.kal
+                                                )}`}
                                             </STable.Cell>
-                                            <STable.Cell Bg={true} colSpan={2}>
+                                            <STable.Cell Bg={false} colSpan={2}>
                                                 {`${pageState.average.LNCH.per}`}
                                             </STable.Cell>
                                         </STable.Row>
@@ -2287,7 +2504,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
-                                                                }>{`${dinr.kal}`}</STable.Cell>
+                                                                }>{`${addComma(
+                                                                dinr.kal
+                                                            )}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
@@ -2296,10 +2515,12 @@ const ConsultDetailPartMealdiary = () => {
                                                     )
                                                 }
                                             )}
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.DINR.kal}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.DINR.kal
+                                                )}`}
                                             </STable.Cell>
-                                            <STable.Cell Bg={true} colSpan={2}>
+                                            <STable.Cell Bg={false} colSpan={2}>
                                                 {`${pageState.average.DINR.per}`}
                                             </STable.Cell>
                                         </STable.Row>
@@ -2315,7 +2536,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
-                                                                }>{`${bfsnlcsn.kal}`}</STable.Cell>
+                                                                }>{`${addComma(
+                                                                bfsnlcsn.kal
+                                                            )}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
@@ -2324,10 +2547,13 @@ const ConsultDetailPartMealdiary = () => {
                                                     )
                                                 }
                                             )}
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.BFSNLCSN.kal}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.BFSNLCSN
+                                                        .kal
+                                                )}`}
                                             </STable.Cell>
-                                            <STable.Cell Bg={true} colSpan={2}>
+                                            <STable.Cell Bg={false} colSpan={2}>
                                                 {`${pageState.average.BFSNLCSN.per}`}
                                             </STable.Cell>
                                         </STable.Row>
@@ -2343,7 +2569,9 @@ const ConsultDetailPartMealdiary = () => {
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
-                                                                }>{`${dnsn.kal}`}</STable.Cell>
+                                                                }>{`${addComma(
+                                                                dnsn.kal
+                                                            )}`}</STable.Cell>
                                                             <STable.Cell
                                                                 Bg={
                                                                     false
@@ -2352,10 +2580,12 @@ const ConsultDetailPartMealdiary = () => {
                                                     )
                                                 }
                                             )}
-                                            <STable.Cell Bg={true} colSpan={2}>
-                                                {`${pageState.average.DNSN.kal}`}
+                                            <STable.Cell Bg={false} colSpan={2}>
+                                                {`${addComma(
+                                                    pageState.average.DNSN.kal
+                                                )}`}
                                             </STable.Cell>
-                                            <STable.Cell Bg={true} colSpan={2}>
+                                            <STable.Cell Bg={false} colSpan={2}>
                                                 {`${pageState.average.DNSN.per}`}
                                             </STable.Cell>
                                         </STable.Row>
