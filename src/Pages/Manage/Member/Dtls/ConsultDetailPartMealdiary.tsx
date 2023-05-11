@@ -1836,7 +1836,13 @@ const ConsultDetailPartMealdiary = () => {
                                                                     100
                                                                 ).toFixed(0)
                                                             )
-                                                        return <>{percent}</>
+                                                        return (
+                                                            <>
+                                                                {percent
+                                                                    ? percent
+                                                                    : 0}
+                                                            </>
+                                                        )
                                                     })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
@@ -1998,7 +2004,13 @@ const ConsultDetailPartMealdiary = () => {
                                                                     100
                                                                 ).toFixed(0)
                                                             )
-                                                        return <>{percent}</>
+                                                        return (
+                                                            <>
+                                                                {percent
+                                                                    ? percent
+                                                                    : 0}
+                                                            </>
+                                                        )
                                                     })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
@@ -2159,7 +2171,13 @@ const ConsultDetailPartMealdiary = () => {
                                                                     100
                                                                 ).toFixed(0)
                                                             )
-                                                        return <>{percent}</>
+                                                        return (
+                                                            <>
+                                                                {percent
+                                                                    ? percent
+                                                                    : 0}
+                                                            </>
+                                                        )
                                                     })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
