@@ -2545,9 +2545,14 @@ const ConsultDetailPartMealdiary = () => {
                                                 )}`}
                                             </STable.Cell>
                                             <STable.Cell Bg={false} colSpan={2}>
-                                                {`${addComma(
+                                                {`${
                                                     pageState.average.BRFT.per
-                                                )}`}
+                                                        ? addComma(
+                                                              pageState.average
+                                                                  .BRFT.per
+                                                          )
+                                                        : 0
+                                                }`}
                                             </STable.Cell>
                                         </STable.Row>
                                         <STable.Row>
@@ -2579,7 +2584,14 @@ const ConsultDetailPartMealdiary = () => {
                                                 )}`}
                                             </STable.Cell>
                                             <STable.Cell Bg={false} colSpan={2}>
-                                                {`${pageState.average.LNCH.per}`}
+                                                {`${
+                                                    pageState.average.LNCH.per
+                                                        ? addComma(
+                                                              pageState.average
+                                                                  .LNCH.per
+                                                          )
+                                                        : 0
+                                                }`}
                                             </STable.Cell>
                                         </STable.Row>
                                         <STable.Row>
@@ -2611,7 +2623,14 @@ const ConsultDetailPartMealdiary = () => {
                                                 )}`}
                                             </STable.Cell>
                                             <STable.Cell Bg={false} colSpan={2}>
-                                                {`${pageState.average.DINR.per}`}
+                                                {`${
+                                                    pageState.average.DINR.per
+                                                        ? addComma(
+                                                              pageState.average
+                                                                  .DINR.per
+                                                          )
+                                                        : 0
+                                                }`}
                                             </STable.Cell>
                                         </STable.Row>
                                         <STable.Row>
@@ -2644,7 +2663,15 @@ const ConsultDetailPartMealdiary = () => {
                                                 )}`}
                                             </STable.Cell>
                                             <STable.Cell Bg={false} colSpan={2}>
-                                                {`${pageState.average.BFSNLCSN.per}`}
+                                                {`${
+                                                    pageState.average.BFSNLCSN
+                                                        .per
+                                                        ? addComma(
+                                                              pageState.average
+                                                                  .BFSNLCSN.per
+                                                          )
+                                                        : 0
+                                                }`}
                                             </STable.Cell>
                                         </STable.Row>
                                         <STable.Row>
@@ -2676,7 +2703,14 @@ const ConsultDetailPartMealdiary = () => {
                                                 )}`}
                                             </STable.Cell>
                                             <STable.Cell Bg={false} colSpan={2}>
-                                                {`${pageState.average.DNSN.per}`}
+                                                {`${
+                                                    pageState.average.DNSN.per
+                                                        ? addComma(
+                                                              pageState.average
+                                                                  .DNSN.per
+                                                          )
+                                                        : 0
+                                                }`}
                                             </STable.Cell>
                                         </STable.Row>
                                     </STable.Body>
