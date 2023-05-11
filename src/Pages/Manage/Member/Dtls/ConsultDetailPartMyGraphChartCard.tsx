@@ -24,6 +24,7 @@ const initializeState = {
         date: getNowYearMonth(),
         value: 0,
     },
+    resultSymbol: '',
     result: {
         date: getNowYearMonth(),
         value: 0,
@@ -49,11 +50,11 @@ const ConsultDetailPartMyGraphChartCard = ({
             date: string
             value: number
         }
-
         last: {
             date: string
             value: number
         }
+        resultSymbol: string | '+' | '-'
         result: {
             date: string
             value: number
@@ -89,13 +90,22 @@ const ConsultDetailPartMyGraphChartCard = ({
 
                 const step1 = ldate.getTime() - fdate.getTime()
                 const diffDay = step1 / (1000 * 60 * 60 * 24)
-                const diffData = first.value - last.value
+                const diffData =
+                    first.value > last.value
+                        ? first.value - last.value
+                        : last.value - first.value
 
                 setPageState(prevState => ({
                     ...prevState,
                     renderWhether: true,
                     first: first,
                     last: last,
+                    resultSymbol:
+                        first.value == last.value
+                            ? ''
+                            : first.value > last.value
+                            ? '-'
+                            : '+',
                     result: {
                         date: String(diffDay),
                         value: parseFloat(diffData.toFixed(1)),
@@ -177,7 +187,7 @@ const ConsultDetailPartMyGraphChartCard = ({
                                         <TableBodyCell
                                             Border={
                                                 true
-                                            }>{`${pageState.result.value}`}</TableBodyCell>
+                                            }>{`${pageState.resultSymbol} ${pageState.result.value}`}</TableBodyCell>
                                     </TableBodyRow>
                                 </TableBody>
                             </TableWapper>
