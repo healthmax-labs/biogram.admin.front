@@ -1813,7 +1813,31 @@ const ConsultDetailPartMealdiary = () => {
                                             </STable.TextCell>
                                             <STable.TextCell Bg={false}>
                                                 <STable.CellText Color={`gray`}>
-                                                    {`${pageState.average.carbohydrate.per}`}
+                                                    {(() => {
+                                                        const {
+                                                            carbohydrate: {
+                                                                k: { k: c },
+                                                            },
+                                                            protein: {
+                                                                k: { k: p },
+                                                            },
+                                                            fat: {
+                                                                k: { k: f },
+                                                            },
+                                                        } = pageState.average
+
+                                                        const percent =
+                                                            parseFloat(
+                                                                (
+                                                                    (c /
+                                                                        (c +
+                                                                            p +
+                                                                            f)) *
+                                                                    100
+                                                                ).toFixed(0)
+                                                            )
+                                                        return <>{percent}</>
+                                                    })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
                                         </STable.Row>
@@ -1951,7 +1975,31 @@ const ConsultDetailPartMealdiary = () => {
                                             </STable.TextCell>
                                             <STable.TextCell Bg={false}>
                                                 <STable.CellText Color={`gray`}>
-                                                    {`${pageState.average.protein.per}`}
+                                                    {(() => {
+                                                        const {
+                                                            carbohydrate: {
+                                                                k: { k: c },
+                                                            },
+                                                            protein: {
+                                                                k: { k: p },
+                                                            },
+                                                            fat: {
+                                                                k: { k: f },
+                                                            },
+                                                        } = pageState.average
+
+                                                        const percent =
+                                                            parseFloat(
+                                                                (
+                                                                    (p /
+                                                                        (c +
+                                                                            p +
+                                                                            f)) *
+                                                                    100
+                                                                ).toFixed(0)
+                                                            )
+                                                        return <>{percent}</>
+                                                    })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
                                         </STable.Row>
@@ -2088,7 +2136,31 @@ const ConsultDetailPartMealdiary = () => {
                                             </STable.TextCell>
                                             <STable.TextCell Bg={false}>
                                                 <STable.CellText Color={`gray`}>
-                                                    {`${pageState.average.fat.per}`}
+                                                    {(() => {
+                                                        const {
+                                                            carbohydrate: {
+                                                                k: { k: c },
+                                                            },
+                                                            protein: {
+                                                                k: { k: p },
+                                                            },
+                                                            fat: {
+                                                                k: { k: f },
+                                                            },
+                                                        } = pageState.average
+
+                                                        const percent =
+                                                            parseFloat(
+                                                                (
+                                                                    (f /
+                                                                        (c +
+                                                                            p +
+                                                                            f)) *
+                                                                    100
+                                                                ).toFixed(0)
+                                                            )
+                                                        return <>{percent}</>
+                                                    })()}
                                                 </STable.CellText>
                                             </STable.TextCell>
                                         </STable.Row>
