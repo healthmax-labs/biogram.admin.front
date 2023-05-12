@@ -248,12 +248,12 @@ const ConsultDetailPartSurvey = () => {
                     } = survey
 
                     return (
-                        <>
+                        <React.Fragment
+                            key={`consult-detail-survey-table-row-item-${index}`}>
                             <Detail.Survey.DateBox>
                                 {dateInsertHypen(survey.QUSTNR_DE)}
                             </Detail.Survey.DateBox>
-                            <Detail.Survey.RowWapper
-                                key={`consult-detail-survey-table-row-item-${index}`}>
+                            <Detail.Survey.RowWapper>
                                 <Detail.Survey.Table.Table>
                                     <Detail.Survey.Table.Body>
                                         <Detail.Survey.Table.Row>
@@ -385,7 +385,7 @@ const ConsultDetailPartSurvey = () => {
                                     </Detail.Survey.Table.Body>
                                 </Detail.Survey.Table.Table>
                             </Detail.Survey.RowWapper>
-                        </>
+                        </React.Fragment>
                     )
                 })}
 
