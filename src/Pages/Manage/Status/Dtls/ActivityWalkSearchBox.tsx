@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -32,6 +32,13 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [activityWalkListState, setActivityWalkListState] = useRecoilState(
         ActivityWalkListState
     )
+
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+        HandleGetList()
+    }
 
     return (
         <RowContainer>
@@ -91,6 +98,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         ? ''
                                         : activityWalkListState.search.SEARCH
                                 }
+                                HandleOnKeyDown={handleSearchInputOnKeyDown}
                             />
                         </SearchItem>
                     </SearchItemWapper>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { DefaultSearchButton, VaryInput, VaryLabel } from '@Elements'
 import { useRecoilState } from 'recoil'
@@ -21,6 +21,13 @@ const MagazineListSearchBox = ({
     HandleGetList: () => void
 }) => {
     const [listState, setListState] = useRecoilState(MagazineListState)
+
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+        HandleGetList()
+    }
 
     return (
         <RowContainer>
@@ -50,6 +57,7 @@ const MagazineListSearchBox = ({
                                         ? ''
                                         : listState.search.SEARCH_KEY
                                 }
+                                HandleOnKeyDown={handleSearchInputOnKeyDown}
                             />
                         </SearchItem>
                     </SearchItemWapper>

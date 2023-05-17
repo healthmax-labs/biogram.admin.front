@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import { SearchBoxStyle, WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -38,6 +38,13 @@ const RiskFctrSearchBox = ({
 }) => {
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
+
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+        HandleGetList()
+    }
 
     return (
         <RowContainer>
@@ -96,6 +103,7 @@ const RiskFctrSearchBox = ({
                                         },
                                     }))
                                 }
+                                HandleOnKeyDown={handleSearchInputOnKeyDown}
                             />
                         </SearchItem>
                     </SearchItemWapper>
