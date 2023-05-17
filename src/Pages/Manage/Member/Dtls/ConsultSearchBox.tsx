@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import { SearchBoxStyle, WapperStyle } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -25,6 +25,13 @@ const {
 
 const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
     const [listState, setListState] = useRecoilState(ConsultListState)
+
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+        HandleGetList()
+    }
 
     return (
         <RowContainer>
@@ -81,6 +88,7 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                                         ? ''
                                         : listState.search.searchKey
                                 }
+                                HandleOnKeyDown={handleSearchInputOnKeyDown}
                             />
                         </SearchItem>
                     </SearchItemWapper>
