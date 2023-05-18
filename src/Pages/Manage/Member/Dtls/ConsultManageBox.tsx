@@ -191,7 +191,7 @@ const ConsultManageBox = () => {
     return (
         <WapperFull>
             <CountWapper>
-                <CountText>{`총 회원수 : ${addComma(
+                <CountText>{`검색된 회원수 : ${addComma(
                     listState.list.TOTAL_COUNT
                 )} 명`}</CountText>
             </CountWapper>
