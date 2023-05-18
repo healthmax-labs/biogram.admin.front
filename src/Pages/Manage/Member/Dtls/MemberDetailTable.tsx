@@ -45,6 +45,7 @@ import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { AtomRootState } from '@Recoil/AppRootState'
+import Const from '@Const'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
@@ -592,6 +593,31 @@ const MemberDetailTable = ({
             return
         }
 
+        // 아이디 필터링
+        const filterCheck = Const.MemberIdStringFilter.some(v =>
+            USID.includes(v)
+        )
+        if (filterCheck) {
+            let smallUSID = USID
+            Const.MemberIdStringFilter.forEach(
+                f => (smallUSID = smallUSID.replace(f, ''))
+            )
+            setDetailState(prevState => ({
+                ...prevState,
+                detail: {
+                    ...prevState.detail,
+                    USID: smallUSID,
+                },
+            }))
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.member.info.check.filterUsid,
+            })
+
+            return
+        }
+
         // 아이디 중복 확인 체크
         if (!checkUsid) {
             handlMainAlert({
@@ -673,7 +699,13 @@ const MemberDetailTable = ({
         }
 
         // 키 입력값 체크.
-        if (!(Number(HEIGHT) > 20 && Number(HEIGHT) < 250)) {
+        if (
+            !_.inRange(
+                Number(HEIGHT),
+                Const.maxLength.height.start,
+                Const.maxLength.height.end
+            )
+        ) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.member.info.check.height,
@@ -691,7 +723,13 @@ const MemberDetailTable = ({
         }
 
         // 체중 입력값 체크.
-        if (!(Number(BDWGH) > 1 && Number(BDWGH) < 200)) {
+        if (
+            !_.inRange(
+                Number(BDWGH),
+                Const.maxLength.bdwgh.start,
+                Const.maxLength.bdwgh.end
+            )
+        ) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.member.info.check.bdwgh,
@@ -709,7 +747,13 @@ const MemberDetailTable = ({
         }
 
         // 허리둘레 입력값 체크.
-        if (!(Number(WAIST_CRCMFRNC) > 20 && Number(WAIST_CRCMFRNC) < 150)) {
+        if (
+            !_.inRange(
+                Number(WAIST_CRCMFRNC),
+                Const.maxLength.waistCrcmfrnc.start,
+                Const.maxLength.waistCrcmfrnc.end
+            )
+        ) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.member.info.check.waistCrcmfrnc,
@@ -1199,7 +1243,7 @@ const MemberDetailTable = ({
                                     </InputCell>
                                     <LabelCell>
                                         <VaryLabel
-                                            LabelName={`회원번호 확인`}
+                                            LabelName={`비밀번호 확인`}
                                         />
                                     </LabelCell>
                                     <InputCell>
@@ -1235,15 +1279,27 @@ const MemberDetailTable = ({
                                 <InputCell colSpan={PageMode === 'new' ? 3 : 1}>
                                     <VaryInput
                                         Width={'w60'}
-                                        HandleOnChange={e =>
+                                        HandleOnChange={e => {
+                                            let name = e.target.value
+
+                                            if (
+                                                name.length >
+                                                Const.maxLength.loginId
+                                            ) {
+                                                name = name.substring(
+                                                    0,
+                                                    Const.maxLength.loginId
+                                                )
+                                            }
+
                                             setDetailState(prevState => ({
                                                 ...prevState,
                                                 detail: {
                                                     ...prevState.detail,
-                                                    NM: e.target.value,
+                                                    NM: name,
                                                 },
                                             }))
-                                        }
+                                        }}
                                         Placeholder={'이름'}
                                         Value={
                                             detailState.detail.NM
@@ -1430,6 +1486,8 @@ const MemberDetailTable = ({
                                                 },
                                             }))
                                         }}
+                                        MinDate={new Date(`1980-1-1`)}
+                                        MaxDate={new Date()}
                                     />
                                 </InputCell>
                                 <LabelCell>
@@ -1850,17 +1908,19 @@ const MemberDetailTable = ({
                                         <VaryInput
                                             Width={'w60'}
                                             InputType={'number'}
-                                            HandleOnChange={e =>
+                                            HandleOnChange={e => {
+                                                const height = Number(
+                                                    e.target.value
+                                                )
+
                                                 setDetailState(prevState => ({
                                                     ...prevState,
                                                     detail: {
                                                         ...prevState.detail,
-                                                        HEIGHT: Number(
-                                                            e.target.value
-                                                        ),
+                                                        HEIGHT: height,
                                                     },
                                                 }))
-                                            }
+                                            }}
                                             Placeholder={'키'}
                                             Value={
                                                 detailState.detail.HEIGHT

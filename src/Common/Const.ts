@@ -9,6 +9,21 @@ export default {
     },
     reprsntTelno: `1644-2810`,
     maxTabCount: 10,
+    maxLength: {
+        loginId: 6,
+        height: {
+            start: 20,
+            end: 250,
+        },
+        bdwgh: {
+            start: 1,
+            end: 200,
+        },
+        waistCrcmfrnc: {
+            start: 20,
+            end: 150,
+        },
+    },
     mainLayoutTheme: [
         {
             name: `default`,
@@ -97,4 +112,5 @@ export default {
         perPage: 30,
     },
     MasterInstNo: `1000`,
+    MemberIdStringFilter: [`master`, `system`, `admin`],
 }
