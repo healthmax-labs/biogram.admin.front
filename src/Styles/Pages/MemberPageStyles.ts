@@ -52,7 +52,7 @@ export const ConsultDetailStyle = {
             BodyRow: tw.tr`bg-white border`,
             BodyCellBef1: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
             BodyCellBef: tw.td`h-8 border-r text-xs font-bold text-gray-900 whitespace-nowrap`,
-            BodyCellBefLink: tw.div`cursor-pointer`,
+            BodyCellBefLink: tw.div`cursor-pointer underline`,
             BodyCell: styled.td(
                 ({ Color }: { Color?: 'block' | 'red' | 'green' }) => {
                     const returnCss = [
