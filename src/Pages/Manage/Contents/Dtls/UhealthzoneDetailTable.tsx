@@ -163,6 +163,10 @@ const UhealthzoneDetailTable = ({
             } else {
                 setDetailState(prevState => ({
                     ...prevState,
+                    detail: {
+                        ...prevState.detail,
+                        INSTL_PLACE: '',
+                    },
                     sub: {
                         ...prevState.sub,
                         instlPlaceCheck: false,
@@ -345,39 +349,53 @@ const UhealthzoneDetailTable = ({
                             <VaryLabel LabelName={`지점명`} />
                         </LabelCell>
                         <InputCell>
-                            <WS.InputFlexNoWarpWapper>
-                                <InputItem>
-                                    <VaryInput
-                                        Width={'w60'}
-                                        InputType={'text'}
-                                        HandleOnChange={(
-                                            e: React.ChangeEvent<HTMLInputElement>
-                                        ) => {
-                                            setDetailState(prevState => ({
-                                                ...prevState,
-                                                detail: {
-                                                    ...prevState.detail,
-                                                    INSTL_PLACE: e.target.value,
-                                                },
-                                            }))
-                                        }}
-                                        id={'id'}
-                                        Placeholder={'지점명'}
-                                        Value={detailState.detail.INSTL_PLACE}
-                                    />
-                                </InputItem>
+                            <WS.FlexNoWarap>
+                                <VaryInput
+                                    Width={'w60'}
+                                    InputType={'text'}
+                                    HandleOnChange={(
+                                        e: React.ChangeEvent<HTMLInputElement>
+                                    ) => {
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            detail: {
+                                                ...prevState.detail,
+                                                INSTL_PLACE: e.target.value,
+                                            },
+                                        }))
+                                    }}
+                                    id={'id'}
+                                    Placeholder={'지점명'}
+                                    Value={detailState.detail.INSTL_PLACE}
+                                />
                                 {!detailState.sub.instlPlaceCheck && (
-                                    <InputItem>
+                                    <div className="flex pl-2">
                                         <VaryButton
                                             ButtonType={`default`}
                                             ButtonName={`지점 중복확인`}
-                                            HandleClick={() =>
-                                                handleInstlPlaceCheck()
-                                            }
+                                            HandleClick={() => {
+                                                if (
+                                                    _.isEmpty(
+                                                        detailState.detail
+                                                            .INSTL_PLACE
+                                                    )
+                                                ) {
+                                                    handlMainAlert({
+                                                        state: true,
+                                                        message:
+                                                            Messages.Default
+                                                                .contents
+                                                                .instlPlaceEmpty,
+                                                    })
+                                                    return
+                                                }
+
+                                                handleInstlPlaceCheck().then()
+                                            }}
                                         />
-                                    </InputItem>
+                                    </div>
                                 )}
-                            </WS.InputFlexNoWarpWapper>
+                            </WS.FlexNoWarap>
                         </InputCell>
                     </Row>
                     <Row>

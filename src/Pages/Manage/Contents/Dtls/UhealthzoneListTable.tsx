@@ -11,6 +11,7 @@ import {
     UhealthzoneDetailState,
     UhealthzoneListState,
 } from '@Recoil/ContentsPagesState'
+import { useTab } from '@Hook/index'
 
 interface tableOption {
     Loading: boolean
@@ -20,6 +21,7 @@ interface tableOption {
 }
 
 const ListTable = () => {
+    const { handleDeleteTabbyMatchRouter } = useTab()
     const navigate = useNavigate()
     const listState = useRecoilValue(UhealthzoneListState)
     const resetDetail = useResetRecoilState(UhealthzoneDetailState)
@@ -29,6 +31,7 @@ const ListTable = () => {
     )
 
     const handleRowClick = (element: UhealthzoneTableListItemInterface) => {
+        handleDeleteTabbyMatchRouter(`/manage/contents/uhealthzone/new`)
         resetDetail()
         navigate({
             pathname:
