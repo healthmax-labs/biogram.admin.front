@@ -607,7 +607,7 @@ export const MsgBookListState = atom<MsgBookListInterface>({
             INST_NO: '',
             instNm: '',
             SEARCH_KEY: '',
-            FROM_DAY: getNowDate(),
+            FROM_DAY: getOneMonthAgo(),
             TO_DAY: getNowDate(),
             SNDNG_STDR: `S`,
         },
