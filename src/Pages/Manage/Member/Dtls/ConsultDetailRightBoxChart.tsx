@@ -297,7 +297,11 @@ const ConsultDetailRightBoxChart = () => {
 
             {pageState.modal.confirm && (
                 <ConfirmModal
-                    Title={Messages.Default.consult.chartSaveConfirm}
+                    Title={
+                        chartState.CNST_NO
+                            ? Messages.Default.consult.chartModifyConfirm
+                            : Messages.Default.consult.chartSaveConfirm
+                    }
                     CancleButtonName={`취소`}
                     ApplyButtonName={`확인`}
                     CancleButtonClick={() => {

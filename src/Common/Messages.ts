@@ -154,6 +154,7 @@ export default {
             chartSaveEmptyCnst: `상담 내역을 입력해 주세요`,
             chartSaveEmptyPln: `상담 내역을 입력해 주세요`,
             chartSaveConfirm: `상담차트를 작성 하시겠습니까?`,
+            chartModifyConfirm: `상담차트를 수정 하시겠습니까?`,
             rangeHba1c: `당화혈색소는 4~15사이의 값을 입력해 주세요`,
             emptyGroupName: `그룹명을 입력해 주세요`,
             emptyGroupCategory: `구분을 선택해 주세요`,
