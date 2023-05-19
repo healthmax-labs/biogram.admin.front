@@ -479,6 +479,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                             ...prevState,
                                                             info: {
                                                                 ...prevState.info,
+                                                                INST_NM: '',
                                                                 INST_NM_CHECK:
                                                                     false,
                                                             },
