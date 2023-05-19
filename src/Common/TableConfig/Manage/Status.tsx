@@ -982,7 +982,7 @@ export const StatisticsTableConfig = {
                 key: `PULS`,
             },
             {
-                name: `공복<br />(mg/dl)`,
+                name: `식전<br />(mg/dl)`,
                 key: `FBS`,
             },
             {
