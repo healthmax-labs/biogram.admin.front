@@ -515,14 +515,14 @@ const ConsultDetailPartNutritionReport = () => {
                             )
 
                             if (!_.isEmpty(ntrikey))
-                                params.append('ntrikeys', ntrikey)
+                                params.append('ntrikeys', ntrikey) // 관심 건강항목
 
                             if (!_.isEmpty(worktype))
-                                params.append('worktype', worktype)
+                                params.append('worktype', worktype) // 활동사항 직업
 
-                            if (!_.isEmpty(area)) params.append('area', area)
+                            if (!_.isEmpty(area)) params.append('area', area) // 활동사항 야외 유무
 
-                            if (!_.isEmpty(ntris)) params.append('ntris', ntris)
+                            if (!_.isEmpty(ntris)) params.append('ntris', ntris) // 그외 모두
 
                             window.open(
                                 `${
