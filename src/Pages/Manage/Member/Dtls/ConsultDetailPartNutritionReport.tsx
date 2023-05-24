@@ -14,6 +14,7 @@ const {
             RowWapper,
             TitleBox,
             Title,
+            SubTitle,
             ItemWapper,
             ItemBox,
             RadioItems,
@@ -135,7 +136,7 @@ const ConsultDetailPartNutritionReport = () => {
             </RowWapper>
             <RowWapper>
                 <TitleBox>
-                    <Title>관심 건강항목</Title>
+                    <Title>관심 건강항목 ( 선택사항 )</Title>
                 </TitleBox>
                 <ItemWapper>
                     <ItemBox>
@@ -192,7 +193,12 @@ const ConsultDetailPartNutritionReport = () => {
             </RowWapper>
             <RowWapper>
                 <TitleBox>
-                    <Title>비타민군</Title>
+                    <Title>섭취중인 영양제 ( 선택사항 )</Title>
+                </TitleBox>
+            </RowWapper>
+            <RowWapper>
+                <TitleBox>
+                    <SubTitle>비타민군</SubTitle>
                 </TitleBox>
                 <ItemWapper>
                     <ItemBox>
@@ -283,7 +289,7 @@ const ConsultDetailPartNutritionReport = () => {
             </RowWapper>
             <RowWapper>
                 <TitleBox>
-                    <Title>무기질군</Title>
+                    <SubTitle>무기질군</SubTitle>
                 </TitleBox>
                 <ItemWapper>
                     <ItemBox>
@@ -374,7 +380,7 @@ const ConsultDetailPartNutritionReport = () => {
             </RowWapper>
             <RowWapper>
                 <TitleBox>
-                    <Title>기타</Title>
+                    <SubTitle>기타</SubTitle>
                 </TitleBox>
                 <ItemWapper>
                     <ItemBox>
@@ -430,7 +436,7 @@ const ConsultDetailPartNutritionReport = () => {
             </RowWapper>
             <RowWapper>
                 <TitleBox>
-                    <Title>기능성군</Title>
+                    <SubTitle>기능성군</SubTitle>
                 </TitleBox>
                 <ItemWapper>
                     <ItemBox>
