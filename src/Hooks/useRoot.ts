@@ -22,14 +22,10 @@ export default function useRoot() {
             COLORLOG('warning', ':: App Server Check :: ')
 
             let geolocation = {
-                IPv4: ``,
-                city: ``,
-                country_code: ``,
-                country_name: ``,
-                latitude: 0,
-                longitude: 0,
-                postal: false,
-                state: '',
+                ip: ``,
+                country: ``,
+                'geo-ip': ``,
+                'API Help': ``,
             }
 
             // 기본 서버 체크.

@@ -15,7 +15,7 @@ export const getGeolocation = (): Promise<
 > => {
     return new Promise((resolve, reject) => {
         axios
-            .get<GeolocationDbInterface>('https://geolocation-db.com/json/')
+            .get<GeolocationDbInterface>('https://jsonip.com/')
             .then(res => {
                 resolve({
                     status: true,

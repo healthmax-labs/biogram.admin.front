@@ -167,14 +167,10 @@ export interface InstdeptListInterface {
 
 // ip 정보.
 export interface GeolocationDbInterface {
-    IPv4: string
-    city: string
-    country_code: string
-    country_name: string
-    latitude: number
-    longitude: number
-    postal: boolean
-    state: string
+    ip: string
+    country: string
+    'geo-ip': string
+    'API Help': string
 }
 
 // 로그인 사용자

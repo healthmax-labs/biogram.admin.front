@@ -9,14 +9,10 @@ export const AtomRootState = atom<AppRootStateInterface>({
         login: false,
         attemptLogout: false,
         Geolocation: {
-            IPv4: ``,
-            city: ``,
-            country_code: ``,
-            country_name: ``,
-            latitude: 0,
-            longitude: 0,
-            postal: false,
-            state: '',
+            ip: ``,
+            country: ``,
+            'geo-ip': ``,
+            'API Help': ``,
         },
         logininfo: {
             TOKEN_INFO: null,

@@ -94,7 +94,7 @@ export default function useAuth() {
         const response = await login({
             usid: usid,
             pass: pass,
-            CLIENT_IP: appRootState.Geolocation.IPv4,
+            CLIENT_IP: appRootState.Geolocation.ip,
         })
 
         if (response.status) {
