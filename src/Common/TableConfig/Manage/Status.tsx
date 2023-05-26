@@ -898,7 +898,7 @@ export const StatisticsTableConfig = {
             },
             {
                 name: `혈당계`,
-                colSpan: 2,
+                colSpan: 3,
             },
             {
                 name: `콜레스트롤 측정계`,
@@ -988,6 +988,10 @@ export const StatisticsTableConfig = {
             {
                 name: `식후<br />(mg/dl)`,
                 key: `PP2`,
+            },
+            {
+                name: `당화혈색소<br />(%)`,
+                key: `HBA1C`,
             },
             {
                 name: `TC<br />(mg/dl)`,

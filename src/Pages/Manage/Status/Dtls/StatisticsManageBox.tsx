@@ -120,6 +120,7 @@ const StatisticsManageBox = () => {
                         m.PULS ? m.PULS : '',
                         m.FBS ? m.FBS : '',
                         m.PP2 ? m.PP2 : '',
+                        m.HBA1C ? m.HBA1C : '',
                         m.T_CHOL ? m.T_CHOL : '',
                         m.TG ? m.TG : '',
                         m.HDLC ? m.HDLC : '',

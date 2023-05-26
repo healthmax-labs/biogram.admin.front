@@ -121,6 +121,7 @@ export interface StatisticsListItemInterface {
     PULS: null | string
     FBS: null | string
     PP2: null | string
+    HBA1C: null | string
     T_CHOL: null | string
     TG: null | string
     HDLC: null | string
