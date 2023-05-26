@@ -57,7 +57,7 @@ export default {
         {
             mainCode: `10000`,
             menuCode: `10201`,
-            name: `메세지 발송이력`,
+            name: `메시지 발송이력`,
             pathName: `/manage/member/msgsend-list`,
             category: `msgsend`,
             recooilKey: `memberPage/msg-send-list`,
@@ -70,7 +70,7 @@ export default {
         {
             mainCode: `10000`,
             menuCode: `10301`,
-            name: `메세지 예약현황`,
+            name: `메시지 예약현황`,
             pathName: `/manage/member/msgbook-list`,
             category: `msgbook`,
             recooilKey: `memberPage/msg-book-list`,

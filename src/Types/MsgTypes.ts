@@ -1,4 +1,4 @@
-//메세지 현황
+//메시지 현황
 export interface MsgSendListItemInterface {
     SNDNG_NO: null | string
     SNDNGDE: null | string
@@ -17,7 +17,7 @@ export interface MsgSendListItemInterface {
     MSG_TYPE_NM: null | string
 }
 
-//메세지 현황
+//메시지 현황
 export interface MsgSendListInterface {
     SMS_INFO_LIST: MsgSendListItemInterface[]
     TOTAL_COUNT: number

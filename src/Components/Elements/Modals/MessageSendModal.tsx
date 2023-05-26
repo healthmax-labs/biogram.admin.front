@@ -126,7 +126,7 @@ const MessageSendModal = ({
             SEND_MBER_INFO_LIST: MemberSearchItemInterface[]
         } = {
             INST_NO: String(instNo),
-            SMS_SJ: `관리자 페이지 메세지 전송`,
+            SMS_SJ: `관리자 페이지 메시지 전송`,
             SMS_CN: contents,
             SNDNG_NO: sndngNo,
             SEND_ALL_MBER: instNo && allSendCheck ? 'Y' : 'N',

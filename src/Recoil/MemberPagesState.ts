@@ -164,7 +164,7 @@ interface ConsultMsgBoxListInterface {
     data: ManageCounselMsgBoxListInterface | null
 }
 
-//메세지 발송 현황
+//메시지 발송 현황
 interface MsgSendSearchListInterface {
     status: DefaultStatus
     search: {
@@ -181,7 +181,7 @@ interface MsgSendSearchListInterface {
     list: MsgSendListInterface
 }
 
-//메세지 예약 현황
+//메시지 예약 현황
 interface MsgBookListInterface {
     status: DefaultStatus
     search: {
@@ -597,7 +597,7 @@ export const MsgSendListState = atom<MsgSendSearchListInterface>({
     },
 })
 
-// 메세지 예약현황
+// 메시지 예약현황
 export const MsgBookListState = atom<MsgBookListInterface>({
     key: `memberPage/msg-book-list`,
     default: {

@@ -36,7 +36,7 @@ export default {
             removeSelectEmpty: `삭제할 항목을 선택해 주세요`,
         },
         sms: {
-            smsSj: `관리자 페이지 메세지 전송`,
+            smsSj: `관리자 페이지 메시지 전송`,
             sendConfirm: `메시지를 발송 하시겠습니까?`,
             sendContentEmpty: `내용을 입력해 주세요`,
             sendSndngNoEmpty: `발신번호를 입력해 주세요`,
@@ -82,7 +82,7 @@ export default {
                 over: `탈퇴는 한번에 한명만 가능합니다.`,
             },
             msgCancleSend: {
-                empty: `발송 취소할 메세지를 선택해 주세요.`,
+                empty: `발송 취소할 메시지를 선택해 주세요.`,
                 over: `발송 취소는 한번에 한건만 가능합니다.`,
                 success: `발송 취소가 완료 되었습니다.`,
             },

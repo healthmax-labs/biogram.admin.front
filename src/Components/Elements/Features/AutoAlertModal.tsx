@@ -435,7 +435,7 @@ const AutoAlertModal = ({
                             </ButtonBox>
                         </RowWapper>
                         <RowWapper>
-                            <SubTitle>알림메세지 작성</SubTitle>
+                            <SubTitle>알림메시지 작성</SubTitle>
                             <VaryTextArea
                                 HandleOnChange={e =>
                                     setPageState(prevState => ({
@@ -446,7 +446,7 @@ const AutoAlertModal = ({
                                         },
                                     }))
                                 }
-                                Placeholder={`메세지 내용을 입력해 주세요`}
+                                Placeholder={`메시지 내용을 입력해 주세요`}
                                 Value={pageState.info.NTCN_CN}
                                 Rows={5}
                             />

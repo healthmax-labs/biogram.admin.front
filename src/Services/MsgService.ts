@@ -4,7 +4,7 @@ import { MsgSendListItemInterface } from '@Type/MsgTypes'
 import _ from 'lodash'
 
 /**
- * 메세지 발송 현황 리스트
+ * 메시지 발송 현황 리스트
  */
 export function getMsgSendList({
     CUR_PAGE,
@@ -61,7 +61,7 @@ export function getMsgSendList({
 }
 
 /**
- * 메세지 예약 현황 리스트
+ * 메시지 예약 현황 리스트
  */
 export function getMsgBookList({
     CUR_PAGE,

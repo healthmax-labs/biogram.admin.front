@@ -31,7 +31,7 @@ const ManageBox = () => {
                             },
                         }))
                     }}
-                    ButtonName={'메세지 발송'}
+                    ButtonName={'메시지 발송'}
                 />
             </Buttons>
 

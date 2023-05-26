@@ -87,8 +87,8 @@ export default function useRecoilReset() {
     const ConsultMsgBoxListStateReset = useResetRecoilState(
         ConsultMsgBoxListState
     ) // 상담 회원 마이코치
-    const MsgSendListStateReset = useResetRecoilState(MsgSendListState) // 메세지 발송이력
-    const MsgBookListStateReset = useResetRecoilState(MsgBookListState) // 메세지 예약현황
+    const MsgSendListStateReset = useResetRecoilState(MsgSendListState) // 메시지 발송이력
+    const MsgBookListStateReset = useResetRecoilState(MsgBookListState) // 메시지 예약현황
 
     const InstJoinListStateReset = useResetRecoilState(InstJoinListState) // 소속 가입신청
     const InstListStateReset = useResetRecoilState(InstListState) // 소속현황

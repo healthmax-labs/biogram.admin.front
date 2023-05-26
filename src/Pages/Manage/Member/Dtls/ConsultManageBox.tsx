@@ -264,7 +264,7 @@ const ConsultManageBox = () => {
                 />
                 <VaryButton
                     ButtonType={'manage'}
-                    ButtonName={'메세지 보내기'}
+                    ButtonName={'메시지 보내기'}
                     HandleClick={() => {
                         setPageState(prevState => ({
                             ...prevState,

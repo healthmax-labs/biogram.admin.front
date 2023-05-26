@@ -22,7 +22,7 @@ export type tableListItemInterface = MemberInfoListItemInterface
 // 상담회원 테이블 데이터
 export type ConsulttableListItemInterface = ConsultInfoListItemInterface
 
-// 메세지 발송 현황 테이블 데이터
+// 메시지 발송 현황 테이블 데이터
 export interface MsgSendTableListItemInterface {
     SNDNG_NO: null | string
     SNDNGDE: null | string
@@ -41,7 +41,7 @@ export interface MsgSendTableListItemInterface {
     MSG_TYPE_NM: null | string
 }
 
-//메세지 발송 현황 테이블 설정.
+//메시지 발송 현황 테이블 설정.
 export const MsgSendTableConfig = {
     Loading: true,
     Options: {
@@ -299,7 +299,7 @@ export const ConsultTableConfig = {
     Lists: [],
 }
 
-// 메세지 예약 현황 테이블 데이터
+// 메시지 예약 현황 테이블 데이터
 export interface MsgBookTableListItemInterface {
     SNDNG_NO: null | string
     SNDNGDE: null | string
@@ -315,7 +315,7 @@ export interface MsgBookTableListItemInterface {
     RGSDE: null | string
 }
 
-//메세지 예약 현황 테이블 설정.
+//메시지 예약 현황 테이블 설정.
 export const MsgBookTableConfig = {
     Loading: true,
     Options: {
