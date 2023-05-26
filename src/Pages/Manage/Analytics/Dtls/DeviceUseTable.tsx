@@ -351,7 +351,7 @@ const DeviceUseTable = () => {
                         <ButtonBox>
                             <VaryButton
                                 ButtonType={`default`}
-                                ButtonName="엑셀다운로드"
+                                ButtonName="엑셀 다운로드"
                                 HandleClick={() => {
                                     handleAgeExcelDownload().then(() =>
                                         setPageState(prevState => ({
@@ -869,7 +869,7 @@ const DeviceUseTable = () => {
                         <ButtonBox>
                             <VaryButton
                                 ButtonType={`default`}
-                                ButtonName="엑셀다운로드"
+                                ButtonName="엑셀 다운로드"
                                 HandleClick={() => {
                                     handlePeriodExcelDownload().then(() =>
                                         setPageState(prevState => ({

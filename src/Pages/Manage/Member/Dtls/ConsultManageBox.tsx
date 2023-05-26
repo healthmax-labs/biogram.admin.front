@@ -302,7 +302,7 @@ const ConsultManageBox = () => {
                             }))
                         )
                     }}
-                    ButtonName={'엑셀 내려받기'}
+                    ButtonName={'엑셀 다운로드'}
                 />
             </ButtonsRight>
 

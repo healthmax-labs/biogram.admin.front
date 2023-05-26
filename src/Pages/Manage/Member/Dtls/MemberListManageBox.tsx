@@ -247,7 +247,7 @@ const MemberListManageBox = ({
                                 }))
                             )
                         }}
-                        ButtonName={'엑셀내려받기'}
+                        ButtonName={'엑셀 다운로드'}
                     />
                 </ButtonsRight>
             </WapperFull>

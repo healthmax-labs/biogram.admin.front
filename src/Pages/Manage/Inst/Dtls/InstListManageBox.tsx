@@ -132,7 +132,7 @@ const InstListManageBox = () => {
                             }))
                         )
                     }}
-                    ButtonName={'엑셀내려받기'}
+                    ButtonName={'엑셀 다운로드'}
                 />
             </Buttons>
             {pageState.modal.excelDownload && (
