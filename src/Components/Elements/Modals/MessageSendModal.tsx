@@ -291,6 +291,19 @@ const MessageSendModal = ({
         }
     }, [])
 
+    useEffect(() => {
+        setPageState({
+            ...initializeState,
+            message: {
+                ...initializeState.message,
+                sendTime: {
+                    ...initializeState.message.sendTime,
+                    selectTime: new Date(),
+                },
+            },
+        })
+    }, [])
+
     return (
         <>
             <VaryModal
