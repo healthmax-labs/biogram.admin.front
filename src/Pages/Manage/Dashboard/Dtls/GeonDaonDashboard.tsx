@@ -572,14 +572,14 @@ const GeonDaonDashboard = () => {
                                                         },
                                                         {
                                                             name: addComma(
-                                                                e.TD_CNT
+                                                                Number(e.TD_CNT)
                                                             ),
                                                             textAlign: 'center',
                                                             color: 'blue',
                                                         },
                                                         {
                                                             name: addComma(
-                                                                e.MT_CNT
+                                                                Number(e.MT_CNT)
                                                             ),
                                                             textAlign: 'right',
                                                         },
