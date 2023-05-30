@@ -95,6 +95,7 @@ export const MemberSearchModalStyle = {
 
         return returnTw
     }),
+    TitleText: tw.p`mt-0 text-[15px] leading-relaxed text-gray-500`,
     SelectedButton: {
         Container: tw.div`grid grid-cols-7 gap-1`,
         Wapper: tw.span`inline-flex items-center px-2 py-1 mr-2 text-xs font-medium text-gray-500 bg-gray-100 rounded`,

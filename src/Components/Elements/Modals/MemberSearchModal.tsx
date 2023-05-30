@@ -21,8 +21,14 @@ const {
     TableHeader,
 } = CommonListTableStyle
 
-const { Container, RowWapper, RowWapperGap, SelectedButton, Mbtlnum } =
-    MemberSearchModalStyle
+const {
+    Container,
+    RowWapper,
+    RowWapperGap,
+    SelectedButton,
+    Mbtlnum,
+    TitleText,
+} = MemberSearchModalStyle
 
 const initializeState = {
     status: 'idle',
@@ -34,12 +40,14 @@ const initializeState = {
 }
 const MemberSearchModal = ({
     SearchType,
+    SearchTitle,
     InstNo,
     PermiCode,
     CloseButtonClick,
     SaveButtonClick,
 }: {
     SearchType: 'default' | 'admin'
+    SearchTitle: string
     InstNo: number
     PermiCode: 'SM00' | 'IM00' // 권한 코드 소속코드(inst_no) 가 1000 이면 SM00 그외 아니면 IM00
     CloseButtonClick: () => void
@@ -132,7 +140,7 @@ const MemberSearchModal = ({
             Children={
                 <Container>
                     <RowWapper>
-                        <div className="">관리자 권한 추가</div>
+                        <TitleText>{`${SearchTitle}`}</TitleText>
                     </RowWapper>
                     <RowWapperGap>
                         <VaryInput

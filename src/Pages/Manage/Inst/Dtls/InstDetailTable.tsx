@@ -1040,6 +1040,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             {pageState.modal.memberSearch && (
                 <MemberSearchModal
                     SearchType={`admin`}
+                    SearchTitle={`관리자 권한 추가`}
                     InstNo={Number(params.instNo)}
                     PermiCode={Number(params.instNo) === 1000 ? 'SM00' : 'IM00'}
                     CloseButtonClick={() =>

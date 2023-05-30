@@ -684,6 +684,7 @@ const MessageSendModal = ({
             {pageState.modal.memberSearch && (
                 <MemberSearchModal
                     SearchType={`default`}
+                    SearchTitle={`수신자 추가`}
                     InstNo={Number(1000)}
                     PermiCode={Number(1000) === 1000 ? 'SM00' : 'IM00'}
                     CloseButtonClick={() =>
