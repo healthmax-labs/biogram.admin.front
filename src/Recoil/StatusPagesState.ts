@@ -176,7 +176,7 @@ export const StatisticsListState = atom<StatisticsSearchListInterface>({
             INST_NO: '',
             instNm: '',
             SEARCH_KEY: '',
-            MESURE_CODE: ['IS', 'BP', 'BS', 'BC'],
+            MESURE_CODE: ['IS', 'BP', 'BS', 'BC', 'ST'],
             BEGIN_DE: getOneMonthAgo(),
             END_DE: getNowDate(),
         },
