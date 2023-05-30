@@ -226,7 +226,7 @@ export const NonMeasureListState = atom<NonMeasureSearchListInterface>({
             cur_page: 0,
             SEARCH_KEY: '',
             BF_N_MESURE_DAY: 3,
-            WORK_TY_CODE: 'I',
+            WORK_TY_CODE: 'A',
         },
         list: {
             NOT_MESURE_NTCN_INFO_LIST: [],
