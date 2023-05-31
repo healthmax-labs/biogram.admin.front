@@ -107,6 +107,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             SIGUNGU_CD,
             REPRSNT_TELNO,
             CHARGER_LIST,
+            INST_SHOW,
+            INST_STPLAT_AT,
         } = detailState.info
 
         let payload: InstInfoInterface = {
@@ -117,6 +119,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             REPRSNT_TELNO: REPRSNT_TELNO,
             SIGUNGU_CD: SIGUNGU_CD,
             SPUSE_STPLAT_AT: SPUSE_STPLAT_AT,
+            INST_SHOW: INST_SHOW,
+            INST_STPLAT_AT: INST_STPLAT_AT,
         }
 
         // 등록
@@ -254,6 +258,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     ATCHMNFL_PATH,
                     ORGINL_FILE_NM,
                     CHARGER_LIST,
+                    INST_SHOW,
+                    INST_STPLAT_AT,
                 },
             } = payload
 
@@ -294,6 +300,8 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             Already: true,
                         }
                     }),
+                    INST_SHOW: INST_SHOW,
+                    INST_STPLAT_AT: INST_STPLAT_AT,
                 },
                 infoStep: infoStep,
             }))
@@ -678,6 +686,56 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                 ...prevState.info,
                                                 SPUSE_STPLAT_AT: e.target
                                                     .checked
+                                                    ? 'Y'
+                                                    : 'N',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WapperStyle.InputFlexNoWarpWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`노출 여부`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WapperStyle.InputFlexNoWarpWapper>
+                                <VaryLabelCheckBox
+                                    Checked={detailState.info.INST_SHOW === 'Y'}
+                                    LabelName={`앱 에서 소속 검색시 노출 여부를 설정 합니다. Y: 노출`}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                INST_SHOW: e.target.checked
+                                                    ? 'Y'
+                                                    : 'N',
+                                            },
+                                        }))
+                                    }
+                                />
+                            </WapperStyle.InputFlexNoWarpWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`약관 사용 여부`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WapperStyle.InputFlexNoWarpWapper>
+                                <VaryLabelCheckBox
+                                    Checked={
+                                        detailState.info.INST_STPLAT_AT === 'Y'
+                                    }
+                                    LabelName={`키오스크 / 앱 에서 소속 가입시 약관 사용 여부를 설정 합니다. Y : 사용`}
+                                    HandleOnChange={e =>
+                                        setDetailState(prevState => ({
+                                            ...prevState,
+                                            info: {
+                                                ...prevState.info,
+                                                INST_STPLAT_AT: e.target.checked
                                                     ? 'Y'
                                                     : 'N',
                                             },

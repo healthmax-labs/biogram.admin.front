@@ -56,4 +56,6 @@ export interface InstInfoInterface {
         CONECT_LMTT_AT: 'Y' | 'N'
         CNSLTNT_AT: 'Y' | 'N'
     }>
+    INST_SHOW: 'Y' | 'N'
+    INST_STPLAT_AT: 'Y' | 'N'
 }

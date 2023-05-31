@@ -166,6 +166,8 @@ export const getInstInfo = ({
             TOP_INST_NO: number
             UPPER_INST_NO: string | null
             USE_AT: 'Y' | 'N'
+            INST_SHOW: 'Y' | 'N'
+            INST_STPLAT_AT: 'Y' | 'N'
         }
     }>
 > => {

@@ -66,6 +66,8 @@ interface InstDetailStateInterface {
             SEXDSTN: '남' | '여'
             USID: string
         }>
+        INST_SHOW: 'Y' | 'N'
+        INST_STPLAT_AT: 'Y' | 'N'
     }
     infoStep: string | 'step1' | 'step2' | 'step3'
 }
@@ -127,6 +129,8 @@ export const InstDetailState = atom<InstDetailStateInterface>({
             ORGINL_FILE_NM: '',
             INST_NM_CHECK: false,
             CHARGER_LIST: [],
+            INST_SHOW: 'N',
+            INST_STPLAT_AT: 'N',
         },
         infoStep: 'step1',
     },
