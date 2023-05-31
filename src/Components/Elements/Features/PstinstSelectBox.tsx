@@ -106,12 +106,14 @@ const PstinstSelectBox = ({
                 },
                 InstList: {
                     ...prevState.InstList,
-                    step1: payload.INST_CODE_LIST.map(e => {
-                        return {
-                            value: String(e.INST_NO),
-                            text: e.INST_NM,
-                        }
-                    }),
+                    step1: [{ value: `1000`, text: `(주)헬스맥스` }].concat(
+                        payload.INST_CODE_LIST.map(e => {
+                            return {
+                                value: String(e.INST_NO),
+                                text: e.INST_NM,
+                            }
+                        })
+                    ),
                     step2: initializeState.InstList.step2,
                     step3: initializeState.InstList.step3,
                 },
