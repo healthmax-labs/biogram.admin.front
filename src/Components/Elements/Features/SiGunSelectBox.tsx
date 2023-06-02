@@ -163,7 +163,7 @@ const SiGunSelectBox = ({
                 <VarySelectBox
                     Placeholder={Messages.Default.sidoCodeSelect}
                     Value={pageState.SelectList.step1.value}
-                    Elements={[{ value: `99999`, text: `B2B` }].concat(
+                    Elements={[{ value: `99`, text: `B2B` }].concat(
                         pageState.SiGuGun.step1
                     )}
                     HandleOnChange={e => {
@@ -175,7 +175,18 @@ const SiGunSelectBox = ({
                 <VarySelectBox
                     Placeholder={Messages.Default.sigunCodeSelect}
                     Value={pageState.SelectList.step2.value}
-                    Elements={pageState.SiGuGun.step2}
+                    // Elements={[{ value: `99999`, text: `B2B` }].concat(
+                    //     pageState.SiGuGun.step2
+                    // )}
+                    Elements={(() => {
+                        if (pageState.SelectList.step1.value === '99') {
+                            return [{ value: `99999`, text: `B2B` }].concat(
+                                pageState.SiGuGun.step2
+                            )
+                        } else {
+                            return pageState.SiGuGun.step2
+                        }
+                    })()}
                     HandleOnChange={e =>
                         setPageState(prevState => ({
                             ...prevState,
