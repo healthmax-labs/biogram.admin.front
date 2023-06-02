@@ -62,7 +62,10 @@ const UhealthzoneDetailMain = () => {
                     }
                 }
 
-                if (payload.UHEALTH_ZONE_OPER_BMTM.WIK_LIST.length > 0) {
+                if (
+                    payload.UHEALTH_ZONE_OPER_BMTM &&
+                    payload.UHEALTH_ZONE_OPER_BMTM.WIK_LIST.length > 0
+                ) {
                     const bmtm =
                         payload.UHEALTH_ZONE_OPER_BMTM.WIK_LIST.map<UhealthzoneInfoOperWikInfoInfoInterface>(
                             e => {
@@ -91,8 +94,24 @@ const UhealthzoneDetailMain = () => {
                     {
                         TIME_KND_CODE: 'BMTM',
                         TIME_SE_CODE: 'WD',
-                        BEGIN_TIME: `${payload.UHEALTH_ZONE_OPER_BMTM.BEGIN_TIME_H}${payload.UHEALTH_ZONE_OPER_BMTM.BEGIN_TIME_M}`,
-                        END_TIME: `${payload.UHEALTH_ZONE_OPER_BMTM.END_TIME_H}${payload.UHEALTH_ZONE_OPER_BMTM.END_TIME_M}`,
+                        BEGIN_TIME: `${
+                            payload.UHEALTH_ZONE_OPER_BMTM
+                                ? payload.UHEALTH_ZONE_OPER_BMTM.BEGIN_TIME_H
+                                : ''
+                        }${
+                            payload.UHEALTH_ZONE_OPER_BMTM
+                                ? payload.UHEALTH_ZONE_OPER_BMTM.BEGIN_TIME_M
+                                : ''
+                        }`,
+                        END_TIME: `${
+                            payload.UHEALTH_ZONE_OPER_BMTM
+                                ? payload.UHEALTH_ZONE_OPER_BMTM.END_TIME_H
+                                : ''
+                        }${
+                            payload.UHEALTH_ZONE_OPER_BMTM
+                                ? payload.UHEALTH_ZONE_OPER_BMTM.END_TIME_M
+                                : ''
+                        }`,
                     },
                 ]
 

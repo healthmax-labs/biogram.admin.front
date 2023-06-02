@@ -289,7 +289,7 @@ const PstinstSelectBox = ({
         }
 
         pageStart()
-    }, [handleGetTopInst, pageState.InstList.step1.length])
+    }, [handleGetTopInst, pageState.InstList.step1])
 
     useEffect(() => {
         const funcSetInst = () => {
