@@ -88,7 +88,7 @@ const RiskFctrSearchBox = ({
                                 ContentsType={`search`}
                                 Width={'w40'}
                                 id={'id'}
-                                Placeholder={'검색어'}
+                                Placeholder={'이름/아이디/휴대폰번호'}
                                 Value={
                                     isNull(riskFctrListState.search.SEARCH_KEY)
                                         ? ''

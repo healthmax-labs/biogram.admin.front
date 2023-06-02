@@ -75,7 +75,7 @@ const NonMeasureSearchBox = ({
                                 ContentsType={`search`}
                                 Width={'w40'}
                                 id={'id'}
-                                Placeholder={'검색어'}
+                                Placeholder={'이름/아이디/휴대폰번호'}
                                 Value={nonMeasureListState.search.SEARCH_KEY}
                                 HandleOnChange={e =>
                                     setNonMeasureListState(prevState => ({

@@ -97,7 +97,7 @@ const StatisticsSearchBox = ({
                                     }))
                                 }
                                 id={'id'}
-                                Placeholder={'검색어'}
+                                Placeholder={'이름/아이디/휴대폰번호'}
                                 Value={
                                     isNull(
                                         statisticsListState.search.SEARCH_KEY
