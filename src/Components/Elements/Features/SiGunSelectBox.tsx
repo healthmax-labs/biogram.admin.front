@@ -163,7 +163,9 @@ const SiGunSelectBox = ({
                 <VarySelectBox
                     Placeholder={Messages.Default.sidoCodeSelect}
                     Value={pageState.SelectList.step1.value}
-                    Elements={pageState.SiGuGun.step1}
+                    Elements={[{ value: `99999`, text: `B2B` }].concat(
+                        pageState.SiGuGun.step1
+                    )}
                     HandleOnChange={e => {
                         handleSiDoOnChange(e).then()
                     }}
