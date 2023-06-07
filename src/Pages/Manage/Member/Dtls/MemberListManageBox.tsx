@@ -237,6 +237,27 @@ const MemberListManageBox = ({
                         Loading={pageState.excel.status === 'loading'}
                         ButtonType={`manage`}
                         HandleClick={() => {
+                            let clickCheck = true
+                            if (
+                                _.isEmpty(listState.search.instNo) ||
+                                listState.search.instNo === '1000'
+                            ) {
+                                clickCheck = false
+                            }
+
+                            if (!_.isEmpty(listState.search.searchKey)) {
+                                clickCheck = true
+                            }
+
+                            if (!clickCheck) {
+                                handlMainAlert({
+                                    state: true,
+                                    message:
+                                        Messages.Default.pstinstSelectEmpty,
+                                })
+                                return
+                            }
+
                             handleGetExcelData().then(() =>
                                 setPageState(prevState => ({
                                     ...prevState,
