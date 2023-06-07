@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { addComma } from '@Helper'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     GeonDaonStyle: {
@@ -23,6 +24,7 @@ const {
 
 const GeonDaonDashboard = () => {
     const dashBoardPageState = useRecoilValue(DashBoardPageState)
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const myData = Codes.myData.flatMap(i => i.list)
     const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
@@ -592,70 +594,74 @@ const GeonDaonDashboard = () => {
                             </FlexHelf>
                             <FlexHelf>
                                 <WapperCol>
-                                    <div>
-                                        <GeonDaonContentCard
-                                            Loading={
-                                                dashBoardPageState
-                                                    .mybodyScoreImprvm
-                                                    .status === 'loading'
-                                            }
-                                            LeftTitle={
-                                                <>
-                                                    <p className="flex text-xs">
-                                                        건강 개선률
-                                                    </p>
-                                                    <p className="flex text-little object-bottom pl-1">
-                                                        (단위: %)
-                                                    </p>
-                                                </>
-                                            }
-                                            RightTitle={
-                                                <>
-                                                    <p className="flex text-xs pl-1 text-blue-600">
-                                                        ∎ 내근직
-                                                    </p>
-                                                    <p className="flex text-xs pl-1">
-                                                        ∎ 외근직
-                                                    </p>
-                                                </>
-                                            }
-                                            Items={dashBoardPageState.mybodyScoreImprvm.list.map(
-                                                e => {
-                                                    const findCode = _.find(
-                                                        Codes.ageGroup.list,
-                                                        {
-                                                            code: String(
-                                                                e.AGES_GROUP
-                                                            ),
-                                                        }
-                                                    )
-
-                                                    return [
-                                                        {
-                                                            name: `${
-                                                                findCode
-                                                                    ? findCode.name
-                                                                    : e.AGES_GROUP
-                                                            }`,
-                                                            textAlign: 'left',
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.IW_SCORE
-                                                            ),
-                                                            color: 'blue',
-                                                        },
-                                                        {
-                                                            name: addComma(
-                                                                e.OW_SCORE
-                                                            ),
-                                                            textAlign: 'right',
-                                                        },
-                                                    ]
+                                    {mainLayoutState.Theme === 'GeonDaon' && (
+                                        <div>
+                                            <GeonDaonContentCard
+                                                Loading={
+                                                    dashBoardPageState
+                                                        .mybodyScoreImprvm
+                                                        .status === 'loading'
                                                 }
-                                            )}
-                                        />
-                                    </div>
+                                                LeftTitle={
+                                                    <>
+                                                        <p className="flex text-xs">
+                                                            건강 개선률
+                                                        </p>
+                                                        <p className="flex text-little object-bottom pl-1">
+                                                            (단위: %)
+                                                        </p>
+                                                    </>
+                                                }
+                                                RightTitle={
+                                                    <>
+                                                        <p className="flex text-xs pl-1 text-blue-600">
+                                                            ∎ 내근직
+                                                        </p>
+                                                        <p className="flex text-xs pl-1">
+                                                            ∎ 외근직
+                                                        </p>
+                                                    </>
+                                                }
+                                                Items={dashBoardPageState.mybodyScoreImprvm.list.map(
+                                                    e => {
+                                                        const findCode = _.find(
+                                                            Codes.ageGroup.list,
+                                                            {
+                                                                code: String(
+                                                                    e.AGES_GROUP
+                                                                ),
+                                                            }
+                                                        )
+
+                                                        return [
+                                                            {
+                                                                name: `${
+                                                                    findCode
+                                                                        ? findCode.name
+                                                                        : e.AGES_GROUP
+                                                                }`,
+                                                                textAlign:
+                                                                    'left',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.IW_SCORE
+                                                                ),
+                                                                color: 'blue',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    e.OW_SCORE
+                                                                ),
+                                                                textAlign:
+                                                                    'right',
+                                                            },
+                                                        ]
+                                                    }
+                                                )}
+                                            />
+                                        </div>
+                                    )}
                                 </WapperCol>
                             </FlexHelf>
                         </FlexNowrapFull>
