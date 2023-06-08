@@ -25,6 +25,7 @@ const {
     Divider,
     NavigationUl,
     NavigationLi,
+    MenuHeadingLink,
 } = SidebarStyle
 
 const initializeState = {
@@ -203,6 +204,24 @@ const Sidebar = () => {
                                 )
                             }
                         )}
+                        {mainLayoutState.Theme !== 'GeonDaon' && (
+                            <>
+                                {/* Divider */}
+                                <Divider />
+                                {/* Heading */}
+                                <MenuHeading Active={false}>
+                                    <MenuHeadingLink
+                                        onClick={() => {
+                                            window.open(
+                                                'https://api.mybiogram.com/common/file?atchmnfl_nm=TzNPektoZE85VHV5elVLWWZxK0JoQT09'
+                                            )
+                                        }}>
+                                        메뉴얼 다운로드
+                                    </MenuHeadingLink>
+                                </MenuHeading>
+                            </>
+                        )}
+
                         {process.env.REACT_APP_ENV === 'development' && (
                             <>
                                 {/* Divider */}

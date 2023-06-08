@@ -67,6 +67,7 @@ export const SidebarStyle = {
             ? tw`text-blueberry block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`
             : tw`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`,
     ]),
+    MenuHeadingLink: tw.div`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full cursor-pointer`,
     NavigationUl: tw.ul`flex list-none flex-col min-w-full`,
     NavigationLi: tw.li`items-center h-6`,
     MenuLink: styled.div(({ Active }: { Active: boolean }) => [
