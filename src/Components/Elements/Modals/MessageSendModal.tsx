@@ -279,6 +279,21 @@ const MessageSendModal = ({
                 message: {
                     ...prevState.message,
                     selectedMember: SelectMember,
+                    sendTime: {
+                        ...initializeState.message.sendTime,
+                        selectTime: new Date(),
+                    },
+                },
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                message: {
+                    ...prevState.message,
+                    sendTime: {
+                        ...initializeState.message.sendTime,
+                        selectTime: new Date(),
+                    },
                 },
             }))
         }
@@ -289,19 +304,6 @@ const MessageSendModal = ({
         return () => {
             setPageState(initializeState)
         }
-    }, [])
-
-    useEffect(() => {
-        setPageState({
-            ...initializeState,
-            message: {
-                ...initializeState.message,
-                sendTime: {
-                    ...initializeState.message.sendTime,
-                    selectTime: new Date(),
-                },
-            },
-        })
     }, [])
 
     return (
