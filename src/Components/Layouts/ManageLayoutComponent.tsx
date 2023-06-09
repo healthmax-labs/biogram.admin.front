@@ -5,18 +5,28 @@ import {
     ManageHeaderStats,
     ManageSidebar,
     ManageTopbar,
+    VaryButton,
+    VaryModal,
 } from '@Elements'
 import { LayoutStyle } from '@Style/Layouts/Manage/MainStyles'
 import MainTabComponent from '@Element/Layouts/MainTabComponent'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth, useMainLayouts, useRecoilReset } from '@Hooks'
 import { useLocation } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { MemberListState } from '@Recoil/MemberPagesState'
+import { ManualPopup, ManualPopupButton } from '@Assets'
+import { storageManager, getDetailDateDayMonthUnit } from '@Helper'
 
 const { Container, CenterWapper } = LayoutStyle
+
+const initializeState = {
+    modal: {
+        manualDownload: false,
+    },
+}
 
 const ManageLayoutComponent = () => {
     const location = useLocation()
@@ -30,6 +40,12 @@ const ManageLayoutComponent = () => {
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [memberlistState, setMemberListState] =
         useRecoilState(MemberListState)
+
+    const [pageState, setPageState] = useState<{
+        modal: {
+            manualDownload: boolean
+        }
+    }>(initializeState)
 
     // 로그인 체크
     useEffect(() => {
@@ -80,6 +96,37 @@ const ManageLayoutComponent = () => {
         }
     }, [memberlistState.status, mainLayoutState, setMemberListState])
 
+    useEffect(() => {
+        // console.debug(getDetailDateDayMonthUnit(1))
+        // console.debug(getDetailDateDayMonthUnit(0))
+    }, [])
+
+    useEffect(() => {
+        const pageStart = () => {
+            // 메뉴얼 다운로드 오늘 하루 그만 보기 체크
+            let mdState = false
+            const md = storageManager.get('ManualDownload')
+
+            if (!md) {
+                mdState = true
+            }
+
+            if (md && Number(getDetailDateDayMonthUnit(0)) > Number(md)) {
+                mdState = true
+            }
+
+            setPageState(prevState => ({
+                ...prevState,
+                modal: {
+                    ...prevState,
+                    manualDownload: mdState,
+                },
+            }))
+        }
+
+        pageStart()
+    }, [])
+
     return (
         <>
             <Container MenuState={leftMenuShow}>
@@ -101,6 +148,77 @@ const ManageLayoutComponent = () => {
                     okButtonClick={() => {
                         handlMainAlert({ state: false, message: `` })
                     }}
+                />
+            )}
+            {pageState.modal.manualDownload && (
+                <VaryModal
+                    ModalLoading={false}
+                    MaxWidth={'max'}
+                    Children={
+                        <div className="">
+                            <div className="flex w-full justify-center items-center object-center">
+                                <img
+                                    className="object-contain"
+                                    src={ManualPopup}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="flex w-full justify-center items-center object-center pt-3">
+                                <img
+                                    className="cursor-pointer object-contain w-96"
+                                    src={ManualPopupButton}
+                                    alt=""
+                                    onClick={() => {
+                                        window.open(
+                                            'https://api.mybiogram.com/common/file?atchmnfl_nm=TzNPektoZE85VHV5elVLWWZxK0JoQT09'
+                                        )
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState,
+                                                manualDownload: false,
+                                            },
+                                        }))
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    }
+                    Buttons={
+                        <>
+                            <VaryButton
+                                ButtonType={'default'}
+                                ButtonName={'오늘 하루 그만 보기'}
+                                HandleClick={() => {
+                                    storageManager.set(
+                                        'ManualDownload',
+                                        getDetailDateDayMonthUnit(1)
+                                    )
+
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState,
+                                            manualDownload: false,
+                                        },
+                                    }))
+                                }}
+                            />
+                            <VaryButton
+                                ButtonType={'default'}
+                                ButtonName={'닫기'}
+                                HandleClick={() => {
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState,
+                                            manualDownload: false,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </>
+                    }
                 />
             )}
         </>

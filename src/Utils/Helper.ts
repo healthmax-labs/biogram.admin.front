@@ -551,14 +551,14 @@ export const getDateMonthUnit = (endDate: Date, unit: number) => {
 }
 
 /**
- * unit 기준 이전 날짜.
+ * uinit 기준 이전 날짜(월)
  * @param unit
  */
-export const getDateDayUnit = (unit: number) => {
+export const getDateDayMonthUnit = (unit: number) => {
     const date = new Date(
         new Date().getFullYear(),
-        new Date().getMonth(),
-        new Date().getDate() - unit
+        new Date().getMonth() - unit,
+        new Date().getDate()
     )
     const year = date.getFullYear()
     let month: string | number = 1 + date.getMonth()
@@ -569,15 +569,37 @@ export const getDateDayUnit = (unit: number) => {
     return year + '' + month + '' + day
 }
 
-/**
- * uinit 기준 이전 날짜(월)
- * @param unit
- */
-export const getDateDayMonthUnit = (unit: number) => {
+export const getDetailDateDayMonthUnit = (unit: number) => {
     const date = new Date(
         new Date().getFullYear(),
-        new Date().getMonth() - unit,
-        new Date().getDate()
+        new Date().getMonth(),
+        new Date().getDate() + unit,
+        new Date().getHours(),
+        new Date().getMinutes(),
+        new Date().getSeconds()
+    )
+    const year = date.getFullYear()
+    let month: string | number = 1 + date.getMonth()
+    month = month >= 10 ? month : '0' + month
+    let day: string | number = date.getDate()
+    day = day >= 10 ? day : '0' + day
+
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+
+    return `${year}${month}${day}${hour}${minute}${second}`
+}
+
+/**
+ * unit 기준 이전 날짜.
+ * @param unit
+ */
+export const getDateDayUnit = (unit: number) => {
+    const date = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate() - unit
     )
     const year = date.getFullYear()
     let month: string | number = 1 + date.getMonth()

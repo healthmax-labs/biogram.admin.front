@@ -6,7 +6,6 @@ import { MaxHeightType } from '@CommonTypes'
 export const ModalStyle = {
     Container: tw.div`fixed inset-0 z-10 overflow-y-auto max-h-[calc(100vh - 5%)] overflow-x-hidden`,
     ModalBackground: tw.div`fixed inset-0 w-full h-full bg-black opacity-40`,
-    MainWapper1: tw.div`flex items-center min-h-screen px-4 py-8`,
     MainWapper: styled.div(({ needMax }: { needMax?: boolean }) => [
         tw`flex items-center px-4 py-8`,
         needMax ? tw`max-h-screen` : tw`min-h-screen`,
