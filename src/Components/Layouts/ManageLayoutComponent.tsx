@@ -170,7 +170,7 @@ const ManageLayoutComponent = () => {
                                     alt=""
                                     onClick={() => {
                                         window.open(
-                                            'https://api.mybiogram.com/common/file?atchmnfl_nm=TzNPektoZE85VHV5elVLWWZxK0JoQT09'
+                                            'https://api.mybiogram.com/common/file?atchmnfl_nm=K0UrNXpYZWFNVW1ucXZ3bmpGZlQ5QT09'
                                         )
                                         setPageState(prevState => ({
                                             ...prevState,
