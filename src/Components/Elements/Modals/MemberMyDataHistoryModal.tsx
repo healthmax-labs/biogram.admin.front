@@ -108,6 +108,11 @@ const MemberMyDataHistoryModal = ({
             pageState.search.endDate &&
             pageState.search.page !== null
         ) {
+            setPageState(prevState => ({
+                ...prevState,
+                loading: true,
+            }))
+
             const { status, payload } = await getMesureInfo({
                 memNo: MemberNo,
                 dataCode: DataCode,
@@ -118,6 +123,7 @@ const MemberMyDataHistoryModal = ({
             if (status) {
                 setPageState(prevState => ({
                     ...prevState,
+                    loading: false,
                     list: payload.MESURE_INFO_LIST.map(e => {
                         if (e.MESURE_MTHD === 'M') {
                             if (userinfo && userinfo.MBER_NO) {
@@ -137,6 +143,11 @@ const MemberMyDataHistoryModal = ({
                     }),
                 }))
             } else {
+                setPageState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                    list: [],
+                }))
                 // FIXME: 에러처리.
                 // handlMainAlert({
                 //     state: true,
@@ -187,12 +198,15 @@ const MemberMyDataHistoryModal = ({
         }
 
         funcSetState()
-    }, [DataCode, MemberNo, handleGetList])
+
+        // FIXME : 종속성에서 pageState.search.startDate -> handleGetList 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [DataCode, MemberNo])
 
     return (
         <>
             <VaryModal
-                ModalLoading={false}
+                ModalLoading={pageState.loading}
                 NeedMax={false}
                 Children={
                     <>
@@ -210,7 +224,7 @@ const MemberMyDataHistoryModal = ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
-                                                startDate: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                                startDate: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                             },
                                         }))
                                     }}
@@ -227,7 +241,7 @@ const MemberMyDataHistoryModal = ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
-                                                endDate: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                                endDate: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                             },
                                         }))
                                     }}
