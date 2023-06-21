@@ -106,7 +106,7 @@ const StatisticsManageBox = () => {
                         m.MESURE_DE ? dateInsertHypen(String(m.MESURE_DE)) : '',
                         String(m.MBER_NO),
                         m.NM ? m.NM : '',
-                        m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
+                        m.BRTHDY ? m.BRTHDY : '',
                         m.SEXDSTN ? m.SEXDSTN : '',
                         m.WEIGHT ? m.WEIGHT : '',
                         m.BMI ? m.BMI : '',
