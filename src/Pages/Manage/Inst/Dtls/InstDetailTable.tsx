@@ -152,12 +152,23 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 }
             }
         } else if (pageMode === 'modify') {
+            // 수정 할떄 소속 위치 변경시 로직이 너무 복잡해서 벡엔드와 이야기후 INST_NO_LEVEL* 추가.
+            // 기존 소스엔 변화 없게~
             if (detailState.infoStep === 'step1') {
+                payload = {
+                    ...payload,
+                    INST_NO_LEVEL1: detailState.info.TOP_INST_NO,
+                    INST_NO_LEVEL2: '',
+                    INST_NO_LEVEL3: '',
+                }
             } else if (detailState.infoStep === 'step2') {
                 payload = {
                     ...payload,
                     TOP_INST_NO: TOP_INST_NO,
                     UPPER_INST_NO: TOP_INST_NO,
+                    INST_NO_LEVEL1: detailState.info.TOP_INST_NO,
+                    INST_NO_LEVEL2: detailState.info.MIDDLE_INST_NO,
+                    INST_NO_LEVEL3: '',
                 }
             } else if (detailState.infoStep === 'step3') {
                 payload = {
@@ -165,6 +176,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     TOP_INST_NO: TOP_INST_NO,
                     MIDDLE_INST_NO: MIDDLE_INST_NO,
                     UPPER_INST_NO: MIDDLE_INST_NO,
+                    INST_NO_LEVEL1: detailState.info.TOP_INST_NO,
+                    INST_NO_LEVEL2: detailState.info.MIDDLE_INST_NO,
+                    INST_NO_LEVEL3: detailState.info.UPPER_INST_NO,
                 }
             }
         }
@@ -547,6 +561,19 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                     step3: detailState.info.UPPER_INST_NO,
                                 }}
                                 ReturnCallback={e => {
+                                    let selectStep = ''
+                                    if (!_.isEmpty(e.step1.value)) {
+                                        selectStep = 'step1'
+                                    }
+
+                                    if (!_.isEmpty(e.step2.value)) {
+                                        selectStep = 'step2'
+                                    }
+
+                                    if (!_.isEmpty(e.step3.value)) {
+                                        selectStep = 'step3'
+                                    }
+
                                     setDetailState(prevState => ({
                                         ...prevState,
                                         info: {
@@ -560,6 +587,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                     ? e.selectinfo.SIGUNGU_CD
                                                     : '',
                                         },
+                                        infoStep: selectStep,
                                     }))
                                 }}
                             />

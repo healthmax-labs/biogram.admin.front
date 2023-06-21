@@ -58,4 +58,7 @@ export interface InstInfoInterface {
     }>
     INST_SHOW: 'Y' | 'N'
     INST_STPLAT_AT: 'Y' | 'N'
+    INST_NO_LEVEL1?: string
+    INST_NO_LEVEL2?: string
+    INST_NO_LEVEL3?: string
 }
