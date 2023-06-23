@@ -1486,7 +1486,7 @@ const MemberDetailTable = ({
                                                 },
                                             }))
                                         }}
-                                        MinDate={new Date(`1980-1-1`)}
+                                        MinDate={new Date(`1890-1-1`)}
                                         MaxDate={new Date()}
                                     />
                                 </InputCell>
