@@ -3,7 +3,10 @@ import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import ConsultDetailRightBoxChart from './ConsultDetailRightBoxChart'
 import ConsultDetailRightBoxMessage from './ConsultDetailRightBoxMessage'
 import { useRecoilValue } from 'recoil'
-import { ConsultDetailChartState } from '@Recoil/MemberPagesState'
+import {
+    ConsultDetailChartState,
+    ConsultDetailSmsSendState,
+} from '@Recoil/MemberPagesState'
 import _ from 'lodash'
 
 const { Tabs, Message } = ConsultDetailStyle
@@ -25,6 +28,7 @@ const initializeState = {
 }
 const ConsultDetailRightBox = () => {
     const chartState = useRecoilValue(ConsultDetailChartState)
+    const smsState = useRecoilValue(ConsultDetailSmsSendState)
     const [pageState, setPageState] = useState<{
         Tab: Array<{
             name: string
@@ -65,6 +69,12 @@ const ConsultDetailRightBox = () => {
 
             if (!_.isNull(chartState.CNST_NO) && nowTab !== 'memo') {
                 handleTabClick({ name: '', active: false, key: 'memo' })
+                return
+            }
+
+            if (!_.isNull(smsState.send.SMS_CN) && nowTab !== 'msg') {
+                handleTabClick({ name: '', active: false, key: 'msg' })
+                return
             }
         }
 
@@ -72,7 +82,7 @@ const ConsultDetailRightBox = () => {
 
         // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chartState])
+    }, [chartState, smsState])
 
     return (
         <Message.Container>

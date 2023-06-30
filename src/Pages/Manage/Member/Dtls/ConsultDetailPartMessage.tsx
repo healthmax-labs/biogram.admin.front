@@ -3,11 +3,19 @@ import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import { ElementLoading, VaryButton, VaryDatepickerInput } from '@Elements'
 import React, { useCallback, useEffect } from 'react'
 import Messages from '@Messages'
-import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import {
+    changeDatePickerDate,
+    gmtTimeToTimeObject,
+    phoneFormat,
+    timeStringParse,
+} from '@Helper'
 import { useParams } from 'react-router-dom'
 
-import { useRecoilState } from 'recoil'
-import { ConsultMsgBoxListState } from '@Recoil/MemberPagesState'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import {
+    ConsultDetailSmsSendState,
+    ConsultMsgBoxListState,
+} from '@Recoil/MemberPagesState'
 import { getMsgBoxList } from '@Service/MemberService'
 
 const {
@@ -33,6 +41,10 @@ const ConsultDetailPartMessage = () => {
 
     const [messageBoxListState, setMessageBoxListState] = useRecoilState(
         ConsultMsgBoxListState
+    )
+
+    const consultDetailSmsSendState = useSetRecoilState(
+        ConsultDetailSmsSendState
     )
 
     const handleGetData = useCallback(async () => {
@@ -133,7 +145,6 @@ const ConsultDetailPartMessage = () => {
                             <HeaderCell>수신번호</HeaderCell>
                             <HeaderCell>내용</HeaderCell>
                             <HeaderCell>작성일시</HeaderCell>
-                            <HeaderCell>발신자</HeaderCell>
                         </HeaderRow>
                     </TableHeader>
                     <TableBody HeightLimit={true} Scroll={true}>
@@ -144,18 +155,35 @@ const ConsultDetailPartMessage = () => {
                                     return (
                                         <TableBodyRow
                                             key={`main-table-body-row-${index}`}
-                                            BgState={index % 2 === 0}>
+                                            BgState={index % 2 === 0}
+                                            onClick={() =>
+                                                consultDetailSmsSendState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        send: {
+                                                            ...prevState.send,
+                                                            SMS_CN: el.CN,
+                                                        },
+                                                    })
+                                                )
+                                            }>
                                             <TableBodyCell>
                                                 {el.SNDNG_STATUS}
                                             </TableBodyCell>
                                             <TableBodyCell>
-                                                {el.SNDNGDT}
+                                                {el.SNDNGDT
+                                                    ? timeStringParse(
+                                                          el.SNDNGDT
+                                                      )
+                                                    : ''}
                                             </TableBodyCell>
                                             <TableBodyCell>
                                                 {el.RECVER}
                                             </TableBodyCell>
                                             <TableBodyCell>
-                                                {el.MBTLNUM}
+                                                {el.MBTLNUM
+                                                    ? phoneFormat(el.MBTLNUM)
+                                                    : ''}
                                             </TableBodyCell>
                                             <TableBodyCell>
                                                 {String(el.CN).length > 20
@@ -164,10 +192,9 @@ const ConsultDetailPartMessage = () => {
                                                     : el.CN}
                                             </TableBodyCell>
                                             <TableBodyCell>
-                                                {el.RGSDT}
-                                            </TableBodyCell>
-                                            <TableBodyCell>
-                                                비어있음
+                                                {el.RGSDT
+                                                    ? timeStringParse(el.RGSDT)
+                                                    : ''}
                                             </TableBodyCell>
                                         </TableBodyRow>
                                     )
