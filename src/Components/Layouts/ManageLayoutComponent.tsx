@@ -96,37 +96,6 @@ const ManageLayoutComponent = () => {
         }
     }, [memberlistState.status, mainLayoutState, setMemberListState])
 
-    useEffect(() => {
-        // console.debug(getDetailDateDayMonthUnit(1))
-        // console.debug(getDetailDateDayMonthUnit(0))
-    }, [])
-
-    useEffect(() => {
-        const pageStart = () => {
-            // 메뉴얼 다운로드 오늘 하루 그만 보기 체크
-            let mdState = false
-            const md = storageManager.get('ManualDownload')
-
-            if (!md) {
-                mdState = true
-            }
-
-            if (md && Number(getDetailDateDayMonthUnit(0)) > Number(md)) {
-                mdState = true
-            }
-
-            setPageState(prevState => ({
-                ...prevState,
-                modal: {
-                    ...prevState,
-                    manualDownload: mdState,
-                },
-            }))
-        }
-
-        pageStart()
-    }, [])
-
     return (
         <>
             <Container MenuState={leftMenuShow}>
