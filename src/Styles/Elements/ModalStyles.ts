@@ -117,5 +117,5 @@ export const ConsultChartPrintModalStyle = {
     LabelBox: tw.div`flex w-2/12 h-16 border justify-center items-center`,
     ValueBox: tw.div`flex w-4/12 h-16 border justify-center items-center`,
     Text: tw.p`text-xs`,
-    Contents: tw.div`text-xs py-2 px-2 border h-auto text-left break-words whitespace-pre-wrap`,
+    Contents: tw.div`text-xs py-2 px-2 border h-auto text-left break-words whitespace-pre-wrap w-full`,
 }
