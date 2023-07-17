@@ -162,6 +162,7 @@ export interface UhealthzoneInfoInterface {
     EXTRL_PERSON_USE_AT: string | 'Y' | 'N'
     OPEN_AT: string | 'Y' | 'N'
     PRINT_AT: string | 'Y' | 'N'
+    JOIN_AT: string | 'G' | 'C' | 'J'
     LOGO_ATCHMNFL_NO: number
     BCRN_ATCHMNFL_NO: number
     MHRLS_INFO: UhealthzoneInfoMhrlsInfoInterface[]
@@ -200,6 +201,7 @@ export interface UhealthZoneChargerInfoInterface {
         BOTTOM_INST_NO: number | null
         MAP_ADRES: string
         LOGIN_AT: 'Y' | 'N'
+        JOIN_AT: 'G' | 'C' | 'J'
     }
     UHEALTH_ZONE_MHRLS_LIST: Array<{
         MHRLS_CODE: string

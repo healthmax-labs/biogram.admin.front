@@ -730,6 +730,26 @@ export default {
                 },
             ],
         },
+        joinAt: {
+            name: `회원가입 방식`,
+            list: [
+                {
+                    name: `회원가입없음`,
+                    key: 'G',
+                    code: 'G',
+                },
+                {
+                    name: `CI 를 통한 회원 가입`,
+                    key: 'C',
+                    code: 'C',
+                },
+                {
+                    name: `CI 를 받지 않는 기존 방식의 회원가입`,
+                    key: 'J',
+                    code: 'J',
+                },
+            ],
+        },
         mhrls: {
             name: `설치기기`,
             list: [

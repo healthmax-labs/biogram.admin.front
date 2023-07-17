@@ -201,6 +201,7 @@ const UhealthzoneDetailTable = ({
             EXTRL_PERSON_USE_AT,
             OPEN_AT,
             PRINT_AT,
+            JOIN_AT,
             LOGO_ATCHMNFL_NO,
             BCRN_ATCHMNFL_NO,
             MHRLS_INFO,
@@ -221,6 +222,7 @@ const UhealthzoneDetailTable = ({
             EXTRL_PERSON_USE_AT: EXTRL_PERSON_USE_AT,
             OPEN_AT: OPEN_AT,
             PRINT_AT: PRINT_AT,
+            JOIN_AT: JOIN_AT,
             LOGO_ATCHMNFL_NO: LOGO_ATCHMNFL_NO,
             BCRN_ATCHMNFL_NO: BCRN_ATCHMNFL_NO,
             MHRLS_INFO: MHRLS_INFO,
@@ -1202,6 +1204,47 @@ const UhealthzoneDetailTable = ({
                                                                             detail: {
                                                                                 ...prevState.detail,
                                                                                 PRINT_AT:
+                                                                                    el.code,
+                                                                            },
+                                                                        })
+                                                                    )
+                                                                }
+                                                            />
+                                                        )
+                                                    }
+                                                )}
+                                            </WS.FlexNoWarapGap>
+                                        </InputCell>
+                                    </Row>
+                                    <Row>
+                                        <LabelCell>
+                                            <VaryLabel
+                                                LabelName={`회원가입 방식`}
+                                            />
+                                        </LabelCell>
+                                        <InputCell>
+                                            <WS.FlexNoWarapGap>
+                                                {Codes.deviceGubun.joinAt.list.map(
+                                                    (el, index) => {
+                                                        return (
+                                                            <VaryLabelRadioButton
+                                                                LabelWidth={`full`}
+                                                                key={`uhealth-zone-detail-table-deviceGubun-join-at-item-${index}`}
+                                                                RedioName={`uhealth-zone-detail-table-deviceGubun-join-at-item-${index}`}
+                                                                Checked={
+                                                                    detailState
+                                                                        .detail
+                                                                        .JOIN_AT ===
+                                                                    el.code
+                                                                }
+                                                                LabelName={`${el.name}`}
+                                                                HandleOnChange={() =>
+                                                                    setDetailState(
+                                                                        prevState => ({
+                                                                            ...prevState,
+                                                                            detail: {
+                                                                                ...prevState.detail,
+                                                                                JOIN_AT:
                                                                                     el.code,
                                                                             },
                                                                         })
