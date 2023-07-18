@@ -317,7 +317,7 @@ export const phoneFormat = (str: string) => {
 
     // ({2,3}) - ({3,4}) - ({4})
     return [
-        // 첫번째 구간 (00 or 000)
+        // 첫번째 구간 (00 or 000)시
         value.slice(0, firstLength),
         // 두번째 구간 (000 or 0000)
         value.slice(firstLength, value.length - 4),
@@ -928,4 +928,25 @@ export const hangulContentsByteLength = (string: string): number => {
     }
 
     return int_char_count
+}
+
+/**
+ * 만나이
+ * @param birthday
+ */
+export const getWesternAge = (birthday: string): number => {
+    const today = new Date()
+    const birthDay = new Date(birthday)
+    let age = today.getFullYear() - birthDay.getFullYear()
+
+    const todayMonth = today.getMonth() + 1
+    const birthMonth = birthDay.getMonth() + 1
+
+    if (
+        birthMonth > todayMonth ||
+        (birthMonth === todayMonth && birthDay.getDate() >= today.getDate())
+    ) {
+        age--
+    }
+    return age
 }

@@ -7,6 +7,7 @@ import Routers from '@Routers'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailState } from '@Recoil/MemberPagesState'
 import { useEffect, useState } from 'react'
+import { getWesternAge } from '@Helper'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
@@ -19,6 +20,7 @@ const initializeState = {
         SEXDSTN: '',
         BRTHDY: '',
         MBTLNUM_CRTFC_AT: 'N',
+        AGE: '',
     },
 }
 
@@ -39,6 +41,7 @@ const ConsultDetailPartsMain = ({
             SEXDSTN: string
             BRTHDY: string
             MBTLNUM_CRTFC_AT: string | 'N' | 'Y'
+            AGE: string
         }
     }>(initializeState)
 
@@ -73,6 +76,7 @@ const ConsultDetailPartsMain = ({
                         MBTLNUM: MBTLNUM,
                         SEXDSTN: SEXDSTN,
                         MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
+                        AGE: `${getWesternAge(BRTHDY)}`,
                     },
                 }))
             }
@@ -152,7 +156,12 @@ const ConsultDetailPartsMain = ({
                                     }}
                                     id={'id'}
                                     Placeholder={'생년월일'}
-                                    Value={pageState.info.BRTHDY}
+                                    Value={
+                                        pageState.info.BRTHDY &&
+                                        pageState.info.AGE
+                                            ? `${pageState.info.BRTHDY} (${pageState.info.AGE}세)`
+                                            : ``
+                                    }
                                     Disabled={true}
                                 />
                             </InputCell>
