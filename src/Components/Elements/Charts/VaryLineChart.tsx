@@ -135,7 +135,7 @@ const VaryLineChart = ({
             getStrokeFromSprite: false,
             autoTextColor: false,
             getLabelFillFromSprite: false,
-            labelText: '{valueY}',
+            labelText: '{date}\n{value}',
         })
         tooltip.get('background')?.setAll({
             fill: am5.color(0xffffff),
@@ -143,6 +143,7 @@ const VaryLineChart = ({
             stroke: am5.color(0x047481),
             strokeOpacity: 0.8,
         })
+        tooltip.get('tooltip')?.label.set('text', '{valueX}: {valueY}')
         tooltip.label.setAll({
             fill: am5.color(0x047481),
         })
@@ -158,11 +159,11 @@ const VaryLineChart = ({
             })
         )
         const tooltip2 = am5.Tooltip.new(root, {
-            getFillFromSprite: false,
-            getStrokeFromSprite: false,
-            autoTextColor: false,
-            getLabelFillFromSprite: false,
-            labelText: '{valueY}',
+            getFillFromSprite: true,
+            getStrokeFromSprite: true,
+            autoTextColor: true,
+            getLabelFillFromSprite: true,
+            labelText: '{date}\n{value}',
         })
         tooltip2.get('background')?.setAll({
             fill: am5.color(0xffffff),
