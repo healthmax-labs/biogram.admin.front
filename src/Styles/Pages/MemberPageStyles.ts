@@ -204,9 +204,10 @@ export const ConsultDetailStyle = {
         MyCoach: {
             RowWapper: tw.div`w-full pb-1`,
             SearchWapper: tw.div`flex flex-nowrap w-full border`,
-            SearchBox: tw.div`flex py-2 w-full justify-end gap-2`,
-            SearchItems: tw.div`flex gap-1 h-8 px-1`,
-            SearchItem: tw.div`flex items-center`,
+            SearchBox: tw.div`flex flex-nowrap w-full py-2`,
+            SearchGuideTextBox: tw.div`flex w-1/2`,
+            SearchGuideText: tw.div`flex text-xs text-gray-600 items-center pl-2`,
+            SearchItem: tw.div`flex w-1/2 justify-end gap-2`,
             LoadingBox: tw.div`flex flex-col pt-32`,
             TableBox: tw.div`flex`,
             Table: {

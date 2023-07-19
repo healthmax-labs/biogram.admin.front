@@ -76,31 +76,38 @@ const ConsultDetailPartMyCoach = () => {
         <Detail.Container>
             <Detail.MyCoach.SearchWapper>
                 <Detail.MyCoach.SearchBox>
-                    <VaryDatepickerInput
-                        Width={'w32'}
-                        InputeType={`default`}
-                        Value={changeDatePickerDate(
-                            coachState.search.searchDate
-                        )}
-                        CallBackReturn={e => {
-                            const { year, monthPad, dayPad } =
-                                gmtTimeToTimeObject(e)
-                            setCoachState(prevState => ({
-                                ...prevState,
-                                search: {
-                                    ...prevState.search,
-                                    searchDate: `${year}${monthPad}${dayPad}`,
-                                },
-                            }))
-                        }}
-                    />
-                    <VaryButton
-                        ButtonType={'default'}
-                        HandleClick={() => {
-                            handleGetData().then()
-                        }}
-                        ButtonName={'조회'}
-                    />
+                    <Detail.MyCoach.SearchGuideTextBox>
+                        <Detail.MyCoach.SearchGuideText>
+                            조회된 날짜 기준 이전 7일간의 현황을 제공합니다.
+                        </Detail.MyCoach.SearchGuideText>
+                    </Detail.MyCoach.SearchGuideTextBox>
+                    <Detail.MyCoach.SearchItem>
+                        <VaryDatepickerInput
+                            Width={'w32'}
+                            InputeType={`default`}
+                            Value={changeDatePickerDate(
+                                coachState.search.searchDate
+                            )}
+                            CallBackReturn={e => {
+                                const { year, monthPad, dayPad } =
+                                    gmtTimeToTimeObject(e)
+                                setCoachState(prevState => ({
+                                    ...prevState,
+                                    search: {
+                                        ...prevState.search,
+                                        searchDate: `${year}${monthPad}${dayPad}`,
+                                    },
+                                }))
+                            }}
+                        />
+                        <VaryButton
+                            ButtonType={'default'}
+                            HandleClick={() => {
+                                handleGetData().then()
+                            }}
+                            ButtonName={'조회'}
+                        />
+                    </Detail.MyCoach.SearchItem>
                 </Detail.MyCoach.SearchBox>
             </Detail.MyCoach.SearchWapper>
 
