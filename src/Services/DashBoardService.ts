@@ -93,45 +93,6 @@ export const getMngDashBoardRiskGroupNotUsed = (): Promise<
 }
 
 /**
- * 측정현황
- */
-export const getMngDashBoardMesureInfo = (): Promise<
-    ServicesDefaultResult<MesureInfoInterface>
-> => {
-    return _Axios_({
-        method: 'post',
-        url: `/mng/v1/dash_board/mesure_info`,
-        payload: {},
-    })
-}
-
-/**
- * 존 측정현황
- */
-export const getMngDashBoardMesureInfoZone = (): Promise<
-    ServicesDefaultResult<MesureInfoZoneInterface>
-> => {
-    return _Axios_({
-        method: 'post',
-        url: `/mng/v1/dash_board/mesure_info/zone`,
-        payload: {},
-    })
-}
-
-/**
- * 존 기기별 측정현황
- */
-export const getMngDashBoardMesureInfoZoneDevice = (): Promise<
-    ServicesDefaultResult<MesureInfoZoneDeviceInterface>
-> => {
-    return _Axios_({
-        method: 'post',
-        url: `/mng/v1/dash_board/mesure_info/zone_device`,
-        payload: {},
-    })
-}
-
-/**
  * 건강 개선률
  */
 export const getMngGndnDashBoardMybodyScoreImprvm = (): Promise<
@@ -143,6 +104,7 @@ export const getMngGndnDashBoardMybodyScoreImprvm = (): Promise<
         payload: {},
     })
 }
+
 /**
  * 측정현황 통합
  */
