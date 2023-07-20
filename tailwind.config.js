@@ -57,7 +57,7 @@ module.exports = {
                         etext: `#FFFFFF`,
                     },
                     fontFamily: {
-                        sans: ['NanumSquare'],
+                        sans: ['sans-serif'],
                     },
                 },
             },
