@@ -43,7 +43,7 @@ const initializeState = {
     listCheckRowList: [],
 }
 
-const ConsultManageBox = () => {
+const ConsultListManageBox = () => {
     const listState = useRecoilValue(ConsultListState)
     const { Theme } = useRecoilValue(AtomMainLayoutState)
     const { handlMainAlert } = useMainLayouts()
@@ -400,4 +400,4 @@ const ConsultManageBox = () => {
     )
 }
 
-export default ConsultManageBox
+export default ConsultListManageBox

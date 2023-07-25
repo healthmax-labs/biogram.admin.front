@@ -23,7 +23,11 @@ const {
     SearchItem,
 } = SearchBoxStyle
 
-const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+const ConsultListSearchBox = ({
+    HandleGetList,
+}: {
+    HandleGetList: () => void
+}) => {
     const [listState, setListState] = useRecoilState(ConsultListState)
 
     const handleSearchInputOnKeyDown = (
@@ -218,4 +222,4 @@ const ConsultSearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
         </RowContainer>
     )
 }
-export default ConsultSearchBox
+export default ConsultListSearchBox

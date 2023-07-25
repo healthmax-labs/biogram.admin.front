@@ -4,8 +4,8 @@ import { MainStyle } from '@Style/Pages/CommonStyle'
 import { getMberCnsltlist, getMngCnstgrpList } from '@Service/MemberService'
 import { useRecoilState } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
-import ConsultSearchBox from './ConsultSearchBox'
-import ConsultManageBox from './ConsultManageBox'
+import ConsultListSearchBox from './ConsultListSearchBox'
+import ConsultListManageBox from './ConsultListManageBox'
 import ConsultListTable from './ConsultListTable'
 import { RecoilStateKeyNameType } from '@CommonTypes'
 import { useRecoilReset } from '@Hook/index'
@@ -144,10 +144,12 @@ const ConsultListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <ConsultSearchBox HandleGetList={() => handleGetListButton()} />
+                <ConsultListSearchBox
+                    HandleGetList={() => handleGetListButton()}
+                />
             </SearchWapper>
             <ManageWapper>
-                <ConsultManageBox />
+                <ConsultListManageBox />
             </ManageWapper>
             <TableWapper>
                 <ConsultListTable CurrentPage={listState.search.curPage} />
