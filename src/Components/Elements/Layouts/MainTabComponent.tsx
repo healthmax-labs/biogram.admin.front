@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { RecoilStateKeyNameType, TabItemInterface } from '@Type/CommonTypes'
 import { MainTabStyle } from '@Style/Layouts/TabStyles'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { useDashBoard, useRecoilReset, useTab } from '@Hooks'
 import _ from 'lodash'
+import { DashBoardPageState } from '@Recoil/DashboardPagesState'
 
 const { Wapper, TabItem, TabButton, CloseButton, RotateButton, ButtonWapper } =
     MainTabStyle
@@ -19,6 +20,7 @@ const MainTabComponent = () => {
     const { recoilReset } = useRecoilReset()
     const [pageTabState, setPageTabState] = useRecoilState(AtomPageTabState)
     const { handleGetGeonDaonData } = useDashBoard()
+    const dashBoardPageState = useRecoilValue(DashBoardPageState)
 
     // 텝 클릭 처리.
     const handleTabClick = (pathName: string) => {
@@ -79,7 +81,7 @@ const MainTabComponent = () => {
         const { name, action } = pageTabState.reloadTask
 
         if (name === '/manage/dashboard' && action) {
-            handleGetGeonDaonData()
+            handleGetGeonDaonData(dashBoardPageState.instNo)
 
             setPageTabState(prevState => ({
                 ...prevState,
@@ -89,7 +91,12 @@ const MainTabComponent = () => {
                 },
             }))
         }
-    }, [handleGetGeonDaonData, pageTabState.reloadTask, setPageTabState])
+    }, [
+        dashBoardPageState.instNo,
+        handleGetGeonDaonData,
+        pageTabState.reloadTask,
+        setPageTabState,
+    ])
 
     return (
         <Wapper>

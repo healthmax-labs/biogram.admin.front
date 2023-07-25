@@ -6,7 +6,14 @@ export const DashboardStyle = {
     GeonDaonStyle: {
         Container: tw.div`flex w-full p-4`,
         MainWapper: tw.div`flex w-center-width bg-gray-200`,
-        Wapper: tw.div`flex w-full gap-4`,
+        Wapper: tw.div`flex flex-wrap w-full`,
+        ChartWapper: tw.div`flex w-full gap-4`,
+        SearchBox: tw.div`flex px-2 pb-2 items-center object-center`,
+        SearchItem: {
+            ItemWapper: tw.div`flex w-full gap-1`,
+            Selector: tw.div`flex`,
+            SearchBotton: tw.div`flex object-center justify-end w-full items-center`,
+        },
         LeftWapper: tw.div`flex w-1/2 rounded-xl`,
         RightWapper: tw.div`flex w-1/2 rounded-xl`,
         WapperCol: tw.div`flex flex-col w-full gap-2`,

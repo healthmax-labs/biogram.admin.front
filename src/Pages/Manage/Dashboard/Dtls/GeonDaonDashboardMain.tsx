@@ -11,12 +11,16 @@ const GeonDaonDashboardMain = () => {
     useEffect(() => {
         const pageStart = () => {
             if (dashBoardPageState.status === 'idle') {
-                handleGetGeonDaonData()
+                handleGetGeonDaonData(dashBoardPageState.instNo)
             }
         }
 
         pageStart()
-    }, [dashBoardPageState.status, handleGetGeonDaonData])
+    }, [
+        dashBoardPageState.instNo,
+        dashBoardPageState.status,
+        handleGetGeonDaonData,
+    ])
 
     return <GeonDaonDashboard />
 }
