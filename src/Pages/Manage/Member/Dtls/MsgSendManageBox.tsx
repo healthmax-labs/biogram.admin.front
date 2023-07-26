@@ -47,6 +47,7 @@ const ManageBox = () => {
                             },
                         }))
                     }
+                    SelectInst={{ instNm: null, instNo: null }}
                 />
             )}
         </Wapper>

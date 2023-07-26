@@ -106,7 +106,7 @@ const ConsultListManageBox = () => {
         }
 
         funcSetCheckRowList()
-    }, [listState])
+    }, [listState, listState.manage.checkRow])
 
     const [excelDownloadProps, setExcelDownloadProps] =
         useState<ExcelDownloadPropsInterface>(
@@ -339,6 +339,14 @@ const ConsultListManageBox = () => {
                             },
                         }))
                     }
+                    SelectInst={{
+                        instNm: listState.search.instNm
+                            ? listState.search.instNm
+                            : null,
+                        instNo: listState.search.instNo
+                            ? Number(listState.search.instNo)
+                            : null,
+                    }}
                 />
             )}
 
@@ -355,6 +363,14 @@ const ConsultListManageBox = () => {
                             },
                         }))
                     }
+                    SelectInst={{
+                        instNm: listState.search.instNm
+                            ? listState.search.instNm
+                            : null,
+                        instNo: listState.search.instNo
+                            ? Number(listState.search.instNo)
+                            : null,
+                    }}
                 />
             )}
 

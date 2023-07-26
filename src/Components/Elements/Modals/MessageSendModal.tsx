@@ -36,7 +36,10 @@ const initializeState = {
         title: '',
         contents: '',
         contentsLength: 0,
-        instNo: null,
+        selectInst: {
+            instNo: null,
+            instNm: null,
+        },
         allSendCheck: false,
         selectedMember: [],
         sndngNo: Const.reprsntTelno,
@@ -51,10 +54,15 @@ const MessageSendModal = ({
     MessageType,
     SendFinished,
     SelectMember,
+    SelectInst,
 }: {
     MessageType: string | 'sms' | 'push'
     SendFinished: () => void
     SelectMember?: MemberSearchItemInterface[]
+    SelectInst: {
+        instNo: number | null
+        instNm: string | null
+    }
 }) => {
     const [pageState, setPageState] = useState<{
         status: string | DefaultStatus
@@ -66,7 +74,10 @@ const MessageSendModal = ({
             title: string
             contents: string
             contentsLength: number
-            instNo: number | null
+            selectInst: {
+                instNo: number | null
+                instNm: string | null
+            }
             allSendCheck: boolean
             selectedMember: MemberSearchItemInterface[]
             sndngNo: string
@@ -83,7 +94,7 @@ const MessageSendModal = ({
         const {
             sendTime: { selectTime },
             allSendCheck,
-            instNo,
+            selectInst: { instNo },
             sndngNo,
             contents,
             selectedMember,
@@ -180,7 +191,7 @@ const MessageSendModal = ({
         const {
             sendTime: { selectTime },
             allSendCheck,
-            instNo,
+            selectInst: { instNo },
             title,
             contents,
             selectedMember,
@@ -306,6 +317,34 @@ const MessageSendModal = ({
         }
     }, [])
 
+    useEffect(() => {
+        const setSelectInst = ({
+            instNo,
+            instNm,
+        }: {
+            instNo: number
+            instNm: string
+        }) => {
+            setPageState(prevState => ({
+                ...prevState,
+                message: {
+                    ...prevState.message,
+                    selectInst: {
+                        instNo: instNo,
+                        instNm: instNm,
+                    },
+                },
+            }))
+        }
+
+        if (SelectInst.instNo !== null && SelectInst.instNm !== null) {
+            setSelectInst({
+                instNo: SelectInst.instNo,
+                instNm: SelectInst.instNm,
+            })
+        }
+    }, [SelectInst])
+
     return (
         <>
             <VaryModal
@@ -427,6 +466,14 @@ const MessageSendModal = ({
                                                         },
                                                     }))
                                                 }}
+                                                SelectElement={{
+                                                    value: SelectInst.instNo
+                                                        ? Number(
+                                                              SelectInst.instNo
+                                                          )
+                                                        : null,
+                                                    text: SelectInst.instNm,
+                                                }}
                                             />
                                             <VaryLabelCheckBox
                                                 LabelName="소속기관 회원 전체 선택"
@@ -452,7 +499,23 @@ const MessageSendModal = ({
                                 </Row>
                                 <Row>
                                     <LabelCell>
-                                        <VaryLabel LabelName={`수신자`} />
+                                        {(() => {
+                                            if (
+                                                pageState.message.selectedMember
+                                                    .length > 0
+                                            ) {
+                                                return (
+                                                    <VaryLabel
+                                                        LabelName={`(${pageState.message.selectedMember.length}명) 수신자`}
+                                                    />
+                                                )
+                                            }
+                                            return (
+                                                <VaryLabel
+                                                    LabelName={`수신자`}
+                                                />
+                                            )
+                                        })()}
                                     </LabelCell>
                                     <InputCell colSpan={3}>
                                         <div className="flex">
