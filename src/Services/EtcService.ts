@@ -73,6 +73,9 @@ export const getKaKaoAddressInfo = ({
     })
 }
 
+/**
+ * 대사리포트 프린트(pdf)
+ */
 export const postTokenValidate = (): Promise<
     ServicesDefaultResult<TokenValidateInterface>
 > => {
@@ -81,6 +84,67 @@ export const postTokenValidate = (): Promise<
         axios
             .post<TokenValidateInterface>(
                 `${process.env.REACT_APP_API_SERVER_URL}/mber/v1/token/validate`,
+                {},
+                {
+                    headers: {
+                        Authorization: vtoken,
+                    },
+                }
+            )
+            .then(res => {
+                resolve({
+                    status: true,
+                    message: '정상 처리하였습니다.',
+                    payload: res.data,
+                })
+            })
+            .catch(err =>
+                reject({
+                    status: false,
+                    message: err.message,
+                })
+            )
+    })
+}
+
+/**
+ * 비만리포트 프린트(pdf)
+ */
+export const postMediageMeta = (): Promise<ServicesDefaultResult<any>> => {
+    const vtoken = getVtokenInfoToken()
+    return new Promise((resolve, reject) => {
+        axios
+            .post<TokenValidateInterface>(
+                `${process.env.REACT_APP_LINK_SERVER_URL}/mediage/v1/meta`,
+                {},
+                {
+                    headers: {
+                        Authorization: vtoken,
+                    },
+                }
+            )
+            .then(res => {
+                resolve({
+                    status: true,
+                    message: '정상 처리하였습니다.',
+                    payload: res.data,
+                })
+            })
+            .catch(err =>
+                reject({
+                    status: false,
+                    message: err.message,
+                })
+            )
+    })
+}
+
+export const postMediageObsity = (): Promise<ServicesDefaultResult<any>> => {
+    const vtoken = getVtokenInfoToken()
+    return new Promise((resolve, reject) => {
+        axios
+            .post<TokenValidateInterface>(
+                `${process.env.REACT_APP_LINK_SERVER_URL}/mediage/v1/obsity`,
                 {},
                 {
                     headers: {

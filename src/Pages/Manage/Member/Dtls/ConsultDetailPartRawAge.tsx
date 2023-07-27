@@ -4,9 +4,11 @@ import { useRecoilState } from 'recoil'
 import { useParams } from 'react-router-dom'
 import React, { useCallback, useEffect } from 'react'
 import { getMngUserObmtInfo } from '@Service/MemberService'
+import { postMediageMeta, postMediageObsity } from '@Service/EtcService'
 import { ElementLoading } from '@Element/index'
 import _ from 'lodash'
 import { dateInsertHypen } from '@Helper'
+import { VaryButton } from '@Elements'
 
 const { Detail } = ConsultDetailStyle
 
@@ -54,6 +56,16 @@ const ConsultDetailPartRawAge = () => {
             }
         }
     }, [rawAgeState, setRawAgeState])
+
+    // 대사리포트 프린트 하기 버튼 클릭
+    const handleClickMediageMetaButton = async () => {
+        const {} = await postMediageMeta()
+    }
+
+    // 비만리포트 프린트하기 버튼 클릭
+    const handleClickMediageObsityButton = async () => {
+        const {} = await postMediageObsity()
+    }
 
     useEffect(() => {
         const funcGetList = () => {
@@ -122,12 +134,25 @@ const ConsultDetailPartRawAge = () => {
                     </Detail.RawAge.RowWapper>
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.WFull>
+                            <Detail.RawAge.Table.ReportBox>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    HandleClick={() => {
+                                        handleClickMediageMetaButton().then()
+                                    }}
+                                    ButtonName={'대사리포트 프린트하기'}
+                                />
+                            </Detail.RawAge.Table.ReportBox>
                             <Detail.RawAge.Table.Desc>
-                                <Detail.RawAge.Table.DescText>
+                                <Detail.RawAge.Table.DescRight>
+                                    *표기 안내: 현재 생체나이 (내 연령 기준 증감
+                                    정도)
+                                </Detail.RawAge.Table.DescRight>
+                                <Detail.RawAge.Table.DescLeft>
                                     (단위: 나이)
-                                </Detail.RawAge.Table.DescText>
+                                </Detail.RawAge.Table.DescLeft>
                             </Detail.RawAge.Table.Desc>
-                            <div className="w-full">
+                            <Detail.RawAge.TableWapper>
                                 <Detail.RawAge.Table.Table>
                                     <Detail.RawAge.Table.Thead>
                                         <Detail.RawAge.Table.TheadRow>
@@ -184,7 +209,7 @@ const ConsultDetailPartRawAge = () => {
                                         )}
                                     </Detail.RawAge.Table.Body>
                                 </Detail.RawAge.Table.Table>
-                            </div>
+                            </Detail.RawAge.TableWapper>
                         </Detail.RawAge.WFull>
                     </Detail.RawAge.RowWapper>
                     <Detail.RawAge.RowWapper>
@@ -221,10 +246,23 @@ const ConsultDetailPartRawAge = () => {
                     </Detail.RawAge.RowWapper>
                     <Detail.RawAge.RowWapper>
                         <Detail.RawAge.WFull>
+                            <Detail.RawAge.Table.ReportBox>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    HandleClick={() => {
+                                        handleClickMediageObsityButton().then()
+                                    }}
+                                    ButtonName={`비만리포트 프린트하기`}
+                                />
+                            </Detail.RawAge.Table.ReportBox>
                             <Detail.RawAge.Table.Desc>
-                                <Detail.RawAge.Table.DescText>
+                                <Detail.RawAge.Table.DescRight>
+                                    *표기 안내: 현재 생체나이 (내 연령 기준 증감
+                                    정도)
+                                </Detail.RawAge.Table.DescRight>
+                                <Detail.RawAge.Table.DescLeft>
                                     (단위: 나이)
-                                </Detail.RawAge.Table.DescText>
+                                </Detail.RawAge.Table.DescLeft>
                             </Detail.RawAge.Table.Desc>
                             <Detail.RawAge.WFull>
                                 <Detail.RawAge.Table.Table>
