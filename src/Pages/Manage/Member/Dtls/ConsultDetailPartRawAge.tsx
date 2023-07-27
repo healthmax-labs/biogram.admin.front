@@ -4,17 +4,19 @@ import { useRecoilState } from 'recoil'
 import { useParams } from 'react-router-dom'
 import React, { useCallback, useEffect } from 'react'
 import { getMngUserObmtInfo } from '@Service/MemberService'
-import { postMediageMeta, postMediageObsity } from '@Service/EtcService'
 import { ElementLoading } from '@Element/index'
 import _ from 'lodash'
 import { dateInsertHypen } from '@Helper'
 import { VaryButton } from '@Elements'
+import { useMainLayouts } from '@Hook/index'
+import Messages from '@Messages'
 
 const { Detail } = ConsultDetailStyle
 
 const ConsultDetailPartRawAge = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const [rawAgeState, setRawAgeState] = useRecoilState(RawAgeState)
+    const { handlMainAlert } = useMainLayouts()
 
     const getRawAgeData = useCallback(async () => {
         const {
@@ -33,7 +35,12 @@ const ConsultDetailPartRawAge = () => {
 
             if (status) {
                 const {
-                    BO_INFOS: { MI_INFO, OBI_INFO },
+                    BO_INFOS: {
+                        MI_INFO,
+                        OBI_INFO,
+                        META_PDF_PATH,
+                        OBSITY_PDF_PATH,
+                    },
                 } = payload
 
                 setRawAgeState(prevState => ({
@@ -42,6 +49,8 @@ const ConsultDetailPartRawAge = () => {
                     list: {
                         MI_INFO: MI_INFO,
                         OBI_INFO: OBI_INFO,
+                        META_PDF_PATH: META_PDF_PATH,
+                        OBSITY_PDF_PATH: OBSITY_PDF_PATH,
                     },
                 }))
             } else {
@@ -51,6 +60,8 @@ const ConsultDetailPartRawAge = () => {
                     list: {
                         MI_INFO: [],
                         OBI_INFO: [],
+                        META_PDF_PATH: null,
+                        OBSITY_PDF_PATH: null,
                     },
                 }))
             }
@@ -59,12 +70,30 @@ const ConsultDetailPartRawAge = () => {
 
     // 대사리포트 프린트 하기 버튼 클릭
     const handleClickMediageMetaButton = async () => {
-        const {} = await postMediageMeta()
+        if (_.isNull(rawAgeState.list.META_PDF_PATH)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.member.rawAge.emptyMetaPdfPath,
+            })
+            return
+        }
+
+        window.open(`${rawAgeState.list.META_PDF_PATH}`)
+        return
     }
 
     // 비만리포트 프린트하기 버튼 클릭
     const handleClickMediageObsityButton = async () => {
-        const {} = await postMediageObsity()
+        if (_.isNull(rawAgeState.list.OBSITY_PDF_PATH)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.member.rawAge.emptyObsityPdfPath,
+            })
+            return
+        }
+
+        window.open(`${rawAgeState.list.OBSITY_PDF_PATH}`)
+        return
     }
 
     useEffect(() => {

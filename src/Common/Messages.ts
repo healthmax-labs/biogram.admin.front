@@ -86,6 +86,10 @@ export default {
                 over: `발송 취소는 한번에 한건만 가능합니다.`,
                 success: `발송 취소가 완료 되었습니다.`,
             },
+            rawAge: {
+                emptyMetaPdfPath: `대사리포트 데이터가 존재 하지 않습니다.`,
+                emptyObsityPdfPath: `비만리포트 데이터가 존재 하지 않습니다.`,
+            },
             info: {
                 empty: {
                     usid: `아이디를 입력해 주세요.`,

@@ -208,6 +208,8 @@ interface RawAgeInterface {
     list: {
         OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
         MI_INFO: ConsultRawAgeMiInfoItemInterface[]
+        META_PDF_PATH: string | null
+        OBSITY_PDF_PATH: string | null
     }
 }
 
@@ -632,6 +634,8 @@ export const RawAgeState = atom<RawAgeInterface>({
         list: {
             OBI_INFO: [],
             MI_INFO: [],
+            META_PDF_PATH: null,
+            OBSITY_PDF_PATH: null,
         },
     },
 })
