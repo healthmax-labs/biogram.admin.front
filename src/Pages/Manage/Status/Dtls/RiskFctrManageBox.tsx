@@ -111,6 +111,7 @@ const RiskFctrManageBox = () => {
                         String(m.RISK_FCTR),
                         m.TAKNG_MDCIN ? String(m.TAKNG_MDCIN) : '',
                         m.BDWGH ? String(m.BDWGH) : '',
+                        m.WAIST ? String(m.WAIST) : '',
                         m.BMI ? String(m.BMI) : '',
                         m.PBF ? String(m.PBF) : '',
                         m.SLM ? String(m.SLM) : '',
