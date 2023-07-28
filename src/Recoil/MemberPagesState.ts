@@ -162,6 +162,7 @@ interface ConsultMsgBoxListInterface {
     }
     memNo: number | null
     data: ManageCounselMsgBoxListInterface | null
+    reload: boolean
 }
 
 //메시지 발송 현황
@@ -573,6 +574,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
         },
         memNo: null,
         data: null,
+        reload: false,
     },
 })
 
