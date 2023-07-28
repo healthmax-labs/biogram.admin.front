@@ -13,6 +13,8 @@ const {
     Container,
     RowWapper,
     TitleBox,
+    TitleText,
+    TitleGuideText,
     ButtonBox,
     TableBox,
     Table: T,
@@ -249,7 +251,13 @@ const MemberTable = () => {
             ) : (
                 <>
                     <RowWapper>
-                        <TitleBox>연령별 통계</TitleBox>
+                        <TitleBox>
+                            <TitleText>연령별 통계:</TitleText>
+                            <TitleGuideText>
+                                조회 기간 중 최종일 기준으로 회원 수를 연령별로
+                                산출
+                            </TitleGuideText>
+                        </TitleBox>
                     </RowWapper>
                     <ButtonBox>
                         <VaryButton
@@ -492,7 +500,13 @@ const MemberTable = () => {
                         </T.Table>
                     </TableBox>
                     <RowWapper>
-                        <TitleBox>기간별 통계</TitleBox>
+                        <TitleBox>
+                            <TitleText>기간별 통계:</TitleText>
+                            <TitleGuideText>
+                                조회 기간과 선택한 주기 기준에 따라 회원 수를
+                                집계
+                            </TitleGuideText>
+                        </TitleBox>
                     </RowWapper>
                     <RowWapper>
                         <ButtonBox>

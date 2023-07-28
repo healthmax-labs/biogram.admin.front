@@ -5,7 +5,9 @@ import styled from '@emotion/styled'
 export const ContentsStyle = {
     Container: tw.div`flex flex-col max-h-[75vh] overflow-y-scroll`,
     RowWapper: tw.div`w-full py-2`,
-    TitleBox: tw.div`w-full pt-3`,
+    TitleBox: tw.div`flex flex-nowrap w-full pt-3`,
+    TitleText: tw.div``,
+    TitleGuideText: tw.div`pl-2 text-red-500`,
     ChartBox: tw.div`flex w-full items-center justify-center text-xs font-medium text-gray-600 border border-gray-300`,
     ButtonBox: tw.div`flex py-1 justify-end`,
     TableBox: tw.div`flex w-full items-center justify-center text-xs font-medium text-gray-600 border-gray-300`,
