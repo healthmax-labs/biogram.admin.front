@@ -1574,7 +1574,7 @@ export default {
             { code: `WM`, name: `체중관리` },
             { code: `HC`, name: `모발관리` },
             { code: `SC`, name: `피부관리` },
-            { code: `AGIN`, name: `노화관리` },
+            { code: `AGIN`, name: `노화예방` },
             { code: `MSM`, name: `근력관리` },
             { code: `FI`, name: `피로개선` },
             { code: `STRS, INSM`, name: `스트레스 불면` },
