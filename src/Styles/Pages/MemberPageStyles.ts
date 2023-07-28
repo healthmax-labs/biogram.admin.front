@@ -192,11 +192,82 @@ export const ConsultDetailStyle = {
             RowWapper: tw.div`w-full pb-1`,
             DateBox: tw.div`flex w-full justify-end text-xs text-gray-500 pt-2`,
             Table: {
-                Table: tw.table`min-w-full shadow-md rounded`,
+                Table: tw.table`min-w-full rounded border`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8 content-center justify-center`,
                 Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center`,
+                CategoryCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`text-xs text-gray-500 w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(tw`bg-blue-500 text-white`)
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(tw`bg-cyan-500 text-white`)
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(tw`bg-indigo-500 text-white`)
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
+                TypeCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`border text-xs w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(
+                                tw`bg-blue-50 text-blue-500 border-blue-500`
+                            )
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(
+                                tw`bg-cyan-50 text-cyan-500 border-cyan-500`
+                            )
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(
+                                tw`bg-indigo-50 text-indigo-500 border-indigo-500`
+                            )
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
+                ValueCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(tw`border-blue-500`)
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(tw`border-cyan-500`)
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(tw`border-indigo-500`)
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
             },
             ButtonWapper: tw.div`flex flex-nowrap w-full border py-2`,
             Button: tw.div`flex h-8 w-full justify-end gap-2`,
