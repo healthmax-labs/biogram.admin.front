@@ -19,7 +19,26 @@ import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
 import { dateInsertHypen } from '@Helper'
 
-const { Detail } = ConsultDetailStyle
+const {
+    Detail: {
+        Container,
+        Survey: {
+            Button,
+            ButtonWapper,
+            DateBox,
+            RowWapper,
+            Table: {
+                Row,
+                Table,
+                Body,
+                Cell,
+                CategoryCell,
+                ValueCell,
+                TypeCell,
+            },
+        },
+    },
+} = ConsultDetailStyle
 
 const initializeState = {
     modal: {
@@ -222,9 +241,9 @@ const ConsultDetailPartSurvey = () => {
     ])
 
     return (
-        <Detail.Container>
-            <Detail.Survey.ButtonWapper>
-                <Detail.Survey.Button>
+        <Container>
+            <ButtonWapper>
+                <Button>
                     <VaryButton
                         ButtonType={'default'}
                         ButtonName={'수기입력'}
@@ -238,8 +257,8 @@ const ConsultDetailPartSurvey = () => {
                             }))
                         }
                     />
-                </Detail.Survey.Button>
-            </Detail.Survey.ButtonWapper>
+                </Button>
+            </ButtonWapper>
             {surveyState.data &&
                 surveyState.data.QUSTNR_ANSWERS &&
                 surveyState.data.QUSTNR_ANSWERS.map((survey, index) => {
@@ -250,141 +269,141 @@ const ConsultDetailPartSurvey = () => {
                     return (
                         <React.Fragment
                             key={`consult-detail-survey-table-row-item-${index}`}>
-                            <Detail.Survey.DateBox>
-                                {dateInsertHypen(survey.QUSTNR_DE)}
-                            </Detail.Survey.DateBox>
-                            <Detail.Survey.RowWapper>
-                                <Detail.Survey.Table.Table>
-                                    <Detail.Survey.Table.Body>
-                                        <Detail.Survey.Table.Row>
-                                            <Detail.Survey.Table.Cell>
+                            <DateBox>
+                                Date: {dateInsertHypen(survey.QUSTNR_DE)}
+                            </DateBox>
+                            <RowWapper>
+                                <Table>
+                                    <Body>
+                                        <Row>
+                                            <CategoryCell CellType={`blue`}>
                                                 기초 생활습관
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </CategoryCell>
+                                            <TypeCell CellType={`blue`}>
                                                 흡연
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`blue`}>
                                                 {LLHB.ANSWER_1}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`blue`}>
                                                 음주
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`blue`}>
                                                 {LLHB.ANSWER_2}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`blue`}>
                                                 복약
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`blue`}>
                                                 {LLHB.ANSWER_3}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`blue`}>
                                                 위험요인
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`blue`}>
                                                 {LLHB.ANSWER_4}
-                                            </Detail.Survey.Table.Cell>
-                                        </Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Row>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                        </Row>
+                                        <Row>
+                                            <CategoryCell CellType={`cyan`}>
                                                 운동습관
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </CategoryCell>
+                                            <TypeCell CellType={`cyan`}>
                                                 운동 규칙성
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`cyan`}>
                                                 {SPHB.ANSWER_1
                                                     ? SPHB.ANSWER_1
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`cyan`}>
                                                 활동량
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`cyan`}>
                                                 {SPHB.ANSWER_2
                                                     ? SPHB.ANSWER_2
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`cyan`}>
                                                 중강도 운동량
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`cyan`}>
                                                 {SPHB.ANSWER_3
                                                     ? SPHB.ANSWER_3
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`cyan`}>
                                                 고강도 운동량
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`cyan`}>
                                                 {SPHB.ANSWER_4
                                                     ? SPHB.ANSWER_4
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                        </Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Row>
-                                            <Detail.Survey.Table.Cell
+                                            </ValueCell>
+                                        </Row>
+                                        <Row>
+                                            <CategoryCell
+                                                CellType={`indigo`}
                                                 rowSpan={2}>
                                                 식습관
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </CategoryCell>
+                                            <TypeCell CellType={`indigo`}>
                                                 규칙적인 식사
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_1
                                                     ? MLHB.ANSWER_1
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`indigo`}>
                                                 1일 2끼이상 담백질
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_2
                                                     ? MLHB.ANSWER_2
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`indigo`}>
                                                 동물성 지방 섭취
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_3
                                                     ? MLHB.ANSWER_3
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`indigo`}>
                                                 짠음식 섭취빈도
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_4
                                                     ? MLHB.ANSWER_4
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                        </Detail.Survey.Table.Row>
-                                        <Detail.Survey.Table.Row>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                        </Row>
+                                        <Row>
+                                            <TypeCell CellType={`indigo`}>
                                                 채소/과일 섭취빈도
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_5
                                                     ? MLHB.ANSWER_5
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </ValueCell>
+                                            <TypeCell CellType={`indigo`}>
                                                 유제품 섭취빈도
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell>
+                                            </TypeCell>
+                                            <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_6
                                                     ? MLHB.ANSWER_6
                                                     : '-'}
-                                            </Detail.Survey.Table.Cell>
-                                            <Detail.Survey.Table.Cell
-                                                colSpan={
-                                                    4
-                                                }></Detail.Survey.Table.Cell>
-                                        </Detail.Survey.Table.Row>
-                                    </Detail.Survey.Table.Body>
-                                </Detail.Survey.Table.Table>
-                            </Detail.Survey.RowWapper>
+                                            </ValueCell>
+                                            <ValueCell
+                                                CellType={`indigo`}
+                                                colSpan={4}></ValueCell>
+                                        </Row>
+                                    </Body>
+                                </Table>
+                            </RowWapper>
                         </React.Fragment>
                     )
                 })}
@@ -395,35 +414,35 @@ const ConsultDetailPartSurvey = () => {
                     NeedMax={false}
                     Children={
                         <>
-                            <Detail.Survey.Table.Table>
-                                <Detail.Survey.Table.Body>
+                            <Table>
+                                <Body>
                                     {Codes.surveyCode.map((code, index) => {
                                         return code.category.map(
                                             (category, categoryIndex) => {
                                                 return (
-                                                    <Detail.Survey.Table.Row
+                                                    <Row
                                                         key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}`}>
                                                         {categoryIndex ===
                                                             0 && (
-                                                            <Detail.Survey.Table.Cell
+                                                            <Cell
                                                                 rowSpan={
                                                                     code
                                                                         .category
                                                                         .length
                                                                 }>
                                                                 {code.name}
-                                                            </Detail.Survey.Table.Cell>
+                                                            </Cell>
                                                         )}
-                                                        <Detail.Survey.Table.Cell>
+                                                        <Cell>
                                                             {category.name}
-                                                        </Detail.Survey.Table.Cell>
+                                                        </Cell>
                                                         {category.question.map(
                                                             (
                                                                 question,
                                                                 questionIndex
                                                             ) => {
                                                                 return (
-                                                                    <Detail.Survey.Table.Cell
+                                                                    <Cell
                                                                         key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}-question-${questionIndex}`}>
                                                                         <div className="flex items-center">
                                                                             <VaryLabelCheckBox
@@ -471,7 +490,7 @@ const ConsultDetailPartSurvey = () => {
                                                                                 }}
                                                                             />
                                                                         </div>
-                                                                    </Detail.Survey.Table.Cell>
+                                                                    </Cell>
                                                                 )
                                                             }
                                                         )}
@@ -485,20 +504,20 @@ const ConsultDetailPartSurvey = () => {
                                                         ].map(
                                                             (_, emptyIndex) => {
                                                                 return (
-                                                                    <Detail.Survey.Table.Cell
+                                                                    <Cell
                                                                         key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}-question-empty-${emptyIndex}`}>
                                                                         {_}
-                                                                    </Detail.Survey.Table.Cell>
+                                                                    </Cell>
                                                                 )
                                                             }
                                                         )}
-                                                    </Detail.Survey.Table.Row>
+                                                    </Row>
                                                 )
                                             }
                                         )
                                     })}
-                                </Detail.Survey.Table.Body>
-                            </Detail.Survey.Table.Table>
+                                </Body>
+                            </Table>
                         </>
                     }
                     Buttons={
@@ -563,7 +582,7 @@ const ConsultDetailPartSurvey = () => {
                     }}
                 />
             )}
-        </Detail.Container>
+        </Container>
     )
 }
 

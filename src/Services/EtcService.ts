@@ -73,6 +73,9 @@ export const getKaKaoAddressInfo = ({
     })
 }
 
+/**
+ * 대사리포트 프린트(pdf)
+ */
 export const postTokenValidate = (): Promise<
     ServicesDefaultResult<TokenValidateInterface>
 > => {

@@ -98,6 +98,17 @@ const ConsultDetailPartMessage = () => {
         }
     }, [messageBoxListState, handleGetData, params, setMessageBoxListState])
 
+    useEffect(() => {
+        if (messageBoxListState.reload) {
+            handleGetData().then(() => {
+                setMessageBoxListState(prevState => ({
+                    ...prevState,
+                    reload: false,
+                }))
+            })
+        }
+    }, [handleGetData, messageBoxListState.reload, setMessageBoxListState])
+
     return (
         <Container>
             <Search.SearchBox>

@@ -12,8 +12,14 @@ import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
     ConsultDetailSmsSendState,
     ConsultDetailState,
+    ConsultMsgBoxListState,
 } from '@Recoil/MemberPagesState'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+import {
+    useRecoilState,
+    useRecoilValue,
+    useResetRecoilState,
+    useSetRecoilState,
+} from 'recoil'
 import Messages from '@Messages'
 import _ from 'lodash'
 import { useMainLayouts } from '@Hook/index'
@@ -44,12 +50,14 @@ const initializeState = {
 }
 
 const ConsultDetailRightBoxMessage = () => {
+    const gmtTimeToTime = gmtTimeToTimeObject(new Date())
     const { handlMainAlert } = useMainLayouts()
     const [smsSendState, setSmsSendState] = useRecoilState(
         ConsultDetailSmsSendState
     )
     const detailState = useRecoilValue(ConsultDetailState)
     const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
+    const setMessageBoxListState = useSetRecoilState(ConsultMsgBoxListState)
 
     const [pageState, setPageState] = useState<{
         modal: {
@@ -98,13 +106,31 @@ const ConsultDetailRightBoxMessage = () => {
                     state: true,
                     message: Messages.Default.processSuccess,
                 })
-                resetSmsSendState()
+                setSmsSendState(prevState => ({
+                    ...prevState,
+                    send: {
+                        ...prevState.send,
+                        SMS_CN: null,
+                        SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
+                        SEND_ALL_MBER: 'N',
+                        SNDNG_GBN: 'N',
+                    },
+                }))
+                setMessageBoxListState(prevState => ({
+                    ...prevState,
+                    reload: true,
+                }))
             } else {
                 handlMainAlert({
                     state: true,
                     message: Messages.Default.processFail,
                 })
             }
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
         }
     }
 

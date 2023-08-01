@@ -15,6 +15,8 @@ import {
 
 interface DashBoardPageStateInterface {
     status: 'idle' | 'end'
+    instNo: number | null
+    instNm: string | null
     member: {
         // 회원 현황 리스트 페이지
         status: DefaultStatus
@@ -76,6 +78,8 @@ export const DashBoardPageState = atom<DashBoardPageStateInterface>({
     key: `dashBoardPage/dashboard`,
     default: {
         status: 'idle',
+        instNo: null,
+        instNm: null,
         member: {
             status: 'idle',
             list: [],

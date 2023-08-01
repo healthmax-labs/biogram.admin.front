@@ -769,6 +769,8 @@ export const getMngUserObmtInfo = ({
         BO_INFOS: {
             OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
             MI_INFO: ConsultRawAgeMiInfoItemInterface[]
+            META_PDF_PATH: string | null
+            OBSITY_PDF_PATH: string | null
         }
     }>
 > => {

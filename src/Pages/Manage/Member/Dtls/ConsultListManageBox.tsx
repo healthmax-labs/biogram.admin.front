@@ -43,7 +43,7 @@ const initializeState = {
     listCheckRowList: [],
 }
 
-const ConsultManageBox = () => {
+const ConsultListManageBox = () => {
     const listState = useRecoilValue(ConsultListState)
     const { Theme } = useRecoilValue(AtomMainLayoutState)
     const { handlMainAlert } = useMainLayouts()
@@ -106,7 +106,7 @@ const ConsultManageBox = () => {
         }
 
         funcSetCheckRowList()
-    }, [listState])
+    }, [listState, listState.manage.checkRow])
 
     const [excelDownloadProps, setExcelDownloadProps] =
         useState<ExcelDownloadPropsInterface>(
@@ -339,6 +339,14 @@ const ConsultManageBox = () => {
                             },
                         }))
                     }
+                    SelectInst={{
+                        instNm: listState.search.instNm
+                            ? listState.search.instNm
+                            : null,
+                        instNo: listState.search.instNo
+                            ? Number(listState.search.instNo)
+                            : null,
+                    }}
                 />
             )}
 
@@ -355,6 +363,14 @@ const ConsultManageBox = () => {
                             },
                         }))
                     }
+                    SelectInst={{
+                        instNm: listState.search.instNm
+                            ? listState.search.instNm
+                            : null,
+                        instNo: listState.search.instNo
+                            ? Number(listState.search.instNo)
+                            : null,
+                    }}
                 />
             )}
 
@@ -400,4 +416,4 @@ const ConsultManageBox = () => {
     )
 }
 
-export default ConsultManageBox
+export default ConsultListManageBox

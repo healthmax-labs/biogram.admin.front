@@ -192,11 +192,82 @@ export const ConsultDetailStyle = {
             RowWapper: tw.div`w-full pb-1`,
             DateBox: tw.div`flex w-full justify-end text-xs text-gray-500 pt-2`,
             Table: {
-                Table: tw.table`min-w-full shadow-md rounded`,
+                Table: tw.table`min-w-full rounded border`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
-                CellBg: tw.td`border bg-steel text-xs text-white w-1/12 h-8 content-center justify-center`,
                 Cell: tw.td`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center`,
+                CategoryCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`text-xs text-gray-500 w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(tw`bg-blue-500 text-white`)
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(tw`bg-cyan-500 text-white`)
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(tw`bg-indigo-500 text-white`)
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
+                TypeCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`border text-xs w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(
+                                tw`bg-blue-50 text-blue-500 border-blue-500`
+                            )
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(
+                                tw`bg-cyan-50 text-cyan-500 border-cyan-500`
+                            )
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(
+                                tw`bg-indigo-50 text-indigo-500 border-indigo-500`
+                            )
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
+                ValueCell: styled.td(
+                    ({
+                        CellType,
+                    }: {
+                        CellType: `blue` | `cyan` | `indigo`
+                    }) => {
+                        const returnTw = [
+                            tw`border text-xs text-gray-500 w-1/12 h-8 content-center justify-center px-3`,
+                        ]
+
+                        if (CellType === `blue`) {
+                            returnTw.push(tw`border-blue-500`)
+                        } else if (CellType === `cyan`) {
+                            returnTw.push(tw`border-cyan-500`)
+                        } else if (CellType === `indigo`) {
+                            returnTw.push(tw`border-indigo-500`)
+                        } else {
+                        }
+
+                        return returnTw
+                    }
+                ),
             },
             ButtonWapper: tw.div`flex flex-nowrap w-full border py-2`,
             Button: tw.div`flex h-8 w-full justify-end gap-2`,
@@ -234,18 +305,21 @@ export const ConsultDetailStyle = {
             WFull: tw.div`w-full`,
             RsltAnlyBox: tw.div`grid grid-cols-1 gap-1`,
             GuidBox: tw.div`grid grid-cols-1 gap-1`,
+            TableWapper: tw.div`w-full`,
             Table: {
-                Desc: tw.div`flex w-full items-end justify-end`,
-                DescText: tw.div`text-xs`,
+                ReportBox: tw.div`flex flex-nowrap w-full justify-end pb-3`,
+                Desc: tw.div`flex flex-nowrap w-full`,
+                DescRight: tw.div`flex text-xs w-1/2`,
+                DescLeft: tw.div`flex text-xs w-1/2 justify-end`,
                 Table: tw.table`text-center min-w-full shadow-md rounded`,
                 Thead: tw.thead`text-xs border`,
                 TheadRow: tw.tr``,
-                TheadCell: tw.th`bg-steel text-xs text-white`,
+                TheadCell: tw.th`bg-steel text-xs text-white h-8`,
                 TheadYCell: tw.th`bg-yellow-300 text-xs text-white`,
                 Body: tw.tbody``,
                 Row: tw.tr``,
                 CellBg: tw.td`border bg-steel text-xs text-white `,
-                Cell: tw.td`border text-xs text-gray-500`,
+                Cell: tw.td`border text-xs text-gray-500 h-8`,
                 TFoot: tw.tfoot`text-xs border bg-gray-500`,
                 TFootRow: tw.tr``,
                 TFootCell: tw.th`bg-steel text-xs text-white`,

@@ -97,7 +97,7 @@ export const RiskFctrTableConfig = {
             },
             {
                 name: `체성분계`,
-                colSpan: 6,
+                colSpan: 7,
             },
             {
                 name: `혈압계`,
@@ -138,7 +138,7 @@ export const RiskFctrTableConfig = {
             },
             {
                 name: `체중<br/>(kg)`,
-                key: `WAIST`,
+                key: `BDWGH`,
                 component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
                     const textColor = el.BDWGH_JDGMNT
                         ? RiskFctrJdgmntColor(el.BDWGH_JDGMNT)
@@ -149,6 +149,22 @@ export const RiskFctrTableConfig = {
                             style={{
                                 color: `#${textColor}`,
                             }}>{`${el.BDWGH ? el.BDWGH : ''}`}</p>
+                    )
+                },
+            },
+            {
+                name: `허리둘레<br/>(Cm)`,
+                key: `WAIST`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.WAIST_JDGMNT
+                        ? RiskFctrJdgmntColor(el.WAIST_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.WAIST ? el.WAIST : ''}`}</p>
                     )
                 },
             },

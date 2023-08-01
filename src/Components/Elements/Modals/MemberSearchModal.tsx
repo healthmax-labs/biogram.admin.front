@@ -1,7 +1,7 @@
 import { VaryModal, VaryButton, VaryInput } from '@Elements'
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { MemberSearchModalStyle } from '@Style/Elements/ModalStyles'
-import { useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import _ from 'lodash'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
@@ -98,7 +98,7 @@ const MemberSearchModal = ({
     }
 
     const handleClickSearchButton = async () => {
-        if (_.isEmpty(pageState.search.keyword)) {
+        if (_.isEmpty(pageState.search.keyword.trim())) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.emptySearchKeyword,
@@ -133,6 +133,13 @@ const MemberSearchModal = ({
         }))
     }
 
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+        handleClickSearchButton().then()
+    }
+
     return (
         <VaryModal
             ModalLoading={pageState.status === 'loading'}
@@ -145,7 +152,7 @@ const MemberSearchModal = ({
                     <RowWapperGap>
                         <VaryInput
                             Width={`w64`}
-                            Value={pageState.search.keyword}
+                            Value={pageState.search.keyword.trim()}
                             Placeholder={`이름/아이디/휴대폰번호`}
                             HandleOnChange={e =>
                                 setPageState(prevState => ({
@@ -156,6 +163,7 @@ const MemberSearchModal = ({
                                     },
                                 }))
                             }
+                            HandleOnKeyDown={handleSearchInputOnKeyDown}
                         />
                         <VaryButton
                             ButtonType={'default'}

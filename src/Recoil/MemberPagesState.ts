@@ -162,6 +162,7 @@ interface ConsultMsgBoxListInterface {
     }
     memNo: number | null
     data: ManageCounselMsgBoxListInterface | null
+    reload: boolean
 }
 
 //메시지 발송 현황
@@ -208,6 +209,8 @@ interface RawAgeInterface {
     list: {
         OBI_INFO: ConsultRawAgeObiInfoItemInterface[]
         MI_INFO: ConsultRawAgeMiInfoItemInterface[]
+        META_PDF_PATH: string | null
+        OBSITY_PDF_PATH: string | null
     }
 }
 
@@ -571,6 +574,7 @@ export const ConsultMsgBoxListState = atom<ConsultMsgBoxListInterface>({
         },
         memNo: null,
         data: null,
+        reload: false,
     },
 })
 
@@ -632,6 +636,8 @@ export const RawAgeState = atom<RawAgeInterface>({
         list: {
             OBI_INFO: [],
             MI_INFO: [],
+            META_PDF_PATH: null,
+            OBSITY_PDF_PATH: null,
         },
     },
 })
