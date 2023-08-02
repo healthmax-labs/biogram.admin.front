@@ -10,6 +10,7 @@ import {
     getInstChargerCheck,
 } from '@Service/MemberService'
 import { DefaultStatus, MemberSearchItemInterface } from '@CommonTypes'
+import { ElementLoading } from '@Element/index'
 
 const {
     TableWapper,
@@ -142,7 +143,7 @@ const MemberSearchModal = ({
 
     return (
         <VaryModal
-            ModalLoading={pageState.status === 'loading'}
+            ModalLoading={false}
             NeedMax={false}
             Children={
                 <Container>
@@ -182,7 +183,17 @@ const MemberSearchModal = ({
                                 </HeaderRow>
                             </TableHeader>
                             <TableBody HeightLimit={true} Scroll={true}>
-                                {pageState.list.length === 0 ? (
+                                {pageState.status === 'loading' ? (
+                                    <TableBodyRow
+                                        BgState={false}
+                                        FullHeight={true}>
+                                        <TableBodyCell FullHeight={true}>
+                                            <ElementLoading
+                                                FullScreen={false}
+                                            />
+                                        </TableBodyCell>
+                                    </TableBodyRow>
+                                ) : pageState.list.length === 0 ? (
                                     <TableBodyRow BgState={true}>
                                         <TableBodyCell>{`${Messages.Default.searchEmpty}`}</TableBodyCell>
                                     </TableBodyRow>

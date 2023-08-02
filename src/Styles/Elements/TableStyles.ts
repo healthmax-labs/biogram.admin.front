@@ -135,28 +135,56 @@ export const CommonListTableStyle = {
         }
     ),
     TableBodyS: tw.tbody`w-full bg-gray-100 flex flex-col text-center items-center overflow-y-scroll`,
-    TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => {
-        const returnTw = [
-            tw`flex w-full h-9 items-center cursor-pointer hover:bg-daisy text-center`,
-        ]
+    TableBodyRow: styled.tr(
+        ({
+            BgState,
+            FullHeight,
+        }: {
+            BgState: boolean
+            FullHeight?: boolean
+        }) => {
+            const returnTw = [
+                tw`flex w-full items-center cursor-pointer hover:bg-daisy text-center`,
+            ]
 
-        if (BgState) {
-            returnTw.push(tw`bg-mercury`)
-        } else {
-            returnTw.push(tw`bg-pearl`)
+            if (BgState) {
+                returnTw.push(tw`bg-mercury`)
+            } else {
+                returnTw.push(tw`bg-pearl`)
+            }
+
+            if (FullHeight) {
+                returnTw.push(tw`h-full`)
+            } else {
+                returnTw.push(tw`h-9`)
+            }
+
+            return returnTw
         }
+    ),
+    TableBodyCell: styled.td(
+        ({
+            Border,
+            FullHeight,
+        }: {
+            Border?: boolean
+            FullHeight?: boolean
+        }) => {
+            const returnTw = [
+                tw`flex items-center w-full justify-center align-middle text-xs text-center truncate text-gray-500`,
+            ]
 
-        return returnTw
-    }),
-    TableBodyCell: styled.td(({ Border }: { Border?: boolean }) => {
-        const returnTw = [
-            tw`flex items-center w-full justify-center h-9 align-middle text-xs text-center truncate text-gray-500`,
-        ]
+            if (Border) {
+                returnTw.push(tw`border border-gray-200`)
+            }
 
-        if (Border) {
-            returnTw.push(tw`border border-gray-200`)
+            if (FullHeight) {
+                returnTw.push(tw`h-screen items-center`)
+            } else {
+                returnTw.push(tw`h-9`)
+            }
+
+            return returnTw
         }
-
-        return returnTw
-    }),
+    ),
 }

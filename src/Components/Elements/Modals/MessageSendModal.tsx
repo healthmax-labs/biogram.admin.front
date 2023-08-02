@@ -505,9 +505,14 @@ const MessageSendModal = ({
                                                     .length > 0
                                             ) {
                                                 return (
-                                                    <VaryLabel
-                                                        LabelName={`(${pageState.message.selectedMember.length}명) 수신자`}
-                                                    />
+                                                    <>
+                                                        <VaryLabel
+                                                            LabelName={`수신자`}
+                                                        />
+                                                        <VaryLabel
+                                                            LabelName={`(${pageState.message.selectedMember.length}명)`}
+                                                        />
+                                                    </>
                                                 )
                                             }
                                             return (
