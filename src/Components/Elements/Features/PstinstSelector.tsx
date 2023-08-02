@@ -63,7 +63,8 @@ const PstinstSelector = ({
     }
 }) => {
     // ref...
-    const inputRef = useRef<HTMLInputElement[]>([])
+    const enterInputRef = useRef<HTMLInputElement[]>([])
+    const searchInputRef = useRef<HTMLInputElement>(null) // 최초 검색창 focus
 
     const {
         pstinstState,
@@ -229,7 +230,7 @@ const PstinstSelector = ({
             if (pageState.searchFocus === null) return
             const refIndex = pstinstSearchState[pageState.searchFocus]
 
-            inputRef.current[refIndex].scrollIntoView({
+            enterInputRef.current[refIndex].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
             })
@@ -255,6 +256,10 @@ const PstinstSelector = ({
 
     // 보이는 타입 처리
     useEffect(() => {
+        if (searchInputRef.current !== null) {
+            searchInputRef.current.focus()
+        }
+
         const funcSetModalByType = () => {
             if (
                 (SelectorType === 'OnlyModal' ||
@@ -323,6 +328,7 @@ const PstinstSelector = ({
                         <>
                             <InputWapper>
                                 <VaryInput
+                                    Ref={searchInputRef}
                                     InputType={`search`}
                                     Placeholder={`검색어를 입력해 주세요`}
                                     HandleOnChange={handleSearchInputOnChange}
@@ -357,7 +363,7 @@ const PstinstSelector = ({
                                                                         'N'
                                                                     }
                                                                     ref={el =>
-                                                                        (inputRef.current[
+                                                                        (enterInputRef.current[
                                                                             step1.INST_NO
                                                                         ] =
                                                                             el as HTMLInputElement)
@@ -417,7 +423,7 @@ const PstinstSelector = ({
                                                                                             'N'
                                                                                         }
                                                                                         ref={el =>
-                                                                                            (inputRef.current[
+                                                                                            (enterInputRef.current[
                                                                                                 step2.INST_NO
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
@@ -481,7 +487,7 @@ const PstinstSelector = ({
                                                                                             'N'
                                                                                         }
                                                                                         ref={el =>
-                                                                                            (inputRef.current[
+                                                                                            (enterInputRef.current[
                                                                                                 step3.INST_NO
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
