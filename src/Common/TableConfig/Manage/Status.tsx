@@ -96,8 +96,13 @@ export const RiskFctrTableConfig = {
                 colSpan: 1,
             },
             {
+                name: ``,
+                rowSpan: 1,
+                colSpan: 1,
+            },
+            {
                 name: `체성분계`,
-                colSpan: 7,
+                colSpan: 6,
             },
             {
                 name: `혈압계`,
@@ -137,22 +142,6 @@ export const RiskFctrTableConfig = {
                 key: `TAKNG_MDCIN`,
             },
             {
-                name: `체중<br/>(kg)`,
-                key: `BDWGH`,
-                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
-                    const textColor = el.BDWGH_JDGMNT
-                        ? RiskFctrJdgmntColor(el.BDWGH_JDGMNT)
-                        : ''
-
-                    return (
-                        <p
-                            style={{
-                                color: `#${textColor}`,
-                            }}>{`${el.BDWGH ? el.BDWGH : ''}`}</p>
-                    )
-                },
-            },
-            {
                 name: `허리둘레<br/>(Cm)`,
                 key: `WAIST`,
                 component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
@@ -165,6 +154,22 @@ export const RiskFctrTableConfig = {
                             style={{
                                 color: `#${textColor}`,
                             }}>{`${el.WAIST ? el.WAIST : ''}`}</p>
+                    )
+                },
+            },
+            {
+                name: `체중<br/>(kg)`,
+                key: `BDWGH`,
+                component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
+                    const textColor = el.BDWGH_JDGMNT
+                        ? RiskFctrJdgmntColor(el.BDWGH_JDGMNT)
+                        : ''
+
+                    return (
+                        <p
+                            style={{
+                                color: `#${textColor}`,
+                            }}>{`${el.BDWGH ? el.BDWGH : ''}`}</p>
                     )
                 },
             },
