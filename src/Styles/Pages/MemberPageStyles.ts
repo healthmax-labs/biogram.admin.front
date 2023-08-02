@@ -189,7 +189,7 @@ export const ConsultDetailStyle = {
             },
         },
         Survey: {
-            RowWapper: tw.div`w-full pb-1`,
+            RowWapper: tw.div`w-full pb-10`,
             DateBox: tw.div`flex w-full justify-end text-xs text-gray-500 pt-2`,
             Table: {
                 Table: tw.table`min-w-full rounded border`,
