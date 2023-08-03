@@ -15,10 +15,11 @@ import {
     gmtTimeToTimeObject,
     dateInsertHypen,
 } from '@Helper'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { RiskFctrListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import Codes from '@Codes'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -36,6 +37,7 @@ const RiskFctrSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [riskFctrListState, setRiskFctrListState] =
         useRecoilState(RiskFctrListState)
 
@@ -397,7 +399,9 @@ const RiskFctrSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

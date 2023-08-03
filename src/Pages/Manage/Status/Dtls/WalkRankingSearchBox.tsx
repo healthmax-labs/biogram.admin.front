@@ -6,8 +6,9 @@ import {
     VaryLabel,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -24,6 +25,7 @@ const WalkRankingSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [walkRankingListState, setWalkRankingState] =
         useRecoilState(WalkRankingListState)
     return (
@@ -89,7 +91,9 @@ const WalkRankingSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton
                     ButtonClick={() => {
                         HandleGetList()

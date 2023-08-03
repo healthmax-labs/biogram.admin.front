@@ -9,8 +9,9 @@ import {
     VaryLabelCheckBox,
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { MsgSendListState } from '@Recoil/MemberPagesState'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -23,6 +24,7 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [msgSendListState, setMsgSendListState] =
         useRecoilState(MsgSendListState)
 
@@ -156,7 +158,9 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

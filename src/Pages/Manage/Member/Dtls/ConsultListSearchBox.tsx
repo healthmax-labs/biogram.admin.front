@@ -8,10 +8,11 @@ import {
     VaryLabelCheckBox,
     VarySelectBox,
 } from '@Elements'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { ConsultListState } from '@Recoil/MemberPagesState'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -28,6 +29,7 @@ const ConsultListSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [listState, setListState] = useRecoilState(ConsultListState)
 
     const handleSearchInputOnKeyDown = (
@@ -216,7 +218,9 @@ const ConsultListSearchBox = ({
                     <SearchItemWapper></SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

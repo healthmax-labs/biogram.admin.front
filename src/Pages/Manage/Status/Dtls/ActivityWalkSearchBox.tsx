@@ -13,9 +13,10 @@ import {
     getDateMonthUnit,
     gmtTimeToTimeObject,
 } from '@Helper'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { ActivityWalkListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -29,6 +30,7 @@ const {
 } = SearchBoxStyle
 
 const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [activityWalkListState, setActivityWalkListState] = useRecoilState(
         ActivityWalkListState
     )
@@ -169,7 +171,7 @@ const SearchBox = ({ HandleGetList }: { HandleGetList: () => void }) => {
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton>
+            <RightSearchButton WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

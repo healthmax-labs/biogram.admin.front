@@ -1,8 +1,9 @@
 import React from 'react'
 import { SearchBoxStyle } from '@Style/Pages/CommonStyle'
 import { DefaultSearchButton, VaryInput, VaryLabel } from '@Elements'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { InstListState } from '@Recoil/InstPagesState'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -19,6 +20,7 @@ const InstListSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [instListState, setInstListState] = useRecoilState(InstListState)
 
     return (
@@ -52,7 +54,7 @@ const InstListSearchBox = ({
                 </SearchItemRow>
             </SearchRowWapper>
 
-            <RightSearchButton>
+            <RightSearchButton WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

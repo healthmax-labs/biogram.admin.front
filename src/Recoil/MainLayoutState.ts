@@ -10,6 +10,10 @@ export const AtomMainLayoutState = atom<{
         message: string
     }
     SiteTitle: string
+    windowsSize: {
+        width: number
+        height: number
+    }
     Theme: MainLayoutThemeType
 }>({
     key: `layout/LayoutState`,
@@ -22,5 +26,9 @@ export const AtomMainLayoutState = atom<{
         },
         SiteTitle: `바이오그램 어드민`,
         Theme: ``,
+        windowsSize: {
+            width: 0,
+            height: 0,
+        },
     },
 })

@@ -56,6 +56,23 @@ export default function useMainLayouts() {
         [Theme, setMainLayoutState]
     )
 
+    const handleWindowsSize = ({
+        width,
+        height,
+    }: {
+        width: number
+        height: number
+    }) => {
+        setMainLayoutState(prevState => ({
+            ...prevState,
+            windowsSize: {
+                ...prevState.windowsSize,
+                width: width,
+                height: height,
+            },
+        }))
+    }
+
     return {
         leftMenuShow,
         alertModel,
@@ -64,5 +81,6 @@ export default function useMainLayouts() {
         handleLeftMenuShow,
         handleOutletLoading,
         handleTheme,
+        handleWindowsSize,
     }
 }

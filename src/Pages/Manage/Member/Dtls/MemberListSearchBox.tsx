@@ -6,9 +6,10 @@ import {
     VaryInput,
     VaryLabel,
 } from '@Elements'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { MemberListState } from '@Recoil/MemberPagesState'
 import { isNull } from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -25,6 +26,7 @@ const MemberListSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [listState, setListState] = useRecoilState(MemberListState)
 
     const handleSearchInputOnKeyDown = (
@@ -97,7 +99,7 @@ const MemberListSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton>
+            <RightSearchButton WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

@@ -16,6 +16,8 @@ import {
 import Codes from '@Codes'
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
+import { useRecoilValue } from 'recoil'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -65,6 +67,7 @@ const AnalyticsSearchBox = ({
         instNm: string | null
     }
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [pageState, setPageState] = useState<{
         button: {
             dateUnits: string
@@ -277,7 +280,9 @@ const AnalyticsSearchBox = ({
                     </SearchItemRow>
                 )}
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

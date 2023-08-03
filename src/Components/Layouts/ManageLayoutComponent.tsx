@@ -11,7 +11,7 @@ import {
 import { LayoutStyle } from '@Style/Layouts/Manage/MainStyles'
 import MainTabComponent from '@Element/Layouts/MainTabComponent'
 import React, { useEffect, useState } from 'react'
-import { useAuth, useMainLayouts, useRecoilReset } from '@Hooks'
+import { useAuth, useMainLayouts, useRecoilReset, useWindowSize } from '@Hooks'
 import { useLocation } from 'react-router'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
@@ -31,11 +31,17 @@ const initializeState = {
 const ManageLayoutComponent = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const windowSize = useWindowSize()
     const { fullRecoilReset } = useRecoilReset()
     const appRootState = useRecoilValue(AtomRootState)
     const { handleLoginCheck, handleAttemptLogout } = useAuth()
-    const { leftMenuShow, alertModel, handlMainAlert, OutletLoading } =
-        useMainLayouts()
+    const {
+        leftMenuShow,
+        alertModel,
+        handlMainAlert,
+        OutletLoading,
+        handleWindowsSize,
+    } = useMainLayouts()
 
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [memberlistState, setMemberListState] =
@@ -95,6 +101,24 @@ const ManageLayoutComponent = () => {
             }))
         }
     }, [memberlistState.status, mainLayoutState, setMemberListState])
+
+    useEffect(() => {
+        const funcSetWindowsSize = ({
+            height,
+            width,
+        }: {
+            height: number
+            width: number
+        }) => {
+            handleWindowsSize({ width: width, height: height })
+        }
+        const { height, width } = windowSize
+
+        funcSetWindowsSize({ width: width, height: height })
+
+        // FIXME : 종속성에서 handleWindowsSize 무시.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowSize])
 
     return (
         <>

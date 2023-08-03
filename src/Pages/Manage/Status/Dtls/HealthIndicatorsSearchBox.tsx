@@ -7,10 +7,11 @@ import {
     VaryLabel,
 } from '@Elements'
 
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { HealthIndicatorsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -28,6 +29,7 @@ const HealthIndicatorsSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [healthIndicatorsListState, setHealthIndicatorsListState] =
         useRecoilState(HealthIndicatorsListState)
 
@@ -153,7 +155,9 @@ const HealthIndicatorsSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

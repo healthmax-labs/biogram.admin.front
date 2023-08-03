@@ -10,9 +10,10 @@ import {
     VaryLabelRadioButton,
 } from '@Elements'
 
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { NonMeasureListState } from '@Recoil/StatusPagesState'
 import Codes from '@Codes'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -30,6 +31,7 @@ const NonMeasureSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [nonMeasureListState, setNonMeasureListState] =
         useRecoilState(NonMeasureListState)
 
@@ -327,7 +329,9 @@ const NonMeasureSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton Item={'end'}>
+            <RightSearchButton
+                Item={'end'}
+                WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

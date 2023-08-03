@@ -14,11 +14,12 @@ import {
     getDateMonthUnit,
     gmtTimeToTimeObject,
 } from '@Helper'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import { isNull } from 'lodash'
 import Codes from '@Codes'
 import _ from 'lodash'
+import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 
 const {
     SearchItemWapper,
@@ -36,6 +37,7 @@ const StatisticsSearchBox = ({
 }: {
     HandleGetList: () => void
 }) => {
+    const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [statisticsListState, setStatisticsListState] =
         useRecoilState(StatisticsListState)
 
@@ -250,7 +252,7 @@ const StatisticsSearchBox = ({
                     </SearchItemWapper>
                 </SearchItemRow>
             </SearchRowWapper>
-            <RightSearchButton>
+            <RightSearchButton WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton ButtonClick={() => HandleGetList()} />
             </RightSearchButton>
         </RowContainer>

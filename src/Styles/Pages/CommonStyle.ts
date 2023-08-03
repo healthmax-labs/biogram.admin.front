@@ -25,21 +25,32 @@ export const SearchBoxStyle = {
     SearchItemGap: tw.div`flex flex-nowrap gap-1`,
     LabelItem: tw.div`w-20`,
     DatepickerLine: tw.div`flex px-2 items-center`,
-    SearchButton: tw.div`flex object-top w-full`,
-    RightSearchButton1: tw.div`flex items-end object-center justify-end w-full`,
-    RightSearchButton: styled.div(({ Item }: { Item?: 'center' | 'end' }) => {
-        const returnCss = [tw`flex object-center justify-end w-full`]
+    SearchButton: tw.div`flex object-center w-full`,
+    RightSearchButton: styled.div(
+        ({
+            Item,
+            WindowsWidth,
+        }: {
+            Item?: 'center' | 'end'
+            WindowsWidth: number
+        }) => {
+            const returnCss = [tw`flex object-center justify-end w-full`]
 
-        if (Item && Item === 'center') {
-            returnCss.push(tw`items-center`)
-        } else if (Item && Item === 'end') {
-            returnCss.push(tw`items-end pb-1`)
-        } else {
-            returnCss.push(tw`items-center`)
+            if (Item && Item === 'center') {
+                returnCss.push(tw`items-center`)
+            } else if (Item && Item === 'end') {
+                returnCss.push(tw`items-end pb-1`)
+            } else {
+                returnCss.push(tw`items-center`)
+            }
+
+            if (WindowsWidth < 1920) {
+                returnCss.push(tw`fixed pt-1 right-3`)
+            }
+
+            return returnCss
         }
-
-        return returnCss
-    }),
+    ),
 }
 
 export const ManageBoxStyle = {
