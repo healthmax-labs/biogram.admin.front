@@ -21,6 +21,7 @@ const VaryLineChartSleep = ({
     }>
 }) => {
     useLayoutEffect(() => {
+        am5.addLicense('AM5C488111')
         const root = am5.Root.new(ChartID)
 
         for (let i = 0; i < Data.length; i++) {
@@ -175,7 +176,7 @@ const VaryLineChartSleep = ({
 
         function getTime(text: any) {
             if (text == undefined) return ''
-            text = typeof text == 'string' ? text : new String(text)
+            text = typeof text == 'string' ? text : String(text)
             const texttonum = Number(text?.replace(',', ''))
             let hour = Math.floor(texttonum / 60)
 

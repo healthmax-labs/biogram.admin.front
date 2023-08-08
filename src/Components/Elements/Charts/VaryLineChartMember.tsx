@@ -19,6 +19,7 @@ const VaryLineChart = ({
     StanData?: { high: number; low: number }
 }) => {
     useLayoutEffect(() => {
+        am5.addLicense('AM5C488111')
         const root = am5.Root.new(ChartID)
 
         // Set themes

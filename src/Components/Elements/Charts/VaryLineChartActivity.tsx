@@ -22,6 +22,7 @@ const VaryLineChartActivity = ({
     Data2: Array<{ date: string; value: number }>
 }) => {
     useLayoutEffect(() => {
+        am5.addLicense('AM5C488111')
         const root = am5.Root.new(ChartID)
 
         // Set themes
