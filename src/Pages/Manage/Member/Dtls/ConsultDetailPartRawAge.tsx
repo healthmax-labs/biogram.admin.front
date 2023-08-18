@@ -78,7 +78,11 @@ const ConsultDetailPartRawAge = () => {
             return
         }
 
-        window.open(`${rawAgeState.list.META_PDF_PATH}`)
+        window.open(
+            `${rawAgeState.list.META_PDF_PATH}`,
+            '대사리포트 프린트',
+            'width=1600px,height=4528px,scrollbars=yes'
+        )
         return
     }
 
@@ -92,7 +96,11 @@ const ConsultDetailPartRawAge = () => {
             return
         }
 
-        window.open(`${rawAgeState.list.OBSITY_PDF_PATH}`)
+        window.open(
+            `${rawAgeState.list.OBSITY_PDF_PATH}`,
+            '비만리포트 프린트',
+            'width=1600px,height=4528px,scrollbars=yes'
+        )
         return
     }
 
