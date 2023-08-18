@@ -34,7 +34,7 @@ export const SearchBoxStyle = {
             Item?: 'center' | 'end'
             WindowsWidth: number
         }) => {
-            const returnCss = [tw`flex object-center justify-end w-full`]
+            const returnCss = [tw`flex object-center justify-end`]
 
             if (Item && Item === 'center') {
                 returnCss.push(tw`items-center`)
@@ -46,6 +46,8 @@ export const SearchBoxStyle = {
 
             if (WindowsWidth < 1920) {
                 returnCss.push(tw`fixed pt-1 right-3`)
+            } else {
+                returnCss.push(tw`w-full`)
             }
 
             return returnCss
