@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     ConfirmModal,
     VaryButton,
@@ -248,6 +248,17 @@ const MemberMyDataInputModal = ({
             })
         }
     }
+
+    useEffect(() => {
+        setPageState(prevState => ({
+            ...prevState,
+            input: {
+                ...prevState.input,
+                MESURE_DE: getNowDateDetail(), // 측정일
+                MESURE_TIME: getNowDateDetail(), //측정시분초
+            },
+        }))
+    }, [])
 
     return (
         <>
