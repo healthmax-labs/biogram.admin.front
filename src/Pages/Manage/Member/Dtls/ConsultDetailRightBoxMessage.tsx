@@ -153,6 +153,21 @@ const ConsultDetailRightBoxMessage = () => {
         }
     }, [setSmsSendState, smsSendState])
 
+    useEffect(() => {
+        const { year, monthPad, dayPad, hourPad, minutePad, secondPad } =
+            gmtTimeToTimeObject(new Date())
+
+        setSmsSendState(prevState => ({
+            ...prevState,
+            send: {
+                ...prevState.send,
+                SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
+            },
+        }))
+        // FIXME : 종속성에서 setSmsSendState disable 처리
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <>
             <Container>
