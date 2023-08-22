@@ -10,6 +10,9 @@ import { useNavigate } from 'react-router-dom'
 import { StatisticsListState } from '@Recoil/StatusPagesState'
 import _ from 'lodash'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import { ConsultDetailState } from '@Recoil/MemberPagesState'
+import { useRecoilReset } from '@Hook/index'
+import { RecoilStateKeyNameType } from '@CommonTypes'
 
 interface tableOption {
     Loading: boolean
@@ -21,6 +24,8 @@ interface tableOption {
 const ListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
     const [listState, setListState] = useRecoilState(StatisticsListState)
+    const consultDetailState = useRecoilValue(ConsultDetailState)
+    const { recoilReset } = useRecoilReset()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const [tableOptions, setTableOptions] = useState<tableOption>(
@@ -28,6 +33,23 @@ const ListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     )
 
     const handleRowClick = (element: StatisticsTableListItemInterface) => {
+        if (consultDetailState.memNo !== element.MBER_NO) {
+            ;[
+                'memberPage/consult-detail',
+                'memberPage/consult-chart-list',
+                'memberPage/consult-chart',
+                'memberPage/consult-sms-send',
+                'memberPage/consult-my-coach',
+                'memberPage/consult-survey',
+                'memberPage/consult-raw-age',
+                'memberPage/consult-message-box',
+                'memberPage/consult-meal-diary',
+                'memberPage/consult-my-graph',
+            ].forEach(recoilKey => {
+                recoilReset(recoilKey as RecoilStateKeyNameType)
+            })
+        }
+
         navigate({
             pathname:
                 process.env.PUBLIC_URL +

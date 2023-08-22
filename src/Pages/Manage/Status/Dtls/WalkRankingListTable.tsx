@@ -11,6 +11,9 @@ import { useRecoilValue } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
 import _ from 'lodash'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import { ConsultDetailState } from '@Recoil/MemberPagesState'
+import { useRecoilReset } from '@Hook/index'
+import { RecoilStateKeyNameType } from '@CommonTypes'
 
 interface tableOption {
     Loading: boolean
@@ -22,6 +25,8 @@ interface tableOption {
 const WalkRankingListTable = () => {
     const navigate = useNavigate()
     const listState = useRecoilValue(WalkRankingListState)
+    const consultDetailState = useRecoilValue(ConsultDetailState)
+    const { recoilReset } = useRecoilReset()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
 
     const [tableOptions, setTableOptions] = useState<tableOption>(
@@ -29,6 +34,22 @@ const WalkRankingListTable = () => {
     )
 
     const handleRowClick = (element: WalkRankingTableListItemInterface) => {
+        if (consultDetailState.memNo !== element.MBER_NO) {
+            ;[
+                'memberPage/consult-detail',
+                'memberPage/consult-chart-list',
+                'memberPage/consult-chart',
+                'memberPage/consult-sms-send',
+                'memberPage/consult-my-coach',
+                'memberPage/consult-survey',
+                'memberPage/consult-raw-age',
+                'memberPage/consult-message-box',
+                'memberPage/consult-meal-diary',
+                'memberPage/consult-my-graph',
+            ].forEach(recoilKey => {
+                recoilReset(recoilKey as RecoilStateKeyNameType)
+            })
+        }
         navigate({
             pathname:
                 process.env.PUBLIC_URL +
