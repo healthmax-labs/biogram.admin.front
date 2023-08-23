@@ -277,8 +277,8 @@ const ConsultDetailPartChart = () => {
                             <HeaderCell>작성자</HeaderCell>
                             <HeaderCell>최종 수정일</HeaderCell>
                             <HeaderCell>최종 수정자</HeaderCell>
-                            <HeaderCell>추후 계획</HeaderCell>
-                            <HeaderCell>관리</HeaderCell>
+                            <HeaderCell>상담내역</HeaderCell>
+                            <HeaderCell>비고</HeaderCell>
                         </HeaderRow>
                     </TableHeader>
                     <TableBody HeightLimit={false} Scroll={true}>
