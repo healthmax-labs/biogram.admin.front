@@ -36,7 +36,7 @@ const HealthIndicatorsTable = () => {
         )
 
     const handleExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm

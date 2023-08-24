@@ -45,7 +45,7 @@ const DeviceUseTable = () => {
         )
 
     const handleAgeExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm
@@ -279,7 +279,7 @@ const DeviceUseTable = () => {
     }
 
     const handlePeriodExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm

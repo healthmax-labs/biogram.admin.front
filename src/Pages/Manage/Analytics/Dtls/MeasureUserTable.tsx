@@ -47,7 +47,7 @@ const MeasureUserTable = () => {
         )
 
     const handleAgeExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm
@@ -222,7 +222,7 @@ const MeasureUserTable = () => {
     }
 
     const handlePeriodExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm
@@ -250,33 +250,11 @@ const MeasureUserTable = () => {
             }),
             Data: (() => {
                 return _.sortBy(PERIOD_STAT_LIST, 'CYCLE_GUBUN').map(period => {
-                    const sumMber =
-                        period.IS_MBER_CNT +
-                        period.BP_MBER_CNT +
-                        period.BS_MBER_CNT +
-                        period.BC_MBER_CNT +
-                        period.ST_MBER_CNT +
-                        period.HT_MBER_CNT
-                    const sumWoman =
-                        period.IS_WOMAN_CNT +
-                        period.BP_WOMAN_CNT +
-                        period.BS_WOMAN_CNT +
-                        period.BC_WOMAN_CNT +
-                        period.ST_WOMAN_CNT +
-                        period.HT_WOMAN_CNT
-                    const sumMan =
-                        period.IS_MAN_CNT +
-                        period.BP_MAN_CNT +
-                        period.BS_MAN_CNT +
-                        period.BC_MAN_CNT +
-                        period.ST_MAN_CNT +
-                        period.HT_MAN_CNT
-
                     return [
                         `${period.CYCLE_GUBUN}`,
-                        `${addComma(sumMber)}`,
-                        `${addComma(sumWoman)}`,
-                        `${addComma(sumMan)}`,
+                        `${addComma(period.SUM_MBER_CNT)}`,
+                        `${addComma(period.SUM_WOMAN_CNT)}`,
+                        `${addComma(period.SUM_MAN_CNT)}`,
                         `${addComma(period.IS_MBER_CNT)}`,
                         `${addComma(period.IS_WOMAN_CNT)}`,
                         `${addComma(period.IS_MAN_CNT)}`,

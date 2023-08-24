@@ -46,7 +46,7 @@ const RiskFctrCountTable = () => {
         )
 
     const handleAgeExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm
@@ -245,7 +245,7 @@ const RiskFctrCountTable = () => {
     }
 
     const handlePeriodExcelDownload = async () => {
-        await setExcelDownloadProps(prevState => ({
+        setExcelDownloadProps(prevState => ({
             ...prevState,
             FileName:
                 INST_NO && instNm
