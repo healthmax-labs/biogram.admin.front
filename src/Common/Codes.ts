@@ -310,7 +310,7 @@ export default {
                     name: `스트레스 점수`,
                 },
                 {
-                    code: `STRS_CNTRMSR_ABLTY`,
+                    code: `PHYSIC_STRS`,
                     name: `신체적 스트레스`,
                 },
                 {
@@ -318,7 +318,7 @@ export default {
                     name: `정신적 스트레스`,
                 },
                 {
-                    code: `PHYSIC_STRS`,
+                    code: `STRS_CNTRMSR_ABLTY`,
                     name: `스트레스 대처능력`,
                 },
             ],
