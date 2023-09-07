@@ -1,3 +1,5 @@
+import { ConditionsType } from '@Type/CommonTypes'
+
 //위험요인 현황
 export interface RiskFctrListItemInterface {
     SLM_JDGMNT: null | string
@@ -262,4 +264,27 @@ export interface WalkRankingListItemInterface {
 export interface WalkRankingListInterface {
     STEP_RANK_INFO_LIST: WalkRankingListItemInterface[]
     TOTAL_COUNT: number
+}
+
+export interface StressListItemInterface {
+    MBER_NO: number
+    MESURE_DE: string
+    BRTHDY: string
+    NM: string
+    CAD_OUTPUT_IN_JDGMNT: ConditionsType
+    STRS_SCORE: string
+    STRS_CNTRMSR_ABLTY: string
+    BLDVSS_STEP_JDGMNT: ConditionsType
+    MNTL_STRS: string
+    CAD_OUTPUT_IN: string
+    MNTL_STRS_JDGMNT: ConditionsType
+    ELSTC_DGREE: string
+    ELSTC_DGREE_JDGMNT: ConditionsType
+    BLDVSS_STEP: string
+    STRS_CNTRMSR_ABLTY_JDGMNT: ConditionsType
+    RBV_QY: string
+    RBV_QY_JDGMNT: ConditionsType
+    PHYSIC_STRS: string
+    PHYSIC_STRS_JDGMNT: ConditionsType
+    STRS_SCORE_JDGMNT: ConditionsType
 }

@@ -1644,4 +1644,24 @@ export default {
             ],
         },
     },
+    StressInquiryItemsCode: [
+        { code: `STRS_SCORE`, name: `스트레스 점수` },
+        { code: `PHYSIC_STRS`, name: `신체적 스트레스` },
+        { code: `MNTL_STRS`, name: `정신적 스트레스` },
+        { code: `STRS_CNTRMSR_ABLTY`, name: `스트레스 대처능력` },
+        { code: `BLDVSS_STEP`, name: `혈관 단계` },
+        { code: `CAD_OUTPUT_IN`, name: `박출강도` },
+        { code: `ELSTC_DGREE`, name: `탄성도 ` },
+        { code: `RBV_QY`, name: `잔혈량` },
+    ],
+    ConditionsCode: [
+        { code: `010`, name: `매우좋음` },
+        { code: `020`, name: `좋음` },
+        { code: `030`, name: `주의` },
+        {
+            code: `040`,
+            name: `나쁨`,
+        },
+        { code: `050`, name: `매우나쁨` },
+    ],
 }

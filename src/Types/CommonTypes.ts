@@ -1,6 +1,7 @@
 export type DefaultStatus = 'idle' | 'loading' | 'success' | 'failure' | 'ready'
 export type MainLayoutThemeType = string | '' | 'GeonDaon' // 테마 타입 테마 추가시 추가 팔요함
 export type DefaultYesNo = 'Y' | 'N'
+export type ConditionsType = `매우좋음` | `좋음` | `주의` | `나쁨` | `매우 나쁨`
 export type WidthType =
     | 'w0'
     | 'w1'

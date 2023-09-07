@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
+import { ListTableItemStyle } from '@Style/Pages/MemberPageStyles'
 
 // 회원 테이블 데이터
 import {
@@ -81,9 +81,9 @@ export const MsgSendTableConfig = {
                 key: `MBTLNUM`,
                 component: ({ el }: { el: MsgSendTableListItemInterface }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={`Y`}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={`Y`}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -142,9 +142,10 @@ export const MemberTableConfig = {
                 key: `MBTLNUM`,
                 component: ({ el }: { el: MemberInfoListItemInterface }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={el.MBTLNUM_CRTFC_AT}>
+                        <ListTableItemStyle.MbtlnumCell
+                            CRTFC={el.MBTLNUM_CRTFC_AT}>
                             {el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -248,9 +249,10 @@ export const ConsultTableConfig = {
                 key: `MBTLNUM`,
                 component: ({ el }: { el: ConsultInfoListItemInterface }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={el.MBTLNUM_CRTFC_AT}>
+                        <ListTableItemStyle.MbtlnumCell
+                            CRTFC={el.MBTLNUM_CRTFC_AT}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -347,9 +349,9 @@ export const MsgBookTableConfig = {
                 key: `MBTLNUM`,
                 component: ({ el }: { el: MsgBookTableListItemInterface }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={`Y`}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={`Y`}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },

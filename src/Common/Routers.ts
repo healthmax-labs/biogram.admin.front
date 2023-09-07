@@ -290,6 +290,19 @@ export default {
         },
         {
             mainCode: `40000`,
+            menuCode: `40801`,
+            name: `스트레스 현황`,
+            pathName: `/manage/status/stress-list`,
+            category: `stress-list`,
+            recooilKey: `statusPage/stress-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Status/StressListPage')
+            ),
+        },
+        {
+            mainCode: `40000`,
             menuCode: `40201`,
             name: `전후비교 현황`,
             pathName: `/manage/status/brftt-cmpr`,

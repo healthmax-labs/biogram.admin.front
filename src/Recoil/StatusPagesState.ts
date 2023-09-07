@@ -7,6 +7,7 @@ import {
     NonMeasureListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
+    StressListItemInterface,
     WalkRankingListInterface,
 } from '@Type/StatusTypes'
 import {
@@ -15,6 +16,7 @@ import {
     getNowYearMonth,
     getDateDayUnit,
 } from '@Helper'
+import Codes from '@Codes'
 
 /**
  * status 페이지.
@@ -124,6 +126,25 @@ interface WalkRankingSearchListInterface {
         MESURE_MT: string
     }
     list: WalkRankingListInterface
+}
+
+// 스트레스 현황
+interface StressSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number
+        INST_NO: string
+        instNm: string
+        BEGIN_DE: string
+        END_DE: string
+        INQUIRY_ITEMS: string
+        CONDITIONS: string
+        SEARCH_KEY: string
+    }
+    list: {
+        TOTAL_COUNT: number
+        STRESS_STATE_LIST: Array<StressListItemInterface>
+    }
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
@@ -268,6 +289,37 @@ export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
         },
         list: {
             STEP_RANK_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+// 스트레스 현황
+export const StressListState = atom<StressSearchListInterface>({
+    key: `statusPage/stress-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: 1,
+            INST_NO: '',
+            instNm: '',
+            BEGIN_DE:
+                process.env.REACT_APP_ENV === 'development'
+                    ? `20230201`
+                    : getOneMonthAgo(),
+            END_DE: getNowDate(),
+            INQUIRY_ITEMS:
+                process.env.REACT_APP_ENV === 'development'
+                    ? Codes.StressInquiryItemsCode.map(e => e.code).join(',')
+                    : 'STRS_SCORE',
+            CONDITIONS:
+                process.env.REACT_APP_ENV === 'development'
+                    ? Codes.ConditionsCode.map(e => e.name).join(',')
+                    : '나쁨,매우나쁨',
+            SEARCH_KEY: '',
+        },
+        list: {
+            STRESS_STATE_LIST: [],
             TOTAL_COUNT: 0,
         },
     },

@@ -2,14 +2,18 @@
 import React from 'react'
 import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
-import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
+import { ListTableItemStyle } from '@Style/Pages/MemberPageStyles'
 import { phoneFormat, addComma } from '@Helper'
 import _ from 'lodash'
 import Const from '@Const'
+import { StressListItemInterface } from '@Type/StatusTypes'
 
 const {
     Box: { Container, Wapper, Item },
     XcptComponent,
+    TableConditionsCellWapper,
+    TableConditionsCell,
+    TableConditionsCellText,
 } = ListComponentStyle
 
 const RiskFctrJdgmntColor = (jdgmnt: string): string => {
@@ -1399,9 +1403,9 @@ export const HealthIndicatorsTableConfig = {
                     el: HealthIndicatorsTableListItemInterface
                 }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={'Y'}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -1540,9 +1544,9 @@ export const WalkRankingTableConfig = {
                     el: WalkRankingTableListItemInterface
                 }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={'Y'}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -1564,6 +1568,196 @@ export const WalkRankingTableConfig = {
                     el: WalkRankingTableListItemInterface
                 }) => {
                     return <>{addComma(el.TOT_STEPS)}</>
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 스트레스 현황 테이블
+export const StressListTableConfig = {
+    Loading: true,
+    Options: {
+        pagination: true,
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: `스트레스`,
+                colSpan: 4,
+            },
+            {
+                name: `혈관건강`,
+                colSpan: 4,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+                cellWidth: `w16`,
+            },
+            {
+                name: `이름`,
+                key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+                cellWidth: `w0112`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
+            },
+            {
+                name: `총점수`,
+                key: `STRS_SCORE`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.STRS_SCORE_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.STRS_SCORE}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `신체적<br />스트레스`,
+                key: `PHYSIC_STRS`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.PHYSIC_STRS_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.PHYSIC_STRS}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `정신적<br />스트레스`,
+                key: `MNTL_STRS`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.MNTL_STRS_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.MNTL_STRS}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `스트레스<br />대처능력`,
+                key: `STRS_CNTRMSR_ABLTY`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.STRS_CNTRMSR_ABLTY_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.STRS_CNTRMSR_ABLTY}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `혈관 단계`,
+                key: `BLDVSS_STEP`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.BLDVSS_STEP_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.BLDVSS_STEP}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `박출강도`,
+                key: `CAD_OUTPUT_IN`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.CAD_OUTPUT_IN_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.CAD_OUTPUT_IN}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `탄성도`,
+                key: `ELSTC_DGREE`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.ELSTC_DGREE_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.ELSTC_DGREE}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `전혈량`,
+                key: `RBV_QY`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.RBV_QY_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.RBV_QY}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
                 },
             },
         ],

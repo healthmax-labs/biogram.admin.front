@@ -9,6 +9,7 @@ import {
     HealthIndicatorsListItemInterface,
     NonMeasureAlertItemInterface,
     WalkRankingListItemInterface,
+    StressListItemInterface,
 } from '@Type/StatusTypes'
 import _ from 'lodash'
 
@@ -417,6 +418,54 @@ export function getWalkRankingList({
     return _Axios_({
         method: 'post',
         url: `/mng/gndn/v1/step_rank/${CUR_PAGE}`,
+        payload: payload,
+    })
+}
+
+export function postStressList({
+    INST_NO,
+    BEGIN_DE,
+    END_DE,
+    INQUIRY_ITEMS,
+    CONDITIONS,
+    SEARCH_KEY,
+    CUR_PAGE,
+}: {
+    INST_NO: string
+    BEGIN_DE: string
+    END_DE: string
+    INQUIRY_ITEMS: string
+    CONDITIONS: string
+    SEARCH_KEY: string
+    CUR_PAGE: number
+}): Promise<
+    ServicesDefaultResult<{
+        TOTAL_COUNT: number
+        STRESS_STATE_LIST: Array<StressListItemInterface>
+    }>
+> {
+    const payload: {
+        INST_NO?: string
+        BEGIN_DE: string
+        END_DE: string
+        INQUIRY_ITEMS: string
+        CONDITIONS: string
+        SEARCH_KEY: string
+    } = {
+        INST_NO: INST_NO,
+        BEGIN_DE: BEGIN_DE,
+        END_DE: END_DE,
+        INQUIRY_ITEMS: INQUIRY_ITEMS,
+        CONDITIONS: CONDITIONS,
+        SEARCH_KEY: SEARCH_KEY,
+    }
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
+    return _Axios_({
+        method: 'post',
+        url: `/stats/v1/strs/${CUR_PAGE}`,
         payload: payload,
     })
 }
