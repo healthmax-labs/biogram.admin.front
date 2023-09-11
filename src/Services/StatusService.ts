@@ -422,6 +422,16 @@ export function getWalkRankingList({
     })
 }
 
+/**
+ * 스트레스 리스트 현황
+ * @param INST_NO
+ * @param BEGIN_DE
+ * @param END_DE
+ * @param INQUIRY_ITEMS
+ * @param CONDITIONS
+ * @param SEARCH_KEY
+ * @param CUR_PAGE
+ */
 export function postStressList({
     INST_NO,
     BEGIN_DE,

@@ -420,6 +420,19 @@ export default {
         },
         {
             mainCode: `50000`,
+            menuCode: `51201`,
+            name: `스트레스 통계`,
+            pathName: `/manage/analytics/stress`,
+            category: `stress`,
+            recooilKey: `analyticsPage/stress-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Analytics/StressPage')
+            ),
+        },
+        {
+            mainCode: `50000`,
             menuCode: `50901`,
             name: `위험요인 개수별 통계`,
             pathName: `/manage/analytics/risk-fctr-count`,

@@ -16,7 +16,6 @@ import {
     getNowYearMonth,
     getDateDayUnit,
 } from '@Helper'
-import Codes from '@Codes'
 
 /**
  * status 페이지.
@@ -303,19 +302,10 @@ export const StressListState = atom<StressSearchListInterface>({
             curPage: 1,
             INST_NO: '',
             instNm: '',
-            BEGIN_DE:
-                process.env.REACT_APP_ENV === 'development'
-                    ? `20230201`
-                    : getOneMonthAgo(),
+            BEGIN_DE: getOneMonthAgo(),
             END_DE: getNowDate(),
-            INQUIRY_ITEMS:
-                process.env.REACT_APP_ENV === 'development'
-                    ? Codes.StressInquiryItemsCode.map(e => e.code).join(',')
-                    : 'STRS_SCORE',
-            CONDITIONS:
-                process.env.REACT_APP_ENV === 'development'
-                    ? Codes.ConditionsCode.map(e => e.name).join(',')
-                    : '나쁨,매우나쁨',
+            INQUIRY_ITEMS: 'STRS_SCORE',
+            CONDITIONS: '나쁨,매우나쁨',
             SEARCH_KEY: '',
         },
         list: {

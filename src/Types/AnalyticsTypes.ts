@@ -248,3 +248,47 @@ export interface ImprvmAgeListItemInterface {
     OW_TOT_SCORE: number
     OW_WAIST_SCORE: number
 }
+
+// 스트레스 연령별 츨정사수
+export interface StressAgeGroupStatListInterface {
+    AGE_GROUP: string // 연령대 10, 20, 30, 40, 50, 60, 70, TOT(총계)
+    TOT_MBER_CNT: number // 측정인원(명)
+    STRS_SCORE_N_CNT: number // 스트레스 점수(정상)
+    STRS_SCORE_D_CNT: number // 스트레스 점수(위험)
+    PHYSIC_STRS_N_CNT: number // 신체적 스트레스(정상)
+    PHYSIC_STRS_D_CNT: number // 신체적 스트레스(위험)
+    MNTL_STRS_N_CNT: number // 정신적 스트레스(정상)
+    MNTL_STRS_D_CNT: number // 정신적 스트레스(위험)
+    STRS_CNTRMSR_ABLTY_N_CNT: number // 스트레스 대처능력(정상)
+    STRS_CNTRMSR_ABLTY_D_CNT: number // 스트레스 대처능력(위험)
+    BLDVSS_STEP_N_CNT: number // 혈관단계(정상)
+    BLDVSS_STEP_D_CNT: number // 혈관단계(위험)
+    CAD_OUTPUT_IN_N_CNT: number // 박출강도(정상)
+    CAD_OUTPUT_IN_D_CNT: number // 박출강도(위험)
+    ELSTC_DGREE_N_CNT: number // 탄성도(정상)
+    ELSTC_DGREE_D_CNT: number // 탄성도(위험)
+    RBV_QY_N_CNT: number // 잔혈량(정상)
+    RBV_QY_D_CNT: number // 잔혈량(위험)
+}
+
+// 스트레스 주기별 순 측성자수
+export interface StressPeriodStatListInterface {
+    PERIOD: string // 주기 (월,주,일)
+    TOT_MBER_CNT: number // 측정인원(명)
+    STRS_SCORE_N_CNT: number // 스트레스 점수(정상)
+    STRS_SCORE_D_CNT: number // 스트레스 점수(위험)
+    PHYSIC_STRS_N_CNT: number // 신체적 스트레스(정상)
+    PHYSIC_STRS_D_CNT: number // 신체적 스트레스(위험)
+    MNTL_STRS_N_CNT: number // 정신적 스트레스(정상)
+    MNTL_STRS_D_CNT: number // 정신적 스트레스(위험)
+    STRS_CNTRMSR_ABLTY_N_CNT: number // 스트레스 대처능력(정상)
+    STRS_CNTRMSR_ABLTY_D_CNT: number // 스트레스 대처능력(위험)
+    BLDVSS_STEP_N_CNT: number // 혈관단계(정상)
+    BLDVSS_STEP_D_CNT: number // 혈관단계(위험)
+    CAD_OUTPUT_IN_N_CNT: number // 박출강도(정상)
+    CAD_OUTPUT_IN_D_CNT: number // 박출강도(위험)
+    ELSTC_DGREE_N_CNT: number // 탄성도(정상)
+    ELSTC_DGREE_D_CNT: number // 탄성도(위험)
+    RBV_QY_N_CNT: number // 잔혈량(정상)
+    RBV_QY_D_CNT: number // 잔혈량(위험)
+}
