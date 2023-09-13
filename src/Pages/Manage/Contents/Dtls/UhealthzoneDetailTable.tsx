@@ -1531,8 +1531,8 @@ const UhealthzoneDetailTable = ({
                                                                                                 VEIN_RCIVR:
                                                                                                     prevState.detail.VEIN_RCIVR.filter(
                                                                                                         e =>
-                                                                                                            e.MHRLS_CODE !==
-                                                                                                            el.MHRLS_CODE
+                                                                                                            e.SERIAL_NO !==
+                                                                                                            el.SERIAL_NO
                                                                                                     ),
                                                                                             },
                                                                                         })
