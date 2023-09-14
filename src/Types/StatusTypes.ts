@@ -1,4 +1,4 @@
-import { ConditionsType } from '@Type/CommonTypes'
+import { DefaultConditionsType } from '@Type/CommonTypes'
 
 //위험요인 현황
 export interface RiskFctrListItemInterface {
@@ -266,25 +266,48 @@ export interface WalkRankingListInterface {
     TOTAL_COUNT: number
 }
 
+// 스트레스 리스트
 export interface StressListItemInterface {
     MBER_NO: number
     MESURE_DE: string
     BRTHDY: string
     NM: string
-    CAD_OUTPUT_IN_JDGMNT: ConditionsType
+    CAD_OUTPUT_IN_JDGMNT: DefaultConditionsType
     STRS_SCORE: string
     STRS_CNTRMSR_ABLTY: string
-    BLDVSS_STEP_JDGMNT: ConditionsType
+    BLDVSS_STEP_JDGMNT: DefaultConditionsType
     MNTL_STRS: string
     CAD_OUTPUT_IN: string
-    MNTL_STRS_JDGMNT: ConditionsType
+    MNTL_STRS_JDGMNT: DefaultConditionsType
     ELSTC_DGREE: string
-    ELSTC_DGREE_JDGMNT: ConditionsType
+    ELSTC_DGREE_JDGMNT: DefaultConditionsType
     BLDVSS_STEP: string
-    STRS_CNTRMSR_ABLTY_JDGMNT: ConditionsType
+    STRS_CNTRMSR_ABLTY_JDGMNT: DefaultConditionsType
     RBV_QY: string
-    RBV_QY_JDGMNT: ConditionsType
+    RBV_QY_JDGMNT: DefaultConditionsType
     PHYSIC_STRS: string
-    PHYSIC_STRS_JDGMNT: ConditionsType
-    STRS_SCORE_JDGMNT: ConditionsType
+    PHYSIC_STRS_JDGMNT: DefaultConditionsType
+    STRS_SCORE_JDGMNT: DefaultConditionsType
+}
+
+// 뇌기능 현황
+export interface BrainListItemInterface {
+    MBER_NO: number
+    NM: string
+    BRTHDY: string
+    MESURE_DE: string
+    BB_FNCT: string // 기초 뇌 기능
+    BB_FNCT_JDGMNT: DefaultConditionsType //기초 뇌 기능 건강상태
+    CB_FNCT: string // 인지 뇌 기능
+    CB_FNCT_JDGMNT: DefaultConditionsType //인지 뇌 기능 건강상태
+    CB_ABLTY: string // 인지 능력
+    CB_ABLTY_JDGMNT: DefaultConditionsType //인지 능력 건강상태
+    CB_FNCT_SCORE: string // 인지 기능 점수
+    CB_FNCT_SCORE_JDGMNT: DefaultConditionsType // 인지 기능 점수 건강상태
+    BBF_ADJST_TIME: string // 뇌 혈류 조절 시간
+    BBF_ADJST_TIME_JDGMNT: DefaultConditionsType // 뇌 혈류 조절 시간 건강상태
+    BBF_FNCT_SCORE: string // 뇌 혈류 기능 점수
+    BBF_FNCT_SCORE_JDGMNT: DefaultConditionsType // 뇌 혈류 기능 점수 건강상태
+    BH_TNT_SCORE: string // 뇌 건강 종합 점수
+    BH_TNT_SCORE_JDGMNT: DefaultConditionsType // 뇌 건강 종합 점수 건강상태
 }

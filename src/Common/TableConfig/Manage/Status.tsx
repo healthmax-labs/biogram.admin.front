@@ -6,7 +6,10 @@ import { ListTableItemStyle } from '@Style/Pages/MemberPageStyles'
 import { phoneFormat, addComma } from '@Helper'
 import _ from 'lodash'
 import Const from '@Const'
-import { StressListItemInterface } from '@Type/StatusTypes'
+import {
+    StressListItemInterface,
+    BrainListItemInterface,
+} from '@Type/StatusTypes'
 
 const {
     Box: { Container, Wapper, Item },
@@ -1755,6 +1758,182 @@ export const StressListTableConfig = {
                                 }></TableConditionsCell>
                             <TableConditionsCellText>
                                 {el.RBV_QY}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 뇌기능 현황 테이블
+export const BrainListTableConfig = {
+    Loading: true,
+    Options: {
+        pagination: true,
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: `인지 기능검사`,
+                colSpan: 4,
+            },
+            {
+                name: `뇌 혈류 기능검사`,
+                colSpan: 2,
+            },
+            {
+                name: `종합점수`,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+                cellWidth: `w16`,
+            },
+            {
+                name: `이름`,
+                key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+                cellWidth: `w0112`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
+            },
+            {
+                name: `기초 뇌 기능`,
+                key: `BB_FNCT`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.BB_FNCT_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.BB_FNCT}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 뇌 기능`,
+                key: `CB_FNCT`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.CB_FNCT_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.CB_FNCT}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 능력`,
+                key: `CB_ABLTY`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.CB_ABLTY_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.CB_ABLTY}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 기능 점수`,
+                key: `CB_FNCT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.CB_FNCT_SCORE_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.CB_FNCT_SCORE}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `뇌 혈류 조절 시간`,
+                key: `BBF_ADJST_TIME`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.BBF_ADJST_TIME_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.BBF_ADJST_TIME}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `뇌 혈류 기능 점수`,
+                key: `BBF_FNCT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.BBF_FNCT_SCORE_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.BBF_FNCT_SCORE}
+                            </TableConditionsCellText>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `뇌 건강 종합 점수`,
+                key: `BH_TNT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsCell
+                                Conditions={
+                                    el.BH_TNT_SCORE_JDGMNT
+                                }></TableConditionsCell>
+                            <TableConditionsCellText>
+                                {el.BH_TNT_SCORE}
                             </TableConditionsCellText>
                         </TableConditionsCellWapper>
                     )

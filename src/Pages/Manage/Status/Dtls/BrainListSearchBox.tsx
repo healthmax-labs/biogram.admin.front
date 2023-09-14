@@ -1,4 +1,3 @@
-import { KeyboardEvent } from 'react'
 import { SearchBoxStyle, WapperStyle as WS } from '@Style/Pages/CommonStyle'
 import {
     DefaultSearchButton,
@@ -14,11 +13,11 @@ import {
     getDateMonthUnit,
     gmtTimeToTimeObject,
 } from '@Helper'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import React, { KeyboardEvent } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
-import { StressListState } from '@Recoil/StatusPagesState'
 import Codes from '@Codes'
-import React from 'react'
+import { BrainListState } from '@Recoil/StatusPagesState'
 
 const {
     SearchItemWapper,
@@ -31,14 +30,13 @@ const {
     SearchItem,
 } = SearchBoxStyle
 
-const StressListSearchBox = ({
+const BrainListSearchBox = ({
     HandleGetList,
 }: {
     HandleGetList: () => void
 }) => {
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
-    const [stressListState, setStressListState] =
-        useRecoilState(StressListState)
+    const [brainListState, setBrainListState] = useRecoilState(BrainListState)
 
     const handleSearchInputOnKeyDown = (
         event: KeyboardEvent<HTMLInputElement>
@@ -58,15 +56,15 @@ const StressListSearchBox = ({
                         <SearchItem>
                             <PstinstSelector
                                 SelectElement={{
-                                    value: stressListState.search.INST_NO
-                                        ? Number(stressListState.search.INST_NO)
+                                    value: brainListState.search.INST_NO
+                                        ? Number(brainListState.search.INST_NO)
                                         : null,
-                                    text: stressListState.search.instNm
-                                        ? stressListState.search.instNm
+                                    text: brainListState.search.instNm
+                                        ? brainListState.search.instNm
                                         : null,
                                 }}
                                 HandleSelectValue={({ instNo, instNm }) =>
-                                    setStressListState(prevState => ({
+                                    setBrainListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
@@ -88,9 +86,9 @@ const StressListSearchBox = ({
                                 Width={'w40'}
                                 id={'id'}
                                 Placeholder={'이름/아이디/휴대폰번호'}
-                                Value={stressListState.search.SEARCH_KEY}
+                                Value={brainListState.search.SEARCH_KEY}
                                 HandleOnChange={e => {
-                                    setStressListState(prevState => ({
+                                    setBrainListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
@@ -116,8 +114,7 @@ const StressListSearchBox = ({
                                         dateInsertHypen(
                                             getDateMonthUnit(
                                                 changeDatePickerDate(
-                                                    stressListState.search
-                                                        .END_DE
+                                                    brainListState.search.END_DE
                                                 ),
                                                 12
                                             )
@@ -126,16 +123,16 @@ const StressListSearchBox = ({
                                 }
                                 InputeType={`search`}
                                 Value={
-                                    stressListState.search.BEGIN_DE
+                                    brainListState.search.BEGIN_DE
                                         ? changeDatePickerDate(
-                                              stressListState.search.BEGIN_DE
+                                              brainListState.search.BEGIN_DE
                                           )
                                         : new Date()
                                 }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    setStressListState(prevState => ({
+                                    setBrainListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
@@ -148,16 +145,16 @@ const StressListSearchBox = ({
                             <VaryDatepickerInput
                                 InputeType={`search`}
                                 Value={
-                                    stressListState.search.END_DE
+                                    brainListState.search.END_DE
                                         ? changeDatePickerDate(
-                                              stressListState.search.END_DE
+                                              brainListState.search.END_DE
                                           )
                                         : new Date()
                                 }
                                 CallBackReturn={e => {
                                     const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
-                                    setStressListState(prevState => ({
+                                    setBrainListState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
@@ -177,17 +174,17 @@ const StressListSearchBox = ({
                         <SearchItem>
                             <WS.FlexNoWarapGap>
                                 {(() => {
-                                    const inquiryItems = stressListState.search
+                                    const inquiryItems = brainListState.search
                                         .INQUIRY_ITEMS
-                                        ? stressListState.search.INQUIRY_ITEMS.split(
+                                        ? brainListState.search.INQUIRY_ITEMS.split(
                                               ','
                                           ).map(element => element.trim())
                                         : []
-                                    return Codes.StatusStress.StressInquiryItemsCode.map(
+                                    return Codes.StatusBrain.InquiryItemsCode.map(
                                         (el, index) => {
                                             return (
                                                 <VaryLabelCheckBox
-                                                    key={`stress-list-search-box-stress-inquiry-items-code-item-${index}`}
+                                                    key={`brain-list-search-box-brain-inquiry-items-code-item-${index}`}
                                                     LabelName={`${el.name}`}
                                                     LabelWidth={`wMin`}
                                                     Checked={
@@ -197,7 +194,7 @@ const StressListSearchBox = ({
                                                     }
                                                     HandleOnChange={e => {
                                                         if (e.target.checked) {
-                                                            setStressListState(
+                                                            setBrainListState(
                                                                 prevState => ({
                                                                     ...prevState,
                                                                     search: {
@@ -213,7 +210,7 @@ const StressListSearchBox = ({
                                                                 })
                                                             )
                                                         } else {
-                                                            setStressListState(
+                                                            setBrainListState(
                                                                 prevState => ({
                                                                     ...prevState,
                                                                     search: {
@@ -250,19 +247,19 @@ const StressListSearchBox = ({
                         <SearchItem>
                             <WS.FlexNoWarapGap>
                                 {(() => {
-                                    const conditions = stressListState.search
+                                    const conditions = brainListState.search
                                         .CONDITIONS
-                                        ? stressListState.search.CONDITIONS.split(
+                                        ? brainListState.search.CONDITIONS.split(
                                               ','
                                           ).map(element => element.trim())
                                         : []
-                                    return Codes.StatusStress.ConditionsCode.map(
+                                    return Codes.StatusBrain.ConditionsCode.map(
                                         (el, index) => {
                                             return (
                                                 <VaryLabelCheckBox
                                                     LabelName={`${el.name}`}
                                                     LabelWidth={`wMin`}
-                                                    key={`stress-list-search-box-conditions-code-item-${index}`}
+                                                    key={`brain-list-search-box-conditions-code-item-${index}`}
                                                     Checked={
                                                         conditions.findIndex(
                                                             e => e === el.name
@@ -270,7 +267,7 @@ const StressListSearchBox = ({
                                                     }
                                                     HandleOnChange={e => {
                                                         if (e.target.checked) {
-                                                            setStressListState(
+                                                            setBrainListState(
                                                                 prevState => ({
                                                                     ...prevState,
                                                                     search: {
@@ -286,7 +283,7 @@ const StressListSearchBox = ({
                                                                 })
                                                             )
                                                         } else {
-                                                            setStressListState(
+                                                            setBrainListState(
                                                                 prevState => ({
                                                                     ...prevState,
                                                                     search: {
@@ -334,4 +331,4 @@ const StressListSearchBox = ({
     )
 }
 
-export default StressListSearchBox
+export default BrainListSearchBox

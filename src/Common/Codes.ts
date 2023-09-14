@@ -1644,24 +1644,42 @@ export default {
             ],
         },
     },
-    StressInquiryItemsCode: [
-        { code: `STRS_SCORE`, name: `스트레스 점수` },
-        { code: `PHYSIC_STRS`, name: `신체적 스트레스` },
-        { code: `MNTL_STRS`, name: `정신적 스트레스` },
-        { code: `STRS_CNTRMSR_ABLTY`, name: `스트레스 대처능력` },
-        { code: `BLDVSS_STEP`, name: `혈관 단계` },
-        { code: `CAD_OUTPUT_IN`, name: `박출강도` },
-        { code: `ELSTC_DGREE`, name: `탄성도 ` },
-        { code: `RBV_QY`, name: `잔혈량` },
-    ],
-    ConditionsCode: [
-        { code: `010`, name: `매우좋음` },
-        { code: `020`, name: `좋음` },
-        { code: `030`, name: `주의` },
-        {
-            code: `040`,
-            name: `나쁨`,
-        },
-        { code: `050`, name: `매우나쁨` },
-    ],
+    StatusStress: {
+        StressInquiryItemsCode: [
+            { code: `STRS_SCORE`, name: `스트레스 점수` },
+            { code: `PHYSIC_STRS`, name: `신체적 스트레스` },
+            { code: `MNTL_STRS`, name: `정신적 스트레스` },
+            { code: `STRS_CNTRMSR_ABLTY`, name: `스트레스 대처능력` },
+            { code: `BLDVSS_STEP`, name: `혈관 단계` },
+            { code: `CAD_OUTPUT_IN`, name: `박출강도` },
+            { code: `ELSTC_DGREE`, name: `탄성도 ` },
+            { code: `RBV_QY`, name: `잔혈량` },
+        ],
+        ConditionsCode: [
+            { code: `010`, name: `매우좋음` },
+            { code: `020`, name: `좋음` },
+            { code: `030`, name: `주의` },
+            {
+                code: `040`,
+                name: `나쁨`,
+            },
+            { code: `050`, name: `매우나쁨` },
+        ],
+    },
+    StatusBrain: {
+        InquiryItemsCode: [
+            { code: `BB_FNCT`, name: `기초 뇌 기능` },
+            { code: `CB_FNCT`, name: `인지 뇌 기능` },
+            { code: `CB_ABLTY`, name: `인지 능력` },
+            { code: `CB_FNCT_SCORE`, name: `인지 기능 점수` },
+            { code: `BBF_ADJST_TIME`, name: `뇌 혈류 조절 시간` },
+            { code: `BBF_FNCT_SCORE`, name: `뇌 혈류 기능 점수` },
+            { code: `BH_TNT_SCORE`, name: `뇌 건강 종합 점수` },
+        ],
+        ConditionsCode: [
+            { code: `010`, name: `관리` },
+            { code: `020`, name: `보통` },
+            { code: `030`, name: `양호` },
+        ],
+    },
 }

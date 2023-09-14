@@ -303,6 +303,19 @@ export default {
         },
         {
             mainCode: `40000`,
+            menuCode: `40901`,
+            name: `브레인 현황`,
+            pathName: `/manage/status/brain-list`,
+            category: `brain-list`,
+            recooilKey: `statusPage/brain-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Status/BrainListPage')
+            ),
+        },
+        {
+            mainCode: `40000`,
             menuCode: `40201`,
             name: `전후비교 현황`,
             pathName: `/manage/status/brftt-cmpr`,
