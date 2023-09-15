@@ -68,6 +68,8 @@ export default {
         'contentsPage/uhealthzone-detail',
 
         'statusPage/risk-fctr-list',
+        'statusPage/stress-list',
+        'statusPage/brain-list',
         'statusPage/brftr-cmpr-list',
         'statusPage/statistics-list',
         'statusPage/activity-walk-list',

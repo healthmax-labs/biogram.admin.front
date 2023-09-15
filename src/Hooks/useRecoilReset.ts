@@ -41,6 +41,8 @@ import {
     HealthIndicatorsListState,
     NonMeasureListState,
     WalkRankingListState,
+    BrainListState,
+    StressListState,
 } from '@Recoil/StatusPagesState'
 import {
     DeviceListState,
@@ -102,6 +104,8 @@ export default function useRecoilReset() {
     ) // 바이오그램 존 상세
 
     const RiskFctrListStateReset = useResetRecoilState(RiskFctrListState) // 위험요인 현황
+    const StressListStateReset = useResetRecoilState(StressListState) // 스트레스 현황
+    const BrainListStateReset = useResetRecoilState(BrainListState) // 뇌기능 현황
     const BrftrCmprListStateReset = useResetRecoilState(BrftrCmprListState) // 전후비교 현황
     const StatisticsListStateReset = useResetRecoilState(StatisticsListState) // 기기측정 현황
     const ActivityWalkListStateReset = useResetRecoilState(
@@ -168,6 +172,8 @@ export default function useRecoilReset() {
             'contentsPage/uhealthzone-detail': () => void
 
             'statusPage/risk-fctr-list': () => void
+            'statusPage/stress-list': () => void
+            'statusPage/brain-list': () => void
             'statusPage/brftr-cmpr-list': () => void
             'statusPage/statistics-list': () => void
             'statusPage/activity-walk-list': () => void
@@ -225,6 +231,8 @@ export default function useRecoilReset() {
                 UhealthzoneDetailStateReset(),
 
             'statusPage/risk-fctr-list': () => RiskFctrListStateReset(),
+            'statusPage/stress-list': () => StressListStateReset(),
+            'statusPage/brain-list': () => BrainListStateReset(),
             'statusPage/brftr-cmpr-list': () => BrftrCmprListStateReset(),
             'statusPage/statistics-list': () => StatisticsListStateReset(),
             'statusPage/activity-walk-list': () => ActivityWalkListStateReset(),

@@ -17,6 +17,8 @@ const {
     TableConditionsCellWapper,
     TableConditionsCell,
     TableConditionsCellText,
+    TableConditionsLeftWapper,
+    TableConditionsRightWapper,
 } = ListComponentStyle
 
 const RiskFctrJdgmntColor = (jdgmnt: string): string => {
@@ -1633,13 +1635,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.STRS_SCORE_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.STRS_SCORE}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.STRS_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.STRS_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1650,13 +1656,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.PHYSIC_STRS_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.PHYSIC_STRS}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.PHYSIC_STRS_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.PHYSIC_STRS}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1667,13 +1677,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.MNTL_STRS_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.MNTL_STRS}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.MNTL_STRS_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.MNTL_STRS}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1684,13 +1698,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.STRS_CNTRMSR_ABLTY_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.STRS_CNTRMSR_ABLTY}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.STRS_CNTRMSR_ABLTY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.STRS_CNTRMSR_ABLTY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1701,13 +1719,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.BLDVSS_STEP_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.BLDVSS_STEP}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BLDVSS_STEP_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BLDVSS_STEP}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1718,13 +1740,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.CAD_OUTPUT_IN_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.CAD_OUTPUT_IN}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CAD_OUTPUT_IN_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CAD_OUTPUT_IN}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1735,13 +1761,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.ELSTC_DGREE_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.ELSTC_DGREE}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.ELSTC_DGREE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.ELSTC_DGREE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1752,13 +1782,17 @@ export const StressListTableConfig = {
                 component: ({ el }: { el: StressListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.RBV_QY_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.RBV_QY}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.RBV_QY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.RBV_QY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1826,13 +1860,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.BB_FNCT_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.BB_FNCT}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BB_FNCT_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BB_FNCT}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1843,13 +1881,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.CB_FNCT_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.CB_FNCT}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_FNCT_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_FNCT}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1860,13 +1902,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.CB_ABLTY_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.CB_ABLTY}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_ABLTY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_ABLTY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1877,13 +1923,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.CB_FNCT_SCORE_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.CB_FNCT_SCORE}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_FNCT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_FNCT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1894,13 +1944,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.BBF_ADJST_TIME_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.BBF_ADJST_TIME}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BBF_ADJST_TIME_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BBF_ADJST_TIME}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1911,13 +1965,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.BBF_FNCT_SCORE_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.BBF_FNCT_SCORE}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BBF_FNCT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BBF_FNCT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },
@@ -1928,13 +1986,17 @@ export const BrainListTableConfig = {
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return (
                         <TableConditionsCellWapper>
-                            <TableConditionsCell
-                                Conditions={
-                                    el.BH_TNT_SCORE_JDGMNT
-                                }></TableConditionsCell>
-                            <TableConditionsCellText>
-                                {el.BH_TNT_SCORE}
-                            </TableConditionsCellText>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BH_TNT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BH_TNT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
                         </TableConditionsCellWapper>
                     )
                 },

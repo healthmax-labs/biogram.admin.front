@@ -322,7 +322,10 @@ export const StressListState = atom<StressSearchListInterface>({
             curPage: 1,
             INST_NO: '',
             instNm: '',
-            BEGIN_DE: getOneMonthAgo(),
+            BEGIN_DE:
+                process.env.REACT_APP_ENV === 'development'
+                    ? '20230101'
+                    : getOneMonthAgo(),
             END_DE: getNowDate(),
             INQUIRY_ITEMS: 'STRS_SCORE',
             CONDITIONS: '나쁨,매우나쁨',
