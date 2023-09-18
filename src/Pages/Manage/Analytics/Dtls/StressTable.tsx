@@ -298,7 +298,7 @@ const StressTable = () => {
                     <RowWapper>
                         <TitleBox>
                             ※ 연령별 측정자수 (기간 내 마지막 측정값 기준) /
-                            위험기분: 주의~매우나쁨
+                            위험기준: 주의~매우나쁨
                         </TitleBox>
                     </RowWapper>
                     <RowWapper>
