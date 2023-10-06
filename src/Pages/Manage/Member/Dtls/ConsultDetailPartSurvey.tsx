@@ -40,116 +40,115 @@ const {
     },
 } = ConsultDetailStyle
 
-const initializeState = {
-    modal: {
-        survey: false,
-        surveyConfirm: false,
-    },
-    surveyData: [
-        {
-            QUSTNR_SE_CODE: 'LLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 1,
-            ANSWER_CODE: 'CM00',
-            ANSWER: 'N',
-        },
-        {
-            QUSTNR_SE_CODE: 'LLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 2,
-            ANSWER_CODE: 'MB08',
-            ANSWER: 'NONE',
-        },
-        {
-            QUSTNR_SE_CODE: 'LLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 3,
-            ANSWER_CODE: 'MB13',
-            ANSWER: 'NONE',
-        },
-        {
-            QUSTNR_SE_CODE: 'LLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 4,
-            ANSWER_CODE: 'MB17',
-            ANSWER: 'NONE',
-        },
-
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 1,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'LTTW',
-        },
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 2,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'LTTW',
-        },
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 3,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'AMNE',
-        },
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 4,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'AMNE',
-        },
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 5,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'LTTW',
-        },
-        {
-            QUSTNR_SE_CODE: 'MLHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 6,
-            ANSWER_CODE: 'MB14',
-            ANSWER: 'AMNE',
-        },
-
-        {
-            QUSTNR_SE_CODE: 'SPHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 1,
-            ANSWER_CODE: 'CM00',
-            ANSWER: 'N',
-        },
-        {
-            QUSTNR_SE_CODE: 'SPHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 2,
-            ANSWER_CODE: 'MB15',
-            ANSWER: 'LOTW',
-        },
-        {
-            QUSTNR_SE_CODE: 'SPHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 3,
-            ANSWER_CODE: 'MB15',
-            ANSWER: 'LOTW',
-        },
-        {
-            QUSTNR_SE_CODE: 'SPHB',
-            QUSTNR_SN: 1,
-            QESTN_SN: 4,
-            ANSWER_CODE: 'MB16',
-            ANSWER: 'LTT',
-        },
-    ],
-}
-
 const ConsultDetailPartSurvey = () => {
+    const initializeState = {
+        modal: {
+            survey: false,
+            surveyConfirm: false,
+        },
+        surveyData: [
+            {
+                QUSTNR_SE_CODE: 'LLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 1,
+                ANSWER_CODE: 'CM00',
+                ANSWER: ['N'],
+            },
+            {
+                QUSTNR_SE_CODE: 'LLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 2,
+                ANSWER_CODE: 'MB08',
+                ANSWER: ['NONE'],
+            },
+            {
+                QUSTNR_SE_CODE: 'LLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 3,
+                ANSWER_CODE: 'MB13',
+                ANSWER: ['NONE'],
+            },
+            {
+                QUSTNR_SE_CODE: 'LLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 4,
+                ANSWER_CODE: 'MB17',
+                ANSWER: ['NONE'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 1,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['LTTW'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 2,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['LTTW'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 3,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['AMNE'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 4,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['AMNE'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 5,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['LTTW'],
+            },
+            {
+                QUSTNR_SE_CODE: 'MLHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 6,
+                ANSWER_CODE: 'MB14',
+                ANSWER: ['AMNE'],
+            },
+
+            {
+                QUSTNR_SE_CODE: 'SPHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 1,
+                ANSWER_CODE: 'CM00',
+                ANSWER: ['N'],
+            },
+            {
+                QUSTNR_SE_CODE: 'SPHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 2,
+                ANSWER_CODE: 'MB15',
+                ANSWER: ['LOTW'],
+            },
+            {
+                QUSTNR_SE_CODE: 'SPHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 3,
+                ANSWER_CODE: 'MB15',
+                ANSWER: ['LOTW'],
+            },
+            {
+                QUSTNR_SE_CODE: 'SPHB',
+                QUSTNR_SN: 1,
+                QESTN_SN: 4,
+                ANSWER_CODE: 'MB16',
+                ANSWER: ['LTT'],
+            },
+        ],
+    }
+
     const params = useParams<{
         memNo: string | undefined
         category: string | undefined
@@ -167,7 +166,7 @@ const ConsultDetailPartSurvey = () => {
             QUSTNR_SN: number
             QESTN_SN: number
             ANSWER_CODE: string
-            ANSWER: string
+            ANSWER: Array<string>
         }>
     }>(initializeState)
 
@@ -204,7 +203,12 @@ const ConsultDetailPartSurvey = () => {
         const { memNo } = params
         const { status } = await postDataQustnrAnswer({
             MBER_NO: Number(memNo),
-            ANSWER_LIST: pageState.surveyData,
+            ANSWER_LIST: _.map(pageState.surveyData, e => {
+                return {
+                    ...e,
+                    ANSWER: e.ANSWER.join(','),
+                }
+            }),
         })
 
         if (status) {
@@ -419,6 +423,15 @@ const ConsultDetailPartSurvey = () => {
                                     {Codes.surveyCode.map((code, index) => {
                                         return code.category.map(
                                             (category, categoryIndex) => {
+                                                const findItem = _.find(
+                                                    pageState.surveyData,
+                                                    {
+                                                        QUSTNR_SE_CODE:
+                                                            code.seCode,
+                                                        QESTN_SN: category.sn,
+                                                    }
+                                                )
+
                                                 return (
                                                     <Row
                                                         key={`consult-detail-survey-survey-modal-table-row-${index}-category-${categoryIndex}`}>
@@ -450,20 +463,22 @@ const ConsultDetailPartSurvey = () => {
                                                                                     question.name
                                                                                 }
                                                                                 LabelWidth={`w16`}
-                                                                                Checked={
-                                                                                    _.findIndex(
-                                                                                        pageState.surveyData,
-                                                                                        {
-                                                                                            QUSTNR_SE_CODE:
-                                                                                                code.seCode,
-                                                                                            QESTN_SN:
-                                                                                                category.sn,
-                                                                                            ANSWER: question.code,
-                                                                                        }
-                                                                                    ) >
-                                                                                    -1
-                                                                                }
-                                                                                HandleOnChange={() => {
+                                                                                Checked={(() => {
+                                                                                    if (
+                                                                                        !findItem
+                                                                                    ) {
+                                                                                        return false
+                                                                                    }
+
+                                                                                    return (
+                                                                                        findItem &&
+                                                                                        _.includes(
+                                                                                            findItem.ANSWER,
+                                                                                            question.code
+                                                                                        )
+                                                                                    )
+                                                                                })()}
+                                                                                HandleOnChange={e => {
                                                                                     setPageState(
                                                                                         prevState => ({
                                                                                             ...prevState,
@@ -476,9 +491,60 @@ const ConsultDetailPartSurvey = () => {
                                                                                                             surveyData.QESTN_SN ===
                                                                                                                 category.sn
                                                                                                         ) {
-                                                                                                            return {
-                                                                                                                ...surveyData,
-                                                                                                                ANSWER: question.code,
+                                                                                                            if (
+                                                                                                                category.duplicate
+                                                                                                            ) {
+                                                                                                                if (
+                                                                                                                    e
+                                                                                                                        .target
+                                                                                                                        .checked
+                                                                                                                ) {
+                                                                                                                    if (
+                                                                                                                        question.code ===
+                                                                                                                        'NONE'
+                                                                                                                    ) {
+                                                                                                                        return {
+                                                                                                                            ...surveyData,
+                                                                                                                            ANSWER: [
+                                                                                                                                question.code,
+                                                                                                                            ],
+                                                                                                                        }
+                                                                                                                    } else {
+                                                                                                                        return {
+                                                                                                                            ...surveyData,
+                                                                                                                            ANSWER: [
+                                                                                                                                ..._.pull(
+                                                                                                                                    surveyData.ANSWER,
+                                                                                                                                    `NONE`
+                                                                                                                                ),
+                                                                                                                                question.code,
+                                                                                                                            ],
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                } else {
+                                                                                                                    const result =
+                                                                                                                        _.pull(
+                                                                                                                            surveyData.ANSWER,
+                                                                                                                            question.code
+                                                                                                                        )
+                                                                                                                    return {
+                                                                                                                        ...surveyData,
+                                                                                                                        ANSWER:
+                                                                                                                            result.length ===
+                                                                                                                            0
+                                                                                                                                ? [
+                                                                                                                                      `NONE`,
+                                                                                                                                  ]
+                                                                                                                                : result,
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            } else {
+                                                                                                                return {
+                                                                                                                    ...surveyData,
+                                                                                                                    ANSWER: [
+                                                                                                                        question.code,
+                                                                                                                    ],
+                                                                                                                }
                                                                                                             }
                                                                                                         } else {
                                                                                                             return surveyData
@@ -525,16 +591,16 @@ const ConsultDetailPartSurvey = () => {
                             <VaryButton
                                 ButtonType={'default'}
                                 ButtonName={'취소'}
-                                HandleClick={() =>
+                                HandleClick={() => {
                                     setPageState(prevState => ({
                                         ...prevState,
-                                        surveyData: initializeState.surveyData,
                                         modal: {
                                             ...prevState.modal,
                                             survey: false,
                                         },
+                                        surveyData: initializeState.surveyData,
                                     }))
-                                }
+                                }}
                             />
                             <VaryButton
                                 ButtonType={'default'}

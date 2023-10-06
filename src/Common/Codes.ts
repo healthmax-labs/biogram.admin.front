@@ -1018,6 +1018,7 @@ export default {
                     name: `흡연`,
                     sn: 1,
                     code: `CM00`,
+                    duplicate: false,
                     question: [
                         {
                             name: '비흡연',
@@ -1034,6 +1035,7 @@ export default {
                     name: `음주`,
                     sn: 2,
                     code: `MB08`,
+                    duplicate: false,
                     question: [
                         {
                             name: '없음',
@@ -1066,6 +1068,7 @@ export default {
                     name: `복약(중복가능)`,
                     sn: 3,
                     code: `MB13`,
+                    duplicate: true,
                     question: [
                         {
                             name: '없음',
@@ -1098,6 +1101,7 @@ export default {
                     name: `위험요인(중복가능)`,
                     sn: 4,
                     code: `MB17`,
+                    duplicate: true,
                     question: [
                         {
                             name: '없음',
@@ -1136,6 +1140,7 @@ export default {
                     name: `규칙적인 식사`,
                     sn: 1,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '주 2일 이하',
@@ -1156,6 +1161,7 @@ export default {
                     name: `1일 2끼이상 단백질 섭취`,
                     sn: 2,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '주 2일 이하',
@@ -1176,6 +1182,7 @@ export default {
                     name: `동물성지방 섭취`,
                     sn: 3,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '거의먹지 않음',
@@ -1196,6 +1203,7 @@ export default {
                     name: `짠음식 섭취빈도`,
                     sn: 4,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '거의먹지 않음',
@@ -1216,6 +1224,7 @@ export default {
                     name: `채소/과일 섭취빈도`,
                     sn: 5,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '주 2일 이하',
@@ -1236,6 +1245,7 @@ export default {
                     name: `유제품 섭취빈도`,
                     sn: 6,
                     code: `MB14`,
+                    duplicate: false,
                     question: [
                         {
                             name: '거의먹지 않음',
@@ -1262,6 +1272,7 @@ export default {
                     name: `운동 규칙성`,
                     sn: 1,
                     code: `CM00`,
+                    duplicate: false,
                     question: [
                         {
                             name: '아니오',
@@ -1278,6 +1289,7 @@ export default {
                     name: `활동량`,
                     sn: 2,
                     code: `MB15`,
+                    duplicate: false,
                     question: [
                         {
                             name: '1회 이하',
@@ -1310,6 +1322,7 @@ export default {
                     name: `중강도 운동량`,
                     sn: 3,
                     code: `MB15`,
+                    duplicate: false,
                     question: [
                         {
                             name: '1회 이하',
@@ -1342,6 +1355,7 @@ export default {
                     name: `고강도`,
                     sn: 4,
                     code: `MB16`,
+                    duplicate: false,
                     question: [
                         {
                             name: '20분 이하',
