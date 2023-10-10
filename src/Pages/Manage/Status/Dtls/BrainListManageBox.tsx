@@ -99,13 +99,13 @@ const BrainListManageBox = () => {
                 ...prevState,
                 FileName:
                     INST_NO && instNm
-                        ? `브레인_현황_(${dateInsertHypen(
+                        ? `뇌기능_현황_(${dateInsertHypen(
                               BEGIN_DE
                           )}_${dateInsertHypen(END_DE)})_${instNm.replace(
                               / /g,
                               '_'
                           )}_${getNowDateDetail()}`
-                        : `브레인_현황_(${dateInsertHypen(
+                        : `뇌기능_현황_(${dateInsertHypen(
                               BEGIN_DE
                           )}_${dateInsertHypen(END_DE)})_${getNowDateDetail()}`,
                 Data: payload.BRAIN_STATE_LIST.filter(v => v.MBER_NO).map(m => {

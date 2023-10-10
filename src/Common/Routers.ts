@@ -304,7 +304,7 @@ export default {
         {
             mainCode: `40000`,
             menuCode: `40901`,
-            name: `브레인 현황`,
+            name: `뇌기능 현황`,
             pathName: `/manage/status/brain-list`,
             category: `brain-list`,
             recooilKey: `statusPage/brain-list`,

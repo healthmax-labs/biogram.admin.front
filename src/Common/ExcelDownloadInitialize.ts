@@ -150,8 +150,8 @@ export default {
             SpliceMergeCells: ['A1:B1', 'C1:F1', 'G1:J1'],
         },
         BrainList: {
-            FileName: `브레인_현황_${getNowDateDetail()}`,
-            SheetName: `브레인 현황`,
+            FileName: `뇌기능_현황_${getNowDateDetail()}`,
+            SheetName: `뇌기능 현황`,
             Header: [
                 [
                     '',
