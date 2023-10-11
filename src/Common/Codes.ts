@@ -1668,18 +1668,18 @@ export default {
     },
     StatusBrain: {
         InquiryItemsCode: [
+            { code: `BH_TNT_SCORE`, name: `뇌 건강 종합 점수` },
             { code: `BB_FNCT`, name: `기초 뇌 기능` },
             { code: `CB_FNCT`, name: `인지 뇌 기능` },
             { code: `CB_ABLTY`, name: `인지 능력` },
             { code: `CB_FNCT_SCORE`, name: `인지 기능 점수` },
             { code: `BBF_ADJST_TIME`, name: `뇌 혈류 조절 시간` },
             { code: `BBF_FNCT_SCORE`, name: `뇌 혈류 기능 점수` },
-            { code: `BH_TNT_SCORE`, name: `뇌 건강 종합 점수` },
         ],
         ConditionsCode: [
-            { code: `010`, name: `관리` },
-            { code: `020`, name: `보통` },
             { code: `030`, name: `양호` },
+            { code: `020`, name: `보통` },
+            { code: `010`, name: `관리` },
         ],
     },
 }

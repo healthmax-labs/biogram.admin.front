@@ -328,7 +328,7 @@ export const StressListState = atom<StressSearchListInterface>({
                     : getOneMonthAgo(),
             END_DE: getNowDate(),
             INQUIRY_ITEMS: 'STRS_SCORE',
-            CONDITIONS: '나쁨,매우나쁨',
+            CONDITIONS: '주의,나쁨,매우나쁨',
             SEARCH_KEY: '',
         },
         list: {
@@ -352,9 +352,8 @@ export const BrainListState = atom<BrainSearchListInterface>({
                     ? '20230101'
                     : getOneMonthAgo(),
             END_DE: getNowDate(),
-            INQUIRY_ITEMS:
-                'BB_FNCT,CB_FNCT,CB_ABLTY,CB_FNCT_SCORE,BBF_ADJST_TIME,BBF_FNCT_SCORE,BH_TNT_SCORE',
-            CONDITIONS: '관리,보통,양호',
+            INQUIRY_ITEMS: 'BH_TNT_SCORE',
+            CONDITIONS: '보통,관리',
             SEARCH_KEY: '',
         },
         list: {

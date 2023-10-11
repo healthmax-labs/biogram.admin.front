@@ -1823,15 +1823,15 @@ export const BrainListTableConfig = {
                 name: ``,
             },
             {
+                name: `종합점수`,
+            },
+            {
                 name: `인지 기능검사`,
                 colSpan: 4,
             },
             {
                 name: `뇌 혈류 기능검사`,
                 colSpan: 2,
-            },
-            {
-                name: `종합점수`,
             },
         ],
         [
@@ -1852,6 +1852,27 @@ export const BrainListTableConfig = {
                 cellWidth: `w0112`,
                 component: ({ el }: { el: BrainListItemInterface }) => {
                     return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
+            },
+            {
+                name: `뇌 건강 종합 점수`,
+                key: `BH_TNT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BH_TNT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BH_TNT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
                 },
             },
             {
@@ -1974,27 +1995,6 @@ export const BrainListTableConfig = {
                             <TableConditionsRightWapper>
                                 <TableConditionsCellText>
                                     {el.BBF_FNCT_SCORE}
-                                </TableConditionsCellText>
-                            </TableConditionsRightWapper>
-                        </TableConditionsCellWapper>
-                    )
-                },
-            },
-            {
-                name: `뇌 건강 종합 점수`,
-                key: `BH_TNT_SCORE`,
-                component: ({ el }: { el: BrainListItemInterface }) => {
-                    return (
-                        <TableConditionsCellWapper>
-                            <TableConditionsLeftWapper>
-                                <TableConditionsCell
-                                    Conditions={
-                                        el.BH_TNT_SCORE_JDGMNT
-                                    }></TableConditionsCell>
-                            </TableConditionsLeftWapper>
-                            <TableConditionsRightWapper>
-                                <TableConditionsCellText>
-                                    {el.BH_TNT_SCORE}
                                 </TableConditionsCellText>
                             </TableConditionsRightWapper>
                         </TableConditionsCellWapper>

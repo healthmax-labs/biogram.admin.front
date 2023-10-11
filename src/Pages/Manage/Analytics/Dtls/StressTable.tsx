@@ -13,6 +13,8 @@ const {
     Container,
     RowWapper,
     TitleBox,
+    TitleText,
+    TitleGuideText,
     ButtonBox,
     TableBox,
     Table: T,
@@ -297,8 +299,11 @@ const StressTable = () => {
                 <>
                     <RowWapper>
                         <TitleBox>
-                            ※ 연령별 측정자수 (기간 내 마지막 측정값 기준) /
-                            위험기준: 주의~매우나쁨
+                            <TitleText>연령별 통계:</TitleText>
+                            <TitleGuideText>
+                                조회 기간동안 총 몇 명의 이용자가 발생했는지
+                                연령별로 산출 / 위험기준: 주의 ~ 매우나쁨
+                            </TitleGuideText>
                         </TitleBox>
                     </RowWapper>
                     <RowWapper>
@@ -713,8 +718,11 @@ const StressTable = () => {
                     </RowWapper>
                     <RowWapper>
                         <TitleBox>
-                            ※ 주기별 순 측정자 수 (기간 내 마지막 측정값 기준) /
-                            위험기준 : 주의 - 매우나쁨
+                            <TitleText>기간별 통계:</TitleText>
+                            <TitleGuideText>
+                                조회 기간 및 주기 기준에 따라 회원 수를 집계 /
+                                위험기준 : 주의 ~ 매우나쁨
+                            </TitleGuideText>
                         </TitleBox>
                     </RowWapper>
                     <RowWapper>

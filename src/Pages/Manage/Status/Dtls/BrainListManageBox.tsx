@@ -8,7 +8,7 @@ import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
 import { useMainLayouts } from '@Hook/index'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
-import { postStatsBrain, postStressList } from '@Service/StatusService'
+import { postStatsBrain } from '@Service/StatusService'
 import { dateInsertHypen, getNowDateDetail } from '@Helper'
 import Messages from '@Messages'
 
@@ -113,13 +113,13 @@ const BrainListManageBox = () => {
                         String(m.MBER_NO),
                         m.NM ? m.NM : '',
                         m.BRTHDY ? dateInsertHypen(m.BRTHDY) : '',
+                        m.BH_TNT_SCORE ? m.BH_TNT_SCORE : '',
                         m.BB_FNCT ? m.BB_FNCT : '',
                         m.CB_FNCT ? m.CB_FNCT : '',
                         m.CB_ABLTY ? m.CB_ABLTY : '',
                         m.CB_FNCT_SCORE ? m.CB_FNCT_SCORE : '',
                         m.BBF_ADJST_TIME ? m.BBF_ADJST_TIME : '',
                         m.BBF_FNCT_SCORE ? m.BBF_FNCT_SCORE : '',
-                        m.BH_TNT_SCORE ? m.BH_TNT_SCORE : '',
                     ]
                 }),
                 SpliceColumn: Theme === 'GeonDaon',
