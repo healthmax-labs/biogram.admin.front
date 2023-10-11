@@ -8,6 +8,8 @@ import {
     RiskFctrCountPeriodListItemInterface,
     RiskFctrItemsPeriodListItemInterface,
     MemberAnalyticsPeriodListItemInterface,
+    StressAgeGroupStatListInterface,
+    StressPeriodStatListInterface,
 } from '@Type/AnalyticsTypes'
 import { getNowDate, getOneMonthAgo } from '@Helper'
 
@@ -116,6 +118,22 @@ interface RiskFctrItemsListInterface {
     }
 }
 
+interface StressInterface {
+    status: DefaultStatus
+    search: {
+        INST_NO: string
+        instNm: string
+        BGNDE: string
+        ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
+    }
+    list: {
+        AGE_GROUP_STAT_LIST: Array<StressAgeGroupStatListInterface>
+        PERIOD_STAT_LIST: Array<StressPeriodStatListInterface>
+    }
+}
+
 interface DeviceListInterface {
     status: DefaultStatus
     search: {
@@ -175,6 +193,7 @@ interface MesureListInterface {
     }
 }
 
+// 회원 통계
 export const MemberListState = atom<AnalyticsMemberListStateInterface>({
     key: `analyticsPage/member-list`,
     default: {
@@ -237,6 +256,26 @@ export const DeviceListState = atom<DeviceListInterface>({
 //위험요인 항목별 통계
 export const RiskFctrItemsListState = atom<RiskFctrItemsListInterface>({
     key: `analyticsPage/mesure-risk-fctr-items-list`,
+    default: {
+        status: 'idle',
+        search: {
+            INST_NO: '',
+            instNm: '',
+            BGNDE: getOneMonthAgo(),
+            ENDDE: getNowDate(),
+            AGEGROUP: ['10', '20', '30', '40', '50', '60', '70'],
+            CYCLE: 'D',
+        },
+        list: {
+            AGE_GROUP_STAT_LIST: [],
+            PERIOD_STAT_LIST: [],
+        },
+    },
+})
+
+//스트레스 통계
+export const StressState = atom<StressInterface>({
+    key: `analyticsPage/stress`,
     default: {
         status: 'idle',
         search: {

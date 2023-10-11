@@ -2,14 +2,23 @@
 import React from 'react'
 import { dateInsertHypen, timeStringSmapDateParse } from '@Helper'
 import { ListComponentStyle } from '@Style/Pages/StatusPageStyle'
-import { ListTableStyle } from '@Style/Pages/MemberPageStyles'
+import { ListTableItemStyle } from '@Style/Pages/MemberPageStyles'
 import { phoneFormat, addComma } from '@Helper'
 import _ from 'lodash'
 import Const from '@Const'
+import {
+    StressListItemInterface,
+    BrainListItemInterface,
+} from '@Type/StatusTypes'
 
 const {
     Box: { Container, Wapper, Item },
     XcptComponent,
+    TableConditionsCellWapper,
+    TableConditionsCell,
+    TableConditionsCellText,
+    TableConditionsLeftWapper,
+    TableConditionsRightWapper,
 } = ListComponentStyle
 
 const RiskFctrJdgmntColor = (jdgmnt: string): string => {
@@ -1399,9 +1408,9 @@ export const HealthIndicatorsTableConfig = {
                     el: HealthIndicatorsTableListItemInterface
                 }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={'Y'}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -1540,9 +1549,9 @@ export const WalkRankingTableConfig = {
                     el: WalkRankingTableListItemInterface
                 }) => {
                     return (
-                        <ListTableStyle.MbtlnumCell CRTFC={'Y'}>
+                        <ListTableItemStyle.MbtlnumCell CRTFC={'Y'}>
                             {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableStyle.MbtlnumCell>
+                        </ListTableItemStyle.MbtlnumCell>
                     )
                 },
             },
@@ -1564,6 +1573,432 @@ export const WalkRankingTableConfig = {
                     el: WalkRankingTableListItemInterface
                 }) => {
                     return <>{addComma(el.TOT_STEPS)}</>
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 스트레스 현황 테이블
+export const StressListTableConfig = {
+    Loading: true,
+    Options: {
+        pagination: true,
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: `스트레스`,
+                colSpan: 4,
+            },
+            {
+                name: `혈관건강`,
+                colSpan: 4,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+                cellWidth: `w16`,
+            },
+            {
+                name: `이름`,
+                key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+                cellWidth: `w0112`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
+            },
+            {
+                name: `총점수`,
+                key: `STRS_SCORE`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.STRS_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.STRS_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `신체적<br />스트레스`,
+                key: `PHYSIC_STRS`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.PHYSIC_STRS_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.PHYSIC_STRS}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `정신적<br />스트레스`,
+                key: `MNTL_STRS`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.MNTL_STRS_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.MNTL_STRS}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `스트레스<br />대처능력`,
+                key: `STRS_CNTRMSR_ABLTY`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.STRS_CNTRMSR_ABLTY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.STRS_CNTRMSR_ABLTY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `혈관 단계`,
+                key: `BLDVSS_STEP`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BLDVSS_STEP_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BLDVSS_STEP}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `박출강도`,
+                key: `CAD_OUTPUT_IN`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CAD_OUTPUT_IN_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CAD_OUTPUT_IN}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `탄성도`,
+                key: `ELSTC_DGREE`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.ELSTC_DGREE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.ELSTC_DGREE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `전혈량`,
+                key: `RBV_QY`,
+                component: ({ el }: { el: StressListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.RBV_QY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.RBV_QY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 뇌기능 현황 테이블
+export const BrainListTableConfig = {
+    Loading: true,
+    Options: {
+        pagination: true,
+        selectAll: false,
+        indexKey: `MBER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: ``,
+            },
+            {
+                name: `종합점수`,
+            },
+            {
+                name: `인지 기능검사`,
+                colSpan: 4,
+            },
+            {
+                name: `뇌 혈류 기능검사`,
+                colSpan: 2,
+            },
+        ],
+        [
+            {
+                name: `회원번호`,
+                key: `MBER_NO`,
+                cellWidth: `w16`,
+            },
+            {
+                name: `이름`,
+                key: `NM`,
+                textAlign: `center`,
+                cellWidth: `w0112`,
+            },
+            {
+                name: `생년월일`,
+                key: `BRTHDY`,
+                cellWidth: `w0112`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return <>{dateInsertHypen(String(el.BRTHDY))}</>
+                },
+            },
+            {
+                name: `뇌 건강 종합 점수`,
+                key: `BH_TNT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BH_TNT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BH_TNT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `기초 뇌 기능`,
+                key: `BB_FNCT`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BB_FNCT_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BB_FNCT}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 뇌 기능`,
+                key: `CB_FNCT`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_FNCT_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_FNCT}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 능력`,
+                key: `CB_ABLTY`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_ABLTY_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_ABLTY}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `인지 기능 점수`,
+                key: `CB_FNCT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.CB_FNCT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.CB_FNCT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `뇌 혈류 조절 시간`,
+                key: `BBF_ADJST_TIME`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BBF_ADJST_TIME_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BBF_ADJST_TIME}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
+                },
+            },
+            {
+                name: `뇌 혈류 기능 점수`,
+                key: `BBF_FNCT_SCORE`,
+                component: ({ el }: { el: BrainListItemInterface }) => {
+                    return (
+                        <TableConditionsCellWapper>
+                            <TableConditionsLeftWapper>
+                                <TableConditionsCell
+                                    Conditions={
+                                        el.BBF_FNCT_SCORE_JDGMNT
+                                    }></TableConditionsCell>
+                            </TableConditionsLeftWapper>
+                            <TableConditionsRightWapper>
+                                <TableConditionsCellText>
+                                    {el.BBF_FNCT_SCORE}
+                                </TableConditionsCellText>
+                            </TableConditionsRightWapper>
+                        </TableConditionsCellWapper>
+                    )
                 },
             },
         ],

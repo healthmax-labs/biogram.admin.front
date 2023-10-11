@@ -290,6 +290,32 @@ export default {
         },
         {
             mainCode: `40000`,
+            menuCode: `40801`,
+            name: `스트레스 현황`,
+            pathName: `/manage/status/stress-list`,
+            category: `stress-list`,
+            recooilKey: `statusPage/stress-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Status/StressListPage')
+            ),
+        },
+        {
+            mainCode: `40000`,
+            menuCode: `40901`,
+            name: `뇌기능 현황`,
+            pathName: `/manage/status/brain-list`,
+            category: `brain-list`,
+            recooilKey: `statusPage/brain-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Status/BrainListPage')
+            ),
+        },
+        {
+            mainCode: `40000`,
             menuCode: `40201`,
             name: `전후비교 현황`,
             pathName: `/manage/status/brftt-cmpr`,
@@ -403,6 +429,19 @@ export default {
             reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Analytics/RiskFctrItemsPage')
+            ),
+        },
+        {
+            mainCode: `50000`,
+            menuCode: `51201`,
+            name: `스트레스 통계`,
+            pathName: `/manage/analytics/stress`,
+            category: `stress`,
+            recooilKey: `analyticsPage/stress-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Analytics/StressPage')
             ),
         },
         {

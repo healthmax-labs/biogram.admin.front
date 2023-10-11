@@ -12,6 +12,8 @@ import {
     RiskFctrCountPeriodListItemInterface,
     RiskFctrItemsAgeListItemInterface,
     RiskFctrItemsPeriodListItemInterface,
+    StressAgeGroupStatListInterface,
+    StressPeriodStatListInterface,
 } from '@Type/AnalyticsTypes'
 import _ from 'lodash'
 
@@ -278,6 +280,50 @@ export function getImprvmCountAnalyticsList({
     return _Axios_({
         method: 'post',
         url: '/mng/gndn/stat/v1/mybody_score/imprvm',
+        payload: payload,
+    })
+}
+
+// 스트레스 통계
+export function postStress({
+    BGNDE,
+    ENDDE,
+    INST_NO,
+    AGEGROUP,
+    CYCLE,
+}: {
+    INST_NO: string | null
+    BGNDE: string
+    ENDDE: string
+    AGEGROUP: string[]
+    CYCLE: string
+}): Promise<
+    ServicesDefaultResult<{
+        AGE_GROUP_STAT_LIST: Array<StressAgeGroupStatListInterface>
+        PERIOD_STAT_LIST: Array<StressPeriodStatListInterface>
+    }>
+> {
+    const payload: {
+        INST_NO?: string | null
+        BGNDE: string
+        ENDDE: string
+        AGEGROUP: string[]
+        CYCLE: string
+    } = {
+        INST_NO: INST_NO,
+        BGNDE: BGNDE,
+        ENDDE: ENDDE,
+        AGEGROUP: AGEGROUP,
+        CYCLE: CYCLE,
+    }
+
+    if (_.isEmpty(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+
+    return _Axios_({
+        method: 'post',
+        url: `/mng/stat/v1/strs`,
         payload: payload,
     })
 }

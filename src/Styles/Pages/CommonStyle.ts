@@ -59,9 +59,15 @@ export const ManageBoxStyle = {
     Wapper: tw.div`flex flex-nowrap`,
     WapperFull: tw.div`flex flex-nowrap w-full`,
     CountWapper: tw.div`flex w-1/2 items-center justify-start`,
+    LeftWapper: tw.div`flex w-1/2 items-center justify-start`,
+    RightWapper: tw.div`flex w-1/2 items-center justify-end`,
     CountText: tw.div`text-xs text-gray-500`,
     ButtonsRight: tw.div`flex flex-nowrap w-1/2 justify-end gap-1`,
     Buttons: tw.div`flex flex-nowrap gap-1`,
+    LeftItemWapper: tw.div`flex flex-nowrap gap-4 items-center`,
+    LeftItem: tw.div`flex items-center`,
+    ConditionsTextWaper: tw.div`flex justify-center items-center ml-3`,
+    ConditionsText: tw.span`flex items-center justify-center ml-3 mt-1`,
 }
 
 export const WapperStyle = {

@@ -7,6 +7,8 @@ import {
     NonMeasureListInterface,
     RiskFctrListInterface,
     StatisticsListInterface,
+    StressListItemInterface,
+    BrainListItemInterface,
     WalkRankingListInterface,
 } from '@Type/StatusTypes'
 import {
@@ -124,6 +126,44 @@ interface WalkRankingSearchListInterface {
         MESURE_MT: string
     }
     list: WalkRankingListInterface
+}
+
+// 스트레스 현황
+interface StressSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number
+        INST_NO: string
+        instNm: string
+        BEGIN_DE: string
+        END_DE: string
+        INQUIRY_ITEMS: string
+        CONDITIONS: string
+        SEARCH_KEY: string
+    }
+    list: {
+        TOTAL_COUNT: number
+        STRESS_STATE_LIST: Array<StressListItemInterface>
+    }
+}
+
+// 뇌기능 현광
+interface BrainSearchListInterface {
+    status: DefaultStatus
+    search: {
+        curPage: number
+        instNm: string
+        INST_NO: string
+        BEGIN_DE: string
+        END_DE: string
+        INQUIRY_ITEMS: string
+        CONDITIONS: string
+        SEARCH_KEY: string
+    }
+    list: {
+        TOTAL_COUNT: number
+        BRAIN_STATE_LIST: Array<BrainListItemInterface>
+    }
 }
 
 export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
@@ -268,6 +308,56 @@ export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
         },
         list: {
             STEP_RANK_INFO_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+// 스트레스 현황
+export const StressListState = atom<StressSearchListInterface>({
+    key: `statusPage/stress-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: 1,
+            INST_NO: '',
+            instNm: '',
+            BEGIN_DE:
+                process.env.REACT_APP_ENV === 'development'
+                    ? '20230101'
+                    : getOneMonthAgo(),
+            END_DE: getNowDate(),
+            INQUIRY_ITEMS: 'STRS_SCORE',
+            CONDITIONS: '주의,나쁨,매우나쁨',
+            SEARCH_KEY: '',
+        },
+        list: {
+            STRESS_STATE_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+// 뇌기능 현황
+export const BrainListState = atom<BrainSearchListInterface>({
+    key: `statusPage/brain-list`,
+    default: {
+        status: 'idle',
+        search: {
+            curPage: 1,
+            INST_NO: '',
+            instNm: '',
+            BEGIN_DE:
+                process.env.REACT_APP_ENV === 'development'
+                    ? '20230101'
+                    : getOneMonthAgo(),
+            END_DE: getNowDate(),
+            INQUIRY_ITEMS: 'BH_TNT_SCORE',
+            CONDITIONS: '보통,관리',
+            SEARCH_KEY: '',
+        },
+        list: {
+            BRAIN_STATE_LIST: [],
             TOTAL_COUNT: 0,
         },
     },

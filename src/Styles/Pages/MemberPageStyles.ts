@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 // import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const ListTableStyle = {
+export const ListTableItemStyle = {
     MbtlnumCell: styled.div(({ CRTFC }: { CRTFC: 'Y' | 'N' }) => [
         CRTFC === 'Y' ? tw`` : tw`text-red-700`,
     ]),
