@@ -533,10 +533,10 @@ const GeonDaonDashboard = () => {
                                     RightTitle={
                                         <>
                                             <p className="flex text-xs pl-1 text-teal-600">
-                                                ∎ 신규
+                                                ∎ 오늘
                                             </p>
                                             <p className="flex text-xs pl-1">
-                                                ∎ 전체
+                                                ∎ 최근 30일
                                             </p>
                                         </>
                                     }
