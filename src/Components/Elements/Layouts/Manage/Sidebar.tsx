@@ -213,7 +213,7 @@ const Sidebar = () => {
                                     <MenuHeadingLink
                                         onClick={() => {
                                             window.open(
-                                                'https://api.mybiogram.com/common/file?atchmnfl_nm=K0UrNXpYZWFNVW1ucXZ3bmpGZlQ5QT09'
+                                                'https://api.mybiogram.com/common/file?atchmnfl_nm=MkF5U1d2bUhiNURnbnFOWTRQTFg2Zz09'
                                             )
                                         }}>
                                         메뉴얼 다운로드
