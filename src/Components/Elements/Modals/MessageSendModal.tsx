@@ -234,8 +234,8 @@ const MessageSendModal = ({
             SNDNG_DT: string
         } = {
             INST_NO: String(instNo),
-            PUSH_CN: title,
-            PUSH_SJ: contents,
+            PUSH_SJ: title,
+            PUSH_CN: contents,
             PUSH_CODE: 'SV00',
             SEND_ALL_MBER: instNo && allSendCheck ? 'Y' : 'N',
             SEND_MBER_INFO_LIST: selectedMember.map(e => {
