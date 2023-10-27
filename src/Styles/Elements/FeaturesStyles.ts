@@ -26,6 +26,9 @@ export const PstinstSelectorStyle = {
             ? tw`text-xs text-white bg-blueberry`
             : tw`text-xs text-gray-500`,
     ]),
+    SearchInputWapper: tw.div`flex flex-nowrap w-full flex-row gap-1`,
+    SearchInputGrow: tw.div`grow`,
+    SearchInputFlex: tw.div`flex`,
 }
 
 export const StplatInfoAgreeModalStyle = {

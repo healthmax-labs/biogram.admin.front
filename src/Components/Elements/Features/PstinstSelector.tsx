@@ -5,7 +5,12 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import { VaryButton, VaryInput, VaryModal } from '@Elements'
+import {
+    DefaultSearchButton,
+    VaryButton,
+    VaryInput,
+    VaryModal,
+} from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
 import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
@@ -26,6 +31,9 @@ const {
     ItemLabel,
     ItemCols,
     ItemLavelText,
+    SearchInputWapper,
+    SearchInputGrow,
+    SearchInputFlex,
 } = PstinstSelectorStyle
 
 const initializeState = {
@@ -168,12 +176,7 @@ const PstinstSelector = ({
         pstinstSearchReset()
     }
 
-    // 엔터 키 입력 처리.
-    const handleSearchInputOnKeyDown = (
-        event: KeyboardEvent<HTMLInputElement>
-    ) => {
-        if (event.key !== 'Enter') return
-
+    const handleSearch = () => {
         if (pstinstSearchState.length === 0) {
             pstinstSearch(pageState.searchValue)
         } else {
@@ -192,6 +195,15 @@ const PstinstSelector = ({
                 searchFocus: pageState.searchFocus + 1,
             })
         }
+    }
+
+    // 엔터 키 입력 처리.
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+
+        handleSearch()
     }
 
     // 취소 버튼 클릭 처리.
@@ -327,14 +339,29 @@ const PstinstSelector = ({
                     Children={
                         <>
                             <InputWapper>
-                                <VaryInput
-                                    Ref={searchInputRef}
-                                    InputType={`search`}
-                                    Placeholder={`검색어를 입력해 주세요`}
-                                    HandleOnChange={handleSearchInputOnChange}
-                                    Value={pageState.searchValue}
-                                    HandleOnKeyDown={handleSearchInputOnKeyDown}
-                                />
+                                <SearchInputWapper>
+                                    <SearchInputGrow>
+                                        <VaryInput
+                                            Ref={searchInputRef}
+                                            InputType={`search`}
+                                            Placeholder={`검색어를 입력해 주세요`}
+                                            HandleOnChange={
+                                                handleSearchInputOnChange
+                                            }
+                                            Value={pageState.searchValue}
+                                            HandleOnKeyDown={
+                                                handleSearchInputOnKeyDown
+                                            }
+                                        />
+                                    </SearchInputGrow>
+                                    <SearchInputFlex>
+                                        <DefaultSearchButton
+                                            ButtonClick={() => {
+                                                handleSearch()
+                                            }}
+                                        />
+                                    </SearchInputFlex>
+                                </SearchInputWapper>
                             </InputWapper>
                             <TableBox>
                                 <TableWapper>
