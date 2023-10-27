@@ -15,4 +15,12 @@ export const DetailPageStyle = {
             BodyCell: tw.td`h-8 border-r text-xs whitespace-nowrap text-gray-600`,
         },
     },
+    PopupManage: {
+        Detail: {
+            ShortcutsWapper: tw.div`flex w-full`,
+            ShortcutsCol: tw.div`flex flex-col w-1/2`,
+            ShortcutsItem: tw.div`flex p-1`,
+            ShortcutsItemFull: tw.div`flex w-full p-1`,
+        },
+    },
 }

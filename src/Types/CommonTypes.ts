@@ -484,6 +484,7 @@ export interface MemberSearchItemInterface {
     NM: string
 }
 
+// 엑셀 다운로드 프롭스 타입
 export interface ExcelDownloadPropsInterface {
     FileName: string
     SheetName: string
@@ -494,4 +495,12 @@ export interface ExcelDownloadPropsInterface {
     SpliceColumns?: Array<{ start: number; end: number }>
     SpliceMergeCells?: string[]
     DownloadEnd?: () => void
+}
+
+export interface CommonGetFileInfoInterface {
+    ATCHMNFL_NO: number
+    ATCHMNFL_PATH: string
+    ATCHMNFL_DOWN_PATH: string
+    ORGINL_FILE_NM: string
+    ATCHMNFL_NM: string
 }

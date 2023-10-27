@@ -73,3 +73,56 @@ export interface NoticeItemInterface {
     TRGET_SVC_CODE_NM: null | string
     USE_AT: null | string
 }
+
+// 팝업 관리 리스트 아이템 인터페이스
+export interface PopupManageListItemInterface {
+    PK: string
+    POPUP_SJ: string
+    POPUP_CN: string
+    GLAN_TY: string
+    GLAN_VALUE: string
+    POPUP_BGNDT: string
+    POPUP_ENDDT: string
+    EXPSR_AT: string
+    USE_AT: string
+    CLOSE_TYPE: string
+    SMALL_IMG_ATCHMNFL_NO: string
+    BIG_IMG_ATCHMNFL_NO: string
+    REGIST_DT: string
+    REGIST_MBER_NO: number
+}
+
+// 팝업 관리 리스트 인터페이스
+export interface PopupManageListInterface {
+    POPUP_INFO: PopupManageListItemInterface[]
+}
+
+// 팝업 관리 상세 인터페이스
+export interface PopupManageDetailInterface {
+    PK: string
+    POPUP_SJ: string
+    POPUP_CN: string
+    GLAN_TY: string
+    GLAN_VALUE: string
+    POPUP_BGNDT: string
+    POPUP_ENDDT: string
+    EXPSR_AT: string
+    USE_AT: string
+    CLOSE_TYPE: string
+    SMALL_IMG_ATCHMNFL_NO: string
+    BIG_IMG_ATCHMNFL_NO: string
+    REGIST_DT: string
+    REGIST_MBER_NO: number | null
+}
+
+export interface PopupLlinkListItemInterface {
+    GROUP_CODE: string
+    IEM_CODE: string
+    IEM_NM: string
+    USE_AT: string
+}
+
+// 앱 내 바로가기 링크 리스트 인터페이스
+export interface PopupLlinkListInterface {
+    POPUP_CODE_LIST: PopupLlinkListItemInterface[]
+}

@@ -172,22 +172,6 @@ const NoticeDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             })
             return
         }
-        //서브제목이 입력되지 않음
-        // if (!detailState.info.MISN_SUBNAME2_u) {
-        //     handlMainAlert({
-        //         state: true,
-        //         message: Messages.Default.inst.instNmCheckYet,
-        //     })
-        //     return
-        // }
-        //메인 제목 길이가 25자를 넘음
-        // if (detailState.info.MISN_SUBNAME1.length > 25) {
-        //     handlMainAlert({
-        //         state: true,
-        //         message: Messages.Default.contents.magazine.error.nameLong,
-        //     })
-        //     return
-        // }
 
         handleNotice().then()
     }

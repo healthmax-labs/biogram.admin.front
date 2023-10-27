@@ -4,8 +4,12 @@ import {
     StplatInfoHistListItemInterface,
     StplatInfoInterface,
     StplatListInterface,
+    PopupManageListItemInterface,
+    PopupManageDetailInterface,
+    PopupLlinkListItemInterface,
 } from '@Type/MangerTypes'
 import {
+    CommonGetFileInfoInterface,
     DefaultStatus,
     DefaultYesNo,
     StplatKndCodeType,
@@ -207,5 +211,68 @@ export const NoticeDetailState = atom<NoticeDetailStateInterface>({
             confirm: false,
             delete: false,
         },
+    },
+})
+
+interface PopupManageListStateInterface {
+    status: DefaultStatus
+    search: {
+        CUR_PAGE: number
+    }
+    list: {
+        POPUP_INFO: PopupManageListItemInterface[]
+    }
+}
+
+// 팝업 관리 리스트
+export const PopupManageListState = atom<PopupManageListStateInterface>({
+    key: `managerPage/popup-manage-list`,
+    default: {
+        status: 'idle',
+        search: {
+            CUR_PAGE: 0,
+        },
+        list: {
+            POPUP_INFO: [],
+        },
+    },
+})
+
+interface PopupManageDetailStateInterface {
+    status: DefaultStatus
+    info: PopupManageDetailInterface
+    imageInfo: {
+        small: CommonGetFileInfoInterface | null
+        big: CommonGetFileInfoInterface | null
+    }
+    linkList: PopupLlinkListItemInterface[]
+}
+
+// 팝업 관리 상세
+export const PopupManageDetailState = atom<PopupManageDetailStateInterface>({
+    key: `managerPage/popup-manage-detail`,
+    default: {
+        status: 'idle',
+        info: {
+            PK: ``,
+            POPUP_SJ: ``,
+            POPUP_CN: ``,
+            GLAN_TY: `A`,
+            GLAN_VALUE: ``,
+            POPUP_BGNDT: ``,
+            POPUP_ENDDT: ``,
+            EXPSR_AT: ``,
+            USE_AT: `Y`,
+            CLOSE_TYPE: `T`,
+            SMALL_IMG_ATCHMNFL_NO: ``,
+            BIG_IMG_ATCHMNFL_NO: ``,
+            REGIST_DT: ``,
+            REGIST_MBER_NO: null,
+        },
+        imageInfo: {
+            small: null,
+            big: null,
+        },
+        linkList: [],
     },
 })

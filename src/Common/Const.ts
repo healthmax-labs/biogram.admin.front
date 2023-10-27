@@ -88,6 +88,8 @@ export default {
         'managerPage/notice-list',
         'managerPage/stplat-detail',
         'managerPage/notice-detail',
+        'managerPage/popup-manage-list',
+        'managerPage/popup-manage-detail',
 
         'tab/TabState',
     ],

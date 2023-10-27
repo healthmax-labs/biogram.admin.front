@@ -574,6 +574,45 @@ export default {
                 () => import('@Page/Manage/Manager/NoticeDetailPage')
             ),
         },
+        {
+            mainCode: `60000`,
+            menuCode: `60401`,
+            name: `팝업 관리`,
+            pathName: `/manage/manager/popup-manage-list`,
+            category: `popup`,
+            recooilKey: `managerPage/popup-manage-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/PopupManageListPage')
+            ),
+        },
+        {
+            mainCode: `60000`,
+            menuCode: `60401`,
+            name: `팝업 관리 등록`,
+            pathName: `/manage/manager/popup-manage-list/new`,
+            category: `popup`,
+            recooilKey: `managerPage/popup-manage-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/PopupManageDetailPage')
+            ),
+        },
+        {
+            mainCode: `60000`,
+            menuCode: `60401`,
+            name: `팝업 관리 상세`,
+            pathName: `/manage/manager/popup-manage-list/:POPUP_PK/detail`,
+            category: `popup`,
+            recooilKey: `managerPage/popup-manage-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/PopupManageDetailPage')
+            ),
+        },
     ],
     ConsultTabs: [
         {
