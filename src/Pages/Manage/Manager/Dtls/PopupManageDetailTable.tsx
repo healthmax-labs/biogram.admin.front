@@ -598,6 +598,7 @@ const PopupManageDetailTable = ({
                                                 : ``,
                                             Category: 'ETC',
                                         }}
+                                        ShowInform={false}
                                         ReturnCallback={e =>
                                             setPopupManageDetailState(
                                                 prevState => ({
@@ -636,6 +637,7 @@ const PopupManageDetailTable = ({
                                                 : ``,
                                             Category: 'ETC',
                                         }}
+                                        ShowInform={false}
                                         ReturnCallback={e =>
                                             setPopupManageDetailState(
                                                 prevState => ({

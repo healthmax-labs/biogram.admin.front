@@ -116,9 +116,6 @@ const PopupManageDetailMain = () => {
 
             const { status, payload } = await getPopupView({ PK: popupPk })
             if (status) {
-                console.debug(payload.SMALL_IMG_ATCHMNFL_NO)
-                console.debug(payload.BIG_IMG_ATCHMNFL_NO)
-
                 const { BIG_IMG_ATCHMNFL_NO, SMALL_IMG_ATCHMNFL_NO } = payload
 
                 const { status: smallStatus, payload: smallInfo } =
