@@ -109,10 +109,23 @@ export interface PopupManageDetailInterface {
     EXPSR_AT: string
     USE_AT: string
     CLOSE_TYPE: string
-    SMALL_IMG_ATCHMNFL_NO: string
-    BIG_IMG_ATCHMNFL_NO: string
     REGIST_DT: string
     REGIST_MBER_NO: number | null
+    SMALL_IMG_ATCHMNFL_INFO: {
+        ATCHMNFL_NO: string
+        ATCHMNFL_NM: string
+        ATCHMNFL_PATH: string
+        ORIGINL_FILE_NM: string
+        ATCHMNFL_DOWN_PATH: string
+    }
+    BIG_IMG_ATCHMNFL_INFO: {
+        ATCHMNFL_NO: string
+        ATCHMNFL_NM: string
+        ATCHMNFL_PATH: string
+        ORIGINL_FILE_NM: string
+        ATCHMNFL_DOWN_PATH: string
+    }
+    UPDATE_DT: string | null
 }
 
 export interface PopupLlinkListItemInterface {

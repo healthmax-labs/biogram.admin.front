@@ -1,4 +1,4 @@
-import { changeDatePickerDate, dateInsertHypen } from '@Helper'
+import { dateInsertHypen } from '@Helper'
 import _ from 'lodash'
 import React from 'react'
 import { PopupManageListItemInterface } from '@Type/MangerTypes'
@@ -165,7 +165,7 @@ export const PopupManageTableConfig = {
                         <>
                             {_.isEmpty(el.REGIST_DT)
                                 ? ''
-                                : dateInsertHypen(el.REGIST_DT)}
+                                : el.REGIST_DT.substring(0, 10)}
                         </>
                     )
                 },

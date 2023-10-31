@@ -4,8 +4,8 @@ import {
     postPopupAdd,
     getPopupView,
     getPopupDelete,
+    postPopupUpdate,
 } from '@Service/ManagerService'
-import { commonGetFileInfo } from '@Service/CommonService'
 import PopupManageDetailTable from './PopupManageDetailTable'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import {
@@ -70,9 +70,99 @@ const PopupManageDetailMain = () => {
             status: `loading`,
         }))
 
+        const {
+            POPUP_SJ,
+            POPUP_CN,
+            GLAN_TY,
+            GLAN_VALUE,
+            POPUP_BGNDT,
+            POPUP_ENDDT,
+            USE_AT,
+            CLOSE_TYPE,
+            SMALL_IMG_ATCHMNFL_INFO: { ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO },
+            BIG_IMG_ATCHMNFL_INFO: { ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO },
+        } = popupManageDetailState.info
+
         const { status } = await postPopupAdd({
-            ...popupManageDetailState.info,
+            POPUP_SJ: POPUP_SJ,
+            POPUP_CN: POPUP_CN,
+            GLAN_TY: GLAN_TY,
+            GLAN_VALUE: GLAN_VALUE,
+            POPUP_BGNDT: POPUP_BGNDT,
+            POPUP_ENDDT: POPUP_ENDDT,
+            USE_AT: USE_AT,
+            CLOSE_TYPE: CLOSE_TYPE,
+            SMALL_IMG_ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
+            BIG_IMG_ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO,
             EXPSR_AT: `Y`,
+        })
+        if (status) {
+            setPopupManageDetailState(prevState => ({
+                ...prevState,
+                status: `success`,
+            }))
+            resetPopupManageListState()
+            resetPopupManageDetailState()
+
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processSuccess,
+            })
+
+            handleDeleteTabbyMatchRouter(
+                '/manage/manager/popup-manage-list/new'
+            )
+            navigate({
+                pathname:
+                    process.env.PUBLIC_URL +
+                    `/manage/manager/popup-manage-list`,
+            })
+        } else {
+            setPopupManageDetailState(prevState => ({
+                ...prevState,
+                status: `failure`,
+            }))
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.pageError,
+            })
+        }
+    }
+
+    const handleInfoUpdate = async () => {
+        setPopupManageDetailState(prevState => ({
+            ...prevState,
+            status: `loading`,
+        }))
+
+        const {
+            PK,
+            POPUP_SJ,
+            POPUP_CN,
+            GLAN_TY,
+            GLAN_VALUE,
+            POPUP_BGNDT,
+            POPUP_ENDDT,
+            EXPSR_AT,
+            USE_AT,
+            CLOSE_TYPE,
+            SMALL_IMG_ATCHMNFL_INFO: { ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO },
+            BIG_IMG_ATCHMNFL_INFO: { ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO },
+        } = popupManageDetailState.info
+
+        const { status } = await postPopupUpdate({
+            PK: PK,
+            POPUP_SJ: POPUP_SJ,
+            POPUP_CN: POPUP_CN,
+            GLAN_TY: GLAN_TY,
+            GLAN_VALUE: GLAN_VALUE,
+            POPUP_BGNDT: POPUP_BGNDT,
+            POPUP_ENDDT: POPUP_ENDDT,
+            EXPSR_AT: EXPSR_AT,
+            USE_AT: USE_AT,
+            CLOSE_TYPE: CLOSE_TYPE,
+            SMALL_IMG_ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
+            BIG_IMG_ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO,
         })
         if (status) {
             setPopupManageDetailState(prevState => ({
@@ -116,26 +206,10 @@ const PopupManageDetailMain = () => {
 
             const { status, payload } = await getPopupView({ PK: popupPk })
             if (status) {
-                const { BIG_IMG_ATCHMNFL_NO, SMALL_IMG_ATCHMNFL_NO } = payload
-
-                const { status: smallStatus, payload: smallInfo } =
-                    await commonGetFileInfo({
-                        AtchmnflNo: SMALL_IMG_ATCHMNFL_NO,
-                    })
-
-                const { status: bigStatus, payload: bigInfo } =
-                    await commonGetFileInfo({
-                        AtchmnflNo: BIG_IMG_ATCHMNFL_NO,
-                    })
-
                 setPopupManageDetailState(prevState => ({
                     ...prevState,
                     status: `success`,
                     info: payload,
-                    imageInfo: {
-                        small: smallStatus ? smallInfo : null,
-                        big: bigStatus ? bigInfo : null,
-                    },
                 }))
             } else {
                 setPopupManageDetailState(prevState => ({
@@ -208,6 +282,7 @@ const PopupManageDetailMain = () => {
                         DetailPk={POPUP_PK ? POPUP_PK : ``}
                         HandleGetInfo={({ popupPk }) => handleGetInfo(popupPk)}
                         HandleInfoSave={() => handleInfoSave()}
+                        HandleInfoUpdate={() => handleInfoUpdate()}
                     />
                 )}
             </LeftWapper>

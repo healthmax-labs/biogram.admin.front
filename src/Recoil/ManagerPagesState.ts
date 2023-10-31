@@ -241,10 +241,6 @@ export const PopupManageListState = atom<PopupManageListStateInterface>({
 interface PopupManageDetailStateInterface {
     status: DefaultStatus
     info: PopupManageDetailInterface
-    imageInfo: {
-        small: CommonGetFileInfoInterface | null
-        big: CommonGetFileInfoInterface | null
-    }
     linkList: PopupLlinkListItemInterface[]
 }
 
@@ -257,21 +253,30 @@ export const PopupManageDetailState = atom<PopupManageDetailStateInterface>({
             PK: ``,
             POPUP_SJ: ``,
             POPUP_CN: ``,
-            GLAN_TY: `A`,
+            GLAN_TY: ``,
             GLAN_VALUE: ``,
             POPUP_BGNDT: ``,
             POPUP_ENDDT: ``,
             EXPSR_AT: ``,
-            USE_AT: `Y`,
-            CLOSE_TYPE: `T`,
-            SMALL_IMG_ATCHMNFL_NO: ``,
-            BIG_IMG_ATCHMNFL_NO: ``,
+            USE_AT: ``,
+            CLOSE_TYPE: ``,
             REGIST_DT: ``,
             REGIST_MBER_NO: null,
-        },
-        imageInfo: {
-            small: null,
-            big: null,
+            SMALL_IMG_ATCHMNFL_INFO: {
+                ATCHMNFL_NO: ``,
+                ATCHMNFL_NM: ``,
+                ATCHMNFL_PATH: ``,
+                ORIGINL_FILE_NM: ``,
+                ATCHMNFL_DOWN_PATH: ``,
+            },
+            BIG_IMG_ATCHMNFL_INFO: {
+                ATCHMNFL_NO: ``,
+                ATCHMNFL_NM: ``,
+                ATCHMNFL_PATH: ``,
+                ORIGINL_FILE_NM: ``,
+                ATCHMNFL_DOWN_PATH: ``,
+            },
+            UPDATE_DT: null,
         },
         linkList: [],
     },

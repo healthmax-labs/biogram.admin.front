@@ -256,7 +256,10 @@ export const getPopupView = ({
         payload: null,
     })
 }
-
+/**
+ * 팝업 삭제
+ * @param PK
+ */
 export const getPopupDelete = ({
     PK,
 }: {
@@ -266,5 +269,67 @@ export const getPopupDelete = ({
         method: 'post',
         url: `/popup/v1/${PK}/delete`,
         payload: null,
+    })
+}
+
+/**
+ * 팝업 업데이트
+ * @param PK
+ * @param POPUP_SJ
+ * @param POPUP_CN
+ * @param GLAN_TY
+ * @param GLAN_VALUE
+ * @param POPUP_BGNDT
+ * @param POPUP_ENDDT
+ * @param EXPSR_AT
+ * @param USE_AT
+ * @param CLOSE_TYPE
+ * @param SMALL_IMG_ATCHMNFL_NO
+ * @param BIG_IMG_ATCHMNFL_NO
+ */
+export const postPopupUpdate = ({
+    PK,
+    POPUP_SJ,
+    POPUP_CN,
+    GLAN_TY,
+    GLAN_VALUE,
+    POPUP_BGNDT,
+    POPUP_ENDDT,
+    EXPSR_AT,
+    USE_AT,
+    CLOSE_TYPE,
+    SMALL_IMG_ATCHMNFL_NO,
+    BIG_IMG_ATCHMNFL_NO,
+}: {
+    PK: string
+    POPUP_SJ: string
+    POPUP_CN: string
+    GLAN_TY: string
+    GLAN_VALUE: string
+    POPUP_BGNDT: string
+    POPUP_ENDDT: string
+    EXPSR_AT: string
+    USE_AT: string
+    CLOSE_TYPE: string
+    SMALL_IMG_ATCHMNFL_NO: string
+    BIG_IMG_ATCHMNFL_NO: string
+}) => {
+    return _Axios_({
+        method: 'post',
+        url: `/popup/v1/update`,
+        payload: {
+            PK: PK,
+            POPUP_SJ: POPUP_SJ,
+            POPUP_CN: POPUP_CN,
+            GLAN_TY: GLAN_TY,
+            GLAN_VALUE: GLAN_VALUE,
+            POPUP_BGNDT: POPUP_BGNDT,
+            POPUP_ENDDT: POPUP_ENDDT,
+            EXPSR_AT: EXPSR_AT,
+            USE_AT: USE_AT,
+            CLOSE_TYPE: CLOSE_TYPE,
+            SMALL_IMG_ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
+            BIG_IMG_ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO,
+        },
     })
 }

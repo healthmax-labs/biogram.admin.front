@@ -63,12 +63,14 @@ const PopupManageDetailTable = ({
     DetailPk,
     HandleGetInfo,
     HandleInfoSave,
+    HandleInfoUpdate,
 }: {
     PageMode: string | `new` | `detail`
     DetailPk: string
     HandleGetInfo: ({ popupPk }: { popupPk: string }) => void
     HandleDelete: ({ popupPk }: { popupPk: string }) => void
     HandleInfoSave: () => void
+    HandleInfoUpdate: () => void
 }) => {
     const navigate = useNavigate()
     const { handlMainAlert } = useMainLayouts()
@@ -585,17 +587,15 @@ const PopupManageDetailTable = ({
                                 <InputCell>
                                     <VaryImageUpload
                                         Image={{
-                                            AtchmnflPath: popupManageDetailState
-                                                .imageInfo.big
-                                                ? popupManageDetailState
-                                                      .imageInfo.big
-                                                      .ATCHMNFL_DOWN_PATH
-                                                : ``,
-                                            OrginlFileNm: popupManageDetailState
-                                                .imageInfo.big
-                                                ? popupManageDetailState
-                                                      .imageInfo.big.ATCHMNFL_NM
-                                                : ``,
+                                            AtchmnflPath:
+                                                popupManageDetailState.info
+                                                    .BIG_IMG_ATCHMNFL_INFO
+                                                    .ATCHMNFL_DOWN_PATH,
+                                            OrginlFileNm:
+                                                popupManageDetailState.info
+                                                    .BIG_IMG_ATCHMNFL_INFO
+                                                    .ATCHMNFL_NM,
+
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
@@ -605,10 +605,13 @@ const PopupManageDetailTable = ({
                                                     ...prevState,
                                                     info: {
                                                         ...prevState.info,
-                                                        BIG_IMG_ATCHMNFL_NO:
-                                                            String(
-                                                                e.ATCHMNFL_NO
-                                                            ),
+                                                        BIG_IMG_ATCHMNFL_INFO: {
+                                                            ATCHMNFL_NO: `${e.ATCHMNFL_NO}`,
+                                                            ATCHMNFL_DOWN_PATH: ``,
+                                                            ATCHMNFL_NM: ``,
+                                                            ATCHMNFL_PATH: ``,
+                                                            ORIGINL_FILE_NM: ``,
+                                                        },
                                                     },
                                                 })
                                             )
@@ -623,35 +626,36 @@ const PopupManageDetailTable = ({
                                 <InputCell>
                                     <VaryImageUpload
                                         Image={{
-                                            AtchmnflPath: popupManageDetailState
-                                                .imageInfo.small
-                                                ? popupManageDetailState
-                                                      .imageInfo.small
-                                                      .ATCHMNFL_DOWN_PATH
-                                                : ``,
-                                            OrginlFileNm: popupManageDetailState
-                                                .imageInfo.small
-                                                ? popupManageDetailState
-                                                      .imageInfo.small
-                                                      .ATCHMNFL_NM
-                                                : ``,
+                                            AtchmnflPath:
+                                                popupManageDetailState.info
+                                                    .SMALL_IMG_ATCHMNFL_INFO
+                                                    .ATCHMNFL_DOWN_PATH,
+                                            OrginlFileNm:
+                                                popupManageDetailState.info
+                                                    .SMALL_IMG_ATCHMNFL_INFO
+                                                    .ATCHMNFL_NM,
+
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
-                                        ReturnCallback={e =>
+                                        ReturnCallback={e => {
                                             setPopupManageDetailState(
                                                 prevState => ({
                                                     ...prevState,
                                                     info: {
                                                         ...prevState.info,
-                                                        SMALL_IMG_ATCHMNFL_NO:
-                                                            String(
-                                                                e.ATCHMNFL_NO
-                                                            ),
+                                                        SMALL_IMG_ATCHMNFL_INFO:
+                                                            {
+                                                                ATCHMNFL_NO: `${e.ATCHMNFL_NO}`,
+                                                                ATCHMNFL_DOWN_PATH: ``,
+                                                                ATCHMNFL_NM: ``,
+                                                                ATCHMNFL_PATH: ``,
+                                                                ORIGINL_FILE_NM: ``,
+                                                            },
                                                     },
                                                 })
                                             )
-                                        }
+                                        }}
                                     />
                                 </InputCell>
                             </Row>
@@ -769,86 +773,84 @@ const PopupManageDetailTable = ({
                                 />
                             </ButtonItem>
                         )}
-                        {PageMode === `new` && (
-                            <ButtonItem>
-                                <VaryButton
-                                    ButtonType={`default`}
-                                    ButtonName={`등록`}
-                                    HandleClick={() => {
-                                        const {
-                                            POPUP_SJ,
-                                            GLAN_TY,
-                                            GLAN_VALUE,
-                                            SMALL_IMG_ATCHMNFL_NO,
-                                            BIG_IMG_ATCHMNFL_NO,
-                                        } = popupManageDetailState.info
-                                        if (POPUP_SJ === ``) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.popManage
-                                                        .titleEmpty,
-                                            })
-                                            return
-                                        }
+                        <ButtonItem>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName={`${
+                                    PageMode === 'detail' ? '수정' : '등록'
+                                }`}
+                                HandleClick={() => {
+                                    const {
+                                        POPUP_SJ,
+                                        GLAN_TY,
+                                        GLAN_VALUE,
+                                        SMALL_IMG_ATCHMNFL_INFO: {
+                                            ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
+                                        },
+                                        BIG_IMG_ATCHMNFL_INFO: {
+                                            ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO,
+                                        },
+                                    } = popupManageDetailState.info
+                                    if (POPUP_SJ === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .titleEmpty,
+                                        })
+                                        return
+                                    }
 
-                                        if (
-                                            GLAN_TY === `A` &&
-                                            GLAN_VALUE === ``
-                                        ) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.popManage
-                                                        .aTypeGlanValueEmpty,
-                                            })
-                                            return
-                                        }
+                                    if (GLAN_TY === `A` && GLAN_VALUE === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .aTypeGlanValueEmpty,
+                                        })
+                                        return
+                                    }
 
-                                        if (
-                                            GLAN_TY === `W` &&
-                                            GLAN_VALUE === ``
-                                        ) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.popManage
-                                                        .wTypeGlanValueEmpty,
-                                            })
-                                            return
-                                        }
+                                    if (GLAN_TY === `W` && GLAN_VALUE === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .wTypeGlanValueEmpty,
+                                        })
+                                        return
+                                    }
 
-                                        if (SMALL_IMG_ATCHMNFL_NO === ``) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.popManage
-                                                        .smallImageEmpty,
-                                            })
-                                            return
-                                        }
+                                    if (SMALL_IMG_ATCHMNFL_NO === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .smallImageEmpty,
+                                        })
+                                        return
+                                    }
 
-                                        if (BIG_IMG_ATCHMNFL_NO === ``) {
-                                            handlMainAlert({
-                                                state: true,
-                                                message:
-                                                    Messages.Default.popManage
-                                                        .bigImageEmpty,
-                                            })
-                                            return
-                                        }
+                                    if (BIG_IMG_ATCHMNFL_NO === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .bigImageEmpty,
+                                        })
+                                        return
+                                    }
 
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            modal: {
-                                                ...prevState.modal,
-                                                confirm: true,
-                                            },
-                                        }))
-                                    }}
-                                />
-                            </ButtonItem>
-                        )}
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            confirm: true,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </ButtonItem>
                         <ButtonItem>
                             <VaryButton
                                 ButtonType={`default`}
@@ -894,7 +896,11 @@ const PopupManageDetailTable = ({
                                         confirm: false,
                                     },
                                 }))
-                                HandleInfoSave()
+                                if (PageMode === `detail`) {
+                                    HandleInfoUpdate()
+                                } else {
+                                    HandleInfoSave()
+                                }
                             }}
                         />
                     )}
