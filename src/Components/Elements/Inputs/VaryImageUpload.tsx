@@ -18,6 +18,7 @@ const VaryImageUpload = ({
     Image,
     ReturnCallback,
     ShowInform = true,
+    HandleDelete,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -26,6 +27,7 @@ const VaryImageUpload = ({
     }
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
     ShowInform?: boolean
+    HandleDelete?: () => void
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -170,6 +172,8 @@ const VaryImageUpload = ({
                         if (inputRef.current != null) {
                             inputRef.current.value = ''
                         }
+
+                        HandleDelete && HandleDelete()
                     }}
                 />
             </div>

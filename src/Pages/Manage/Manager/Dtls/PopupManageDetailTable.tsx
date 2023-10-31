@@ -599,7 +599,24 @@ const PopupManageDetailTable = ({
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
-                                        ReturnCallback={e =>
+                                        HandleDelete={() => {
+                                            setPopupManageDetailState(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    info: {
+                                                        ...prevState.info,
+                                                        BIG_IMG_ATCHMNFL_INFO: {
+                                                            ATCHMNFL_NO: ``,
+                                                            ATCHMNFL_DOWN_PATH: ``,
+                                                            ATCHMNFL_NM: ``,
+                                                            ATCHMNFL_PATH: ``,
+                                                            ORIGINL_FILE_NM: ``,
+                                                        },
+                                                    },
+                                                })
+                                            )
+                                        }}
+                                        ReturnCallback={e => {
                                             setPopupManageDetailState(
                                                 prevState => ({
                                                     ...prevState,
@@ -615,7 +632,7 @@ const PopupManageDetailTable = ({
                                                     },
                                                 })
                                             )
-                                        }
+                                        }}
                                     />
                                 </InputCell>
                             </Row>
@@ -638,6 +655,24 @@ const PopupManageDetailTable = ({
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
+                                        HandleDelete={() => {
+                                            setPopupManageDetailState(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    info: {
+                                                        ...prevState.info,
+                                                        SMALL_IMG_ATCHMNFL_INFO:
+                                                            {
+                                                                ATCHMNFL_NO: ``,
+                                                                ATCHMNFL_DOWN_PATH: ``,
+                                                                ATCHMNFL_NM: ``,
+                                                                ATCHMNFL_PATH: ``,
+                                                                ORIGINL_FILE_NM: ``,
+                                                            },
+                                                    },
+                                                })
+                                            )
+                                        }}
                                         ReturnCallback={e => {
                                             setPopupManageDetailState(
                                                 prevState => ({
