@@ -528,7 +528,7 @@ const PopupManageDetailTable = ({
                                             <ShortcutsItem>
                                                 <VaryLabelRadioButton
                                                     LabelWidth={`wMin`}
-                                                    LabelName={`앱 URL 링크`}
+                                                    LabelName={`웹 URL 링크`}
                                                     Checked={
                                                         popupManageDetailState
                                                             .info.GLAN_TY ===
@@ -582,7 +582,7 @@ const PopupManageDetailTable = ({
                             </Row>
                             <Row>
                                 <LabelCell>
-                                    <VaryLabel LabelName={`이미지 1`} />
+                                    <VaryLabel LabelName={`큰이미지`} />
                                 </LabelCell>
                                 <InputCell>
                                     <VaryImageUpload
@@ -638,7 +638,7 @@ const PopupManageDetailTable = ({
                             </Row>
                             <Row>
                                 <LabelCell>
-                                    <VaryLabel LabelName={`이미지 2`} />
+                                    <VaryLabel LabelName={`작은이미지`} />
                                 </LabelCell>
                                 <InputCell>
                                     <VaryImageUpload

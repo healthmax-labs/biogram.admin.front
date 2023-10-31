@@ -156,8 +156,8 @@ export default {
             titleEmpty: `제목을 입력해 주세요`,
             aTypeGlanValueEmpty: `바로가기를 선택해 주세요`,
             wTypeGlanValueEmpty: `바로가기(URL)을 입력해 주세요`,
-            smallImageEmpty: `이미지2을 입력해 주세요`,
-            bigImageEmpty: `이미지1을 입력해 주세요`,
+            smallImageEmpty: `작은 이미지를 입력해 주세요`,
+            bigImageEmpty: `큰 이미지를 입력해 주세요`,
         },
         consult: {
             mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
