@@ -9,7 +9,6 @@ import {
     PopupLlinkListItemInterface,
 } from '@Type/MangerTypes'
 import {
-    CommonGetFileInfoInterface,
     DefaultStatus,
     DefaultYesNo,
     StplatKndCodeType,
