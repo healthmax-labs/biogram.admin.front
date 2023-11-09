@@ -17,6 +17,8 @@ const initializeState = {
 const VaryImageUpload = ({
     Image,
     ReturnCallback,
+    ShowInform = true,
+    HandleDelete,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -24,6 +26,8 @@ const VaryImageUpload = ({
         Category: string | 'MISN' | 'INST'
     }
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
+    ShowInform?: boolean
+    HandleDelete?: () => void
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -146,10 +150,12 @@ const VaryImageUpload = ({
                         handleChangeSelectImage(e)
                     }
                 />
-                <div className="text-xs">
-                    확장자 : JPG, JPEG, PNG / 사이즈 : 600 x 200px / 최대용량 :
-                    10mb
-                </div>
+                {ShowInform && (
+                    <div className="text-xs">
+                        확장자 : JPG, JPEG, PNG / 사이즈 : 600 x 200px /
+                        최대용량 : 10mb
+                    </div>
+                )}
                 <VaryButton
                     ButtonType={`default`}
                     ButtonName={`삭제`}
@@ -166,6 +172,8 @@ const VaryImageUpload = ({
                         if (inputRef.current != null) {
                             inputRef.current.value = ''
                         }
+
+                        HandleDelete && HandleDelete()
                     }}
                 />
             </div>

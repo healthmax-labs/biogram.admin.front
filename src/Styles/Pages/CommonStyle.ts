@@ -82,4 +82,9 @@ export const WapperStyle = {
     FlexNoWarapGap: tw.div`flex flex-nowrap gap-2 py-1`,
     FlexRightButton: tw.div`flex ml-1`,
     FlexFreeRightButton: tw.div`flex h-8 items-center pl-1`,
+    FlexNowrapGapOne: tw.div`flex flex-nowrap gap-1`,
+    FlexNowrapGapOneHalf: tw.div`flex flex-nowrap gap-1 w-1/2`,
+    InputHalf: tw.div`w-2/6`,
+    PickerDateWapper: tw.div`w-1/3`,
+    PickerTimeWapper: tw.div`w-1/3`,
 }

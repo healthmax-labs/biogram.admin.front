@@ -56,6 +56,8 @@ import {
     StplatDetailState,
     StplatListState,
     NoticeDetailState,
+    PopupManageListState,
+    PopupManageDetailState,
 } from '@Recoil/ManagerPagesState'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
@@ -135,6 +137,10 @@ export default function useRecoilReset() {
     const NoticeListStateReset = useResetRecoilState(NoticeListState) // 게시판 관리
     const StplatDetailStateReset = useResetRecoilState(StplatDetailState) // 이용 약관 관리 상세
     const NoticeDetailStateReset = useResetRecoilState(NoticeDetailState) // 게시판 상세
+    const PopupManageListStateReset = useResetRecoilState(PopupManageListState) // 팝업관리 리스트
+    const PopupManageDetailStatetReset = useResetRecoilState(
+        PopupManageDetailState
+    ) // 팝업 관리 상세
 
     const AtomPageTabStateReset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
@@ -192,6 +198,8 @@ export default function useRecoilReset() {
             'managerPage/notice-list': () => void
             'managerPage/stplat-detail': () => void
             'managerPage/notice-detail': () => void
+            'managerPage/popup-manage-list': () => void
+            'managerPage/popup-manage-detail': () => void
 
             'tab/TabState': () => void
         } = {
@@ -254,6 +262,9 @@ export default function useRecoilReset() {
             'managerPage/notice-list': () => NoticeListStateReset(),
             'managerPage/stplat-detail': () => StplatDetailStateReset(),
             'managerPage/notice-detail': () => NoticeDetailStateReset(),
+            'managerPage/popup-manage-list': () => PopupManageListStateReset(),
+            'managerPage/popup-manage-detail': () =>
+                PopupManageDetailStatetReset(),
 
             'tab/TabState': () => AtomPageTabStateReset(),
             default: () => {

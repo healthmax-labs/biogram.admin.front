@@ -85,6 +85,7 @@ const VaryDatepickerInput = ({
     PrevNextButton,
     MinDate,
     MaxDate,
+    OnBlurPass,
 }: {
     ShowType?: DatePickerShowType
     InputeType: ContentType
@@ -96,6 +97,7 @@ const VaryDatepickerInput = ({
     PrevNextButton?: boolean
     MinDate?: Date | null
     MaxDate?: Date
+    OnBlurPass?: boolean
 }) => {
     const [selectDate, setSelectDate] = useState(Value ? Value : new Date())
     const [checkAfterDate, setCheckAfterDate] = useState<boolean>(false)
@@ -225,6 +227,10 @@ const VaryDatepickerInput = ({
                     }
                 }}
                 onBlur={e => {
+                    if (OnBlurPass && OnBlurPass) {
+                        return
+                    }
+
                     setSelectDate(
                         changeDatePickerDate(
                             getOnlyNumber(e.target.value)
@@ -237,7 +243,7 @@ const VaryDatepickerInput = ({
                 showMonthYearPicker={ShowType === 'year, month'}
                 showTimeSelect={ShowType === 'time'}
                 showTimeSelectOnly={ShowType === 'time'}
-                timeIntervals={ShowType === 'time' ? 1 : 15}
+                timeIntervals={ShowType === 'time' ? 60 : 15}
                 timeCaption={ShowType === 'time' ? '시간' : ''}
                 customInput={
                     InputeType === 'search'

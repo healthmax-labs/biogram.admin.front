@@ -1,6 +1,7 @@
 import { dateInsertHypen } from '@Helper'
 import _ from 'lodash'
 import React from 'react'
+import { PopupManageListItemInterface } from '@Type/MangerTypes'
 
 // 이용약관 테이블 데이터
 export interface StplatTableListItemInterface {
@@ -102,6 +103,72 @@ export const NoticeTableConfig = {
             {
                 name: `게시유형`,
                 key: `TRGET_SVC_CODE_NM`,
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 파업 관리 테이블
+export const PopupManageTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `PK`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `번호`,
+                key: `PK`,
+            },
+            {
+                name: `제목`,
+                key: `POPUP_SJ`,
+            },
+            {
+                name: `시작 일자`,
+                key: `POPUP_BGNDT`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.POPUP_BGNDT)
+                                ? ''
+                                : el.POPUP_BGNDT.substring(0, 10)}
+                        </>
+                    )
+                },
+            },
+            {
+                name: `종료 일자`,
+                key: `POPUP_ENDDT`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.POPUP_ENDDT)
+                                ? ''
+                                : el.POPUP_ENDDT.substring(0, 10)}
+                        </>
+                    )
+                },
+            },
+            {
+                name: `사용여부`,
+                key: `USE_AT`,
+            },
+            {
+                name: `등록 일자`,
+                key: `REGIST_DT`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.REGIST_DT)
+                                ? ''
+                                : el.REGIST_DT.substring(0, 10)}
+                        </>
+                    )
+                },
             },
         ],
     ],

@@ -7,6 +7,7 @@ import {
     SiGunGroupInterface,
     SiGunGuCodeInterface,
     StplatInfoItem,
+    CommonGetFileInfoInterface,
 } from '@Type/CommonTypes'
 import { PstinstInfoItemInterface } from '@Type/MemberTypes'
 
@@ -143,20 +144,6 @@ export const getSiGunCode = ({
 }
 
 /**
- * 이미지 업로드.
- * @param formData
- */
-export const commonFileInst = (
-    formData: FormData
-): Promise<ServicesDefaultResult<{ ATCHMNFL_NO: number }>> => {
-    return _Axios_({
-        method: 'post',
-        url: `/common/file/INST/I`,
-        payload: formData,
-    })
-}
-
-/**
  * 이미지 업로드 인서트
  * @param formData
  * @param Category
@@ -169,6 +156,22 @@ export const commonFileImg = (
         method: 'post',
         url: `/common/file/${Category}/I`,
         payload: formData,
+    })
+}
+
+/**
+ * 업로드 이미지 정보 조회
+ * @param AtchmnflNo
+ */
+export const commonGetFileInfo = ({
+    AtchmnflNo,
+}: {
+    AtchmnflNo: string
+}): Promise<ServicesDefaultResult<CommonGetFileInfoInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/common/file/${AtchmnflNo}`,
+        payload: null,
     })
 }
 
