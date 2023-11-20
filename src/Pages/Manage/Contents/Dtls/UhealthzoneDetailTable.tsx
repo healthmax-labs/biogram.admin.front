@@ -552,8 +552,14 @@ const UhealthzoneDetailTable = ({
                                     <VaryInput
                                         Width={'full'}
                                         InputType={'text'}
-                                        HandleOnChange={() => {
-                                            //
+                                        HandleOnChange={e => {
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                detail: {
+                                                    ...prevState.detail,
+                                                    INSTL_ADRES: e.target.value,
+                                                },
+                                            }))
                                         }}
                                         id={'id'}
                                         Placeholder={'주소를 입력해 주세요'}
