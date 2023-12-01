@@ -8,8 +8,11 @@ import {
     StplatInfoInterface,
     StplatListItemInterface,
     PopupManageListInterface,
-    PopupLlinkListInterface,
+    PopupLinkListInterface,
     PopupManageDetailInterface,
+    ViewPageListInterface,
+    PopupViewMberListInterface,
+    PopupClickMberListInterface,
 } from '@Type/MangerTypes'
 
 /**
@@ -176,12 +179,25 @@ export const getPopupList = (): Promise<
 /**
  * 앱 바로가기 목록 조회
  */
-export const getPopupLlinkList = (): Promise<
-    ServicesDefaultResult<PopupLlinkListInterface>
+export const getPopupLinkList = (): Promise<
+    ServicesDefaultResult<PopupLinkListInterface>
 > => {
     return _Axios_({
         method: 'get',
         url: `/popup/v1/linkList`,
+        payload: null,
+    })
+}
+
+/**
+ * 노출 페이지 코드리스트
+ */
+export const getViewPageList = (): Promise<
+    ServicesDefaultResult<ViewPageListInterface>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/popup/v1/viewPageList`,
         payload: null,
     })
 }
@@ -202,6 +218,7 @@ export const getPopupLlinkList = (): Promise<
 export const postPopupAdd = ({
     POPUP_SJ,
     GLAN_TY,
+    DISPLAY_CODE,
     GLAN_VALUE,
     POPUP_BGNDT,
     POPUP_ENDDT,
@@ -213,6 +230,7 @@ export const postPopupAdd = ({
 }: {
     POPUP_SJ: string
     POPUP_CN: string
+    DISPLAY_CODE: string
     GLAN_TY: string
     GLAN_VALUE: string
     POPUP_BGNDT: string
@@ -222,13 +240,14 @@ export const postPopupAdd = ({
     CLOSE_TYPE: string
     SMALL_IMG_ATCHMNFL_NO: string
     BIG_IMG_ATCHMNFL_NO: string
-}): Promise<ServicesDefaultResult<PopupLlinkListInterface>> => {
+}): Promise<ServicesDefaultResult<PopupLinkListInterface>> => {
     return _Axios_({
         method: 'post',
         url: `/popup/v1/add`,
         payload: {
             POPUP_SJ: POPUP_SJ,
             GLAN_TY: GLAN_TY,
+            DISPLAY_CODE: DISPLAY_CODE,
             GLAN_VALUE: GLAN_VALUE,
             POPUP_BGNDT: POPUP_BGNDT,
             POPUP_ENDDT: POPUP_ENDDT,
@@ -277,6 +296,7 @@ export const getPopupDelete = ({
  * @param PK
  * @param POPUP_SJ
  * @param POPUP_CN
+ * @param DISPLAY_CODE
  * @param GLAN_TY
  * @param GLAN_VALUE
  * @param POPUP_BGNDT
@@ -291,6 +311,7 @@ export const postPopupUpdate = ({
     PK,
     POPUP_SJ,
     POPUP_CN,
+    DISPLAY_CODE,
     GLAN_TY,
     GLAN_VALUE,
     POPUP_BGNDT,
@@ -304,6 +325,7 @@ export const postPopupUpdate = ({
     PK: string
     POPUP_SJ: string
     POPUP_CN: string
+    DISPLAY_CODE: string
     GLAN_TY: string
     GLAN_VALUE: string
     POPUP_BGNDT: string
@@ -321,6 +343,7 @@ export const postPopupUpdate = ({
             PK: PK,
             POPUP_SJ: POPUP_SJ,
             POPUP_CN: POPUP_CN,
+            DISPLAY_CODE: DISPLAY_CODE,
             GLAN_TY: GLAN_TY,
             GLAN_VALUE: GLAN_VALUE,
             POPUP_BGNDT: POPUP_BGNDT,
@@ -331,5 +354,31 @@ export const postPopupUpdate = ({
             SMALL_IMG_ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
             BIG_IMG_ATCHMNFL_NO: BIG_IMG_ATCHMNFL_NO,
         },
+    })
+}
+
+// 팝업 노출수 현황
+export const getPopupViewMberList = ({
+    PK,
+}: {
+    PK: string
+}): Promise<ServicesDefaultResult<PopupViewMberListInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/popup/v1/viewMberList/${PK}`,
+        payload: null,
+    })
+}
+
+// 팝업 클릭수 현황
+export const getPopupClickMberList = ({
+    PK,
+}: {
+    PK: string
+}): Promise<ServicesDefaultResult<PopupClickMberListInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/popup/v1/clickMberList/${PK}`,
+        payload: null,
     })
 }

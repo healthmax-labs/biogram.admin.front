@@ -1,4 +1,4 @@
-import { dateInsertHypen } from '@Helper'
+import { dateInsertHypen, addComma } from '@Helper'
 import _ from 'lodash'
 import React from 'react'
 import { PopupManageListItemInterface } from '@Type/MangerTypes'
@@ -124,6 +124,19 @@ export const PopupManageTableConfig = {
                 key: `PK`,
             },
             {
+                name: `노출 페이지`,
+                key: `DISPLAY_CODE_NM`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return (
+                        <>
+                            {!_.isEmpty(el.DISPLAY_CODE_NM)
+                                ? el.DISPLAY_CODE_NM
+                                : ''}
+                        </>
+                    )
+                },
+            },
+            {
                 name: `제목`,
                 key: `POPUP_SJ`,
             },
@@ -156,6 +169,20 @@ export const PopupManageTableConfig = {
             {
                 name: `사용여부`,
                 key: `USE_AT`,
+            },
+            {
+                name: `노출수`,
+                key: `DISPLAY_CNT`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return <>{addComma(el.DISPLAY_CNT)}</>
+                },
+            },
+            {
+                name: `클릭수`,
+                key: `CLICK_CNT`,
+                component: ({ el }: { el: PopupManageListItemInterface }) => {
+                    return <>{addComma(el.CLICK_CNT)}</>
+                },
             },
             {
                 name: `등록 일자`,

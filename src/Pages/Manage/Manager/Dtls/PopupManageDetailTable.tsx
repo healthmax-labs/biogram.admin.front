@@ -452,6 +452,41 @@ const PopupManageDetailTable = ({
                             </Row>
                             <Row>
                                 <LabelCell>
+                                    <VaryLabel LabelName={`노출 페이지`} />
+                                </LabelCell>
+                                <InputCell>
+                                    <VarySelectBox
+                                        Width={`w60`}
+                                        Placeholder={`노출 페이지를 선택해주세요`}
+                                        Value={
+                                            popupManageDetailState.info
+                                                .DISPLAY_CODE
+                                        }
+                                        Elements={_.map(
+                                            popupManageDetailState.viewPageList,
+                                            element => {
+                                                return {
+                                                    text: element.IEM_NM,
+                                                    value: element.IEM_CODE,
+                                                }
+                                            }
+                                        )}
+                                        HandleOnChange={e => {
+                                            setPopupManageDetailState(
+                                                prevState => ({
+                                                    ...prevState,
+                                                    info: {
+                                                        ...prevState.info,
+                                                        DISPLAY_CODE: e.value,
+                                                    },
+                                                })
+                                            )
+                                        }}
+                                    />
+                                </InputCell>
+                            </Row>
+                            <Row>
+                                <LabelCell>
                                     <VaryLabel LabelName={`바로가기`} />
                                 </LabelCell>
                                 <InputCell>
@@ -818,6 +853,7 @@ const PopupManageDetailTable = ({
                                     const {
                                         POPUP_SJ,
                                         GLAN_TY,
+                                        DISPLAY_CODE,
                                         GLAN_VALUE,
                                         SMALL_IMG_ATCHMNFL_INFO: {
                                             ATCHMNFL_NO: SMALL_IMG_ATCHMNFL_NO,
@@ -852,6 +888,16 @@ const PopupManageDetailTable = ({
                                             message:
                                                 Messages.Default.popManage
                                                     .wTypeGlanValueEmpty,
+                                        })
+                                        return
+                                    }
+
+                                    if (DISPLAY_CODE === ``) {
+                                        handlMainAlert({
+                                            state: true,
+                                            message:
+                                                Messages.Default.popManage
+                                                    .displayCodeEmpty,
                                         })
                                         return
                                     }

@@ -32,7 +32,7 @@ export interface MainTablePropsInterface<T> {
     Loading: boolean
     Options: OptionsInterface<T>
     Columns: Array<ColumnsInterface<T>[]>
-    RowClick: (element: T) => void
+    RowClick: (element: T, key: string | null | undefined) => void
     CheckedRow?: (checked: string[]) => void
     ButtonClick?: ({ code, Element }: { code: string; Element: T }) => void
     Lists: T[]
@@ -46,7 +46,7 @@ export interface MainTableBodyPropsInterface<T> {
     Loading: boolean
     Options: OptionsInterface<T>
     Columns: Array<ColumnsInterface<T>[]>
-    RowClick: (element: T) => void
+    RowClick: (element: T, key: string) => void
     CheckedRows: string[]
     RowCheckBoxClick: ({
         checked,

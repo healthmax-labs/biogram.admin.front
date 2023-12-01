@@ -156,6 +156,7 @@ export default {
             titleEmpty: `제목을 입력해 주세요`,
             aTypeGlanValueEmpty: `바로가기를 선택해 주세요`,
             wTypeGlanValueEmpty: `바로가기(URL)을 입력해 주세요`,
+            displayCodeEmpty: `노출 페이지를 선택해 주세요`,
             smallImageEmpty: `작은 이미지를 입력해 주세요`,
             bigImageEmpty: `큰 이미지를 입력해 주세요`,
         },

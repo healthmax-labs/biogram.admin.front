@@ -100,7 +100,12 @@ const MainTableBody = <P,>({
                                                     return (
                                                         <TbodyCell
                                                             onClick={() =>
-                                                                RowClick(Row)
+                                                                RowClick(
+                                                                    Row,
+                                                                    Column.key
+                                                                        ? Column.key
+                                                                        : ''
+                                                                )
                                                             }
                                                             key={`main-table-body-cell-${i}`}
                                                             textAlign={

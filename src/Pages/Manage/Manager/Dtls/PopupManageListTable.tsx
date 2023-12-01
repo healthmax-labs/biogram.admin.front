@@ -18,7 +18,17 @@ interface tableOption {
     Lists: PopupManageListItemInterface[]
 }
 
-const PopupManageListTable = () => {
+const PopupManageListTable = ({
+    HandleCountModal,
+}: {
+    HandleCountModal: ({
+        countKey,
+        countIndex,
+    }: {
+        countKey: string
+        countIndex: string
+    }) => void
+}) => {
     const navigate = useNavigate()
     const { handleDeleteTabbyMatchRouter } = useTab()
 
@@ -31,14 +41,26 @@ const PopupManageListTable = () => {
         PopupManageTableConfig
     )
 
-    const handleRowClick = (element: PopupManageListItemInterface) => {
-        resetPopupManageDetailState()
-        handleDeleteTabbyMatchRouter('/manage/manager/popup-manage-list/new')
-        navigate({
-            pathname:
-                process.env.PUBLIC_URL +
-                `/manage/manager/popup-manage-list/${element.PK}/detail`,
-        })
+    const handleRowClick = (
+        element: PopupManageListItemInterface,
+        clickKey: string | null | undefined
+    ) => {
+        if (
+            (clickKey && clickKey === 'CLICK_CNT') ||
+            clickKey === 'DISPLAY_CNT'
+        ) {
+            HandleCountModal({ countKey: clickKey, countIndex: element.PK })
+        } else {
+            resetPopupManageDetailState()
+            handleDeleteTabbyMatchRouter(
+                '/manage/manager/popup-manage-list/new'
+            )
+            navigate({
+                pathname:
+                    process.env.PUBLIC_URL +
+                    `/manage/manager/popup-manage-list/${element.PK}/detail`,
+            })
+        }
     }
 
     useEffect(() => {

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
-    getPopupLlinkList,
+    getPopupLinkList,
     postPopupAdd,
     getPopupView,
     getPopupDelete,
     postPopupUpdate,
+    getViewPageList,
 } from '@Service/ManagerService'
 import PopupManageDetailTable from './PopupManageDetailTable'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
@@ -24,6 +25,7 @@ const {
 const initializeState = {
     pageMode: ``,
     linkListGetState: false,
+    viewPageListGetState: false,
 }
 
 const PopupManageDetailMain = () => {
@@ -43,10 +45,11 @@ const PopupManageDetailMain = () => {
     const [pageState, setPageState] = useState<{
         pageMode: string | `new` | `detail`
         linkListGetState: boolean
+        viewPageListGetState: boolean
     }>(initializeState)
 
-    const handleGetList = useCallback(async () => {
-        const { status, payload } = await getPopupLlinkList()
+    const handleGetPopupLinkList = useCallback(async () => {
+        const { status, payload } = await getPopupLinkList()
         if (status) {
             setPopupManageDetailState(prevState => ({
                 ...prevState,
@@ -64,6 +67,25 @@ const PopupManageDetailMain = () => {
         }
     }, [setPopupManageDetailState])
 
+    const handleGetViewPageList = useCallback(async () => {
+        const { status, payload } = await getViewPageList()
+        if (status) {
+            setPopupManageDetailState(prevState => ({
+                ...prevState,
+                viewPageList: payload.POPUP_VIEW_PAGE_LIST,
+            }))
+            setPageState(prevState => ({
+                ...prevState,
+                viewPageListGetState: true,
+            }))
+        } else {
+            setPageState(prevState => ({
+                ...prevState,
+                viewPageListGetState: false,
+            }))
+        }
+    }, [setPopupManageDetailState])
+
     const handleInfoSave = async () => {
         setPopupManageDetailState(prevState => ({
             ...prevState,
@@ -73,6 +95,7 @@ const PopupManageDetailMain = () => {
         const {
             POPUP_SJ,
             POPUP_CN,
+            DISPLAY_CODE,
             GLAN_TY,
             GLAN_VALUE,
             POPUP_BGNDT,
@@ -86,6 +109,7 @@ const PopupManageDetailMain = () => {
         const { status } = await postPopupAdd({
             POPUP_SJ: POPUP_SJ,
             POPUP_CN: POPUP_CN,
+            DISPLAY_CODE: DISPLAY_CODE,
             GLAN_TY: GLAN_TY,
             GLAN_VALUE: GLAN_VALUE,
             POPUP_BGNDT: POPUP_BGNDT,
@@ -139,6 +163,7 @@ const PopupManageDetailMain = () => {
             PK,
             POPUP_SJ,
             POPUP_CN,
+            DISPLAY_CODE,
             GLAN_TY,
             GLAN_VALUE,
             POPUP_BGNDT,
@@ -154,6 +179,7 @@ const PopupManageDetailMain = () => {
             PK: PK,
             POPUP_SJ: POPUP_SJ,
             POPUP_CN: POPUP_CN,
+            DISPLAY_CODE: DISPLAY_CODE,
             GLAN_TY: GLAN_TY,
             GLAN_VALUE: GLAN_VALUE,
             POPUP_BGNDT: POPUP_BGNDT,
@@ -249,8 +275,12 @@ const PopupManageDetailMain = () => {
     }
 
     useEffect(() => {
-        handleGetList().then()
-    }, [handleGetList])
+        handleGetPopupLinkList().then()
+    }, [handleGetPopupLinkList])
+
+    useEffect(() => {
+        handleGetViewPageList().then()
+    }, [handleGetViewPageList])
 
     useEffect(() => {
         const funcChceckPageMode = () => {
@@ -275,16 +305,22 @@ const PopupManageDetailMain = () => {
     return (
         <Container>
             <LeftWapper>
-                {pageState.pageMode !== `` && pageState.linkListGetState && (
-                    <PopupManageDetailTable
-                        HandleDelete={({ popupPk }) => handleDelete(popupPk)}
-                        PageMode={pageState.pageMode}
-                        DetailPk={POPUP_PK ? POPUP_PK : ``}
-                        HandleGetInfo={({ popupPk }) => handleGetInfo(popupPk)}
-                        HandleInfoSave={() => handleInfoSave()}
-                        HandleInfoUpdate={() => handleInfoUpdate()}
-                    />
-                )}
+                {pageState.pageMode !== `` &&
+                    pageState.linkListGetState &&
+                    pageState.viewPageListGetState && (
+                        <PopupManageDetailTable
+                            HandleDelete={({ popupPk }) =>
+                                handleDelete(popupPk)
+                            }
+                            PageMode={pageState.pageMode}
+                            DetailPk={POPUP_PK ? POPUP_PK : ``}
+                            HandleGetInfo={({ popupPk }) =>
+                                handleGetInfo(popupPk)
+                            }
+                            HandleInfoSave={() => handleInfoSave()}
+                            HandleInfoUpdate={() => handleInfoUpdate()}
+                        />
+                    )}
             </LeftWapper>
         </Container>
     )
