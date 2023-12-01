@@ -79,6 +79,8 @@ export interface PopupManageListItemInterface {
     PK: string
     POPUP_SJ: string
     POPUP_CN: string
+    DISPLAY_CODE: string
+    DISPLAY_CODE_NM: string
     GLAN_TY: string
     GLAN_VALUE: string
     POPUP_BGNDT: string
@@ -90,6 +92,8 @@ export interface PopupManageListItemInterface {
     BIG_IMG_ATCHMNFL_NO: string
     REGIST_DT: string
     REGIST_MBER_NO: number
+    CLICK_CNT: number
+    DISPLAY_CNT: number
 }
 
 // 팝업 관리 리스트 인터페이스
@@ -102,6 +106,7 @@ export interface PopupManageDetailInterface {
     PK: string
     POPUP_SJ: string
     POPUP_CN: string
+    DISPLAY_CODE: string
     GLAN_TY: string
     GLAN_VALUE: string
     POPUP_BGNDT: string
@@ -128,7 +133,7 @@ export interface PopupManageDetailInterface {
     UPDATE_DT: string | null
 }
 
-export interface PopupLlinkListItemInterface {
+export interface PopupLinkListItemInterface {
     GROUP_CODE: string
     IEM_CODE: string
     IEM_NM: string
@@ -136,6 +141,33 @@ export interface PopupLlinkListItemInterface {
 }
 
 // 앱 내 바로가기 링크 리스트 인터페이스
-export interface PopupLlinkListInterface {
-    POPUP_CODE_LIST: PopupLlinkListItemInterface[]
+export interface PopupLinkListInterface {
+    POPUP_CODE_LIST: PopupLinkListItemInterface[]
+}
+
+export interface ViewPageListItemInterface {
+    GROUP_CODE: string
+    IEM_CODE: string
+    IEM_NM: string
+    USE_AT: string
+}
+
+export interface ViewPageListInterface {
+    POPUP_VIEW_PAGE_LIST: ViewPageListItemInterface[]
+}
+
+export interface PopupCountListItem {
+    MBER_NO: string
+    NM: string
+    REGIST_DT: string
+}
+
+// 팝업 노출수 현황
+export interface PopupViewMberListInterface {
+    DISPLAY_MEMBER_LIST: PopupCountListItem[]
+}
+
+//팝업 클릭수 현황
+export interface PopupClickMberListInterface {
+    CLICK_MEMBER_LIST: PopupCountListItem[]
 }

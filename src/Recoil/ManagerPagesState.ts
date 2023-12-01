@@ -6,7 +6,9 @@ import {
     StplatListInterface,
     PopupManageListItemInterface,
     PopupManageDetailInterface,
-    PopupLlinkListItemInterface,
+    PopupLinkListItemInterface,
+    ViewPageListItemInterface,
+    PopupCountListItem,
 } from '@Type/MangerTypes'
 import {
     DefaultStatus,
@@ -221,6 +223,10 @@ interface PopupManageListStateInterface {
     list: {
         POPUP_INFO: PopupManageListItemInterface[]
     }
+    countModal: {
+        satus: DefaultStatus
+        list: PopupCountListItem[]
+    }
 }
 
 // 팝업 관리 리스트
@@ -234,13 +240,18 @@ export const PopupManageListState = atom<PopupManageListStateInterface>({
         list: {
             POPUP_INFO: [],
         },
+        countModal: {
+            satus: 'idle',
+            list: [],
+        },
     },
 })
 
 interface PopupManageDetailStateInterface {
     status: DefaultStatus
     info: PopupManageDetailInterface
-    linkList: PopupLlinkListItemInterface[]
+    linkList: PopupLinkListItemInterface[]
+    viewPageList: ViewPageListItemInterface[]
 }
 
 // 팝업 관리 상세
@@ -252,6 +263,7 @@ export const PopupManageDetailState = atom<PopupManageDetailStateInterface>({
             PK: ``,
             POPUP_SJ: ``,
             POPUP_CN: ``,
+            DISPLAY_CODE: ``,
             GLAN_TY: `A`,
             GLAN_VALUE: ``,
             POPUP_BGNDT: ``,
@@ -278,5 +290,6 @@ export const PopupManageDetailState = atom<PopupManageDetailStateInterface>({
             UPDATE_DT: null,
         },
         linkList: [],
+        viewPageList: [],
     },
 })

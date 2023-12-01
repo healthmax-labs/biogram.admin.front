@@ -188,3 +188,22 @@ export const CommonListTableStyle = {
         }
     ),
 }
+
+export const ModalDefaultTableStyle = {
+    TableBox: tw.div`overflow-x-auto relative shadow-md`,
+    InputWapper: tw.div`pb-1`,
+    TableWapper: tw.table`w-full bg-transparent border-collapse items-center`,
+    TableHeader: tw.thead`w-full text-left text-white text-xs h-8`,
+    HeaderRow: tw.tr`w-full flex bg-steel items-center`,
+    HeaderCell: tw.th`p-4 w-2/4 px-3 align-middle py-1 text-xs uppercase border-l-2 border-r-2 whitespace-nowrap text-center text-white border-gray-500`,
+    TableBody: tw.tbody`w-full h-[50vh] bg-gray-100 flex flex-col text-center items-center justify-between overflow-y-scroll`,
+    TableBodyRow: styled.tr(({ BgState }: { BgState: boolean }) => [
+        BgState
+            ? tw`flex w-full bg-white h-8 items-center border-b-2`
+            : tw`flex w-full h-8 items-center border-b-2`,
+    ]),
+    TableBodyCell: tw.td`text-center justify-center w-2/4 py-2 h-8 text-xs border-r-2 text-gray-500 border-gray-100`,
+    TableBodyEmptyCell: tw.td`text-center justify-center w-2/4 py-2 h-8 text-xs border-r-2 text-gray-500 border-gray-100`,
+    ItemWapper: tw.div`flex items-center justify-center mb-1 ml-3`,
+    ItemCols: tw.div`grid grid-cols-1`,
+}

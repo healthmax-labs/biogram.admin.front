@@ -98,7 +98,7 @@ const MemberListManageBox = ({
                 },
             }))
 
-            await setExcelDownloadProps(prevState => ({
+            setExcelDownloadProps(prevState => ({
                 ...prevState,
                 FileName:
                     instNo && instNm

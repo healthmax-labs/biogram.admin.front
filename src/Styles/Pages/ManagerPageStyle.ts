@@ -22,5 +22,10 @@ export const DetailPageStyle = {
             ShortcutsItem: tw.div`flex p-1`,
             ShortcutsItemFull: tw.div`flex w-full p-1`,
         },
+        ListClickModal: {
+            ButtonBox: tw.div`pb-1`,
+            ButtonWapper: tw.div`flex flex-nowrap w-full flex-row gap-1`,
+            ButtonFlex: tw.div`flex w-full justify-end`,
+        },
     },
 }

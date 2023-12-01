@@ -887,4 +887,12 @@ export default {
             Data: [],
         },
     },
+    Manager: {
+        PopupManageCountModal: {
+            FileName: `팝업_노출수_${getNowDateDetail()}`,
+            SheetName: `팝업 노출수`,
+            Header: [['회원번호', '이름', '일시']],
+            Data: [],
+        },
+    },
 }
