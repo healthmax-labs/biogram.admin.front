@@ -187,6 +187,10 @@ const VaryLineChartSleep = ({
 
             return str_hour
         }
+
+        return () => {
+            root.dispose()
+        }
     })
 
     return (
