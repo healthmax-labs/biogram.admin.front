@@ -10,6 +10,7 @@ import {
     getMngDashDoardMberInfoAges,
     getMngGndnDashBoardMybodyScoreImprvm,
     getMngDashboardMesureInfoTotal,
+    getDashBoardQmuChart,
 } from '@Service/DashBoardService'
 import _ from 'lodash'
 
@@ -266,9 +267,12 @@ export default function useDashBoard() {
                         ...prevState,
                         mesureInfo: {
                             ...prevState.mesureInfo,
-                            list: _.map(payload.MESURE_INFO_LIST, e => {
-                                return e
-                            }),
+                            list: _.sortBy(
+                                _.map(payload.MESURE_INFO_LIST, e => {
+                                    return e
+                                }),
+                                'MESURE_DE'
+                            ),
                         },
                         mesureInfoZone: {
                             ...prevState.mesureInfoZone,
@@ -371,6 +375,39 @@ export default function useDashBoard() {
                 }
             }
 
+            const getDashBoardQmuChartData = async () => {
+                setDashBoardPageState(prevState => ({
+                    ...prevState,
+                    qmu: {
+                        ...prevState.qmu,
+                        status: 'loading',
+                    },
+                }))
+
+                const { status, payload } = await getDashBoardQmuChart({
+                    instNo: instNo,
+                })
+                if (status) {
+                    setDashBoardPageState(prevState => ({
+                        ...prevState,
+                        qmu: {
+                            ...prevState.qmu,
+                            status: 'success',
+                            list: _.sortBy(payload.QMU_CHART_LIST, 'USE_DT'),
+                        },
+                    }))
+                } else {
+                    setDashBoardPageState(prevState => ({
+                        ...prevState,
+                        qmu: {
+                            ...prevState.qmu,
+                            status: 'failure',
+                            list: [],
+                        },
+                    }))
+                }
+            }
+
             getMberInfo().then()
             getMemberGenderList().then()
             getAgeGroup().then()
@@ -379,6 +416,7 @@ export default function useDashBoard() {
             getriskGroupDormantMember().then()
             getDashboardMesureInfoTotal().then()
             getMybodyScoreImprvm().then()
+            getDashBoardQmuChartData().then()
 
             setDashBoardPageState(prevState => ({
                 ...prevState,

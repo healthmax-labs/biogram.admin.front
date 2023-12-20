@@ -7,6 +7,7 @@ import {
     MemberInfoInterface,
     MesureInfoTotalResultInterface,
     MybodyScoreImprvmInterface,
+    QmuChartResultInterface,
     RiskFctrListInterface,
     RiskGroupDormantMemberInterface,
 } from '@Type/DashBoardTypes'
@@ -201,6 +202,27 @@ export const getMngDashboardMesureInfoTotal = ({
     return _Axios_({
         method: 'post',
         url: `/mng/v1/dash_board/mesure_info/total`,
+        payload: payload,
+    })
+}
+
+export const getDashBoardQmuChart = ({
+    instNo,
+}: {
+    instNo: number | null
+}): Promise<ServicesDefaultResult<QmuChartResultInterface>> => {
+    const payload: {
+        INST_NO?: number | null
+    } = {
+        INST_NO: instNo,
+    }
+
+    if (_.isNull(payload.INST_NO)) {
+        delete payload.INST_NO
+    }
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/dash_board/qmuChart`,
         payload: payload,
     })
 }

@@ -68,8 +68,9 @@ export interface RiskGroupDormantMemberInterface {
 // 측정 현황
 export interface MesureInfoItemInterface {
     MESURE_DE: string
-    TT_CNT: number
+    TM_CNT: number
     TD_CNT: number
+    TQ_CNT: number
 }
 
 export interface MesureInfoInterface {
@@ -90,6 +91,7 @@ export interface MesureInfoZoneInterface {
 export interface MesureInfoZoneDeviceItemInterface {
     MT_CNT: number
     TD_CNT: number
+    QT_CNT: number
     MESURE_TY: string
 }
 
@@ -114,14 +116,16 @@ export interface MybodyScoreImprvmInterface {
 
 // 측정현황 통합
 export interface MesureInfoTotalResultMesureInfoListItemInterface {
-    TT_CNT: number
+    TM_CNT: number
     MESURE_DE: string
     TD_CNT: number
+    TQ_CNT: number
 }
 
 export interface MesureInfoTotalResultMesureDeviceListItemInterface {
     MT_CNT: number
     TD_CNT: number
+    QT_CNT: number
     MESURE_TY: string
 }
 
@@ -134,4 +138,15 @@ export interface MesureInfoTotalResultInterface {
     MESURE_INFO_LIST: MesureInfoTotalResultMesureInfoListItemInterface[]
     MESURE_DEVICE_LIST: MesureInfoTotalResultMesureDeviceListItemInterface[]
     MESURE_TOTAL_LIST: MesureInfoTotalResultMesureTotalListItemInterface[]
+}
+
+export interface QmuChartItemInterface {
+    TM_CNT: number
+    USE_DT: string
+    TD_CNT: number
+    TQ_CNT: number
+}
+
+export interface QmuChartResultInterface {
+    QMU_CHART_LIST: QmuChartItemInterface[]
 }

@@ -19,6 +19,11 @@ export default {
                 { code: 'TD', name: `오늘` },
                 { code: 'TT', name: `전체(6개월)` },
             ],
+            type5: [
+                { code: 'DT', name: `오늘` },
+                { code: 'MT', name: `최근 30일` },
+                { code: 'QT', name: `최근 90일` },
+            ],
         },
         cycleCode: {
             name: `날짜 주기 코드`,
