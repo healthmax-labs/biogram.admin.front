@@ -8,6 +8,8 @@ export { default as VaryLineChart } from './Charts/VaryLineChart'
 export { default as VaryLineChartMember } from './Charts/VaryLineChartMember'
 export { default as VaryLineChartActivity } from './Charts/VaryLineChartActivity'
 export { default as VaryLineChartSleep } from './Charts/VaryLineChartSleep'
+export { default as VaryThreeLineChart } from './Charts/VaryThreeLineChart'
+export { default as VarySingleLineChart } from './Charts/VarySingleLineChart'
 
 export { default as PstinstSelector } from './Features/PstinstSelector'
 export { default as PstinstSelectBox } from './Features/PstinstSelectBox'

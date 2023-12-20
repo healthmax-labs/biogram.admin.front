@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DefaultSearchButton, PstinstSelector, VaryLabel } from '@Elements'
 import GeonDaonContentCard from './GeonDaonContentCard'
 import GeonDaonChartCard from './GeonDaonChartCard'
@@ -28,6 +28,14 @@ const {
     },
 } = DashboardStyle
 
+type QmuChartType = string | `total` | `dmu` | `mmu` | `qmu`
+
+const initializeState = {
+    qmuchart: {
+        gubun: 'total',
+    },
+}
+
 const GeonDaonDashboard = () => {
     const [dashBoardPageState, setDashBoardPageState] =
         useRecoilState(DashBoardPageState)
@@ -35,12 +43,38 @@ const GeonDaonDashboard = () => {
     const { handleGetGeonDaonData } = useDashBoard()
     const { handlMainAlert } = useMainLayouts()
 
+    const [pageState, setPageState] = useState<{
+        qmuchart: {
+            gubun: QmuChartType
+        }
+    }>(initializeState)
+
     const myData = Codes.myData.flatMap(i => i.list)
     const DeviceCode = Codes.StatisticsDeviceCode.flatMap(i => i.list)
 
     const handleSEarchButtonClick = () => {
         handleGetGeonDaonData(dashBoardPageState.instNo)
     }
+
+    const handleClickQmuChatGubun = ({ gubun }: { gubun: QmuChartType }) => {
+        setPageState(prevState => ({
+            ...prevState,
+            qmuchart: {
+                ...prevState.qmuchart,
+                gubun: gubun,
+            },
+        }))
+    }
+
+    useEffect(() => {
+        setDashBoardPageState(prevState => ({
+            ...prevState,
+            qmu: {
+                ...prevState.qmu,
+                status: `success`,
+            },
+        }))
+    }, [pageState.qmuchart.gubun, setDashBoardPageState])
 
     return (
         <Container>
@@ -108,6 +142,7 @@ const GeonDaonDashboard = () => {
                         <WapperCol>
                             <FlexFull>
                                 <GeonDaonChartCard
+                                    LineCount={2}
                                     Loading={
                                         dashBoardPageState.member.status ===
                                         'loading'
@@ -516,6 +551,7 @@ const GeonDaonDashboard = () => {
                         <WapperCol>
                             <FlexFull>
                                 <GeonDaonChartCard
+                                    LineCount={3}
                                     Loading={
                                         dashBoardPageState.mesureInfo.status ===
                                         'loading'
@@ -532,11 +568,14 @@ const GeonDaonDashboard = () => {
                                     }
                                     RightTitle={
                                         <>
-                                            <p className="flex text-xs pl-1 text-teal-600">
+                                            <p className="flex text-xs pl-1 text-red-600">
                                                 ∎ 오늘
                                             </p>
-                                            <p className="flex text-xs pl-1">
+                                            <p className="flex text-xs pl-1 text-blue-600">
                                                 ∎ 최근 30일
+                                            </p>
+                                            <p className="flex text-xs pl-1 text-teal-600">
+                                                ∎ 최근 90일
                                             </p>
                                         </>
                                     }
@@ -547,13 +586,288 @@ const GeonDaonDashboard = () => {
                                                   mesure => {
                                                       return {
                                                           Date: mesure.MESURE_DE,
-                                                          Value1: mesure.TT_CNT,
+                                                          Value1: mesure.TM_CNT,
                                                           Value2: mesure.TD_CNT,
+                                                          Value3: mesure.TQ_CNT,
                                                       }
                                                   }
                                               )
                                             : []
                                     }
+                                    Data1Color={`#FF0000`}
+                                    Data2Color={`#0000FF`}
+                                    Data3Color={`#008080`}
+                                />
+                            </FlexFull>
+                            <FlexFull>
+                                <GeonDaonChartCard
+                                    LineCount={(() => {
+                                        if (
+                                            pageState.qmuchart.gubun === 'total'
+                                        ) {
+                                            return 3
+                                        } else {
+                                            return 1
+                                        }
+                                    })()}
+                                    Loading={
+                                        dashBoardPageState.qmu.status ===
+                                        'loading'
+                                    }
+                                    LeftTitle={
+                                        <>
+                                            <p className="flex text-xs">QMU</p>
+                                            <p className="flex text-little object-bottom pl-1">
+                                                (단위: 명)
+                                            </p>
+
+                                            <div className="flex pl-1 items-stretch">
+                                                <div>
+                                                    <span className="group relative">
+                                                        <div className="absolute bottom-[calc(100%+0.5rem)] left-[50%] -translate-x-[50%] hidden group-hover:block w-auto">
+                                                            <div className="bottom-full right-0 rounded bg-black px-4 py-1 text-xs text-white whitespace-nowrap">
+                                                                <p className="text-xs">
+                                                                    측정(혈압,
+                                                                    허리둘레,
+                                                                    혈당,
+                                                                    중성지방,
+                                                                    고밀도콜레스테롤,
+                                                                    스트레스를
+                                                                    측정)
+                                                                    서비스와
+                                                                </p>
+                                                                <p className="text-xs">
+                                                                    모바일 건강
+                                                                    서비스(모바일
+                                                                    앱 기반 보행
+                                                                    수 측정,
+                                                                    마인드미러,
+                                                                    설문조사
+                                                                    서비스)를
+                                                                    사용한 순
+                                                                    이용자 수
+                                                                </p>
+                                                                <br />
+                                                                <p className="text-xs">
+                                                                    DMU : 1일
+                                                                    기준 / MMU :
+                                                                    최근 30일
+                                                                    기준 / QMU :
+                                                                    최근 90일
+                                                                    기준
+                                                                </p>
+                                                                <svg
+                                                                    className="absolute left-0 top-full h-2 w-full text-black"
+                                                                    x="0px"
+                                                                    y="0px"
+                                                                    viewBox="0 0 255 255">
+                                                                    <polygon
+                                                                        className="fill-current"
+                                                                        points="0,0 127.5,127.5 255,0"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.7}
+                                                            stroke="gray"
+                                                            className="w-4 h-4 cursor-pointer">
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
+                                                            />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
+                                    RightTitle={
+                                        <>
+                                            <p
+                                                className="flex text-xs pl-1 text-gray-600 cursor-pointer"
+                                                onClick={() => {
+                                                    if (
+                                                        pageState.qmuchart
+                                                            .gubun === 'total'
+                                                    ) {
+                                                        return
+                                                    }
+                                                    setDashBoardPageState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            qmu: {
+                                                                ...prevState.qmu,
+                                                                status: `loading`,
+                                                            },
+                                                        })
+                                                    )
+
+                                                    handleClickQmuChatGubun({
+                                                        gubun: `total`,
+                                                    })
+                                                }}>
+                                                ∎ 전체보기
+                                            </p>
+                                            <p
+                                                className="flex text-xs pl-1 text-orange-600 cursor-pointer"
+                                                onClick={() => {
+                                                    if (
+                                                        pageState.qmuchart
+                                                            .gubun === 'dmu'
+                                                    ) {
+                                                        return
+                                                    }
+                                                    setDashBoardPageState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            qmu: {
+                                                                ...prevState.qmu,
+                                                                status: `loading`,
+                                                            },
+                                                        })
+                                                    )
+
+                                                    handleClickQmuChatGubun({
+                                                        gubun: `dmu`,
+                                                    })
+                                                }}>
+                                                ∎ DMU
+                                            </p>
+                                            <p
+                                                className="flex text-xs pl-1 text-blue-600 cursor-pointer"
+                                                onClick={() => {
+                                                    if (
+                                                        pageState.qmuchart
+                                                            .gubun === 'mmu'
+                                                    ) {
+                                                        return
+                                                    }
+                                                    setDashBoardPageState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            qmu: {
+                                                                ...prevState.qmu,
+                                                                status: `loading`,
+                                                            },
+                                                        })
+                                                    )
+
+                                                    handleClickQmuChatGubun({
+                                                        gubun: `mmu`,
+                                                    })
+                                                }}>
+                                                ∎ MMU
+                                            </p>
+                                            <p
+                                                className="flex text-xs pl-1 text-teal-600 cursor-pointer "
+                                                onClick={() => {
+                                                    if (
+                                                        pageState.qmuchart
+                                                            .gubun === 'qmu'
+                                                    ) {
+                                                        return
+                                                    }
+
+                                                    setDashBoardPageState(
+                                                        prevState => ({
+                                                            ...prevState,
+                                                            qmu: {
+                                                                ...prevState.qmu,
+                                                                status: `loading`,
+                                                            },
+                                                        })
+                                                    )
+                                                    handleClickQmuChatGubun({
+                                                        gubun: `qmu`,
+                                                    })
+                                                }}>
+                                                ∎ QMU
+                                            </p>
+                                        </>
+                                    }
+                                    ChartData={(() => {
+                                        if (
+                                            pageState.qmuchart.gubun === 'dmu'
+                                        ) {
+                                            return dashBoardPageState.qmu.list
+                                                .length > 0
+                                                ? dashBoardPageState.qmu.list.map(
+                                                      mesure => {
+                                                          return {
+                                                              Date: mesure.USE_DT,
+                                                              Value1: mesure.TD_CNT,
+                                                          }
+                                                      }
+                                                  )
+                                                : []
+                                        } else if (
+                                            pageState.qmuchart.gubun === 'mmu'
+                                        ) {
+                                            return dashBoardPageState.qmu.list
+                                                .length > 0
+                                                ? dashBoardPageState.qmu.list.map(
+                                                      mesure => {
+                                                          return {
+                                                              Date: mesure.USE_DT,
+                                                              Value1: mesure.TM_CNT,
+                                                          }
+                                                      }
+                                                  )
+                                                : []
+                                        } else if (
+                                            pageState.qmuchart.gubun === 'qmu'
+                                        ) {
+                                            return dashBoardPageState.qmu.list
+                                                .length > 0
+                                                ? dashBoardPageState.qmu.list.map(
+                                                      mesure => {
+                                                          return {
+                                                              Date: mesure.USE_DT,
+                                                              Value1: mesure.TQ_CNT,
+                                                          }
+                                                      }
+                                                  )
+                                                : []
+                                        }
+
+                                        return dashBoardPageState.qmu.list
+                                            .length > 0
+                                            ? dashBoardPageState.qmu.list.map(
+                                                  mesure => {
+                                                      return {
+                                                          Date: mesure.USE_DT,
+                                                          Value1: mesure.TM_CNT,
+                                                          Value2: mesure.TD_CNT,
+                                                          Value3: mesure.TQ_CNT,
+                                                      }
+                                                  }
+                                              )
+                                            : []
+                                    })()}
+                                    Data1Color={(() => {
+                                        if (
+                                            pageState.qmuchart.gubun === 'dmu'
+                                        ) {
+                                            return `#FF0000`
+                                        } else if (
+                                            pageState.qmuchart.gubun === 'mmu'
+                                        ) {
+                                            return `#0000FF`
+                                        } else if (
+                                            pageState.qmuchart.gubun === 'qmu'
+                                        ) {
+                                            return `#008080`
+                                        } else {
+                                            return `#FF0000`
+                                        }
+                                    })()}
+                                    Data2Color={`#0000FF`}
+                                    Data3Color={`#008080`}
                                 />
                             </FlexFull>
                             <FlexNowrapFull>
@@ -576,7 +890,7 @@ const GeonDaonDashboard = () => {
                                                         </p>
                                                     </>
                                                 }
-                                                Items={Codes.etc.dayCode.type2.map(
+                                                Items={Codes.etc.dayCode.type5.map(
                                                     day => {
                                                         const findData = _.find(
                                                             dashBoardPageState
@@ -640,8 +954,11 @@ const GeonDaonDashboard = () => {
                                                         <p className="flex text-xs pl-1 text-blue-600">
                                                             ∎ 오늘
                                                         </p>
-                                                        <p className="flex text-xs pl-1">
+                                                        <p className="flex text-xs pl-1 text-orange-600">
                                                             ∎ 최근 30일
+                                                        </p>
+                                                        <p className="flex text-xs pl-1">
+                                                            ∎ 최근 90일
                                                         </p>
                                                     </>
                                                 }
@@ -676,6 +993,16 @@ const GeonDaonDashboard = () => {
                                                                 name: addComma(
                                                                     Number(
                                                                         e.MT_CNT
+                                                                    )
+                                                                ),
+                                                                textAlign:
+                                                                    'right',
+                                                                color: 'orange',
+                                                            },
+                                                            {
+                                                                name: addComma(
+                                                                    Number(
+                                                                        e.QT_CNT
                                                                     )
                                                                 ),
                                                                 textAlign:

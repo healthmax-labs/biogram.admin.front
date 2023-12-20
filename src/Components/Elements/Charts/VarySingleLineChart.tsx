@@ -8,14 +8,14 @@ const {
     LineChart: { Container, Wapper },
 } = VaryLineChartStyle
 
-const VaryLineChart = ({
+const VarySingleLineChart = ({
     ChartID,
     Data1,
-    Data2,
+    Data1Color = `#008080`,
 }: {
     ChartID: string
     Data1: Array<{ date: string; value: number }>
-    Data2: Array<{ date: string; value: number }>
+    Data1Color?: string
 }) => {
     useLayoutEffect(() => {
         am5.addLicense('AM5C488111')
@@ -81,15 +81,6 @@ const VaryLineChart = ({
         })
         xRenderer.grid.template.set('visible', false)
 
-        const xAxis2 = chart.xAxes.push(
-            am5xy.CategoryAxis.new(root, {
-                categoryField: 'date',
-                visible: false,
-                renderer: am5xy.AxisRendererX.new(root, {}),
-                // tooltip: am5.Tooltip.new(root, {}),
-            })
-        )
-
         const yAxis = chart.yAxes.push(
             am5xy.ValueAxis.new(root, {
                 min: 0,
@@ -99,27 +90,10 @@ const VaryLineChart = ({
 
         const yRenderer = yAxis.get('renderer')
         yRenderer.labels.template.setAll({
-            fill: am5.color(0x047481),
-            fontSize: '0.6em',
-        })
-
-        const yAxis2 = chart.yAxes.push(
-            am5xy.ValueAxis.new(root, {
-                renderer: am5xy.AxisRendererY.new(root, {
-                    opposite: true,
-                }),
-            })
-        )
-
-        const yRenderer2 = yAxis2.get('renderer')
-        yRenderer2.labels.template.setAll({
             fill: am5.color(0x0000000),
             fontSize: '0.6em',
         })
-        yRenderer2.grid.template.set('visible', false)
 
-        // Add series
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
         const series = chart.series.push(
             am5xy.LineSeries.new(root, {
                 name: 'Series',
@@ -127,7 +101,7 @@ const VaryLineChart = ({
                 yAxis: yAxis,
                 valueYField: 'value',
                 categoryXField: 'date',
-                stroke: am5.color(0x047481),
+                stroke: am5.color(Data1Color),
             })
         )
 
@@ -139,70 +113,22 @@ const VaryLineChart = ({
             labelText: '{date}\n{value}',
         })
         tooltip.get('background')?.setAll({
-            fill: am5.color(0xffffff),
+            fill: am5.color(Data1Color),
             fillOpacity: 0.8,
-            stroke: am5.color(0x047481),
+            stroke: am5.color(Data1Color),
             strokeOpacity: 0.8,
         })
         tooltip.get('tooltip')?.label.set('text', '{valueX}: {valueY}')
         tooltip.label.setAll({
-            fill: am5.color(0x047481),
+            fill: am5.color(0xffffff),
         })
         series.set('tooltip', tooltip)
-        const series2 = chart.series.push(
-            am5xy.LineSeries.new(root, {
-                name: 'Series',
-                xAxis: xAxis2,
-                yAxis: yAxis2,
-                valueYField: 'value',
-                categoryXField: 'date',
-                stroke: am5.color(0x0000000),
-            })
-        )
-        const tooltip2 = am5.Tooltip.new(root, {
-            getFillFromSprite: true,
-            getStrokeFromSprite: true,
-            autoTextColor: true,
-            getLabelFillFromSprite: true,
-            labelText: '{date}\n{value}',
-        })
-        tooltip2.get('background')?.setAll({
-            fill: am5.color(0xffffff),
-            fillOpacity: 0.8,
-            stroke: am5.color(0x0000000),
-            strokeOpacity: 0.8,
-        })
-        tooltip2.label.setAll({
-            fill: am5.color(0x0000000),
-        })
-        series2.set('tooltip', tooltip2)
-        // Add scrollbar
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-        // chart.set(
-        //     'scrollbarX',
-        //     am5.Scrollbar.new(root, {
-        //         orientation: 'horizontal',
-        //     })
-        // )
 
-        // Set data
-        // const data = generateDatas(30)
         series.data.setAll(Data1)
         xAxis.data.setAll(Data1)
 
-        // value = 10000
-        // const data2 = generateDatas(30)
-        series2.data.setAll(Data2)
-        xAxis2.data.setAll(Data2)
-
-        // Make stuff animate on load
-        // https://www.amcharts.com/docs/v5/concepts/animations/
-        series.appear(1000)
-        chart.appear(1000, 100)
-
-        return () => {
-            root.dispose()
-        }
+        series.appear(50)
+        chart.appear(50, 100)
 
         // FIXME : 종속성에서 Data1, Data2 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -215,4 +141,4 @@ const VaryLineChart = ({
     )
 }
 
-export default VaryLineChart
+export default VarySingleLineChart
