@@ -130,7 +130,7 @@ const UhealthzoneDetailMain = () => {
                     EXTRL_PERSON_USE_AT:
                         payload.UHEALTH_ZONE_INFO.EXTRL_PERSON_USE_AT,
                     OPEN_AT: payload.UHEALTH_ZONE_INFO.OPEN_AT,
-                    PRINT_AT: payload.UHEALTH_ZONE_INFO.OPEN_AT,
+                    PRINT_AT: payload.UHEALTH_ZONE_INFO.PRINT_AT,
                     JOIN_AT: payload.UHEALTH_ZONE_INFO.JOIN_AT,
                     LOGO_ATCHMNFL_NO:
                         payload.UHEALTH_ZONE_INFO.LOGO_ATCHMNFL_NO,
