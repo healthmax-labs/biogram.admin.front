@@ -59,6 +59,10 @@ import {
     PopupManageListState,
     PopupManageDetailState,
 } from '@Recoil/ManagerPagesState'
+import {
+    NoticeListState as HelperNoticeListState,
+    NoticeDetailState as HelperNoticeDetailState,
+} from '@Recoil/HelperPageState'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
 export default function useRecoilReset() {
@@ -142,6 +146,13 @@ export default function useRecoilReset() {
         PopupManageDetailState
     ) // 팝업 관리 상세
 
+    const HelperNoticeListStateReset = useResetRecoilState(
+        HelperNoticeListState
+    ) // 고객센터 공지사항 리스트
+    const HelperNoticeDetailStateReset = useResetRecoilState(
+        HelperNoticeDetailState
+    ) // 고객센터 공지사항 상세
+
     const AtomPageTabStateReset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
     const resetTask = (recoilKey: RecoilStateKeyNameType): void => {
@@ -200,6 +211,9 @@ export default function useRecoilReset() {
             'managerPage/notice-detail': () => void
             'managerPage/popup-manage-list': () => void
             'managerPage/popup-manage-detail': () => void
+
+            'helper/notice-list': () => void
+            'helper/notice-detail': () => void
 
             'tab/TabState': () => void
         } = {
@@ -266,6 +280,8 @@ export default function useRecoilReset() {
             'managerPage/popup-manage-detail': () =>
                 PopupManageDetailStatetReset(),
 
+            'helper/notice-list': () => HelperNoticeListStateReset(),
+            'helper/notice-detail': () => HelperNoticeDetailStateReset(),
             'tab/TabState': () => AtomPageTabStateReset(),
             default: () => {
                 //

@@ -4,6 +4,9 @@ import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { VaryButton, VaryModal } from '@Elements'
 import { isEmpty } from 'lodash'
+import { VaryImageUploadStyle } from '@Style/Elements/InputStyles'
+
+const { FileInputWapper } = VaryImageUploadStyle
 
 const initializeState = {
     SelectFile: null,
@@ -19,6 +22,8 @@ const VaryImageUpload = ({
     ReturnCallback,
     ShowInform = true,
     HandleDelete,
+    ShowDeleteButton = true,
+    ShowPrevBox = true,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -28,6 +33,8 @@ const VaryImageUpload = ({
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
     ShowInform?: boolean
     HandleDelete?: () => void
+    ShowDeleteButton?: boolean
+    ShowPrevBox?: boolean
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -118,28 +125,30 @@ const VaryImageUpload = ({
 
     return (
         <div className="flex w-full">
-            <div className="w-1/3">
-                <div className="flex bg-gray-50">
-                    {pageState.SelectImagePrev && (
-                        <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
-                            {pageState.SelectImagePrev && (
-                                <img
-                                    className="mx-auto"
-                                    alt="prev-image"
-                                    src={pageState.SelectImagePrev}
-                                    onClick={() => {
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            PrevModal: true,
-                                        }))
-                                    }}
-                                />
-                            )}
-                        </section>
-                    )}
+            {ShowPrevBox && (
+                <div className="w-1/3">
+                    <div className="flex bg-gray-50">
+                        {pageState.SelectImagePrev && (
+                            <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                                {pageState.SelectImagePrev && (
+                                    <img
+                                        className="mx-auto"
+                                        alt="prev-image"
+                                        src={pageState.SelectImagePrev}
+                                        onClick={() => {
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                PrevModal: true,
+                                            }))
+                                        }}
+                                    />
+                                )}
+                            </section>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="w-2/3">
+            )}
+            <FileInputWapper WFull={!ShowPrevBox}>
                 <input
                     className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="small_size"
@@ -156,27 +165,29 @@ const VaryImageUpload = ({
                         최대용량 : 10mb
                     </div>
                 )}
-                <VaryButton
-                    ButtonType={`default`}
-                    ButtonName={`삭제`}
-                    HandleClick={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            SelectFile: null,
-                            SelectFileName: '',
-                            SelectImagePrev: null,
-                            ATCHMNFL_NO: null,
-                            PrevModal: false,
-                        }))
+                {ShowDeleteButton && (
+                    <VaryButton
+                        ButtonType={`default`}
+                        ButtonName={`삭제`}
+                        HandleClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                SelectFile: null,
+                                SelectFileName: '',
+                                SelectImagePrev: null,
+                                ATCHMNFL_NO: null,
+                                PrevModal: false,
+                            }))
 
-                        if (inputRef.current != null) {
-                            inputRef.current.value = ''
-                        }
+                            if (inputRef.current != null) {
+                                inputRef.current.value = ''
+                            }
 
-                        HandleDelete && HandleDelete()
-                    }}
-                />
-            </div>
+                            HandleDelete && HandleDelete()
+                        }}
+                    />
+                )}
+            </FileInputWapper>
             {pageState.PrevModal && (
                 <VaryModal
                     ModalLoading={false}

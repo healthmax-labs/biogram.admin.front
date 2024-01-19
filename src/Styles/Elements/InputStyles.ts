@@ -144,3 +144,16 @@ export const VaryLabelStyle = {
 export const VaryLabelTextAreaStyle = {
     TextArea: tw.textarea`block p-2.5 w-full text-xs text-gray-900 bg-gray-100 border-0 focus:ring-blue-500 focus:border-blue-500`,
 }
+
+export const VaryImageUploadStyle = {
+    FileInputWapper1: tw.div`w-2/3`,
+    FileInputWapper: styled.div(({ WFull }: { WFull: boolean }) => {
+        const returnTw = []
+        if (WFull) {
+            returnTw.push(tw`flex w-full`)
+        } else {
+            returnTw.push(tw`w-2/3`)
+        }
+        return returnTw
+    }),
+}
