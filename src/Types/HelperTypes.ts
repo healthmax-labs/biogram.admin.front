@@ -30,5 +30,5 @@ export interface HelperNoticeDetailInterface {
         ATCHMNFL_PATH: string
         ORIGINL_FILE_NM: string
         ATCHMNFL_DOWN_PATH: string
-    }
+    } | null
 }

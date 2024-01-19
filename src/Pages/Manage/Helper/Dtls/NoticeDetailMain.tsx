@@ -44,12 +44,8 @@ const NoticeDetailMain = () => {
     const resetNoticeListState = useResetRecoilState(NoticeListState)
 
     const handleDetailSave = async () => {
-        const {
-            TITLE,
-            CONTENT,
-            USE_YN,
-            ATCHMNFL_INFO: { ATCHMNFL_NO },
-        } = noticeDetailState.detail
+        const { TITLE, CONTENT, USE_YN, ATCHMNFL_INFO } =
+            noticeDetailState.detail
 
         if (TITLE === ``) {
             handlMainAlert({
@@ -76,7 +72,11 @@ const NoticeDetailMain = () => {
             TITLE: TITLE,
             CONTENT: CONTENT,
             USE_YN: USE_YN,
-            ATCHMNFL_NO: ATCHMNFL_NO,
+            ATCHMNFL_NO: ATCHMNFL_INFO
+                ? ATCHMNFL_INFO.ATCHMNFL_NO === ``
+                    ? ``
+                    : ATCHMNFL_INFO.ATCHMNFL_NO
+                : ``,
         })
 
         if (status) {
@@ -143,19 +143,18 @@ const NoticeDetailMain = () => {
             ...prevState,
             status: `loading`,
         }))
-        const {
-            POST_ID,
-            TITLE,
-            CONTENT,
-            USE_YN,
-            ATCHMNFL_INFO: { ATCHMNFL_NO },
-        } = noticeDetailState.detail
+        const { POST_ID, TITLE, CONTENT, USE_YN, ATCHMNFL_INFO } =
+            noticeDetailState.detail
         const { status } = await postNoticeUpdate({
             POST_ID: Number(POST_ID),
             TITLE: TITLE,
             CONTENT: CONTENT,
             USE_YN: USE_YN,
-            ATCHMNFL_NO: ATCHMNFL_NO ? ATCHMNFL_NO : `0`,
+            ATCHMNFL_NO: ATCHMNFL_INFO
+                ? ATCHMNFL_INFO.ATCHMNFL_NO === ``
+                    ? ATCHMNFL_INFO.ATCHMNFL_NO
+                    : `0`
+                : `0`,
         })
 
         if (status) {
@@ -254,8 +253,9 @@ const NoticeDetailMain = () => {
                             HandleDetailDelete={() => handleNoticeDelete()}
                             HandleResetAfterList={() => {
                                 resetNoticeDetailState()
+
                                 handleDeleteTabbyMatchRouter(
-                                    '/manage/helper/notice-list/new'
+                                    '/manage/helper/notice/new'
                                 )
 
                                 handleDeleteTabbyMatchRouter(

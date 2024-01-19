@@ -9,8 +9,10 @@ import {
     VaryLabelCheckBox,
     VaryTextArea,
     VaryImageUpload,
+    ConfirmModal,
 } from '@Element/index'
-import React from 'react'
+import React, { useState } from 'react'
+import Messages from '@Messages'
 
 const {
     TableContainer,
@@ -23,6 +25,13 @@ const {
 } = DetailTableStyle
 
 const { DetailContainer } = DetailPageStyle
+
+const initializeState = {
+    modal: {
+        confirm: false,
+        deleteConfirm: false,
+    },
+}
 
 const NoticeDetailTable = ({
     pageMode,
@@ -37,8 +46,15 @@ const NoticeDetailTable = ({
     HandleDetailDelete: () => void
     HandleResetAfterList: () => void
 }) => {
+    const [pageState, setPageState] = useState<{
+        modal: {
+            confirm: boolean
+            deleteConfirm: boolean
+        }
+    }>(initializeState)
     const [noticeDetailState, setNoticeDetailState] =
         useRecoilState(NoticeDetailState)
+
     return (
         <DetailContainer>
             <TableContainer>
@@ -133,14 +149,18 @@ const NoticeDetailTable = ({
                                 <div className="w-full">
                                     <VaryImageUpload
                                         Image={{
-                                            AtchmnflPath:
-                                                noticeDetailState.detail
-                                                    .ATCHMNFL_INFO
-                                                    .ATCHMNFL_DOWN_PATH,
-                                            OrginlFileNm:
-                                                noticeDetailState.detail
-                                                    .ATCHMNFL_INFO
-                                                    .ORIGINL_FILE_NM,
+                                            AtchmnflPath: noticeDetailState
+                                                .detail.ATCHMNFL_INFO
+                                                ? noticeDetailState.detail
+                                                      .ATCHMNFL_INFO
+                                                      .ATCHMNFL_DOWN_PATH
+                                                : ``,
+                                            OrginlFileNm: noticeDetailState
+                                                .detail.ATCHMNFL_INFO
+                                                ? noticeDetailState.detail
+                                                      .ATCHMNFL_INFO
+                                                      .ORIGINL_FILE_NM
+                                                : ``,
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
@@ -232,7 +252,15 @@ const NoticeDetailTable = ({
                         <VaryButton
                             ButtonType={`default`}
                             ButtonName={`삭제`}
-                            HandleClick={() => HandleDetailDelete()}
+                            HandleClick={() =>
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        deleteConfirm: true,
+                                    },
+                                }))
+                            }
                         />
                     </ButtonItem>
                 )}
@@ -241,9 +269,13 @@ const NoticeDetailTable = ({
                         ButtonType={`default`}
                         ButtonName={`등록`}
                         HandleClick={() =>
-                            pageMode === `modify`
-                                ? HandleDetailUpdate()
-                                : HandleDetailSave()
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    confirm: true,
+                                },
+                            }))
                         }
                     />
                 </ButtonItem>
@@ -257,6 +289,63 @@ const NoticeDetailTable = ({
                     />
                 </ButtonItem>
             </ButtonBox>
+            {pageState.modal.confirm && (
+                <ConfirmModal
+                    Title={Messages.Default.saveConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                confirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                confirm: false,
+                            },
+                        }))
+                        if (pageMode === `modify`) {
+                            HandleDetailUpdate()
+                        } else {
+                            HandleDetailSave()
+                        }
+                    }}
+                />
+            )}
+            {pageState.modal.deleteConfirm && (
+                <ConfirmModal
+                    Title={Messages.Default.deleteConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                deleteConfirm: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                deleteConfirm: false,
+                            },
+                        }))
+
+                        HandleDetailDelete()
+                    }}
+                />
+            )}
         </DetailContainer>
     )
 }

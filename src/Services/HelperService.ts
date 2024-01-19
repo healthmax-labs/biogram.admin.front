@@ -61,7 +61,7 @@ export function postNoticeUpdate({
     TITLE: string
     CONTENT: string
     USE_YN: 'Y' | 'N'
-    ATCHMNFL_NO: string
+    ATCHMNFL_NO: string | null
 }) {
     return _Axios_({
         method: 'post',
@@ -84,6 +84,24 @@ export function postNoticeDelete({
     return _Axios_({
         method: 'post',
         url: `/notice/v1/delete?pk=${POST_ID}`,
+        payload: null,
+    })
+}
+
+export function getNoticeLog({ POST_ID }: { POST_ID: string }): Promise<
+    ServicesDefaultResult<{
+        POST_VIEW_LOG_LIST: Array<{
+            INST_NO: string
+            INST_NM: string
+            NM: string
+            REGIST_ID: string
+            REGIST_DT: string
+        }>
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/notice/v1/log/list?pk=${POST_ID}`,
         payload: null,
     })
 }
