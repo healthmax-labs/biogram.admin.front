@@ -642,7 +642,7 @@ export default {
         {
             mainCode: `80000`,
             menuCode: `80101`,
-            name: `공지사항 등록`,
+            name: `공지사항 상세`,
             pathName: `/manage/helper/notice/:POST_ID/detail`,
             category: `notice`,
             recooilKey: `helperPage/notice-detail`,
@@ -663,6 +663,32 @@ export default {
             reloadButton: false,
             Component: React.lazy(
                 () => import('@Page/Manage/Helper/QnaListPage')
+            ),
+        },
+        {
+            mainCode: `80000`,
+            menuCode: `80201`,
+            name: `질문답변 등록`,
+            pathName: `/manage/helper/qna/new`,
+            category: `qna`,
+            recooilKey: `helperPage/qna-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Helper/QnaDetailPage')
+            ),
+        },
+        {
+            mainCode: `80000`,
+            menuCode: `80201`,
+            name: `질문답변 상세`,
+            pathName: `/manage/helper/qna/:POST_ID/detail`,
+            category: `qna`,
+            recooilKey: `helperPage/qna-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Helper/QnaDetailPage')
             ),
         },
     ],

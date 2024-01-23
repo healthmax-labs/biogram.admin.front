@@ -1,5 +1,7 @@
+import QnaListMain from './Dtls/QnaListMain'
+
 const QnaListPage = () => {
-    return <>QnaListPage</>
+    return <QnaListMain />
 }
 
 export default QnaListPage

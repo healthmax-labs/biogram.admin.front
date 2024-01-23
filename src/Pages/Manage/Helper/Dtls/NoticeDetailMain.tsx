@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import DetailTable from './NoticeDetailTable'
-import { useRecoilState, useResetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import {
     NoticeDetailState,
     NoticeListState,
-    NoticeDetailStateinitialize,
+    NoticeDetailStateInitialize,
 } from '@Recoil/HelperPageState'
 import {
     postNoticeAdd,
@@ -16,12 +16,14 @@ import {
 } from '@Service/HelperService'
 import { useMainLayouts, useTab } from '@Hook/index'
 import Messages from '@Messages'
+import { AtomRootState } from '@Recoil/AppRootState'
 
 const {
     DetailPage: { Container, LeftWapper },
 } = PageContainerStyle
 
 const initializeState = {
+    authority: `view`,
     pageMode: null,
 }
 
@@ -29,11 +31,13 @@ const NoticeDetailMain = () => {
     const navigate = useNavigate()
     const locationState = useLocation()
     const params = useParams<{ POST_ID: string | undefined }>()
+    const RootState = useRecoilValue(AtomRootState)
 
     const { handlMainAlert } = useMainLayouts()
     const { handleDeleteTabbyMatchRouter } = useTab()
 
     const [pageState, setPageState] = useState<{
+        authority: string | `view` | `modify`
         pageMode: `new` | `modify` | null
     }>(initializeState)
 
@@ -100,7 +104,7 @@ const NoticeDetailMain = () => {
             setNoticeDetailState(prevState => ({
                 ...prevState,
                 status: `failure`,
-                detail: NoticeDetailStateinitialize,
+                detail: NoticeDetailStateInitialize,
             }))
 
             handlMainAlert({
@@ -127,6 +131,11 @@ const NoticeDetailMain = () => {
                     detail: payload,
                 }))
             } else {
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+
                 resetNoticeDetailState()
 
                 handlMainAlert({
@@ -152,8 +161,8 @@ const NoticeDetailMain = () => {
             USE_YN: USE_YN,
             ATCHMNFL_NO: ATCHMNFL_INFO
                 ? ATCHMNFL_INFO.ATCHMNFL_NO === ``
-                    ? ATCHMNFL_INFO.ATCHMNFL_NO
-                    : `0`
+                    ? `0`
+                    : ATCHMNFL_INFO.ATCHMNFL_NO
                 : `0`,
         })
 
@@ -222,16 +231,24 @@ const NoticeDetailMain = () => {
     useEffect(() => {
         const funcChceckPageMode = () => {
             const { pathname } = locationState
+            const { INST_NO, AUTH_CODE } = RootState.userinfo
+            let authority = `view`
+
+            if (INST_NO === `1000` && AUTH_CODE === `SM00`) {
+                authority = `modify`
+            }
 
             if (pathname === `/manage/helper/notice/new`) {
                 setPageState(prevState => ({
                     ...prevState,
                     pageMode: `new`,
+                    authority: authority,
                 }))
             } else if (params.POST_ID !== undefined && params.POST_ID) {
                 setPageState(prevState => ({
                     ...prevState,
                     pageMode: `modify`,
+                    authority: authority,
                 }))
 
                 handleGetNotice({ POST_ID: params.POST_ID }).then()
@@ -239,7 +256,7 @@ const NoticeDetailMain = () => {
         }
 
         funcChceckPageMode()
-    }, [handleGetNotice, locationState, params.POST_ID])
+    }, [RootState.userinfo, handleGetNotice, locationState, params.POST_ID])
 
     return (
         <>
@@ -248,6 +265,7 @@ const NoticeDetailMain = () => {
                     <LeftWapper>
                         <DetailTable
                             pageMode={pageState.pageMode}
+                            authority={pageState.authority}
                             HandleDetailSave={() => handleDetailSave()}
                             HandleDetailUpdate={() => handleNoticeUpdate()}
                             HandleDetailDelete={() => handleNoticeDelete()}

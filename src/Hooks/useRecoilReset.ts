@@ -62,6 +62,8 @@ import {
 import {
     NoticeListState as HelperNoticeListState,
     NoticeDetailState as HelperNoticeDetailState,
+    QnaListState as HelperQnaListState,
+    QnaDetailState as HelperQnaDetailState,
 } from '@Recoil/HelperPageState'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
@@ -152,6 +154,8 @@ export default function useRecoilReset() {
     const HelperNoticeDetailStateReset = useResetRecoilState(
         HelperNoticeDetailState
     ) // 고객센터 공지사항 상세
+    const HelperQnaListStateReset = useResetRecoilState(HelperQnaListState)
+    const HelperQnaDetailStateReset = useResetRecoilState(HelperQnaDetailState)
 
     const AtomPageTabStateReset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
@@ -212,8 +216,11 @@ export default function useRecoilReset() {
             'managerPage/popup-manage-list': () => void
             'managerPage/popup-manage-detail': () => void
 
-            'helper/notice-list': () => void
-            'helper/notice-detail': () => void
+            'helperPage/notice-list': () => void
+            'helperPage/notice-detail': () => void
+
+            'helperPage/qna-list': () => void
+            'helperPage/qna-detail': () => void
 
             'tab/TabState': () => void
         } = {
@@ -280,8 +287,10 @@ export default function useRecoilReset() {
             'managerPage/popup-manage-detail': () =>
                 PopupManageDetailStatetReset(),
 
-            'helper/notice-list': () => HelperNoticeListStateReset(),
-            'helper/notice-detail': () => HelperNoticeDetailStateReset(),
+            'helperPage/notice-list': () => HelperNoticeListStateReset(),
+            'helperPage/notice-detail': () => HelperNoticeDetailStateReset(),
+            'helperPage/qna-list': () => HelperQnaListStateReset(),
+            'helperPage/qna-detail': () => HelperQnaDetailStateReset(),
             'tab/TabState': () => AtomPageTabStateReset(),
             default: () => {
                 //

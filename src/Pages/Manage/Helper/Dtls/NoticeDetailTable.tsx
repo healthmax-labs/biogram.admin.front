@@ -35,12 +35,14 @@ const initializeState = {
 
 const NoticeDetailTable = ({
     pageMode,
+    authority,
     HandleDetailSave,
     HandleDetailUpdate,
     HandleDetailDelete,
     HandleResetAfterList,
 }: {
     pageMode: `new` | `modify`
+    authority: string | `view` | `modify`
     HandleDetailSave: () => void
     HandleDetailUpdate: () => void
     HandleDetailDelete: () => void
@@ -52,6 +54,7 @@ const NoticeDetailTable = ({
             deleteConfirm: boolean
         }
     }>(initializeState)
+
     const [noticeDetailState, setNoticeDetailState] =
         useRecoilState(NoticeDetailState)
 
@@ -78,6 +81,7 @@ const NoticeDetailTable = ({
                                             }))
                                         }
                                         id={'id'}
+                                        ReadOnly={authority === `view`}
                                         Placeholder={
                                             '공지사항 제목을 입력해 주세요'
                                         }
@@ -97,9 +101,6 @@ const NoticeDetailTable = ({
                                     <div className="w-full">
                                         <VaryInput
                                             InputType={'text'}
-                                            HandleOnChange={e =>
-                                                console.debug(e)
-                                            }
                                             id={'id'}
                                             ReadOnly={true}
                                             Placeholder={'등록일자'}
@@ -134,6 +135,7 @@ const NoticeDetailTable = ({
                                         Placeholder={
                                             '게시물 제목을 입력해 주세요'
                                         }
+                                        ReadOnly={authority === `view`}
                                         Value={noticeDetailState.detail.CONTENT}
                                     />
                                 </div>
@@ -153,7 +155,7 @@ const NoticeDetailTable = ({
                                                 .detail.ATCHMNFL_INFO
                                                 ? noticeDetailState.detail
                                                       .ATCHMNFL_INFO
-                                                      .ATCHMNFL_DOWN_PATH
+                                                      .ATCHMNFL_PATH
                                                 : ``,
                                             OrginlFileNm: noticeDetailState
                                                 .detail.ATCHMNFL_INFO
@@ -164,6 +166,8 @@ const NoticeDetailTable = ({
                                             Category: 'ETC',
                                         }}
                                         ShowInform={false}
+                                        ShowFileName={true}
+                                        Disabled={authority === `view`}
                                         HandleDelete={() => {
                                             setNoticeDetailState(prevState => ({
                                                 ...prevState,
@@ -201,84 +205,94 @@ const NoticeDetailTable = ({
                             </div>
                         </InputCell>
                     </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`사용 여부`} />
-                        </LabelCell>
-                        <InputCell WFull={true}>
-                            <div className="flex flex-nowrap w-full items-center">
-                                <div className="flex flex-nowrap justify-start gap-2">
-                                    <VaryLabelCheckBox
-                                        LabelName={`사용`}
-                                        Checked={
-                                            noticeDetailState.detail.USE_YN ===
-                                            `Y`
-                                        }
-                                        HandleOnChange={() =>
-                                            setNoticeDetailState(prevState => ({
-                                                ...prevState,
-                                                detail: {
-                                                    ...prevState.detail,
-                                                    USE_YN: `Y`,
-                                                },
-                                            }))
-                                        }
-                                    />
-                                    <VaryLabelCheckBox
-                                        LabelName={`미사용`}
-                                        Checked={
-                                            noticeDetailState.detail.USE_YN ===
-                                            `N`
-                                        }
-                                        HandleOnChange={() =>
-                                            setNoticeDetailState(prevState => ({
-                                                ...prevState,
-                                                detail: {
-                                                    ...prevState.detail,
-                                                    USE_YN: `N`,
-                                                },
-                                            }))
-                                        }
-                                    />
+                    {authority === `modify` && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`사용 여부`} />
+                            </LabelCell>
+                            <InputCell WFull={true}>
+                                <div className="flex flex-nowrap w-full items-center">
+                                    <div className="flex flex-nowrap justify-start gap-2">
+                                        <VaryLabelCheckBox
+                                            LabelName={`사용`}
+                                            Checked={
+                                                noticeDetailState.detail
+                                                    .USE_YN === `Y`
+                                            }
+                                            HandleOnChange={() =>
+                                                setNoticeDetailState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        detail: {
+                                                            ...prevState.detail,
+                                                            USE_YN: `Y`,
+                                                        },
+                                                    })
+                                                )
+                                            }
+                                        />
+                                        <VaryLabelCheckBox
+                                            LabelName={`미사용`}
+                                            Checked={
+                                                noticeDetailState.detail
+                                                    .USE_YN === `N`
+                                            }
+                                            HandleOnChange={() =>
+                                                setNoticeDetailState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        detail: {
+                                                            ...prevState.detail,
+                                                            USE_YN: `N`,
+                                                        },
+                                                    })
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </InputCell>
-                    </Row>
+                            </InputCell>
+                        </Row>
+                    )}
                 </TableWapper>
             </TableContainer>
             <ButtonBox>
-                {pageMode === `modify` && (
-                    <ButtonItem>
-                        <VaryButton
-                            ButtonType={`default`}
-                            ButtonName={`삭제`}
-                            HandleClick={() =>
-                                setPageState(prevState => ({
-                                    ...prevState,
-                                    modal: {
-                                        ...prevState.modal,
-                                        deleteConfirm: true,
-                                    },
-                                }))
-                            }
-                        />
-                    </ButtonItem>
+                {authority === `modify` && (
+                    <>
+                        {pageMode === `modify` && (
+                            <ButtonItem>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`삭제`}
+                                    HandleClick={() =>
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            modal: {
+                                                ...prevState.modal,
+                                                deleteConfirm: true,
+                                            },
+                                        }))
+                                    }
+                                />
+                            </ButtonItem>
+                        )}
+                        <ButtonItem>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName={`등록`}
+                                HandleClick={() =>
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            confirm: true,
+                                        },
+                                    }))
+                                }
+                            />
+                        </ButtonItem>
+                    </>
                 )}
-                <ButtonItem>
-                    <VaryButton
-                        ButtonType={`default`}
-                        ButtonName={`등록`}
-                        HandleClick={() =>
-                            setPageState(prevState => ({
-                                ...prevState,
-                                modal: {
-                                    ...prevState.modal,
-                                    confirm: true,
-                                },
-                            }))
-                        }
-                    />
-                </ButtonItem>
                 <ButtonItem>
                     <VaryButton
                         ButtonType={`default`}

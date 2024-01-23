@@ -150,7 +150,7 @@ export const VaryImageUploadStyle = {
     FileInputWapper: styled.div(({ WFull }: { WFull: boolean }) => {
         const returnTw = []
         if (WFull) {
-            returnTw.push(tw`flex w-full`)
+            returnTw.push(tw`flex w-full flex-wrap`)
         } else {
             returnTw.push(tw`w-2/3`)
         }

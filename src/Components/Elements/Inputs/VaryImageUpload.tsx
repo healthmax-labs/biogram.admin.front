@@ -15,6 +15,7 @@ const initializeState = {
     ATCHMNFL_NO: null,
     Category: '',
     PrevModal: false,
+    OrginlFileNm: '',
 }
 
 const VaryImageUpload = ({
@@ -24,6 +25,8 @@ const VaryImageUpload = ({
     HandleDelete,
     ShowDeleteButton = true,
     ShowPrevBox = true,
+    ShowFileName,
+    Disabled,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -35,6 +38,8 @@ const VaryImageUpload = ({
     HandleDelete?: () => void
     ShowDeleteButton?: boolean
     ShowPrevBox?: boolean
+    ShowFileName?: boolean
+    Disabled?: boolean
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -45,6 +50,7 @@ const VaryImageUpload = ({
         ATCHMNFL_NO: number | null
         Category: string
         PrevModal: boolean
+        OrginlFileNm: string
     }>(initializeState)
 
     const handleChangeSelectImage = (
@@ -57,6 +63,7 @@ const VaryImageUpload = ({
                 ...prevState,
                 SelectFile: file,
                 SelectFileName: file.name,
+                OrginlFileNm: file.name,
             }))
         }
     }
@@ -102,6 +109,7 @@ const VaryImageUpload = ({
                 setPageState(prevState => ({
                     ...prevState,
                     SelectFileName: Image.OrginlFileNm,
+                    OrginlFileNm: Image.OrginlFileNm,
                 }))
             }
 
@@ -109,6 +117,7 @@ const VaryImageUpload = ({
                 setPageState(prevState => ({
                     ...prevState,
                     SelectImagePrev: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${Image.AtchmnflPath}`,
+                    OrginlFileNm: Image.OrginlFileNm,
                 }))
             }
 
@@ -153,8 +162,9 @@ const VaryImageUpload = ({
                     className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="small_size"
                     type="file"
-                    accept="image/*"
+                    // accept="image/*"
                     ref={inputRef}
+                    disabled={Disabled}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         handleChangeSelectImage(e)
                     }
@@ -186,6 +196,23 @@ const VaryImageUpload = ({
                             HandleDelete && HandleDelete()
                         }}
                     />
+                )}
+                {ShowFileName && pageState.OrginlFileNm.length > 0 && (
+                    <div className="w-1/3">
+                        <div className="flex bg-white">
+                            <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                                <div
+                                    className="flex items-center justify-start text-sm"
+                                    onClick={() => {
+                                        if (pageState.SelectImagePrev) {
+                                            window.open(
+                                                pageState.SelectImagePrev
+                                            )
+                                        }
+                                    }}>{`${pageState.OrginlFileNm}`}</div>
+                            </section>
+                        </div>
+                    </div>
                 )}
             </FileInputWapper>
             {pageState.PrevModal && (

@@ -7,13 +7,12 @@ import ListTable from './NoticeListTable'
 import { useRecoilState } from 'recoil'
 import { NoticeListState } from '@Recoil/HelperPageState'
 import { getNoticeList, getNoticeLog } from '@Service/HelperService'
-import { useMainLayouts, useRecoilReset } from '@Hook/index'
+import { useRecoilReset } from '@Hook/index'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { DefaultStatus, RecoilStateKeyNameType } from '@CommonTypes'
 import { VaryButton, VaryModal } from '@Element/index'
 import { ModalDefaultTableStyle as MDTS } from '@Style/Elements/TableStyles'
 import _ from 'lodash'
-import Messages from '@Messages'
 
 const {
     ListPage: { Container },
@@ -34,7 +33,6 @@ const initialzeState = {
 const NoticeListMain = () => {
     const { recoilReset } = useRecoilReset()
     const [tabState, setTabState] = useRecoilState(AtomPageTabState)
-    const { handlMainAlert } = useMainLayouts()
 
     const [pageState, setPageState] = useState<{
         clickCountPostID: string
@@ -101,10 +99,14 @@ const NoticeListMain = () => {
                 },
             }))
         } else {
-            handlMainAlert({
-                state: true,
-                message: Messages.Default.processFail,
-            })
+            setPageState(prevState => ({
+                ...prevState,
+                clickCountList: {
+                    ...prevState.clickCountList,
+                    status: `failure`,
+                    list: [],
+                },
+            }))
         }
     }
 
