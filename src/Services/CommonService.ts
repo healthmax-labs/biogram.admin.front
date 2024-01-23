@@ -147,14 +147,16 @@ export const getSiGunCode = ({
  * 이미지 업로드 인서트
  * @param formData
  * @param Category
+ * @param FileExtensionCode
  */
 export const commonFileImg = (
     formData: FormData,
-    Category: string
+    Category: string,
+    FileExtensionCode: string
 ): Promise<ServicesDefaultResult<{ ATCHMNFL_NO: number }>> => {
     return _Axios_({
         method: 'post',
-        url: `/common/file/${Category}/I`,
+        url: `/common/file/${Category}/${FileExtensionCode}`,
         payload: formData,
     })
 }

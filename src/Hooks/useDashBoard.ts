@@ -11,6 +11,7 @@ import {
     getMngGndnDashBoardMybodyScoreImprvm,
     getMngDashboardMesureInfoTotal,
     getDashBoardQmuChart,
+    getDashBoardNotice,
 } from '@Service/DashBoardService'
 import _ from 'lodash'
 
@@ -408,6 +409,39 @@ export default function useDashBoard() {
                 }
             }
 
+            const getDashBoardNoticeData = async () => {
+                setDashBoardPageState(prevState => ({
+                    ...prevState,
+                    notice: {
+                        ...prevState.notice,
+                        status: `loading`,
+                    },
+                }))
+
+                const { status, payload } = await getDashBoardNotice()
+                if (status) {
+                    setDashBoardPageState(prevState => ({
+                        ...prevState,
+                        notice: {
+                            ...prevState.notice,
+                            status: `success`,
+                            list: _.map(payload.DASH_BOARD_NOTICE_INFO, e => {
+                                return e
+                            }),
+                        },
+                    }))
+                } else {
+                    setDashBoardPageState(prevState => ({
+                        ...prevState,
+                        notice: {
+                            ...prevState.notice,
+                            status: `failure`,
+                            list: [],
+                        },
+                    }))
+                }
+            }
+
             getMberInfo().then()
             getMemberGenderList().then()
             getAgeGroup().then()
@@ -417,6 +451,7 @@ export default function useDashBoard() {
             getDashboardMesureInfoTotal().then()
             getMybodyScoreImprvm().then()
             getDashBoardQmuChartData().then()
+            getDashBoardNoticeData().then()
 
             setDashBoardPageState(prevState => ({
                 ...prevState,

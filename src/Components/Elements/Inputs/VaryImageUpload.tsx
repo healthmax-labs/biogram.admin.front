@@ -5,6 +5,8 @@ import { useMainLayouts } from '@Hooks'
 import { VaryButton, VaryModal } from '@Elements'
 import { isEmpty } from 'lodash'
 import { VaryImageUploadStyle } from '@Style/Elements/InputStyles'
+import Codes from '@Codes'
+import _ from 'lodash'
 
 const { FileInputWapper } = VaryImageUploadStyle
 
@@ -69,17 +71,39 @@ const VaryImageUpload = ({
     }
 
     const handleFileInsert = useCallback(async () => {
-        if (pageState.SelectFile) {
-            const formData = new FormData()
-            formData.append('file', pageState.SelectFile)
+        if (pageState.SelectFile && pageState.SelectFileName) {
+            const fileExtentionName = pageState.SelectFileName.split('.')
+                .pop()
+                ?.toUpperCase()
 
-            const { status, payload } = await commonFileImg(
-                formData,
-                pageState.Category
+            const FileExtensionCode = _.findKey(
+                Codes.FileUploadExtensionCode,
+                item => item.indexOf(`${fileExtentionName}`) !== -1
             )
+                ? _.findKey(
+                      Codes.FileUploadExtensionCode,
+                      item => item.indexOf(`${fileExtentionName}`) !== -1
+                  )
+                : ``
 
-            if (status) {
-                ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
+            if (fileExtentionName && FileExtensionCode) {
+                const formData = new FormData()
+                formData.append('file', pageState.SelectFile)
+
+                const { status, payload } = await commonFileImg(
+                    formData,
+                    pageState.Category,
+                    FileExtensionCode
+                )
+
+                if (status) {
+                    ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
+                } else {
+                    handlMainAlert({
+                        state: true,
+                        message: Messages.Default.imageProcessFail,
+                    })
+                }
             } else {
                 handlMainAlert({
                     state: true,

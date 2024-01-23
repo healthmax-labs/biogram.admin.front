@@ -7,6 +7,7 @@ import {
     MemberInfoInterface,
     MesureInfoTotalResultInterface,
     MybodyScoreImprvmInterface,
+    NoticeResultInterface,
     QmuChartResultInterface,
     RiskFctrListInterface,
     RiskGroupDormantMemberInterface,
@@ -206,6 +207,10 @@ export const getMngDashboardMesureInfoTotal = ({
     })
 }
 
+/**
+ * QMU
+ * @param instNo
+ */
 export const getDashBoardQmuChart = ({
     instNo,
 }: {
@@ -224,5 +229,18 @@ export const getDashBoardQmuChart = ({
         method: 'post',
         url: `/mng/v1/dash_board/qmuChart`,
         payload: payload,
+    })
+}
+
+/**
+ * 공지사항 5개
+ */
+export const getDashBoardNotice = (): Promise<
+    ServicesDefaultResult<NoticeResultInterface>
+> => {
+    return _Axios_({
+        method: 'post',
+        url: `/mng/v1/dash_board/notice`,
+        payload: null,
     })
 }

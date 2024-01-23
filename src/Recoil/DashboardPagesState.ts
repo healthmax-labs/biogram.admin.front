@@ -9,6 +9,7 @@ import {
     MesureInfoTotalResultMesureTotalListItemInterface,
     MesureInfoZoneDeviceItemInterface,
     MybodyScoreImprvmItemInterface,
+    NoticeResultItemInterface,
     QmuChartItemInterface,
     RiskFctrListItemInterface,
     RiskGroupDormantMemberItemInterface,
@@ -77,6 +78,10 @@ interface DashBoardPageStateInterface {
         status: DefaultStatus
         list: QmuChartItemInterface[]
     }
+    notice: {
+        status: DefaultStatus
+        list: NoticeResultItemInterface[]
+    }
 }
 
 // 대시보드
@@ -132,6 +137,10 @@ export const DashBoardPageState = atom<DashBoardPageStateInterface>({
         },
         qmu: {
             status: 'idle',
+            list: [],
+        },
+        notice: {
+            status: `idle`,
             list: [],
         },
     },

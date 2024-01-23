@@ -147,6 +147,19 @@ export interface QmuChartItemInterface {
     TQ_CNT: number
 }
 
+// QMU 차트
 export interface QmuChartResultInterface {
     QMU_CHART_LIST: QmuChartItemInterface[]
+}
+
+// 공지 사항 5개
+export interface NoticeResultItemInterface {
+    POST_ID: '37'
+    POST_TYPE: 'NOTICE'
+    TITLE: '13제목을 입력해주세요.'
+    REGIST_DT: '2024-01-19'
+}
+
+export interface NoticeResultInterface {
+    DASH_BOARD_NOTICE_INFO: Array<NoticeResultItemInterface>
 }

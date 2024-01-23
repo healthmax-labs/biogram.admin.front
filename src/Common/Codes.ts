@@ -1701,4 +1701,23 @@ export default {
             { code: `010`, name: `관리` },
         ],
     },
+    FileUploadExtensionCode: {
+        I: [
+            'PNG',
+            'GIF',
+            'BMP',
+            'DIB',
+            'JPG',
+            'JPEG',
+            'JPE',
+            'JFIF',
+            'TIF',
+            'TIFF',
+            'HEIC',
+        ],
+        T: ['TXT', 'HWP', 'HWPX', 'DOC', 'DOCX', 'PDF', 'PPT', 'PPTX'],
+        Z: ['ZIP', 'ZIPX', 'TAR', 'TGZ', 'LZH', 'ISO', 'WAR', '7Z', 'GZ', 'XZ'],
+        E: ['XLS', 'XLSX', 'XLSM', 'XLSB', 'CSV', 'XLAM', 'XLA', 'XLSX', 'LSF'],
+        A: ['APK', 'IPA', 'PLIST'],
+    },
 }
