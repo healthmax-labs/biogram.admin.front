@@ -3,10 +3,11 @@ import { HelperQnaListItemInterface } from '@Type/HelperTypes'
 import { useEffect, useState } from 'react'
 import { MainTable } from '@Element/index'
 import { QnaTableConfig } from '@Common/TableConfig/Manage/Helper'
-import { useRecoilValue } from 'recoil'
-import { QnaListState } from '@Recoil/HelperPageState'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { QnaListState, QnaDetailState } from '@Recoil/HelperPageState'
 import { useNavigate } from 'react-router-dom'
 import Messages from '@Messages'
+import { useTab } from '@Hook/index'
 
 interface tableOption {
     Loading: boolean
@@ -24,6 +25,8 @@ const QnaListTable = ({
 }) => {
     const navigate = useNavigate()
     const listState = useRecoilValue(QnaListState)
+    const { handleDeleteTabbyMatchRouter } = useTab()
+    const qnaDetailStateReset = useResetRecoilState(QnaDetailState)
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(QnaTableConfig)
@@ -61,6 +64,8 @@ const QnaListTable = ({
 
             VoidLoadingModal()
         } else {
+            handleDeleteTabbyMatchRouter('/manage/helper/qna/new')
+            qnaDetailStateReset()
             navigate({
                 pathname:
                     process.env.PUBLIC_URL +

@@ -83,7 +83,12 @@ const QnaDetailTable = ({
                                         <div className="w-full">
                                             <VaryInput
                                                 InputType={'text'}
-                                                ReadOnly={pageMode === `view`}
+                                                ReadOnly={
+                                                    !(
+                                                        pageMode === `new` ||
+                                                        pageMode === `modify`
+                                                    )
+                                                }
                                                 HandleOnChange={e =>
                                                     setQnaDetailState(
                                                         prevState => ({
@@ -140,7 +145,12 @@ const QnaDetailTable = ({
                                         <div className="w-full">
                                             <VaryTextArea
                                                 Rows={20}
-                                                ReadOnly={pageMode === `view`}
+                                                ReadOnly={
+                                                    !(
+                                                        pageMode === `new` ||
+                                                        pageMode === `modify`
+                                                    )
+                                                }
                                                 HandleOnChange={e =>
                                                     setQnaDetailState(
                                                         prevState => ({

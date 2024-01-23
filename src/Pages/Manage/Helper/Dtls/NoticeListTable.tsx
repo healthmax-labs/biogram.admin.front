@@ -1,12 +1,13 @@
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { HelperNoticeListItemInterface } from '@Type/HelperTypes'
-import { useRecoilValue } from 'recoil'
-import { NoticeListState } from '@Recoil/HelperPageState'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
+import { NoticeDetailState, NoticeListState } from '@Recoil/HelperPageState'
 import { AtomRootState } from '@Recoil/AppRootState'
 import React, { useEffect, useState } from 'react'
 import { NoticeTableConfig } from '@Common/TableConfig/Manage/Helper'
 import { MainTable } from '@Element/index'
 import { useNavigate } from 'react-router-dom'
+import { useTab } from '@Hook/index'
 
 interface tableOption {
     Loading: boolean
@@ -23,6 +24,8 @@ const NoticeListTable = ({
     const navigate = useNavigate()
     const listState = useRecoilValue(NoticeListState)
     const RootState = useRecoilValue(AtomRootState)
+    const noticeDetailStateReset = useResetRecoilState(NoticeDetailState)
+    const { handleDeleteTabbyMatchRouter } = useTab()
 
     const [tableOptions, setTableOptions] =
         useState<tableOption>(NoticeTableConfig)
@@ -34,6 +37,9 @@ const NoticeListTable = ({
         if (clickKey === `VIEW_CNT`) {
             HandleViewCountModal({ POST_ID: element.POST_ID })
         } else {
+            handleDeleteTabbyMatchRouter('/manage/helper/notice/new')
+            noticeDetailStateReset()
+
             navigate({
                 pathname:
                     process.env.PUBLIC_URL +
