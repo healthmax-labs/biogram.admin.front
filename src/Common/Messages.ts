@@ -160,6 +160,19 @@ export default {
             smallImageEmpty: `작은 이미지를 입력해 주세요`,
             bigImageEmpty: `큰 이미지를 입력해 주세요`,
         },
+        Helper: {
+            notice: {
+                emptyTitle: `제목을 입력해 주세요.`,
+                emptyContent: `내용을 입력해 주세요.`,
+            },
+            qna: {
+                emptyTitle: `제목을 입력해 주세요.`,
+                emptyContent: `내용을 입력해 주세요.`,
+                notRegisterLikeButton: `본인의 게시물만 클릭할수 있습니다.`,
+                alreadyLikeButton: `이미 클릭한 게시물 입니다.`,
+                yetComplete: `대기중인 게시물 입니다.`,
+            },
+        },
         consult: {
             mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
             chartSaveEmptyRegNm: `작성자 이름을 입력해 주세요`,

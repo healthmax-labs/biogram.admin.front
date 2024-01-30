@@ -184,8 +184,8 @@ export default function useAuth() {
     }: {
         attemptLogout: boolean
     }): Promise<{ status: boolean }> => {
-        await removeLoginToken()
-        await removeLoginExpirein()
+        removeLoginToken()
+        removeLoginExpirein()
 
         setAppRootState(prevState => ({
             ...prevState,
@@ -227,7 +227,7 @@ export default function useAuth() {
         if (status) {
             const { TOKEN_LIMIT_TIME, AUTHORIZE_CODE, TOKEN_INFO } = payload
 
-            await saveRefreshToken({
+            saveRefreshToken({
                 TOKEN_INFO: TOKEN_INFO,
                 TOKEN_LIMIT_TIME: TOKEN_LIMIT_TIME,
                 AUTHORIZE_CODE: AUTHORIZE_CODE,

@@ -141,6 +141,40 @@ const GeonDaonDashboard = () => {
                     <LeftWapper>
                         <WapperCol>
                             <FlexFull>
+                                <GeonDaonContentCard
+                                    Loading={
+                                        dashBoardPageState.notice.status ===
+                                        'loading'
+                                    }
+                                    LeftTitle={
+                                        <>
+                                            <p className="flex text-xs">
+                                                공지사항
+                                            </p>
+                                        </>
+                                    }
+                                    Items={dashBoardPageState.notice.list.map(
+                                        e => {
+                                            return [
+                                                {
+                                                    name: e.TITLE,
+                                                    textAlign: 'left',
+                                                    color: 'gray',
+                                                    type: `link`,
+                                                    link: `/manage/helper/notice/${e.POST_ID}/detail`,
+                                                },
+                                                {
+                                                    name: e.REGIST_DT,
+                                                    textAlign: 'right',
+                                                    type: `link`,
+                                                    link: `/manage/helper/notice/${e.POST_ID}/detail`,
+                                                },
+                                            ]
+                                        }
+                                    )}
+                                />
+                            </FlexFull>
+                            <FlexFull>
                                 <GeonDaonChartCard
                                     LineCount={2}
                                     Loading={
@@ -346,6 +380,74 @@ const GeonDaonDashboard = () => {
                                                 />
                                             }
                                         </div>
+                                    </WapperCol>
+                                </FlexHelf>
+                                <FlexHelf>
+                                    <WapperCol>
+                                        <div>
+                                            {
+                                                <GeonDaonContentCard
+                                                    Loading={
+                                                        dashBoardPageState
+                                                            .riskGroupDormant
+                                                            .status ===
+                                                        'loading'
+                                                    }
+                                                    LeftTitle={
+                                                        <>
+                                                            <p className="flex text-xs">
+                                                                위험군 휴면 현황
+                                                            </p>
+                                                            <p className="flex text-little object-bottom pl-1">
+                                                                (단위: 명)
+                                                            </p>
+                                                        </>
+                                                    }
+                                                    RightTitle={
+                                                        <>
+                                                            <p className="flex text-xs pl-1 text-orange-600">
+                                                                ∎ 오늘
+                                                            </p>
+                                                            <p className="flex text-xs pl-1">
+                                                                ∎ 6개월
+                                                            </p>
+                                                        </>
+                                                    }
+                                                    Items={dashBoardPageState.riskGroupDormant.list.map(
+                                                        e => {
+                                                            const findCode =
+                                                                _.find(myData, {
+                                                                    code: e.MESURE_CODE,
+                                                                })
+                                                            return [
+                                                                {
+                                                                    name: findCode
+                                                                        ? findCode.genName
+                                                                        : '',
+                                                                    textAlign:
+                                                                        'left',
+                                                                },
+                                                                {
+                                                                    name: addComma(
+                                                                        e.TD_CNT
+                                                                    ),
+                                                                    textAlign:
+                                                                        'center',
+                                                                    color: 'orange',
+                                                                },
+                                                                {
+                                                                    name: addComma(
+                                                                        e.TT_CNT
+                                                                    ),
+                                                                    textAlign:
+                                                                        'right',
+                                                                },
+                                                            ]
+                                                        }
+                                                    )}
+                                                />
+                                            }
+                                        </div>
                                         <div>
                                             {
                                                 <GeonDaonContentCard
@@ -460,74 +562,6 @@ const GeonDaonDashboard = () => {
                                                                     color: 'orange',
                                                                     textAlign:
                                                                         'center',
-                                                                },
-                                                                {
-                                                                    name: addComma(
-                                                                        e.TT_CNT
-                                                                    ),
-                                                                    textAlign:
-                                                                        'right',
-                                                                },
-                                                            ]
-                                                        }
-                                                    )}
-                                                />
-                                            }
-                                        </div>
-                                    </WapperCol>
-                                </FlexHelf>
-                                <FlexHelf>
-                                    <WapperCol>
-                                        <div>
-                                            {
-                                                <GeonDaonContentCard
-                                                    Loading={
-                                                        dashBoardPageState
-                                                            .riskGroupDormant
-                                                            .status ===
-                                                        'loading'
-                                                    }
-                                                    LeftTitle={
-                                                        <>
-                                                            <p className="flex text-xs">
-                                                                위험군 휴면 현황
-                                                            </p>
-                                                            <p className="flex text-little object-bottom pl-1">
-                                                                (단위: 명)
-                                                            </p>
-                                                        </>
-                                                    }
-                                                    RightTitle={
-                                                        <>
-                                                            <p className="flex text-xs pl-1 text-orange-600">
-                                                                ∎ 오늘
-                                                            </p>
-                                                            <p className="flex text-xs pl-1">
-                                                                ∎ 6개월
-                                                            </p>
-                                                        </>
-                                                    }
-                                                    Items={dashBoardPageState.riskGroupDormant.list.map(
-                                                        e => {
-                                                            const findCode =
-                                                                _.find(myData, {
-                                                                    code: e.MESURE_CODE,
-                                                                })
-                                                            return [
-                                                                {
-                                                                    name: findCode
-                                                                        ? findCode.genName
-                                                                        : '',
-                                                                    textAlign:
-                                                                        'left',
-                                                                },
-                                                                {
-                                                                    name: addComma(
-                                                                        e.TD_CNT
-                                                                    ),
-                                                                    textAlign:
-                                                                        'center',
-                                                                    color: 'orange',
                                                                 },
                                                                 {
                                                                     name: addComma(

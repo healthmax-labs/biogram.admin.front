@@ -2,6 +2,7 @@ import React from 'react'
 import { Spinner } from '@Elements'
 import { TextColorType, TextAlignType } from '@CommonTypes'
 import { DashboardStyle } from '@Style/Pages/DashboardStyle'
+import { useNavigate } from 'react-router-dom'
 
 const {
     GeonDaonStyle: {
@@ -21,6 +22,8 @@ interface ItemInterface {
     name: string
     color?: TextColorType
     textAlign?: TextAlignType
+    type?: `text` | `link`
+    link?: string
 }
 
 const GeonDaonContentCard = ({
@@ -34,6 +37,7 @@ const GeonDaonContentCard = ({
     RightTitle?: React.ReactNode
     Items: Array<ItemInterface[]>
 }) => {
+    const navigate = useNavigate()
     return (
         <Container>
             <Wapper>
@@ -70,7 +74,27 @@ const GeonDaonContentCard = ({
                                                                         ? e.textAlign
                                                                         : 'center'
                                                                 }>
-                                                                {e.name}
+                                                                {e.type &&
+                                                                e.type ===
+                                                                    `link` ? (
+                                                                    <div
+                                                                        className="cursor-pointer"
+                                                                        onClick={() => {
+                                                                            navigate(
+                                                                                {
+                                                                                    pathname:
+                                                                                        process
+                                                                                            .env
+                                                                                            .PUBLIC_URL +
+                                                                                        `${e.link}`,
+                                                                                }
+                                                                            )
+                                                                        }}>
+                                                                        {e.name}
+                                                                    </div>
+                                                                ) : (
+                                                                    e.name
+                                                                )}
                                                             </Cell>
                                                         )
                                                     })}

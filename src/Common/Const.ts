@@ -91,6 +91,11 @@ export default {
         'managerPage/popup-manage-list',
         'managerPage/popup-manage-detail',
 
+        'helperPage/notice-list',
+        'helperPage/notice-detail',
+        'helperPage/qna-list',
+        'helperPage/qna-detail',
+
         'tab/TabState',
     ],
     GeonDaonThemeSiteURL: 'geondaon.com',

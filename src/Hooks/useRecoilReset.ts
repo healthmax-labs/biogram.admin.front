@@ -59,6 +59,12 @@ import {
     PopupManageListState,
     PopupManageDetailState,
 } from '@Recoil/ManagerPagesState'
+import {
+    NoticeListState as HelperNoticeListState,
+    NoticeDetailState as HelperNoticeDetailState,
+    QnaListState as HelperQnaListState,
+    QnaDetailState as HelperQnaDetailState,
+} from '@Recoil/HelperPageState'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
 export default function useRecoilReset() {
@@ -142,6 +148,15 @@ export default function useRecoilReset() {
         PopupManageDetailState
     ) // 팝업 관리 상세
 
+    const HelperNoticeListStateReset = useResetRecoilState(
+        HelperNoticeListState
+    ) // 고객센터 공지사항 리스트
+    const HelperNoticeDetailStateReset = useResetRecoilState(
+        HelperNoticeDetailState
+    ) // 고객센터 공지사항 상세
+    const HelperQnaListStateReset = useResetRecoilState(HelperQnaListState)
+    const HelperQnaDetailStateReset = useResetRecoilState(HelperQnaDetailState)
+
     const AtomPageTabStateReset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
     const resetTask = (recoilKey: RecoilStateKeyNameType): void => {
@@ -200,6 +215,12 @@ export default function useRecoilReset() {
             'managerPage/notice-detail': () => void
             'managerPage/popup-manage-list': () => void
             'managerPage/popup-manage-detail': () => void
+
+            'helperPage/notice-list': () => void
+            'helperPage/notice-detail': () => void
+
+            'helperPage/qna-list': () => void
+            'helperPage/qna-detail': () => void
 
             'tab/TabState': () => void
         } = {
@@ -266,6 +287,10 @@ export default function useRecoilReset() {
             'managerPage/popup-manage-detail': () =>
                 PopupManageDetailStatetReset(),
 
+            'helperPage/notice-list': () => HelperNoticeListStateReset(),
+            'helperPage/notice-detail': () => HelperNoticeDetailStateReset(),
+            'helperPage/qna-list': () => HelperQnaListStateReset(),
+            'helperPage/qna-detail': () => HelperQnaDetailStateReset(),
             'tab/TabState': () => AtomPageTabStateReset(),
             default: () => {
                 //

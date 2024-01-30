@@ -49,11 +49,15 @@ const MainTableHeader = <E,>({
                                         column.colSpan ? column.colSpan : 1
                                     }
                                     cellWidth={column.cellWidth as WidthType}>
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: column.name,
-                                        }}
-                                    />
+                                    {column.name === `` ? (
+                                        <></>
+                                    ) : (
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: column.name,
+                                            }}
+                                        />
+                                    )}
                                 </HeaderCell>
                             )
                         })}
@@ -61,7 +65,7 @@ const MainTableHeader = <E,>({
                             Options.xcpt.option &&
                             Options.xcpt.option === 'row-button' && (
                                 <HeaderCell
-                                    key={`main-table-head-checkbox-cell-${rowIndex}`}
+                                    key={`main-table-head-manage-cell-${rowIndex}`}
                                     rowSpan={Rows.length}
                                     cellWidth={`w10`}>
                                     {`관리`}

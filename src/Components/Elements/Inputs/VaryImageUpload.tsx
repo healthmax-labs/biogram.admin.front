@@ -1,9 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { commonFileImg } from '@Service/CommonService'
+import { commonFileImg, commonFileDelete } from '@Service/CommonService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { VaryButton, VaryModal } from '@Elements'
 import { isEmpty } from 'lodash'
+import { VaryImageUploadStyle } from '@Style/Elements/InputStyles'
+import Codes from '@Codes'
+import _ from 'lodash'
+
+const { FileInputWapper } = VaryImageUploadStyle
 
 const initializeState = {
     SelectFile: null,
@@ -12,6 +17,7 @@ const initializeState = {
     ATCHMNFL_NO: null,
     Category: '',
     PrevModal: false,
+    OrginlFileNm: '',
 }
 
 const VaryImageUpload = ({
@@ -19,6 +25,11 @@ const VaryImageUpload = ({
     ReturnCallback,
     ShowInform = true,
     HandleDelete,
+    ShowDeleteButton = true,
+    ShowPrevBox = true,
+    ShowFileName,
+    Disabled,
+    HideInput = false,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -28,6 +39,11 @@ const VaryImageUpload = ({
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
     ShowInform?: boolean
     HandleDelete?: () => void
+    ShowDeleteButton?: boolean
+    ShowPrevBox?: boolean
+    ShowFileName?: boolean
+    Disabled?: boolean
+    HideInput?: boolean
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -38,6 +54,7 @@ const VaryImageUpload = ({
         ATCHMNFL_NO: number | null
         Category: string
         PrevModal: boolean
+        OrginlFileNm: string
     }>(initializeState)
 
     const handleChangeSelectImage = (
@@ -50,22 +67,49 @@ const VaryImageUpload = ({
                 ...prevState,
                 SelectFile: file,
                 SelectFileName: file.name,
+                OrginlFileNm: file.name,
             }))
         }
     }
 
     const handleFileInsert = useCallback(async () => {
-        if (pageState.SelectFile) {
-            const formData = new FormData()
-            formData.append('file', pageState.SelectFile)
+        if (pageState.SelectFile && pageState.SelectFileName) {
+            const fileExtentionName = pageState.SelectFileName.split('.')
+                .pop()
+                ?.toUpperCase()
 
-            const { status, payload } = await commonFileImg(
-                formData,
-                pageState.Category
+            const FileExtensionCode = _.findKey(
+                Codes.FileUploadExtensionCode,
+                item => item.indexOf(`${fileExtentionName}`) !== -1
             )
+                ? _.findKey(
+                      Codes.FileUploadExtensionCode,
+                      item => item.indexOf(`${fileExtentionName}`) !== -1
+                  )
+                : ``
 
-            if (status) {
-                ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
+            if (fileExtentionName && FileExtensionCode) {
+                const formData = new FormData()
+                formData.append('file', pageState.SelectFile)
+
+                const { status, payload } = await commonFileImg(
+                    formData,
+                    pageState.Category,
+                    FileExtensionCode
+                )
+
+                if (status) {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        ATCHMNFL_NO: payload.ATCHMNFL_NO,
+                    }))
+                    ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
+                } else {
+                    handlMainAlert({
+                        state: true,
+                        message: Messages.Default.imageProcessFail,
+                    })
+                }
             } else {
                 handlMainAlert({
                     state: true,
@@ -95,6 +139,7 @@ const VaryImageUpload = ({
                 setPageState(prevState => ({
                     ...prevState,
                     SelectFileName: Image.OrginlFileNm,
+                    OrginlFileNm: Image.OrginlFileNm,
                 }))
             }
 
@@ -102,6 +147,7 @@ const VaryImageUpload = ({
                 setPageState(prevState => ({
                     ...prevState,
                     SelectImagePrev: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${Image.AtchmnflPath}`,
+                    OrginlFileNm: Image.OrginlFileNm,
                 }))
             }
 
@@ -118,65 +164,97 @@ const VaryImageUpload = ({
 
     return (
         <div className="flex w-full">
-            <div className="w-1/3">
-                <div className="flex bg-gray-50">
-                    {pageState.SelectImagePrev && (
-                        <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
-                            {pageState.SelectImagePrev && (
-                                <img
-                                    className="mx-auto"
-                                    alt="prev-image"
-                                    src={pageState.SelectImagePrev}
-                                    onClick={() => {
-                                        setPageState(prevState => ({
-                                            ...prevState,
-                                            PrevModal: true,
-                                        }))
-                                    }}
-                                />
-                            )}
-                        </section>
-                    )}
+            {ShowPrevBox && (
+                <div className="w-1/3">
+                    <div className="flex bg-gray-50">
+                        {pageState.SelectImagePrev && (
+                            <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                                {pageState.SelectImagePrev && (
+                                    <img
+                                        className="mx-auto"
+                                        alt="prev-image"
+                                        src={pageState.SelectImagePrev}
+                                        onClick={() => {
+                                            setPageState(prevState => ({
+                                                ...prevState,
+                                                PrevModal: true,
+                                            }))
+                                        }}
+                                    />
+                                )}
+                            </section>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="w-2/3">
-                <input
-                    className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    id="small_size"
-                    type="file"
-                    accept="image/*"
-                    ref={inputRef}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handleChangeSelectImage(e)
-                    }
-                />
+            )}
+            <FileInputWapper WFull={!ShowPrevBox}>
+                {!HideInput && (
+                    <input
+                        className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                        id="small_size"
+                        type="file"
+                        // accept="image/*"
+                        ref={inputRef}
+                        disabled={Disabled}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleChangeSelectImage(e)
+                        }
+                    />
+                )}
+
                 {ShowInform && (
                     <div className="text-xs">
                         확장자 : JPG, JPEG, PNG / 사이즈 : 600 x 200px /
                         최대용량 : 10mb
                     </div>
                 )}
-                <VaryButton
-                    ButtonType={`default`}
-                    ButtonName={`삭제`}
-                    HandleClick={() => {
-                        setPageState(prevState => ({
-                            ...prevState,
-                            SelectFile: null,
-                            SelectFileName: '',
-                            SelectImagePrev: null,
-                            ATCHMNFL_NO: null,
-                            PrevModal: false,
-                        }))
+                {ShowDeleteButton && (
+                    <VaryButton
+                        ButtonType={`default`}
+                        ButtonName={`삭제`}
+                        HandleClick={async () => {
+                            const { status } = await commonFileDelete({
+                                atchmnfl_no: `${pageState.ATCHMNFL_NO}`,
+                            })
 
-                        if (inputRef.current != null) {
-                            inputRef.current.value = ''
-                        }
+                            if (status) {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    SelectFile: null,
+                                    SelectFileName: '',
+                                    SelectImagePrev: null,
+                                    ATCHMNFL_NO: null,
+                                    PrevModal: false,
+                                    OrginlFileNm: ``,
+                                }))
 
-                        HandleDelete && HandleDelete()
-                    }}
-                />
-            </div>
+                                if (inputRef.current != null) {
+                                    inputRef.current.value = ''
+                                }
+
+                                HandleDelete && HandleDelete()
+                            }
+                        }}
+                    />
+                )}
+                {ShowFileName && pageState.OrginlFileNm.length > 0 && (
+                    <div className="w-1/3 pl-2">
+                        <div className="flex bg-white">
+                            <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
+                                <div
+                                    className="flex items-center justify-start text-sm"
+                                    onClick={() => {
+                                        if (pageState.SelectImagePrev) {
+                                            window.open(
+                                                pageState.SelectImagePrev
+                                            )
+                                        }
+                                    }}>{`${pageState.OrginlFileNm}`}</div>
+                            </section>
+                        </div>
+                    </div>
+                )}
+            </FileInputWapper>
             {pageState.PrevModal && (
                 <VaryModal
                     ModalLoading={false}
