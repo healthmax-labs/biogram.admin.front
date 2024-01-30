@@ -216,3 +216,15 @@ export const postMberSendPush = (payload: {
         payload: payload,
     })
 }
+// /common/file/:atchmnfl_no/delete
+export const commonFileDelete = ({
+    atchmnfl_no,
+}: {
+    atchmnfl_no: string
+}): Promise<ServicesDefaultResult<null>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/common/file/${atchmnfl_no}/delete`,
+        payload: {},
+    })
+}

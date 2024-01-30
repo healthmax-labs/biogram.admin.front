@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { commonFileImg } from '@Service/CommonService'
+import { commonFileImg, commonFileDelete } from '@Service/CommonService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { VaryButton, VaryModal } from '@Elements'
@@ -29,6 +29,7 @@ const VaryImageUpload = ({
     ShowPrevBox = true,
     ShowFileName,
     Disabled,
+    HideInput = false,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -42,6 +43,7 @@ const VaryImageUpload = ({
     ShowPrevBox?: boolean
     ShowFileName?: boolean
     Disabled?: boolean
+    HideInput?: boolean
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -97,6 +99,10 @@ const VaryImageUpload = ({
                 )
 
                 if (status) {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        ATCHMNFL_NO: payload.ATCHMNFL_NO,
+                    }))
                     ReturnCallback({ ATCHMNFL_NO: payload.ATCHMNFL_NO })
                 } else {
                     handlMainAlert({
@@ -182,17 +188,20 @@ const VaryImageUpload = ({
                 </div>
             )}
             <FileInputWapper WFull={!ShowPrevBox}>
-                <input
-                    className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    id="small_size"
-                    type="file"
-                    // accept="image/*"
-                    ref={inputRef}
-                    disabled={Disabled}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handleChangeSelectImage(e)
-                    }
-                />
+                {!HideInput && (
+                    <input
+                        className="block w-full mb-1 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                        id="small_size"
+                        type="file"
+                        // accept="image/*"
+                        ref={inputRef}
+                        disabled={Disabled}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleChangeSelectImage(e)
+                        }
+                    />
+                )}
+
                 {ShowInform && (
                     <div className="text-xs">
                         확장자 : JPG, JPEG, PNG / 사이즈 : 600 x 200px /
@@ -203,26 +212,33 @@ const VaryImageUpload = ({
                     <VaryButton
                         ButtonType={`default`}
                         ButtonName={`삭제`}
-                        HandleClick={() => {
-                            setPageState(prevState => ({
-                                ...prevState,
-                                SelectFile: null,
-                                SelectFileName: '',
-                                SelectImagePrev: null,
-                                ATCHMNFL_NO: null,
-                                PrevModal: false,
-                            }))
+                        HandleClick={async () => {
+                            const { status } = await commonFileDelete({
+                                atchmnfl_no: `${pageState.ATCHMNFL_NO}`,
+                            })
 
-                            if (inputRef.current != null) {
-                                inputRef.current.value = ''
+                            if (status) {
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    SelectFile: null,
+                                    SelectFileName: '',
+                                    SelectImagePrev: null,
+                                    ATCHMNFL_NO: null,
+                                    PrevModal: false,
+                                    OrginlFileNm: ``,
+                                }))
+
+                                if (inputRef.current != null) {
+                                    inputRef.current.value = ''
+                                }
+
+                                HandleDelete && HandleDelete()
                             }
-
-                            HandleDelete && HandleDelete()
                         }}
                     />
                 )}
                 {ShowFileName && pageState.OrginlFileNm.length > 0 && (
-                    <div className="w-1/3">
+                    <div className="w-1/3 pl-2">
                         <div className="flex bg-white">
                             <section className="hero container max-w-screen-lg mx-auto cursor-pointer">
                                 <div

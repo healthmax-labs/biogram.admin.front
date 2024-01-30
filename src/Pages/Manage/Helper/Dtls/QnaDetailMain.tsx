@@ -20,6 +20,7 @@ import Messages from '@Messages'
 import DetailTable from './QnaDetailTable'
 import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { AtomRootState } from '@Recoil/AppRootState'
+import _ from 'lodash'
 
 const {
     DetailPage: { Container, LeftWapper },
@@ -132,7 +133,15 @@ const QnaDetailMain = () => {
             return
         }
 
-        if (CONTENT === ``) {
+        if (_.isUndefined(CONTENT)) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.emptyContent,
+            })
+            return
+        }
+
+        if (_.isEmpty(CONTENT)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.Helper.qna.emptyContent,
@@ -190,12 +199,19 @@ const QnaDetailMain = () => {
         const CONTENT = qnaDetailState.detail.COMMENT
             ? qnaDetailState.detail.COMMENT.CONTENT
             : ``
+
         const ATCHMNFL_NO =
             qnaDetailState.detail.COMMENT &&
             qnaDetailState.detail.COMMENT.ATCHMNFL_INFO
                 ? qnaDetailState.detail.COMMENT.ATCHMNFL_INFO.ATCHMNFL_NO
                 : ``
-
+        if (!CONTENT) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.emptyContent,
+            })
+            return
+        }
         if (CONTENT === ``) {
             handlMainAlert({
                 state: true,
@@ -323,6 +339,14 @@ const QnaDetailMain = () => {
             qnaDetailState.detail.COMMENT.ATCHMNFL_INFO
                 ? qnaDetailState.detail.COMMENT.ATCHMNFL_INFO.ATCHMNFL_NO
                 : ``
+
+        if (CONTENT === ``) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.emptyContent,
+            })
+            return
+        }
 
         const { status } = await postQnaEditComment({
             POST_ID: POST_ID,

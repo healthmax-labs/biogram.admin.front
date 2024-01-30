@@ -78,3 +78,10 @@ export interface HelperQnaDetailInterface {
         } | null
     }
 }
+
+export interface LikeUpDownImageClickInterace {
+    POST_ID: number
+    LIKE_CNT: number
+    REGIST_ID: number
+    COMPLETE_YN: 'N' | 'Y'
+}

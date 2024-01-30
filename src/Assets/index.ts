@@ -11,3 +11,6 @@ export { default as LoadingImage } from './Images/loading-img.png'
 
 export { default as ManualPopup } from './Images/Popup/manual-popup.png'
 export { default as ManualPopupButton } from './Images/Popup/manual-popup-button.png'
+
+export { default as LikeUpImage } from './Images/like-up.png'
+export { default as LikeDownImage } from './Images/like-down.png'

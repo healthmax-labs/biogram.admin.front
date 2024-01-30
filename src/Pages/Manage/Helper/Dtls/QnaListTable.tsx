@@ -1,13 +1,15 @@
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
 import { HelperQnaListItemInterface } from '@Type/HelperTypes'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MainTable } from '@Element/index'
 import { QnaTableConfig } from '@Common/TableConfig/Manage/Helper'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { QnaListState, QnaDetailState } from '@Recoil/HelperPageState'
 import { useNavigate } from 'react-router-dom'
-import Messages from '@Messages'
 import { useTab } from '@Hook/index'
+import _ from 'lodash'
+import { LikeUpImage, LikeDownImage } from '@Assets'
+import { LikeUpDownImageClickInterace } from '@Type/HelperTypes'
 
 interface tableOption {
     Loading: boolean
@@ -17,11 +19,11 @@ interface tableOption {
 }
 
 const QnaListTable = ({
-    VoidLoadingModal,
-    LikeButtonMessageModal,
+    HandleLikeUpClick,
+    HandleLikeDownClick,
 }: {
-    VoidLoadingModal: () => void
-    LikeButtonMessageModal: ({ message }: { message: string }) => void
+    HandleLikeUpClick: (el: LikeUpDownImageClickInterace) => void
+    HandleLikeDownClick: (el: LikeUpDownImageClickInterace) => void
 }) => {
     const navigate = useNavigate()
     const listState = useRecoilValue(QnaListState)
@@ -35,34 +37,10 @@ const QnaListTable = ({
         element: HelperQnaListItemInterface,
         clickKey: string | null | undefined
     ) => {
-        const { MBER_NO, POST_ID, LIKE_CNT, REGIST_ID, COMPLETE_YN } = element
+        const { POST_ID } = element
 
         if (clickKey === `LIKE_CNT`) {
-            // 본인 글이 아닐때
-            if (MBER_NO !== REGIST_ID) {
-                LikeButtonMessageModal({
-                    message: Messages.Default.Helper.qna.notRegisterLikeButton,
-                })
-                return
-            }
-
-            // 이미 클릭한 게시물일떄
-            if (LIKE_CNT !== 0) {
-                LikeButtonMessageModal({
-                    message: Messages.Default.Helper.qna.alreadyLikeButton,
-                })
-                return
-            }
-
-            // 대기중일 때
-            if (COMPLETE_YN === 'N') {
-                LikeButtonMessageModal({
-                    message: Messages.Default.Helper.qna.yetComplete,
-                })
-                return
-            }
-
-            VoidLoadingModal()
+            return
         } else {
             handleDeleteTabbyMatchRouter('/manage/helper/qna/new')
             qnaDetailStateReset()
@@ -79,8 +57,74 @@ const QnaListTable = ({
             ...prevState,
             Loading: listState.status === 'loading',
             Lists: listState.list.QUESTION_LIST,
+            Columns: _.map(QnaTableConfig.Columns, column => {
+                return _.map(column, e => {
+                    if (e.key === `LIKE_CNT`) {
+                        return {
+                            ...e,
+                            component: ({
+                                el,
+                            }: {
+                                el: HelperQnaListItemInterface
+                            }) => {
+                                return (
+                                    <div className="flex flex-nowrap w-full items-center justify-center h-4 gap-2">
+                                        {(el.LIKE_CNT === 0 ||
+                                            el.LIKE_CNT > 0) && (
+                                            <div className="flex h-4">
+                                                <img
+                                                    src={LikeUpImage}
+                                                    alt=""
+                                                    onClick={() =>
+                                                        HandleLikeUpClick({
+                                                            POST_ID: el.POST_ID,
+                                                            LIKE_CNT:
+                                                                el.LIKE_CNT,
+                                                            REGIST_ID:
+                                                                el.REGIST_ID,
+                                                            COMPLETE_YN:
+                                                                el.COMPLETE_YN,
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                        {(el.LIKE_CNT === 0 ||
+                                            el.LIKE_CNT < 0) && (
+                                            <div className="flex h-4">
+                                                <img
+                                                    src={LikeDownImage}
+                                                    alt=""
+                                                    onClick={() =>
+                                                        HandleLikeDownClick({
+                                                            POST_ID: el.POST_ID,
+                                                            LIKE_CNT:
+                                                                el.LIKE_CNT,
+                                                            REGIST_ID:
+                                                                el.REGIST_ID,
+                                                            COMPLETE_YN:
+                                                                el.COMPLETE_YN,
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            },
+                        }
+                    } else {
+                        return e
+                    }
+                })
+            }),
         }))
-    }, [listState.list.QUESTION_LIST, listState.status])
+    }, [
+        HandleLikeDownClick,
+        HandleLikeUpClick,
+        listState.list.QUESTION_LIST,
+        listState.status,
+    ])
 
     return <MainTable {...tableOptions} RowClick={handleRowClick} />
 }

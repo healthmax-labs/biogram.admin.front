@@ -5,14 +5,19 @@ import QnaManageBox from './QnaManageBox'
 import React, { useCallback, useEffect, useState } from 'react'
 import QnaSearchBox from './QnaSearchBox'
 import { RecoilStateKeyNameType } from '@CommonTypes'
+import { LikeUpDownImageClickInterace } from '@Type/HelperTypes'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { useMainLayouts, useRecoilReset } from '@Hook/index'
 import { QnaListState } from '@Recoil/HelperPageState'
-import { getQuestionlist } from '@Service/HelperService'
+import {
+    getSearchQuestionlist,
+    postQnaVoteUpDown,
+} from '@Service/HelperService'
 import { AtomRootState } from '@Recoil/AppRootState'
 import _ from 'lodash'
 import { VaryModal } from '@Elements'
+import Messages from '@Messages'
 
 const {
     ListPage: { Container },
@@ -50,7 +55,10 @@ const QnaListMain = () => {
                 status: `loading`,
             }))
 
-            const { status, payload } = await getQuestionlist()
+            const { status, payload } = await getSearchQuestionlist({
+                TITLE: listState.search.TITLE,
+                COMPLETE_YN: listState.search.COMPLETE_YN,
+            })
             if (status) {
                 setListState(prevState => ({
                     ...prevState,
@@ -82,35 +90,133 @@ const QnaListMain = () => {
                 },
             }))
         }
-    }, [RootState, setListState])
+    }, [
+        RootState,
+        listState.search.COMPLETE_YN,
+        listState.search.TITLE,
+        setListState,
+    ])
 
-    useEffect(() => {
-        /**
-         *  리스트에서 like 버튼을 클릭후 리스트를 다시 가지고 와야 하는데 like 보여지는 부분에서 Recoil, 에 접근을 할수 없기 때문에
-         *  버튼 클릭시 강제로 2초동안 로빙 모달을 보여주고 강제로 리스트를 다시 가지고 오는 로직으로 처리함
-         */
-        const funCLoseVoidModal = () => {
-            getList().then(() =>
-                setPageState(prevState => ({
-                    ...prevState,
-                    modal: {
-                        ...prevState.modal,
-                        voidLoading: false,
-                    },
-                }))
-            )
+    const handleLikeUpClick = async (el: LikeUpDownImageClickInterace) => {
+        // like button 은 본인이 올린글이 아니고, 이미 누른 게시물은 클릭이 안되게 처리.
+        const { MBER_NO } = RootState.userinfo
+        const { REGIST_ID, LIKE_CNT, POST_ID, COMPLETE_YN } = el
+        if (MBER_NO !== REGIST_ID) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.notRegisterLikeButton,
+            })
+            return
         }
 
-        if (pageState.modal.voidLoading) {
-            const timer = setTimeout(() => {
-                funCLoseVoidModal()
-            }, 2000)
-
-            return () => {
-                clearTimeout(timer)
-            }
+        // 이미 클릭한 게시물일떄
+        if (LIKE_CNT !== 0) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.alreadyLikeButton,
+            })
+            return
         }
-    }, [getList, pageState.modal.voidLoading])
+
+        // 대기중일 때
+        if (COMPLETE_YN === 'N') {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.yetComplete,
+            })
+            return
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                voidLoading: true,
+            },
+        }))
+
+        const { status } = await postQnaVoteUpDown({
+            POST_ID: POST_ID,
+            vote: `UP`,
+        })
+
+        if (status) {
+            getList().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                voidLoading: false,
+            },
+        }))
+    }
+    const handleLikeDownClick = async (el: LikeUpDownImageClickInterace) => {
+        // like button 은 본인이 올린글이 아니고, 이미 누른 게시물은 클릭이 안되게 처리.
+        const { MBER_NO } = RootState.userinfo
+        const { REGIST_ID, LIKE_CNT, POST_ID, COMPLETE_YN } = el
+        if (MBER_NO !== REGIST_ID) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.notRegisterLikeButton,
+            })
+            return
+        }
+
+        // 이미 클릭한 게시물일떄
+        if (LIKE_CNT !== 0) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.alreadyLikeButton,
+            })
+            return
+        }
+
+        // 대기중일 때
+        if (COMPLETE_YN === 'N') {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.Helper.qna.yetComplete,
+            })
+            return
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                voidLoading: true,
+            },
+        }))
+
+        const { status } = await postQnaVoteUpDown({
+            POST_ID: POST_ID,
+            vote: `DOWN`,
+        })
+
+        if (status) {
+            getList().then()
+        } else {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.processFail,
+            })
+        }
+
+        setPageState(prevState => ({
+            ...prevState,
+            modal: {
+                ...prevState.modal,
+                voidLoading: false,
+            },
+        }))
+    }
 
     useEffect(() => {
         const pageStart = () => {
@@ -158,18 +264,8 @@ const QnaListMain = () => {
             </ManageWapper>
             <TableWapper>
                 <QnaListTable
-                    VoidLoadingModal={() =>
-                        setPageState(prevState => ({
-                            ...prevState,
-                            modal: {
-                                ...prevState.modal,
-                                voidLoading: true,
-                            },
-                        }))
-                    }
-                    LikeButtonMessageModal={({ message }) => {
-                        handlMainAlert({ state: true, message: message })
-                    }}
+                    HandleLikeUpClick={el => handleLikeUpClick(el)}
+                    HandleLikeDownClick={el => handleLikeDownClick(el)}
                 />
             </TableWapper>
             {pageState.modal.voidLoading && (

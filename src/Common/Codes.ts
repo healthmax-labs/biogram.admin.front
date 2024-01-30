@@ -1720,4 +1720,18 @@ export default {
         E: ['XLS', 'XLSX', 'XLSM', 'XLSB', 'CSV', 'XLAM', 'XLA', 'XLSX', 'LSF'],
         A: ['APK', 'IPA', 'PLIST'],
     },
+    HelperQnalistCompleteSearchcode: [
+        {
+            code: `A`,
+            name: `전체`,
+        },
+        {
+            code: `Y`,
+            name: `완료`,
+        },
+        {
+            code: `N`,
+            name: `대기중`,
+        },
+    ],
 }

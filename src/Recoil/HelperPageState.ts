@@ -19,6 +19,10 @@ interface NoticeDetailStateInterface {
 
 interface QnaListStateInterface {
     status: DefaultStatus
+    search: {
+        TITLE: null | string
+        COMPLETE_YN: string | `A` | `Y` | `N`
+    }
     list: HelperQnaListInterface
 }
 
@@ -97,6 +101,10 @@ export const QnaListState = atom<QnaListStateInterface>({
     key: `helperPage/qna-list`,
     default: {
         status: `idle`,
+        search: {
+            TITLE: null,
+            COMPLETE_YN: `A`,
+        },
         list: {
             QUESTION_LIST: [],
         },

@@ -215,6 +215,12 @@ const QnaDetailTable = ({
                                                         pageMode === `modify`
                                                     )
                                                 }
+                                                HideInput={
+                                                    !(
+                                                        pageMode === `new` ||
+                                                        pageMode === `modify`
+                                                    )
+                                                }
                                                 HandleDelete={() =>
                                                     setQnaDetailState(
                                                         prevState => ({
@@ -252,7 +258,10 @@ const QnaDetailTable = ({
                                                         })
                                                     )
                                                 }
-                                                ShowDeleteButton={false}
+                                                ShowDeleteButton={
+                                                    pageMode === `new` ||
+                                                    pageMode === `modify`
+                                                }
                                                 ShowPrevBox={false}
                                             />
                                         </div>
@@ -414,10 +423,23 @@ const QnaDetailTable = ({
                                                                 })
                                                             )
                                                         }
-                                                        ShowDeleteButton={false}
+                                                        ShowDeleteButton={
+                                                            pageMode ===
+                                                                'answer_new' ||
+                                                            pageMode ===
+                                                                `answer_modify`
+                                                        }
                                                         ShowPrevBox={false}
                                                         ShowFileName={true}
                                                         Disabled={
+                                                            !(
+                                                                pageMode ===
+                                                                    'answer_new' ||
+                                                                pageMode ===
+                                                                    `answer_modify`
+                                                            )
+                                                        }
+                                                        HideInput={
                                                             !(
                                                                 pageMode ===
                                                                     'answer_new' ||

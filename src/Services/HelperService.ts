@@ -118,6 +118,23 @@ export function getQuestionlist(): Promise<
     })
 }
 
+export function getSearchQuestionlist({
+    TITLE,
+    COMPLETE_YN,
+}: {
+    COMPLETE_YN: string | 'A' | `Y` | `N`
+    TITLE: string | null
+}): Promise<ServicesDefaultResult<HelperQnaListInterface>> {
+    return _Axios_({
+        method: 'post',
+        url: `/qna/v1/search-question-list`,
+        payload: {
+            TITLE: TITLE,
+            COMPLETE_YN: COMPLETE_YN,
+        },
+    })
+}
+
 export function getQuestionDetail({
     POST_ID,
 }: {
@@ -143,9 +160,9 @@ export function postAddQnaQuestion({
         method: 'post',
         url: `/qna/v1/add-question`,
         payload: {
-            TITLE,
-            CONTENT,
-            ATCHMNFL_NO,
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            ATCHMNFL_NO: ATCHMNFL_NO,
         },
     })
 }
@@ -165,10 +182,10 @@ export function postEditQnaQuestion({
         method: 'post',
         url: `/qna/v1/edit-question`,
         payload: {
-            POST_ID,
-            TITLE,
-            CONTENT,
-            ATCHMNFL_NO,
+            POST_ID: POST_ID,
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            ATCHMNFL_NO: ATCHMNFL_NO,
         },
     })
 }
@@ -182,7 +199,7 @@ export function postDeleteQnaQuestion({
         method: 'post',
         url: `/qna/v1/del-question`,
         payload: {
-            POST_ID,
+            POST_ID: POST_ID,
         },
     })
 }
@@ -200,9 +217,9 @@ export function postQnaAddComment({
         method: 'post',
         url: `/qna/v1/add-comment`,
         payload: {
-            POST_ID,
-            CONTENT,
-            ATCHMNFL_NO,
+            POST_ID: POST_ID,
+            CONTENT: CONTENT,
+            ATCHMNFL_NO: ATCHMNFL_NO,
         },
     })
 }
