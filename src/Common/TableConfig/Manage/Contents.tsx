@@ -1,4 +1,6 @@
 import React from 'react'
+import Codes from '@Codes'
+import _ from 'lodash'
 
 // 바이오그램존
 export interface UhealthzoneTableListItemInterface {
@@ -10,6 +12,7 @@ export interface UhealthzoneTableListItemInterface {
     REGIST_DT: null | string
     MHRLS_NM: null | string
     MHRLS_CNT: null | string
+    JOIN_AT: `C` | `J` | `G` | `N`
 }
 
 // 매거진 리스트
@@ -46,8 +49,18 @@ export const UhealthzoneTableConfig = {
                 key: `INSTL_ADRES`,
             },
             {
-                name: `지도`,
-                key: `UHEALTH_ZONE_NO`,
+                name: `가입유형`,
+                key: `JOIN_AT`,
+                component: ({
+                    el,
+                }: {
+                    el: UhealthzoneTableListItemInterface
+                }) => {
+                    const findData = _.find(Codes.uhealthzoneJoinAtCode, {
+                        code: el.JOIN_AT,
+                    })
+                    return <>{findData ? findData.name : ``}</>
+                },
             },
             {
                 name: `외부인 이용`,

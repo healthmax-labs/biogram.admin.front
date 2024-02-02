@@ -45,6 +45,7 @@ export interface UhealthZoneListItemInterface {
     REGIST_DT: null | string
     MHRLS_NM: null | string
     MHRLS_CNT: null | string
+    JOIN_AT: `C` | `J` | `G` | `N`
 }
 
 // 바이로그램 존 리스트

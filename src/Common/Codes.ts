@@ -654,6 +654,24 @@ export default {
             code: `21`,
         },
     ],
+    uhealthzoneJoinAtCode: [
+        {
+            name: `CI`,
+            code: `C`,
+        },
+        {
+            name: `기존`,
+            code: `J`,
+        },
+        {
+            name: `없음`,
+            code: `G`,
+        },
+        {
+            name: `NONE`,
+            code: `N`,
+        },
+    ],
     deviceGubun: {
         model: {
             name: `모델`,
