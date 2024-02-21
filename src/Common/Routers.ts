@@ -198,6 +198,45 @@ export default {
             ),
         },
         {
+            mainCode: `20000`,
+            menuCode: `20301`,
+            name: `EAP 현황`,
+            pathName: `/manage/inst/eap-list`,
+            category: `eap`,
+            recooilKey: `instPage/eap-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Inst/EapListPage')
+            ),
+        },
+        {
+            mainCode: `20000`,
+            menuCode: `20301`,
+            name: `EAP 상세`,
+            pathName: `/manage/inst/eap-list/:eapNo/detail`,
+            category: `eap`,
+            recooilKey: `instPage/eap-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Inst/EapDetailPage')
+            ),
+        },
+        {
+            mainCode: `20000`,
+            menuCode: `20301`,
+            name: `EAP 등록`,
+            pathName: `/manage/inst/eap-list/new`,
+            category: `inst`,
+            recooilKey: `instPage/eap-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Inst/EapDetailPage')
+            ),
+        },
+        {
             mainCode: `30000`,
             menuCode: `30101`,
             name: `매거진`,

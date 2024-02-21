@@ -4,6 +4,8 @@ import {
     InstInfoInterface,
     InstJoinListItemInterface,
     InstListInterface,
+    EapListInterface,
+    EapDetailInterface,
 } from '@Type/InstTypes'
 import _ from 'lodash'
 
@@ -242,5 +244,186 @@ export const postInstChargerDelete = ({
         method: 'post',
         url: `/inst/v1/charger/${instNo}/${memberNo}/delete`,
         payload: {},
+    })
+}
+
+/**
+ * Eap 리스트
+ */
+export const getInstEapInfoList = (): Promise<
+    ServicesDefaultResult<EapListInterface>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/inst/v1/eapInfo/list`,
+        payload: {},
+    })
+}
+
+/**
+ * Eap 상세
+ * @param registNo
+ */
+export const getInstEapInfoView = ({
+    registNo,
+}: {
+    registNo: string
+}): Promise<ServicesDefaultResult<EapDetailInterface>> => {
+    return _Axios_({
+        method: 'get',
+        url: `/inst/v1/eapInfo/view/${registNo}`,
+        payload: {},
+    })
+}
+
+/**
+ * Eap 등록
+ * @param INST_NO
+ * @param MIND_YN
+ * @param MIND_CURRENT_COUNT
+ * @param MIND_MAX_COUNT
+ * @param MIND_URL
+ * @param MIND_CODE
+ * @param HEALTH_YN
+ * @param HEALTH_CURRENT_COUNT
+ * @param HEALTH_MAX_COUNT
+ * @param HEALTH_URL
+ * @param START_DE
+ * @param END_DE
+ * @param IS_LIVE
+ */
+export const postInstEapInfoAdd = ({
+    INST_NO,
+    MIND_YN,
+    MIND_CURRENT_COUNT,
+    MIND_MAX_COUNT,
+    MIND_URL,
+    MIND_CODE,
+    HEALTH_YN,
+    HEALTH_CURRENT_COUNT,
+    HEALTH_MAX_COUNT,
+    HEALTH_URL,
+    START_DE,
+    END_DE,
+    IS_LIVE,
+}: {
+    INST_NO: string
+    MIND_YN: string | 'N' | 'Y'
+    MIND_CURRENT_COUNT: string
+    MIND_MAX_COUNT: string
+    MIND_URL: string
+    MIND_CODE: string
+    HEALTH_YN: string | 'N' | 'Y'
+    HEALTH_CURRENT_COUNT: string
+    HEALTH_MAX_COUNT: string
+    HEALTH_URL: string
+    START_DE: string
+    END_DE: string
+    IS_LIVE: string | 'Y' | 'N'
+}): Promise<ServicesDefaultResult<EapDetailInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/eapInfo/add`,
+        payload: {
+            INST_NO: INST_NO,
+            MIND_YN: MIND_YN,
+            MIND_CURRENT_COUNT: MIND_CURRENT_COUNT,
+            MIND_MAX_COUNT: MIND_MAX_COUNT,
+            MIND_URL: MIND_URL,
+            MIND_CODE: MIND_CODE,
+            HEALTH_YN: HEALTH_YN,
+            HEALTH_CURRENT_COUNT: HEALTH_CURRENT_COUNT,
+            HEALTH_MAX_COUNT: HEALTH_MAX_COUNT,
+            HEALTH_URL: HEALTH_URL,
+            START_DE: START_DE,
+            END_DE: END_DE,
+            IS_LIVE: IS_LIVE,
+        },
+    })
+}
+
+/**
+ * Eap 수정
+ * @param EAP_INST_REGISTER_NO
+ * @param INST_NO
+ * @param MIND_YN
+ * @param MIND_CURRENT_COUNT
+ * @param MIND_MAX_COUNT
+ * @param MIND_URL
+ * @param MIND_CODE
+ * @param HEALTH_YN
+ * @param HEALTH_CURRENT_COUNT
+ * @param HEALTH_MAX_COUNT
+ * @param HEALTH_URL
+ * @param START_DE
+ * @param END_DE
+ * @param IS_LIVE
+ */
+export const postInstEapInfoUpdate = ({
+    EAP_INST_REGISTER_NO,
+    INST_NO,
+    MIND_YN,
+    MIND_CURRENT_COUNT,
+    MIND_MAX_COUNT,
+    MIND_URL,
+    MIND_CODE,
+    HEALTH_YN,
+    HEALTH_CURRENT_COUNT,
+    HEALTH_MAX_COUNT,
+    HEALTH_URL,
+    START_DE,
+    END_DE,
+    IS_LIVE,
+}: {
+    EAP_INST_REGISTER_NO: string
+    INST_NO: string
+    MIND_YN: string | 'Y' | 'N'
+    MIND_CURRENT_COUNT: string
+    MIND_MAX_COUNT: string
+    MIND_URL: string
+    MIND_CODE: string
+    HEALTH_YN: string | 'Y' | 'N'
+    HEALTH_CURRENT_COUNT: string
+    HEALTH_MAX_COUNT: string
+    HEALTH_URL: string
+    START_DE: string
+    END_DE: string
+    IS_LIVE: string | 'Y' | 'N'
+}): Promise<ServicesDefaultResult<null>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/eapInfo/update`,
+        payload: {
+            EAP_INST_REGISTER_NO: EAP_INST_REGISTER_NO,
+            INST_NO: INST_NO,
+            MIND_YN: MIND_YN,
+            MIND_CURRENT_COUNT: MIND_CURRENT_COUNT,
+            MIND_MAX_COUNT: MIND_MAX_COUNT,
+            MIND_URL: MIND_URL,
+            MIND_CODE: MIND_CODE,
+            HEALTH_YN: HEALTH_YN,
+            HEALTH_CURRENT_COUNT: HEALTH_CURRENT_COUNT,
+            HEALTH_MAX_COUNT: HEALTH_MAX_COUNT,
+            HEALTH_URL: HEALTH_URL,
+            START_DE: START_DE,
+            END_DE: END_DE,
+            IS_LIVE: IS_LIVE,
+        },
+    })
+}
+
+/**
+ * eap 삭제
+ * @param eapNo
+ */
+export const postInstEapInfoDelete = ({
+    eapNo,
+}: {
+    eapNo: string
+}): Promise<ServicesDefaultResult<null>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/eapInfo/delete/${eapNo}`,
+        payload: null,
     })
 }

@@ -48,6 +48,7 @@ export interface InstInfoInterface {
     SPUSE_STPLAT_AT: string | 'Y' | 'N'
     TOP_INST_NO?: string
     MIDDLE_INST_NO?: string
+    EAP_DISPLAY_YN: string | 'Y' | 'N'
     UPPER_INST_NO?: string
     CHARGER_LIST?: Array<{
         CRUD: string | 'U'
@@ -61,4 +62,62 @@ export interface InstInfoInterface {
     INST_NO_LEVEL1?: string
     INST_NO_LEVEL2?: string
     INST_NO_LEVEL3?: string
+}
+
+export interface EapListItemInterface {
+    EAP_INST_REGISTER_NO: string
+    INST_NO: string
+    INST_NM: string
+    MIND_YN: 'Y' | 'N'
+    MIND_CURRENT_COUNT: string
+    MIND_MAX_COUNT: string
+    MIND_URL: null | string
+    MIND_CODE: null | string
+    HEALTH_YN: 'Y' | 'N'
+    HEALTH_CURRENT_COUNT: string
+    HEALTH_MAX_COUNT: string
+    HEALTH_URL: null | string
+    START_DE: string
+    END_DE: string
+    IS_LIVE: 'N' | 'Y'
+    DELETE_YN: null
+    REGIST_DT: null
+    REGIST_ID: null
+    UP_DT: null
+    UP_ID: null
+    DELETE_DT: null
+    DELETE_ID: null
+    EAP_DISPLAY_YN: null
+}
+
+// Eap 현황 리스트
+export interface EapListInterface {
+    EAP_INFO_LIST: EapListItemInterface[]
+}
+
+// Eap 상세
+export interface EapDetailInterface {
+    EAP_INST_REGISTER_NO: string
+    INST_NO: string
+    INST_NM: string
+    MIND_YN: string | 'Y' | 'N'
+    MIND_CURRENT_COUNT: string
+    MIND_MAX_COUNT: string
+    MIND_URL: string
+    MIND_CODE: string
+    HEALTH_YN: 'Y' | 'N'
+    HEALTH_CURRENT_COUNT: string
+    HEALTH_MAX_COUNT: string
+    HEALTH_URL: string
+    START_DE: string
+    END_DE: string
+    IS_LIVE: 'Y' | 'N'
+    DELETE_YN: 'N' | 'Y'
+    REGIST_DT: string
+    REGIST_ID: string
+    UP_DT: string
+    UP_ID: string
+    DELETE_DT: string
+    DELETE_ID: string
+    EAP_DISPLAY_YN: 'N' | 'Y'
 }

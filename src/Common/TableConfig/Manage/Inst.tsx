@@ -1,6 +1,7 @@
 // 회원 테이블 데이터
 import React from 'react'
-import { gmtTimeToTimeObject } from '@Helper'
+import { gmtTimeToTimeObject, addComma } from '@Helper'
+import { EapListItemInterface } from '@Type/InstTypes'
 
 export interface JoinTableListItemInterface {
     WORK_TY_CODE: null | string
@@ -127,6 +128,80 @@ export const InitTableConfig = {
             {
                 name: `리워드 예산`,
                 key: `BUDGET_ASIGN_AMOUNT`,
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// Eap 현황 리스트
+export const EapTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `EAP_INST_REGISTER_NO`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `소속`,
+                key: `INST_NM`,
+            },
+            {
+                name: `신청기간`,
+                key: `START_DE`,
+                cellWidth: `w036`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return (
+                        <>
+                            {el.START_DE}~{el.END_DE}
+                        </>
+                    )
+                },
+            },
+            {
+                name: `마음상담`,
+                key: `MIND_YN`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return <>{el.MIND_YN == 'Y' ? `사용` : `미사용`}</>
+                },
+            },
+            {
+                name: `상담인원`,
+                key: `MIND_CURRENT_COUNT`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return (
+                        <>{`${addComma(
+                            Number(el.MIND_CURRENT_COUNT)
+                        )}/${addComma(Number(el.MIND_MAX_COUNT))}`}</>
+                    )
+                },
+            },
+            {
+                name: `건강상담`,
+                key: `HEALTH_YN`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return <>{el.HEALTH_YN == 'Y' ? `사용` : `미사용`}</>
+                },
+            },
+            {
+                name: `상담인원`,
+                key: `HEALTH_CURRENT_COUNT`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return (
+                        <>{`${addComma(
+                            Number(el.HEALTH_CURRENT_COUNT)
+                        )}/${addComma(Number(el.HEALTH_MAX_COUNT))}`}</>
+                    )
+                },
+            },
+            {
+                name: `진행여부`,
+                key: `IS_LIVE`,
+                component: ({ el }: { el: EapListItemInterface }) => {
+                    return <>{el.IS_LIVE === 'Y' ? `진행중` : `종료`}</>
+                },
             },
         ],
     ],
