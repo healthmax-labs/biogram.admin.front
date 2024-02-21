@@ -228,7 +228,7 @@ export default {
             menuCode: `20301`,
             name: `EAP 등록`,
             pathName: `/manage/inst/eap-list/new`,
-            category: `inst`,
+            category: `eap`,
             recooilKey: `instPage/eap-detail`,
             showFlag: 'Y',
             reloadButton: false,
