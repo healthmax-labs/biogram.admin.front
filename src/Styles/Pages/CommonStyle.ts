@@ -73,6 +73,8 @@ export const ManageBoxStyle = {
 export const WapperStyle = {
     InputFlexNoWarpWapper: tw.div`flex flex-nowrap w-full items-center`,
     InputFlexNoWarpWapperGap: tw.div`flex flex-nowrap w-full items-center gap-2`,
+    TableCellInputWapper: tw.div`flex w-full flex-nowrap justify-start gap-2`,
+    TableCellInputItem: tw.div``,
     FullWapper: tw.div`w-full`,
     FlexColFulWapper: tw.div`flex flex-col w-full`,
     FullWapperGap: tw.div`w-full gap-2 py-1`,

@@ -98,6 +98,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
         const {
             UPPER_INST_NO,
             MIDDLE_INST_NO,
+            EAP_DISPLAY_YN,
             TOP_INST_NO,
             INST_TY_CODE,
             INST_NM,
@@ -121,6 +122,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             SPUSE_STPLAT_AT: SPUSE_STPLAT_AT,
             INST_SHOW: INST_SHOW,
             INST_STPLAT_AT: INST_STPLAT_AT,
+            EAP_DISPLAY_YN: EAP_DISPLAY_YN,
         }
 
         // 등록
@@ -769,6 +771,49 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             },
                                         }))
                                     }
+                                />
+                            </WapperStyle.InputFlexNoWarpWapper>
+                        </InputCell>
+                    </Row>
+                    <Row>
+                        <LabelCell>
+                            <VaryLabel LabelName={`EAP 배너 노출 여부`} />
+                        </LabelCell>
+                        <InputCell>
+                            <WapperStyle.InputFlexNoWarpWapper>
+                                <VaryLabelCheckBox
+                                    Checked={
+                                        detailState.info.EAP_DISPLAY_YN === 'Y'
+                                    }
+                                    LabelName={`노출`}
+                                    HandleOnChange={e => {
+                                        if (e.target.checked) {
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    EAP_DISPLAY_YN: 'Y',
+                                                },
+                                            }))
+                                        }
+                                    }}
+                                />
+                                <VaryLabelCheckBox
+                                    Checked={
+                                        detailState.info.EAP_DISPLAY_YN === 'N'
+                                    }
+                                    LabelName={`비노출`}
+                                    HandleOnChange={e => {
+                                        if (e.target.checked) {
+                                            setDetailState(prevState => ({
+                                                ...prevState,
+                                                info: {
+                                                    ...prevState.info,
+                                                    EAP_DISPLAY_YN: 'N',
+                                                },
+                                            }))
+                                        }
+                                    }}
                                 />
                             </WapperStyle.InputFlexNoWarpWapper>
                         </InputCell>

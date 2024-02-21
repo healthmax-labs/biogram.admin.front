@@ -78,6 +78,7 @@ export const DetailTableStyle = {
     TableWapper: tw.tbody`bg-white`,
     Row: tw.tr`whitespace-nowrap max-h-11 w-full`,
     LabelCell: tw.td`px-6 w-36 text-sm text-gray-500 border`,
+    LabelCellLong: tw.td`px-6 w-48 text-sm text-gray-500 border`,
     LabelCellFull: tw.td`px-6 w-full text-sm text-gray-500 border`,
     InputCell: styled.td(
         ({ NoWarp, WFull }: { NoWarp?: boolean; WFull?: boolean }) => {

@@ -26,6 +26,8 @@ import {
     InstDetailState,
     InstJoinListState,
     InstListState,
+    EapListState,
+    EapDetailState,
 } from '@Recoil/InstPagesState'
 import {
     MagazineDetailState,
@@ -103,6 +105,8 @@ export default function useRecoilReset() {
     const InstJoinListStateReset = useResetRecoilState(InstJoinListState) // 소속 가입신청
     const InstListStateReset = useResetRecoilState(InstListState) // 소속현황
     const InstDetailStateReset = useResetRecoilState(InstDetailState) // 소속상세
+    const EapListStateReset = useResetRecoilState(EapListState) // Eap현황
+    const EapDetailStateReset = useResetRecoilState(EapDetailState) // Eap상세
 
     const MagazineListStateReset = useResetRecoilState(MagazineListState) // 매거진
     const MagazineDetailStateReset = useResetRecoilState(MagazineDetailState) // 메거진 상세
@@ -186,6 +190,8 @@ export default function useRecoilReset() {
             'instPage/inst-join-list': () => void
             'instPage/inst-list': () => void
             'instPage/inst-detail': () => void
+            'instPage/eap-list': () => void
+            'instPage/eap-detail': () => void
 
             'contentsPage/magazine-list': () => void
             'contentsPage/magazine-detail': () => void
@@ -252,6 +258,8 @@ export default function useRecoilReset() {
             'instPage/inst-join-list': () => InstJoinListStateReset(),
             'instPage/inst-list': () => InstListStateReset(),
             'instPage/inst-detail': () => InstDetailStateReset(),
+            'instPage/eap-list': () => EapListStateReset(),
+            'instPage/eap-detail': () => EapDetailStateReset(),
 
             'contentsPage/magazine-list': () => MagazineListStateReset(),
             'contentsPage/magazine-detail': () => MagazineDetailStateReset(),

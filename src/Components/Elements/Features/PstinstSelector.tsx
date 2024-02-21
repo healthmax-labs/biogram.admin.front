@@ -52,11 +52,13 @@ const initializeState = {
 
 const PstinstSelector = ({
     SelectorType = 'input',
+    InputType,
     HandleSelectValue,
     HandleCancleClick,
     SelectElement,
 }: {
     SelectorType?: 'input' | 'OnlyModal' | 'CloseModal'
+    InputType?: 'search' | 'default'
     HandleCancleClick?: () => void
     HandleSelectValue: ({
         instNo,
@@ -321,7 +323,7 @@ const PstinstSelector = ({
         <>
             {SelectorType && SelectorType === 'input' && (
                 <VaryInput
-                    ContentsType={`search`}
+                    ContentsType={InputType ? InputType : `search`}
                     Width={`w40`}
                     ReadOnly={true}
                     Placeholder={`소속을 선택해 주세요.`}

@@ -61,6 +61,8 @@ export default {
         'instPage/inst-join-list',
         'instPage/inst-list',
         'instPage/inst-detail',
+        'instPage/eap-list',
+        'instPage/eap-detail',
 
         'contentsPage/magazine-list',
         'contentsPage/magazine-detail',
