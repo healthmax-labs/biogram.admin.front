@@ -94,7 +94,7 @@ const WalkRankingListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <WalkRankingSearchBox HandleGetList={() => getTableList()} />
+                <WalkRankingSearchBox />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />

@@ -9,6 +9,7 @@ import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
+import { useNavigate } from 'react-router-dom'
 
 const {
     SearchItemWapper,
@@ -20,11 +21,8 @@ const {
     RightSearchButton,
 } = SearchBoxStyle
 
-const WalkRankingSearchBox = ({
-    HandleGetList,
-}: {
-    HandleGetList: () => void
-}) => {
+const WalkRankingSearchBox = () => {
+    const navigate = useNavigate()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [walkRankingListState, setWalkRankingState] =
         useRecoilState(WalkRankingListState)
@@ -99,12 +97,18 @@ const WalkRankingSearchBox = ({
                     ButtonClick={() => {
                         setWalkRankingState(prevState => ({
                             ...prevState,
+                            status: 'idle',
                             search: {
                                 ...prevState.search,
                                 curPage: 1,
                             },
                         }))
-                        HandleGetList()
+
+                        navigate({
+                            pathname:
+                                process.env.PUBLIC_URL +
+                                `/manage/status/walk-ranking`,
+                        })
                     }}
                 />
             </RightSearchButton>
