@@ -97,6 +97,13 @@ const WalkRankingSearchBox = ({
                 WindowsWidth={mainLayoutState.windowsSize.width}>
                 <DefaultSearchButton
                     ButtonClick={() => {
+                        setWalkRankingState(prevState => ({
+                            ...prevState,
+                            search: {
+                                ...prevState.search,
+                                curPage: 1,
+                            },
+                        }))
                         HandleGetList()
                     }}
                 />
