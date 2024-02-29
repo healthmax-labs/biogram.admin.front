@@ -457,6 +457,25 @@ export default {
             SpliceColumn: false,
             SpliceColumns: [{ start: 2, end: 1 }],
         },
+        WalkRanking: {
+            FileName: `보행수_랭킹_${getNowDateDetail()}`,
+            SheetName: `보행수 랭킹`,
+            Header: [
+                [
+                    '회원번호',
+                    '이름',
+                    '생년월일',
+                    '아이디',
+                    '휴대폰번호',
+                    '성별',
+                    '순위',
+                    '보행수',
+                ],
+            ],
+            Data: [],
+            SpliceColumn: false,
+            SpliceColumns: [{ start: 1, end: 1 }],
+        },
         HealthIndicators: {
             FileName: `건강지표개선_현황_${getNowDateDetail()}`,
             SheetName: `건강지표개선 현황`,

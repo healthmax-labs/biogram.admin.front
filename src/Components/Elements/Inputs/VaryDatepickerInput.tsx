@@ -231,10 +231,15 @@ const VaryDatepickerInput = ({
                         return
                     }
 
+                    let value = e.target.value
+
+                    // 값이 "2024년 2월" 일경우 날짜 계산 오류로 인해 수정.
+                    if (value.length === 9) {
+                        value = `${value} 01일`
+                    }
+
                     setSelectDate(
-                        changeDatePickerDate(
-                            getOnlyNumber(e.target.value)
-                        ) as Date
+                        changeDatePickerDate(getOnlyNumber(value)) as Date
                     )
                 }}
                 dateFormat={dateFormat}

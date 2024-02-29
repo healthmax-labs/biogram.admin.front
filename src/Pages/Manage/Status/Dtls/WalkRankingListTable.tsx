@@ -7,7 +7,7 @@ import {
     WalkRankingTableConfig,
     WalkRankingTableListItemInterface,
 } from '@Common/TableConfig/Manage/Status'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
 import _ from 'lodash'
 import { AtomMainLayoutState } from '@Recoil/MainLayoutState'
@@ -22,9 +22,9 @@ interface tableOption {
     Lists: WalkRankingTableListItemInterface[]
 }
 
-const WalkRankingListTable = () => {
+const WalkRankingListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const navigate = useNavigate()
-    const listState = useRecoilValue(WalkRankingListState)
+    const [listState, setListState] = useRecoilState(WalkRankingListState)
     const consultDetailState = useRecoilValue(ConsultDetailState)
     const { recoilReset } = useRecoilReset()
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
@@ -54,6 +54,21 @@ const WalkRankingListTable = () => {
             pathname:
                 process.env.PUBLIC_URL +
                 `/manage/member/consult-detail/${element.MBER_NO}/mydata`,
+        })
+    }
+
+    const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                curPage: pageNumber,
+            },
+        }))
+
+        navigate({
+            pathname: process.env.PUBLIC_URL + `/manage/status/walk-ranking`,
         })
     }
 
@@ -94,7 +109,15 @@ const WalkRankingListTable = () => {
         }
     }, [mainLayoutState.Theme])
 
-    return <MainTable {...tableOptions} RowClick={handleRowClick} />
+    return (
+        <MainTable
+            {...tableOptions}
+            RowClick={handleRowClick}
+            TotalCount={listState.list.TOTAL_COUNT}
+            PaginationClick={e => handlePaginationClick(e)}
+            CurrentPage={CurrentPage}
+        />
+    )
 }
 
 export default WalkRankingListTable

@@ -3,7 +3,6 @@ import { PageContainerStyle } from '@Style/Layouts/Manage/MainStyles'
 import { MainStyle } from '@Style/Pages/CommonStyle'
 import WalkRankingSearchBox from './WalkRankingSearchBox'
 import WalkRankingTable from './WalkRankingListTable'
-
 import { useRecoilState } from 'recoil'
 import { WalkRankingListState } from '@Recoil/StatusPagesState'
 import { getWalkRankingList } from '@Service/StatusService'
@@ -11,8 +10,9 @@ import { isNull } from 'lodash'
 import { useRecoilReset } from '@Hook/index'
 import { AtomPageTabState } from '@Recoil/PageTabState'
 import { RecoilStateKeyNameType } from '@CommonTypes'
+import ManageBox from './WalkRankingManageBox'
 
-const { SearchWapper, TableWapper } = MainStyle
+const { SearchWapper, TableWapper, ManageWapper } = MainStyle
 const {
     ListPage: { Container },
 } = PageContainerStyle
@@ -34,7 +34,7 @@ const WalkRankingListMain = () => {
         const { status, payload } = await getWalkRankingList({
             CUR_PAGE: !isNull(curPage) ? curPage : 1,
             INST_NO: !isNull(INST_NO) ? INST_NO : '',
-            MESURE_MT: !isNull(MESURE_MT) ? MESURE_MT : ``,
+            MESURE_MT: !isNull(MESURE_MT) ? MESURE_MT.substring(0, 6) : ``,
         })
 
         if (status) {
@@ -96,8 +96,11 @@ const WalkRankingListMain = () => {
             <SearchWapper>
                 <WalkRankingSearchBox HandleGetList={() => getTableList()} />
             </SearchWapper>
+            <ManageWapper>
+                <ManageBox />
+            </ManageWapper>
             <TableWapper>
-                <WalkRankingTable />
+                <WalkRankingTable CurrentPage={listState.search.curPage} />
             </TableWapper>
         </Container>
     )

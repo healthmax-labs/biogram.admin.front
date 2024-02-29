@@ -11,12 +11,7 @@ import {
     BrainListItemInterface,
     WalkRankingListInterface,
 } from '@Type/StatusTypes'
-import {
-    getNowDate,
-    getOneMonthAgo,
-    getNowYearMonth,
-    getDateDayUnit,
-} from '@Helper'
+import { getNowDate, getOneMonthAgo, getDateDayUnit } from '@Helper'
 
 /**
  * status 페이지.
@@ -301,10 +296,10 @@ export const WalkRankingListState = atom<WalkRankingSearchListInterface>({
     default: {
         status: 'idle',
         search: {
-            curPage: 0,
+            curPage: 1,
             INST_NO: '',
             instNm: '',
-            MESURE_MT: getNowYearMonth(),
+            MESURE_MT: getNowDate(),
         },
         list: {
             STEP_RANK_INFO_LIST: [],

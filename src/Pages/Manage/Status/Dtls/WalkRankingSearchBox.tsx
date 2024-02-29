@@ -28,6 +28,7 @@ const WalkRankingSearchBox = ({
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
     const [walkRankingListState, setWalkRankingState] =
         useRecoilState(WalkRankingListState)
+
     return (
         <RowContainer>
             <SearchRowWapper>
@@ -73,16 +74,16 @@ const WalkRankingSearchBox = ({
                                 DateFormat={'yyyy년 MM월'}
                                 InputeType={`search`}
                                 Value={changeDatePickerDate(
-                                    `${walkRankingListState.search.MESURE_MT}01`
+                                    `${walkRankingListState.search.MESURE_MT}`
                                 )}
                                 CallBackReturn={e => {
-                                    const { year, monthPad } =
+                                    const { year, monthPad, dayPad } =
                                         gmtTimeToTimeObject(e)
                                     setWalkRankingState(prevState => ({
                                         ...prevState,
                                         search: {
                                             ...prevState.search,
-                                            MESURE_MT: `${year}${monthPad}`,
+                                            MESURE_MT: `${year}${monthPad}${dayPad}`,
                                         },
                                     }))
                                 }}

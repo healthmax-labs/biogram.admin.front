@@ -1506,6 +1506,7 @@ export interface WalkRankingTableListItemInterface {
 export const WalkRankingTableConfig = {
     Loading: true,
     Options: {
+        pagination: true,
         selectAll: false,
         indexKey: `MBER_NO`,
         bgState: true,
