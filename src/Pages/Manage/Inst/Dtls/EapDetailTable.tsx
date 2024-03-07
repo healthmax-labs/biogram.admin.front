@@ -263,7 +263,7 @@ const EapDetailTable = ({
                                                         MIND_YN: e.target
                                                             .checked
                                                             ? 'Y'
-                                                            : 'n',
+                                                            : 'N',
                                                     },
                                                 }))
                                             }}
