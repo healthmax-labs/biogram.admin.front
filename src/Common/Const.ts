@@ -63,6 +63,8 @@ export default {
         'instPage/inst-detail',
         'instPage/eap-list',
         'instPage/eap-detail',
+        'instPage/budget-list',
+        'instPage/budget-detail',
 
         'contentsPage/magazine-list',
         'contentsPage/magazine-detail',

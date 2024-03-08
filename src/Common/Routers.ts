@@ -653,6 +653,45 @@ export default {
             ),
         },
         {
+            mainCode: `60000`,
+            menuCode: `60501`,
+            name: `리워드 관리`,
+            pathName: `/manage/manager/budget-list`,
+            category: `budget`,
+            recooilKey: `managerPage/budget-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/BudgetListPage')
+            ),
+        },
+        {
+            mainCode: `60000`,
+            menuCode: `60501`,
+            name: `리워드 등록`,
+            pathName: `/manage/manager/budget-list/new`,
+            category: `budget`,
+            recooilKey: `managerPage/budget-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/BudgetDetailPage')
+            ),
+        },
+        {
+            mainCode: `60000`,
+            menuCode: `60501`,
+            name: `리워드 상세`,
+            pathName: `/manage/manager/budget-list/:BUDGET_SN/detail`,
+            category: `budget`,
+            recooilKey: `managerPage/budget-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Manager/BudgetDetailPage')
+            ),
+        },
+        {
             mainCode: `80000`,
             menuCode: `80101`,
             name: `공지사항`,

@@ -1,7 +1,11 @@
 import { dateInsertHypen, addComma } from '@Helper'
 import _ from 'lodash'
 import React from 'react'
-import { PopupManageListItemInterface } from '@Type/MangerTypes'
+import {
+    PopupManageListItemInterface,
+    BudgetListItemInterface,
+} from '@Type/MangerTypes'
+import { VaryButton } from '@Elements'
 
 // 이용약관 테이블 데이터
 export interface StplatTableListItemInterface {
@@ -193,6 +197,63 @@ export const PopupManageTableConfig = {
                             {_.isEmpty(el.REGIST_DT)
                                 ? ''
                                 : el.REGIST_DT.substring(0, 10)}
+                        </>
+                    )
+                },
+            },
+        ],
+    ],
+    Lists: [],
+}
+
+// 리워드
+export const BudgetListTableConfig = {
+    Loading: true,
+    Options: {
+        selectAll: false,
+        indexKey: `BUDGET_SN`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `소속`,
+                key: `INST_NM`,
+            },
+            {
+                name: `기간`,
+                key: `BUDGET_BGNDE`,
+                component: ({ el }: { el: BudgetListItemInterface }) => {
+                    return <>{`${el.BUDGET_BGNDE}~${el.BUDGET_ENDDE}`}</>
+                },
+            },
+            {
+                name: `예산`,
+                key: `BUDGET_ASIGN_AMOUNT`,
+                component: ({ el }: { el: BudgetListItemInterface }) => {
+                    return <>{addComma(el.BUDGET_ASIGN_AMOUNT)}</>
+                },
+            },
+            {
+                name: `일최대금액`,
+                key: `MAX_CASH`,
+                component: ({ el }: { el: BudgetListItemInterface }) => {
+                    return <>{addComma(el.MAX_CASH)} </>
+                },
+            },
+            {
+                name: `일별내역`,
+                key: `BUTTON`,
+                component: () => {
+                    return (
+                        <>
+                            <VaryButton
+                                ButtonName={`보기`}
+                                ButtonType={`manage`}
+                                HandleClick={() => {
+                                    //
+                                }}
+                            />
                         </>
                     )
                 },
