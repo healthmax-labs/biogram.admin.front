@@ -165,6 +165,7 @@ const NoticeDetailTable = ({
                                                 : ``,
                                             Category: 'ETC',
                                         }}
+                                        NeedDownload={true}
                                         ShowInform={false}
                                         ShowFileName={true}
                                         Disabled={authority === `view`}

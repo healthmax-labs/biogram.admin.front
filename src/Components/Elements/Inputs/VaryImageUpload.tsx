@@ -7,6 +7,8 @@ import { isEmpty } from 'lodash'
 import { VaryImageUploadStyle } from '@Style/Elements/InputStyles'
 import Codes from '@Codes'
 import _ from 'lodash'
+import fileDownload from 'js-file-download'
+import axios from 'axios'
 
 const { FileInputWapper } = VaryImageUploadStyle
 
@@ -30,6 +32,7 @@ const VaryImageUpload = ({
     ShowFileName,
     Disabled,
     HideInput = false,
+    NeedDownload,
 }: {
     Image?: {
         AtchmnflPath: string
@@ -44,6 +47,7 @@ const VaryImageUpload = ({
     ShowFileName?: boolean
     Disabled?: boolean
     HideInput?: boolean
+    NeedDownload?: boolean
 }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const { handlMainAlert } = useMainLayouts()
@@ -245,9 +249,26 @@ const VaryImageUpload = ({
                                     className="flex items-center justify-start text-sm"
                                     onClick={() => {
                                         if (pageState.SelectImagePrev) {
-                                            window.open(
-                                                pageState.SelectImagePrev
-                                            )
+                                            if (NeedDownload) {
+                                                axios
+                                                    .get(
+                                                        pageState.SelectImagePrev,
+                                                        {
+                                                            responseType:
+                                                                'blob',
+                                                        }
+                                                    )
+                                                    .then(res => {
+                                                        fileDownload(
+                                                            res.data,
+                                                            pageState.OrginlFileNm
+                                                        )
+                                                    })
+                                            } else {
+                                                window.open(
+                                                    pageState.SelectImagePrev
+                                                )
+                                            }
                                         }
                                     }}>{`${pageState.OrginlFileNm}`}</div>
                             </section>
