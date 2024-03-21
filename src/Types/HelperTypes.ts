@@ -24,6 +24,7 @@ export interface HelperNoticeDetailInterface {
     USE_YN: 'N' | 'Y'
     REGIST_DT: string
     UPDT_DT: string
+    POPUP_YN: 'Y' | 'N'
     ATCHMNFL_INFO: {
         ATCHMNFL_NO: string
         ATCHMNFL_NM: string

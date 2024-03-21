@@ -244,3 +244,24 @@ export const getDashBoardNotice = (): Promise<
         payload: null,
     })
 }
+
+export const getMngDashBoardPopup = (): Promise<
+    ServicesDefaultResult<{
+        POST_ID: string
+        TITLE: string
+        CONTENT: string
+        ATCHMNFL_INFO: {
+            ATCHMNFL_NO: string
+            ATCHMNFL_NM: string
+            ATCHMNFL_PATH: string
+            ORIGINL_FILE_NM: string
+            ATCHMNFL_DOWN_PATH: string
+        }
+    }>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/dash_board/popup`,
+        payload: null,
+    })
+}

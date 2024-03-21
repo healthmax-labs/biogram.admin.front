@@ -48,7 +48,7 @@ const NoticeDetailMain = () => {
     const resetNoticeListState = useResetRecoilState(NoticeListState)
 
     const handleDetailSave = async () => {
-        const { TITLE, CONTENT, USE_YN, ATCHMNFL_INFO } =
+        const { TITLE, CONTENT, USE_YN, POPUP_YN, ATCHMNFL_INFO } =
             noticeDetailState.detail
 
         if (TITLE === ``) {
@@ -76,6 +76,7 @@ const NoticeDetailMain = () => {
             TITLE: TITLE,
             CONTENT: CONTENT,
             USE_YN: USE_YN,
+            POPUP_YN: POPUP_YN,
             ATCHMNFL_NO: ATCHMNFL_INFO
                 ? ATCHMNFL_INFO.ATCHMNFL_NO === ``
                     ? ``
@@ -152,13 +153,14 @@ const NoticeDetailMain = () => {
             ...prevState,
             status: `loading`,
         }))
-        const { POST_ID, TITLE, CONTENT, USE_YN, ATCHMNFL_INFO } =
+        const { POST_ID, TITLE, CONTENT, USE_YN, POPUP_YN, ATCHMNFL_INFO } =
             noticeDetailState.detail
         const { status } = await postNoticeUpdate({
             POST_ID: Number(POST_ID),
             TITLE: TITLE,
             CONTENT: CONTENT,
             USE_YN: USE_YN,
+            POPUP_YN: POPUP_YN,
             ATCHMNFL_NO: ATCHMNFL_INFO
                 ? ATCHMNFL_INFO.ATCHMNFL_NO === ``
                     ? `0`

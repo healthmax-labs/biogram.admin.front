@@ -82,6 +82,22 @@ interface DashBoardPageStateInterface {
         status: DefaultStatus
         list: NoticeResultItemInterface[]
     }
+    noticePopup: {
+        show: boolean
+        todayShow: boolean
+        notice: {
+            POST_ID: string
+            TITLE: string
+            CONTENT: string
+            ATCHMNFL_INFO: {
+                ATCHMNFL_NO: string
+                ATCHMNFL_NM: string
+                ATCHMNFL_PATH: string
+                ORIGINL_FILE_NM: string
+                ATCHMNFL_DOWN_PATH: string
+            }
+        }
+    }
 }
 
 // 대시보드
@@ -142,6 +158,22 @@ export const DashBoardPageState = atom<DashBoardPageStateInterface>({
         notice: {
             status: `idle`,
             list: [],
+        },
+        noticePopup: {
+            show: false,
+            todayShow: true,
+            notice: {
+                POST_ID: '',
+                TITLE: '',
+                CONTENT: '',
+                ATCHMNFL_INFO: {
+                    ATCHMNFL_NO: '',
+                    ATCHMNFL_NM: '',
+                    ATCHMNFL_PATH: '',
+                    ORIGINL_FILE_NM: '',
+                    ATCHMNFL_DOWN_PATH: '',
+                },
+            },
         },
     },
 })

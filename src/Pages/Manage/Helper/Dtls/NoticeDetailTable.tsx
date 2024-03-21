@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { NoticeDetailState } from '@Recoil/HelperPageState'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
 import { DetailPageStyle } from '@Style/Pages/HelperPageStyle'
@@ -13,6 +13,7 @@ import {
 } from '@Element/index'
 import React, { useState } from 'react'
 import Messages from '@Messages'
+import { AtomRootState } from '@Recoil/AppRootState'
 
 const {
     TableContainer,
@@ -54,6 +55,8 @@ const NoticeDetailTable = ({
             deleteConfirm: boolean
         }
     }>(initializeState)
+
+    const rootState = useRecoilValue(AtomRootState)
 
     const [noticeDetailState, setNoticeDetailState] =
         useRecoilState(NoticeDetailState)
@@ -206,6 +209,66 @@ const NoticeDetailTable = ({
                             </div>
                         </InputCell>
                     </Row>
+                    {(() => {
+                        const {
+                            userinfo: { AUTH_CODE, INST_NO },
+                        } = rootState
+
+                        if (AUTH_CODE === 'SM00' || INST_NO === '1000') {
+                            return (
+                                <Row>
+                                    <LabelCell>
+                                        <VaryLabel
+                                            LabelName={`팝업으로 표시`}
+                                        />
+                                    </LabelCell>
+                                    <InputCell WFull={true}>
+                                        <div className="flex flex-nowrap w-full items-center">
+                                            <div className="flex flex-nowrap justify-start gap-2">
+                                                <VaryLabelCheckBox
+                                                    LabelName={`사용`}
+                                                    Checked={
+                                                        noticeDetailState.detail
+                                                            .POPUP_YN === `Y`
+                                                    }
+                                                    HandleOnChange={() =>
+                                                        setNoticeDetailState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                detail: {
+                                                                    ...prevState.detail,
+                                                                    POPUP_YN: `Y`,
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                />
+                                                <VaryLabelCheckBox
+                                                    LabelName={`미사용`}
+                                                    Checked={
+                                                        noticeDetailState.detail
+                                                            .POPUP_YN === `N`
+                                                    }
+                                                    HandleOnChange={() =>
+                                                        setNoticeDetailState(
+                                                            prevState => ({
+                                                                ...prevState,
+                                                                detail: {
+                                                                    ...prevState.detail,
+                                                                    POPUP_YN: `N`,
+                                                                },
+                                                            })
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </InputCell>
+                                </Row>
+                            )
+                        }
+                        return <></>
+                    })()}
                     {authority === `modify` && (
                         <Row>
                             <LabelCell>

@@ -50,6 +50,7 @@ export const NoticeDetailStateInitialize: HelperNoticeDetailInterface = {
     USE_YN: 'N',
     REGIST_DT: '',
     UPDT_DT: '',
+    POPUP_YN: 'N',
     ATCHMNFL_INFO: {
         ATCHMNFL_NO: '',
         ATCHMNFL_NM: '',
