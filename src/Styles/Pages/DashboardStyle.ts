@@ -69,4 +69,14 @@ export const DashboardStyle = {
             },
         },
     },
+    NoticePoupStyle: {
+        Container: tw.div`flex w-full`,
+        Wapper: tw.div`flex flex-col w-full space-y-3`,
+        Row: tw.div`flex w-full`,
+        ButtonWapper: tw.div`flex w-full items-center justify-between`,
+        ButtonItem: tw.div`flex`,
+        NoticeTextWapper: tw.div`flex`,
+        NoticeText: tw.p`text-sm font-medium text-gray-400`,
+        DownloadText: tw.p`text-sm font-medium text-gray-400 cursor-pointer`,
+    },
 }

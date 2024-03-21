@@ -21,21 +21,24 @@ export function postNoticeAdd({
     TITLE,
     CONTENT,
     USE_YN,
+    POPUP_YN,
     ATCHMNFL_NO,
 }: {
     TITLE: string
     CONTENT: string
     USE_YN: 'Y' | 'N'
+    POPUP_YN: 'Y' | 'N'
     ATCHMNFL_NO: string
 }): Promise<ServicesDefaultResult<null>> {
     return _Axios_({
         method: 'post',
         url: '/notice/v1/add',
         payload: {
-            TITLE,
-            CONTENT,
-            USE_YN,
-            ATCHMNFL_NO,
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            USE_YN: USE_YN,
+            POPUP_YN: POPUP_YN,
+            ATCHMNFL_NO: ATCHMNFL_NO,
         },
     })
 }
@@ -57,23 +60,26 @@ export function postNoticeUpdate({
     TITLE,
     CONTENT,
     USE_YN,
+    POPUP_YN,
     ATCHMNFL_NO,
 }: {
     POST_ID: number
     TITLE: string
     CONTENT: string
     USE_YN: 'Y' | 'N'
+    POPUP_YN: 'Y' | 'N'
     ATCHMNFL_NO: string | null
 }) {
     return _Axios_({
         method: 'post',
         url: `/notice/v1/update`,
         payload: {
-            POST_ID,
-            TITLE,
-            CONTENT,
-            USE_YN,
-            ATCHMNFL_NO,
+            POST_ID: POST_ID,
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            USE_YN: USE_YN,
+            POPUP_YN: POPUP_YN,
+            ATCHMNFL_NO: ATCHMNFL_NO,
         },
     })
 }
