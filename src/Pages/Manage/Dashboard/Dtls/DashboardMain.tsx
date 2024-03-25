@@ -133,9 +133,6 @@ const DashboardMain = () => {
                                         ATCHMNFL_INFO.ATCHMNFL_PATH &&
                                         ATCHMNFL_INFO.ORIGINL_FILE_NM
                                     ) {
-                                        console.debug(
-                                            `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${ATCHMNFL_INFO.ATCHMNFL_PATH}`
-                                        )
                                         return (
                                             <NoticePoupStyle.Row>
                                                 <NoticePoupStyle.NoticeTextWapper>
