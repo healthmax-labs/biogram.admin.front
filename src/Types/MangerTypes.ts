@@ -171,3 +171,40 @@ export interface PopupViewMberListInterface {
 export interface PopupClickMberListInterface {
     CLICK_MEMBER_LIST: PopupCountListItem[]
 }
+
+// 리워드 리스트 아이템
+export interface BudgetListItemInterface {
+    INST_NO: number
+    BUDGET_ENDDE: string
+    INST_NM: string
+    BUDGET_BGNDE: string
+    BUDGET_SN: number
+    MAX_CASH: number
+    BUDGET_ASIGN_AMOUNT: number
+    BUTTON: string // 임시 버튼
+}
+
+// 리워드 리스트
+export interface BudgetListInterface {
+    BUDGET_ASIGN_INFO_LIST: Array<BudgetListItemInterface>
+}
+
+export interface BudgetgetDalyHistoryInteInterface {
+    INST_NO: number
+    BUDGET_AMOUNT: number
+    BUDGET_USE_DE: string
+    BUDGET_BLCE: number
+}
+
+export interface BudgetDalyHistoryListInterface {
+    DALY_BUDGET_ASIGN_INFO_LIST: Array<BudgetgetDalyHistoryInteInterface>
+}
+
+export interface BudgetDetailInterface {
+    INST_NO: string
+    INST_NM: string
+    BUDGET_ASIGN_AMOUNT: string
+    BUDGET_BGNDE: string
+    BUDGET_ENDDE: string
+    MAX_CASH: string
+}

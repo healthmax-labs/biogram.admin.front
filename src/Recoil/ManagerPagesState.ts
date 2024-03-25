@@ -9,6 +9,9 @@ import {
     PopupLinkListItemInterface,
     ViewPageListItemInterface,
     PopupCountListItem,
+    BudgetListInterface,
+    BudgetDetailInterface,
+    BudgetDalyHistoryListInterface,
 } from '@Type/MangerTypes'
 import {
     DefaultStatus,
@@ -171,6 +174,21 @@ export const StplatDetailState = atom<StplatDetailInterface>({
     },
 })
 
+// 리워드 리스트
+interface BudgetListStateInterface {
+    status: DefaultStatus
+    list: BudgetListInterface
+    history: {
+        status: DefaultStatus
+        list: BudgetDalyHistoryListInterface
+    }
+}
+
+interface BudgetDetailStateInterface {
+    status: DefaultStatus
+    info: BudgetDetailInterface
+}
+
 //공지사항 상세
 export interface NoticeDetailStateInterface {
     status: DefaultStatus
@@ -291,5 +309,38 @@ export const PopupManageDetailState = atom<PopupManageDetailStateInterface>({
         },
         linkList: [],
         viewPageList: [],
+    },
+})
+
+// 리워드 관리 리스트
+export const BudgetListState = atom<BudgetListStateInterface>({
+    key: `instPage/bugget-list`,
+    default: {
+        status: 'idle',
+        list: {
+            BUDGET_ASIGN_INFO_LIST: [],
+        },
+        history: {
+            status: 'idle',
+            list: {
+                DALY_BUDGET_ASIGN_INFO_LIST: [],
+            },
+        },
+    },
+})
+
+// 리워드 상세
+export const BudgetDetailState = atom<BudgetDetailStateInterface>({
+    key: `instPage/budget-detail`,
+    default: {
+        status: 'idle',
+        info: {
+            INST_NO: '',
+            INST_NM: '',
+            BUDGET_ASIGN_AMOUNT: `0`,
+            BUDGET_BGNDE: ``,
+            BUDGET_ENDDE: ``,
+            MAX_CASH: `0`,
+        },
     },
 })

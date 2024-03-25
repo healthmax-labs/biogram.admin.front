@@ -13,6 +13,8 @@ import {
     ViewPageListInterface,
     PopupViewMberListInterface,
     PopupClickMberListInterface,
+    BudgetListInterface,
+    BudgetDalyHistoryListInterface,
 } from '@Type/MangerTypes'
 
 /**
@@ -380,5 +382,62 @@ export const getPopupClickMberList = ({
         method: 'get',
         url: `/popup/v1/clickMberList/${PK}`,
         payload: null,
+    })
+}
+
+/**
+ * 리워드 리스트
+ */
+export const getInstInfoBudgetAsign = (): Promise<
+    ServicesDefaultResult<BudgetListInterface>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/inst/v2/info/budget_asign`,
+        payload: null,
+    })
+}
+
+// /inst/v1/info/:inst_no/budget_asign
+export const postInstInfoBudgetAsign = ({
+    INST_NO,
+    BUDGET_ASIGN_AMOUNT,
+    BUDGET_BGNDE,
+    BUDGET_ENDDE,
+    MAX_CASH,
+}: {
+    INST_NO: number
+    BUDGET_ASIGN_AMOUNT: number
+    BUDGET_BGNDE: string
+    BUDGET_ENDDE: string
+    MAX_CASH: string
+}): Promise<ServicesDefaultResult<null>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/info/${INST_NO}/budget_asign`,
+        payload: {
+            BUDGET_ASIGN_AMOUNT: BUDGET_ASIGN_AMOUNT,
+            BUDGET_BGNDE: BUDGET_BGNDE,
+            BUDGET_ENDDE: BUDGET_ENDDE,
+            MAX_CASH: MAX_CASH,
+        },
+    })
+}
+
+// 일별 내역
+export const getInstInfoBdgetAsignDaly = ({
+    INST_NO,
+    BUDGET_SN,
+}: {
+    INST_NO: string
+    BUDGET_SN: string
+}): Promise<ServicesDefaultResult<BudgetDalyHistoryListInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/inst/v1/info/budget_asign/daly`,
+        payload: {
+            INST_NO: INST_NO,
+            BUDGET_SN: BUDGET_SN,
+        },
     })
 }

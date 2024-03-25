@@ -60,6 +60,8 @@ import {
     NoticeDetailState,
     PopupManageListState,
     PopupManageDetailState,
+    BudgetListState,
+    BudgetDetailState,
 } from '@Recoil/ManagerPagesState'
 import {
     NoticeListState as HelperNoticeListState,
@@ -151,6 +153,8 @@ export default function useRecoilReset() {
     const PopupManageDetailStatetReset = useResetRecoilState(
         PopupManageDetailState
     ) // 팝업 관리 상세
+    const BudgetListStateReset = useResetRecoilState(BudgetListState) // 리워드 관리 리스트
+    const BudgetDetailStateReset = useResetRecoilState(BudgetDetailState) // 리워드 관리 상세
 
     const HelperNoticeListStateReset = useResetRecoilState(
         HelperNoticeListState
@@ -192,6 +196,8 @@ export default function useRecoilReset() {
             'instPage/inst-detail': () => void
             'instPage/eap-list': () => void
             'instPage/eap-detail': () => void
+            'instPage/budget-list': () => void
+            'instPage/budget-detail': () => void
 
             'contentsPage/magazine-list': () => void
             'contentsPage/magazine-detail': () => void
@@ -260,6 +266,8 @@ export default function useRecoilReset() {
             'instPage/inst-detail': () => InstDetailStateReset(),
             'instPage/eap-list': () => EapListStateReset(),
             'instPage/eap-detail': () => EapDetailStateReset(),
+            'instPage/budget-list': () => BudgetListStateReset(),
+            'instPage/budget-detail': () => BudgetDetailStateReset(),
 
             'contentsPage/magazine-list': () => MagazineListStateReset(),
             'contentsPage/magazine-detail': () => MagazineDetailStateReset(),
