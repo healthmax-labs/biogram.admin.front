@@ -276,6 +276,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     CHARGER_LIST,
                     INST_SHOW,
                     INST_STPLAT_AT,
+                    EAP_DISPLAY_YN,
                 },
             } = payload
 
@@ -318,6 +319,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     }),
                     INST_SHOW: INST_SHOW,
                     INST_STPLAT_AT: INST_STPLAT_AT,
+                    EAP_DISPLAY_YN: EAP_DISPLAY_YN,
                 },
                 infoStep: infoStep,
             }))

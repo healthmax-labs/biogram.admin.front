@@ -170,6 +170,7 @@ export const getInstInfo = ({
             USE_AT: 'Y' | 'N'
             INST_SHOW: 'Y' | 'N'
             INST_STPLAT_AT: 'Y' | 'N'
+            EAP_DISPLAY_YN: 'Y' | 'N'
         }
     }>
 > => {
