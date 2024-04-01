@@ -108,7 +108,7 @@ const TotalScoreModal = ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
-                                                startDate: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                                startDate: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                             },
                                         }))
                                     }}
@@ -122,7 +122,7 @@ const TotalScoreModal = ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
-                                                endDate: `${dateObj.year}${dateObj.month}${dateObj.day}`,
+                                                endDate: `${dateObj.year}${dateObj.monthPad}${dateObj.dayPad}`,
                                             },
                                         }))
                                     }}
