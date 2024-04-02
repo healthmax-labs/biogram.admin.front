@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { ConsultDetailStyle } from '@Style/Pages/MemberPageStyles'
 import ConsultDetailRightBoxChart from './ConsultDetailRightBoxChart'
 import ConsultDetailRightBoxMessage from './ConsultDetailRightBoxMessage'
-import { useRecoilValue } from 'recoil'
-import {
-    ConsultDetailChartState,
-    ConsultDetailSmsSendState,
-} from '@Recoil/MemberPagesState'
-import _ from 'lodash'
+import { useRecoilState } from 'recoil'
+import { ConsultDetailChartState } from '@Recoil/MemberPagesState'
 
 const { Tabs, Message } = ConsultDetailStyle
 
@@ -27,8 +23,7 @@ const initializeState = {
     activeTab: 'memo',
 }
 const ConsultDetailRightBox = () => {
-    const chartState = useRecoilValue(ConsultDetailChartState)
-    const smsState = useRecoilValue(ConsultDetailSmsSendState)
+    const [chartState, setChartState] = useRecoilState(ConsultDetailChartState)
     const [pageState, setPageState] = useState<{
         Tab: Array<{
             name: string
@@ -55,34 +50,50 @@ const ConsultDetailRightBox = () => {
         }))
     }
 
+    /**
+     * 상담 차트에 내용이 있으면 '메시지발송'텝 버튼을 눌러도 메시지 쪽으로 가지 않게 되어 있는것을
+     * 붚현 하다는 요청이 있어서 아래 주석 처리.
+     */
+    // useEffect(() => {
+    //     const funcSetChartTab = () => {
+    //         const { Tab } = pageState
+    //         let nowTab
+    //
+    //         const findActiveTabIndex = Tab.findIndex(e => e.active)
+    //         if (findActiveTabIndex > -1) {
+    //             nowTab = pageState.Tab[findActiveTabIndex].key
+    //         } else {
+    //             nowTab = ''
+    //         }
+    //
+    //         if (!_.isNull(chartState.CNST_NO) && nowTab !== 'memo') {
+    //             handleTabClick({ name: '', active: false, key: 'memo' })
+    //             return
+    //         }
+    //
+    //         if (!_.isNull(smsState.send.SMS_CN) && nowTab !== 'msg') {
+    //             handleTabClick({ name: '', active: false, key: 'msg' })
+    //             return
+    //         }
+    //     }
+    //
+    //     funcSetChartTab()
+    //
+    //     // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [chartState, smsState])
+
     useEffect(() => {
-        const funcSetChartTab = () => {
-            const { Tab } = pageState
-            let nowTab
+        const { newFlag } = chartState
+        if (newFlag) {
+            handleTabClick(initializeState.Tab[0])
 
-            const findActiveTabIndex = Tab.findIndex(e => e.active)
-            if (findActiveTabIndex > -1) {
-                nowTab = pageState.Tab[findActiveTabIndex].key
-            } else {
-                nowTab = ''
-            }
-
-            if (!_.isNull(chartState.CNST_NO) && nowTab !== 'memo') {
-                handleTabClick({ name: '', active: false, key: 'memo' })
-                return
-            }
-
-            if (!_.isNull(smsState.send.SMS_CN) && nowTab !== 'msg') {
-                handleTabClick({ name: '', active: false, key: 'msg' })
-                return
-            }
+            setChartState(prevState => ({
+                ...prevState,
+                newFlag: false,
+            }))
         }
-
-        funcSetChartTab()
-
-        // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chartState, smsState])
+    }, [chartState, setChartState])
 
     return (
         <Message.Container>

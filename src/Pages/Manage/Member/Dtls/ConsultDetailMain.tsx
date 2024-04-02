@@ -91,6 +91,7 @@ const ConsultDetailMain = () => {
                     MOD_DT: '',
                     MOD_MNG_NM: '',
                     REGDT: '',
+                    newFlag: false,
                 }))
                 resetConsultSmsSend()
                 handleGetMemberInfo().then()

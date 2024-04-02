@@ -390,7 +390,7 @@ export default {
                 },
                 {
                     code: '6022',
-                    name: '체지방률',
+                    name: '체지방률(%)',
                     keyCode: 'PBF',
                     genName: `체지방률`,
                 },
