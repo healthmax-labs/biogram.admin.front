@@ -14,11 +14,10 @@ import {
 import React, { useCallback, useEffect, useState } from 'react'
 import Messages from '@Messages'
 import { useParams } from 'react-router-dom'
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartListState,
     ConsultDetailChartState,
-    ConsultDetailSmsSendState,
 } from '@Recoil/MemberPagesState'
 import { manageRemoveCounsel, postManageCounsel } from '@Service/MemberService'
 import { ManageCounselItemInterface } from '@Type/MemberTypes'
@@ -57,7 +56,7 @@ const ConsultDetailPartChart = () => {
         ConsultDetailChartListState
     )
     const setConsultChart = useSetRecoilState(ConsultDetailChartState)
-    const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
+    // const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
 
     const [pageState, setPageState] = useState<{
         select: number[]
@@ -224,7 +223,7 @@ const ConsultDetailPartChart = () => {
                                 newFlag: true,
                             }))
 
-                            resetSmsSendState()
+                            // resetSmsSendState()
                         }}
                     />
                     <VaryButton
