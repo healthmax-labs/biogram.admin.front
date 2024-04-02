@@ -97,6 +97,7 @@ interface ConsultChartInterface {
     MOD_DT: string
     MOD_MNG_NM: string
     REGDT: string
+    newFlag: boolean
 }
 
 interface ConsultSmsSendInterface {
@@ -517,6 +518,7 @@ export const ConsultDetailChartState = atom<ConsultChartInterface>({
         MOD_DT: '',
         MOD_MNG_NM: '',
         REGDT: '',
+        newFlag: false,
     },
 })
 
