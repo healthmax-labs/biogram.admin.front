@@ -360,7 +360,7 @@ const ConsultDetailPartSurvey = () => {
                                                     : '-'}
                                             </ValueCell>
                                             <TypeCell CellType={`indigo`}>
-                                                1일 2끼이상 담백질
+                                                1일 2끼이상 단백질
                                             </TypeCell>
                                             <ValueCell CellType={`indigo`}>
                                                 {MLHB.ANSWER_2
