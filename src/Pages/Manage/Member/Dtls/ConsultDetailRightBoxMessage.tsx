@@ -56,7 +56,6 @@ const ConsultDetailRightBoxMessage = () => {
         ConsultDetailSmsSendState
     )
     const detailState = useRecoilValue(ConsultDetailState)
-    const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
     const setMessageBoxListState = useSetRecoilState(ConsultMsgBoxListState)
 
     const [pageState, setPageState] = useState<{
@@ -347,7 +346,16 @@ const ConsultDetailRightBoxMessage = () => {
                             ButtonType={`default`}
                             ButtonName={`취소`}
                             HandleClick={() => {
-                                resetSmsSendState()
+                                setSmsSendState(prevState => ({
+                                    ...prevState,
+                                    send: {
+                                        ...prevState.send,
+                                        SMS_CN: null,
+                                        SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
+                                        SEND_ALL_MBER: 'N',
+                                        SNDNG_GBN: 'N',
+                                    },
+                                }))
                             }}
                         />
                         <VaryButton
