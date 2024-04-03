@@ -172,7 +172,7 @@ const BudgetListMain = () => {
                                                 예산
                                             </MDTS.HeaderCell>
                                             <MDTS.HeaderCell>
-                                                잔액
+                                                사용금액
                                             </MDTS.HeaderCell>
                                         </MDTS.HeaderRow>
                                     </MDTS.TableHeader>
