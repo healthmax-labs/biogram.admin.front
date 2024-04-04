@@ -10,13 +10,13 @@ import {
     timeStringParse,
 } from '@Helper'
 import { useParams } from 'react-router-dom'
-
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
-    ConsultDetailSmsSendState,
     ConsultMsgBoxListState,
+    ConsultDetailChartSmsState,
 } from '@Recoil/MemberPagesState'
 import { getMsgBoxList } from '@Service/MemberService'
+import _ from 'lodash'
 
 const {
     HeaderRow,
@@ -43,9 +43,7 @@ const ConsultDetailPartMessage = () => {
         ConsultMsgBoxListState
     )
 
-    const consultDetailSmsSendState = useSetRecoilState(
-        ConsultDetailSmsSendState
-    )
+    const setDetailChartSmsState = useSetRecoilState(ConsultDetailChartSmsState)
 
     const handleGetData = useCallback(async () => {
         if (messageBoxListState.search) {
@@ -168,11 +166,30 @@ const ConsultDetailPartMessage = () => {
                                             key={`main-table-body-row-${index}`}
                                             BgState={index % 2 === 0}
                                             onClick={() =>
-                                                consultDetailSmsSendState(
+                                                setDetailChartSmsState(
                                                     prevState => ({
                                                         ...prevState,
-                                                        send: {
-                                                            ...prevState.send,
+                                                        tab: _.map(
+                                                            prevState.tab,
+                                                            e => {
+                                                                if (
+                                                                    e.key ===
+                                                                    `msg`
+                                                                ) {
+                                                                    return {
+                                                                        ...e,
+                                                                        active: true,
+                                                                    }
+                                                                } else {
+                                                                    return {
+                                                                        ...e,
+                                                                        active: false,
+                                                                    }
+                                                                }
+                                                            }
+                                                        ),
+                                                        sms: {
+                                                            ...prevState.sms,
                                                             SMS_CN: el.CN,
                                                         },
                                                     })

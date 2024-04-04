@@ -10,9 +10,9 @@ import {
 } from '@Elements'
 import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
-    ConsultDetailSmsSendState,
     ConsultDetailState,
     ConsultMsgBoxListState,
+    ConsultDetailChartSmsState,
 } from '@Recoil/MemberPagesState'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import Messages from '@Messages'
@@ -47,8 +47,8 @@ const initializeState = {
 const ConsultDetailRightBoxMessage = () => {
     const gmtTimeToTime = gmtTimeToTimeObject(new Date())
     const { handlMainAlert } = useMainLayouts()
-    const [smsSendState, setSmsSendState] = useRecoilState(
-        ConsultDetailSmsSendState
+    const [detailChartSmsState, setDetailChartSmsState] = useRecoilState(
+        ConsultDetailChartSmsState
     )
     const detailState = useRecoilValue(ConsultDetailState)
     const setMessageBoxListState = useSetRecoilState(ConsultMsgBoxListState)
@@ -60,7 +60,7 @@ const ConsultDetailRightBoxMessage = () => {
     }>(initializeState)
 
     const handleSmsSend = async () => {
-        if (_.isEmpty(smsSendState.send.SMS_CN)) {
+        if (_.isEmpty(detailChartSmsState.sms.SMS_CN)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.sms.sendContentEmpty,
@@ -68,7 +68,7 @@ const ConsultDetailRightBoxMessage = () => {
             return
         }
 
-        if (_.isEmpty(smsSendState.send.SNDNG_NO)) {
+        if (_.isEmpty(detailChartSmsState.sms.SNDNG_NO)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.sms.sendSndngNoEmpty,
@@ -77,20 +77,21 @@ const ConsultDetailRightBoxMessage = () => {
         }
 
         if (
-            smsSendState.send.SMS_CN &&
-            smsSendState.send.SMS_SJ &&
-            smsSendState.send.SNDNG_DT &&
-            smsSendState.send.SNDNG_NO &&
-            smsSendState.send.SEND_ALL_MBER &&
-            smsSendState.send.SEND_MBER_INFO_LIST.length > 0
+            detailChartSmsState.sms.SMS_CN &&
+            detailChartSmsState.sms.SMS_SJ &&
+            detailChartSmsState.sms.SNDNG_DT &&
+            detailChartSmsState.sms.SNDNG_NO &&
+            detailChartSmsState.sms.SEND_ALL_MBER &&
+            detailChartSmsState.sms.SEND_MBER_INFO_LIST.length > 0
         ) {
             const payload = {
-                SMS_CN: smsSendState.send.SMS_CN,
-                SMS_SJ: smsSendState.send.SMS_SJ,
-                SNDNG_DT: smsSendState.send.SNDNG_DT,
-                SNDNG_NO: smsSendState.send.SNDNG_NO,
-                SEND_ALL_MBER: smsSendState.send.SEND_ALL_MBER,
-                SEND_MBER_INFO_LIST: smsSendState.send.SEND_MBER_INFO_LIST,
+                SMS_CN: detailChartSmsState.sms.SMS_CN,
+                SMS_SJ: detailChartSmsState.sms.SMS_SJ,
+                SNDNG_DT: detailChartSmsState.sms.SNDNG_DT,
+                SNDNG_NO: detailChartSmsState.sms.SNDNG_NO,
+                SEND_ALL_MBER: detailChartSmsState.sms.SEND_ALL_MBER,
+                SEND_MBER_INFO_LIST:
+                    detailChartSmsState.sms.SEND_MBER_INFO_LIST,
             }
 
             const { status } = await mberSendSms(payload)
@@ -100,10 +101,10 @@ const ConsultDetailRightBoxMessage = () => {
                     state: true,
                     message: Messages.Default.processSuccess,
                 })
-                setSmsSendState(prevState => ({
+                setDetailChartSmsState(prevState => ({
                     ...prevState,
-                    send: {
-                        ...prevState.send,
+                    sms: {
+                        ...prevState.sms,
                         SMS_CN: null,
                         SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
                         SEND_ALL_MBER: 'N',
@@ -133,28 +134,28 @@ const ConsultDetailRightBoxMessage = () => {
             const { year, monthPad, dayPad, hourPad, minutePad, secondPad } =
                 gmtTimeToTimeObject(new Date())
 
-            setSmsSendState(prevState => ({
+            setDetailChartSmsState(prevState => ({
                 ...prevState,
-                send: {
-                    ...prevState.send,
+                sms: {
+                    ...prevState.sms,
                     SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
                 },
             }))
         }
 
-        if (_.isEmpty(smsSendState.send.SNDNG_DT)) {
+        if (_.isEmpty(detailChartSmsState.sms.SNDNG_DT)) {
             funcSetSendDt()
         }
-    }, [setSmsSendState, smsSendState])
+    }, [detailChartSmsState.sms.SNDNG_DT, setDetailChartSmsState])
 
     useEffect(() => {
         const { year, monthPad, dayPad, hourPad, minutePad, secondPad } =
             gmtTimeToTimeObject(new Date())
 
-        setSmsSendState(prevState => ({
+        setDetailChartSmsState(prevState => ({
             ...prevState,
-            send: {
-                ...prevState.send,
+            sms: {
+                ...prevState.sms,
                 SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
             },
         }))
@@ -182,18 +183,18 @@ const ConsultDetailRightBoxMessage = () => {
                                 return
                             }
 
-                            setSmsSendState(prevState => ({
+                            setDetailChartSmsState(prevState => ({
                                 ...prevState,
-                                send: {
-                                    ...prevState.send,
+                                sms: {
+                                    ...prevState.sms,
                                     SMS_CN: e.target.value,
                                 },
                             }))
                         }}
                         Placeholder={`메시지 내용`}
                         Value={
-                            smsSendState.send.SMS_CN
-                                ? smsSendState.send.SMS_CN
+                            detailChartSmsState.sms.SMS_CN
+                                ? detailChartSmsState.sms.SMS_CN
                                 : ''
                         }
                         Rows={20}
@@ -206,10 +207,10 @@ const ConsultDetailRightBoxMessage = () => {
                     <ItemCell>
                         <VaryInput
                             HandleOnChange={e => {
-                                setSmsSendState(prevState => ({
+                                setDetailChartSmsState(prevState => ({
                                     ...prevState,
-                                    send: {
-                                        ...prevState.send,
+                                    sms: {
+                                        ...prevState.sms,
                                         SNDNG_NO: e.target.value,
                                     },
                                 }))
@@ -217,8 +218,8 @@ const ConsultDetailRightBoxMessage = () => {
                             id={'id'}
                             Placeholder={'발신 번호'}
                             Value={
-                                smsSendState.send.SNDNG_NO
-                                    ? smsSendState.send.SNDNG_NO
+                                detailChartSmsState.sms.SNDNG_NO
+                                    ? detailChartSmsState.sms.SNDNG_NO
                                     : ''
                             }
                         />
@@ -234,13 +235,14 @@ const ConsultDetailRightBoxMessage = () => {
                                 <VaryLabelCheckBox
                                     LabelName={`바로발송`}
                                     Checked={
-                                        smsSendState.send.SNDNG_GBN === 'N'
+                                        detailChartSmsState.sms.SNDNG_GBN ===
+                                        'N'
                                     }
                                     HandleOnChange={e => {
-                                        setSmsSendState(prevState => ({
+                                        setDetailChartSmsState(prevState => ({
                                             ...prevState,
-                                            send: {
-                                                ...prevState.send,
+                                            sms: {
+                                                ...prevState.sms,
                                                 SNDNG_GBN: e.target.checked
                                                     ? 'N'
                                                     : 'Y',
@@ -251,13 +253,14 @@ const ConsultDetailRightBoxMessage = () => {
                                 <VaryLabelCheckBox
                                     LabelName={`예약발송`}
                                     Checked={
-                                        smsSendState.send.SNDNG_GBN === 'Y'
+                                        detailChartSmsState.sms.SNDNG_GBN ===
+                                        'Y'
                                     }
                                     HandleOnChange={e => {
-                                        setSmsSendState(prevState => ({
+                                        setDetailChartSmsState(prevState => ({
                                             ...prevState,
-                                            send: {
-                                                ...prevState.send,
+                                            sms: {
+                                                ...prevState.sms,
                                                 SNDNG_GBN: e.target.checked
                                                     ? 'Y'
                                                     : 'N',
@@ -272,10 +275,10 @@ const ConsultDetailRightBoxMessage = () => {
                                         <VaryDatepickerInput
                                             InputeType={`default`}
                                             Value={
-                                                smsSendState.send.SNDNG_DT
+                                                detailChartSmsState.sms.SNDNG_DT
                                                     ? changeDatePickerDate(
-                                                          smsSendState.send
-                                                              .SNDNG_DT
+                                                          detailChartSmsState
+                                                              .sms.SNDNG_DT
                                                       )
                                                     : new Date()
                                             }
@@ -288,13 +291,15 @@ const ConsultDetailRightBoxMessage = () => {
                                                     minutePad,
                                                     secondPad,
                                                 } = gmtTimeToTimeObject(e)
-                                                setSmsSendState(prevState => ({
-                                                    ...prevState,
-                                                    send: {
-                                                        ...prevState.send,
-                                                        SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
-                                                    },
-                                                }))
+                                                setDetailChartSmsState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        sms: {
+                                                            ...prevState.sms,
+                                                            SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
+                                                        },
+                                                    })
+                                                )
                                             }}
                                         />
                                     </SendBoxDatePickerDate>
@@ -304,10 +309,10 @@ const ConsultDetailRightBoxMessage = () => {
                                             InputeType={`default`}
                                             DateFormat={'h:mm'}
                                             Value={
-                                                smsSendState.send.SNDNG_DT
+                                                detailChartSmsState.sms.SNDNG_DT
                                                     ? changeDatePickerDate(
-                                                          smsSendState.send
-                                                              .SNDNG_DT
+                                                          detailChartSmsState
+                                                              .sms.SNDNG_DT
                                                       )
                                                     : new Date()
                                             }
@@ -320,13 +325,15 @@ const ConsultDetailRightBoxMessage = () => {
                                                     minutePad,
                                                     secondPad,
                                                 } = gmtTimeToTimeObject(e)
-                                                setSmsSendState(prevState => ({
-                                                    ...prevState,
-                                                    send: {
-                                                        ...prevState.send,
-                                                        SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
-                                                    },
-                                                }))
+                                                setDetailChartSmsState(
+                                                    prevState => ({
+                                                        ...prevState,
+                                                        sms: {
+                                                            ...prevState.sms,
+                                                            SNDNG_DT: `${year}${monthPad}${dayPad}${hourPad}${minutePad}${secondPad}`,
+                                                        },
+                                                    })
+                                                )
                                             }}
                                         />
                                     </SendBoxDatePickerTime>
@@ -341,10 +348,10 @@ const ConsultDetailRightBoxMessage = () => {
                             ButtonType={`default`}
                             ButtonName={`취소`}
                             HandleClick={() => {
-                                setSmsSendState(prevState => ({
+                                setDetailChartSmsState(prevState => ({
                                     ...prevState,
-                                    send: {
-                                        ...prevState.send,
+                                    sms: {
+                                        ...prevState.sms,
                                         SMS_CN: null,
                                         SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
                                         SEND_ALL_MBER: 'N',

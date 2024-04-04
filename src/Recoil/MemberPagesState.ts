@@ -85,23 +85,26 @@ interface ConsultChartListInterface {
     list: ManageCounselItemInterface[]
 }
 
-// 상담 차트 작성
-interface ConsultChartInterface {
-    CNST: string
-    MBER_NO: number | null
-    PLN: string
-    REG_NM: string
-    CNST_NO: number | null
-    MNG_ID: string
-    MNG_NM: string
-    MOD_DT: string
-    MOD_MNG_NM: string
-    REGDT: string
-    newFlag: boolean
-}
-
-interface ConsultSmsSendInterface {
-    send: {
+// 상담 차트, 메시지 작성
+interface ConsultChartSmsInterface {
+    tab: Array<{
+        name: string
+        key: string
+        active: boolean
+    }>
+    chart: {
+        CNST: string
+        MBER_NO: number | null
+        PLN: string
+        REG_NM: string
+        CNST_NO: number | null
+        MNG_ID: string
+        MNG_NM: string
+        MOD_DT: string
+        MOD_MNG_NM: string
+        REGDT: string
+    }
+    sms: {
         SMS_SJ: string | null
         SMS_CN: string | null
         SNDNG_NO: string | null
@@ -504,29 +507,35 @@ export const ConsultDetailChartListState = atom<ConsultChartListInterface>({
     },
 })
 
-// 상담 차트
-export const ConsultDetailChartState = atom<ConsultChartInterface>({
-    key: `memberPage/consult-chart`,
+// 상담회원 현황 차트, 메지시 발송
+export const ConsultDetailChartSmsState = atom<ConsultChartSmsInterface>({
+    key: `memberPage/consult-chart-sms`,
     default: {
-        CNST: '',
-        MBER_NO: null,
-        PLN: '',
-        REG_NM: '',
-        CNST_NO: null,
-        MNG_ID: '',
-        MNG_NM: '',
-        MOD_DT: '',
-        MOD_MNG_NM: '',
-        REGDT: '',
-        newFlag: false,
-    },
-})
-
-// 메시지발송
-export const ConsultDetailSmsSendState = atom<ConsultSmsSendInterface>({
-    key: `memberPage/consult-sms-send`,
-    default: {
-        send: {
+        tab: [
+            {
+                name: `상담차트작성`,
+                key: `memo`,
+                active: true,
+            },
+            {
+                name: `메시지발송`,
+                key: `msg`,
+                active: false,
+            },
+        ],
+        chart: {
+            CNST: '',
+            MBER_NO: null,
+            PLN: '',
+            REG_NM: '',
+            CNST_NO: null,
+            MNG_ID: '',
+            MNG_NM: '',
+            MOD_DT: '',
+            MOD_MNG_NM: '',
+            REGDT: '',
+        },
+        sms: {
             SMS_SJ: null,
             SMS_CN: null,
             SNDNG_NO: Const.reprsntTelno,
