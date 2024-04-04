@@ -6,10 +6,9 @@ import { useCallback, useEffect } from 'react'
 import { getMemberInfo } from '@Service/MemberService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import { useResetRecoilState, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import {
-    ConsultDetailChartState,
-    ConsultDetailSmsSendState,
+    ConsultDetailChartSmsState,
     ConsultDetailState,
 } from '@Recoil/MemberPagesState'
 
@@ -21,9 +20,7 @@ const ConsultDetailMain = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const { handlMainAlert } = useMainLayouts()
     const setConsultDetail = useSetRecoilState(ConsultDetailState)
-    const setConsultChart = useSetRecoilState(ConsultDetailChartState)
-    const setConsultSmsSend = useSetRecoilState(ConsultDetailSmsSendState)
-    const resetConsultSmsSend = useResetRecoilState(ConsultDetailSmsSendState)
+    const setDetailChartSmsState = useSetRecoilState(ConsultDetailChartSmsState)
 
     const handleGetMemberInfo = useCallback(async () => {
         if (memNo) {
@@ -44,13 +41,13 @@ const ConsultDetailMain = () => {
                     detail: payload,
                 }))
 
-                setConsultSmsSend(prevState => ({
+                setDetailChartSmsState(prevState => ({
                     ...prevState,
-                    send: {
-                        ...prevState.send,
+                    sms: {
+                        ...prevState.sms,
                         SMS_SJ: Messages.Default.sms.smsSj,
                         SEND_MBER_INFO_LIST: [
-                            ...prevState.send.SEND_MBER_INFO_LIST,
+                            ...prevState.sms.SEND_MBER_INFO_LIST,
                             {
                                 MBER_NO: memNo,
                                 MBTLNUM: payload.MBER_INFO.MBTLNUM,
@@ -75,31 +72,32 @@ const ConsultDetailMain = () => {
                 })
             }
         }
-    }, [handlMainAlert, memNo, setConsultDetail, setConsultSmsSend])
+    }, [handlMainAlert, memNo, setConsultDetail, setDetailChartSmsState])
 
     useEffect(() => {
         const pageStart = () => {
             if (memNo) {
-                setConsultChart(() => ({
-                    CNST: '',
-                    MBER_NO: Number(memNo),
-                    PLN: '',
-                    REG_NM: '',
-                    CNST_NO: null,
-                    MNG_ID: '',
-                    MNG_NM: '',
-                    MOD_DT: '',
-                    MOD_MNG_NM: '',
-                    REGDT: '',
-                    newFlag: false,
+                setDetailChartSmsState(prevState => ({
+                    ...prevState,
+                    chart: {
+                        CNST: '',
+                        MBER_NO: Number(memNo),
+                        PLN: '',
+                        REG_NM: '',
+                        CNST_NO: null,
+                        MNG_ID: '',
+                        MNG_NM: '',
+                        MOD_DT: '',
+                        MOD_MNG_NM: '',
+                        REGDT: '',
+                    },
                 }))
-                resetConsultSmsSend()
                 handleGetMemberInfo().then()
             }
         }
 
         pageStart()
-    }, [handleGetMemberInfo, memNo, resetConsultSmsSend, setConsultChart])
+    }, [handleGetMemberInfo, memNo, setDetailChartSmsState])
     return (
         <Container>
             <ChartLeftWapper>

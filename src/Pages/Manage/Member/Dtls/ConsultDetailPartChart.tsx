@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartListState,
-    ConsultDetailChartState,
+    ConsultDetailChartSmsState,
 } from '@Recoil/MemberPagesState'
 import { manageRemoveCounsel, postManageCounsel } from '@Service/MemberService'
 import { ManageCounselItemInterface } from '@Type/MemberTypes'
@@ -49,13 +49,14 @@ const initializeState = {
 }
 
 const ConsultDetailPartChart = () => {
+    const gmtTimeToTime = gmtTimeToTimeObject(new Date())
     const { handlMainAlert } = useMainLayouts()
     const { memNo } = useParams<{ memNo: string }>()
 
     const [chartState, setChartState] = useRecoilState(
         ConsultDetailChartListState
     )
-    const setConsultChart = useSetRecoilState(ConsultDetailChartState)
+    const setDetailChartSmsState = useSetRecoilState(ConsultDetailChartSmsState)
     // const resetSmsSendState = useResetRecoilState(ConsultDetailSmsSendState)
 
     const [pageState, setPageState] = useState<{
@@ -98,17 +99,40 @@ const ConsultDetailPartChart = () => {
     )
 
     const handleRowClick = (element: ManageCounselItemInterface) => {
-        setConsultChart(prevState => ({
+        setDetailChartSmsState(prevState => ({
             ...prevState,
-            CNST: element.CNST,
-            PLN: element.PLN,
-            REG_NM: element.REG_NM,
-            CNST_NO: element.CNST_NO,
-            MNG_ID: element.MNG_ID,
-            MNG_NM: element.MNG_NM,
-            MOD_DT: element.MOD_DT,
-            MOD_MNG_NM: element.MOD_MNG_NM,
-            REGDT: element.REGDT,
+            tab: _.map(prevState.tab, e => {
+                if (e.key === `memo`) {
+                    return {
+                        ...e,
+                        active: true,
+                    }
+                } else {
+                    return {
+                        ...e,
+                        active: false,
+                    }
+                }
+            }),
+            chart: {
+                ...prevState.chart,
+                CNST: element.CNST,
+                PLN: element.PLN,
+                REG_NM: element.REG_NM,
+                CNST_NO: element.CNST_NO,
+                MNG_ID: element.MNG_ID,
+                MNG_NM: element.MNG_NM,
+                MOD_DT: element.MOD_DT,
+                MOD_MNG_NM: element.MOD_MNG_NM,
+                REGDT: element.REGDT,
+            },
+            sms: {
+                ...prevState.sms,
+                SMS_CN: null,
+                SNDNG_DT: `${gmtTimeToTime.year}${gmtTimeToTime.monthPad}${gmtTimeToTime.dayPad}${gmtTimeToTime.hourPad}${gmtTimeToTime.minutePad}${gmtTimeToTime.secondPad}`,
+                SEND_ALL_MBER: 'N',
+                SNDNG_GBN: 'N',
+            },
         }))
     }
 
@@ -209,21 +233,33 @@ const ConsultDetailPartChart = () => {
                         ButtonType={'default'}
                         ButtonName={'신규'}
                         HandleClick={() => {
-                            setConsultChart(prevState => ({
+                            setDetailChartSmsState(prevState => ({
                                 ...prevState,
-                                CNST: '',
-                                PLN: '',
-                                REG_NM: '',
-                                CNST_NO: null,
-                                MNG_ID: '',
-                                MNG_NM: '',
-                                MOD_DT: '',
-                                MOD_MNG_NM: '',
-                                REGDT: '',
-                                newFlag: true,
+                                tab: _.map(prevState.tab, e => {
+                                    if (e.key === `memo`) {
+                                        return {
+                                            ...e,
+                                            active: true,
+                                        }
+                                    } else {
+                                        return {
+                                            ...e,
+                                            active: false,
+                                        }
+                                    }
+                                }),
+                                chart: {
+                                    ...prevState.chart,
+                                    CNST: '',
+                                    PLN: '',
+                                    REG_NM: '',
+                                    MNG_ID: '',
+                                    MNG_NM: '',
+                                    MOD_DT: '',
+                                    MOD_MNG_NM: '',
+                                    REGDT: '',
+                                },
                             }))
-
-                            // resetSmsSendState()
                         }}
                     />
                     <VaryButton

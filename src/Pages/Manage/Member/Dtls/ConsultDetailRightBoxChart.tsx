@@ -13,8 +13,8 @@ import {
 } from '@Elements'
 import {
     ConsultDetailChartListState,
-    ConsultDetailChartState,
     ConsultDetailState,
+    ConsultDetailChartSmsState,
 } from '@Recoil/MemberPagesState'
 import {
     postManageaddCounsel,
@@ -45,7 +45,9 @@ const initializeState = {
 
 const ConsultDetailRightBoxChart = () => {
     const { handlMainAlert } = useMainLayouts()
-    const [chartState, setChartState] = useRecoilState(ConsultDetailChartState)
+    const [detailChartSmsState, setDetailChartSmsState] = useRecoilState(
+        ConsultDetailChartSmsState
+    )
     const [chartListState, setChartListState] = useRecoilState(
         ConsultDetailChartListState
     )
@@ -99,7 +101,8 @@ const ConsultDetailRightBoxChart = () => {
 
     // 기존 내용 업데이트
     const handleUpdate = async () => {
-        const { PLN, CNST, REG_NM, MBER_NO, CNST_NO } = chartState
+        const { PLN, CNST, REG_NM, MBER_NO, CNST_NO } =
+            detailChartSmsState.chart
 
         const { status } = await postManageUpdateCounsel({
             MBER_NO: String(MBER_NO),
@@ -116,11 +119,14 @@ const ConsultDetailRightBoxChart = () => {
             })
             handleGetList().then()
 
-            setChartState(prevState => ({
+            setDetailChartSmsState(prevState => ({
                 ...prevState,
-                REG_NM: '',
-                CNST: '',
-                PLN: '',
+                chart: {
+                    ...prevState.chart,
+                    REG_NM: '',
+                    CNST: '',
+                    PLN: '',
+                },
             }))
         } else {
             handlMainAlert({
@@ -132,7 +138,7 @@ const ConsultDetailRightBoxChart = () => {
 
     // 추가.
     const handleSave = async () => {
-        const { PLN, CNST, REG_NM, MBER_NO } = chartState
+        const { PLN, CNST, REG_NM, MBER_NO } = detailChartSmsState.chart
         const { status } = await postManageaddCounsel({
             PLN: PLN,
             CNST: CNST,
@@ -141,11 +147,14 @@ const ConsultDetailRightBoxChart = () => {
         })
 
         if (status) {
-            setChartState(prevState => ({
+            setDetailChartSmsState(prevState => ({
                 ...prevState,
-                REG_NM: '',
-                CNST: '',
-                PLN: '',
+                chart: {
+                    ...prevState.chart,
+                    REG_NM: '',
+                    CNST: '',
+                    PLN: '',
+                },
             }))
             handleGetList().then()
         } else {
@@ -185,14 +194,21 @@ const ConsultDetailRightBoxChart = () => {
                     <ItemCell>
                         <VaryInput
                             HandleOnChange={e =>
-                                setChartState(prevState => ({
+                                setDetailChartSmsState(prevState => ({
                                     ...prevState,
-                                    REG_NM: e.target.value,
+                                    chart: {
+                                        ...prevState.chart,
+                                        REG_NM: e.target.value,
+                                    },
                                 }))
                             }
                             id={'id'}
                             Placeholder={'작성자명'}
-                            Value={chartState.REG_NM ? chartState.REG_NM : ``}
+                            Value={
+                                detailChartSmsState.chart.REG_NM
+                                    ? detailChartSmsState.chart.REG_NM
+                                    : ``
+                            }
                         />
                     </ItemCell>
                 </Row>
@@ -205,13 +221,20 @@ const ConsultDetailRightBoxChart = () => {
                     <ItemCell>
                         <VaryTextArea
                             HandleOnChange={e =>
-                                setChartState(prevState => ({
+                                setDetailChartSmsState(prevState => ({
                                     ...prevState,
-                                    CNST: e.target.value,
+                                    chart: {
+                                        ...prevState.chart,
+                                        CNST: e.target.value,
+                                    },
                                 }))
                             }
                             Placeholder={`상담내역을 입력해 주세요`}
-                            Value={chartState.CNST ? chartState.CNST : ``}
+                            Value={
+                                detailChartSmsState.chart.CNST
+                                    ? detailChartSmsState.chart.CNST
+                                    : ``
+                            }
                             Rows={15}
                         />
                     </ItemCell>
@@ -225,13 +248,20 @@ const ConsultDetailRightBoxChart = () => {
                     <ItemCell>
                         <VaryTextArea
                             HandleOnChange={e =>
-                                setChartState(prevState => ({
+                                setDetailChartSmsState(prevState => ({
                                     ...prevState,
-                                    PLN: e.target.value,
+                                    chart: {
+                                        ...prevState.chart,
+                                        PLN: e.target.value,
+                                    },
                                 }))
                             }
                             Placeholder={`추후계획을 입력해 주세요`}
-                            Value={chartState.PLN ? chartState.PLN : ``}
+                            Value={
+                                detailChartSmsState.chart.PLN
+                                    ? detailChartSmsState.chart.PLN
+                                    : ``
+                            }
                             Rows={15}
                         />
                     </ItemCell>
@@ -239,10 +269,10 @@ const ConsultDetailRightBoxChart = () => {
 
                 <Row>
                     <ButtonBox>
-                        {!_.isEmpty(chartState.REGDT) &&
-                            !_.isEmpty(chartState.REG_NM) &&
-                            (!_.isEmpty(chartState.CNST) ||
-                                !_.isEmpty(chartState.PLN)) && (
+                        {!_.isEmpty(detailChartSmsState.chart.REGDT) &&
+                            !_.isEmpty(detailChartSmsState.chart.REG_NM) &&
+                            (!_.isEmpty(detailChartSmsState.chart.CNST) ||
+                                !_.isEmpty(detailChartSmsState.chart.PLN)) && (
                                 <VaryButton
                                     ButtonType={`default`}
                                     ButtonName={`프린트`}
@@ -262,7 +292,9 @@ const ConsultDetailRightBoxChart = () => {
                             ButtonType={`default`}
                             ButtonName={`저장`}
                             HandleClick={() => {
-                                if (_.isEmpty(chartState.REG_NM)) {
+                                if (
+                                    _.isEmpty(detailChartSmsState.chart.REG_NM)
+                                ) {
                                     handlMainAlert({
                                         state: true,
                                         message:
@@ -272,7 +304,7 @@ const ConsultDetailRightBoxChart = () => {
                                     return
                                 }
 
-                                if (_.isEmpty(chartState.CNST)) {
+                                if (_.isEmpty(detailChartSmsState.chart.CNST)) {
                                     handlMainAlert({
                                         state: true,
                                         message:
@@ -298,7 +330,7 @@ const ConsultDetailRightBoxChart = () => {
             {pageState.modal.confirm && (
                 <ConfirmModal
                     Title={
-                        chartState.CNST_NO
+                        detailChartSmsState.chart.CNST_NO
                             ? Messages.Default.consult.chartModifyConfirm
                             : Messages.Default.consult.chartSaveConfirm
                     }
@@ -322,7 +354,7 @@ const ConsultDetailRightBoxChart = () => {
                             },
                         }))
 
-                        chartState.CNST_NO
+                        detailChartSmsState.chart.CNST_NO
                             ? handleUpdate().then()
                             : handleSave().then()
                     }}
@@ -334,13 +366,28 @@ const ConsultDetailRightBoxChart = () => {
                     MemberName={pageState.memberInfo.NM}
                     BirthDate={pageState.memberInfo.BRTHDY}
                     ConsultDate={
-                        chartState.REGDT && timeStringParse(chartState.REGDT)
-                            ? `${timeStringParse(chartState.REGDT)}`
+                        detailChartSmsState.chart.REGDT &&
+                        timeStringParse(detailChartSmsState.chart.REGDT)
+                            ? `${timeStringParse(
+                                  detailChartSmsState.chart.REGDT
+                              )}`
                             : ``
                     }
-                    AuthorName={chartState.REG_NM ? chartState.REG_NM : ``}
-                    History={chartState.CNST ? chartState.CNST : ``}
-                    Planning={chartState.PLN ? chartState.PLN : ``}
+                    AuthorName={
+                        detailChartSmsState.chart.REG_NM
+                            ? detailChartSmsState.chart.REG_NM
+                            : ``
+                    }
+                    History={
+                        detailChartSmsState.chart.CNST
+                            ? detailChartSmsState.chart.CNST
+                            : ``
+                    }
+                    Planning={
+                        detailChartSmsState.chart.PLN
+                            ? detailChartSmsState.chart.PLN
+                            : ``
+                    }
                     CloseModal={() => {
                         setPageState(prevState => ({
                             ...prevState,

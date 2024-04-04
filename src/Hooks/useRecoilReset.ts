@@ -11,11 +11,10 @@ import {
     MsgBookListState,
     MsgSendListState,
     ConsultDetailChartListState,
-    ConsultDetailChartState,
+    ConsultDetailChartSmsState,
     ConsultSurveyState,
     ConsultMsgBoxListState,
     ConsultMyCoachState,
-    ConsultDetailSmsSendState,
     MealDiaryState,
     RawAgeState,
     MyGraphState,
@@ -79,13 +78,12 @@ export default function useRecoilReset() {
     const ConsultDetailStateReset = useResetRecoilState(ConsultDetailState) // 상담회원 상세
     const ConsultDetailChartListStateReset = useResetRecoilState(
         ConsultDetailChartListState
-    ) // 상담회원 차트 리스트
-    const ConsultDetailChartStateReset = useResetRecoilState(
-        ConsultDetailChartState
-    ) // 상담회원 차트
-    const ConsultDetailSmsSendStateReset = useResetRecoilState(
-        ConsultDetailSmsSendState
-    ) // 상담회원 메시지발송
+    )
+    // 상담회원 차트,메시지 발송
+    const ConsultDetailChartSmsStateReset = useResetRecoilState(
+        ConsultDetailChartSmsState
+    )
+    // 상담회원 메시지발송
     const ConsultMyCoachStateReset = useResetRecoilState(ConsultMyCoachState) // 상담 회원 마이코치
     const ConsultSurveyStateReset = useResetRecoilState(ConsultSurveyState) // 상담회원 설문조사
     const RawAgeStateReset = useResetRecoilState(RawAgeState) // 상담회원 설문조사
@@ -177,8 +175,7 @@ export default function useRecoilReset() {
             'memberPage/consult-list': () => void
             'memberPage/consult-detail': () => void
             'memberPage/consult-chart-list': () => void
-            'memberPage/consult-chart': () => void
-            'memberPage/consult-sms-send': () => void
+            'memberPage/consult-chart-sms': () => void
             'memberPage/consult-my-coach': () => void
             'memberPage/consult-survey': () => void
             'memberPage/consult-raw-age': () => void
@@ -244,9 +241,8 @@ export default function useRecoilReset() {
             'memberPage/consult-detail': () => ConsultDetailStateReset(),
             'memberPage/consult-chart-list': () =>
                 ConsultDetailChartListStateReset(),
-            'memberPage/consult-chart': () => ConsultDetailChartStateReset(),
-            'memberPage/consult-sms-send': () =>
-                ConsultDetailSmsSendStateReset(),
+            'memberPage/consult-chart-sms': () =>
+                ConsultDetailChartSmsStateReset(),
             'memberPage/consult-my-coach': () => ConsultMyCoachStateReset(),
             'memberPage/consult-survey': () => ConsultSurveyStateReset(),
             'memberPage/consult-message-box': () =>
