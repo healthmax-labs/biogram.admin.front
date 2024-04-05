@@ -250,6 +250,7 @@ const ConsultDetailPartChart = () => {
                                 }),
                                 chart: {
                                     ...prevState.chart,
+                                    CNST_NO: null,
                                     CNST: '',
                                     PLN: '',
                                     REG_NM: '',
