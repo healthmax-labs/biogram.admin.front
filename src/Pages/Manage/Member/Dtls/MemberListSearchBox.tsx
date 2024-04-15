@@ -60,8 +60,10 @@ const MemberListSearchBox = ({
                                             ...prevState,
                                             search: {
                                                 ...prevState.search,
-                                                instNo: String(instNo),
-                                                instNm: instNm,
+                                                instNo: instNo
+                                                    ? String(instNo)
+                                                    : ``,
+                                                instNm: instNm ? instNm : ``,
                                             },
                                         }))
                                     }

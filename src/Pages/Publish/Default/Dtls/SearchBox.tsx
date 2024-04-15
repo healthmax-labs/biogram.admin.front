@@ -37,8 +37,8 @@ export default function SearchBox() {
                         <PstinstSelector
                             HandleSelectValue={({ instNo, instNm }) =>
                                 handlePstinstSelect({
-                                    instNo,
-                                    instNm,
+                                    instNo: instNo ? instNo : 0,
+                                    instNm: instNm ? instNm : ``,
                                 })
                             }
                         />

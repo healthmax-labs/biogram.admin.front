@@ -53,7 +53,7 @@ const AnalyticsSearchBox = ({
 }: {
     SearchType: 'default' | 'healthIndicators'
     HandleGetList: () => void
-    HandleInstNo: (instNo: number, instNm: string) => void
+    HandleInstNo: (instNo: number | null, instNm: string | null) => void
     StartDate: string
     HandleStartDate: (startDate: string) => void
     EndDate: string
