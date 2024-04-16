@@ -247,12 +247,12 @@ export default {
             ],
             brssr: [
                 {
-                    code: 'DIASTOLIC',
-                    name: `이완기 혈압`,
-                },
-                {
                     code: 'SYSTOLIC',
                     name: `수축기 혈압`,
+                },
+                {
+                    code: 'DIASTOLIC',
+                    name: `이완기 혈압`,
                 },
                 {
                     code: 'PULS',
@@ -433,7 +433,7 @@ export default {
                 },
                 {
                     code: '6230',
-                    name: '맥박(bpm)',
+                    name: '심박수(bpm)',
                     keyCode: 'PULS',
                     genName: `혈압`,
                 },

@@ -159,7 +159,7 @@ const ConsultDetailPartsMain = ({
                                     Value={
                                         pageState.info.BRTHDY &&
                                         pageState.info.AGE
-                                            ? `${pageState.info.BRTHDY} (${pageState.info.AGE}세)`
+                                            ? `${pageState.info.BRTHDY} (만${pageState.info.AGE}세)`
                                             : ``
                                     }
                                     Disabled={true}
