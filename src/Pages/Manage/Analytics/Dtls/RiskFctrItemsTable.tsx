@@ -330,20 +330,20 @@ const RiskFctrItemsTable = () => {
                                     </T.TheadRow>
                                     <T.TheadRow>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                         <T.TheadCell>전체</T.TheadCell>
-                                        <T.TheadCell>정상</T.TheadCell>
-                                        <T.TheadCell>위험</T.TheadCell>
+                                        <T.TheadCell>여성</T.TheadCell>
+                                        <T.TheadCell>남성</T.TheadCell>
                                     </T.TheadRow>
                                 </T.Thead>
                                 <T.Body>
