@@ -39,8 +39,6 @@ const RiskFctrListMain = () => {
             },
         } = listState
 
-        console.debug('curPage', curPage)
-
         const { status, payload } = await getRiskFctrList({
             CUR_PAGE: curPage,
             INST_NO: INST_NO,
