@@ -20,6 +20,7 @@ const RiskFctrListMain = () => {
     const { recoilReset } = useRecoilReset()
     const [tabState, setTabState] = useRecoilState(AtomPageTabState)
     const [listState, setListState] = useRecoilState(RiskFctrListState)
+
     const getTableList = useCallback(async () => {
         setListState(prevState => ({
             ...prevState,
@@ -37,6 +38,8 @@ const RiskFctrListMain = () => {
                 TAKNG_MDCIN,
             },
         } = listState
+
+        console.debug('curPage', curPage)
 
         const { status, payload } = await getRiskFctrList({
             CUR_PAGE: curPage,
@@ -106,7 +109,18 @@ const RiskFctrListMain = () => {
     return (
         <Container>
             <SearchWapper>
-                <SearchBox HandleGetList={() => getTableList()} />
+                <SearchBox
+                    HandleGetList={() => {
+                        setListState(prevState => ({
+                            ...prevState,
+                            status: 'idle',
+                            search: {
+                                ...prevState.search,
+                                curPage: 1,
+                            },
+                        }))
+                    }}
+                />
             </SearchWapper>
             <ManageWapper>
                 <ManageBox />
