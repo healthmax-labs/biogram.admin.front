@@ -132,12 +132,6 @@ const ConsultDetailPartMyData = ({
                                     구분
                                 </Detail.MyData.HeadCell>
                                 <Detail.MyData.HeadCell>
-                                    기록구분
-                                </Detail.MyData.HeadCell>
-                                <Detail.MyData.HeadCell>
-                                    일시
-                                </Detail.MyData.HeadCell>
-                                <Detail.MyData.HeadCell>
                                     수치
                                 </Detail.MyData.HeadCell>
                                 <Detail.MyData.HeadCell>
@@ -145,6 +139,12 @@ const ConsultDetailPartMyData = ({
                                 </Detail.MyData.HeadCell>
                                 <Detail.MyData.HeadCell>
                                     평가
+                                </Detail.MyData.HeadCell>
+                                <Detail.MyData.HeadCell>
+                                    기록구분
+                                </Detail.MyData.HeadCell>
+                                <Detail.MyData.HeadCell>
+                                    일시
                                 </Detail.MyData.HeadCell>
                             </Detail.MyData.HeadRow>
                         </Detail.MyData.Head>
@@ -237,12 +237,6 @@ const ConsultDetailPartMyData = ({
                                                     </Detail.MyData.BodyCellBefLink>
                                                 </Detail.MyData.BodyCellBef>
                                                 <Detail.MyData.BodyCell>
-                                                    {MESURE_MTHD_NM}
-                                                </Detail.MyData.BodyCell>
-                                                <Detail.MyData.BodyCell>
-                                                    {MESURE_DT}
-                                                </Detail.MyData.BodyCell>
-                                                <Detail.MyData.BodyCell>
                                                     {DATAS}
                                                 </Detail.MyData.BodyCell>
                                                 <Detail.MyData.BodyCell>
@@ -260,6 +254,12 @@ const ConsultDetailPartMyData = ({
                                                         }}>
                                                         {MESURE_GRAD_NM}
                                                     </p>
+                                                </Detail.MyData.BodyCell>
+                                                <Detail.MyData.BodyCell>
+                                                    {MESURE_MTHD_NM}
+                                                </Detail.MyData.BodyCell>
+                                                <Detail.MyData.BodyCell>
+                                                    {MESURE_DT}
                                                 </Detail.MyData.BodyCell>
                                             </Detail.MyData.BodyRow>
                                         )
