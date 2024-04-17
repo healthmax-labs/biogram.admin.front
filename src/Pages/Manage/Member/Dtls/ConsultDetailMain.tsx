@@ -6,7 +6,7 @@ import { useCallback, useEffect } from 'react'
 import { getMemberInfo } from '@Service/MemberService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartSmsState,
     ConsultDetailState,
@@ -20,7 +20,9 @@ const ConsultDetailMain = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const { handlMainAlert } = useMainLayouts()
     const setConsultDetail = useSetRecoilState(ConsultDetailState)
-    const setDetailChartSmsState = useSetRecoilState(ConsultDetailChartSmsState)
+    const [detailChartSmsState, setDetailChartSmsState] = useRecoilState(
+        ConsultDetailChartSmsState
+    )
 
     const handleGetMemberInfo = useCallback(async () => {
         if (memNo) {
@@ -47,7 +49,6 @@ const ConsultDetailMain = () => {
                         ...prevState.sms,
                         SMS_SJ: Messages.Default.sms.smsSj,
                         SEND_MBER_INFO_LIST: [
-                            ...prevState.sms.SEND_MBER_INFO_LIST,
                             {
                                 MBER_NO: memNo,
                                 MBTLNUM: payload.MBER_INFO.MBTLNUM,
