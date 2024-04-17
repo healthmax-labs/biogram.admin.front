@@ -44,6 +44,7 @@ export default {
         'memberPage/consult-list',
         'memberPage/consult-detail',
         'memberPage/consult-chart-list',
+        'memberPage/consult-chart-sms',
         'memberPage/consult-chart',
         'memberPage/consult-sms-send',
         'memberPage/consult-my-coach',
