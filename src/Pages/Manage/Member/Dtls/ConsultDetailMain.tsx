@@ -6,7 +6,7 @@ import { useCallback, useEffect } from 'react'
 import { getMemberInfo } from '@Service/MemberService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hook/index'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import {
     ConsultDetailChartSmsState,
     ConsultDetailState,
@@ -20,9 +20,7 @@ const ConsultDetailMain = () => {
     const { memNo } = useParams<{ memNo: string }>()
     const { handlMainAlert } = useMainLayouts()
     const setConsultDetail = useSetRecoilState(ConsultDetailState)
-    const [detailChartSmsState, setDetailChartSmsState] = useRecoilState(
-        ConsultDetailChartSmsState
-    )
+    const setDetailChartSmsState = useSetRecoilState(ConsultDetailChartSmsState)
 
     const handleGetMemberInfo = useCallback(async () => {
         if (memNo) {
