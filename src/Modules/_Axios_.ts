@@ -42,6 +42,8 @@ const handleTokenRefresh = (): Promise<LoginTokenInterface> => {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
                 : '',
+            'X-HEALTHMAX-APP-TYPE': 'admin',
+            'X-HEALTHMAX-APP-VER': process.env.REACT_APP_VERSION,
         },
     }
 
@@ -251,6 +253,8 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
                 : '',
+            'X-HEALTHMAX-APP-TYPE': 'admin',
+            'X-HEALTHMAX-APP-VER': process.env.REACT_APP_VERSION,
         },
     }
 
