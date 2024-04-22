@@ -93,7 +93,10 @@ const MemberMyDataInputModal = ({
     const handleInputUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
         const prevInputState = pageState.input
 
-        if (e.target.name === 'FBS' && !_.isEmpty(prevInputState.PP2)) {
+        const inputName = e.target.name
+        let inputValue = e.target.value
+
+        if (inputName === 'FBS' && !_.isEmpty(prevInputState.PP2)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.consult.mydataFBSPP2,
@@ -102,20 +105,41 @@ const MemberMyDataInputModal = ({
             return
         }
 
-        if (e.target.name === 'PP2' && !_.isEmpty(prevInputState.FBS)) {
+        if (inputName === 'PP2' && !_.isEmpty(prevInputState.FBS)) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.consult.mydataFBSPP2,
             })
 
             return
+        }
+
+        if (
+            _.includes(
+                [
+                    `T_CHOL`,
+                    `HDLC`,
+                    `LDLC`,
+                    `TG`,
+                    `FBS`,
+                    `PP2`,
+                    `HBA1C`,
+                    `SYSTOLIC`,
+                    `DIASTOLIC`,
+                ],
+                inputName
+            )
+        ) {
+            inputValue = inputValue
+                .replace(/[^0-9.]/g, '')
+                .replace(/(\..*)\./g, '$1')
         }
 
         setPageState(prevState => ({
             ...prevState,
             input: {
                 ...prevState.input,
-                [e.target.name]: e.target.value ? e.target.value : null,
+                [inputName]: inputValue ? inputValue : null,
             },
         }))
     }
@@ -131,17 +155,134 @@ const MemberMyDataInputModal = ({
         }
 
         // 당화혈색소 범위체크 4~15
+        // if (
+        //     !_.isEmpty(pageState.input.HBA1C) &&
+        //     !(
+        //         Number(pageState.input.HBA1C) >= 4 &&
+        //         Number(pageState.input.HBA1C) <= 15
+        //     )
+        // ) {
+        //     handlMainAlert({
+        //         state: true,
+        //         message: Messages.Default.consult.rangeHba1c,
+        //     })
+        //     return
+        // }
+
+        //  총 콜레스테롤
         if (
-            !_.isEmpty(pageState.input.HBA1C) &&
-            !(
-                Number(pageState.input.HBA1C) >= 4 &&
-                Number(pageState.input.HBA1C) <= 15
-            )
+            !_.isEmpty(pageState.input.T_CHOL) &&
+            !_.inRange(Number(pageState.input.T_CHOL), 10, 501)
         ) {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.consult.rangeHba1c,
+                message: Messages.Default.consult.t_cholRange,
             })
+
+            return
+        }
+
+        // HDLC
+        if (
+            !_.isEmpty(pageState.input.HDLC) &&
+            !_.inRange(Number(pageState.input.HDLC), 10, 501)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.t_cholRange,
+            })
+
+            return
+        }
+
+        // LDLC
+        if (
+            !_.isEmpty(pageState.input.LDLC) &&
+            !_.inRange(Number(pageState.input.LDLC), 10, 501)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.t_cholRange,
+            })
+
+            return
+        }
+
+        // 중성 지방
+        if (
+            !_.isEmpty(pageState.input.TG) &&
+            !_.inRange(Number(pageState.input.TG), 10, 501)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.t_cholRange,
+            })
+
+            return
+        }
+
+        // 공복혈당
+        if (
+            !_.isEmpty(pageState.input.FBS) &&
+            !_.inRange(Number(pageState.input.FBS), 10, 501)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.fbsRange,
+            })
+
+            return
+        }
+
+        // 공복혈당
+        if (
+            !_.isEmpty(pageState.input.PP2) &&
+            !_.inRange(Number(pageState.input.PP2), 10, 501)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.pp2lRange,
+            })
+
+            return
+        }
+
+        // 당화혈 색소
+        if (
+            !_.isEmpty(pageState.input.HBA1C) &&
+            !_.inRange(Number(pageState.input.HBA1C), 3, 21)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.hba1cRange,
+            })
+
+            return
+        }
+
+        // 수축기
+        if (
+            !_.isEmpty(pageState.input.SYSTOLIC) &&
+            !_.inRange(Number(pageState.input.SYSTOLIC), 40, 251)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.systolicRange,
+            })
+
+            return
+        }
+
+        // 이완기
+        if (
+            !_.isEmpty(pageState.input.DIASTOLIC) &&
+            !_.inRange(Number(pageState.input.DIASTOLIC), 40, 251)
+        ) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.consult.diastolicRange,
+            })
+
             return
         }
 

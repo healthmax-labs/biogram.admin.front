@@ -188,6 +188,12 @@ export default {
             emptyCheckRow: `삭제할 그룹을 선택해 주세요.`,
             manyCheckRow: `그룹 삭제는 한번에 한 그룹만 삭제 할수 있습니다.`,
             deleteConfirm: `삭제 하시겠습니까?`,
+            t_cholRange: `콜레스테롤은 10~500사이의 값을 입력해 주세요`,
+            fbsRange: `공복 혈당은 10~500사이의 값을 입력해 주세요`,
+            pp2lRange: `식후 혈당은 10~500사이의 값을 입력해 주세요`,
+            hba1cRange: `당화혈색소는 3~20사이의 값을 입력해 주세요`,
+            systolicRange: `수축기는 40~250사이의 값을 입력해 주세요`,
+            diastolicRange: `이완기는 40~250사이의 값을 입력해 주세요`,
         },
         contents: {
             magazine: {
