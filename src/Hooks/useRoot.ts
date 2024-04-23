@@ -66,6 +66,7 @@ export default function useRoot() {
                             menuCode: process.env.REACT_APP_MENU_CODE
                                 ? process.env.REACT_APP_MENU_CODE
                                 : '',
+                            usid: res.USID,
                         })
                     }
                 }

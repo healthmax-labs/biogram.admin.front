@@ -6,6 +6,7 @@ import {
     add60Minutes,
     checkRemainingTime,
     getAccessToken,
+    storageShowMenuInfo,
     getVtokenInfoToken,
     removeLoginExpirein,
     removeLoginToken,
@@ -46,10 +47,14 @@ export default function useAuth() {
         async ({
             authCode,
             menuCode,
+            usid,
         }: {
             authCode: string
             menuCode: string
+            usid: string
         }) => {
+            const menuShowInfo = storageShowMenuInfo.getMy({ usid: usid })
+
             const response = await getAuthorMenu({
                 authCode: authCode,
                 menuCode: menuCode,
@@ -77,6 +82,20 @@ export default function useAuth() {
                     }),
                 },
             }))
+
+            if (menuShowInfo.length === 0) {
+                storageShowMenuInfo.setMy({
+                    usid: usid,
+                    info: AUTHOR_MENU_INFO_LIST.filter(
+                        e => e.SORT_ORDR === 1
+                    ).map(el => {
+                        return {
+                            code: el.MENU_CODE,
+                            show: true,
+                        }
+                    }),
+                })
+            }
         },
         [setAppRootState]
     )
@@ -131,6 +150,7 @@ export default function useAuth() {
                 menuCode: process.env.REACT_APP_MENU_CODE
                     ? process.env.REACT_APP_MENU_CODE
                     : '',
+                usid: USID,
             })
 
             setAppRootState(prevState => ({

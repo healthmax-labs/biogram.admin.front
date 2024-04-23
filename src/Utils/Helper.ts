@@ -1,5 +1,10 @@
-import { LoginTokenInterface } from '@CommonTypes'
+import {
+    LoginTokenInterface,
+    MenuShowInfoInterface,
+    MenuShowInfoItemInterface,
+} from '@CommonTypes'
 import Routers from '@Routers'
+import _ from 'lodash'
 
 /**
  * 개발 디버그.
@@ -949,4 +954,63 @@ export const getWesternAge = (birthday: string): number => {
         age--
     }
     return age
+}
+
+/**
+ * 메뉴 보이기 숨기기 기능 관리
+ */
+export const storageShowMenuInfo = {
+    get: (): Array<MenuShowInfoInterface> => {
+        return storageMaster.get(`menu-show-info`)
+            ? storageMaster.get(`menu-show-info`)
+            : []
+    },
+    set: (info: Array<MenuShowInfoInterface>) => {
+        return storageMaster.set('menu-show-info', info)
+    },
+    getMy: ({ usid }: { usid: string }): Array<MenuShowInfoItemInterface> => {
+        const info = storageMaster.get(`menu-show-info`)
+        const findInfo = _.find(info, { usid: usid })
+        if (findInfo) {
+            return findInfo.menu
+        } else {
+            return []
+        }
+    },
+    setMy: ({
+        usid,
+        info,
+    }: {
+        usid: string
+        info: Array<MenuShowInfoItemInterface>
+    }) => {
+        const showInfo: Array<MenuShowInfoInterface> = storageMaster.get(
+            `menu-show-info`
+        )
+            ? storageMaster.get(`menu-show-info`)
+            : []
+        const findInfo = _.find(showInfo, { usid: usid })
+        if (findInfo) {
+            storageMaster.set(
+                'menu-show-info',
+                showInfo.map(e => {
+                    if (e.usid === usid) {
+                        return {
+                            ...e,
+                            menu: info,
+                        }
+                    } else {
+                        return e
+                    }
+                })
+            )
+        } else {
+            showInfo.push({
+                usid: usid,
+                menu: info,
+            })
+            storageMaster.set(`menu-show-info`, showInfo)
+            return
+        }
+    },
 }
