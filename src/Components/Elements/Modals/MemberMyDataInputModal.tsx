@@ -154,25 +154,10 @@ const MemberMyDataInputModal = ({
             return
         }
 
-        // 당화혈색소 범위체크 4~15
-        // if (
-        //     !_.isEmpty(pageState.input.HBA1C) &&
-        //     !(
-        //         Number(pageState.input.HBA1C) >= 4 &&
-        //         Number(pageState.input.HBA1C) <= 15
-        //     )
-        // ) {
-        //     handlMainAlert({
-        //         state: true,
-        //         message: Messages.Default.consult.rangeHba1c,
-        //     })
-        //     return
-        // }
-
         //  총 콜레스테롤
         if (
             !_.isEmpty(pageState.input.T_CHOL) &&
-            !_.inRange(Number(pageState.input.T_CHOL), 10, 501)
+            !_.inRange(Number(pageState.input.T_CHOL), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -185,7 +170,7 @@ const MemberMyDataInputModal = ({
         // HDLC
         if (
             !_.isEmpty(pageState.input.HDLC) &&
-            !_.inRange(Number(pageState.input.HDLC), 10, 501)
+            !_.inRange(Number(pageState.input.HDLC), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -198,7 +183,7 @@ const MemberMyDataInputModal = ({
         // LDLC
         if (
             !_.isEmpty(pageState.input.LDLC) &&
-            !_.inRange(Number(pageState.input.LDLC), 10, 501)
+            !_.inRange(Number(pageState.input.LDLC), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -211,7 +196,7 @@ const MemberMyDataInputModal = ({
         // 중성 지방
         if (
             !_.isEmpty(pageState.input.TG) &&
-            !_.inRange(Number(pageState.input.TG), 10, 501)
+            !_.inRange(Number(pageState.input.TG), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -224,7 +209,7 @@ const MemberMyDataInputModal = ({
         // 공복혈당
         if (
             !_.isEmpty(pageState.input.FBS) &&
-            !_.inRange(Number(pageState.input.FBS), 10, 501)
+            !_.inRange(Number(pageState.input.FBS), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -237,7 +222,7 @@ const MemberMyDataInputModal = ({
         // 공복혈당
         if (
             !_.isEmpty(pageState.input.PP2) &&
-            !_.inRange(Number(pageState.input.PP2), 10, 501)
+            !_.inRange(Number(pageState.input.PP2), 9, 501)
         ) {
             handlMainAlert({
                 state: true,
@@ -250,7 +235,7 @@ const MemberMyDataInputModal = ({
         // 당화혈 색소
         if (
             !_.isEmpty(pageState.input.HBA1C) &&
-            !_.inRange(Number(pageState.input.HBA1C), 3, 21)
+            !_.inRange(Number(pageState.input.HBA1C), 2, 21)
         ) {
             handlMainAlert({
                 state: true,
@@ -263,7 +248,7 @@ const MemberMyDataInputModal = ({
         // 수축기
         if (
             !_.isEmpty(pageState.input.SYSTOLIC) &&
-            !_.inRange(Number(pageState.input.SYSTOLIC), 40, 251)
+            !_.inRange(Number(pageState.input.SYSTOLIC), 39, 251)
         ) {
             handlMainAlert({
                 state: true,
@@ -276,7 +261,7 @@ const MemberMyDataInputModal = ({
         // 이완기
         if (
             !_.isEmpty(pageState.input.DIASTOLIC) &&
-            !_.inRange(Number(pageState.input.DIASTOLIC), 40, 251)
+            !_.inRange(Number(pageState.input.DIASTOLIC), 39, 251)
         ) {
             handlMainAlert({
                 state: true,
