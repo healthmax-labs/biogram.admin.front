@@ -504,3 +504,15 @@ export interface CommonGetFileInfoInterface {
     ORGINL_FILE_NM: string
     ATCHMNFL_NM: string
 }
+
+// 메뉴 보이기 안보이기 인터페이스
+export interface MenuShowInfoItemInterface {
+    code: string
+    show: boolean
+}
+
+// 메뉴 보이기 안보이기 인터페이스
+export interface MenuShowInfoInterface {
+    usid: string
+    menu: Array<MenuShowInfoItemInterface>
+}
