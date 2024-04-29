@@ -67,7 +67,10 @@ import {
     NoticeDetailState as HelperNoticeDetailState,
     QnaListState as HelperQnaListState,
     QnaDetailState as HelperQnaDetailState,
+    DownloadListState as HelperDownloadListState,
+    DownloadlistDetailState as HelperDowloadListDetailState,
 } from '@Recoil/HelperPageState'
+
 import { AtomPageTabState } from '@Recoil/PageTabState'
 
 export default function useRecoilReset() {
@@ -162,6 +165,12 @@ export default function useRecoilReset() {
     ) // 고객센터 공지사항 상세
     const HelperQnaListStateReset = useResetRecoilState(HelperQnaListState)
     const HelperQnaDetailStateReset = useResetRecoilState(HelperQnaDetailState)
+    const HelperDownloadListStateReset = useResetRecoilState(
+        HelperDownloadListState
+    )
+    const HelperDowloadListDetailStateReset = useResetRecoilState(
+        HelperDowloadListDetailState
+    )
 
     const AtomPageTabStateReset = useResetRecoilState(AtomPageTabState) // 메인 텝
 
@@ -227,9 +236,10 @@ export default function useRecoilReset() {
 
             'helperPage/notice-list': () => void
             'helperPage/notice-detail': () => void
-
             'helperPage/qna-list': () => void
             'helperPage/qna-detail': () => void
+            'helperPage/download-list': () => void
+            'helperPage/download-list-detail': () => void
 
             'tab/TabState': () => void
         } = {
@@ -303,6 +313,9 @@ export default function useRecoilReset() {
             'helperPage/notice-detail': () => HelperNoticeDetailStateReset(),
             'helperPage/qna-list': () => HelperQnaListStateReset(),
             'helperPage/qna-detail': () => HelperQnaDetailStateReset(),
+            'helperPage/download-list': () => HelperDownloadListStateReset(),
+            'helperPage/download-list-detail': () =>
+                HelperDowloadListDetailStateReset(),
             'tab/TabState': () => AtomPageTabStateReset(),
             default: () => {
                 //

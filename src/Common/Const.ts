@@ -100,6 +100,8 @@ export default {
         'helperPage/notice-detail',
         'helperPage/qna-list',
         'helperPage/qna-detail',
+        'helperPage/download-list',
+        'helperPage/download-list-detail',
 
         'tab/TabState',
     ],

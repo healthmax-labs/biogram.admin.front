@@ -5,6 +5,8 @@ import {
     HelperNoticeDetailInterface,
     HelperQnaListInterface,
     HelperQnaDetailInterface,
+    HelperDownloadListItemInterface,
+    HelperDownloadDetailInterface,
 } from '@Type/HelperTypes'
 
 interface NoticeListStateInterface {
@@ -29,6 +31,16 @@ interface QnaListStateInterface {
 interface QnaDetailStateInterface {
     status: DefaultStatus
     detail: HelperQnaDetailInterface
+}
+
+interface DownloadListStateInterface {
+    status: DefaultStatus
+    list: Array<HelperDownloadListItemInterface>
+}
+
+interface DownloadListDetailStateInterface {
+    status: DefaultStatus
+    detail: HelperDownloadDetailInterface
 }
 
 export const NoticeListState = atom<NoticeListStateInterface>({
@@ -90,6 +102,22 @@ export const QnaDetailStateInitialize = {
     },
 }
 
+export const DownloadDetailStateInitialize = {
+    POST_ID: ``,
+    POST_TYPE: ``,
+    TITLE: ``,
+    CONTENT: ``,
+    REGIST_DT: ``,
+    UPDT_DT: ``,
+    ATCHMNFL_INFO: {
+        ATCHMNFL_NO: ``,
+        ATCHMNFL_NM: ``,
+        ATCHMNFL_PATH: ``,
+        ORIGINL_FILE_NM: ``,
+        ATCHMNFL_DOWN_PATH: ``,
+    },
+}
+
 export const NoticeDetailState = atom<NoticeDetailStateInterface>({
     key: `helperPage/notice-detail`,
     default: {
@@ -117,5 +145,22 @@ export const QnaDetailState = atom<QnaDetailStateInterface>({
     default: {
         status: `idle`,
         detail: QnaDetailStateInitialize,
+    },
+})
+
+// 자료실 리스트
+export const DownloadListState = atom<DownloadListStateInterface>({
+    key: `helperPage/download-list`,
+    default: {
+        status: `idle`,
+        list: [],
+    },
+})
+
+export const DownloadlistDetailState = atom<DownloadListDetailStateInterface>({
+    key: `helperPage/download-list-detail`,
+    default: {
+        status: `idle`,
+        detail: DownloadDetailStateInitialize,
     },
 })

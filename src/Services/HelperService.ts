@@ -5,6 +5,8 @@ import {
     HelperNoticeDetailInterface,
     HelperQnaListInterface,
     HelperQnaDetailInterface,
+    HelperDownloadListInterface,
+    HelperDownloadDetailInterface,
 } from '@Type/HelperTypes'
 
 export function getNoticeList(): Promise<
@@ -284,5 +286,83 @@ export function postQnaVoteUpDown({
             POST_ID: POST_ID,
             UP_DOWN: vote,
         },
+    })
+}
+
+// 자료실 목록
+export function getRepoList(): Promise<
+    ServicesDefaultResult<HelperDownloadListInterface>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/repo/v1/list`,
+        payload: null,
+    })
+}
+
+// 자료실 등록
+export function postRepoAdd({
+    TITLE,
+    CONTENT,
+    ATCHMNFL_NO,
+}: {
+    TITLE: string
+    CONTENT: string
+    ATCHMNFL_NO: number
+}): Promise<ServicesDefaultResult<null>> {
+    return _Axios_({
+        method: 'post',
+        url: `/repo/v1/add`,
+        payload: {
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            ATCHMNFL_NO: ATCHMNFL_NO,
+        },
+    })
+}
+
+// 자료실 정보
+export function getRepoView({
+    POST_ID,
+}: {
+    POST_ID: string
+}): Promise<ServicesDefaultResult<HelperDownloadDetailInterface>> {
+    return _Axios_({
+        method: 'get',
+        url: `/repo/v1/view?pk=${POST_ID}`,
+        payload: null,
+    })
+}
+
+// 자료실 정보 업데이트
+export function postRepoUpdate({
+    POST_ID,
+    TITLE,
+    CONTENT,
+    ATCHMNFL_NO,
+}: {
+    POST_ID: string
+    TITLE: string
+    CONTENT: string
+    ATCHMNFL_NO: string
+}) {
+    return _Axios_({
+        method: 'post',
+        url: `/repo/v1/update`,
+        payload: {
+            POST_ID: POST_ID,
+            TITLE: TITLE,
+            CONTENT: CONTENT,
+            ATCHMNFL_NO: ATCHMNFL_NO,
+        },
+    })
+}
+
+// 자료실 정보 삭제
+export function postRepoDelete({ POST_ID }: { POST_ID: string }) {
+    return _Axios_({
+        method: 'post',
+        url: `/repo/v1/delete?pk=${POST_ID}`,
+        payload: null,
     })
 }

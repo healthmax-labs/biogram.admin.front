@@ -86,3 +86,35 @@ export interface LikeUpDownImageClickInterace {
     REGIST_ID: number
     COMPLETE_YN: 'N' | 'Y'
 }
+
+//자료실 리스트
+export interface HelperDownloadListItemInterface {
+    POST_ID: string
+    POST_TYPE: string
+    TITLE: string
+    CONTENT: string
+    REGIST_DT: string
+    REGIST_ID: string
+    UPDT_DT: string
+    UPDT_ID: string
+}
+
+export interface HelperDownloadListInterface {
+    REPO_NOTICE_INFO: Array<HelperDownloadListItemInterface>
+}
+
+export interface HelperDownloadDetailInterface {
+    POST_ID: string
+    POST_TYPE: string
+    TITLE: string
+    CONTENT: string
+    REGIST_DT: string
+    UPDT_DT: string
+    ATCHMNFL_INFO: {
+        ATCHMNFL_NO: string
+        ATCHMNFL_NM: string
+        ATCHMNFL_PATH: string
+        ORIGINL_FILE_NM: string
+        ATCHMNFL_DOWN_PATH: string
+    }
+}

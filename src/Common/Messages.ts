@@ -172,6 +172,11 @@ export default {
                 alreadyLikeButton: `이미 클릭한 게시물 입니다.`,
                 yetComplete: `대기중인 게시물 입니다.`,
             },
+            download: {
+                emptyTitle: `제목을 입력해 주세요.`,
+                emptyContent: `내용을 입력해 주세요.`,
+                emptyAtchmnflNo: `파일을 입력해 주세요.`,
+            },
         },
         consult: {
             mydataFBSPP2: `공복혈당과 식후혈당을 동시에 입력할 수 없습니다.`,
