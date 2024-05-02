@@ -20,6 +20,7 @@ import Messages from '@Messages'
 import {
     getMesureInfo,
     postDataMesureInfoManualUpdate,
+    postMesureInfoDelete,
 } from '@Service/MemberService'
 import { useRecoilValue } from 'recoil'
 import { AtomRootState } from '@Recoil/AppRootState'
@@ -33,6 +34,7 @@ const {
     TableBody,
     TableBodyRow,
     TableBodyCell,
+    TableBodyCellItem,
 } = CommonListTableStyle
 
 const initializeState = {
@@ -47,7 +49,9 @@ const initializeState = {
     changeData: [],
     modal: {
         confirm: false,
+        delete: false,
     },
+    deleteIndex: null,
 }
 
 const MemberMyDataHistoryModal = ({
@@ -75,7 +79,9 @@ const MemberMyDataHistoryModal = ({
         title: string
         modal: {
             confirm: boolean
+            delete: boolean
         }
+        deleteIndex: null | number
     }>(initializeState)
 
     const [chageItem, setChangeItem] = useState<
@@ -97,6 +103,42 @@ const MemberMyDataHistoryModal = ({
             return chageItem[findI].MESURE_DATA
         } else {
             return ''
+        }
+    }
+
+    const handleDeleteItem = async () => {
+        if (pageState.deleteIndex !== null && pageState.deleteIndex > -1) {
+            console.debug('handleDeleteItem', pageState.deleteIndex)
+
+            const item = pageState.list[pageState.deleteIndex]
+
+            const memNo = item.MBER_NO
+            const mesure_dt = getOnlyNumber(item.MESURE_DT)
+
+            setPageState(prevState => ({
+                ...prevState,
+                loading: true,
+            }))
+
+            const { status } = await postMesureInfoDelete({
+                memNo: memNo,
+                mesureDt: String(mesure_dt),
+                mesureCode: DataCode,
+            })
+
+            if (status) {
+                handleGetList().then()
+            } else {
+                setPageState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                }))
+
+                handlMainAlert({
+                    state: true,
+                    message: Messages.Default.processFail,
+                })
+            }
         }
     }
 
@@ -268,6 +310,7 @@ const MemberMyDataHistoryModal = ({
                                         <HeaderCell>마지막 측정값</HeaderCell>
                                         <HeaderCell>정상수치</HeaderCell>
                                         <HeaderCell>평가</HeaderCell>
+                                        <HeaderCell>삭제</HeaderCell>
                                     </HeaderRow>
                                 </TableHeader>
                                 <TableBody HeightLimit={true} Scroll={true}>
@@ -302,35 +345,39 @@ const MemberMyDataHistoryModal = ({
                                                     <TableBodyCell>
                                                         {el.MESURE_MTHD ===
                                                         'M' ? (
-                                                            <VaryInput
-                                                                Value={datas}
-                                                                HandleOnChange={event => {
-                                                                    setChangeItem(
-                                                                        prevState => {
-                                                                            return prevState.map(
-                                                                                element => {
-                                                                                    if (
-                                                                                        element.MESURE_DT ===
-                                                                                        getOnlyNumber(
-                                                                                            el.MESURE_DT
-                                                                                        )
-                                                                                    ) {
-                                                                                        return {
-                                                                                            ...element,
-                                                                                            MESURE_DATA:
-                                                                                                event
-                                                                                                    .target
-                                                                                                    .value,
+                                                            <TableBodyCellItem>
+                                                                <VaryInput
+                                                                    Value={
+                                                                        datas
+                                                                    }
+                                                                    HandleOnChange={event => {
+                                                                        setChangeItem(
+                                                                            prevState => {
+                                                                                return prevState.map(
+                                                                                    element => {
+                                                                                        if (
+                                                                                            element.MESURE_DT ===
+                                                                                            getOnlyNumber(
+                                                                                                el.MESURE_DT
+                                                                                            )
+                                                                                        ) {
+                                                                                            return {
+                                                                                                ...element,
+                                                                                                MESURE_DATA:
+                                                                                                    event
+                                                                                                        .target
+                                                                                                        .value,
+                                                                                            }
+                                                                                        } else {
+                                                                                            return element
                                                                                         }
-                                                                                    } else {
-                                                                                        return element
                                                                                     }
-                                                                                }
-                                                                            )
-                                                                        }
-                                                                    )
-                                                                }}
-                                                            />
+                                                                                )
+                                                                            }
+                                                                        )
+                                                                    }}
+                                                                />
+                                                            </TableBodyCellItem>
                                                         ) : (
                                                             datas
                                                         )}
@@ -340,6 +387,32 @@ const MemberMyDataHistoryModal = ({
                                                     </TableBodyCell>
                                                     <TableBodyCell>
                                                         {el.MESURE_GRAD_NM}
+                                                    </TableBodyCell>
+                                                    <TableBodyCell>
+                                                        {el.MESURE_MTHD ===
+                                                            'M' && (
+                                                            <VaryButton
+                                                                ButtonType={
+                                                                    'manage'
+                                                                }
+                                                                ButtonName={
+                                                                    '삭제'
+                                                                }
+                                                                HandleClick={() =>
+                                                                    setPageState(
+                                                                        prevState => ({
+                                                                            ...prevState,
+                                                                            deleteIndex:
+                                                                                index,
+                                                                            modal: {
+                                                                                ...prevState.modal,
+                                                                                delete: true,
+                                                                            },
+                                                                        })
+                                                                    )
+                                                                }
+                                                            />
+                                                        )}
                                                     </TableBodyCell>
                                                 </TableBodyRow>
                                             )
@@ -403,6 +476,33 @@ const MemberMyDataHistoryModal = ({
                         }))
 
                         handleMesureSave().then()
+                    }}
+                />
+            )}
+            {pageState.modal.delete && (
+                <ConfirmModal
+                    Title={Messages.Default.deleteConfirm}
+                    CancleButtonName={`취소`}
+                    ApplyButtonName={`확인`}
+                    CancleButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                delete: false,
+                            },
+                        }))
+                    }}
+                    ApplyButtonClick={() => {
+                        setPageState(prevState => ({
+                            ...prevState,
+                            modal: {
+                                ...prevState.modal,
+                                delete: false,
+                            },
+                        }))
+
+                        handleDeleteItem().then()
                     }}
                 />
             )}
