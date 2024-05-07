@@ -769,6 +769,45 @@ export default {
                 () => import('@Page/Manage/Helper/QnaDetailPage')
             ),
         },
+        {
+            mainCode: `80000`,
+            menuCode: `80301`,
+            name: `자료실`,
+            pathName: `/manage/helper/download-list`,
+            category: `download`,
+            recooilKey: `helperPage/download-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Helper/DownloadListPage')
+            ),
+        },
+        {
+            mainCode: `80000`,
+            menuCode: `80301`,
+            name: `자료실 등록`,
+            pathName: `/manage/helper/download-list/new`,
+            category: `download`,
+            recooilKey: `helperPage/download-list-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Helper/DownloadDetailPage')
+            ),
+        },
+        {
+            mainCode: `80000`,
+            menuCode: `80301`,
+            name: `자료실 상세`,
+            pathName: `/manage/helper/download-list/:POST_ID/detail`,
+            category: `download`,
+            recooilKey: `helperPage/download-list-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Helper/DownloadDetailPage')
+            ),
+        },
     ],
     ConsultTabs: [
         {
