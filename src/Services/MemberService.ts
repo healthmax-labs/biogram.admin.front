@@ -410,6 +410,31 @@ export const getMesureInfo = ({
 }
 
 /**
+ * 측정 데이터 삭제
+ * @param memNo
+ * @param mesureDt
+ * @param mesureCode
+ */
+export const postMesureInfoDelete = ({
+    memNo,
+    mesureDt,
+    mesureCode,
+}: {
+    memNo: number
+    mesureDt: string
+    mesureCode: string
+}): Promise<ServicesDefaultResult<MesureInfoListInterface>> => {
+    return _Axios_({
+        method: 'post',
+        url: `/data/v1/mesure_info/manual/delete`,
+        payload: {
+            MBER_NO: memNo,
+            MESURE_DT: mesureDt,
+            MESURE_CODE: mesureCode,
+        },
+    })
+}
+/**
  * 상담회원 히스토리 데이터 수기 입력
  * @param MBER_NO
  * @param MESURE_CODE

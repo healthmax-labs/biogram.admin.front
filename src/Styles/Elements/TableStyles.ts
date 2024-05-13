@@ -195,6 +195,7 @@ export const CommonListTableStyle = {
             return returnTw
         }
     ),
+    TableBodyCellItem: tw.div`flex w-32`,
 }
 
 export const ModalDefaultTableStyle = {
