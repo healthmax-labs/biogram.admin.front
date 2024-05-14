@@ -822,6 +822,11 @@ export default {
             name: ``,
             list: [
                 {
+                    name: `신장/체성분`,
+                    key: `ISHT`,
+                    code: `ISHT`,
+                },
+                {
                     name: `신장`,
                     key: `HT`,
                     code: `HT`,
