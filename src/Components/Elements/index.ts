@@ -50,6 +50,7 @@ export { default as MemberSearchModal } from './Modals/MemberSearchModal'
 export { default as MessageSendModal } from './Modals/MessageSendModal'
 export { default as MemberConsultGroupModal } from './Modals/MemberConsultGroupModal'
 export { default as ConsultChartPrintModal } from './Modals/ConsultChartPrintModal'
+export { default as VaryDaumMapModal } from './Modals/VaryDaumMapModal'
 
 export { default as VaryPagination } from './Paginations/VaryPagination'
 
