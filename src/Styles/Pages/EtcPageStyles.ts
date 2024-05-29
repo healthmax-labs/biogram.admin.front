@@ -1,5 +1,4 @@
 import tw from 'twin.macro'
-// import styled from '@emotion/styled'
 
 export const SplashPage = {
     Container: tw.div`flex items-center justify-center h-screen`,
@@ -16,4 +15,11 @@ export const UnderConstruction = {
     TextSpan: tw.span`text-indigo-600`,
     TextP: tw.p`text-steel md:text-xl mt-10`,
     TextLink: tw.a`hover:underline`,
+}
+
+export const UhealthzoneListMapStyle = {
+    Container: tw.div`relative  h-full items-center justify-center bg-gray-50`,
+    MarkerTitleWapper2: tw.div`fixed w-full items-center justify-center px-5 bg-gray-100 border border-gray-300 h-16 rounded-xl z-auto hover:z-50`,
+    MarkerTitleWapper: tw.div`relative bottom-16 flex w-full items-center justify-center px-5 bg-gray-100 border border-gray-300 h-8 rounded-xl`,
+    MarkerTitle: tw.span`text-base font-semibold`,
 }

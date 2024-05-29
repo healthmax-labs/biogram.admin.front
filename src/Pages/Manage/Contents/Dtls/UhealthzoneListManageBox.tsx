@@ -19,6 +19,16 @@ const UhealthzoneListManageBox = () => {
                 <VaryButton
                     ButtonType={'manage'}
                     HandleClick={() => {
+                        window.open(
+                            `${process.env.PUBLIC_URL}/etc/uhealthzone-list-map`,
+                            '_blank'
+                        )
+                    }}
+                    ButtonName={'지도보기'}
+                />
+                <VaryButton
+                    ButtonType={'manage'}
+                    HandleClick={() => {
                         handleDeleteTabbyMatchRouter(
                             `/manage/contents/uhealthzone/:UhealthZoneNo/detail`
                         )
