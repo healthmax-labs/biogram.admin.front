@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BlankLayoutComponent, MageLayoutComponent } from '@Layouts'
 import { LoginPage } from '@Page/Auth'
+import { UhealthzoneListMapPage } from '@Page/Etc'
 import { ManageRootPage } from '@Page/Manage'
 import { DefaultListPage } from '@Page/Publish'
 import Routers from '@Routers'
@@ -36,6 +37,10 @@ const RootRoutes = () => {
                 <Route element={<BlankLayoutComponent />}>
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/auth/login" element={<LoginPage />} />
+                    <Route
+                        path="/etc/uhealthzone-list-map"
+                        element={<UhealthzoneListMapPage />}
+                    />
                 </Route>
                 <Route element={<MageLayoutComponent />}>
                     <Route
