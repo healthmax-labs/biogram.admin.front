@@ -108,6 +108,7 @@ const RiskFctrManageBox = () => {
                         String(m.MBER_NO),
                         m.NM,
                         dateInsertHypen(String(m.BRTHDY)),
+                        m.SEXDSTN ? m.SEXDSTN : '',
                         String(m.RISK_FCTR),
                         m.TAKNG_MDCIN ? String(m.TAKNG_MDCIN) : '',
                         m.WAIST ? String(m.WAIST) : '',

@@ -110,6 +110,11 @@ export const RiskFctrTableConfig = {
                 colSpan: 1,
             },
             {
+                name: ``,
+                rowSpan: 1,
+                colSpan: 1,
+            },
+            {
                 name: `체성분계`,
                 colSpan: 6,
             },
@@ -141,6 +146,10 @@ export const RiskFctrTableConfig = {
                 component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
                     return <>{dateInsertHypen(String(el.BRTHDY))}</>
                 },
+            },
+            {
+                name: `성별`,
+                key: `SEXDSTN`,
             },
             {
                 name: `위험요인`,
