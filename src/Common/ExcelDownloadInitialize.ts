@@ -340,6 +340,7 @@ export default {
                 'AN2:AO2',
                 'AP2:AQ2',
             ],
+            CellWidth: 12,
         },
         Statistics: {
             FileName: `기기측정_현황_${getNowDateDetail()}`,

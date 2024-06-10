@@ -102,6 +102,7 @@ const BrftrCmprManageBox = () => {
                         m.NM,
                         m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
                         m.SEXDSTN ? m.SEXDSTN : '',
+
                         `${
                             m.WAIST_MESURE_DT_0
                                 ? timeStringSmapDateParse(m.WAIST_MESURE_DT_0)
@@ -126,6 +127,7 @@ const BrftrCmprManageBox = () => {
                                 : ''
                         }`,
                         `${m.WAIST_3 ? m.WAIST_3 : ''}`,
+
                         `${
                             m.BP_MESURE_DT_0
                                 ? timeStringSmapDateParse(m.BP_MESURE_DT_0)
@@ -143,7 +145,14 @@ const BrftrCmprManageBox = () => {
                                 ? timeStringSmapDateParse(m.BP_MESURE_DT_2)
                                 : ''
                         }`,
+                        `${m.BP_2 ? m.BP_2 : ''}`,
+                        `${
+                            m.BP_MESURE_DT_3
+                                ? timeStringSmapDateParse(m.BP_MESURE_DT_3)
+                                : ''
+                        }`,
                         `${m.BP_3 ? m.BP_3 : ''}`,
+
                         `${
                             m.FBS_MESURE_DT_0
                                 ? timeStringSmapDateParse(m.FBS_MESURE_DT_0)
@@ -168,11 +177,13 @@ const BrftrCmprManageBox = () => {
                                 : ''
                         }`,
                         `${m.FBS_3 ? m.FBS_3 : ''}`,
+
                         `${
                             m.TG_MESURE_DT_0
                                 ? timeStringSmapDateParse(m.TG_MESURE_DT_0)
                                 : ''
                         }`,
+                        `${m.TG_0 ? m.TG_0 : ''}`,
                         `${
                             m.TG_MESURE_DT_1
                                 ? timeStringSmapDateParse(m.TG_MESURE_DT_1)
@@ -191,6 +202,7 @@ const BrftrCmprManageBox = () => {
                                 : ''
                         }`,
                         `${m.TG_3 ? m.TG_3 : ''}`,
+
                         `${
                             m.HDLC_MESURE_DT_0
                                 ? timeStringSmapDateParse(m.HDLC_MESURE_DT_0)
@@ -207,8 +219,7 @@ const BrftrCmprManageBox = () => {
                             m.HDLC_MESURE_DT_2
                                 ? timeStringSmapDateParse(m.HDLC_MESURE_DT_2)
                                 : ''
-                        }
-                        `,
+                        }`,
                         `${m.HDLC_2 ? m.HDLC_2 : ''}`,
                         `${
                             m.HDLC_MESURE_DT_3

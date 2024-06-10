@@ -13,6 +13,7 @@ const ExcelDownload = ({
     SpliceColumn,
     SpliceColumns,
     SpliceMergeCells,
+    CellWidth,
 }: ExcelDownloadPropsInterface) => {
     const handleExcel = useCallback(async () => {
         const workbook = new ExcelJS.Workbook()
@@ -74,7 +75,12 @@ const ExcelDownload = ({
                     maxLength = columnLength
                 }
             })
-            column.width = maxLength < 20 ? 20 : maxLength + 20
+
+            if (CellWidth) {
+                column.width = CellWidth
+            } else {
+                column.width = maxLength < 20 ? 20 : maxLength + 20
+            }
         })
 
         if (
@@ -101,6 +107,7 @@ const ExcelDownload = ({
         const blob = new Blob([buffer], mimeType)
         saveAs(blob, FileName)
     }, [
+        CellWidth,
         Data,
         FileName,
         Header,

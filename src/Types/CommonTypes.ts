@@ -495,6 +495,7 @@ export interface ExcelDownloadPropsInterface {
     SpliceColumns?: Array<{ start: number; end: number }>
     SpliceMergeCells?: string[]
     DownloadEnd?: () => void
+    CellWidth?: number
 }
 
 export interface CommonGetFileInfoInterface {
