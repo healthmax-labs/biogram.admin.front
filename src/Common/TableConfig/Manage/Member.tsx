@@ -90,6 +90,7 @@ export const MsgSendTableConfig = {
             {
                 name: `메시지`,
                 key: `CN`,
+                textAlign: `left`,
             },
             {
                 name: `등록일시`,

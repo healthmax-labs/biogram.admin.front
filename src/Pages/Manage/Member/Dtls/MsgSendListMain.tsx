@@ -33,11 +33,16 @@ const MsgSendListMain = () => {
                 SEARCH_KEY,
                 FROM_MONTH,
                 FROM_DAY,
-                TO_DAY,
                 SNDNG_FAILR,
                 SNDNG_STDR,
             },
         } = listState
+
+        const toDay = new Date(
+            Number(FROM_MONTH.substring(0, 4)),
+            Number(FROM_MONTH.substring(4, 6)),
+            0
+        ).getDate()
 
         const { status, payload } = await getMsgSendList({
             CUR_PAGE: curPage,
@@ -45,7 +50,7 @@ const MsgSendListMain = () => {
             SEARCH_KEY: SEARCH_KEY,
             FROM_MONTH: FROM_MONTH,
             FROM_DAY: FROM_DAY,
-            TO_DAY: TO_DAY,
+            TO_DAY: String(toDay),
             SNDNG_FAILR: SNDNG_FAILR,
             SNDNG_STDR: SNDNG_STDR,
         })
