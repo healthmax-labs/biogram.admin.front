@@ -57,9 +57,18 @@ const ListTable = () => {
                     ...prevState,
                     Lists: listState.list.INST_INFO_LIST.filter(
                         v =>
-                            _.includes(v.INST_NM_1, name) ||
-                            _.includes(v.INST_NM_2, name) ||
-                            _.includes(v.INST_NM_3, name)
+                            _.includes(
+                                v.INST_NM_1.toLowerCase(),
+                                name.toLowerCase()
+                            ) ||
+                            _.includes(
+                                v.INST_NM_2.toLowerCase(),
+                                name.toLowerCase()
+                            ) ||
+                            _.includes(
+                                v.INST_NM_3.toLowerCase(),
+                                name.toLowerCase()
+                            )
                     ),
                 }))
             }
