@@ -248,14 +248,6 @@ export const ConsultTableConfig = {
             {
                 name: `휴대폰번호`,
                 key: `MBTLNUM`,
-                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
-                    return (
-                        <ListTableItemStyle.MbtlnumCell
-                            CRTFC={el.MBTLNUM_CRTFC_AT}>
-                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableItemStyle.MbtlnumCell>
-                    )
-                },
             },
             {
                 name: `성별`,

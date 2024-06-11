@@ -10,12 +10,7 @@ import {
     MemberConsultGroupModal,
 } from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
-import {
-    addComma,
-    dateInsertHypen,
-    getNowDateDetail,
-    phoneFormat,
-} from '@Helper'
+import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
@@ -75,7 +70,6 @@ const ConsultListManageBox = () => {
                         } = listState
                         const findMemInfo = _.find(MBER_INFO_LIST, {
                             MBER_NO: Number(c),
-                            // MBER_NO: 11,
                         })
 
                         if (findMemInfo) {
@@ -158,7 +152,7 @@ const ConsultListManageBox = () => {
                         String(m.MBER_NO),
                         m.NM,
                         m.USID,
-                        m.MBTLNUM ? phoneFormat(m.MBTLNUM) : m.MBTLNUM,
+                        m.MBTLNUM,
                         m.SEXDSTN_NM,
                         m.INST_NM,
                         m.WORK_TY_CODE == 'N'
