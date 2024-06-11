@@ -47,6 +47,7 @@ export interface MemberInfoListItemInterface {
     ACCML_POINT: number
     NM: string
     WORK_TY_CODE: 'I' | 'O' | 'N'
+    SUM_CASH_HIST: string
 }
 
 export interface MemberInfoListInterface {

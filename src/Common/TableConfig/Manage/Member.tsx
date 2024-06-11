@@ -209,6 +209,10 @@ export const MemberTableConfig = {
                 cellWidth: `w24`,
             },
             {
+                name: `누적캐시적립`,
+                key: `SUM_CASH_HIST`,
+            },
+            {
                 name: `당월미션포인트`,
                 key: `ACCML_POINT`,
                 cellWidth: `w24`,

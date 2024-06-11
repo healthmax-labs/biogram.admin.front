@@ -125,6 +125,7 @@ const MemberListManageBox = ({
                         m.CONECT_DT,
                         m.REGIST_DT,
                         m.TOT_CASH,
+                        m.SUM_CASH_HIST,
                     ]
                 }),
                 SpliceColumns:
