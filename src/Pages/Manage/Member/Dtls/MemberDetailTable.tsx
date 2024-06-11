@@ -10,6 +10,7 @@ import {
     postPasswordReset,
     getMberCheckUsid,
     postMberMberInfo,
+    postMemberInfoMemoDelete,
 } from '@Service/MemberService'
 import { MemberDetailState, MemberListState } from '@Recoil/MemberPagesState'
 import { DetailTableStyle } from '@Style/Elements/TableStyles'
@@ -80,6 +81,7 @@ const initializeState = {
         totCash: false,
         phoneAuthVal: false,
         confirm: false,
+        deleteMemo: false,
     },
     addSelectPstinst: {
         instNo: null,
@@ -127,6 +129,7 @@ const MemberDetailTable = ({
             totCash: boolean
             phoneAuthVal: boolean
             confirm: boolean
+            deleteMemo: boolean
         }
         addSelectPstinst: {
             instNo: number | null
@@ -376,6 +379,20 @@ const MemberDetailTable = ({
             message: Messages.Default.processFail,
         })
         return
+    }
+
+    // 회원 메모 삭제
+    const handleMemberMemoDelete = async () => {
+        const { MBER_NO } = detailState.detail
+        if (MBER_NO) {
+            const { status } = await postMemberInfoMemoDelete({
+                MBER_NO: MBER_NO,
+            })
+
+            if (status) {
+                HandleGetInfo(MBER_NO)
+            }
+        }
     }
 
     // 신규회원 등록
@@ -2051,6 +2068,21 @@ const MemberDetailTable = ({
                                 }}
                             />
                         </ButtonItem>
+                        <ButtonItem>
+                            <VaryButton
+                                ButtonType={`default`}
+                                ButtonName={`메모삭제`}
+                                HandleClick={() => {
+                                    setPageState(prevState => ({
+                                        ...prevState,
+                                        modal: {
+                                            ...prevState.modal,
+                                            deleteMemo: true,
+                                        },
+                                    }))
+                                }}
+                            />
+                        </ButtonItem>
                     </ButtonBox>
                 </>
             )}
@@ -2088,6 +2120,34 @@ const MemberDetailTable = ({
                             } else {
                                 handleNewMember().then()
                             }
+                        }}
+                    />
+                )}
+
+                {pageState.modal.deleteMemo && (
+                    <ConfirmModal
+                        Title={Messages.Default.member.memoDelete}
+                        CancleButtonName={`취소`}
+                        ApplyButtonName={`확인`}
+                        CancleButtonClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    deleteMemo: false,
+                                },
+                            }))
+                        }}
+                        ApplyButtonClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                modal: {
+                                    ...prevState.modal,
+                                    deleteMemo: false,
+                                },
+                            }))
+
+                            handleMemberMemoDelete().then()
                         }}
                     />
                 )}

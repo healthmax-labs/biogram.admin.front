@@ -1252,3 +1252,17 @@ export const getMngCnstgrpInfo = ({
         payload: {},
     })
 }
+
+/**
+ * 회원 상세 메모 삭제
+ * @param MBER_NO
+ */
+export const postMemberInfoMemoDelete = ({ MBER_NO }: { MBER_NO: number }) => {
+    return _Axios_({
+        method: 'post',
+        url: `/mber/v1/info/memo/delete`,
+        payload: {
+            MBER_NO: MBER_NO,
+        },
+    })
+}
