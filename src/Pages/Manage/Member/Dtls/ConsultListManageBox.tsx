@@ -203,15 +203,15 @@ const ConsultListManageBox = () => {
                             return
                         }
 
-                        if (listState.manage.checkRow.length > 1) {
-                            handlMainAlert({
-                                state: true,
-                                message:
-                                    Messages.Default.member.groupControll
-                                        .overAddRow,
-                            })
-                            return
-                        }
+                        // if (listState.manage.checkRow.length > 1) {
+                        //     handlMainAlert({
+                        //         state: true,
+                        //         message:
+                        //             Messages.Default.member.groupControll
+                        //                 .overAddRow,
+                        //     })
+                        //     return
+                        // }
 
                         setPageState(prevState => ({
                             ...prevState,
@@ -372,7 +372,7 @@ const ConsultListManageBox = () => {
                 listState.manage.checkRow.length > 0 && (
                     <MemberConsultGroupModal
                         ModalType={`add`}
-                        MemberNo={Number(listState.manage.checkRow[0])}
+                        MemberNo={listState.manage.checkRow.map(e => Number(e))}
                         InstNo={listState.search.instNo}
                         CloseModal={() => {
                             setPageState(prevState => ({
@@ -390,7 +390,7 @@ const ConsultListManageBox = () => {
                     <MemberConsultGroupModal
                         ModalType={`remove`}
                         InstNo={listState.search.instNo}
-                        MemberNo={Number(listState.manage.checkRow[0])}
+                        MemberNo={listState.manage.checkRow.map(e => Number(e))}
                         CloseModal={() => {
                             setPageState(prevState => ({
                                 ...prevState,

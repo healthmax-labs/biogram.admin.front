@@ -675,6 +675,12 @@ export interface ConsultMemberGroupListResultItemInterface {
     NM: string
 }
 
+// 회원이 소속된 그룹리스트
+export interface ConsultMemberJoinListGroupListResultItemInterface {
+    CNST_GRP_NM: string
+    CNST_GRP_NO: number
+}
+
 export interface ConsultMemberGroupListResultInterface {
     MBER_CNST_GRP_LIST: ConsultMemberGroupListResultItemInterface[]
 }

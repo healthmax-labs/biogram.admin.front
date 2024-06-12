@@ -30,6 +30,7 @@ import {
     ConsultGroupListResultInterface,
     ConsultMemberGroupListResultInterface,
     ConsultMemberGroupInfoResultInterface,
+    ConsultMemberJoinListGroupListResultItemInterface,
 } from '@Type/MemberTypes'
 import _ from 'lodash'
 
@@ -1105,6 +1106,24 @@ export const getMngCnstgrpList = ({
 }
 
 /**
+ * 상담회원 그룹 목록 ( 회원 등록되어있는지 체크 )
+ * @param memNo
+ */
+export const getMngCnstgrpJoinlist = ({
+    memNo,
+}: {
+    memNo: number
+}): Promise<
+    ServicesDefaultResult<ConsultMemberJoinListGroupListResultItemInterface[]>
+> => {
+    return _Axios_({
+        method: 'get',
+        url: `/mng/v1/cnstgrp/joinlist/${memNo}`,
+        payload: {},
+    })
+}
+
+/**
  * 상담회원 그룹 등록
  * @param instNm
  * @param name
@@ -1184,15 +1203,15 @@ export const postMngCnstgrpMberAdd = ({
     groupNo,
     memberNo,
 }: {
-    groupNo: number
-    memberNo: number
+    groupNo: string
+    memberNo: Array<{ CNST_MBER_NO: string }>
 }): Promise<ServicesDefaultResult<{ test: null }>> => {
     return _Axios_({
         method: 'post',
         url: `/mng/v1/cnstgrp/mber/add`,
         payload: {
             CNST_GRP_NO: groupNo,
-            CNST_MBER_NO: memberNo,
+            CNST_MBER_LIST: memberNo,
         },
     })
 }
