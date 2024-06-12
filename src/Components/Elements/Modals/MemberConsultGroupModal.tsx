@@ -232,13 +232,6 @@ const MemberConsultGroupModal = ({
                                                             ModalType ===
                                                             'remove'
                                                         ) {
-                                                            console.debug(
-                                                                pageState.memberGroup
-                                                            )
-                                                            console.debug(
-                                                                pageState.memberGroup,
-                                                                list.CNST_GRP_NO
-                                                            )
                                                             if (
                                                                 !_.includes(
                                                                     pageState.memberGroup,
