@@ -10,12 +10,7 @@ import {
     MemberConsultGroupModal,
 } from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
-import {
-    addComma,
-    dateInsertHypen,
-    getNowDateDetail,
-    phoneFormat,
-} from '@Helper'
+import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
 import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
@@ -75,7 +70,6 @@ const ConsultListManageBox = () => {
                         } = listState
                         const findMemInfo = _.find(MBER_INFO_LIST, {
                             MBER_NO: Number(c),
-                            // MBER_NO: 11,
                         })
 
                         if (findMemInfo) {
@@ -158,7 +152,7 @@ const ConsultListManageBox = () => {
                         String(m.MBER_NO),
                         m.NM,
                         m.USID,
-                        m.MBTLNUM ? phoneFormat(m.MBTLNUM) : m.MBTLNUM,
+                        m.MBTLNUM,
                         m.SEXDSTN_NM,
                         m.INST_NM,
                         m.WORK_TY_CODE == 'N'
@@ -209,15 +203,15 @@ const ConsultListManageBox = () => {
                             return
                         }
 
-                        if (listState.manage.checkRow.length > 1) {
-                            handlMainAlert({
-                                state: true,
-                                message:
-                                    Messages.Default.member.groupControll
-                                        .overAddRow,
-                            })
-                            return
-                        }
+                        // if (listState.manage.checkRow.length > 1) {
+                        //     handlMainAlert({
+                        //         state: true,
+                        //         message:
+                        //             Messages.Default.member.groupControll
+                        //                 .overAddRow,
+                        //     })
+                        //     return
+                        // }
 
                         setPageState(prevState => ({
                             ...prevState,
@@ -378,7 +372,7 @@ const ConsultListManageBox = () => {
                 listState.manage.checkRow.length > 0 && (
                     <MemberConsultGroupModal
                         ModalType={`add`}
-                        MemberNo={Number(listState.manage.checkRow[0])}
+                        MemberNo={listState.manage.checkRow.map(e => Number(e))}
                         InstNo={listState.search.instNo}
                         CloseModal={() => {
                             setPageState(prevState => ({
@@ -396,7 +390,7 @@ const ConsultListManageBox = () => {
                     <MemberConsultGroupModal
                         ModalType={`remove`}
                         InstNo={listState.search.instNo}
-                        MemberNo={Number(listState.manage.checkRow[0])}
+                        MemberNo={listState.manage.checkRow.map(e => Number(e))}
                         CloseModal={() => {
                             setPageState(prevState => ({
                                 ...prevState,

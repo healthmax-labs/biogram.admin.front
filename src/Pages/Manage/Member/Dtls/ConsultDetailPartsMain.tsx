@@ -7,7 +7,7 @@ import Routers from '@Routers'
 import { useRecoilValue } from 'recoil'
 import { ConsultDetailState } from '@Recoil/MemberPagesState'
 import { useEffect, useState } from 'react'
-import { getWesternAge } from '@Helper'
+import { getWesternAge, getOnlyNumber } from '@Helper'
 
 const { TableContainer, TableWapper, Row, LabelCell, InputCell } =
     DetailTableStyle
@@ -73,6 +73,7 @@ const ConsultDetailPartsMain = ({
                     info: {
                         NM: NM,
                         BRTHDY: BRTHDY,
+                        // MBTLNUM: MBTLNUM,
                         MBTLNUM: MBTLNUM,
                         SEXDSTN: SEXDSTN,
                         MBTLNUM_CRTFC_AT: MBTLNUM_CRTFC_AT,
@@ -124,7 +125,11 @@ const ConsultDetailPartsMain = ({
                                     }}
                                     id={'id'}
                                     Placeholder={'핸드폰번호'}
-                                    Value={pageState.info.MBTLNUM}
+                                    Value={`${
+                                        pageState.info.MBTLNUM
+                                    } ( ${getOnlyNumber(
+                                        pageState.info.MBTLNUM
+                                    )} )`}
                                     Disabled={true}
                                 />
                             </InputCell>

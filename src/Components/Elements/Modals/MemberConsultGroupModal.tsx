@@ -3,15 +3,12 @@ import { ConfirmModal, VaryButton, VaryModal } from '@Element/index'
 import { CommonListTableStyle } from '@Style/Elements/TableStyles'
 import { WapperStyle } from '@Style/Pages/CommonStyle'
 import { MemberConsultGroupModalStyle } from '@Style/Elements/ModalStyles'
-import {
-    ConsultGroupListResultItemInterface,
-    ConsultMemberGroupListResultItemInterface,
-} from '@Type/MemberTypes'
+import { ConsultGroupListResultItemInterface } from '@Type/MemberTypes'
 import {
     getMngCnstgrpList,
     postMngCnstgrpMberAdd,
+    getMngCnstgrpJoinlist,
     postMngCnstgrpMberRemove,
-    postMemberMngCnstgrpMberList,
 } from '@Service/MemberService'
 import _ from 'lodash'
 import Messages from '@Messages'
@@ -48,7 +45,7 @@ const MemberConsultGroupModal = ({
     CloseModal,
 }: {
     ModalType: 'add' | 'remove'
-    MemberNo: number
+    MemberNo: Array<number>
     InstNo: string
     CloseModal: () => void
 }) => {
@@ -56,7 +53,7 @@ const MemberConsultGroupModal = ({
     const [pageState, setPageState] = useState<{
         loading: boolean
         list: ConsultGroupListResultItemInterface[]
-        memberGroup: ConsultMemberGroupListResultItemInterface[]
+        memberGroup: number[]
         selectGroupNo: number | null
         modal: {
             confirm: boolean
@@ -94,22 +91,20 @@ const MemberConsultGroupModal = ({
         }))
     }, [InstNo])
 
-    const handleGetMemberGroupList = useCallback(async () => {
-        const { status, payload } = await postMemberMngCnstgrpMberList({
-            memberNo: MemberNo,
+    const handleGetListForRemove = async ({ memNo }: { memNo: number }) => {
+        const { status, payload } = await getMngCnstgrpJoinlist({
+            memNo: memNo,
         })
+
         if (status) {
             setPageState(prevState => ({
                 ...prevState,
-                memberGroup: payload.MBER_CNST_GRP_LIST,
-            }))
-        } else {
-            setPageState(prevState => ({
-                ...prevState,
-                memberGroup: [],
+                memberGroup: payload.map(e => {
+                    return e.CNST_GRP_NO
+                }),
             }))
         }
-    }, [MemberNo])
+    }
 
     const handleAdd = useCallback(
         async ({
@@ -117,11 +112,15 @@ const MemberConsultGroupModal = ({
             memberNo,
         }: {
             groupNo: number
-            memberNo: number
+            memberNo: Array<number>
         }) => {
             const { status } = await postMngCnstgrpMberAdd({
-                groupNo: groupNo,
-                memberNo: memberNo,
+                groupNo: String(groupNo),
+                memberNo: memberNo.map(e => {
+                    return {
+                        CNST_MBER_NO: `${e}`,
+                    }
+                }),
             })
             if (status) {
                 handlMainAlert({
@@ -169,12 +168,22 @@ const MemberConsultGroupModal = ({
 
     useEffect(() => {
         const startPage = () => {
-            handleGetList().then()
-            handleGetMemberGroupList().then()
+            if (ModalType == `add`) {
+                handleGetList().then()
+                return
+            }
+
+            if (ModalType == `remove` && _.first(MemberNo)) {
+                handleGetList().then()
+                handleGetListForRemove({
+                    memNo: Number(_.first(MemberNo)),
+                }).then()
+                return
+            }
         }
 
         startPage()
-    }, [handleGetList, handleGetMemberGroupList])
+    }, [MemberNo, ModalType, handleGetList])
 
     return (
         <>
@@ -219,47 +228,34 @@ const MemberConsultGroupModal = ({
                                                     key={`member-consult-group-modal-item-row-${listIndex}`}
                                                     BgState={false}
                                                     onClick={() => {
-                                                        const findData = _.find(
-                                                            pageState.memberGroup,
-                                                            {
-                                                                CNST_GRP_NO:
-                                                                    list.CNST_GRP_NO,
-                                                            }
-                                                        )
-
-                                                        if (
-                                                            findData &&
-                                                            ModalType === 'add'
-                                                        ) {
-                                                            handlMainAlert({
-                                                                state: true,
-                                                                message:
-                                                                    Messages
-                                                                        .Default
-                                                                        .member
-                                                                        .groupControll
-                                                                        .alreadyGruopMember,
-                                                            })
-
-                                                            return
-                                                        }
-
                                                         if (
                                                             ModalType ===
-                                                                'remove' &&
-                                                            !findData
+                                                            'remove'
                                                         ) {
-                                                            handlMainAlert({
-                                                                state: true,
-                                                                message:
-                                                                    Messages
-                                                                        .Default
-                                                                        .member
-                                                                        .groupControll
-                                                                        .withoutGruopMember,
-                                                            })
-
-                                                            return
+                                                            console.debug(
+                                                                pageState.memberGroup
+                                                            )
+                                                            console.debug(
+                                                                pageState.memberGroup,
+                                                                list.CNST_GRP_NO
+                                                            )
+                                                            if (
+                                                                !_.includes(
+                                                                    pageState.memberGroup,
+                                                                    list.CNST_GRP_NO
+                                                                )
+                                                            ) {
+                                                                handlMainAlert({
+                                                                    state: true,
+                                                                    message:
+                                                                        Messages
+                                                                            .Default
+                                                                            .member
+                                                                            .groupControll
+                                                                            .withoutGruopMember,
+                                                                })
+                                                                return
+                                                            }
                                                         }
 
                                                         setPageState(
@@ -268,6 +264,7 @@ const MemberConsultGroupModal = ({
                                                                 selectGroupNo:
                                                                     list.CNST_GRP_NO,
                                                                 modal: {
+                                                                    ...prevState.modal,
                                                                     confirm:
                                                                         true,
                                                                 },
@@ -293,13 +290,6 @@ const MemberConsultGroupModal = ({
                             ButtonType={'default'}
                             ButtonName={'닫기'}
                             HandleClick={() => CloseModal()}
-                        />
-                        <VaryButton
-                            ButtonType={'default'}
-                            ButtonName={'저장'}
-                            HandleClick={() => {
-                                //
-                            }}
                         />
                     </>
                 }
@@ -339,7 +329,7 @@ const MemberConsultGroupModal = ({
                                   }).then()
                                 : handleRemove({
                                       groupNo: pageState.selectGroupNo,
-                                      memberNo: MemberNo,
+                                      memberNo: Number(_.first(MemberNo)),
                                   }).then()
                         }
                     }}

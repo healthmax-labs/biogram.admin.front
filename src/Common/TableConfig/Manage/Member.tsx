@@ -209,6 +209,10 @@ export const MemberTableConfig = {
                 cellWidth: `w24`,
             },
             {
+                name: `누적캐시적립`,
+                key: `SUM_CASH_HIST`,
+            },
+            {
                 name: `당월미션포인트`,
                 key: `ACCML_POINT`,
                 cellWidth: `w24`,
@@ -248,14 +252,6 @@ export const ConsultTableConfig = {
             {
                 name: `휴대폰번호`,
                 key: `MBTLNUM`,
-                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
-                    return (
-                        <ListTableItemStyle.MbtlnumCell
-                            CRTFC={el.MBTLNUM_CRTFC_AT}>
-                            {el.MBTLNUM ? phoneFormat(el.MBTLNUM) : el.MBTLNUM}
-                        </ListTableItemStyle.MbtlnumCell>
-                    )
-                },
             },
             {
                 name: `성별`,

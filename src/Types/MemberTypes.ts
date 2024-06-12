@@ -47,6 +47,7 @@ export interface MemberInfoListItemInterface {
     ACCML_POINT: number
     NM: string
     WORK_TY_CODE: 'I' | 'O' | 'N'
+    SUM_CASH_HIST: string
 }
 
 export interface MemberInfoListInterface {
@@ -672,6 +673,12 @@ export interface ConsultMemberGroupListResultItemInterface {
     CNST_GRP_NM: string
     CNST_MBER_NO: number
     NM: string
+}
+
+// 회원이 소속된 그룹리스트
+export interface ConsultMemberJoinListGroupListResultItemInterface {
+    CNST_GRP_NM: string
+    CNST_GRP_NO: number
 }
 
 export interface ConsultMemberGroupListResultInterface {

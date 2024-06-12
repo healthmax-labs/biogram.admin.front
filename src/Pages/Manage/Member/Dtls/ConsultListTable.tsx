@@ -87,7 +87,9 @@ const ConsultListTable = ({ CurrentPage }: { CurrentPage: number }) => {
         setTableOptions(prevState => ({
             ...prevState,
             Loading: listState.status === 'loading',
-            Lists: listState.list.MBER_INFO_LIST,
+            Lists: listState.list.MBER_INFO_LIST.map(e => {
+                return { ...e }
+            }),
         }))
     }, [listState.list.MBER_INFO_LIST, listState.status])
 

@@ -75,6 +75,7 @@ export default {
             },
             contentEmpty: `내용을 입력해 주세요`,
             infoUpdate: `회원정보를 수정 하시겠습니까?`,
+            memoDelete: `메모를 삭제 하시겠습니까?`,
             newInfo: `회원정보를 등록 하시겠습니까?`,
             infoUpdateSuccess: `회원정보를 수정 했습니다.`,
             leave: {
