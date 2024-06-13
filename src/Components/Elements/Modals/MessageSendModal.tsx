@@ -108,7 +108,7 @@ const MessageSendModal = ({
             return
         }
 
-        if (instNo === null && selectedMember.length === 0) {
+        if (!allSendCheck && selectedMember.length === 0) {
             handlMainAlert({
                 state: true,
                 message: Messages.Default.messageSend.emptyTarget,
@@ -128,7 +128,7 @@ const MessageSendModal = ({
             gmtTimeToTimeObject(selectTime)
 
         const payload: {
-            INST_NO?: string
+            INST_NO?: string | null
             SMS_SJ: string
             SMS_CN: string
             SNDNG_NO: string
@@ -136,11 +136,11 @@ const MessageSendModal = ({
             SEND_ALL_MBER: 'N' | 'Y'
             SEND_MBER_INFO_LIST: MemberSearchItemInterface[]
         } = {
-            INST_NO: String(instNo),
+            INST_NO: instNo ? String(instNo) : null,
             SMS_SJ: `관리자 페이지 메시지 전송`,
             SMS_CN: contents,
             SNDNG_NO: sndngNo,
-            SEND_ALL_MBER: instNo && allSendCheck ? 'Y' : 'N',
+            SEND_ALL_MBER: allSendCheck ? 'Y' : 'N',
             SEND_MBER_INFO_LIST: selectedMember.map(e => {
                 return {
                     MBER_NO: Number(e.MBER_NO),
@@ -460,9 +460,12 @@ const MessageSendModal = ({
                                                         ...prevState,
                                                         message: {
                                                             ...prevState.message,
-                                                            instNo: instNo
-                                                                ? instNo
-                                                                : null,
+                                                            selectInst: {
+                                                                ...prevState
+                                                                    .message
+                                                                    .selectInst,
+                                                                instNo: instNo,
+                                                            },
                                                         },
                                                     }))
                                                 }}

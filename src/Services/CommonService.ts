@@ -182,7 +182,7 @@ export const commonGetFileInfo = ({
  * @param payload
  */
 export const postMberSendSms = (payload: {
-    INST_NO?: string
+    INST_NO?: string | null
     SMS_SJ: string
     SMS_CN: string
     SNDNG_NO: string
