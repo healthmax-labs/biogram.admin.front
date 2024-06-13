@@ -203,16 +203,6 @@ const ConsultListManageBox = () => {
                             return
                         }
 
-                        // if (listState.manage.checkRow.length > 1) {
-                        //     handlMainAlert({
-                        //         state: true,
-                        //         message:
-                        //             Messages.Default.member.groupControll
-                        //                 .overAddRow,
-                        //     })
-                        //     return
-                        // }
-
                         setPageState(prevState => ({
                             ...prevState,
                             modal: {

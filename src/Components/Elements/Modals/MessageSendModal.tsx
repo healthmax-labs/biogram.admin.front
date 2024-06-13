@@ -22,9 +22,6 @@ import { DetailTableStyle } from '@Style/Elements/TableStyles'
 const { InputCell, LabelCell, Row, TableContainer, TableWapper } =
     DetailTableStyle
 
-const contentsByteLengthLimit = 500
-const titleByteLengthLimit = 20
-
 const initializeState = {
     status: 'idle',
     modal: {
@@ -64,6 +61,9 @@ const MessageSendModal = ({
         instNm: string | null
     }
 }) => {
+    const contentsByteLengthLimit = MessageType === `sms` ? 1000 : 500
+    const titleByteLengthLimit = 20
+
     const [pageState, setPageState] = useState<{
         status: string | DefaultStatus
         modal: {
