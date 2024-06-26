@@ -11,9 +11,10 @@ import {
     VaryImageUpload,
     ConfirmModal,
 } from '@Element/index'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Messages from '@Messages'
 import { AtomRootState } from '@Recoil/AppRootState'
+import _ from 'lodash'
 
 const {
     TableContainer,
@@ -31,6 +32,10 @@ const initializeState = {
     modal: {
         confirm: false,
         deleteConfirm: false,
+    },
+    notice: {
+        atchmnflImage: false,
+        atchmnflImageUrl: ``,
     },
 }
 
@@ -54,12 +59,38 @@ const NoticeDetailTable = ({
             confirm: boolean
             deleteConfirm: boolean
         }
+        notice: {
+            atchmnflImage: boolean
+            atchmnflImageUrl: string
+        }
     }>(initializeState)
 
     const rootState = useRecoilValue(AtomRootState)
 
     const [noticeDetailState, setNoticeDetailState] =
         useRecoilState(NoticeDetailState)
+
+    useEffect(() => {
+        const {
+            detail: { ATCHMNFL_INFO },
+        } = noticeDetailState
+
+        if (
+            !_.isEmpty(ATCHMNFL_INFO) &&
+            !_.isEmpty(ATCHMNFL_INFO?.ATCHMNFL_NM)
+        ) {
+            const { ORIGINL_FILE_NM, ATCHMNFL_PATH } = ATCHMNFL_INFO
+            if (ORIGINL_FILE_NM.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                setPageState(prevState => ({
+                    ...prevState,
+                    notice: {
+                        atchmnflImage: true,
+                        atchmnflImageUrl: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${ATCHMNFL_PATH}`,
+                    },
+                }))
+            }
+        }
+    }, [noticeDetailState])
 
     return (
         <DetailContainer>
@@ -111,6 +142,27 @@ const NoticeDetailTable = ({
                                                 noticeDetailState.detail
                                                     .REGIST_DT
                                             }
+                                        />
+                                    </div>
+                                </div>
+                            </InputCell>
+                        </Row>
+                    )}
+                    {pageState.notice.atchmnflImage && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`이미지`} />
+                            </LabelCell>
+                            <InputCell WFull={true}>
+                                <div className="flex flex-nowrap w-full items-center justify-center">
+                                    <div className="flex w-full items-center justify-center">
+                                        <img
+                                            className="max-w-xl"
+                                            src={
+                                                pageState.notice
+                                                    .atchmnflImageUrl
+                                            }
+                                            alt={'...'}
                                         />
                                     </div>
                                 </div>
