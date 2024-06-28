@@ -134,29 +134,52 @@ const DashboardMain = () => {
                                         ATCHMNFL_INFO.ORIGINL_FILE_NM
                                     ) {
                                         return (
-                                            <NoticePoupStyle.Row>
-                                                <NoticePoupStyle.NoticeTextWapper>
-                                                    <NoticePoupStyle.DownloadText
-                                                        onClick={() => {
-                                                            axios
-                                                                .get(
-                                                                    `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${ATCHMNFL_INFO.ATCHMNFL_PATH}`,
-                                                                    {
-                                                                        responseType:
-                                                                            'blob',
-                                                                    }
-                                                                )
-                                                                .then(res => {
-                                                                    fileDownload(
-                                                                        res.data,
-                                                                        ATCHMNFL_INFO.ORIGINL_FILE_NM
+                                            <>
+                                                {ATCHMNFL_INFO.ORIGINL_FILE_NM.match(
+                                                    /\.(jpg|jpeg|png|gif)$/i
+                                                ) && (
+                                                    <NoticePoupStyle.Row>
+                                                        <NoticePoupStyle.Row>
+                                                            <div className="flex flex-nowrap w-full items-center justify-center">
+                                                                <div className="flex w-full items-center justify-center">
+                                                                    <img
+                                                                        className="max-w-sm"
+                                                                        src={`${process.env.REACT_APP_API_IMAGE_SERVER_URL}${ATCHMNFL_INFO.ATCHMNFL_PATH}`}
+                                                                        alt={
+                                                                            '...'
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </NoticePoupStyle.Row>
+                                                    </NoticePoupStyle.Row>
+                                                )}
+                                                <NoticePoupStyle.Row>
+                                                    <NoticePoupStyle.NoticeTextWapper>
+                                                        <NoticePoupStyle.DownloadText
+                                                            onClick={() => {
+                                                                axios
+                                                                    .get(
+                                                                        `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${ATCHMNFL_INFO.ATCHMNFL_PATH}`,
+                                                                        {
+                                                                            responseType:
+                                                                                'blob',
+                                                                        }
                                                                     )
-                                                                })
-                                                        }}>
-                                                        {`${ATCHMNFL_INFO.ORIGINL_FILE_NM}`}
-                                                    </NoticePoupStyle.DownloadText>
-                                                </NoticePoupStyle.NoticeTextWapper>
-                                            </NoticePoupStyle.Row>
+                                                                    .then(
+                                                                        res => {
+                                                                            fileDownload(
+                                                                                res.data,
+                                                                                ATCHMNFL_INFO.ORIGINL_FILE_NM
+                                                                            )
+                                                                        }
+                                                                    )
+                                                            }}>
+                                                            {`${ATCHMNFL_INFO.ORIGINL_FILE_NM}`}
+                                                        </NoticePoupStyle.DownloadText>
+                                                    </NoticePoupStyle.NoticeTextWapper>
+                                                </NoticePoupStyle.Row>
+                                            </>
                                         )
                                     }
 

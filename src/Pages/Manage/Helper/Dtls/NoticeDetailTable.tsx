@@ -148,27 +148,6 @@ const NoticeDetailTable = ({
                             </InputCell>
                         </Row>
                     )}
-                    {pageState.notice.atchmnflImage && (
-                        <Row>
-                            <LabelCell>
-                                <VaryLabel LabelName={`이미지`} />
-                            </LabelCell>
-                            <InputCell WFull={true}>
-                                <div className="flex flex-nowrap w-full items-center justify-center">
-                                    <div className="flex w-full items-center justify-center">
-                                        <img
-                                            className="max-w-xl"
-                                            src={
-                                                pageState.notice
-                                                    .atchmnflImageUrl
-                                            }
-                                            alt={'...'}
-                                        />
-                                    </div>
-                                </div>
-                            </InputCell>
-                        </Row>
-                    )}
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`내용`} />
@@ -197,6 +176,27 @@ const NoticeDetailTable = ({
                             </div>
                         </InputCell>
                     </Row>
+                    {pageState.notice.atchmnflImage && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`이미지`} />
+                            </LabelCell>
+                            <InputCell WFull={true}>
+                                <div className="flex flex-nowrap w-full items-center justify-center">
+                                    <div className="flex w-full items-center justify-center">
+                                        <img
+                                            className="max-w-xl"
+                                            src={
+                                                pageState.notice
+                                                    .atchmnflImageUrl
+                                            }
+                                            alt={'...'}
+                                        />
+                                    </div>
+                                </div>
+                            </InputCell>
+                        </Row>
+                    )}
                     <Row>
                         <LabelCell>
                             <VaryLabel LabelName={`파일`} />
