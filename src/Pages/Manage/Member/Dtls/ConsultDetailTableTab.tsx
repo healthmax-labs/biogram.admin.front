@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Routers from '@Routers'
 import { useTab } from '@Hook/index'
-import { useRecoilValue } from 'recoil'
-import { AtomRootState } from '@Recoil/AppRootState'
 
 const { Tabs } = ConsultDetailStyle
 
@@ -19,7 +17,6 @@ const ConsultDetailTableTab = () => {
         memNo: string | undefined
         category: string | undefined
     }>()
-    const rootState = useRecoilValue(AtomRootState)
     const [pageState, setPageState] = useState<{
         Tab: Array<{ name: string; category: string; active: boolean }>
     }>(initializeState)
@@ -87,29 +84,7 @@ const ConsultDetailTableTab = () => {
                         })
                     }
 
-                    const {
-                        userinfo: { AUTH_CODE },
-                    } = rootState
-
-                    if (AUTH_CODE === 'SM00') {
-                        return pageState.Tab.map((el, i) => {
-                            return (
-                                <Tabs.Cells
-                                    key={`consult-detail-table-tab-item-${i}`}
-                                    onClick={() => {
-                                        handleTabClick(el)
-                                    }}>
-                                    <Tabs.Items Active={el.active}>
-                                        {el.name}
-                                    </Tabs.Items>
-                                </Tabs.Cells>
-                            )
-                        })
-                    }
-
-                    return pageState.Tab.filter(
-                        e => e.category !== `nutrition-report`
-                    ).map((el, i) => {
+                    return pageState.Tab.map((el, i) => {
                         return (
                             <Tabs.Cells
                                 key={`consult-detail-table-tab-item-${i}`}
@@ -117,7 +92,7 @@ const ConsultDetailTableTab = () => {
                                     handleTabClick(el)
                                 }}>
                                 <Tabs.Items Active={el.active}>
-                                    {el.name}
+                                    {el.name}1
                                 </Tabs.Items>
                             </Tabs.Cells>
                         )
