@@ -92,7 +92,7 @@ const ConsultDetailTableTab = () => {
                                     handleTabClick(el)
                                 }}>
                                 <Tabs.Items Active={el.active}>
-                                    {el.name}1
+                                    {el.name}
                                 </Tabs.Items>
                             </Tabs.Cells>
                         )
