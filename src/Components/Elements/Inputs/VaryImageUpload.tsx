@@ -3,7 +3,6 @@ import { commonFileImg, commonFileDelete } from '@Service/CommonService'
 import Messages from '@Messages'
 import { useMainLayouts } from '@Hooks'
 import { VaryButton, VaryModal } from '@Elements'
-import { isEmpty } from 'lodash'
 import { VaryImageUploadStyle } from '@Style/Elements/InputStyles'
 import Codes from '@Codes'
 import _ from 'lodash'
@@ -37,6 +36,7 @@ const VaryImageUpload = ({
     Image?: {
         AtchmnflPath: string
         OrginlFileNm: string
+        ATCHMNFL_NO?: string
         Category: string | 'MISN' | 'INST'
     }
     ReturnCallback: ({ ATCHMNFL_NO }: { ATCHMNFL_NO: number }) => void
@@ -139,25 +139,25 @@ const VaryImageUpload = ({
 
     useEffect(() => {
         const funcSetImage = () => {
-            if (Image && !isEmpty(Image.OrginlFileNm)) {
+            if (Image) {
                 setPageState(prevState => ({
                     ...prevState,
                     SelectFileName: Image.OrginlFileNm,
                     OrginlFileNm: Image.OrginlFileNm,
-                }))
-            }
+                    ATCHMNFL_NO: Image.ATCHMNFL_NO
+                        ? Number(Image.ATCHMNFL_NO)
+                        : null,
+                    SelectImagePrev: (() => {
+                        if (prevState.SelectImagePrev) {
+                            return prevState.SelectImagePrev
+                        }
 
-            if (Image && !isEmpty(Image.AtchmnflPath)) {
-                setPageState(prevState => ({
-                    ...prevState,
-                    SelectImagePrev: `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${Image.AtchmnflPath}`,
-                    OrginlFileNm: Image.OrginlFileNm,
-                }))
-            }
+                        if (Image.AtchmnflPath) {
+                            return `${process.env.REACT_APP_API_IMAGE_SERVER_URL}${Image.AtchmnflPath}`
+                        }
 
-            if (Image && !isEmpty(Image.Category)) {
-                setPageState(prevState => ({
-                    ...prevState,
+                        return null
+                    })(),
                     Category: Image.Category,
                 }))
             }

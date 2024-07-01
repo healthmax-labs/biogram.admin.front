@@ -630,6 +630,10 @@ const PopupManageDetailTable = ({
                                                 popupManageDetailState.info
                                                     .BIG_IMG_ATCHMNFL_INFO
                                                     .ATCHMNFL_NM,
+                                            ATCHMNFL_NO:
+                                                popupManageDetailState.info
+                                                    .BIG_IMG_ATCHMNFL_INFO
+                                                    .ATCHMNFL_NO,
 
                                             Category: 'ETC',
                                         }}
