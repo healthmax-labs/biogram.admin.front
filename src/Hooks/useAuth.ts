@@ -132,6 +132,8 @@ export default function useAuth() {
                     AUTH_CODE,
                     INST_NM,
                     INST_NO,
+                    NOT_FREE_YN,
+                    END_DE,
                 },
             } = response.payload
 
@@ -172,6 +174,8 @@ export default function useAuth() {
                     AUTH_CODE: !_.isEmpty(AUTH_CODE) ? AUTH_CODE : null,
                     INST_NM: !_.isEmpty(INST_NM) ? INST_NM : null,
                     INST_NO: !_.isEmpty(INST_NO) ? INST_NO : Const.MasterInstNo,
+                    NOT_FREE_YN: NOT_FREE_YN,
+                    END_DE: END_DE,
                 },
             }))
 
@@ -224,6 +228,8 @@ export default function useAuth() {
                 AUTH_CODE: null,
                 INST_NM: null,
                 INST_NO: null,
+                NOT_FREE_YN: `N`,
+                END_DE: null,
             },
         }))
 

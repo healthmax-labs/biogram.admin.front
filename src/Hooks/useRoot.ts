@@ -46,6 +46,8 @@ export default function useRoot() {
                 let INST_NM: null | string = null
                 let INST_NO: null | string = null
                 let AUTH_CODE: null | string = null
+                let NOT_FREE_YN: `Y` | `N` = `N`
+                let END_DE: null | string = null
 
                 if (tokenInfo.TOKEN_INFO) {
                     const res = await handleGetLoginInfo()
@@ -57,6 +59,8 @@ export default function useRoot() {
                         INST_NM = res.INST_NM
                         INST_NO = res.INST_NO
                         AUTH_CODE = res.AUTH_CODE
+                        NOT_FREE_YN = res.NOT_FREE_YN
+                        END_DE = res.END_DE
                     }
 
                     if (res) {
@@ -92,6 +96,8 @@ export default function useRoot() {
                         INST_NO: !isEmpty(INST_NO)
                             ? INST_NO
                             : Const.MasterInstNo,
+                        NOT_FREE_YN: NOT_FREE_YN,
+                        END_DE: END_DE,
                     },
                 }))
 

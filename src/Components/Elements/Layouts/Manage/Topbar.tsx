@@ -34,6 +34,8 @@ const initializeState = {
     user: {
         inst_nm: '',
         nm: '',
+        free_yn: `N`,
+        end_de: null,
     },
     remainingTime: `00:00`,
     modal: {
@@ -55,6 +57,8 @@ const Topbar = () => {
         user: {
             inst_nm: string | null
             nm: string | null
+            free_yn: string | `Y` | `N`
+            end_de: string | null
         }
         remainingTime: string
         modal: {
@@ -127,6 +131,10 @@ const Topbar = () => {
                     nm: isEmpty(appRootState.userinfo.NM)
                         ? null
                         : appRootState.userinfo.NM,
+                    free_yn: isEmpty(appRootState.userinfo.NOT_FREE_YN)
+                        ? `N`
+                        : appRootState.userinfo.NOT_FREE_YN,
+                    end_de: appRootState.userinfo.END_DE,
                 },
             }))
         }
@@ -224,6 +232,20 @@ const Topbar = () => {
                         <Name>
                             {`${pageState.user.nm ? pageState.user.nm : ''}`}님
                         </Name>
+                        <Status>{`${
+                            pageState.user.free_yn === 'Y'
+                                ? `만료일: ${(() => {
+                                      const endDe = `${pageState.user.end_de}`
+                                      return `${endDe.substring(
+                                          0,
+                                          4
+                                      )}년 ${endDe.substring(
+                                          4,
+                                          6
+                                      )}월${endDe.substring(6, 8)}일`
+                                  })()}`
+                                : ``
+                        }`}</Status>
                         <Status>
                             {`${pageState.remainingTime}`} 후 자동 로그아웃
                         </Status>

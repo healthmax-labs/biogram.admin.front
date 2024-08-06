@@ -145,6 +145,7 @@ export default {
             newConfirm: `소속 정보를 저장 하시겠습니까?`,
             deleteConfirm: `소속을 삭제 하시겠습니까?`,
             deletePermit: `"_NAME_"님의 관리자 정보를 삭제 하시겠습니까?`,
+            authCodePlaceholder: `권한을 선택해 주세요.`,
             approval: {
                 appEmpty: `승인 처리할 회원을 선택해 주세요`,
                 appOver: `승인 처리는 한번에 한건만 가능합니다.`,

@@ -12,7 +12,11 @@ import {
     VaryLabel,
     VaryLabelCheckBox,
     MemberSearchModal,
+    VaryDatepickerInput,
+    VarySelectBox,
+    VaryLabelInput,
 } from '@Elements'
+import { changeDatePickerDate, gmtTimeToTimeObject } from '@Helper'
 import {
     getInstCheckInstNm,
     getInstInfo,
@@ -28,6 +32,7 @@ import _ from 'lodash'
 import { InstInfoInterface } from '@Type/InstTypes'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { InstDetailState, InstListState } from '@Recoil/InstPagesState'
+import Codes from '@Codes'
 
 const {
     TableContainer,
@@ -197,12 +202,17 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                 payload = {
                     ...payload,
                     CHARGER_LIST: CHARGER_LIST.map(cl => {
+                        console.debug(cl.END_DE)
                         return {
                             CRUD: cl.Already ? 'U' : 'C',
                             MBER_NO: String(cl.MBER_NO),
                             CONECT_IP: cl.CONECT_IP ? cl.CONECT_IP : '',
                             CONECT_LMTT_AT: cl.CONECT_LMTT_AT,
                             CNSLTNT_AT: cl.CNSLTNT_AT,
+                            NOT_FREE_YN: cl.NOT_FREE_YN,
+                            END_DE: cl.NOT_FREE_YN === `N` ? null : cl.END_DE,
+                            AUTHOR_CODE: cl.AUTHOR_CODE,
+                            SMS_CNT_ADD: Number(cl.SMS_CNT_ADD),
                         }
                     }),
                 }
@@ -260,6 +270,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
             const {
                 INST_INFO: {
                     INST_NO,
+                    AUTH_CODE_LIST,
                     ATCHMNFL_NO,
                     BIZ_INFO,
                     INST_NM,
@@ -322,6 +333,11 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                     EAP_DISPLAY_YN: EAP_DISPLAY_YN,
                 },
                 infoStep: infoStep,
+            }))
+
+            setPageState(prevState => ({
+                ...prevState,
+                authCodeList: AUTH_CODE_LIST,
             }))
         } else {
             setDetailState(prevState => ({
@@ -845,168 +861,427 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                             />
                         </InputCell>
                     </Row>
-                    <Row>
-                        <LabelCell>
-                            <VaryLabel LabelName={`관리자`} />
-                        </LabelCell>
-                        <InputCell>
-                            <WapperStyle.FullWapperGap>
-                                <div>
-                                    <VaryButton
-                                        ButtonType={`default`}
-                                        HandleClick={() =>
-                                            setPageState(prevState => ({
-                                                ...prevState,
-                                                modal: {
-                                                    ...prevState.modal,
-                                                    memberSearch: true,
-                                                },
-                                            }))
-                                        }
-                                        ButtonName={`관리자 추가`}
-                                    />
-                                </div>
-                                <div>
-                                    <P.Container>
-                                        <P.Table>
-                                            <P.Tbody>
-                                                {detailState.info.CHARGER_LIST.map(
-                                                    (el, elIndex) => {
-                                                        return (
-                                                            <P.TableRowNonBg
-                                                                key={`member-detail-pstinst-table-row-item-${elIndex}`}>
-                                                                <P.TableCell>
-                                                                    {el.MBER_NO}
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    {el.USID}
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    {el.NM}
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    {el.MBTLNUM}
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    <VaryInput
-                                                                        Width={`w40`}
-                                                                        InputType={
-                                                                            'text'
-                                                                        }
-                                                                        HandleOnChange={e => {
-                                                                            handleChargerListDataChange(
-                                                                                {
-                                                                                    dataIndex:
-                                                                                        elIndex,
-                                                                                    name: `CONECT_IP`,
-                                                                                    value: e
-                                                                                        .target
-                                                                                        .value,
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        Placeholder={
-                                                                            'IP'
-                                                                        }
-                                                                        Value={
-                                                                            el.CONECT_IP
-                                                                                ? el.CONECT_IP
-                                                                                : ''
-                                                                        }
-                                                                    />
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    <VaryLabelCheckBox
-                                                                        LabelWidth={
-                                                                            'wMin'
-                                                                        }
-                                                                        Checked={
-                                                                            el.CONECT_LMTT_AT ===
-                                                                            'Y'
-                                                                        }
-                                                                        HandleOnChange={e => {
-                                                                            handleChargerListDataChange(
-                                                                                {
-                                                                                    dataIndex:
-                                                                                        elIndex,
-                                                                                    name: `CONECT_LMTT_AT`,
-                                                                                    value: e
-                                                                                        .target
-                                                                                        .checked
-                                                                                        ? 'Y'
-                                                                                        : 'N',
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        LabelName={`IP 제한 사용`}
-                                                                    />
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    <VaryLabelCheckBox
-                                                                        LabelWidth={
-                                                                            'wMin'
-                                                                        }
-                                                                        Checked={
-                                                                            el.CNSLTNT_AT ===
-                                                                            'Y'
-                                                                        }
-                                                                        HandleOnChange={e => {
-                                                                            handleChargerListDataChange(
-                                                                                {
-                                                                                    dataIndex:
-                                                                                        elIndex,
-                                                                                    name: `CNSLTNT_AT`,
-                                                                                    value: e
-                                                                                        .target
-                                                                                        .checked
-                                                                                        ? 'Y'
-                                                                                        : 'N',
-                                                                                }
-                                                                            )
-                                                                        }}
-                                                                        LabelName={`상담자 사용`}
-                                                                    />
-                                                                </P.TableCell>
-                                                                <P.TableCell>
-                                                                    <VaryButton
-                                                                        ButtonType={`default`}
-                                                                        ButtonName={`관리자 삭제`}
-                                                                        HandleClick={() => {
-                                                                            setPageState(
-                                                                                prevState => ({
-                                                                                    ...prevState,
-                                                                                    modal: {
-                                                                                        ...prevState.modal,
-                                                                                        permitDelete:
-                                                                                            {
-                                                                                                ...prevState
-                                                                                                    .modal
-                                                                                                    .permitDelete,
-                                                                                                memberName:
-                                                                                                    el.NM,
-                                                                                                memberNo:
-                                                                                                    el.MBER_NO,
-                                                                                                already:
-                                                                                                    !!el.Already,
-                                                                                                modal: true,
-                                                                                            },
-                                                                                    },
-                                                                                })
-                                                                            )
-                                                                        }}
-                                                                    />
-                                                                </P.TableCell>
-                                                            </P.TableRowNonBg>
-                                                        )
-                                                    }
-                                                )}
-                                            </P.Tbody>
-                                        </P.Table>
-                                    </P.Container>
-                                </div>
-                            </WapperStyle.FullWapperGap>
-                        </InputCell>
-                    </Row>
+                    {pageMode === `modify` && (
+                        <Row>
+                            <LabelCell>
+                                <VaryLabel LabelName={`관리자`} />
+                            </LabelCell>
+                            <InputCell>
+                                <WapperStyle.FullWapperGap>
+                                    <div>
+                                        <VaryButton
+                                            ButtonType={`default`}
+                                            HandleClick={() =>
+                                                setPageState(prevState => ({
+                                                    ...prevState,
+                                                    modal: {
+                                                        ...prevState.modal,
+                                                        memberSearch: true,
+                                                    },
+                                                }))
+                                            }
+                                            ButtonName={`관리자 추가`}
+                                        />
+                                    </div>
+                                    <div>
+                                        <P.Container>
+                                            <P.Table>
+                                                <P.Tbody>
+                                                    {detailState.info.CHARGER_LIST.map(
+                                                        (el, elIndex) => {
+                                                            return (
+                                                                <P.TableHeightRow
+                                                                    Height={
+                                                                        params.instNo !==
+                                                                        `1000`
+                                                                    }
+                                                                    key={`member-detail-pstinst-table-row-item-${elIndex}`}>
+                                                                    <P.TableBigCell>
+                                                                        <P.TableCellBox>
+                                                                            <P.TableCellBoxInfoAround>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    {
+                                                                                        el.MBER_NO
+                                                                                    }
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    {
+                                                                                        el.USID
+                                                                                    }
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    {
+                                                                                        el.NM
+                                                                                    }
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    {
+                                                                                        el.MBTLNUM
+                                                                                    }
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoBigPiece>
+                                                                                    <VaryInput
+                                                                                        Width={`w40`}
+                                                                                        InputType={
+                                                                                            'text'
+                                                                                        }
+                                                                                        HandleOnChange={e => {
+                                                                                            handleChargerListDataChange(
+                                                                                                {
+                                                                                                    dataIndex:
+                                                                                                        elIndex,
+                                                                                                    name: `CONECT_IP`,
+                                                                                                    value: e
+                                                                                                        .target
+                                                                                                        .value,
+                                                                                                }
+                                                                                            )
+                                                                                        }}
+                                                                                        Placeholder={
+                                                                                            'IP'
+                                                                                        }
+                                                                                        Value={
+                                                                                            el.CONECT_IP
+                                                                                                ? el.CONECT_IP
+                                                                                                : ''
+                                                                                        }
+                                                                                    />
+                                                                                </P.TableCellInfoBigPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    <VaryLabelCheckBox
+                                                                                        LabelWidth={
+                                                                                            'wMin'
+                                                                                        }
+                                                                                        Checked={
+                                                                                            el.CONECT_LMTT_AT ===
+                                                                                            'Y'
+                                                                                        }
+                                                                                        HandleOnChange={e => {
+                                                                                            handleChargerListDataChange(
+                                                                                                {
+                                                                                                    dataIndex:
+                                                                                                        elIndex,
+                                                                                                    name: `CONECT_LMTT_AT`,
+                                                                                                    value: e
+                                                                                                        .target
+                                                                                                        .checked
+                                                                                                        ? 'Y'
+                                                                                                        : 'N',
+                                                                                                }
+                                                                                            )
+                                                                                        }}
+                                                                                        LabelName={`IP 제한 사용`}
+                                                                                    />
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    <VaryLabelCheckBox
+                                                                                        LabelWidth={
+                                                                                            'wMin'
+                                                                                        }
+                                                                                        Checked={
+                                                                                            el.CNSLTNT_AT ===
+                                                                                            'Y'
+                                                                                        }
+                                                                                        HandleOnChange={e => {
+                                                                                            handleChargerListDataChange(
+                                                                                                {
+                                                                                                    dataIndex:
+                                                                                                        elIndex,
+                                                                                                    name: `CNSLTNT_AT`,
+                                                                                                    value: e
+                                                                                                        .target
+                                                                                                        .checked
+                                                                                                        ? 'Y'
+                                                                                                        : 'N',
+                                                                                                }
+                                                                                            )
+                                                                                        }}
+                                                                                        LabelName={`상담자 사용`}
+                                                                                    />
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                                <P.TableCellInfoSmallPiece>
+                                                                                    <VaryButton
+                                                                                        ButtonType={`default`}
+                                                                                        ButtonName={`관리자 삭제`}
+                                                                                        HandleClick={() => {
+                                                                                            setPageState(
+                                                                                                prevState => ({
+                                                                                                    ...prevState,
+                                                                                                    modal: {
+                                                                                                        ...prevState.modal,
+                                                                                                        permitDelete:
+                                                                                                            {
+                                                                                                                ...prevState
+                                                                                                                    .modal
+                                                                                                                    .permitDelete,
+                                                                                                                memberName:
+                                                                                                                    el.NM,
+                                                                                                                memberNo:
+                                                                                                                    el.MBER_NO,
+                                                                                                                already:
+                                                                                                                    !!el.Already,
+                                                                                                                modal: true,
+                                                                                                            },
+                                                                                                    },
+                                                                                                })
+                                                                                            )
+                                                                                        }}
+                                                                                    />
+                                                                                </P.TableCellInfoSmallPiece>
+                                                                            </P.TableCellBoxInfoAround>
+                                                                            {params.instNo !==
+                                                                                `1000` && (
+                                                                                <P.TableUserInfoBox>
+                                                                                    <div className="flex w-2/12">
+                                                                                        <VarySelectBox
+                                                                                            Placeholder={
+                                                                                                Messages
+                                                                                                    .Default
+                                                                                                    .inst
+                                                                                                    .authCodePlaceholder
+                                                                                            }
+                                                                                            Value={
+                                                                                                el.AUTHOR_CODE
+                                                                                                    ? el.AUTHOR_CODE
+                                                                                                    : ''
+                                                                                            }
+                                                                                            Elements={(() => {
+                                                                                                if (
+                                                                                                    params.instNo ===
+                                                                                                    `1000`
+                                                                                                ) {
+                                                                                                    return Codes.authCodeList.map(
+                                                                                                        item => {
+                                                                                                            return {
+                                                                                                                value: item.AUTHOR_CODE,
+                                                                                                                text: item.AUTHOR_NM,
+                                                                                                            }
+                                                                                                        }
+                                                                                                    )
+                                                                                                } else {
+                                                                                                    return Codes.authCodeList
+                                                                                                        .filter(
+                                                                                                            e =>
+                                                                                                                e.AUTHOR_CODE !==
+                                                                                                                `SM00`
+                                                                                                        )
+                                                                                                        .map(
+                                                                                                            item => {
+                                                                                                                return {
+                                                                                                                    value: item.AUTHOR_CODE,
+                                                                                                                    text: item.AUTHOR_NM,
+                                                                                                                }
+                                                                                                            }
+                                                                                                        )
+                                                                                                }
+                                                                                            })()}
+                                                                                            HandleOnChange={e => {
+                                                                                                handleChargerListDataChange(
+                                                                                                    {
+                                                                                                        dataIndex:
+                                                                                                            elIndex,
+                                                                                                        name: `AUTHOR_CODE`,
+                                                                                                        value: e.value,
+                                                                                                    }
+                                                                                                )
+                                                                                            }}
+                                                                                        />
+                                                                                    </div>
+                                                                                    <div className="flex w-2/12">
+                                                                                        {(() => {
+                                                                                            if (
+                                                                                                el.NOT_FREE_YN ===
+                                                                                                `Y`
+                                                                                            ) {
+                                                                                                return (
+                                                                                                    <VaryDatepickerInput
+                                                                                                        InputeType={
+                                                                                                            'default'
+                                                                                                        }
+                                                                                                        Value={
+                                                                                                            el.END_DE
+                                                                                                                ? changeDatePickerDate(
+                                                                                                                      el.END_DE
+                                                                                                                  )
+                                                                                                                : new Date()
+                                                                                                        }
+                                                                                                        CallBackReturn={e => {
+                                                                                                            console.debug(
+                                                                                                                e
+                                                                                                            )
+                                                                                                            const {
+                                                                                                                year,
+                                                                                                                monthPad,
+                                                                                                                dayPad,
+                                                                                                            } =
+                                                                                                                gmtTimeToTimeObject(
+                                                                                                                    e
+                                                                                                                )
+
+                                                                                                            handleChargerListDataChange(
+                                                                                                                {
+                                                                                                                    dataIndex:
+                                                                                                                        elIndex,
+                                                                                                                    name: `END_DE`,
+                                                                                                                    value: `${year}${monthPad}${dayPad}`,
+                                                                                                                }
+                                                                                                            )
+                                                                                                        }}
+                                                                                                        MinDate={
+                                                                                                            new Date(
+                                                                                                                `1890-1-1`
+                                                                                                            )
+                                                                                                        }
+                                                                                                    />
+                                                                                                )
+                                                                                            } else {
+                                                                                                return (
+                                                                                                    <VaryInput
+                                                                                                        ReadOnly={
+                                                                                                            true
+                                                                                                        }
+                                                                                                        InputType={
+                                                                                                            'text'
+                                                                                                        }
+                                                                                                        HandleOnChange={() => {
+                                                                                                            //
+                                                                                                        }}
+                                                                                                        Placeholder={
+                                                                                                            ''
+                                                                                                        }
+                                                                                                        Value={``}
+                                                                                                    />
+                                                                                                )
+                                                                                            }
+                                                                                        })()}
+                                                                                    </div>
+                                                                                    <div className="flex w-3/12">
+                                                                                        <VaryLabelCheckBox
+                                                                                            LabelWidth={
+                                                                                                'wMin'
+                                                                                            }
+                                                                                            Checked={
+                                                                                                el.NOT_FREE_YN ===
+                                                                                                'Y'
+                                                                                            }
+                                                                                            HandleOnChange={e => {
+                                                                                                if (
+                                                                                                    e
+                                                                                                        .target
+                                                                                                        .checked &&
+                                                                                                    detailState
+                                                                                                        .info
+                                                                                                        .CHARGER_LIST[
+                                                                                                        elIndex
+                                                                                                    ]
+                                                                                                        .END_DE ===
+                                                                                                        null
+                                                                                                ) {
+                                                                                                    const {
+                                                                                                        year,
+                                                                                                        monthPad,
+                                                                                                        dayPad,
+                                                                                                    } =
+                                                                                                        gmtTimeToTimeObject(
+                                                                                                            new Date()
+                                                                                                        )
+
+                                                                                                    handleChargerListDataChange(
+                                                                                                        {
+                                                                                                            dataIndex:
+                                                                                                                elIndex,
+                                                                                                            name: `END_DE`,
+                                                                                                            value: `${year}${monthPad}${dayPad}`,
+                                                                                                        }
+                                                                                                    )
+                                                                                                }
+
+                                                                                                handleChargerListDataChange(
+                                                                                                    {
+                                                                                                        dataIndex:
+                                                                                                            elIndex,
+                                                                                                        name: `NOT_FREE_YN`,
+                                                                                                        value: e
+                                                                                                            .target
+                                                                                                            .checked
+                                                                                                            ? 'Y'
+                                                                                                            : 'N',
+                                                                                                    }
+                                                                                                )
+                                                                                            }}
+                                                                                            LabelName={`유료사용자`}
+                                                                                        />
+                                                                                    </div>
+                                                                                    <div className="flex w-5/12 gap-1">
+                                                                                        {(() => {
+                                                                                            if (
+                                                                                                el.NOT_FREE_YN ===
+                                                                                                `Y`
+                                                                                            ) {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <VaryLabelInput
+                                                                                                            ReadOnly={
+                                                                                                                true
+                                                                                                            }
+                                                                                                            LabelName={`SMS 건수`}
+                                                                                                            InputValue={`${
+                                                                                                                el.SMS_LIMIT_CNT
+                                                                                                                    ? el.SMS_LIMIT_CNT
+                                                                                                                    : 0
+                                                                                                            }`}
+                                                                                                            HandleOnChange={() => {
+                                                                                                                //
+                                                                                                            }}
+                                                                                                        />
+                                                                                                        <VaryLabelInput
+                                                                                                            LabelName={`SMS 건수 추가`}
+                                                                                                            InputType={`number`}
+                                                                                                            InputValue={`${
+                                                                                                                el.SMS_CNT_ADD
+                                                                                                                    ? el.SMS_CNT_ADD
+                                                                                                                    : ''
+                                                                                                            }`}
+                                                                                                            HandleOnChange={e => {
+                                                                                                                handleChargerListDataChange(
+                                                                                                                    {
+                                                                                                                        dataIndex:
+                                                                                                                            elIndex,
+                                                                                                                        name: `SMS_CNT_ADD`,
+                                                                                                                        value: e
+                                                                                                                            .target
+                                                                                                                            .value,
+                                                                                                                    }
+                                                                                                                )
+                                                                                                            }}
+                                                                                                        />
+                                                                                                    </>
+                                                                                                )
+                                                                                            } else {
+                                                                                                return (
+                                                                                                    <>
+
+                                                                                                    </>
+                                                                                                )
+                                                                                            }
+                                                                                        })()}
+                                                                                    </div>
+                                                                                </P.TableUserInfoBox>
+                                                                            )}
+                                                                        </P.TableCellBox>
+                                                                    </P.TableBigCell>
+                                                                </P.TableHeightRow>
+                                                            )
+                                                        }
+                                                    )}
+                                                </P.Tbody>
+                                            </P.Table>
+                                        </P.Container>
+                                    </div>
+                                </WapperStyle.FullWapperGap>
+                            </InputCell>
+                        </Row>
+                    )}
                 </TableWapper>
             </TableContainer>
 
@@ -1197,7 +1472,10 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             CONECT_LMTT_AT: 'N',
                                             CNSLTNT_AT: 'N',
                                             MBER_NO: sel.MBER_NO,
-                                            AUTHOR_CODE: 'SM00',
+                                            AUTHOR_CODE:
+                                                params.instNo === `1000`
+                                                    ? `SM00`
+                                                    : `IM02`,
                                             CONECT_IP: null,
                                             BRTHDY: '',
                                             SEXDSTN: '남',
@@ -1207,6 +1485,10 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             MBTLNUM_CRTFC_AT: 'Y',
                                             AUTHOR_NM: '',
                                             NM: sel.NM,
+                                            END_DE: null,
+                                            NOT_FREE_YN: 'N',
+                                            SMS_LIMIT_CNT: 0,
+                                            SMS_CNT_ADD: 0,
                                         }
                                     })
                                 ),

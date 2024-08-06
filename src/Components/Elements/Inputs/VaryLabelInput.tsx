@@ -14,6 +14,7 @@ const VaryLabelInput = ({
     HandleOnKeyDown,
     InputWidth,
     Required,
+    ReadOnly,
 }: {
     InputType?: string
     LabelName: string
@@ -23,6 +24,7 @@ const VaryLabelInput = ({
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     HandleOnKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
     Required?: boolean
+    ReadOnly?: boolean
 }) => {
     const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (HandleOnKeyDown) {
@@ -34,6 +36,7 @@ const VaryLabelInput = ({
         <Wapper>
             <VaryLabel LabelName={LabelName} LabelWidth={`wMin`} />
             <VaryInput
+                ReadOnly={ReadOnly}
                 Width={InputWidth ? InputWidth : null}
                 InputType={InputType ? InputType : `text`}
                 Placeholder={Placeholder ? Placeholder : LabelName}

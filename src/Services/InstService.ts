@@ -127,6 +127,10 @@ export const getInstInfo = ({
         INST_INFO: {
             TCHMNFL_NM: string
             ATCHMNFL_NO: number
+            AUTH_CODE_LIST: Array<{
+                AUTHOR_CODE: string
+                AUTHOR_NM: string
+            }>
             ATCHMNFL_PATH: string
             BIZ_INFO: string
             BOTTOM_INST_CNT: number
@@ -149,6 +153,10 @@ export const getInstInfo = ({
                 REGIST_DT: number
                 SEXDSTN: '남' | '여'
                 USID: string
+                END_DE: string | null
+                NOT_FREE_YN: 'Y' | 'N'
+                SMS_LIMIT_CNT: number
+                SMS_CNT_ADD: number
             }>
             CLSDR_CODE: string
             INST_HIST_LIST: []

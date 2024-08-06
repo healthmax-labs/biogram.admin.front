@@ -30,6 +30,7 @@ export type WidthType =
     | 'w32'
     | 'w36'
     | 'w40'
+    | 'w44'
     | 'w52'
     | 'w60'
     | 'w64'
@@ -202,6 +203,8 @@ export interface LoginInfoInterface {
     MS_AUTH_CNT: number
     USID: string
     NM: string
+    NOT_FREE_YN: `Y` | `N`
+    END_DE: string | null
 }
 
 // 로그인 결과.
@@ -259,6 +262,8 @@ export interface AppRootStateInterface {
         AUTH_CODE: string | null
         INST_NM: string | null
         INST_NO: string | null
+        NOT_FREE_YN: `Y` | `N`
+        END_DE: string | null
     }
     menuInfo: AuthorMenuInterface<MenuItemInterface>
 }

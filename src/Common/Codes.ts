@@ -1757,4 +1757,30 @@ export default {
             name: `대기중`,
         },
     ],
+    authCodeList: [
+        {
+            AUTHOR_CODE: '',
+            AUTHOR_NM: '선택',
+        },
+        {
+            AUTHOR_CODE: 'SM00',
+            AUTHOR_NM: '시스템 관리자',
+        },
+        {
+            AUTHOR_CODE: 'GD00',
+            AUTHOR_NM: '건다온 관리자',
+        },
+        {
+            AUTHOR_CODE: 'IM00',
+            AUTHOR_NM: '소속 관리자',
+        },
+        {
+            AUTHOR_CODE: 'IM01',
+            AUTHOR_NM: '소속 상담관리자',
+        },
+        {
+            AUTHOR_CODE: 'IM02',
+            AUTHOR_NM: '소속 회원관리자',
+        },
+    ],
 }
