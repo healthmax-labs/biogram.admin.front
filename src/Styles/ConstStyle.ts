@@ -40,6 +40,7 @@ export default {
         w32: tw`w-32`,
         w36: tw`w-36`,
         w40: tw`w-40`,
+        w44: tw`w-44`,
         w48: tw`w-48`,
         w52: tw`w-52`,
         w60: tw`w-60`,

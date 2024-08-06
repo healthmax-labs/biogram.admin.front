@@ -56,6 +56,10 @@ export interface InstInfoInterface {
         CONECT_IP: string
         CONECT_LMTT_AT: 'Y' | 'N'
         CNSLTNT_AT: 'Y' | 'N'
+        NOT_FREE_YN: 'Y' | 'N'
+        END_DE: string | null
+        AUTHOR_CODE: null | string
+        SMS_CNT_ADD: number
     }>
     INST_SHOW: 'Y' | 'N'
     INST_STPLAT_AT: 'Y' | 'N'

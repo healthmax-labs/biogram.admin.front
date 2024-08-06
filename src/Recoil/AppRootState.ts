@@ -27,6 +27,8 @@ export const AtomRootState = atom<AppRootStateInterface>({
             AUTH_CODE: null,
             INST_NM: null,
             INST_NO: null,
+            NOT_FREE_YN: 'N',
+            END_DE: null,
         },
         menuInfo: {
             CHARGER_MENU_INFO: {

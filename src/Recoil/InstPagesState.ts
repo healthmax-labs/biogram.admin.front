@@ -67,7 +67,7 @@ interface InstDetailStateInterface {
         ORGINL_FILE_NM: string
         CHARGER_LIST: Array<{
             Already?: boolean
-            AUTHOR_CODE: string
+            AUTHOR_CODE: string | null
             AUTHOR_NM: string
             BRTHDY: string
             CNSLTNT_AT: 'N' | 'Y'
@@ -82,6 +82,10 @@ interface InstDetailStateInterface {
             REGIST_DT: number
             SEXDSTN: '남' | '여'
             USID: string
+            END_DE: string | null
+            NOT_FREE_YN: 'Y' | 'N'
+            SMS_LIMIT_CNT: number
+            SMS_CNT_ADD: number
         }>
         INST_SHOW: 'Y' | 'N'
         INST_STPLAT_AT: 'Y' | 'N'

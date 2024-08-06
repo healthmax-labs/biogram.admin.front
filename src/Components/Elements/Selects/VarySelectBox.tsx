@@ -46,6 +46,7 @@ const VarySelectBox = ({
                             text: e.target.selectedOptions[0].text,
                         })
                 }}>
+                disabled={true}
                 <option
                     value={``}
                     disabled={
