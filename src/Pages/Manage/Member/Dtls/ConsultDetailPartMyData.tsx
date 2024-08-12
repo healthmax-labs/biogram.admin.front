@@ -94,7 +94,7 @@ const ConsultDetailPartMyData = ({
                                 window.open(
                                     `${
                                         process.env.REACT_APP_SYS_SERVER_URL
-                                    }/member_mydata_print_v3.jsp?${params.toString()}`,
+                                    }/member_mydata_print_v3.jsp?request_client=admin&${params.toString()}`,
                                     '마이데이터 출력',
                                     'width=1200px,height=4528px,scrollbars=yes'
                                 )
