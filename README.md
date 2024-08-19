@@ -281,6 +281,7 @@ biogram.admin.front
     ./Common/Routers.ts
 
     ex)
+
     ```
             mainCode: `10000`,
             menuCode: ``,
@@ -325,27 +326,29 @@ biogram.admin.front
 * 세부 설정
 
     * member 페이지
-    ```
-    interface MemberListInterface {
-        status: DefaultStatus
-        search: {
-            curPage: number
-            instNo: string
-            instNm: string
-            searchKey: string
-            registDtFrom: string
-            registDtTo: string
+
+    ```javascript
+        interface MemberListInterface {
+            status: DefaultStatus
+            search: {
+                curPage: number
+                instNo: string
+                instNm: string
+                searchKey: string
+                registDtFrom: string
+                registDtTo: string
+            }
+            list: MemberInfoListInterface
+            manage: {
+                checkRow: string[]
+                checkRowName: string
+                memDeleteMemo: string
+            }
         }
-        list: MemberInfoListInterface
-        manage: {
-            checkRow: string[]
-            checkRowName: string
-            memDeleteMemo: string
-        }
-    }
     ```
 
     * 회원 현황 리스트 페이지 ( Recoil )
+
     ```javascript
         export const MemberListState = atom<MemberListInterface>({
             key: `memberPage/member-list`,
