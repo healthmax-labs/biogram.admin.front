@@ -373,16 +373,12 @@ biogram.admin.front
     ```
 
     * 사용
-     * src/Pages/Manage/Member/Dtls/MemberListTable.tsx
-    ```
-    const [listState, setListState] = useRecoilState(MemberListState)
-    ```
 
-    * 사용
+        * src/Pages/Manage/Member/Dtls/MemberListTable.tsx
 
-    ```
-
-    ```
+        ```javascript
+        const [listState, setListState] = useRecoilState(MemberListState)
+        ```
 
 ## 리스트 페이지 테이블 생성
 
@@ -408,8 +404,7 @@ biogram.admin.front
 
 > 테이블 옵션 설정
 
-```
-
+```javscript
     import {
         MemberTableConfig,
         tableListItemInterface,
@@ -454,65 +449,69 @@ biogram.admin.front
 
     *  예제
         * src/Pages/Manage/Member/Dtls/MemberListManageBox.tsx
-        ```
-        // 엑셀 다운 로그 설정
-        const [excelDownloadProps, setExcelDownloadProps] = useState<ExcelDownloadPropsInterface>(
-            ExcelDownloadInitialize.Member.MemberList
-        )
 
-        // 엑셀 다운로드 프롭스 설정
-         setExcelDownloadProps(prevState => ({
-                ...prevState,
-                FileName:
-                    instNo && instNm
-                        ? `회원_현황_${instNm.replace(
-                              / /g,
-                              '_'
-                          )}_${getNowDateDetail()}`
-                        : `회원_현황_${getNowDateDetail()}`,
-                Data: payload.MBER_INFO_LIST.map(m => {
-                    return [
-                        String(m.MBER_NO),
-                        m.NM,
-                        m.USID,
-                        m.MBTLNUM,
-                        m.MBTLNUM_CRTFC_AT_NM,
-                        m.BRTHDY,
-                        m.SEXDSTN_NM,
-                        m.INST_NM,
-                        m.WORK_TY_CODE == 'N'
-                            ? '미지정'
-                            : m.WORK_TY_CODE == 'I'
-                            ? '내근직'
-                            : '외근직',
-                        m.CONECT_DT,
-                        m.REGIST_DT,
-                        m.TOT_CASH,
-                        m.SUM_CASH_HIST,
-                    창
-                }),
-                SpliceColumns:
-                    Theme === 'GeonDaon'
-                        ? [{ start: 1, end: 1 }]
-                        : [{ start: 9, end: 1 }],
-            }))
+            * 엑셀 다운 로그 설정
+                ```javascript
+                    const [excelDownloadProps, setExcelDownloadProps] = useState<ExcelDownloadPropsInterface>(
+                        ExcelDownloadInitialize.Member.MemberList
+                    )
+                ```
 
-         // 엑셀 다운로드 모달창
-         {pageState.modal.excelDownload && (
-            <ExcelDownload
-                {...excelDownloadProps}
-                DownloadEnd={() =>
-                    setPageState(prevState => ({
-                        ...prevState,
-                        modal: {
-                            ...prevState.modal,
-                            excelDownload: false,
-                        },
-                    }))
-                }
-            />
-        )}
-        ```
+            * 엑셀 다운로드 프롭스 설정
+                ```javascript
+                    setExcelDownloadProps(prevState => ({
+                            ...prevState,
+                            FileName:
+                                instNo && instNm
+                                    ? `회원_현황_${instNm.replace(
+                                        / /g,
+                                        '_'
+                                    )}_${getNowDateDetail()}`
+                                    : `회원_현황_${getNowDateDetail()}`,
+                            Data: payload.MBER_INFO_LIST.map(m => {
+                                return [
+                                    String(m.MBER_NO),
+                                    m.NM,
+                                    m.USID,
+                                    m.MBTLNUM,
+                                    m.MBTLNUM_CRTFC_AT_NM,
+                                    m.BRTHDY,
+                                    m.SEXDSTN_NM,
+                                    m.INST_NM,
+                                    m.WORK_TY_CODE == 'N'
+                                        ? '미지정'
+                                        : m.WORK_TY_CODE == 'I'
+                                        ? '내근직'
+                                        : '외근직',
+                                    m.CONECT_DT,
+                                    m.REGIST_DT,
+                                    m.TOT_CASH,
+                                    m.SUM_CASH_HIST,
+                                창
+                            }),
+                            SpliceColumns:
+                                Theme === 'GeonDaon'
+                                    ? [{ start: 1, end: 1 }]
+                                    : [{ start: 9, end: 1 }],
+                        }))
+                ```
+            * 엑셀 다운로드 모달창
+                ```javascript
+                    {pageState.modal.excelDownload && (
+                        <ExcelDownload
+                            {...excelDownloadProps}
+                            DownloadEnd={() =>
+                                setPageState(prevState => ({
+                                    ...prevState,
+                                    modal: {
+                                        ...prevState.modal,
+                                        excelDownload: false,
+                                    },
+                                }))
+                            }
+                        />
+                    )}
+                ```
 
 
 
