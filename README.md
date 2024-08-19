@@ -346,7 +346,7 @@ biogram.admin.front
     ```
 
     * 회원 현황 리스트 페이지 ( Recoil )
-    ```
+    ```javascript
     export const MemberListState = atom<MemberListInterface>({
         key: `memberPage/member-list`,
         default: {
