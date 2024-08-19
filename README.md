@@ -275,14 +275,18 @@ biogram.admin.front
 
 > 서버에서 메뉴 추가
 
+```javascript
+```
+
 > 라우터 생성
 
-    메뉴 항목 추가
+
+    * 메뉴 항목 추가
     ./Common/Routers.ts
 
-    ex)
+    * ex)
 
-    ```
+    ```javascript
             mainCode: `10000`,
             menuCode: ``,
             name: `회원등록`,
