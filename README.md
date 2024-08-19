@@ -87,9 +87,9 @@ Just made autocrlf param in .gitconfig file false and recloned the code. It work
 * ./config/*
 
 
-    * env.production
+* env.production
 
-```angular2html
+```javascript
 REACT_APP_VERSION=$npm_package_version
 REACT_APP_NAME=$npm_package_name
 REACT_APP_ENV=production
@@ -102,9 +102,9 @@ REACT_APP_MENU_CODE=50101
 REACT_APP_KAKAOAK_APPKEY=580ca383741b0e8dd188d49f0d398fac
 ```
 
-    * env.local.prod
+* env.local.prod
 
-```angular2html
+```javascript
 REACT_APP_VERSION=$npm_package_version
 REACT_APP_NAME=$npm_package_name
 REACT_APP_ENV=development
@@ -117,9 +117,9 @@ REACT_APP_MENU_CODE=50101
 REACT_APP_KAKAOAK_APPKEY=580ca383741b0e8dd188d49f0d398fac
 ```
 
-    * env.development
+* env.development
 
-```angular2html
+```javascript
 REACT_APP_VERSION=$npm_package_version
 REACT_APP_NAME=$npm_package_name
 REACT_APP_ENV=development
