@@ -87,7 +87,7 @@ Just made autocrlf param in .gitconfig file false and recloned the code. It work
 * ./config/*
 
 
-* env.production
+    * env.production
 
 ```angular2html
 REACT_APP_VERSION=$npm_package_version
@@ -102,7 +102,7 @@ REACT_APP_MENU_CODE=50101
 REACT_APP_KAKAOAK_APPKEY=580ca383741b0e8dd188d49f0d398fac
 ```
 
-* env.local.prod
+    * env.local.prod
 
 ```angular2html
 REACT_APP_VERSION=$npm_package_version
@@ -117,7 +117,7 @@ REACT_APP_MENU_CODE=50101
 REACT_APP_KAKAOAK_APPKEY=580ca383741b0e8dd188d49f0d398fac
 ```
 
-* env.development
+    * env.development
 
 ```angular2html
 REACT_APP_VERSION=$npm_package_version
@@ -135,9 +135,9 @@ REACT_APP_KAKAOAK_APPKEY=580ca383741b0e8dd188d49f0d398fac
 ## Deploy
 * 버전 변경
 
-package.json
-```
+    * package.json
 
+```javascript
 {
     "name": "biogram.admin.front",
     "version": "1.1.42",
@@ -153,10 +153,9 @@ package.json
 
 ```
 
-
 * development
 
-```angular2html
+```javascript
 
 1. 개발 빌드
 yarn build:dev
@@ -171,7 +170,7 @@ ftp 192.168.2.240::/var/www/html/mybiogram.com/dev-admin/*
 
 * production
 
-```angular2html
+```javascript
 1. 운영 빌드
 
 yarn build:prod
