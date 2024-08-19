@@ -281,24 +281,24 @@ biogram.admin.front
 > 라우터 생성
 
 
-    * 메뉴 항목 추가
+* 메뉴 항목 추가
     ./Common/Routers.ts
 
-    * ex)
+* ex)
 
-    ```javascript
-            mainCode: `10000`,
-            menuCode: ``,
-            name: `회원등록`,
-            pathName: `/manage/member/new-member`,
-            category: `member`,
-            recooilKey: `memberPage/member-detail`,
-            showFlag: 'Y',
-            reloadButton: false,
-            Component: React.lazy(
-                () => import('@Page/Manage/Member/MemberDetailPage')
-            )
-    ```
+```javascript
+        mainCode: `10000`,
+        menuCode: ``,
+        name: `회원등록`,
+        pathName: `/manage/member/new-member`,
+        category: `member`,
+        recooilKey: `memberPage/member-detail`,
+        showFlag: 'Y',
+        reloadButton: false,
+        Component: React.lazy(
+            () => import('@Page/Manage/Member/MemberDetailPage')
+        )
+```
 
 ## 각 페이지 라우터 와 파일 관계
 
