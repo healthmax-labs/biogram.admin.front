@@ -347,38 +347,38 @@ biogram.admin.front
 
     * 회원 현황 리스트 페이지 ( Recoil )
     ```javascript
-    export const MemberListState = atom<MemberListInterface>({
-        key: `memberPage/member-list`,
-        default: {
-            status: 'idle',
-            search: {
-                curPage: 1,
-                instNo: '',
-                instNm: '',
-                searchKey: '',
-                registDtFrom: getOneMonthAgo(),
-                registDtTo: getNowDate(),
+        export const MemberListState = atom<MemberListInterface>({
+            key: `memberPage/member-list`,
+            default: {
+                status: 'idle',
+                search: {
+                    curPage: 1,
+                    instNo: '',
+                    instNm: '',
+                    searchKey: '',
+                    registDtFrom: getOneMonthAgo(),
+                    registDtTo: getNowDate(),
+                },
+                list: {
+                    MBER_INFO_LIST: [],
+                    TOTAL_COUNT: 0,
+                },
+                manage: {
+                    checkRow: [],
+                    checkRowName: '',
+                    memDeleteMemo: '',
+                },
             },
-            list: {
-                MBER_INFO_LIST: [],
-                TOTAL_COUNT: 0,
-            },
-            manage: {
-                checkRow: [],
-                checkRowName: '',
-                memDeleteMemo: '',
-            },
-        },
-    }
+        }
     ```
 
     * 사용
 
         * src/Pages/Manage/Member/Dtls/MemberListTable.tsx
 
-        ```javascript
-        const [listState, setListState] = useRecoilState(MemberListState)
-        ```
+            ```javascript
+            const [listState, setListState] = useRecoilState(MemberListState)
+            ```
 
 ## 리스트 페이지 테이블 생성
 
@@ -451,6 +451,7 @@ biogram.admin.front
         * src/Pages/Manage/Member/Dtls/MemberListManageBox.tsx
 
             * 엑셀 다운 로그 설정
+
                 ```javascript
                     const [excelDownloadProps, setExcelDownloadProps] = useState<ExcelDownloadPropsInterface>(
                         ExcelDownloadInitialize.Member.MemberList
@@ -458,6 +459,7 @@ biogram.admin.front
                 ```
 
             * 엑셀 다운로드 프롭스 설정
+
                 ```javascript
                     setExcelDownloadProps(prevState => ({
                             ...prevState,
@@ -496,6 +498,7 @@ biogram.admin.front
                         }))
                 ```
             * 엑셀 다운로드 모달창
+
                 ```javascript
                     {pageState.modal.excelDownload && (
                         <ExcelDownload
