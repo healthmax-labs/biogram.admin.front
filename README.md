@@ -13,6 +13,10 @@ git config --global http.sslVerify false
 
 
 git clone https://gitlab.cady.kr/biogram/biogram.admin.front.git
+
+* new
+git clone https://gitlab.mybiogram.com/biogram/biogram.admin.front.git
+
 ```
 
 ## 로컬 개발 환경
