@@ -525,6 +525,18 @@ biogram.admin.front
                         />
                     )}
                 ```
+> 테마
+
+* 관련 파일
+
+    * tailwind.config.js
+
+    * src/Hooks/useMainLayouts.ts
+        * handleTheme()
+
+    * src/Pages/Manage/ManageRootPage.tsx
+
+    * src/Pages/Manage/ManageRootPage.tsx
 
 
 
