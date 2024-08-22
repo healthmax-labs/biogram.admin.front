@@ -358,7 +358,7 @@ const ConsultDetailPartMealdiaryMealHistory = ({
                                                                       pageState
                                                                           .selectImageIndex
                                                                   ].sodium
-                                                              } g`
+                                                              } mg`
                                                             : ``}
                                                     </STable.Cell>
                                                 </STable.Row>

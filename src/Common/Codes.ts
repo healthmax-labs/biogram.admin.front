@@ -802,7 +802,7 @@ export default {
                     code: `BS`,
                 },
                 {
-                    name: `콜레스트롤`,
+                    name: `콜레스테롤`,
                     key: `BC`,
                     code: `BC`,
                 },
