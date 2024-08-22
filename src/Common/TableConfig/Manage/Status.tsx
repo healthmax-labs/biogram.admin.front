@@ -127,7 +127,7 @@ export const RiskFctrTableConfig = {
                 colSpan: 2,
             },
             {
-                name: `콜레스트롤 측정계`,
+                name: `콜레스테롤 측정계`,
                 colSpan: 4,
             },
         ],
@@ -940,7 +940,7 @@ export const StatisticsTableConfig = {
                 colSpan: 3,
             },
             {
-                name: `콜레스트롤 측정계`,
+                name: `콜레스테롤 측정계`,
                 colSpan: 4,
             },
             {

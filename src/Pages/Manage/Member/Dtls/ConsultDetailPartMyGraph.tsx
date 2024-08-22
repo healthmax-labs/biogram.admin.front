@@ -67,7 +67,7 @@ const ConsultDetailPartMyGraph = () => {
             body: <ConsultDetailPartMyGraphBody />, // 체성분
             brssr: <ConsultDetailPartMyGraphBrssr />, // 혈압
             bdsg: <ConsultDetailPartMyGraphDdsg />, // 혈당
-            chol: <ConsultDetailPartMyGraphChol />, // 콜레스트롤
+            chol: <ConsultDetailPartMyGraphChol />, // 콜레스테롤
             bldvss: <ConsultDetailPartMyGraphBldvss />, // 혈관
             strs: <ConsultDetailPartMyGraphStrs />, // 스트레스
             height: <ConsultDetailPartMyGraphHeight />, // 신장

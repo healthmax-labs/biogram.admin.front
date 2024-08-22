@@ -68,7 +68,7 @@ git checkout develop
 git checkout -b feature/member-list
 
 -- 개발 완료후
-git checkout add .
+git add .
 git commit -m '회원 리스트'
 git checkout develop
 git merge --no-ff feature/member-list
