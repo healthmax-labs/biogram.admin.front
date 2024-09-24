@@ -196,11 +196,11 @@ const MemberMyDataInputModal = ({
         // 중성 지방
         if (
             !_.isEmpty(pageState.input.TG) &&
-            !_.inRange(Number(pageState.input.TG), 10, 501)
+            !_.inRange(Number(pageState.input.TG), 10, 651)
         ) {
             handlMainAlert({
                 state: true,
-                message: Messages.Default.consult.t_cholRange,
+                message: Messages.Default.consult.tgRange,
             })
 
             return
@@ -209,7 +209,7 @@ const MemberMyDataInputModal = ({
         // 공복혈당
         if (
             !_.isEmpty(pageState.input.FBS) &&
-            !_.inRange(Number(pageState.input.FBS), 10, 501)
+            !_.inRange(Number(pageState.input.FBS), 10, 601)
         ) {
             handlMainAlert({
                 state: true,
@@ -222,7 +222,7 @@ const MemberMyDataInputModal = ({
         // 공복혈당
         if (
             !_.isEmpty(pageState.input.PP2) &&
-            !_.inRange(Number(pageState.input.PP2), 10, 501)
+            !_.inRange(Number(pageState.input.PP2), 10, 601)
         ) {
             handlMainAlert({
                 state: true,
