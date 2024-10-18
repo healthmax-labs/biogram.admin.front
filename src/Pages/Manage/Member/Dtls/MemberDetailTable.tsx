@@ -26,7 +26,7 @@ import {
     TotalCashModal,
     TotalScoreModal,
     VaryButton,
-    VaryDatepickerInput,
+    VaryDatepickerInputCustom1,
     VaryInput,
     VaryLabel,
     VaryLabelRadioButton,
@@ -1482,7 +1482,7 @@ const MemberDetailTable = ({
                                     <VaryLabel LabelName={`생년월일`} />
                                 </LabelCell>
                                 <InputCell>
-                                    <VaryDatepickerInput
+                                    <VaryDatepickerInputCustom1
                                         InputeType={'default'}
                                         Width={`w60`}
                                         Value={

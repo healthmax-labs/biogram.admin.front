@@ -1087,6 +1087,9 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                                                             }}
                                                                                         />
                                                                                     </div>
+                                                                                    <div className="flex w-1/16">
+                                                                                        유료종료일&nbsp;:
+                                                                                    </div>
                                                                                     <div className="flex w-2/12">
                                                                                         {(() => {
                                                                                             if (
@@ -1212,7 +1215,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                                                                             LabelName={`유료사용자`}
                                                                                         />
                                                                                     </div>
-                                                                                    <div className="flex w-5/12 gap-1">
+                                                                                    <div className="flex w-6/12 gap-1">
                                                                                         {(() => {
                                                                                             if (
                                                                                                 el.NOT_FREE_YN ===
@@ -1475,7 +1478,7 @@ const InstDetailTable = ({ pageMode }: { pageMode: `new` | `modify` }) => {
                                             AUTHOR_CODE:
                                                 params.instNo === `1000`
                                                     ? `SM00`
-                                                    : `IM02`,
+                                                    : `IM00`,
                                             CONECT_IP: null,
                                             BRTHDY: '',
                                             SEXDSTN: '남',
