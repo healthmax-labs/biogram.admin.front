@@ -4,9 +4,9 @@ import { LoadingImage } from '@Assets'
 
 const { Wapper, Container } = ElementLoadingStyle
 
-const ElementLoading = () => {
+const ElementLoading = ({ FullScreen }: { FullScreen: boolean }) => {
     return (
-        <Container>
+        <Container FullScreen={FullScreen}>
             <Wapper bgImage={`${LoadingImage}`}>
                 <svg
                     aria-hidden="true"

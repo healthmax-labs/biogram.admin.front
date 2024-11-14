@@ -1,37 +1,24 @@
 import React from 'react'
 import { VaryInputStyle } from '@Style/Elements/InputStyles'
-import { ButtonStyle } from '@Style/Elements/ButtonStyle'
 
-const { Wapper } = VaryInputStyle
-const {
-    VaryRadioButtonStyle: { Label, Input },
-} = ButtonStyle
+const { Wapper, RadioButton } = VaryInputStyle
 
 const VaryRadioButton = ({
-    LabelName,
     Checked,
     HandleOnChange,
+    Flex,
 }: {
-    LabelName: string
+    Flex: boolean
     Checked: boolean
     HandleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) => {
     return (
-        <Wapper>
-            <Input
+        <Wapper Flex={Flex}>
+            <RadioButton
                 type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault2"
                 checked={Checked}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    HandleOnChange(e)
-                }
+                onChange={e => HandleOnChange(e)}
             />
-            <Label
-                className="form-check-label inline-block text-gray-800 text-xs"
-                htmlFor="flexRadioDefault2">
-                {LabelName}
-            </Label>
         </Wapper>
     )
 }

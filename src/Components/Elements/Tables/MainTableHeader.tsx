@@ -1,32 +1,80 @@
 import React from 'react'
 import { TableStyle } from '@Style/Elements/TableStyles'
-import { DefaultCheckBox } from '@Element/index'
+import { VaryCheckBox } from '@Element/index'
 import { ColumnsInterface, OptionsInterface } from '@Type/TableTypes'
+import { WidthType } from '@Type/CommonTypes'
 
-const { HeaderRow, HeaderCell, HeaderCheckbox } = TableStyle
+const { HeaderRow, HeaderCell } = TableStyle
 
-const MainTableHeader = ({
+const MainTableHeader = <E,>({
+    AllChecked,
     Columns,
     Options,
+    HandleClickAllCheckBox,
 }: {
-    Columns: ColumnsInterface[]
-    Options: OptionsInterface
+    AllChecked: boolean
+    Columns: Array<ColumnsInterface<E>[]>
+    Options: OptionsInterface<E>
+    HandleClickAllCheckBox: (checked: boolean) => void
 }) => {
     return (
-        <HeaderRow>
-            {Options.selectAll && (
-                <HeaderCheckbox>
-                    <DefaultCheckBox />
-                </HeaderCheckbox>
-            )}
-            {Columns.map((_, i) => {
+        <>
+            {Columns.map((Row, rowIndex, Rows) => {
                 return (
-                    <HeaderCell key={`main-table-head-cell-${i}`}>
-                        {_.name}
-                    </HeaderCell>
+                    <HeaderRow
+                        key={`main-table-head-row-${rowIndex}`}
+                        Step={rowIndex}>
+                        {rowIndex === 0 && Options.selectAll && (
+                            <HeaderCell
+                                key={`main-table-head-checkbox-cell-${rowIndex}`}
+                                rowSpan={Rows.length}
+                                cellWidth={`w10`}>
+                                <VaryCheckBox
+                                    Flex={false}
+                                    Checked={AllChecked}
+                                    HandleOnChange={e => {
+                                        HandleClickAllCheckBox(e.target.checked)
+                                    }}
+                                />
+                            </HeaderCell>
+                        )}
+                        {Row.map((column, columnIndex) => {
+                            return (
+                                <HeaderCell
+                                    key={`main-table-head-cell-${columnIndex}`}
+                                    rowSpan={
+                                        column.rowSpan ? column.rowSpan : 1
+                                    }
+                                    colSpan={
+                                        column.colSpan ? column.colSpan : 1
+                                    }
+                                    cellWidth={column.cellWidth as WidthType}>
+                                    {column.name === `` ? (
+                                        <></>
+                                    ) : (
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: column.name,
+                                            }}
+                                        />
+                                    )}
+                                </HeaderCell>
+                            )
+                        })}
+                        {Options.xcpt &&
+                            Options.xcpt.option &&
+                            Options.xcpt.option === 'row-button' && (
+                                <HeaderCell
+                                    key={`main-table-head-manage-cell-${rowIndex}`}
+                                    rowSpan={Rows.length}
+                                    cellWidth={`w10`}>
+                                    {`관리`}
+                                </HeaderCell>
+                            )}
+                    </HeaderRow>
                 )
             })}
-        </HeaderRow>
+        </>
     )
 }
 

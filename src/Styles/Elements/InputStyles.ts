@@ -1,9 +1,25 @@
 import tw from 'twin.macro'
 import styled from '@emotion/styled'
 import ConstStyle from '@Style/ConstStyle'
-import { InputWidthType } from '@CommonTypes'
+import {
+    ContentType,
+    TextAlignType,
+    TextColorType,
+    WidthType,
+} from '@CommonTypes'
 
 export const InputStyle = {
+    DatePickerWapper: styled.div(({ Width }: { Width?: WidthType | null }) => {
+        const returnTw = [tw`flex items-center gap-1`]
+
+        if (Width) {
+            returnTw.push(ConstStyle.width[Width])
+        } else {
+            returnTw.push(tw`w-full`)
+        }
+
+        return returnTw
+    }),
     DatePicker: tw.input`block h-8 px-3 w-24 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
     CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
     Search: {
@@ -17,48 +33,127 @@ export const InputStyle = {
 }
 
 export const VaryLabelInputStyle = {
-    Wapper: tw.div`flex items-center`,
+    Wapper: tw.div`flex items-center gap-2`,
     InputLabel: tw.label`block uppercase text-gray-600 text-xs w-2/12 font-bold`,
-    Input: styled.input(({ Width = `w60` }: { Width?: InputWidthType }) => [
-        // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
+    Input: styled.input(({ Width = `w60` }: { Width?: WidthType }) => [
         tw`form-input block h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
         ConstStyle.width[Width],
     ]),
 }
 
 export const VaryInputStyle = {
-    Wapper: tw.div`flex items-center`,
-    // Input: tw.input`form-input block w-60 h-8 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs`,
+    Wapper: styled.div(
+        ({ Flex, Width }: { Flex?: boolean; Width?: WidthType | null }) => {
+            const returnTw = []
+
+            if (Flex) {
+                returnTw.push(tw`flex items-center gap-1`)
+            }
+
+            if (Width) {
+                returnTw.push(ConstStyle.width[Width])
+            } else {
+                returnTw.push(tw`w-full`)
+            }
+
+            return returnTw
+        }
+    ),
+    CheckBox: tw.input`w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`,
+    RadioButton: tw.input`w-4 h-4 appearance-none rounded-full border border-gray-300 bg-gray-100 checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer`,
     Input: styled.input(
         ({
+            ContentsType = 'default',
             Disabled,
-            Width = `w60`,
         }: {
+            ContentsType?: ContentType
             Disabled?: boolean
-            Width?: InputWidthType
-        }) => [
-            // tw`form-input border-0 px-3 h-8 placeholder-gray-300 text-gray-600 bg-white rounded text-xs shadow focus:outline-none focus:ring ease-linear transition-all duration-150`,
-            // tw`leading-none transition outline-none focus:outline-none flex items-center shadow-sm  border placeholder-opacity-40  bg-gray-100 cursor-not-allowed   h-10 px-4 text-base rounded`,
-            // tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
-            Disabled
-                ? tw`form-input block h-8 bg-white border-0 text-xs leading-none transition cursor-not-allowed pl-1`
-                : tw`form-input block h-8 border-gray-300 bg-white border-0 bg-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-xs leading-none transition cursor-not-allowed`,
-            ConstStyle.width[Width],
-        ]
+        }) => {
+            const returnTw = [tw`form-input block h-8 w-full text-xs`]
+
+            if (Disabled) {
+                returnTw.push(
+                    tw`border-0 leading-none transition cursor-not-allowed`
+                )
+            } else if (ContentsType === 'search') {
+                returnTw.push(
+                    tw`rounded-md shadow-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`
+                )
+            } else {
+                returnTw.push(
+                    tw`rounded-md shadow-sm border-0 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 leading-none transition bg-mercury`
+                )
+            }
+
+            return returnTw
+        }
     ),
 }
 
 export const VaryLabelStyle = {
-    Wapper: tw.div`flex items-center object-center`,
-    InputLabel: styled.label(
-        ({ Width = `w60` }: { Width?: InputWidthType }) => [
-            tw`block uppercase text-gray-600 text-xs font-bold`,
-            ConstStyle.width[Width],
-            // tw`w-12`,
+    Wapper: styled.div(({ Reverse }: { Reverse: boolean }) => {
+        const returnTw = [
+            tw`flex items-center object-center justify-center text-center gap-1`,
         ]
+
+        if (Reverse) {
+            returnTw.push(tw`flex-row-reverse`)
+        }
+
+        return returnTw
+    }),
+    InputLabel: styled.label(
+        ({
+            Width,
+            TextColor,
+            TextAlign,
+            CursorPointer,
+        }: {
+            Width?: WidthType | null
+            TextColor: TextColorType
+            TextAlign: TextAlignType
+            CursorPointer?: boolean
+        }) => {
+            const returnTw = [tw`block text-xs`]
+
+            if (TextAlign == 'left') {
+                returnTw.push(tw`text-left`)
+            } else if (TextAlign == 'center') {
+                returnTw.push(tw`text-center`)
+            } else if (TextAlign == 'right') {
+                returnTw.push(tw`text-right`)
+            }
+
+            if (Width && Width) {
+                returnTw.push(ConstStyle.width[Width])
+            }
+
+            if (TextColor === 'gray') {
+                returnTw.push(tw`text-gray-500`)
+            }
+
+            if (CursorPointer) {
+                returnTw.push(tw`cursor-pointer`)
+            }
+
+            return returnTw
+        }
     ),
 }
 
 export const VaryLabelTextAreaStyle = {
     TextArea: tw.textarea`block p-2.5 w-full text-xs text-gray-900 bg-gray-100 border-0 focus:ring-blue-500 focus:border-blue-500`,
+}
+
+export const VaryImageUploadStyle = {
+    FileInputWapper1: tw.div`w-2/3`,
+    FileInputWapper: styled.div(({ WFull }: { WFull: boolean }) => {
+        const returnTw = []
+        if (WFull) {
+            returnTw.push(tw`flex w-full flex-wrap`)
+        } else {
+            returnTw.push(tw`w-2/3`)
+        }
+        return returnTw
+    }),
 }

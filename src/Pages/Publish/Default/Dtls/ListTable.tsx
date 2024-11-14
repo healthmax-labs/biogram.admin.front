@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ListTableStyle } from '@Style/Pages/PublishPageStyle'
 import { InstdeptListInterface } from '@Type/CommonTypes'
-import { getList } from '@Service/InstdeptService'
-import { DefaultCheckBox, DefaultManageButton } from '@Elements'
+import { getInstdeptList } from '@Service/InstdeptService'
+import { VaryButton, VaryCheckBox } from '@Elements'
 
 const {
     Tbody,
@@ -20,9 +20,9 @@ export default function ListTable() {
     const [resList, setResList] = useState<InstdeptListInterface[]>([])
 
     const getTableList = async () => {
-        const response = await getList({
+        const response = await getInstdeptList({
             CUR_PAGE: 1,
-            INST_NO: 0,
+            INST_NO: '',
             ITEM_COUNT: 200,
             SEARCH_KEY: '',
         })
@@ -39,7 +39,13 @@ export default function ListTable() {
             <Thead>
                 <TheadTr>
                     <ThCheckbox>
-                        <DefaultCheckBox />
+                        <VaryCheckBox
+                            Flex={true}
+                            Checked={false}
+                            HandleOnChange={() => {
+                                //
+                            }}
+                        />
                     </ThCheckbox>
                     <TheadTh>회원번호</TheadTh>
                     <TheadTh>회원명</TheadTh>
@@ -57,7 +63,13 @@ export default function ListTable() {
                     return (
                         <TbodyTr key={index} BgState={index % 2 === 0}>
                             <TbodyTdCheckbox>
-                                <DefaultCheckBox />
+                                <VaryCheckBox
+                                    Flex={true}
+                                    Checked={false}
+                                    HandleOnChange={() => {
+                                        //
+                                    }}
+                                />
                             </TbodyTdCheckbox>
                             <TbodyTd>{el.MBER_NO}</TbodyTd>
                             <TbodyTd>{el.MEBER_NM}</TbodyTd>
@@ -67,10 +79,11 @@ export default function ListTable() {
                             <TbodyTd>{el.INST_NM}</TbodyTd>
                             <TbodyTd>{el.DEPT_NM}</TbodyTd>
                             <TbodyTd>
-                                <DefaultManageButton
-                                    ButtonClick={() =>
-                                        console.debug('DefaultManageButton')
-                                    }
+                                <VaryButton
+                                    ButtonType={`manage`}
+                                    HandleClick={() => {
+                                        //
+                                    }}
                                     ButtonName={'소승승인4'}
                                 />
                             </TbodyTd>

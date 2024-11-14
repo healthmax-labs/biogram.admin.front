@@ -61,14 +61,47 @@ export const SidebarStyle = {
         },
     },
     Divider: tw.hr`my-0 min-w-full`,
-    MenuHeading: tw.h6`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full`,
-    NavigationUl: tw.ul`flex list-none flex-col min-w-full`,
-    NavigationLi: tw.li`items-center h-6`,
-    MenuLink: styled.div(({ Active }: { Active: boolean }) => [
-        Active
-            ? tw`cursor-pointer pl-6 mb-2 block text-xs uppercase text-m-blue hover:text-m-blue`
-            : tw`cursor-pointer pl-6 text-gray-700 hover:text-gray-500 mb-4 block text-xs uppercase`,
-    ]),
+    MainMenuWapper: tw.div`flex flex-nowrap items-center pb-2`,
+    HideIconWapper: tw.div`flex items-center pr-1 cursor-pointer`,
+    MenuHeading: styled.h6(({ Active }: { Active: boolean }) => {
+        const returnTw = [
+            tw`flex pt-1 text-xs uppercase no-underline md:min-w-full items-center`,
+        ]
+
+        if (Active) {
+            returnTw.push(tw`text-blueberry`)
+        } else {
+            returnTw.push(tw`text-gray-500`)
+        }
+
+        return returnTw
+    }),
+    MenuHeadingLink: tw.div`text-gray-500 block pt-1 pb-2 text-xs uppercase no-underline md:min-w-full cursor-pointer`,
+    NavigaitionUlWapper: styled.div(({ Show }: { Show: boolean }) => {
+        const returnTw = [tw`flex flex-col items-center`]
+
+        if (Show) {
+            returnTw.push(tw``)
+        } else {
+            returnTw.push(
+                tw`hidden p-2 cursor-pointer rounded-full hover:bg-gray-700 transition`
+            )
+        }
+
+        return returnTw
+    }),
+    NavigationUl: tw.ul`list-none flex-col min-w-full`,
+    NavigationLi: tw.li`items-center`,
+    MenuLink: styled.div(({ Active }: { Active: boolean }) => {
+        const returnTw = [tw`cursor-pointer pl-6 block text-xs mb-2 uppercase`]
+
+        if (Active) {
+            returnTw.push(tw`text-blueberry hover:text-blueberry`)
+        } else {
+            returnTw.push(tw`text-gray-700 hover:text-gray-500`)
+        }
+        return returnTw
+    }),
 }
 
 export const TopbarStyle = {
@@ -89,7 +122,10 @@ export const PageContainerStyle = {
     },
     DetailPage: {
         Container: tw.div`flex flex-nowrap`,
+        FullWapper: tw.div`flex w-center-width`,
         LeftWapper: tw.div`w-left-box`,
         RightWapper: tw.div`w-right-box`,
+        ChartLeftWapper: tw.div`w-chart-left-box`,
+        ChartRightWapper: tw.div`w-chart-right-box`,
     },
 }

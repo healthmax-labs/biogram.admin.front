@@ -32,7 +32,7 @@ const SearchSelect = ({
                 elements.map((el, i) => {
                     return (
                         <option
-                            key={`default-search-search-option-${i}`}
+                            key={`default-search-select-option-${i}`}
                             value={el.value}>
                             {el.text}
                         </option>

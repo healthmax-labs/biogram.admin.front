@@ -20,16 +20,13 @@ const apiBaseURLL: string | undefined = _.isUndefined(
     ? 'http://localhost'
     : process.env.REACT_APP_API_SERVER_URL
 
-const setRefreshTokenData = ({
-    TOKEN_INFO,
-    TOKEN_LIMIT_TIME,
-    AUTHORIZE_CODE,
-}: LoginTokenInterface): void => {
-    Helper.saveRefreshToken({
-        TOKEN_INFO,
-        TOKEN_LIMIT_TIME,
-        AUTHORIZE_CODE,
-    })
+const setRefreshTokenData = ({}: LoginTokenInterface): void => {
+    // TODO : 토큰 리프래시는 어떻게 할것인가?
+    // Helper.saveRefreshToken({
+    //     TOKEN_INFO,
+    //     TOKEN_LIMIT_TIME,
+    //     AUTHORIZE_CODE,
+    // })
 }
 
 /**
@@ -40,11 +37,13 @@ const handleTokenRefresh = (): Promise<LoginTokenInterface> => {
     Helper.COLORLOG('warning', ':: Try Token Refresh :: ')
     const axiosDefaultHeader: AxiosRequestConfig = {
         baseURL: apiBaseURLL,
-        timeout: 20000,
+        timeout: 0,
         headers: {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
                 : '',
+            'X-HEALTHMAX-APP-TYPE': 'admin',
+            'X-HEALTHMAX-APP-VER': process.env.REACT_APP_VERSION,
         },
     }
 
@@ -249,11 +248,13 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
 
     const axiosDefaultHeader: AxiosRequestConfig = {
         baseURL: apiBaseURLL,
-        timeout: 20000,
+        timeout: 0,
         headers: {
             Authorization: Helper.getAccessToken()
                 ? Helper.getAccessToken()
                 : '',
+            'X-HEALTHMAX-APP-TYPE': 'admin',
+            'X-HEALTHMAX-APP-VER': process.env.REACT_APP_VERSION,
         },
     }
 

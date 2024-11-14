@@ -1,13 +1,20 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
+import React, {
+    KeyboardEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import {
-    DefaultManageButton,
-    SearchSelect,
+    DefaultSearchButton,
+    VaryButton,
     VaryInput,
     VaryModal,
 } from '@Elements'
 import { PstinstSelectorStyle } from '@Style/Elements/FeaturesStyles'
-import { usePstinst } from '@Hooks'
+import { useMainLayouts, usePstinst } from '@Hooks'
 import { PstinstInfoItemType } from '@Hook/usePstinst'
+import Messages from '@Messages'
 
 const {
     TableBox,
@@ -24,6 +31,9 @@ const {
     ItemLabel,
     ItemCols,
     ItemLavelText,
+    SearchInputWapper,
+    SearchInputGrow,
+    SearchInputFlex,
 } = PstinstSelectorStyle
 
 const initializeState = {
@@ -34,24 +44,37 @@ const initializeState = {
         step3: [],
         list: [],
     },
-    selectElement: [{ value: 1, text: `소속선택` }],
+    selectElements: [],
+    selectElement: { value: null, text: `` },
     searchValue: ``,
     searchFocus: null,
 }
 
 const PstinstSelector = ({
+    SelectorType = 'input',
+    InputType,
     HandleSelectValue,
+    HandleCancleClick,
+    SelectElement,
 }: {
+    SelectorType?: 'input' | 'OnlyModal' | 'CloseModal'
+    InputType?: 'search' | 'default'
+    HandleCancleClick?: () => void
     HandleSelectValue: ({
         instNo,
         instNm,
     }: {
-        instNo: number
-        instNm: string
+        instNo: number | null
+        instNm: string | null
     }) => void
+    SelectElement?: {
+        value: number | null
+        text: string | null
+    }
 }) => {
     // ref...
-    const inputRef = useRef<HTMLInputElement[]>([])
+    const enterInputRef = useRef<HTMLInputElement[]>([])
+    const searchInputRef = useRef<HTMLInputElement>(null) // 최초 검색창 focus
 
     const {
         pstinstState,
@@ -60,6 +83,7 @@ const PstinstSelector = ({
         pstinstSearchState,
         pstinstSearchReset,
     } = usePstinst()
+    const { handlMainAlert } = useMainLayouts()
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [pageState, setPageState] = useState<{
@@ -70,7 +94,8 @@ const PstinstSelector = ({
             step3: PstinstInfoItemType[]
             list: any
         }
-        selectElement: Array<{ value: number; text: string }>
+        selectElements: Array<{ value: number; text: string }>
+        selectElement: { value: number | null; text: string | null }
         searchValue: string
         searchFocus: number | null
     }>(initializeState)
@@ -83,33 +108,62 @@ const PstinstSelector = ({
         instNo: number
         instNm: string
     }) => {
-        HandleSelectValue({ instNo: instNo, instNm: instNm })
         setPageState(prevState => ({
             ...prevState,
-            selectElement: [{ value: instNo, text: instNm }],
+            selectElements: [{ value: instNo, text: instNm }],
+            selectElement: { value: instNo, text: instNm },
         }))
-        handleShowModal(false)
+
+        if (SelectorType === 'input' || SelectorType === 'CloseModal') {
+            HandleSelectValue({
+                instNo: instNo,
+                instNm: instNm,
+            })
+            handleShowModal(false)
+        }
+    }
+
+    // 확인 버튼 클릭
+    const handleCLickApplyButton = () => {
+        if (
+            pageState.selectElement.value !== null &&
+            pageState.selectElement.text !== null
+        ) {
+            HandleSelectValue({
+                instNo: pageState.selectElement.value,
+                instNm: pageState.selectElement.text,
+            })
+            handleShowModal(false)
+        } else {
+            handlMainAlert({
+                state: true,
+                message: `${Messages.Default.pstinstSelectEmpty}`,
+            })
+        }
     }
 
     // 모달 처리.
-    const handleShowModal = (flag: boolean) => {
-        setPageState(prevState => ({
-            ...prevState,
-            loading: true,
-        }))
+    const handleShowModal = useCallback(
+        (flag: boolean) => {
+            setPageState(prevState => ({
+                ...prevState,
+                loading: true,
+            }))
 
-        setShowModal(flag)
+            setShowModal(flag)
 
-        if (flag) {
-            getPstinstList().then(() => {
-                setPageState(prevState => ({
-                    ...prevState,
-                    loading: false,
-                }))
-            })
-        } else {
-        }
-    }
+            if (flag) {
+                getPstinstList().then(() => {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        loading: false,
+                    }))
+                })
+            } else {
+            }
+        },
+        [getPstinstList]
+    )
 
     // 검색 input 변경시.
     const handleSearchInputOnChange = (
@@ -124,12 +178,7 @@ const PstinstSelector = ({
         pstinstSearchReset()
     }
 
-    // 엔터 키 입력 처리.
-    const handleSearchInputOnKeyDown = (
-        event: KeyboardEvent<HTMLInputElement>
-    ) => {
-        if (event.key !== 'Enter') return
-
+    const handleSearch = () => {
         if (pstinstSearchState.length === 0) {
             pstinstSearch(pageState.searchValue)
         } else {
@@ -147,6 +196,23 @@ const PstinstSelector = ({
                 ...pageState,
                 searchFocus: pageState.searchFocus + 1,
             })
+        }
+    }
+
+    // 엔터 키 입력 처리.
+    const handleSearchInputOnKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (event.key !== 'Enter') return
+
+        handleSearch()
+    }
+
+    // 취소 버튼 클릭 처리.
+    const handleCLickCancleButton = () => {
+        handleShowModal(false)
+        if (HandleCancleClick) {
+            HandleCancleClick()
         }
     }
 
@@ -172,13 +238,13 @@ const PstinstSelector = ({
         }
     }, [pstinstSearchState])
 
-    // 언테키 입력시 다름 검색어로 스크롤.
+    // 엔테키 입력시 다름 검색어로 스크롤.
     useEffect(() => {
         const funcSetSearchFocus = () => {
             if (pageState.searchFocus === null) return
             const refIndex = pstinstSearchState[pageState.searchFocus]
 
-            inputRef.current[refIndex].scrollIntoView({
+            enterInputRef.current[refIndex].scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
             })
@@ -202,29 +268,135 @@ const PstinstSelector = ({
         }
     }, [showModal])
 
+    // 보이는 타입 처리
+    useEffect(() => {
+        if (searchInputRef.current !== null) {
+            searchInputRef.current.focus()
+        }
+
+        const funcSetModalByType = () => {
+            if (
+                (SelectorType === 'OnlyModal' ||
+                    SelectorType === 'CloseModal') &&
+                !showModal
+            ) {
+                handleShowModal(true)
+            }
+        }
+
+        funcSetModalByType()
+    }, [SelectorType, handleShowModal, showModal])
+
+    useEffect(() => {
+        const funcSetSelectElement = ({
+            value,
+            text,
+        }: {
+            value: number
+            text: string
+        }) => {
+            setPageState(prevState => ({
+                ...prevState,
+                selectElement: {
+                    value: value,
+                    text: text,
+                },
+            }))
+        }
+
+        if (
+            pageState.PSTINST_INFO_LIST.list.length === 0 &&
+            SelectElement &&
+            SelectElement.value &&
+            SelectElement.text
+        ) {
+            funcSetSelectElement({
+                value: SelectElement.value,
+                text: SelectElement.text,
+            })
+        }
+        // FIXME : 종속성에서 pageState 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [SelectElement])
+
     return (
         <>
-            <SearchSelect
-                id={`id`}
-                name={`name`}
-                autoComplete={`autoComplete`}
-                handleOnFocus={() => handleShowModal(true)}
-                elements={pageState.selectElement}
-            />
-
+            {SelectorType && SelectorType === 'input' && (
+                <div className="flex flex-1">
+                    <VaryInput
+                        ContentsType={InputType ? InputType : `search`}
+                        Width={`w40`}
+                        ReadOnly={true}
+                        Placeholder={`소속을 선택해 주세요.`}
+                        Value={
+                            pageState.selectElement.text
+                                ? pageState.selectElement.text
+                                : ''
+                        }
+                        HandleOnFocus={() => handleShowModal(true)}
+                    />
+                    <div
+                        className="flex h-8 items-center text-gray-500 cursor-pointer"
+                        onClick={() => {
+                            setPageState(prevState => ({
+                                ...prevState,
+                                selectElement: {
+                                    value: null,
+                                    text: null,
+                                },
+                            }))
+                            HandleSelectValue({
+                                instNo: null,
+                                instNm: null,
+                            })
+                        }}>
+                        {pageState.selectElement.text && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                />
+                            </svg>
+                        )}
+                    </div>
+                </div>
+            )}
             {showModal && (
                 <VaryModal
                     ModalLoading={pageState.loading}
                     Children={
                         <>
                             <InputWapper>
-                                <VaryInput
-                                    InputType={`search`}
-                                    Placeholder={`검색어를 입력해 주세요`}
-                                    HandleOnChange={handleSearchInputOnChange}
-                                    Value={pageState.searchValue}
-                                    HandleOnKeyDown={handleSearchInputOnKeyDown}
-                                />
+                                <SearchInputWapper>
+                                    <SearchInputGrow>
+                                        <VaryInput
+                                            Ref={searchInputRef}
+                                            InputType={`search`}
+                                            Placeholder={`검색어를 입력해 주세요`}
+                                            HandleOnChange={
+                                                handleSearchInputOnChange
+                                            }
+                                            Value={pageState.searchValue}
+                                            HandleOnKeyDown={
+                                                handleSearchInputOnKeyDown
+                                            }
+                                        />
+                                    </SearchInputGrow>
+                                    <SearchInputFlex>
+                                        <DefaultSearchButton
+                                            ButtonClick={() => {
+                                                handleSearch()
+                                            }}
+                                        />
+                                    </SearchInputFlex>
+                                </SearchInputWapper>
                             </InputWapper>
                             <TableBox>
                                 <TableWapper>
@@ -248,27 +420,38 @@ const PstinstSelector = ({
                                                         <TableBodyCell>
                                                             <ItemWapper>
                                                                 <ItemCheckBox
-                                                                    ref={el =>
-                                                                        (inputRef.current[
-                                                                            step1.INST_NO
-                                                                        ] = el as HTMLInputElement)
+                                                                    disabled={
+                                                                        step1.CHK_INST_1 ===
+                                                                        'N'
                                                                     }
-                                                                    id={`item-checkbox-step1-${step1Index}`}
+                                                                    ref={el =>
+                                                                        (enterInputRef.current[
+                                                                            step1.INST_NO
+                                                                        ] =
+                                                                            el as HTMLInputElement)
+                                                                    }
+                                                                    id={`item-checkbox-step1-${step1.INST_NO_1}-${step1Index}`}
                                                                     type="checkbox"
                                                                     value={
                                                                         step1.INST_NO
                                                                     }
-                                                                    onClick={() =>
+                                                                    onClick={() => {
+                                                                        if (
+                                                                            step1.CHK_INST_1 ===
+                                                                            'N'
+                                                                        ) {
+                                                                            return
+                                                                        }
                                                                         handleItemClick(
                                                                             {
                                                                                 instNo: step1.INST_NO,
                                                                                 instNm: step1.INST_NM_1,
                                                                             }
                                                                         )
-                                                                    }
+                                                                    }}
                                                                 />
                                                                 <ItemLabel
-                                                                    htmlFor={`item-checkbox-step1-${step1Index}`}>
+                                                                    htmlFor={`item-checkbox-step1-${step1.INST_NO_1}-${step1Index}`}>
                                                                     <ItemLavelText
                                                                         BgState={
                                                                             step1.checkSearch
@@ -295,30 +478,40 @@ const PstinstSelector = ({
                                                                         ) => {
                                                                             return (
                                                                                 <ItemWapper
-                                                                                    key={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                    key={`pstinst-selector-step2-item-key-${step2Index}`}>
                                                                                     <ItemCheckBox
+                                                                                        disabled={
+                                                                                            step2.CHK_INST_2 ===
+                                                                                            'N'
+                                                                                        }
                                                                                         ref={el =>
-                                                                                            (inputRef.current[
+                                                                                            (enterInputRef.current[
                                                                                                 step2.INST_NO
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
                                                                                         }
-                                                                                        id={`pstinst-selector-step2-item-${step2Index}`}
+                                                                                        id={`pstinst-selector-step2-item-id-${step2.INST_NO_2}-${step2Index}`}
                                                                                         type="checkbox"
                                                                                         value={
                                                                                             step2.INST_NO
                                                                                         }
-                                                                                        onClick={() =>
+                                                                                        onClick={() => {
+                                                                                            if (
+                                                                                                step2.CHK_INST_2 ===
+                                                                                                'N'
+                                                                                            ) {
+                                                                                                return
+                                                                                            }
                                                                                             handleItemClick(
                                                                                                 {
                                                                                                     instNo: step2.INST_NO,
                                                                                                     instNm: step2.INST_NM_2,
                                                                                                 }
                                                                                             )
-                                                                                        }
+                                                                                        }}
                                                                                     />
                                                                                     <ItemLabel
-                                                                                        htmlFor={`pstinst-selector-step2-item-${step2Index}`}>
+                                                                                        htmlFor={`pstinst-selector-step2-item-id-${step2.INST_NO_2}-${step2Index}`}>
                                                                                         <ItemLavelText
                                                                                             BgState={
                                                                                                 step2.checkSearch
@@ -351,28 +544,38 @@ const PstinstSelector = ({
                                                                                 <ItemWapper
                                                                                     key={`pstinst-selector-step3-item-${step3Index}`}>
                                                                                     <ItemCheckBox
+                                                                                        disabled={
+                                                                                            step3.CHK_INST_3 ===
+                                                                                            'N'
+                                                                                        }
                                                                                         ref={el =>
-                                                                                            (inputRef.current[
+                                                                                            (enterInputRef.current[
                                                                                                 step3.INST_NO
                                                                                             ] =
                                                                                                 el as HTMLInputElement)
                                                                                         }
-                                                                                        id={`pstinst-selector-step3-item-${step3Index}`}
+                                                                                        id={`pstinst-selector-step3-item-${step3.INST_NO_3}-${step3Index}`}
                                                                                         type="checkbox"
                                                                                         value={
                                                                                             step3.INST_NO
                                                                                         }
-                                                                                        onClick={() =>
+                                                                                        onClick={() => {
+                                                                                            if (
+                                                                                                step3.CHK_INST_3 ===
+                                                                                                'N'
+                                                                                            ) {
+                                                                                                return
+                                                                                            }
                                                                                             handleItemClick(
                                                                                                 {
                                                                                                     instNo: step3.INST_NO,
                                                                                                     instNm: step3.INST_NM_3,
                                                                                                 }
                                                                                             )
-                                                                                        }
+                                                                                        }}
                                                                                     />
                                                                                     <ItemLabel
-                                                                                        htmlFor={`pstinst-selector-step3-item-${step3Index}`}>
+                                                                                        htmlFor={`pstinst-selector-step3-item-${step3.INST_NO_3}-${step3Index}`}>
                                                                                         <ItemLavelText
                                                                                             BgState={
                                                                                                 step3.checkSearch
@@ -399,10 +602,19 @@ const PstinstSelector = ({
                     }
                     Buttons={
                         <>
-                            <DefaultManageButton
-                                ButtonClick={() => handleShowModal(false)}
+                            <VaryButton
+                                ButtonType={'default'}
+                                HandleClick={() => handleCLickCancleButton()}
                                 ButtonName={'취소'}
                             />
+
+                            {SelectorType === 'OnlyModal' && (
+                                <VaryButton
+                                    ButtonType={'default'}
+                                    HandleClick={() => handleCLickApplyButton()}
+                                    ButtonName={'확인'}
+                                />
+                            )}
                         </>
                     }
                 />

@@ -12,11 +12,11 @@ import {
  * @param payload
  */
 
-export function login(payload: {
+export const login = (payload: {
     usid: string
     pass: string
     CLIENT_IP: string
-}): Promise<ServicesDefaultResult<LoginInterface>> {
+}): Promise<ServicesDefaultResult<LoginInterface>> => {
     return _Axios_({
         method: 'post',
         url: '/mber/v1/charger/login/id',
@@ -24,11 +24,14 @@ export function login(payload: {
     })
 }
 
-export function logininfo(): Promise<
+/**
+ * 로그인 정보.
+ */
+export const logininfo = (): Promise<
     ServicesDefaultResult<{
         CHARGER_INFO: LoginInfoInterface
     }>
-> {
+> => {
     return _Axios_({
         method: 'post',
         url: '/mng/v1/logininfo/list',
@@ -37,18 +40,19 @@ export function logininfo(): Promise<
 }
 
 // 권한별 메뉴.
-export function getAuthorMenu({
+export const getAuthorMenu = ({
     authCode,
-    menuCode,
-}: {
+}: // menuCode,
+{
     authCode: string
-    menuCode: string
+    menuCode?: string
 }): Promise<
     ServicesDefaultResult<AuthorMenuInterface<AuthorMenuItemInterface>>
-> {
+> => {
     return _Axios_({
         method: 'get',
-        url: `/mber/v1/charger/author/menu/${authCode}/${menuCode}`,
+        // url: `/mng/v1/charger/author/mngmenu/${authCode}/${menuCode}`,
+        url: `/mng/v1/charger/author/mngmenu/${authCode}`,
         payload: {},
     })
 }

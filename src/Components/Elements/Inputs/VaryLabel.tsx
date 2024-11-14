@@ -1,6 +1,6 @@
 import React from 'react'
 import { VaryLabelStyle } from '@Style/Elements/InputStyles'
-import { InputWidthType } from '@CommonTypes'
+import { TextAlignType, TextColorType, WidthType } from '@CommonTypes'
 
 const { Wapper, InputLabel } = VaryLabelStyle
 
@@ -8,14 +8,24 @@ const VaryLabel = ({
     LabelWidth,
     LabelName,
     Children,
+    TextColor,
+    TextAlign,
+    LabelClick,
 }: {
-    LabelWidth?: InputWidthType
+    LabelWidth?: WidthType
     LabelName: string
     Children?: React.ReactNode
+    TextColor?: TextColorType
+    TextAlign?: TextAlignType
+    LabelClick?: () => void
 }) => {
     return (
-        <Wapper>
-            <InputLabel Width={LabelWidth ? LabelWidth : 'w212'}>
+        <Wapper Reverse={false} onClick={LabelClick}>
+            <InputLabel
+                Width={LabelWidth ? LabelWidth : 'w16'}
+                TextColor={TextColor ? TextColor : 'gray'}
+                TextAlign={TextAlign ? TextAlign : 'right'}
+                CursorPointer={!!LabelClick}>
                 {LabelName}
             </InputLabel>
             {Children ?? Children}

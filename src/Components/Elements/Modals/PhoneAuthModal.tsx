@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { AuthModalStyle, ModalStyle } from '@Style/Elements/ModalStyles'
+import { useCountDown, useMainLayouts } from '@Hooks'
+import { getCrtfcKey, postMbtlnumCrtfc } from '@Service/MemberService'
+import { getOnlyNumber } from '@Helper'
+import { isEmpty } from 'lodash'
+import Messages from '@Messages'
+import { VaryButton } from '@Elements'
 
 const {
     Container,
@@ -9,83 +15,190 @@ const {
     MainBox,
     CenterBox,
     ButtonBox,
-    Button,
 } = ModalStyle
 
 const { CenterText, AuthText, AuthInput, InputBox, AuthSpan, AuthErrorText } =
     AuthModalStyle
 
+const initializeState = {
+    authNumber: null,
+    error: {
+        state: false,
+        message: ``,
+    },
+    success: false,
+}
+
 const PhoneAuthModal = ({
-    phoneNumber,
-    showControl,
-    cancleButtonClick,
-    applyButtonClick,
+    PhoneNumber,
+    CancleButtonClick,
+    HandleSuccess,
 }: {
-    phoneNumber: string
-    showControl: boolean
-    cancleButtonClick: () => void
-    applyButtonClick: () => void
+    PhoneNumber: string
+    CancleButtonClick: () => void
+    HandleSuccess: () => void
 }) => {
     const authInputRef = useRef<HTMLInputElement>(null)
-    const [showModal, setShowModal] = useState<boolean>(true)
-
-    useEffect(() => {
-        if (showControl) {
-            setShowModal(true)
-        } else {
-            setShowModal(false)
+    const { seconds, minutes } = useCountDown({ Min: 3, Sec: 0 })
+    const { handlMainAlert } = useMainLayouts()
+    const [pageState, setPageState] = useState<{
+        authNumber: string | null
+        error: {
+            state: boolean
+            message: string
         }
-    }, [showControl])
+        success: boolean
+    }>(initializeState)
 
-    // 인증 번호가 다를 경우 input 창 글자색도 빨간색으로
+    const handleClickApplyButton = async () => {
+        if (isEmpty(pageState.authNumber)) {
+            setPageState(prevState => ({
+                ...prevState,
+                error: {
+                    state: true,
+                    message: Messages.Default.phoneAuth.input,
+                },
+            }))
+            return
+        }
+
+        if (pageState.authNumber) {
+            const { status, payload } = await getCrtfcKey({
+                mbtlnum: getOnlyNumber(PhoneNumber),
+                crtfc_key: pageState.authNumber,
+            })
+
+            if (status) {
+                if (payload.MBTLNUM_CRTFC_AT.CRTFC_RESULT === 'NC') {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        error: {
+                            state: true,
+                            message: Messages.Default.phoneAuth.crtfc_result,
+                        },
+                    }))
+                    return
+                }
+
+                if (payload.MBTLNUM_CRTFC_AT.CRTFC_RESULT === 'OK') {
+                    setPageState(prevState => ({
+                        ...prevState,
+                        success: true,
+                    }))
+                    handlMainAlert({
+                        state: true,
+                        message: Messages.Default.phoneAuth.authSuccess,
+                    })
+                    return
+                }
+            } else {
+                // FIXME: 에러 처리?
+            }
+        }
+    }
 
     useEffect(() => {
-        authInputRef.current?.focus()
-    }, [])
+        if (seconds === 0 && minutes === 0) {
+            handlMainAlert({
+                state: true,
+                message: Messages.Default.phoneAuth.inputTime,
+            })
+        }
+    }, [seconds, minutes, handlMainAlert])
+
+    useEffect(() => {
+        if (seconds === 0 && minutes === 0) {
+            CancleButtonClick()
+        }
+
+        // FIXME : 종속성에서 CancleButtonClick 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [seconds, minutes])
+
+    useEffect(() => {
+        if (pageState.success) {
+            HandleSuccess()
+        }
+
+        // FIXME : 종속성에서 HandleSuccess 업데이트 되면 무한 로딩이 걸려서 disable 리펙토링시에 수정 필요.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageState.success])
+
+    // TODO: 인증 번호가 다를 경우 input 창 글자색도 빨간색으로
+    useEffect(() => {
+        postMbtlnumCrtfc({
+            mbtlnum: getOnlyNumber(PhoneNumber),
+        }).then(() => {
+            authInputRef.current?.focus()
+        })
+    }, [PhoneNumber])
+
     return (
-        <>
-            {showModal && (
-                <Container>
-                    <ModalBackground></ModalBackground>
-                    <MainWapper>
-                        <Wapper>
-                            <MainBox>
-                                <CenterBox>
-                                    <CenterText>{`"${phoneNumber}"`}</CenterText>
-                                    <AuthText>
-                                        핸드폰으로 발송된 인증번호를 입력해
-                                        주세요.
-                                    </AuthText>
-                                    <InputBox>
-                                        <AuthInput
-                                            maxLength={4}
-                                            ref={authInputRef}
-                                            autoFocus={true}
-                                            type="text"
-                                            placeholder=""
-                                        />
-                                        <AuthSpan>3:45</AuthSpan>
-                                    </InputBox>
-                                    <AuthErrorText>
-                                        * 인증 번호가 일치 하지 않습니다.
-                                    </AuthErrorText>
-                                    <ButtonBox>
-                                        <Button
-                                            onClick={() => cancleButtonClick()}>
-                                            취소
-                                        </Button>
-                                        <Button
-                                            onClick={() => applyButtonClick()}>
-                                            인증하기
-                                        </Button>
-                                    </ButtonBox>
-                                </CenterBox>
-                            </MainBox>
-                        </Wapper>
-                    </MainWapper>
-                </Container>
-            )}
-        </>
+        <Container>
+            <ModalBackground></ModalBackground>
+            <MainWapper>
+                <Wapper>
+                    <MainBox>
+                        <CenterBox>
+                            <CenterText>{`"${PhoneNumber}"`}</CenterText>
+                            <AuthText>
+                                핸드폰으로 발송된 인증번호를 입력해 주세요.
+                            </AuthText>
+                            <InputBox>
+                                <AuthInput
+                                    maxLength={4}
+                                    ref={authInputRef}
+                                    autoFocus={true}
+                                    type="text"
+                                    placeholder=""
+                                    onChange={(
+                                        e: React.ChangeEvent<HTMLInputElement>
+                                    ) => {
+                                        setPageState(prevState => ({
+                                            ...prevState,
+                                            authNumber: e.target.value,
+                                            error: initializeState.error,
+                                        }))
+                                    }}
+                                    value={
+                                        pageState.authNumber !== null
+                                            ? pageState.authNumber
+                                            : ''
+                                    }
+                                />
+                                <AuthSpan>{`${String(minutes).padStart(
+                                    2,
+                                    '0'
+                                )}:${String(seconds).padStart(
+                                    2,
+                                    '0'
+                                )}`}</AuthSpan>
+                            </InputBox>
+
+                            {pageState.error.state && (
+                                <AuthErrorText>
+                                    * {pageState.error.message}
+                                </AuthErrorText>
+                            )}
+
+                            <ButtonBox>
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`취소`}
+                                    HandleClick={() => CancleButtonClick()}
+                                />
+
+                                <VaryButton
+                                    ButtonType={`default`}
+                                    ButtonName={`인증하기`}
+                                    HandleClick={() => handleClickApplyButton()}
+                                />
+                            </ButtonBox>
+                        </CenterBox>
+                    </MainBox>
+                </Wapper>
+            </MainWapper>
+        </Container>
     )
 }
 

@@ -21,14 +21,7 @@ const {
 } = SearchBoxStyle
 
 export default function SearchBox() {
-    const handlePstinstSelect = ({
-        instNo,
-        instNm,
-    }: {
-        instNo: number
-        instNm: string
-    }) => {
-        console.debug(instNo, instNm)
+    const handlePstinstSelect = ({}: { instNo: number; instNm: string }) => {
         //
     }
     return (
@@ -37,15 +30,15 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>소속 :</LabelText>
+                            <LabelText>소속</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
                         <PstinstSelector
                             HandleSelectValue={({ instNo, instNm }) =>
                                 handlePstinstSelect({
-                                    instNo,
-                                    instNm,
+                                    instNo: instNo ? instNo : 0,
+                                    instNm: instNm ? instNm : ``,
                                 })
                             }
                         />
@@ -55,7 +48,7 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>가입일자 :</LabelText>
+                            <LabelText>가입일자</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
@@ -70,7 +63,7 @@ export default function SearchBox() {
                 <Item>
                     <LabelItem>
                         <Label htmlFor="forms-labelLeftInputCode">
-                            <LabelText>검색어 :</LabelText>
+                            <LabelText>검색어</LabelText>
                         </Label>
                     </LabelItem>
                     <LabelItemBox>
@@ -86,7 +79,9 @@ export default function SearchBox() {
             <Relative>
                 <SearchButtonBox>
                     <DefaultSearchButton
-                        ButtonClick={() => console.debug('DefaultSearchButton')}
+                        ButtonClick={() => {
+                            //
+                        }}
                     />
                 </SearchButtonBox>
             </Relative>
