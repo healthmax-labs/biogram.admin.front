@@ -57,6 +57,7 @@
         "start": "react-app-rewired start",
         "start:dev": "cp config/env.development .env && react-app-rewired start",
         "start:prod": "cp config/env.production .env && react-app-rewired start",
+        "start:local": "cp config/env.local .env && react-app-rewired start",
         "start:local-prod": "cp config/env.local.prod .env && react-app-rewired start",
         "lint": "eslint --ext js,ts,tsx src --fix",
         "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
