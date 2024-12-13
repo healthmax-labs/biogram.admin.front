@@ -28,28 +28,17 @@ const ListTable = ({ CurrentPage }: { CurrentPage: number }) => {
 
     const handlePaginationClick = ({ pageNumber }: { pageNumber: number }) => {
         console.log(`pagination clicked pageNumber:${pageNumber}`)
-        if (pageNumber == 1) {
-            setListState(prevState => ({
-                ...prevState,
-                status: 'idle',
-                search: {
-                    ...prevState.search,
-                    page: pageNumber,
-                    cursorRegistDt: '',
-                    cursorPostId: 0,
-                    cursorLikeCount: 0,
-                },
-            }))
-        } else {
-            setListState(prevState => ({
-                ...prevState,
-                status: 'idle',
-                search: {
-                    ...prevState.search,
-                    page: pageNumber,
-                },
-            }))
-        }
+        setListState(prevState => ({
+            ...prevState,
+            status: 'idle',
+            search: {
+                ...prevState.search,
+                page: pageNumber - 1,
+                cursorRegistDt: '',
+                cursorPostId: 0,
+                cursorLikeCount: 0,
+            },
+        }))
 
         navigate({
             pathname: process.env.PUBLIC_URL + `/manage/contents/lounge-list`,

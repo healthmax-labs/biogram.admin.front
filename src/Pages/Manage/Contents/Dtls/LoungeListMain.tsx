@@ -115,7 +115,7 @@ const LoungeListMain = () => {
                 <ManageBox />
             </ManageWapper>
             <TableWapper>
-                <ListTable CurrentPage={loungeListState.search.page} />
+                <ListTable CurrentPage={loungeListState.search.page + 1} />
             </TableWapper>
         </Container>
     )
