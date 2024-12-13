@@ -19,6 +19,19 @@ git clone https://gitlab.mybiogram.com/biogram/biogram.admin.front.git
 
 ```
 
+## Node 추천 Version
+
+```bash
+node -v
+> v20.11.1
+
+npm -v
+> 10.5.0
+
+yarn -v
+> 1.22.22
+```
+
 ## 로컬 개발 환경
 
 ```bash

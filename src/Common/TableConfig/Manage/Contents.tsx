@@ -143,3 +143,67 @@ export const MagazineTableConfig = {
     ],
     Lists: [],
 }
+
+// 마인드 라운지
+export interface LoungeTableListItemInterface {
+    postId: null | number
+    authorMemberNo: null | number
+    authorNickname: null | string
+    authorAgeGroup: null | string
+    authorGender: null | string
+    postTitle: null | string
+    postWroteTime: null | string
+    postContent: null | string
+    likeCount: null | number
+    commentCount: null | number
+    myPostYn: `Y` | `N`
+    profileImageUrl: null | string
+}
+
+// 라운지 테이블 설정.
+export const LoungeTableConfig = {
+    Loading: true,
+    Options: {
+        pagination: true,
+        selectAll: false,
+        indexKey: `postId`,
+        bgState: true,
+    },
+    Columns: [
+        [
+            {
+                name: `번호`,
+                key: `postId`,
+            },
+            {
+                name: `회원번호`,
+                key: `authorMemberNo`,
+            },
+            {
+                name: `작성자 닉네임`,
+                key: `authorNickname`,
+            },
+            {
+                name: `제목`,
+                key: `postTitle`,
+            },
+            {
+                name: `작성 시간`,
+                key: `postWroteTime`,
+            },
+            {
+                name: `좋아요`,
+                key: `likeCount`,
+            },
+            {
+                name: `댓글`,
+                key: `commentCount`,
+            },
+            {
+                name: `게시여부`,
+                key: `myPostYn`,
+            },
+        ],
+    ],
+    Lists: [],
+}

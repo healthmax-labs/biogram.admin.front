@@ -1,6 +1,9 @@
+import { pageSizes } from '@amcharts/amcharts5/.internal/plugins/exporting/Exporting'
+import _ApiAxios_ from '@Module/_ApiAxios_'
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
+    LoungeListItemInterface,
     MagazineItemInterface,
     MagazineListItemInterface,
     UhealthZoneChargerInfoInterface,
@@ -234,6 +237,50 @@ export const postDataUhealthZoneDelete = ({
     return _Axios_({
         method: 'post',
         url: `/data/v1/uhealth_zone/${zoneNum}/delete`,
+        payload: {},
+    })
+}
+
+/**
+ * 마인드 라운지 리스트
+ * @param CUR_PAGE
+ * @param SEARCH_KEY
+ */
+export const getLoungeList = ({
+    page,
+    size,
+    sortType,
+    cursorRegistDt,
+    cursorLikeCount,
+    cursorPostId,
+}: {
+    page: number
+    size: number
+    sortType: 'latest' | 'popular'
+    cursorRegistDt: string
+    cursorLikeCount: number
+    cursorPostId: number
+}): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: {
+            content: LoungeListItemInterface[]
+            totalPages: number
+            totalElements: number
+            page: number
+            size: number
+            cursorRegistDt: string
+            cursorLikeCount: number
+            cursorPostId: number
+            empty: boolean
+            last: boolean
+        }
+    }>
+> => {
+    return _ApiAxios_({
+        method: 'get',
+        url: `mind/v1/mind-lounge/posts?page=${page}&size=${size}&sortType=${sortType}&cursorRegistDt=${cursorRegistDt}&cursorLikeCount=${cursorLikeCount}&cursorPostId=${cursorPostId}`,
         payload: {},
     })
 }
