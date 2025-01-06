@@ -141,6 +141,10 @@ export const RiskFctrTableConfig = {
                 key: `NM`,
             },
             {
+                name: `휴대폰번호`,
+                key: `MBTLNUM`,
+            },
+            {
                 name: `생년월일`,
                 key: `BRTHDY`,
                 component: ({ el }: { el: RiskFctrTableListItemInterface }) => {
