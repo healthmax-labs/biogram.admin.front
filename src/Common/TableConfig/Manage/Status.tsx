@@ -115,6 +115,11 @@ export const RiskFctrTableConfig = {
                 colSpan: 1,
             },
             {
+                name: ``,
+                rowSpan: 1,
+                colSpan: 1,
+            },
+            {
                 name: `체성분계`,
                 colSpan: 6,
             },
