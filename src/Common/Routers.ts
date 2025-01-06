@@ -315,6 +315,45 @@ export default {
             ),
         },
         {
+            mainCode: `30000`,
+            menuCode: `30301`,
+            name: `마인드 라운지`,
+            pathName: `/manage/contents/lounge-list`,
+            category: `lounge`,
+            recooilKey: `contentsPage/lounge-list`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Contents/LoungeListPage')
+            ),
+        },
+        {
+            mainCode: `30000`,
+            menuCode: `30301`,
+            name: `마인드 라운지 상세`,
+            pathName: `/manage/contents/lounge/:postId/detail`,
+            category: `lounge`,
+            recooilKey: `contentsPage/lounge-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Contents/LoungeDetailPage')
+            ),
+        },
+        {
+            mainCode: `30000`,
+            menuCode: `30301`,
+            name: `마인드 라운지 등록`,
+            pathName: `/manage/contents/lounge/new`,
+            category: `lounge`,
+            recooilKey: `contentsPage/lounge-detail`,
+            showFlag: 'Y',
+            reloadButton: false,
+            Component: React.lazy(
+                () => import('@Page/Manage/Contents/LoungeDetailPage')
+            ),
+        },
+        {
             mainCode: `40000`,
             menuCode: `40101`,
             name: `위험요인 현황`,

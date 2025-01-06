@@ -115,6 +115,11 @@ export const RiskFctrTableConfig = {
                 colSpan: 1,
             },
             {
+                name: ``,
+                rowSpan: 1,
+                colSpan: 1,
+            },
+            {
                 name: `체성분계`,
                 colSpan: 6,
             },
@@ -139,6 +144,10 @@ export const RiskFctrTableConfig = {
             {
                 name: `회원명`,
                 key: `NM`,
+            },
+            {
+                name: `휴대폰번호`,
+                key: `MBTLNUM`,
             },
             {
                 name: `생년월일`,

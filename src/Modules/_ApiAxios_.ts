@@ -14,6 +14,12 @@ interface serviceInterface {
     payload: any
 }
 
+const apiBaseURL: string | undefined = _.isUndefined(
+    process.env.REACT_APP_API_SERVER_URL
+)
+    ? 'http://localhost'
+    : process.env.REACT_APP_API_SERVER_URL
+
 const sysBaseURL: string | undefined = _.isUndefined(
     process.env.REACT_APP_SYS_SERVER_URL
 )
@@ -176,7 +182,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                 .then(token => {
                     originalRequest._queued = true
                     options.attachTokenToRequest(originalRequest, token)
-                    return _Axios_.request(originalRequest)
+                    return _ApiAxios_.request(originalRequest)
                 })
                 .catch(() => {
                     return Promise.reject(error)
@@ -200,7 +206,7 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
                             tokenData.TOKEN_INFO
                         )
                         processQueue(null, tokenData.TOKEN_INFO)
-                        resolve(_Axios_.request(originalRequest))
+                        resolve(_ApiAxios_.request(originalRequest))
                     })
                     .catch(() => {
                         // 토큰 Refresh Error
@@ -246,8 +252,8 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         }
     }
 
-    const axiosSysDefaultHeader: AxiosRequestConfig = {
-        baseURL: sysBaseURL,
+    const axiosApiDefaultHeader: AxiosRequestConfig = {
+        baseURL: apiBaseURL,
         timeout: 0,
         headers: {
             Authorization: Helper.getAccessToken()
@@ -258,13 +264,13 @@ export default ({ method = 'post', url, payload }: serviceInterface): any => {
         },
     }
 
-    const _Axios_: AxiosInstance = axios.create(axiosSysDefaultHeader)
+    const _ApiAxios_: AxiosInstance = axios.create(axiosApiDefaultHeader)
 
-    _Axios_.interceptors.response.use(
+    _ApiAxios_.interceptors.response.use(
         response => successInterceptor(response),
         error => errorInterceptor(error)
     )
-    return _Axios_({
+    return _ApiAxios_({
         url: url,
         method: method,
         data: payload,

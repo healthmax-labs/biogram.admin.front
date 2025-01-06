@@ -60,6 +60,8 @@ export default function useAuth() {
                 menuCode: menuCode,
             })
 
+            console.log('getAuthorMenu response : ', response)
+
             const { AUTHOR_MENU_INFO_LIST, CHARGER_MENU_INFO } =
                 response.payload
 
@@ -83,6 +85,8 @@ export default function useAuth() {
                 },
             }))
 
+            console.log('appRootState : ', appRootState)
+
             if (menuShowInfo.length === 0) {
                 storageShowMenuInfo.setMy({
                     usid: usid,
@@ -97,7 +101,7 @@ export default function useAuth() {
                 })
             }
         },
-        [setAppRootState]
+        [setAppRootState, appRootState]
     )
 
     // 로그인 시도.

@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import {
+    LoungeListItemInterface,
     MagazineListItemInterface,
     UhealthZoneChargerInfoInterface,
     UhealthzoneInfoInterface,
@@ -19,46 +20,6 @@ interface MagazineSearchListInterface {
     }
     magazineList: {
         MISN_MAGAZINE_LIST: MagazineListItemInterface[]
-    }
-}
-
-interface UhealthzoneDetailInterface {
-    status: DefaultStatus
-    sub: {
-        instlPlaceCheck: boolean
-        pstinst: {
-            infoStep: string | 'step1' | 'step2' | 'step3'
-            step1: string
-            step2: string
-            step3: string
-        }
-        image: {
-            logo: {
-                no: number | null
-                path: string
-                name: string
-            }
-            bcrn: {
-                no: number | null
-                path: string
-                name: string
-            }
-        }
-    }
-    detail: UhealthzoneInfoInterface
-    origin: UhealthzoneInfoInterface
-    getInfo: UhealthZoneChargerInfoInterface | null
-}
-
-// 바이오그램 존 리스트 조회
-interface UhealthzoneSearchListInterface {
-    status: DefaultStatus
-    search: {
-        CUR_PAGE: number
-        search_Key: string
-    }
-    uhealthzoneList: {
-        UHEALTH_ZONE_LIST: UhealthZoneListItemInterface[]
     }
 }
 
@@ -88,6 +49,71 @@ export interface MagazineDetailStateInterface {
         }
         USE_AT: string | 'Y' | 'N'
     }
+}
+
+// 바이오그램 존 리스트 조회
+interface UhealthzoneSearchListInterface {
+    status: DefaultStatus
+    search: {
+        CUR_PAGE: number
+        search_Key: string
+    }
+    uhealthzoneList: {
+        UHEALTH_ZONE_LIST: UhealthZoneListItemInterface[]
+    }
+}
+
+// 바이오그램 존 상세
+interface UhealthzoneDetailInterface {
+    status: DefaultStatus
+    sub: {
+        instlPlaceCheck: boolean
+        pstinst: {
+            infoStep: string | 'step1' | 'step2' | 'step3'
+            step1: string
+            step2: string
+            step3: string
+        }
+        image: {
+            logo: {
+                no: number | null
+                path: string
+                name: string
+            }
+            bcrn: {
+                no: number | null
+                path: string
+                name: string
+            }
+        }
+    }
+    detail: UhealthzoneInfoInterface
+    origin: UhealthzoneInfoInterface
+    getInfo: UhealthZoneChargerInfoInterface | null
+}
+
+// 마인드 라운지 리스트 조회
+interface LoungeSearchListInterface {
+    status: DefaultStatus
+    search: {
+        page: number
+        size: number
+        sortType: 'latest' | 'popular'
+        cursorRegistDt: string
+        cursorLikeCount: number
+        cursorPostId: number
+    }
+    loungeList: {
+        MIND_LOUNGE_LIST: LoungeListItemInterface[]
+        TOTAL_COUNT: number
+    }
+}
+
+// 마인드 라운지 상세
+interface LoungeDetailInterface {
+    status: DefaultStatus
+    detail: LoungeListItemInterface
+    origin: LoungeListItemInterface
 }
 
 export const MagazineListState = atom<MagazineSearchListInterface>({
@@ -240,5 +266,59 @@ export const UhealthzoneDetailState = atom<UhealthzoneDetailInterface>({
             VEIN_RCIVR: [],
         },
         getInfo: null,
+    },
+})
+
+export const LoungeListState = atom<LoungeSearchListInterface>({
+    key: `contentsPage/lounge-list`,
+    default: {
+        status: 'idle',
+        search: {
+            page: 0,
+            size: 30,
+            sortType: 'latest',
+            cursorRegistDt: '',
+            cursorLikeCount: 0,
+            cursorPostId: 0,
+        },
+        loungeList: {
+            MIND_LOUNGE_LIST: [],
+            TOTAL_COUNT: 0,
+        },
+    },
+})
+
+export const LoungeDetailState = atom<LoungeDetailInterface>({
+    key: `contentsPage/lounge-detail`,
+    default: {
+        status: 'idle',
+        detail: {
+            postId: 0,
+            authorMemberNo: 0,
+            authorNickname: '',
+            authorAgeGroup: '',
+            authorGender: '',
+            postTitle: '',
+            postWroteTime: '',
+            postContent: '',
+            likeCount: 0,
+            commentCount: 0,
+            myPostYn: 'N',
+            profileImageUrl: '',
+        },
+        origin: {
+            postId: 0,
+            authorMemberNo: 0,
+            authorNickname: '',
+            authorAgeGroup: '',
+            authorGender: '',
+            postTitle: '',
+            postWroteTime: '',
+            postContent: '',
+            likeCount: 0,
+            commentCount: 0,
+            myPostYn: 'N',
+            profileImageUrl: '',
+        },
     },
 })

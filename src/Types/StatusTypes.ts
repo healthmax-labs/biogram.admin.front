@@ -40,6 +40,7 @@ export interface RiskFctrListItemInterface {
     VFL_JDGMNT: null | string
     MESURE_DT: null | string
     NM: string
+    MBTLNUM: null | string
 }
 
 //위험요인 현황 리스트

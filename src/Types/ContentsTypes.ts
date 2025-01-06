@@ -252,3 +252,19 @@ export interface UhealthZoneChargerInfoInterface {
         END_TIME_H: string
     }
 }
+
+// 마인드 라운지 리스트 항목
+export interface LoungeListItemInterface {
+    postId: null | number
+    authorMemberNo: null | number
+    authorNickname: null | string
+    authorAgeGroup: null | string
+    authorGender: null | string
+    postTitle: null | string
+    postWroteTime: null | string
+    postContent: null | string
+    likeCount: null | number
+    commentCount: null | number
+    myPostYn: `Y` | `N`
+    profileImageUrl: null | string
+}
