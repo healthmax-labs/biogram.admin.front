@@ -176,10 +176,6 @@ export const LoungeTableConfig = {
                 key: `postId`,
             },
             {
-                name: `회원번호`,
-                key: `authorMemberNo`,
-            },
-            {
                 name: `작성자 닉네임`,
                 key: `authorNickname`,
             },

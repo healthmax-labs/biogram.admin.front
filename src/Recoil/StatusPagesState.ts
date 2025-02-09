@@ -46,6 +46,9 @@ interface RiskFctrSearchListInterface {
         TAKNG_MDCIN: string
     }
     list: RiskFctrListInterface
+    manage: {
+        checkRow: string[]
+    }
 }
 
 //기기측정 현황
@@ -179,6 +182,9 @@ export const RiskFctrListState = atom<RiskFctrSearchListInterface>({
         list: {
             RISK_FCTR_INFO_LIST: [],
             TOTAL_COUNT: 0,
+        },
+        manage: {
+            checkRow: [],
         },
     },
 })

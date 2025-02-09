@@ -73,17 +73,12 @@ export const RiskFctrTableConfig = {
     Loading: true,
     Options: {
         pagination: true,
-        selectAll: false,
+        selectAll: true,
         indexKey: `MBER_NO`,
         bgState: true,
     },
     Columns: [
         [
-            {
-                name: ``,
-                rowSpan: 1,
-                colSpan: 1,
-            },
             {
                 name: ``,
                 rowSpan: 1,
@@ -137,10 +132,6 @@ export const RiskFctrTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
             {
                 name: `회원명`,
                 key: `NM`,
@@ -486,9 +477,6 @@ export const BrftrCmprTableConfig = {
                 name: ``,
             },
             {
-                name: ``,
-            },
-            {
                 name: `허리둘레`,
                 colSpan: 2,
             },
@@ -510,10 +498,6 @@ export const BrftrCmprTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
             {
                 name: `회원명`,
                 key: `NM`,
@@ -934,9 +918,6 @@ export const StatisticsTableConfig = {
                 name: ``,
             },
             {
-                name: ``,
-            },
-            {
                 name: `체성분계`,
                 colSpan: 7,
             },
@@ -972,10 +953,6 @@ export const StatisticsTableConfig = {
                 }) => {
                     return <>{dateInsertHypen(String(el.MESURE_DE))}</>
                 },
-            },
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
             },
             {
                 name: `회원명`,
@@ -1155,10 +1132,6 @@ export const ActivityWalkTableConfig = {
                 },
             },
             {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
-            {
                 name: `이름`,
                 key: `NM`,
             },
@@ -1270,7 +1243,7 @@ export const NonMeasureTableConfig = {
             {
                 name: `회원정보`,
                 rowSpan: 1,
-                colSpan: 6,
+                colSpan: 5,
             },
             {
                 name: `측정정보`,
@@ -1279,10 +1252,6 @@ export const NonMeasureTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
             {
                 name: `회원명`,
                 key: `NM`,
@@ -1380,7 +1349,7 @@ export const HealthIndicatorsTableConfig = {
             {
                 name: `회원정보`,
                 rowSpan: 1,
-                colSpan: 6,
+                colSpan: 5,
             },
             {
                 name: `측정정보`,
@@ -1389,11 +1358,6 @@ export const HealthIndicatorsTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-                cellWidth: `w16`,
-            },
             {
                 name: `이름`,
                 key: `NM`,
@@ -1532,11 +1496,6 @@ export const WalkRankingTableConfig = {
     Columns: [
         [
             {
-                name: `회원번호`,
-                key: `MBER_NO`,
-                cellWidth: `w16`,
-            },
-            {
                 name: `이름`,
                 key: `NM`,
                 textAlign: `center`,
@@ -1617,9 +1576,6 @@ export const StressListTableConfig = {
                 name: ``,
             },
             {
-                name: ``,
-            },
-            {
                 name: `스트레스`,
                 colSpan: 4,
             },
@@ -1629,11 +1585,6 @@ export const StressListTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-                cellWidth: `w16`,
-            },
             {
                 name: `이름`,
                 key: `NM`,
@@ -1839,9 +1790,6 @@ export const BrainListTableConfig = {
                 name: ``,
             },
             {
-                name: ``,
-            },
-            {
                 name: `종합점수`,
             },
             {
@@ -1854,11 +1802,6 @@ export const BrainListTableConfig = {
             },
         ],
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-                cellWidth: `w16`,
-            },
             {
                 name: `이름`,
                 key: `NM`,

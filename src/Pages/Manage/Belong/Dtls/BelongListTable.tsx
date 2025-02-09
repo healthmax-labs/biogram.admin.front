@@ -33,7 +33,6 @@ export default function BelongListTable() {
         <Table>
             <TableThead>
                 <TableTr>
-                    <TableTh>회원번호</TableTh>
                     <TableTh>회원명</TableTh>
                     <TableTh>휴대폰번호</TableTh>
                     <TableTh>생년월일</TableTh>

@@ -41,6 +41,10 @@ export interface RiskFctrListItemInterface {
     MESURE_DT: null | string
     NM: string
     MBTLNUM: null | string
+    MBTLNUM_CRTFC_AT_NM: string
+    MBTLNUM_CRTFC_AT: 'Y' | 'N'
+    SV00_NTCN_AT: 'Y' | 'N'
+    USID: string
 }
 
 //위험요인 현황 리스트

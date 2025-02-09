@@ -122,11 +122,6 @@ export const MemberTableConfig = {
     Columns: [
         [
             {
-                name: `회원번호`,
-                key: `MBER_NO`,
-                cellWidth: `w16`,
-            },
-            {
                 name: `이름`,
                 key: `NM`,
                 textAlign: `center`,
@@ -236,10 +231,6 @@ export const ConsultTableConfig = {
     },
     Columns: [
         [
-            {
-                name: `회원번호`,
-                key: `MBER_NO`,
-            },
             {
                 name: `이름`,
                 key: `NM`,

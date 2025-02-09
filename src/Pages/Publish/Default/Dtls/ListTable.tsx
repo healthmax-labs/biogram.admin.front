@@ -47,7 +47,6 @@ export default function ListTable() {
                             }}
                         />
                     </ThCheckbox>
-                    <TheadTh>회원번호</TheadTh>
                     <TheadTh>회원명</TheadTh>
                     <TheadTh>휴대폰번호</TheadTh>
                     <TheadTh>생년월일</TheadTh>

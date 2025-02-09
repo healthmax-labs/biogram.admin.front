@@ -176,7 +176,6 @@ const MemberSearchModal = ({
                         <TableWapper>
                             <TableHeader>
                                 <HeaderRow>
-                                    <HeaderCell>회원번호</HeaderCell>
                                     <HeaderCell>이름</HeaderCell>
                                     <HeaderCell>휴대폰번호</HeaderCell>
                                     <HeaderCell>{``}</HeaderCell>

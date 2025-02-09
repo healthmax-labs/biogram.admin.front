@@ -31,6 +31,17 @@ const RiskFctrListTable = ({ CurrentPage }: { CurrentPage: number }) => {
     const [tableOptions, setTableOptions] =
         useState<tableOption>(RiskFctrTableConfig)
 
+    // 리스트 체크박스 클릭
+    const handleCheckRow = (e: string[]) => {
+        setListState(prevState => ({
+            ...prevState,
+            manage: {
+                ...prevState.manage,
+                checkRow: e,
+            },
+        }))
+    }
+
     const handleRowClick = (element: RiskFctrTableListItemInterface) => {
         if (consultDetailState.memNo !== element.MBER_NO) {
             ;[
@@ -124,6 +135,9 @@ const RiskFctrListTable = ({ CurrentPage }: { CurrentPage: number }) => {
             TotalCount={listState.list.TOTAL_COUNT}
             PaginationClick={e => handlePaginationClick(e)}
             CurrentPage={CurrentPage}
+            CheckedRow={e => {
+                handleCheckRow(e)
+            }}
         />
     )
 }
