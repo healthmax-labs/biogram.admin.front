@@ -176,6 +176,7 @@ const RiskFctrManageBox = () => {
                     return [
                         String(m.MBER_NO),
                         m.NM,
+                        m.MBTLNUM ? m.MBTLNUM : '',
                         dateInsertHypen(String(m.BRTHDY)),
                         m.SEXDSTN ? m.SEXDSTN : '',
                         String(m.RISK_FCTR),
