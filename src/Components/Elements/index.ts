@@ -55,6 +55,8 @@ export { default as VaryDaumMapModal } from './Modals/VaryDaumMapModal'
 
 export { default as VaryPagination } from './Paginations/VaryPagination'
 
+export { default as VaryProfile } from './Profile/VaryProfile'
+
 export { default as SearchSelect } from './Selects/SearchSelect'
 export { default as VarySelectBox } from './Selects/VarySelectBox'
 

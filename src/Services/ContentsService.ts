@@ -3,6 +3,10 @@ import _ApiAxios_ from '@Module/_ApiAxios_'
 import { _Axios_ } from '@Modules'
 import { ServicesDefaultResult } from '@Type/CommonTypes'
 import {
+    LoungeCommentAiAuthorInterface,
+    LoungeCommentAiGenInterface,
+    LoungeCommentInterface,
+    LoungeItemInterface,
     LoungeListItemInterface,
     MagazineItemInterface,
     MagazineListItemInterface,
@@ -250,16 +254,10 @@ export const getLoungeList = ({
     page,
     size,
     sortType,
-    cursorRegistDt,
-    cursorLikeCount,
-    cursorPostId,
 }: {
     page: number
     size: number
     sortType: 'latest' | 'popular'
-    cursorRegistDt: string
-    cursorLikeCount: number
-    cursorPostId: number
 }): Promise<
     ServicesDefaultResult<{
         responseCode: string
@@ -280,7 +278,115 @@ export const getLoungeList = ({
 > => {
     return _ApiAxios_({
         method: 'get',
-        url: `mind/v1/mind-lounge/posts?page=${page}&size=${size}&sortType=${sortType}&cursorRegistDt=${cursorRegistDt}&cursorLikeCount=${cursorLikeCount}&cursorPostId=${cursorPostId}`,
+        url: `mind/v1/mind-lounge/posts?page=${
+            page < 1 ? 0 : page - 1
+        }&size=${size}&sortType=${sortType}`,
+        payload: {},
+    })
+}
+
+/**
+ * 마인드 라운지 상세 조회
+ */
+export function getLoungeDetail({ post_id }: { post_id: string }): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: LoungeItemInterface
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/mind/v1/mind-lounge/posts/${post_id}/detail`,
+        payload: {},
+    })
+}
+
+/**
+ * 마인드 라운지 댓글 등록
+ */
+export function postLoungeComment({
+    postId,
+    authorMemberNo,
+    content,
+}: {
+    postId: string
+    authorMemberNo: number
+    content: string
+}): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: LoungeItemInterface
+    }>
+> {
+    return _Axios_({
+        method: 'post',
+        url: `/mind/v1/mind-lounge/${postId}/comments`,
+        payload: {
+            authorMemberNo,
+            content,
+        },
+    })
+}
+
+/**
+ * 마인드 라운지 댓글 조회
+ */
+export function getLoungeDetailComments({
+    post_id,
+}: {
+    post_id: string
+}): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: LoungeCommentInterface
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/mind/v1/mind-lounge/${post_id}/comments`,
+        payload: {},
+    })
+}
+
+/**
+ * 마인드 라운지 댓글 AI 생성
+ */
+export function getLoungeCommentAiGen({
+    postId,
+    authorMemberNo,
+}: {
+    postId: string
+    authorMemberNo: string
+}): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: LoungeCommentAiGenInterface
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/mind/v1/mind-lounge/${postId}/comments/${authorMemberNo}/gen`,
+        payload: {},
+    })
+}
+
+/**
+ * 마인드 라운지 댓글 AI작성자 목록
+ */
+export function getLoungeCommentsAiAuthors(): Promise<
+    ServicesDefaultResult<{
+        responseCode: string
+        responseMessage: string
+        responseData: LoungeCommentAiAuthorInterface[]
+    }>
+> {
+    return _Axios_({
+        method: 'get',
+        url: `/member/v1/api/temp/users`,
         payload: {},
     })
 }

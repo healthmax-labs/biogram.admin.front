@@ -268,3 +268,85 @@ export interface LoungeListItemInterface {
     myPostYn: `Y` | `N`
     profileImageUrl: null | string
 }
+
+// 마인드 라운지 상세 항목
+export interface LoungeItemInterface {
+    postInfo: {
+        postId: number
+        authorMemberNo: number
+        authorNickname: string
+        authorAgeGroup: string
+        authorGender: string
+        postTitle: string
+        postWroteTime: string
+        postContent: string
+        likeCount: number
+        commentCount: number
+        myPostYn: 'Y' | 'N'
+        profileImageUrl: string
+    }
+    commentList: Array<{
+        commentId: number
+        postId: number
+        authorMemberNo: number
+        authorNickname: string
+        authorAgeGroup: string
+        authorGender: string
+        contentWroteTime: string
+        content: string
+        likeCount: number
+        myCommentYn: 'Y' | 'N'
+        profileImageUrl: string
+    }>
+    aiAuthors: Array<{
+        memberNo: number
+        memberName: string
+        memberNickname: string
+    }>
+    comment: {
+        content: string
+        authorNo: string
+    }
+}
+
+// 마인드 라운지 댓글 목록
+export interface LoungeCommentInterface {
+    content: [
+        {
+            commentId: number
+            postId: number
+            authorMemberNo: number
+            authorNickname: string
+            authorAgeGroup: string
+            authorGender: string
+            contentWroteTime: string
+            content: string
+            likeCount: number
+            myCommentYn: 'Y' | 'N'
+            profileImageUrl: string
+        }
+    ]
+    totalPages: number
+    totalElements: number
+    page: number
+    size: number
+    cursorRegistDt: string
+    cursorLikeCount: string
+    cursorPostId: number
+    last: boolean
+    empty: boolean
+}
+
+// 마인드 라운지 AI 생성댓글
+export interface LoungeCommentAiGenInterface {
+    postId: number
+    authorMemberNo: number
+    content: string
+}
+
+// 마인드 라운지 AI작성자
+export interface LoungeCommentAiAuthorInterface {
+    memberNo: number
+    memberName: string
+    memberNickname: string
+}

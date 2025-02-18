@@ -35,9 +35,6 @@ const ListTable = ({ CurrentPage }: { CurrentPage: number }) => {
                 search: {
                     ...prevState.search,
                     page: pageNumber,
-                    cursorRegistDt: '',
-                    cursorPostId: 0,
-                    cursorLikeCount: 0,
                 },
             }))
         } else {

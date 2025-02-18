@@ -44,6 +44,7 @@ module.exports = {
             defaultTheme: {
                 extend: {
                     colors: {
+                        ...require('tailwindcss/colors'),
                         transparent: 'transparent',
                         current: 'currentColor',
                         blueberry: `#214DD4`,
@@ -66,6 +67,7 @@ module.exports = {
                     name: 'GeonDaon',
                     extend: {
                         colors: {
+                            ...require('tailwindcss/colors'),
                             transparent: 'transparent',
                             current: 'currentColor',
                             blueberry: `#005FC6`,

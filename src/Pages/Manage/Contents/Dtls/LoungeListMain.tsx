@@ -27,23 +27,13 @@ const LoungeListMain = () => {
             status: 'loading',
         }))
         const {
-            search: {
-                page,
-                size,
-                sortType,
-                cursorRegistDt,
-                cursorLikeCount,
-                cursorPostId,
-            },
+            search: { page, size, sortType },
         } = loungeListState
 
         const { status, payload } = await getLoungeList({
             page,
             size,
             sortType,
-            cursorRegistDt,
-            cursorLikeCount,
-            cursorPostId,
         })
 
         if (status) {
@@ -56,9 +46,6 @@ const LoungeListMain = () => {
                 },
                 search: {
                     ...prevState.search,
-                    cursorRegistDt: payload.responseData.cursorRegistDt,
-                    cursorLikeCount: payload.responseData.cursorLikeCount,
-                    cursorPostId: payload.responseData.cursorPostId,
                 },
             }))
         } else {
