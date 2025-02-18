@@ -1,7 +1,7 @@
-import MagazineDetailMain from './Dtls/MagazineDetailMain'
+import LoungeDetailMain from './Dtls/LoungeDetailMain'
 
 const LoungeDetailPage = () => {
-    return <div>마인드 라운지 상세페이지</div>
+    return <LoungeDetailMain />
 }
 
 export default LoungeDetailPage

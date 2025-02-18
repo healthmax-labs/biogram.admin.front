@@ -221,6 +221,22 @@ export default {
                     subNameEmpty: `설명이 입력되지 않았습니다.(100자)`,
                 },
             },
+            lounge: {
+                empty: {
+                    title: `마인드 라운지 제목을 입력해 주세요`,
+                    content: `마인드 라운지 내용을 입력해 주세요`,
+                    comment: `댓글을 입력해 주세요`,
+                    author: `댓글 작성자를 선택해 주세요`,
+                },
+                update: `마인드 라운지를 저장하시겠습니까?`,
+                updateSuccess: `마인드 라운지가 저장되었습니다.`,
+                error: {
+                    titleLong: `제목이 너무 깁니다.(25자)`,
+                    titleEmpty: `제목이 입력되지 않았습니다.`,
+                    contentLong: `내용이 입력되지 않았습니다.(100자)`,
+                    contentEmpty: `내용이 입력되지 않았습니다.`,
+                },
+            },
             notice: {
                 update: `게시물을 저장하시겠습니까?`,
                 updateSuccess: `게시물이 저장되었습니다.`,

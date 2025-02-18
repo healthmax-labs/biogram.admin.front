@@ -144,6 +144,13 @@ export interface ServicesDefaultResult<T> {
     payload: T
 }
 
+// 마인드 라운지 상세 서버 결과.
+export interface ServicesLoungeDetailResult<T> {
+    status: boolean
+    message: string
+    payload: T
+}
+
 // 로그인 토큰정보
 export interface LoginTokenInterface {
     TOKEN_INFO: string | null

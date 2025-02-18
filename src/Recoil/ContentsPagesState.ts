@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
 import { DefaultStatus } from '@CommonTypes'
 import {
+    LoungeItemInterface,
     LoungeListItemInterface,
     MagazineListItemInterface,
     UhealthZoneChargerInfoInterface,
@@ -99,9 +100,6 @@ interface LoungeSearchListInterface {
         page: number
         size: number
         sortType: 'latest' | 'popular'
-        cursorRegistDt: string
-        cursorLikeCount: number
-        cursorPostId: number
     }
     loungeList: {
         MIND_LOUNGE_LIST: LoungeListItemInterface[]
@@ -112,8 +110,8 @@ interface LoungeSearchListInterface {
 // 마인드 라운지 상세
 interface LoungeDetailInterface {
     status: DefaultStatus
-    detail: LoungeListItemInterface
-    origin: LoungeListItemInterface
+    detail: LoungeItemInterface
+    origin: LoungeItemInterface
 }
 
 export const MagazineListState = atom<MagazineSearchListInterface>({
@@ -277,9 +275,6 @@ export const LoungeListState = atom<LoungeSearchListInterface>({
             page: 0,
             size: 30,
             sortType: 'latest',
-            cursorRegistDt: '',
-            cursorLikeCount: 0,
-            cursorPostId: 0,
         },
         loungeList: {
             MIND_LOUNGE_LIST: [],
@@ -293,32 +288,48 @@ export const LoungeDetailState = atom<LoungeDetailInterface>({
     default: {
         status: 'idle',
         detail: {
-            postId: 0,
-            authorMemberNo: 0,
-            authorNickname: '',
-            authorAgeGroup: '',
-            authorGender: '',
-            postTitle: '',
-            postWroteTime: '',
-            postContent: '',
-            likeCount: 0,
-            commentCount: 0,
-            myPostYn: 'N',
-            profileImageUrl: '',
+            postInfo: {
+                postId: 0,
+                authorMemberNo: 0,
+                authorNickname: '',
+                authorAgeGroup: '',
+                authorGender: '',
+                postTitle: '',
+                postWroteTime: '',
+                postContent: '',
+                likeCount: 0,
+                commentCount: 0,
+                myPostYn: 'N',
+                profileImageUrl: '',
+            },
+            commentList: [],
+            aiAuthors: [],
+            comment: {
+                content: '',
+                authorNo: '',
+            },
         },
         origin: {
-            postId: 0,
-            authorMemberNo: 0,
-            authorNickname: '',
-            authorAgeGroup: '',
-            authorGender: '',
-            postTitle: '',
-            postWroteTime: '',
-            postContent: '',
-            likeCount: 0,
-            commentCount: 0,
-            myPostYn: 'N',
-            profileImageUrl: '',
+            postInfo: {
+                postId: 0,
+                authorMemberNo: 0,
+                authorNickname: '',
+                authorAgeGroup: '',
+                authorGender: '',
+                postTitle: '',
+                postWroteTime: '',
+                postContent: '',
+                likeCount: 0,
+                commentCount: 0,
+                myPostYn: 'N',
+                profileImageUrl: '',
+            },
+            commentList: [],
+            aiAuthors: [],
+            comment: {
+                content: '',
+                authorNo: '',
+            },
         },
     },
 })
