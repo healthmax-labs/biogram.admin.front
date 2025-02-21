@@ -98,6 +98,9 @@ interface DashBoardPageStateInterface {
             }
         }
     }
+    commonPopup: {
+        show: boolean
+    }
 }
 
 // 대시보드
@@ -174,6 +177,9 @@ export const DashBoardPageState = atom<DashBoardPageStateInterface>({
                     ATCHMNFL_DOWN_PATH: '',
                 },
             },
+        },
+        commonPopup: {
+            show: false,
         },
     },
 })
