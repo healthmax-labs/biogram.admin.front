@@ -12,6 +12,9 @@ import { VaryLabelCheckBox } from '@Elements'
 import { storageManager, getNowDate } from '@Helper'
 import axios from 'axios'
 import fileDownload from 'js-file-download'
+import { RewardPopup } from '@Assets'
+import VaryRereModal from '@Component/Elements/Modals/VaryRareModal'
+import { useNavigate } from 'react-router-dom'
 
 const GeonDaonDashboardMain = lazy(() => import('./GeonDaonDashboardMain'))
 
@@ -30,12 +33,22 @@ const initializeState = {
 
 const DashboardMain = () => {
     const mainLayoutState = useRecoilValue(AtomMainLayoutState)
-    const atomRootState = useRecoilValue(AtomRootState)
+    const [appRootState, setAppRootState] = useRecoilState(AtomRootState)
+    const navigate = useNavigate()
     const [dashBoardPageState, setDashBoardPageState] =
         useRecoilState(DashBoardPageState)
     const [pageState, setPageState] = useState<{
         theme: MainLayoutThemeType
     }>(initializeState)
+
+    useEffect(() => {
+        setDashBoardPageState(prevState => ({
+            ...prevState,
+            commonPopup: {
+                show: appRootState.popup.common,
+            },
+        }))
+    }, [setDashBoardPageState, appRootState.popup.common])
 
     useEffect(() => {
         const funcSetDashBoard = (theme: MainLayoutThemeType) => {
@@ -52,7 +65,7 @@ const DashboardMain = () => {
 
     useEffect(() => {
         const funcGetDashBoardNoticePopup = async () => {
-            const { MBER_NO } = atomRootState.userinfo
+            const { MBER_NO } = appRootState.userinfo
             const checkDate = getNowDate()
 
             const chTdayShow = storageManager.get(
@@ -78,7 +91,7 @@ const DashboardMain = () => {
         }
 
         funcGetDashBoardNoticePopup().then()
-    }, [atomRootState.userinfo, setDashBoardPageState])
+    }, [appRootState.userinfo, setDashBoardPageState])
 
     return (
         <Container>
@@ -216,7 +229,7 @@ const DashboardMain = () => {
                                                 ButtonType={`default`}
                                                 HandleClick={() => {
                                                     const { MBER_NO } =
-                                                        atomRootState.userinfo
+                                                        appRootState.userinfo
 
                                                     if (
                                                         !dashBoardPageState
@@ -244,6 +257,34 @@ const DashboardMain = () => {
                                 </NoticePoupStyle.Row>
                             </NoticePoupStyle.Wapper>
                         </NoticePoupStyle.Container>
+                    }
+                />
+            )}
+            {dashBoardPageState.commonPopup.show && (
+                <VaryRereModal
+                    ModalLoading={false}
+                    MaxWidth={`xl`}
+                    Children={
+                        <div
+                            onClick={() => {
+                                setAppRootState(prevState => ({
+                                    ...prevState,
+                                    popup: {
+                                        common: false,
+                                    },
+                                }))
+                                navigate({
+                                    pathname:
+                                        process.env.PUBLIC_URL +
+                                        `/manage/helper/qna-list`,
+                                })
+                            }}>
+                            <img
+                                className="w-full"
+                                src={RewardPopup}
+                                alt={'리워드 안내'}
+                            />
+                        </div>
                     }
                 />
             )}

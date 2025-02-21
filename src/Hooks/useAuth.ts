@@ -171,6 +171,9 @@ export default function useAuth() {
                     AUTHORIZE_CODE: null,
                 },
                 login: true,
+                popup: {
+                    common: true,
+                },
                 userinfo: {
                     USID: !_.isEmpty(USID) ? USID : null,
                     NM: !_.isEmpty(NM) ? NM : null,

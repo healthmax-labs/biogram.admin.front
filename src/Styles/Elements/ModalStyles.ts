@@ -14,6 +14,12 @@ export const ModalStyle = {
         tw`relative w-full p-4 mx-auto bg-white rounded-md shadow-lg max-h-full`,
         ConstStyle.maxWidth[maxWidth],
     ]),
+    RareWapper: styled.div(
+        ({ maxWidth = `lg` }: { maxWidth?: MaxHeightType }) => [
+            tw`relative w-full mx-auto rounded-md shadow-lg max-h-full`,
+            ConstStyle.maxWidth[maxWidth],
+        ]
+    ),
     MainBox: tw.div`mt-3`,
     CenterBox: tw.div`mt-2 text-center`,
     Center: {

@@ -252,6 +252,9 @@ export interface AppRootStateInterface {
     init: boolean
     uuid: string
     login: boolean
+    popup: {
+        common: boolean
+    }
     attemptLogout: boolean
     Geolocation: GeolocationDbInterface
     logininfo: LoginTokenInterface

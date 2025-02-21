@@ -7,6 +7,9 @@ export const AtomRootState = atom<AppRootStateInterface>({
         init: false,
         uuid: ``,
         login: false,
+        popup: {
+            common: false,
+        },
         attemptLogout: false,
         Geolocation: {
             ip: ``,
