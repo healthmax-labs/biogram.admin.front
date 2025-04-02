@@ -174,7 +174,7 @@ const ConsultListManageBox = () => {
                 SpliceColumns:
                     Theme === 'GeonDaon'
                         ? [{ start: 1, end: 1 }]
-                        : [{ start: 7, end: 1 }],
+                        : [{ start: 6, end: 1 }],
             }))
         } else {
             setPageState(prevState => ({

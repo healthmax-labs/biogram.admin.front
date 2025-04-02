@@ -132,7 +132,7 @@ const MemberListManageBox = ({
                 SpliceColumns:
                     Theme === 'GeonDaon'
                         ? [{ start: 1, end: 1 }]
-                        : [{ start: 9, end: 1 }],
+                        : [{ start: 8, end: 1 }],
             }))
         } else {
             setPageState(prevState => ({
