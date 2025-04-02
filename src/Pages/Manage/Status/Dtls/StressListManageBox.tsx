@@ -112,7 +112,7 @@ const StressListManageBox = () => {
                 Data: payload.STRESS_STATE_LIST.filter(v => v.MBER_NO).map(
                     m => {
                         return [
-                            String(m.MBER_NO),
+                            // String(m.MBER_NO),
                             m.NM ? m.NM : '',
                             m.BRTHDY ? dateInsertHypen(m.BRTHDY) : '',
                             m.STRS_SCORE ? m.STRS_SCORE : '',

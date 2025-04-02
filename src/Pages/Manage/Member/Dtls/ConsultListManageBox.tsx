@@ -10,7 +10,12 @@ import {
     MemberConsultGroupModal,
 } from '@Elements'
 import { DefaultStatus, ExcelDownloadPropsInterface } from '@CommonTypes'
-import { addComma, dateInsertHypen, getNowDateDetail } from '@Helper'
+import {
+    addComma,
+    dateInsertHypen,
+    getNowDateDetail,
+    phoneFormat,
+} from '@Helper'
 import { getMberCnsltlist } from '@Service/MemberService'
 import _ from 'lodash'
 import ExcelDownloadInitialize from '@Common/ExcelDownloadInitialize'
@@ -149,10 +154,10 @@ const ConsultListManageBox = () => {
                         : `상담회원_현황_${getNowDateDetail()}`,
                 Data: payload.MBER_INFO_LIST.map(m => {
                     return [
-                        String(m.MBER_NO),
+                        // String(m.MBER_NO),
                         m.NM,
                         m.USID,
-                        m.MBTLNUM,
+                        phoneFormat(m.MBTLNUM),
                         m.SEXDSTN_NM,
                         m.INST_NM,
                         m.WORK_TY_CODE == 'N'

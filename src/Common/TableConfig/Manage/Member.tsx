@@ -243,6 +243,15 @@ export const ConsultTableConfig = {
             {
                 name: `휴대폰번호`,
                 key: `MBTLNUM`,
+                component: ({ el }: { el: ConsultInfoListItemInterface }) => {
+                    return (
+                        <>
+                            {_.isEmpty(el.MBTLNUM)
+                                ? ''
+                                : phoneFormat(el.MBTLNUM)}
+                        </>
+                    )
+                },
             },
             {
                 name: `성별`,

@@ -96,7 +96,7 @@ const ActivityWalkManageBox = () => {
                             m.MESURE_DE
                                 ? dateInsertHypen(String(m.MESURE_DE))
                                 : '',
-                            String(m.MBER_NO),
+                            // String(m.MBER_NO),
                             m.NM ? m.NM : '',
                             m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
                             m.SEXDSTN ? (m.SEXDSTN == 'M' ? '남' : '여') : '',

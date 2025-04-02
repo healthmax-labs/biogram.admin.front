@@ -109,7 +109,7 @@ const MemberListManageBox = ({
                         : `회원_현황_${getNowDateDetail()}`,
                 Data: payload.MBER_INFO_LIST.map(m => {
                     return [
-                        String(m.MBER_NO),
+                        // String(m.MBER_NO),
                         m.NM,
                         m.USID,
                         m.MBTLNUM,
@@ -122,10 +122,11 @@ const MemberListManageBox = ({
                             : m.WORK_TY_CODE == 'I'
                             ? '내근직'
                             : '외근직',
-                        m.CONECT_DT,
                         m.REGIST_DT,
+                        m.CONECT_DT,
                         m.TOT_CASH,
                         m.SUM_CASH_HIST,
+                        addComma(m.ACCML_POINT),
                     ]
                 }),
                 SpliceColumns:

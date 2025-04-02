@@ -94,7 +94,7 @@ const StressListManageBox = () => {
                 Data: payload.STEP_RANK_INFO_LIST.filter(v => v.MBER_NO).map(
                     m => {
                         return [
-                            String(m.MBER_NO),
+                            // String(m.MBER_NO),
                             m.NM ? m.NM : '',
                             m.BRTHDY ? dateInsertHypen(m.BRTHDY) : '',
                             m.USID ? m.USID : '',

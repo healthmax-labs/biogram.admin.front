@@ -110,7 +110,7 @@ const BrainListManageBox = () => {
                           )}_${dateInsertHypen(END_DE)})_${getNowDateDetail()}`,
                 Data: payload.BRAIN_STATE_LIST.filter(v => v.MBER_NO).map(m => {
                     return [
-                        String(m.MBER_NO),
+                        // String(m.MBER_NO),
                         m.NM ? m.NM : '',
                         m.BRTHDY ? dateInsertHypen(m.BRTHDY) : '',
                         m.BH_TNT_SCORE ? m.BH_TNT_SCORE : '',

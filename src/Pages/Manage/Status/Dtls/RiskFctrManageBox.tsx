@@ -174,7 +174,7 @@ const RiskFctrManageBox = () => {
                           )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
                 Data: payload.RISK_FCTR_INFO_LIST.map(m => {
                     return [
-                        String(m.MBER_NO),
+                        // String(m.MBER_NO),
                         m.NM,
                         m.MBTLNUM ? m.MBTLNUM : '',
                         dateInsertHypen(String(m.BRTHDY)),

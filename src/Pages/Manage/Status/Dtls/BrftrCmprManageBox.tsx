@@ -98,7 +98,7 @@ const BrftrCmprManageBox = () => {
                           )}_${dateInsertHypen(ENDDE)})_${getNowDateDetail()}`,
                 Data: payload.MESURE_BRFTR_CMPR_INFO_LIST.map(m => {
                     return [
-                        String(m.MBER_NO),
+                        // String(m.MBER_NO),
                         m.NM,
                         m.BRTHDY ? dateInsertHypen(String(m.BRTHDY)) : '',
                         m.SEXDSTN ? m.SEXDSTN : '',
