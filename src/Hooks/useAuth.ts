@@ -172,7 +172,8 @@ export default function useAuth() {
                 },
                 login: true,
                 popup: {
-                    common: true,
+                    //common: true,
+                    common: false,
                 },
                 userinfo: {
                     USID: !_.isEmpty(USID) ? USID : null,
