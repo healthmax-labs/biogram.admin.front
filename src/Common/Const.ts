@@ -106,6 +106,7 @@ export default {
         'tab/TabState',
     ],
     GeonDaonThemeSiteURL: 'geondaon.com',
+    GeonDaonThemeSiteURLRegexp: new RegExp('geondaon\\.com$'),
     RiskFctrJdgmnt: [
         // 위험 요인 값 색
         {

@@ -19,7 +19,10 @@ const RootRoutes = () => {
         const hostName = window.location.hostname
 
         const checkHostNameTheme = () => {
-            if (hostName === Const.GeonDaonThemeSiteURL) {
+            if (
+                hostName === Const.GeonDaonThemeSiteURL ||
+                Const.GeonDaonThemeSiteURLRegexp.test(hostName)
+            ) {
                 handleTheme('GeonDaon' as MainLayoutThemeType)
             } else {
                 handleTheme('')
