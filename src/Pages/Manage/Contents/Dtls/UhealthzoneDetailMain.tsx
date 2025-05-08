@@ -49,7 +49,7 @@ const UhealthzoneDetailMain = () => {
                             e => {
                                 return {
                                     TIME_KND_CODE: 'BSTM',
-                                    WIK_SE_CODE: 'RD',
+                                    WIK_SE_CODE: e.WIK_SE_CODE,
                                     WIK_CODE: e.WIK_CODE,
                                 }
                             }
@@ -71,7 +71,7 @@ const UhealthzoneDetailMain = () => {
                             e => {
                                 return {
                                     TIME_KND_CODE: 'BMTM',
-                                    WIK_SE_CODE: 'RD',
+                                    WIK_SE_CODE: e.WIK_SE_CODE,
                                     WIK_CODE: e.WIK_CODE,
                                 }
                             }
