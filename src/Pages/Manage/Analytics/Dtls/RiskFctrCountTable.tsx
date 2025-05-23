@@ -1045,13 +1045,17 @@ const RiskFctrCountTable = () => {
                 </>
             )}
 
-            {pageState.modal.ageExcelDownload && (
-                <ExcelDownload {...excelDownloadProps} />
-            )}
+            {pageState.modal.ageExcelDownload &&
+                (() => {
+                    pageState.modal.ageExcelDownload = false
+                    return <ExcelDownload {...excelDownloadProps} />
+                })()}
 
-            {pageState.modal.periodExcelDownload && (
-                <ExcelDownload {...excelDownloadProps} />
-            )}
+            {pageState.modal.periodExcelDownload &&
+                (() => {
+                    pageState.modal.periodExcelDownload = false
+                    return <ExcelDownload {...excelDownloadProps} />
+                })()}
         </Container>
     )
 }

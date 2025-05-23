@@ -24,7 +24,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: true,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
         },
         ConsultList: {
             FileName: `상담회원 현황_${getNowDateDetail()}`,
@@ -43,7 +43,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: true,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
         },
     },
     Inst: {
@@ -123,7 +123,7 @@ export default {
             MergeCells: ['A1:G1', 'H1:M1', 'N1:P1', 'Q1:R1', 'S1:V1'],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
             SpliceMergeCells: ['A1:G1', 'H1:M1', 'N1:P1', 'Q1:R1', 'S1:V1'],
         },
         StressList: {
@@ -147,7 +147,7 @@ export default {
             MergeCells: ['A1:B1', 'C1:F1', 'G1:J1'],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
             SpliceMergeCells: ['A1:B1', 'C1:F1', 'G1:J1'],
         },
         BrainList: {
@@ -180,7 +180,7 @@ export default {
             MergeCells: ['A1:B1', 'C1', 'D1:G1', 'H1:I1'],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
             SpliceMergeCells: ['A1:B1', 'C1', 'D1:G1', 'H1:I1'],
         },
         BrftrCmpr: {
@@ -308,7 +308,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
             SpliceMergeCells: [
                 'A1:C1',
                 'D1:K1',
@@ -423,7 +423,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 2, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
             SpliceMergeCells: [
                 'A1:D1',
                 'E1:K1',
@@ -450,7 +450,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 2, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
         },
         WalkRanking: {
             FileName: `보행수_랭킹_${getNowDateDetail()}`,
@@ -468,7 +468,7 @@ export default {
             ],
             Data: [],
             SpliceColumn: false,
-            SpliceColumns: [{ start: 1, end: 1 }],
+            SpliceColumns: [{ start: 0, end: 0 }],
         },
         HealthIndicators: {
             FileName: `건강지표개선_현황_${getNowDateDetail()}`,

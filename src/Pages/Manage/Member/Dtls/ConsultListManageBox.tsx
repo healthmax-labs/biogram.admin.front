@@ -173,7 +173,7 @@ const ConsultListManageBox = () => {
                 }),
                 SpliceColumns:
                     Theme === 'GeonDaon'
-                        ? [{ start: 1, end: 1 }]
+                        ? [{ start: 0, end: 0 }]
                         : [{ start: 6, end: 1 }],
             }))
         } else {

@@ -85,13 +85,13 @@ const BrainListTable = ({ CurrentPage }: { CurrentPage: number }) => {
                 ...prevState,
                 Columns: BrainListTableConfig.Columns.map(
                     (column: any, index) => {
-                        if (index === 0) {
-                            return _.slice(column, 1)
-                        } else {
-                            return _.filter(column, el => {
-                                return el.key !== 'MBER_NO'
-                            })
-                        }
+                        // if (index === 0) {
+                        //     return _.slice(column, 1)
+                        // } else {
+                        return _.filter(column, el => {
+                            return el.key !== 'MBER_NO'
+                        })
+                        // }
                     }
                 ),
             }))
